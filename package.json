@@ -1,0 +1,33 @@
+{
+  "name": "go-view",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@vicons/ionicons5": "^0.11.0",
+    "axios": "^0.23.0",
+    "mockjs": "^1.1.0",
+    "naive-ui": "^2.19.9",
+    "pinia": "^2.0.6",
+    "vue": "^3.2.16",
+    "vue-router": "4.0.12"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.1",
+    "@vitejs/plugin-vue": "^1.9.3",
+    "@vitejs/plugin-vue-jsx": "^1.2.0",
+    "@vue/compiler-sfc": "^3.2.20",
+    "default-passive-events": "^2.0.0",
+    "sass": "^1.43.2",
+    "sass-loader": "^12.2.0",
+    "typescript": "^4.4.4",
+    "vite": "^2.6.10",
+    "vite-plugin-importer": "^0.2.5",
+    "vite-plugin-mock": "^2.9.6",
+    "vite-plugin-style-import": "^1.2.1",
+    "vue-tsc": "^0.28.7"
+  }
+}
