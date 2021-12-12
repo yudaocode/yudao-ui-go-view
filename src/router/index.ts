@@ -10,7 +10,7 @@ const RootRoute: Array<RouteRecordRaw> = [
     path: '/',
     name: 'Root',
     redirect: PageEnum.BASE_HOME_NAME,
-    component: () => import('@/views/project/index.vue'),
+    component: () => import('@/app.vue'),
     meta: {
       title: 'Root',
     },
