@@ -1,7 +1,9 @@
-// 样式类型
-
+@import url(./var.scss);
 // 毛玻璃
 .bg-filter {
   backdrop-filter: blur(2px);
   background-color: rgba(0, 0, 0, 0.07);
+}
+.border {
+  border-radius: $radius;
 }
