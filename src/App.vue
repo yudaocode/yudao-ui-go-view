@@ -1,22 +1,29 @@
 <template>
-  <NConfigProvider
+  <n-config-provider
     :locale="zhCN"
     :theme="getDarkTheme"
     :theme-overrides="getThemeOverrides"
     :date-locale="dateZhCN"
   >
-    <AppProvider>
+    <app-provider>
       <router-view />
-    </AppProvider>
-  </NConfigProvider>
+    </app-provider>
+  </n-config-provider>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { zhCN, dateZhCN, darkTheme, GlobalThemeOverrides } from 'naive-ui'
+import {
+  zhCN,
+  dateZhCN,
+  darkTheme,
+  NConfigProvider,
+  GlobalThemeOverrides
+} from 'naive-ui'
 import { AppProvider } from '@/components/Application'
 import { useRoute } from 'vue-router'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
+import { borderRadius } from '@/settings/designSetting'
 
 const route = useRoute()
 const designStore = useDesignStore()
@@ -25,7 +32,8 @@ const getThemeOverrides = computed(
   (): GlobalThemeOverrides => {
     return {
       common: {
-        primaryColor: designStore.appTheme
+        primaryColor: designStore.appTheme,
+        borderRadius
       },
       LoadingBar: {
         colorLoading: designStore.appTheme

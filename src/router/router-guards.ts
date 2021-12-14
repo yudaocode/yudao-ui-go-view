@@ -16,8 +16,9 @@ export function createRouterGuards(router: Router) {
   })
 
   router.afterEach((to, _, failure) => {
-    document.title = (to?.meta?.title as string) || document.title;
     const Loading = window['$loading'] || null;
+    Loading && Loading.start();
+    document.title = (to?.meta?.title as string) || document.title;
     Loading && Loading.finish();
   })
 

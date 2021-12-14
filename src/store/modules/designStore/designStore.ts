@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { store } from '@/store';
-import designSetting from '@/settings/designSetting';
-const { darkTheme, appTheme, appThemeList } = designSetting;
+import { theme, borderRadius } from '@/settings/designSetting';
+const { darkTheme, appTheme, appThemeList } = theme;
 import { DesignStateType } from './designStore.d'
 
 export const useDesignStore = defineStore({

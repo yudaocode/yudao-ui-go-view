@@ -20,13 +20,14 @@ export const appThemeList: string[] = [
   '#FC5404',
 ];
 
-const setting = {
+export const theme = {
   //深色主题
-  darkTheme: false,
+  darkTheme: true,
   //系统主题色
-  appTheme: '#2d8cf0',
+  appTheme: '#63e2b7',
   //系统内置主题色列表
   appThemeList,
 };
 
-export default setting;
+// 修改边框圆角
+export const borderRadius = '8px'

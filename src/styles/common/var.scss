@@ -1,10 +1,15 @@
+@import './theme.scss';
+// 颜色
+$--color-red: #fc625d;
+$--color-warn: #fcbc40;
+$--color-success: #34c749;
+
+// 顶部距离
+$--header-height: 60px;
 // 模糊
 $--filter-blur-base: blur(2px);
 // 毛玻璃
 $--filter-color-base: rgba(0, 0, 0, 0.07);
 // 边框
-$--border-radius-base: 5px;
-/// 阴影
-$--box-shadow-base: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04) !default;
-$--box-shadow-dark: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.12) !default;
-$--box-shadow-light: 0 2px 12px 0 rgba(0, 0, 0, 0.1) !default;
+$--border-radius-base: 8px;
+$--border-bottom-style: 1px solid $--color-border;
