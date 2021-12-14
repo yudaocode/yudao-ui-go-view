@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col justify-center page-container">
+  <div class="go-error">
     <div class="text-center">
       <img src="~@/assets/images/exception/500.svg" alt="" />
     </div>
@@ -12,19 +12,21 @@
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
+import { PageEnum } from '@/enums/pageEnum'
+import { routerTurnByName } from '@/utils/page'
 const router = useRouter()
-const goHome = () => {
-  router.push('/')
+function goHome() {
+  routerTurnByName(PageEnum.BASE_HOME_NAME)
 }
 </script>
 
 <style lang="scss" scoped>
-.page-container {
+@include go(error) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  border-radius: 4px;
-  padding: 50px 0;
-  height: 100vh;
-
+  padding: 100px 0;
   .text-center {
     h1 {
       color: #666;

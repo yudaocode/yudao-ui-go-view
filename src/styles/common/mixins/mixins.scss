@@ -15,7 +15,7 @@
 }
 
 @mixin go-d($block) {
-  $B: $namespace + '-' + $theme-dart + '-' + $block !global;
+  $B: $namespace + '-' + $theme-dark + '-' + $block !global;
   .#{$B} {
     @content;
   }

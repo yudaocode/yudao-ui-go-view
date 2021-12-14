@@ -1,7 +1,7 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
 import { ResultEnum } from "@/enums/httpEnum"
 import { ErrorPageNameMap } from "@/enums/pageEnum"
-import { redirectErrorPage } from '@/utils'
+import { redirectErrorPage } from '@/utils/page'
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.DEV ? import.meta.env.VITE_DEV_PATH : import.meta.env.VITE_PRO_PATH,
