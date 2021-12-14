@@ -5,7 +5,7 @@ import { setupStore } from '@/store';
 import { setupNaive, setupDirectives } from '@/plugins';
 import { AppProvider } from '@/components/Application';
 
-async function bootstrap() {
+async function appInit() {
   const appProvider = createApp(AppProvider);
 
   const app = createApp(App);
@@ -31,4 +31,4 @@ async function bootstrap() {
   app.mount('#app', true);
 }
 
-void bootstrap();
+void appInit();

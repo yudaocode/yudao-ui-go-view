@@ -1,0 +1,13 @@
+@import './var.scss';
+
+// 毛玻璃
+.--background-filter {
+  backdrop-filter: $--filter-blur;
+  background-color: $--filter-color;
+}
+
+// 边框圆角
+.--border-radius {
+  border-radius: $--border-radius;
+  overflow: hidden;
+}

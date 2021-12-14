@@ -9,8 +9,3 @@
     </template>
   </RouterView>
 </template>
-
-<script lang="ts" setup>
-import { defineProps} from 'vue'
-const props = defineProps(['notNeedKey', 'animate'])
-</script>

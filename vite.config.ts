@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from "path"
-import { OUTPUT_DIR } from './build/constant';
+import { OUTPUT_DIR } from './build/constant'
 
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir);
@@ -25,9 +25,8 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        modifyVars: {},
         javascriptEnabled: true,
-        additionalData: `@import "src/styles/global/var.scss";`,
+        additionalData: `@import "src/styles/common/style.scss";@import "src/styles/common/mixins/mixins.scss";`,
       },
     },
   },

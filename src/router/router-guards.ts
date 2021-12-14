@@ -1,6 +1,5 @@
-import type { RouteRecordRaw } from 'vue-router';
 import { Router } from 'vue-router';
-import { ErrorPageRoute } from '@/router/base';
+import { PageEnum } from '@/enums/pageEnum'
 
 export function createRouterGuards(router: Router) {
   // 前置
@@ -8,14 +7,12 @@ export function createRouterGuards(router: Router) {
     const Loading = window['$loading'] || null;
     Loading && Loading.start();
 
-    //添加404
-    const isErrorPage = router.getRoutes().findIndex((item) => item.name === ErrorPageRoute.name);
+    console.log(to)
+    const isErrorPage = router.getRoutes().findIndex((item) => item.name === to.name);
     if (isErrorPage === -1) {
-      router.addRoute(ErrorPageRoute as unknown as RouteRecordRaw);
+      next({ name: PageEnum.ERROR_PAGE_NAME_404 })
     }
-
     next()
-    Loading && Loading.finish();
   })
 
   router.afterEach((to, _, failure) => {

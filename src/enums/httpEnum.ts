@@ -2,21 +2,23 @@
  * @description: 请求结果集
  */
 export enum ResultEnum {
+  DATA_SUCCESS = 0,
   SUCCESS = 200,
-  ERROR = -1,
+  SERVER_ERROR = 500,
+  SERVER_FORBIDDEN = 403,
+  NOT_FOUND = 404,
   TIMEOUT = 10042,
-  TYPE = 'success',
 }
 
 /**
  * @description: 请求方法
  */
 export enum RequestEnum {
-  GET = 'GET',
-  POST = 'POST',
-  PATCH = 'PATCH',
-  PUT = 'PUT',
-  DELETE = 'DELETE',
+  GET = 'get',
+  POST = 'post',
+  PATCH = 'patch',
+  PUT = 'put',
+  DELETE = 'delete',
 }
 
 /**

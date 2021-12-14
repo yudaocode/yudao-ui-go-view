@@ -1,0 +1,30 @@
+@import './config.scss';
+
+@mixin go($block) {
+  $B: $namespace + '-' + $block !global;
+  .#{$B} {
+    @content;
+  }
+}
+
+@mixin go-l($block) {
+  $B: $namespace + '-' + $theme-light + '-' + $block !global;
+  .#{$B} {
+    @content;
+  }
+}
+
+@mixin go-d($block) {
+  $B: $namespace + '-' + $theme-dart + '-' + $block !global;
+  .#{$B} {
+    @content;
+  }
+}
+
+@mixin when($state) {
+  @at-root {
+    &.#{$state-prefix + $state} {
+      @content;
+    }
+  }
+}

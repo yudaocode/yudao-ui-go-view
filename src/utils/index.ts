@@ -1,12 +1,14 @@
-import { h, unref } from 'vue';
-import { NIcon, NTag } from 'naive-ui';
-import type { App, Plugin } from 'vue';
+import { h } from 'vue';
+import { NIcon } from 'naive-ui';
+import { ResultEnum } from "@/enums/httpEnum"
+import { ErrorPageNameMap } from "@/enums/pageEnum"
+import router from '@/router';
 
 /**
- * 生成一个用不重复的ID
+ * * 生成一个用不重复的ID
  * @param { Number } randomLength
  */
-function getUUID(randomLength: number) {
+export function getUUID(randomLength: number) {
   return Number(
     Math.random()
       .toString()
@@ -16,28 +18,20 @@ function getUUID(randomLength: number) {
 
 
 /**
- * render new Tag
- * */
- const newTagColors = { color: '#f90', textColor: '#fff', borderColor: '#f90' };
- export function renderNew(type = 'warning', text = 'New', color: object = newTagColors) {
-   return () =>
-     h(
-       NTag as any,
-       {
-         type,
-         round: true,
-         size: 'small',
-         color,
-       },
-       { default: () => text }
-     );
- }
-
-/**
- * render 图标
- * */
-export function renderIcon(icon: any) {
+ * * render 图标
+ */
+export const renderIcon = (icon: any) => {
   return () => h(NIcon, null, { default: () => h(icon) });
 }
 
-export { getUUID };
+/**
+ * * 错误页重定向
+ * @param icon 
+ * @returns 
+ */
+export const redirectErrorPage = (code: ResultEnum) => {
+  router.push({
+    name: ErrorPageNameMap.get(code)
+  })
+}
+
