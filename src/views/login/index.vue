@@ -171,6 +171,7 @@ $--filter-color-base-login: rgba(51, 55, 61, 0.3);
     justify-content: space-evenly;
     align-items: center;
     margin-top: -$--header-height;
+    padding-top: $--header-height;
     &-carousel {
       width: 50%;
       &-img {
@@ -205,8 +206,9 @@ $--filter-color-base-login: rgba(51, 55, 61, 0.3);
   }
 
   &-footer {
-    text-align: center;
     height: $footer-height;
+    margin-top: -$--header-height;
+    text-align: center;
     line-height: $footer-height;
     color: $--color-text-2;
   }
