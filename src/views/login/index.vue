@@ -15,78 +15,82 @@
       </div>
       <div class="login-account">
         <div class="login-account-container">
-          <n-card title="登录">
-            <div class="login-account-top">
-              <div class="login-account-top-logo">
-                <img src="~@/assets/images/logo.png" alt="" />
+          <n-collapse-transition :appear="true" :show="show">
+            <n-card title="登录">
+              <div class="login-account-top">
+                <img
+                  class="login-account-top-logo"
+                  src="~@/assets/images/logo.png"
+                  alt="logo"
+                />
               </div>
-              <div class="login-account-top-desc">
-                欢迎使用 GoView !
-              </div>
-            </div>
-            <n-form
-              ref="formRef"
-              label-placement="left"
-              size="large"
-              :model="formInline"
-              :rules="rules"
-            >
-              <n-form-item path="username">
-                <n-input
-                  v-model:value="formInline.username"
-                  placeholder="请输入用户名"
-                >
-                  <template #prefix>
-                    <n-icon size="18">
-                      <PersonOutline />
-                    </n-icon>
-                  </template>
-                </n-input>
-              </n-form-item>
-              <n-form-item path="password">
-                <n-input
-                  v-model:value="formInline.password"
-                  type="password"
-                  show-password-toggle
-                  placeholder="请输入密码"
-                >
-                  <template #prefix>
-                    <n-icon size="18">
-                      <LockClosedOutline />
-                    </n-icon>
-                  </template>
-                </n-input>
-              </n-form-item>
-              <n-form-item>
-                <div class="flex justify-between">
-                  <div class="flex-initial">
-                    <n-checkbox v-model:checked="autoLogin">
-                      自动登录
-                    </n-checkbox>
+              <n-form
+                ref="formRef"
+                label-placement="left"
+                size="large"
+                :model="formInline"
+                :rules="rules"
+              >
+                <n-form-item path="username">
+                  <n-input
+                    v-model:value="formInline.username"
+                    placeholder="请输入用户名"
+                  >
+                    <template #prefix>
+                      <n-icon size="18">
+                        <PersonOutline />
+                      </n-icon>
+                    </template>
+                  </n-input>
+                </n-form-item>
+                <n-form-item path="password">
+                  <n-input
+                    v-model:value="formInline.password"
+                    type="password"
+                    show-password-toggle
+                    placeholder="请输入密码"
+                  >
+                    <template #prefix>
+                      <n-icon size="18">
+                        <LockClosedOutline />
+                      </n-icon>
+                    </template>
+                  </n-input>
+                </n-form-item>
+                <n-form-item>
+                  <div class="flex justify-between">
+                    <div class="flex-initial">
+                      <n-checkbox v-model:checked="autoLogin">
+                        自动登录
+                      </n-checkbox>
+                    </div>
                   </div>
-                </div>
-              </n-form-item>
-              <n-form-item>
-                <n-button
-                  type="primary"
-                  @click="handleSubmit"
-                  size="large"
-                  :loading="loading"
-                  block
-                >
-                  登录
-                </n-button>
-              </n-form-item>
-            </n-form>
-          </n-card>
+                </n-form-item>
+                <n-form-item>
+                  <n-button
+                    type="primary"
+                    @click="handleSubmit"
+                    size="large"
+                    :loading="loading"
+                    block
+                  >
+                    登录
+                  </n-button>
+                </n-form-item>
+              </n-form>
+            </n-card>
+          </n-collapse-transition>
         </div>
       </div>
+    </div>
+    <div class="go-login-box-footer">
+      文档地址: http://www.mtruning.club/
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useMessage } from 'naive-ui'
 import { PersonOutline, LockClosedOutline } from '@vicons/ionicons5'
@@ -103,6 +107,13 @@ const formRef = ref()
 const message = useMessage()
 const loading = ref(false)
 const autoLogin = ref(true)
+const show = ref(false)
+
+onMounted(() => {
+  setTimeout(() => {
+    show.value = true
+  }, 100)
+})
 
 const formInline = reactive({
   username: 'admin',
@@ -137,14 +148,22 @@ const handleSubmit = (e: Event) => {
 
 <style lang="scss" scoped>
 $width: 450px;
+$account-img-height: 270px;
+$footer-height: 50px;
+$account-height: calc(100vh - $footer-height);
+
+* {
+  box-sizing: border-box;
+}
 @include go(login-box) {
   height: 100vh;
   overflow: hidden;
   background-image: linear-gradient(120deg, #17171a 0%, #232324 100%);
   &-header {
     margin: 0px;
-    margin-top: $--header-height;
+    padding-top: $--header-height;
   }
+
   @include go(login) {
     display: flex;
     justify-content: space-evenly;
@@ -160,8 +179,7 @@ $width: 450px;
       z-index: 1;
       display: flex;
       flex-direction: column;
-      height: 100vh;
-      overflow: auto;
+      height: $account-height;
       &-container {
         flex: 1;
         padding: 32px 0;
@@ -171,15 +189,19 @@ $width: 450px;
       }
 
       &-top {
-        padding: 32px 0;
+        padding-top: 10px;
         text-align: center;
-
-        &-desc {
-          font-size: 16px;
-          color: #fff;
-        }
+        height: $account-img-height;
+        margin-bottom: 20px;
       }
     }
+  }
+
+  &-footer {
+    text-align: center;
+    height: $footer-height;
+    line-height: $footer-height;
+    color: $--color-text-2;
   }
 
   @media (min-width: 768px) {

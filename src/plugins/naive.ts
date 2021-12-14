@@ -66,7 +66,8 @@ import {
   NTimePicker,
   NBackTop,
   NSkeleton,
-  NCarousel
+  NCarousel,
+  NCollapseTransition
 } from 'naive-ui';
 
 const naive = create({
@@ -136,7 +137,8 @@ const naive = create({
     NTimePicker,
     NBackTop,
     NSkeleton,
-    NCarousel
+    NCarousel,
+    NCollapseTransition
   ],
 });
 
