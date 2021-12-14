@@ -13,9 +13,13 @@ $--color-text-4: hsla(0, 0%, 100%, 0.3);
 // 顶部距离
 $--header-height: 60px;
 // 模糊
-$--filter-blur-base: blur(2px);
+$--filter-blur-base: blur(20px);
 // 毛玻璃
-$--filter-color-base: rgba(0, 0, 0, 0.07);
+$--filter-color-base-1: rgba(0, 0, 0, 0.1);
+$--filter-color-base-2: rgba(0, 0, 0, 0.2);
+$--filter-color-base-3: rgba(23, 23, 26, 0.3);
 // 边框
 $--border-radius-base: 8px;
 $--border-bottom-style: 1px solid $--color-border;
+// 阴影
+$--border-shadow: 0 8px 20px rgba(0,0,0, .15);

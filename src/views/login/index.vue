@@ -1,5 +1,6 @@
 <template>
   <div class="go-login-box">
+    <div class="go-login-box-bg"></div>
     <n-divider class="go-login-box-header" />
     <div class="go-login">
       <div class="go-login-carousel">
@@ -16,7 +17,7 @@
       <div class="login-account">
         <div class="login-account-container">
           <n-collapse-transition :appear="true" :show="show">
-            <n-card title="登录">
+            <n-card class="login-account-card" title="登录 GoView">
               <div class="login-account-top">
                 <img
                   class="login-account-top-logo"
@@ -151,6 +152,7 @@ $width: 450px;
 $account-img-height: 270px;
 $footer-height: 50px;
 $account-height: calc(100vh - $footer-height);
+$--filter-color-base-login: rgba(51, 55, 61, 0.3);
 
 * {
   box-sizing: border-box;
@@ -158,7 +160,7 @@ $account-height: calc(100vh - $footer-height);
 @include go(login-box) {
   height: 100vh;
   overflow: hidden;
-  background-image: linear-gradient(120deg, #17171a 0%, #232324 100%);
+  background-image: linear-gradient(120deg, $--color-bg-1 0%, $--color-bg-2 100%);
   &-header {
     margin: 0px;
     padding-top: $--header-height;
@@ -188,6 +190,11 @@ $account-height: calc(100vh - $footer-height);
         margin-top: 100px;
       }
 
+      &-card {
+        @extend .go-background-filter;
+        background-color: $--filter-color-base-login;
+      }
+
       &-top {
         padding-top: 10px;
         text-align: center;
@@ -202,6 +209,14 @@ $account-height: calc(100vh - $footer-height);
     height: $footer-height;
     line-height: $footer-height;
     color: $--color-text-2;
+  }
+
+  &-bg {
+    z-index: 0;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: url('@/assets/images/login/login-bg.png') no-repeat 750px -120px;
   }
 
   @media (min-width: 768px) {

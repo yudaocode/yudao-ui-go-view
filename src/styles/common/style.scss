@@ -1,14 +1,16 @@
 @import './var.scss';
 @import './animation.scss';
 
+// extends
 // 毛玻璃
-.--background-filter {
+.go-background-filter {
   backdrop-filter: $--filter-blur-base;
-  background-color: $--filter-color-base;
+  background-color: $--filter-color-base-1;
+  box-shadow: $--border-shadow;
 }
 
 // 边框圆角
-.--border-radius {
+.go-border-radius {
   border-radius: $--border-radius-base;
   overflow: hidden;
 }
