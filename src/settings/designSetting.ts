@@ -31,3 +31,6 @@ export const theme = {
 
 // 修改边框圆角
 export const borderRadius = '8px'
+
+// 轮播间隔
+export const carouselInterval = 5000

@@ -1,6 +1,7 @@
 import type { App } from 'vue';
 import {
   create,
+  NA,
   NConfigProvider,
   NMessageProvider,
   NDialogProvider,
@@ -67,11 +68,13 @@ import {
   NBackTop,
   NSkeleton,
   NCarousel,
+  NScrollbar,
   NCollapseTransition
 } from 'naive-ui';
 
 const naive = create({
   components: [
+    NA,
     NMessageProvider,
     NDialogProvider,
     NConfigProvider,
@@ -138,6 +141,7 @@ const naive = create({
     NBackTop,
     NSkeleton,
     NCarousel,
+    NScrollbar,
     NCollapseTransition
   ],
 });

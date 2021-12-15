@@ -29,6 +29,7 @@
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^8.2.0",
+    "lodash": "^4.17.21",
     "prettier": "^2.5.1",
     "sass": "^1.43.2",
     "sass-loader": "^12.2.0",

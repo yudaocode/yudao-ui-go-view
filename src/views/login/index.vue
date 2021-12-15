@@ -1,15 +1,29 @@
 <template>
   <div class="go-login-box">
-    <div class="go-login-box-bg"></div>
+    <div class="go-login-box-bg">
+      <aside class="bg-slot"></aside>
+      <aside class="bg-img-box">
+        <transition-group name="list-complete">
+          <template v-for="item in bgList" :key="item">
+            <div class="bg-img-box-li list-complete-item">
+              <n-collapse-transition :appear="true" :show="show">
+                <img :src="getImageUrl(item, 'chart')" alt="chart" />
+              </n-collapse-transition>
+            </div>
+          </template>
+        </transition-group>
+      </aside>
+    </div>
     <n-divider class="go-login-box-header" />
+
     <div class="go-login">
       <div class="go-login-carousel">
-        <n-carousel autoplay>
+        <n-carousel autoplay :interval="Number(carouselInterval)">
           <img
-            v-for="(e, i) in imgList"
+            v-for="(item, i) in carouselImgList"
             :key="i"
             class="go-login-carousel-img"
-            :src="e"
+            :src="getImageUrl(item, 'login')"
             alt="展示图片"
           />
         </n-carousel>
@@ -84,26 +98,31 @@
         </div>
       </div>
     </div>
+
     <div class="go-login-box-footer">
-      文档地址: http://www.mtruning.club/
+      <n-a>文档地址: </n-a>
+      <n-a italic href="http://www.mtruning.club/">
+        http://www.mtruning.club/
+      </n-a>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { useMessage } from 'naive-ui'
 import { PersonOutline, LockClosedOutline } from '@vicons/ionicons5'
-import imgOne from '@/assets/images/login/one.png'
-import imgTwo from '@/assets/images/login/two.png'
-import imgThree from '@/assets/images/login/three.png'
+import { requireUrl } from '@/utils/index'
+import { shuffle } from 'lodash'
+import { carouselInterval } from '@/settings/designSetting'
 
 interface FormState {
   username: string
   password: string
 }
 
+const router = useRouter()
 const formRef = ref()
 const message = useMessage()
 const loading = ref(false)
@@ -126,11 +145,38 @@ const rules = {
   password: { required: true, message: '请输入密码', trigger: 'blur' }
 }
 
-const imgList = [imgOne, imgTwo, imgThree]
+// 定时器
+const shuffleTimiing = ref()
 
-const router = useRouter()
-const route = useRoute()
+// 轮播图
+const carouselImgList = ['one', 'two', 'three']
 
+// 背景图
+const bgList = ref([
+  'bar_y',
+  'bar_x',
+  'line_gradient',
+  'line',
+  'funnel',
+  'heatmap',
+  'map',
+  'pie',
+  'radar',
+])
+
+// 处理url获取
+const getImageUrl = (name: string, folder: string) => {
+  return requireUrl(`../assets/images/${folder}`, `${name}.png`)
+}
+
+// 打乱
+const shuffleHandle = () => {
+  shuffleTimiing.value = setInterval(() => {
+    bgList.value = shuffle(bgList.value)
+  }, carouselInterval)
+}
+
+// 点击事件
 const handleSubmit = (e: Event) => {
   e.preventDefault()
   formRef.value.validate(async (errors: any) => {
@@ -145,55 +191,67 @@ const handleSubmit = (e: Event) => {
     }
   })
 }
+
+onMounted(() => {
+  shuffleHandle()
+})
 </script>
 
 <style lang="scss" scoped>
 $width: 450px;
+$go-login-height: 100vh;
 $account-img-height: 270px;
 $footer-height: 50px;
-$account-height: calc(100vh - $footer-height);
-$--filter-color-base-login: rgba(51, 55, 61, 0.3);
+$carousel-width: 30%;
+$carousel-image-height: 60vh;
+$--filter-color-base-login: rgba(89, 95, 103, 0.45);
 
 * {
   box-sizing: border-box;
 }
 @include go(login-box) {
-  height: 100vh;
+  height: $go-login-height;
   overflow: hidden;
-  background-image: linear-gradient(120deg, $--color-bg-1 0%, $--color-bg-2 100%);
+  background-image: linear-gradient(
+    120deg,
+    $--color-bg-1 0%,
+    $--color-bg-2 100%
+  );
   &-header {
     margin: 0px;
     padding-top: $--header-height;
   }
 
   @include go(login) {
+    z-index: 2;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     margin-top: -$--header-height;
-    padding-top: $--header-height;
+    height: $go-login-height;
+    max-width: $--max-width;
     &-carousel {
-      width: 50%;
+      width: $carousel-width;
+      margin-top: 100px;
+      min-width: 500px;
       &-img {
-        height: 70vh;
+        display: block;
+        margin: 0 auto;
+        height: $carousel-image-height;
       }
     }
     .login-account {
-      z-index: 1;
       display: flex;
       flex-direction: column;
-      height: $account-height;
+      margin: 0 160px;
       &-container {
-        flex: 1;
-        padding: 32px 0;
         width: $width;
-        margin: 0 auto;
-        margin-top: 100px;
       }
 
       &-card {
         @extend .go-background-filter;
         background-color: $--filter-color-base-login;
+        box-shadow: 0 0 105px 50px #202020;
       }
 
       &-top {
@@ -206,8 +264,11 @@ $--filter-color-base-login: rgba(51, 55, 61, 0.3);
   }
 
   &-footer {
+    z-index: 2;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
     height: $footer-height;
-    margin-top: -$--header-height;
     text-align: center;
     line-height: $footer-height;
     color: $--color-text-2;
@@ -216,21 +277,41 @@ $--filter-color-base-login: rgba(51, 55, 61, 0.3);
   &-bg {
     z-index: 0;
     position: fixed;
-    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: $--max-width;
     height: 100vh;
-    background: url('@/assets/images/login/login-bg.png') no-repeat 750px -120px;
+    background: url('@/assets/images/login/login-bg.png') no-repeat 0 -120px;
+    .bg-slot{
+      width: $carousel-width;
+    }
+    .bg-img-box {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      width: 770px;
+      margin-right: -20px;
+      &-li {
+        img {
+          margin-right: 20px;
+          margin-top: 20px;
+          height: 230px;
+          border-radius: 2 * $--border-radius-base;
+          opacity: 0.9;
+        }
+      }
+    }
   }
-
-  @media (min-width: 768px) {
-    .login-account {
-      background-repeat: no-repeat;
-      background-position: 50%;
-      background-size: 100%;
-    }
-
-    .page-account-container {
-      padding: 32px 0 24px 0;
-    }
+}
+@media only screen and (max-width: 1200px) {
+  .bg-img-box,
+  .bg-slot,
+  .go-login-carousel {
+    display: none !important;
+  }
+  .go-login-box-footer {
+    position: relative;
   }
 }
 </style>
