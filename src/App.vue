@@ -18,14 +18,12 @@ import {
   dateZhCN,
   darkTheme,
   NConfigProvider,
-  GlobalThemeOverrides
+  GlobalThemeOverrides,
 } from 'naive-ui'
 import { AppProvider } from '@/components/Application'
-import { useRoute } from 'vue-router'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { borderRadius } from '@/settings/designSetting'
 
-const route = useRoute()
 const designStore = useDesignStore()
 
 const getThemeOverrides = computed(
@@ -41,9 +39,8 @@ const getThemeOverrides = computed(
     }
   }
 )
-
 const getDarkTheme = computed(() =>
-  designStore.darkTheme ? darkTheme : undefined
+  designStore.getDarkTheme ? darkTheme : undefined
 )
 </script>
 

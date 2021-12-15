@@ -1,21 +1,9 @@
 @import './config.scss';
+@import './function.scss';
+@import './theme.scss';
 
 @mixin go($block) {
-  $B: $namespace + '-' + $block !global;
-  .#{$B} {
-    @content;
-  }
-}
-
-@mixin go-l($block) {
-  $B: $namespace + '-' + $theme-light + '-' + $block !global;
-  .#{$B} {
-    @content;
-  }
-}
-
-@mixin go-d($block) {
-  $B: $namespace + '-' + $theme-dark + '-' + $block !global;
+  $B: $namespace + '-' + $block;
   .#{$B} {
     @content;
   }
@@ -26,5 +14,41 @@
     &.#{$state-prefix + $state} {
       @content;
     }
+  }
+}
+
+@mixin themeify {
+  @each $theme-name, $theme-map in $themes {
+    $theme-map: $theme-map !global;
+    [data-theme='#{$theme-name}'] & {
+      @content;
+    }
+  }
+}
+
+@mixin fetch-theme($param) {
+  @include themeify {
+    #{$param}: themed($param);
+  }
+}
+
+//获取背景颜色
+@mixin filter-color($target) {
+  @include themeify {
+    background-color: themed($target);
+  }
+}
+
+//获取背景渐变颜色
+@mixin background-image($target) {
+  @include themeify {
+    background-image: themed($target);
+  }
+}
+
+//获取字体颜色
+@mixin font-color($target) {
+  @include themeify {
+    color: themed($target);
   }
 }

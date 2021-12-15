@@ -4,6 +4,7 @@ import router, { setupRouter } from '@/router';
 import { setupStore } from '@/store';
 import { setupNaive, setupDirectives } from '@/plugins';
 import { AppProvider } from '@/components/Application';
+import { setHtmlTheme } from '@/utils/style'
 
 async function appInit() {
   const appProvider = createApp(AppProvider);
@@ -18,6 +19,9 @@ async function appInit() {
 
   // 挂载状态管理
   setupStore(app);
+
+  // 处理主题色
+  setHtmlTheme()
 
   //优先挂载一下 Provider 解决路由守卫，Axios中可使用，Dialog，Message 等之类组件
   appProvider.mount('#appProvider', true);

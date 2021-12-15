@@ -14,7 +14,18 @@
         </transition-group>
       </aside>
     </div>
-    <n-divider class="go-login-box-header" />
+    <header class="go-login-box-header">
+      <div></div>
+      <div class="header-ri">
+        <n-button quaternary @click="changeTheme">
+          <n-icon size="20" :depth="1">
+            <MoonIcon v-if="designStore.darkTheme" />
+            <SunnyIcon v-else />
+          </n-icon>
+        </n-button>
+      </div>
+    </header>
+    <n-divider class="go-login-box-divider" />
 
     <div class="go-login">
       <div class="go-login-carousel">
@@ -53,7 +64,7 @@
                   >
                     <template #prefix>
                       <n-icon size="18">
-                        <PersonOutline />
+                        <PersonOutlineIcon />
                       </n-icon>
                     </template>
                   </n-input>
@@ -67,7 +78,7 @@
                   >
                     <template #prefix>
                       <n-icon size="18">
-                        <LockClosedOutline />
+                        <LockClosedOutlineIcon />
                       </n-icon>
                     </template>
                   </n-input>
@@ -112,10 +123,17 @@
 import { reactive, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useMessage } from 'naive-ui'
-import { PersonOutline, LockClosedOutline } from '@vicons/ionicons5'
+import {
+  PersonOutline as PersonOutlineIcon,
+  LockClosedOutline as LockClosedOutlineIcon,
+  Moon as MoonIcon,
+  Sunny as SunnyIcon
+} from '@vicons/ionicons5'
 import { requireUrl } from '@/utils/index'
-import { shuffle } from 'lodash'
+import { setHtmlTheme } from '@/utils/style'
+import shuffle from 'lodash/shuffle'
 import { carouselInterval } from '@/settings/designSetting'
+import { useDesignStore } from '@/store/modules/designStore/designStore'
 
 interface FormState {
   username: string
@@ -128,6 +146,7 @@ const message = useMessage()
 const loading = ref(false)
 const autoLogin = ref(true)
 const show = ref(false)
+const designStore = useDesignStore()
 
 onMounted(() => {
   setTimeout(() => {
@@ -161,12 +180,18 @@ const bgList = ref([
   'heatmap',
   'map',
   'pie',
-  'radar',
+  'radar'
 ])
 
 // 处理url获取
 const getImageUrl = (name: string, folder: string) => {
   return requireUrl(`../assets/images/${folder}`, `${name}.png`)
+}
+
+// 改变样式
+const changeTheme = () => {
+  designStore.changeTheme()
+  setHtmlTheme()
 }
 
 // 打乱
@@ -204,7 +229,6 @@ $account-img-height: 270px;
 $footer-height: 50px;
 $carousel-width: 30%;
 $carousel-image-height: 60vh;
-$--filter-color-base-login: rgba(89, 95, 103, 0.45);
 
 * {
   box-sizing: border-box;
@@ -212,14 +236,17 @@ $--filter-color-base-login: rgba(89, 95, 103, 0.45);
 @include go(login-box) {
   height: $go-login-height;
   overflow: hidden;
-  background-image: linear-gradient(
-    120deg,
-    $--color-bg-1 0%,
-    $--color-bg-2 100%
-  );
+  @include background-image('background-image');
   &-header {
-    margin: 0px;
-    padding-top: $--header-height;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    height: $--header-height;
+  }
+  &-divider {
+    margin: 0;
+    padding-top: 0;
   }
 
   @include go(login) {
@@ -250,8 +277,8 @@ $--filter-color-base-login: rgba(89, 95, 103, 0.45);
 
       &-card {
         @extend .go-background-filter;
-        background-color: $--filter-color-base-login;
-        box-shadow: 0 0 105px 50px #202020;
+        @include filter-color('filter-color');
+        box-shadow: 0 0 20px 5px rgba(40, 40, 40, 0.5);
       }
 
       &-top {
@@ -283,7 +310,7 @@ $--filter-color-base-login: rgba(89, 95, 103, 0.45);
     width: $--max-width;
     height: 100vh;
     background: url('@/assets/images/login/login-bg.png') no-repeat 0 -120px;
-    .bg-slot{
+    .bg-slot {
       width: $carousel-width;
     }
     .bg-img-box {

@@ -2,6 +2,7 @@ import type { App } from 'vue';
 import {
   create,
   NA,
+  NText,
   NConfigProvider,
   NMessageProvider,
   NDialogProvider,
@@ -75,6 +76,7 @@ import {
 const naive = create({
   components: [
     NA,
+    NText,
     NMessageProvider,
     NDialogProvider,
     NConfigProvider,

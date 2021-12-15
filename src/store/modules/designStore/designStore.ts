@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { store } from '@/store';
-import { theme, borderRadius } from '@/settings/designSetting';
+import { theme } from '@/settings/designSetting';
 const { darkTheme, appTheme, appThemeList } = theme;
 import { DesignStateType } from './designStore.d'
 
@@ -22,6 +22,11 @@ export const useDesignStore = defineStore({
       return this.appThemeList;
     },
   },
+  actions: {
+    changeTheme():void {
+      this.darkTheme = !this.darkTheme
+    }
+  }
 });
 
 export function useDesignSettingWithOut() {

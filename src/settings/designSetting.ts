@@ -21,6 +21,8 @@ export const appThemeList: string[] = [
 ];
 
 export const theme = {
+  darkThemeName: 'dark',
+  lightThemeName: 'light',
   //深色主题
   darkTheme: true,
   //系统主题色
