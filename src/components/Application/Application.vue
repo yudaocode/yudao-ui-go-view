@@ -27,8 +27,6 @@ import {
   NLoadingBarProvider
 } from 'naive-ui'
 
-// @ts-ignore
 import { MessageContent } from '@/components/MessageContent'
-// @ts-ignore
 import { DialogContent } from '@/components/DialogContent'
 </script>

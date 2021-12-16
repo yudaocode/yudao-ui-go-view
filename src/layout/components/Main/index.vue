@@ -1,7 +1,7 @@
 <template>
   <router-view>
     <template #default="{ Component, route }">
-      <transition name="zoom-fade" mode="out-in" appear>
+      <transition name="list-complete" mode="out-in" appear>
         <keep-alive>
           <component :is="Component" :key="route.fullPath" />
         </keep-alive>

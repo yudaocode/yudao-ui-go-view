@@ -5,13 +5,14 @@ import { createRouterGuards } from './router-guards'
 import { PageEnum } from '@/enums/pageEnum'
 import modules from '@/router/modules'
 import { HttpErrorPage, LoginRoute } from '@/router/base'
+import { Layout } from '@/router/constant'
 
 const RootRoute: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Root',
-    redirect: PageEnum.BASE_HOME_NAME,
-    component: () => import('@/app.vue'),
+    redirect: PageEnum.BASE_HOME,
+    component: Layout,
     meta: {
       title: 'Root',
     },

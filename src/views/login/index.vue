@@ -14,14 +14,12 @@
         </transition-group>
       </aside>
     </div>
-    <header class="go-login-box-header">
-      <div></div>
-      <div class="header-ri">
+    <Header>
+      <template #left></template>
+      <template #right>
         <ThemeSelect />
-      </div>
-    </header>
-    <n-divider class="go-login-box-divider" />
-
+      </template>
+    </Header>
     <div class="go-login">
       <div class="go-login-carousel">
         <n-carousel autoplay :interval="Number(carouselInterval)">
@@ -127,6 +125,7 @@ import shuffle from 'lodash/shuffle'
 import { carouselInterval } from '@/settings/designSetting'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { ThemeSelect } from '@/components/ThemeSelect'
+import { Header } from '@/layout/components/Header'
 
 interface FormState {
   username: string
