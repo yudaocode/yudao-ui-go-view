@@ -17,12 +17,7 @@
     <header class="go-login-box-header">
       <div></div>
       <div class="header-ri">
-        <n-button quaternary @click="changeTheme">
-          <n-icon size="20" :depth="1">
-            <MoonIcon v-if="designStore.darkTheme" />
-            <SunnyIcon v-else />
-          </n-icon>
-        </n-button>
+        <ThemeSelect />
       </div>
     </header>
     <n-divider class="go-login-box-divider" />
@@ -125,12 +120,9 @@ import { useRouter } from 'vue-router'
 import { useMessage } from 'naive-ui'
 import {
   PersonOutline as PersonOutlineIcon,
-  LockClosedOutline as LockClosedOutlineIcon,
-  Moon as MoonIcon,
-  Sunny as SunnyIcon
+  LockClosedOutline as LockClosedOutlineIcon
 } from '@vicons/ionicons5'
 import { requireUrl } from '@/utils/index'
-import { setHtmlTheme } from '@/utils/style'
 import shuffle from 'lodash/shuffle'
 import { carouselInterval } from '@/settings/designSetting'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
@@ -186,12 +178,6 @@ const bgList = ref([
 // 处理url获取
 const getImageUrl = (name: string, folder: string) => {
   return requireUrl(`../assets/images/${folder}`, `${name}.png`)
-}
-
-// 改变样式
-const changeTheme = () => {
-  designStore.changeTheme()
-  setHtmlTheme()
 }
 
 // 打乱

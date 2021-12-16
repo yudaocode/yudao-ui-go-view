@@ -4,19 +4,27 @@ $--color-warn: #fcbc40;
 $--color-success: #34c749;
 
 // 文字
+$--color-text: hsla(0, 0%, 100%, 1);
 $--color-text-1: hsla(0, 0%, 100%, 0.9);
 $--color-text-2: hsla(0, 0%, 100%, 0.7);
 $--color-text-3: hsla(0, 0%, 100%, 0.5);
 $--color-text-4: hsla(0, 0%, 100%, 0.3);
 
+// 白色
+$--color-light-fill: #fff;
+$--color-light-fill-1: #f7f8fa;
+$--color-light-fill-2: #f2f3f5;
+$--color-light-fill-3: #e5e6eb;
+$--color-light-fill-4: #c9cdd4;
+
 // 黑色
-$--color-black: #000;
-$--color-border: #333335;
-$--color-bg-1: #17171a;
-$--color-bg-2: #232324;
-$--color-bg-3: #2a2a2b;
-$--color-bg-4: #313132;
-$--color-bg-5: #373739;
+$--color-dark-black: #000;
+$--color-dark-bg-1: #17171a;
+$--color-dark-bg-2: #232324;
+$--color-dark-bg-3: #2a2a2b;
+$--color-dark-bg-4: #313132;
+$--color-dark-bg-5: #373739;
+$--color-dark-border: #333335;
 
 // 最大宽度
 $--max-width: 1920px;
@@ -33,6 +41,6 @@ $--filter-color-login-light: rgba(187, 202, 217, 0.7);
 
 // 边框
 $--border-radius-base: 8px;
-$--border-bottom-style: 1px solid $--color-border;
+$--border-bottom-style: 1px solid $--color-dark-border;
 // 阴影
 $--border-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);

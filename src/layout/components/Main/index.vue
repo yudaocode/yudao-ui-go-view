@@ -1,5 +1,5 @@
 <template>
-  <RouterView>
+  <router-view>
     <template #default="{ Component, route }">
       <transition name="zoom-fade" mode="out-in" appear>
         <keep-alive>
@@ -7,5 +7,5 @@
         </keep-alive>
       </transition>
     </template>
-  </RouterView>
+  </router-view>
 </template>

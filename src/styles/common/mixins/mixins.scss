@@ -1,6 +1,6 @@
 @import './config.scss';
 @import './function.scss';
-@import './theme.scss';
+@import '../theme.scss';
 
 @mixin go($block) {
   $B: $namespace + '-' + $block;
