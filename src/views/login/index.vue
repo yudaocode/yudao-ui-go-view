@@ -126,6 +126,7 @@ import { requireUrl } from '@/utils/index'
 import shuffle from 'lodash/shuffle'
 import { carouselInterval } from '@/settings/designSetting'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
+import { ThemeSelect } from '@/components/ThemeSelect'
 
 interface FormState {
   username: string
