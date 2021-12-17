@@ -105,10 +105,7 @@
     </div>
 
     <div class="go-login-box-footer">
-      <n-a>{{ $t('global.doc_addr') }}: </n-a>
-      <n-a italic href="http://www.mtruning.club/">
-        http://www.mtruning.club/
-      </n-a>
+      <Footer />
     </div>
   </div>
 </template>
@@ -126,6 +123,7 @@ import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { ThemeSelect } from '@/components/ThemeSelect'
 import { LangSelect } from '@/components/LangSelect'
 import { Header } from '@/layout/components/Header'
+import { Footer } from '@/layout/components/Footer'
 import { PageEnum } from '@/enums/pageEnum'
 import {
   PersonOutline as PersonOutlineIcon,
@@ -292,12 +290,8 @@ $carousel-image-height: 60vh;
   &-footer {
     z-index: 2;
     position: fixed;
-    bottom: 0;
     width: 100%;
-    height: $footer-height;
-    text-align: center;
-    line-height: $footer-height;
-    color: $--color-text-2;
+    bottom: 0;
   }
 
   &-bg {
