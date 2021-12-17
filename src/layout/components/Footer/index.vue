@@ -1,10 +1,12 @@
 <template>
   <div class="go-footer">
     <slot>
-      <n-a>{{ $t('global.doc_addr') }}: </n-a>
-      <n-a italic href="http://www.mtruning.club/">
-        http://www.mtruning.club/
-      </n-a>
+      <n-text depth="2">
+        <n-a>{{ $t('global.doc_addr') }}: </n-a>
+        <n-a italic href="http://www.mtruning.club/">
+          http://www.mtruning.club/
+        </n-a>
+      </n-text>
     </slot>
   </div>
 </template>
