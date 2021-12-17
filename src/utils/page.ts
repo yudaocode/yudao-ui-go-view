@@ -1,24 +1,30 @@
-import { ResultEnum } from "@/enums/httpEnum"
-import { ErrorPageNameMap } from "@/enums/pageEnum"
-import router from '@/router';
+import { ResultEnum } from '@/enums/httpEnum'
+import { ErrorPageNameMap } from '@/enums/pageEnum'
+import router from '@/router'
 
 /**
  * * 错误页重定向
- * @param icon 
- * @returns 
+ * @param icon
+ * @returns
  */
 export const redirectErrorPage = (code: ResultEnum) => {
-  if(!code) return false
+  if (!code) return false
   const pageName = ErrorPageNameMap.get(code)
-  if(!pageName) return false
+  if (!pageName) return false
   routerTurnByName(pageName)
 }
 
 /**
  * * 根据名字跳转路由
- * @param pageName 
+ * @param pageName
  */
-export const routerTurnByName = (pageName: string) => {
+export const routerTurnByName = (pageName: string, isReplace?: boolean) => {
+  if (isReplace) {
+    router.replace({
+      name: pageName
+    })
+    return
+  }
   router.push({
     name: pageName
   })

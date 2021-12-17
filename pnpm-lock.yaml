@@ -4,10 +4,11 @@ specifiers:
   '@types/node': ^16.11.1
   '@typescript-eslint/eslint-plugin': ^5.6.0
   '@typescript-eslint/parser': ^5.6.0
-  '@vicons/ionicons5': ^0.11.0
+  '@vicons/ionicons5': ~0.11.0
   '@vitejs/plugin-vue': ^1.9.3
   '@vitejs/plugin-vue-jsx': ^1.2.0
   '@vue/compiler-sfc': ^3.2.20
+  '@vueuse/core': ^7.3.0
   axios: ^0.23.0
   default-passive-events: ^2.0.0
   eslint: ^8.4.1
@@ -28,6 +29,7 @@ specifiers:
   vite-plugin-mock: ^2.9.6
   vite-plugin-style-import: ^1.2.1
   vue: ^3.2.16
+  vue-i18n: ^9.2.0-beta.23
   vue-router: 4.0.12
   vue-tsc: ^0.28.7
 
@@ -38,6 +40,7 @@ dependencies:
   naive-ui: rg.cnpmjs.org/naive-ui/2.21.5_vue@3.2.24
   pinia: rg.cnpmjs.org/pinia/2.0.6_typescript@4.5.2+vue@3.2.24
   vue: rg.cnpmjs.org/vue/3.2.24
+  vue-i18n: rg.cnpmjs.org/vue-i18n/9.2.0-beta.23_vue@3.2.24
   vue-router: rg.cnpmjs.org/vue-router/4.0.12_vue@3.2.24
 
 devDependencies:
@@ -47,6 +50,7 @@ devDependencies:
   '@vitejs/plugin-vue': rg.cnpmjs.org/@vitejs/plugin-vue/1.10.2_vite@2.7.1
   '@vitejs/plugin-vue-jsx': rg.cnpmjs.org/@vitejs/plugin-vue-jsx/1.3.1
   '@vue/compiler-sfc': rg.cnpmjs.org/@vue/compiler-sfc/3.2.24
+  '@vueuse/core': rg.cnpmjs.org/@vueuse/core/7.3.0_vue@3.2.24
   default-passive-events: rg.cnpmjs.org/default-passive-events/2.0.0
   eslint: rg.cnpmjs.org/eslint/8.4.1
   eslint-config-prettier: rg.cnpmjs.org/eslint-config-prettier/8.3.0_eslint@8.4.1
@@ -509,6 +513,54 @@ packages:
     name: '@humanwhocodes/object-schema'
     version: 1.2.1
     dev: true
+
+  rg.cnpmjs.org/@intlify/core-base/9.2.0-beta.23:
+    resolution: {integrity: sha512-sNet9/RpU/qydW1bOwVICYzGIC/SWyV+1gakcSP12XD1tGEiaoI1Ln+6nHh4dICfegR/5XyaoJ7NC4/ukH7/Ew==, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/@intlify/core-base/download/@intlify/core-base-9.2.0-beta.23.tgz}
+    name: '@intlify/core-base'
+    version: 9.2.0-beta.23
+    engines: {node: '>= 12'}
+    dependencies:
+      '@intlify/devtools-if': rg.cnpmjs.org/@intlify/devtools-if/9.2.0-beta.23
+      '@intlify/message-compiler': rg.cnpmjs.org/@intlify/message-compiler/9.2.0-beta.23
+      '@intlify/shared': rg.cnpmjs.org/@intlify/shared/9.2.0-beta.23
+      '@intlify/vue-devtools': rg.cnpmjs.org/@intlify/vue-devtools/9.2.0-beta.23
+    dev: false
+
+  rg.cnpmjs.org/@intlify/devtools-if/9.2.0-beta.23:
+    resolution: {integrity: sha512-f2iY2LFRHTwPnBpT0R/kG8CwZbUWiSccMzfXYLwhjJC1irCcFCXmVtL9Mkz5gc0Elqvl+zOWxk5g9rwhah5bBQ==, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/@intlify/devtools-if/download/@intlify/devtools-if-9.2.0-beta.23.tgz}
+    name: '@intlify/devtools-if'
+    version: 9.2.0-beta.23
+    engines: {node: '>= 12'}
+    dependencies:
+      '@intlify/shared': rg.cnpmjs.org/@intlify/shared/9.2.0-beta.23
+    dev: false
+
+  rg.cnpmjs.org/@intlify/message-compiler/9.2.0-beta.23:
+    resolution: {integrity: sha512-qmGN8k5yGGdZ5St8yg8U4Tg2K9Sc6h3BhWCdJKAqQVs5jnfZG+nMtsLVgnJUWkDvhjzyg7/rEOhHm2uJcu4vjw==, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/@intlify/message-compiler/download/@intlify/message-compiler-9.2.0-beta.23.tgz}
+    name: '@intlify/message-compiler'
+    version: 9.2.0-beta.23
+    engines: {node: '>= 12'}
+    dependencies:
+      '@intlify/shared': rg.cnpmjs.org/@intlify/shared/9.2.0-beta.23
+      source-map: rg.cnpmjs.org/source-map/0.6.1
+    dev: false
+
+  rg.cnpmjs.org/@intlify/shared/9.2.0-beta.23:
+    resolution: {integrity: sha512-3aELL2KTp1MWKGm2gIUKSagthgKzcK5hpQEFzOwkJ1SAthpTXR7BHeWGEaD+Lj+Pbiz3U8cspvp8s2lFWVbYxg==, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/@intlify/shared/download/@intlify/shared-9.2.0-beta.23.tgz}
+    name: '@intlify/shared'
+    version: 9.2.0-beta.23
+    engines: {node: '>= 12'}
+    dev: false
+
+  rg.cnpmjs.org/@intlify/vue-devtools/9.2.0-beta.23:
+    resolution: {integrity: sha512-5uGvrtUQhiyEqrMpDYh1FAU5uZviLaiEy1HAs+ypX46EdaDvyEYYpWvhezTWZ7hsDBsbsKJ9ICjgTvZxm6PDcw==, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/@intlify/vue-devtools/download/@intlify/vue-devtools-9.2.0-beta.23.tgz}
+    name: '@intlify/vue-devtools'
+    version: 9.2.0-beta.23
+    engines: {node: '>= 12'}
+    dependencies:
+      '@intlify/core-base': rg.cnpmjs.org/@intlify/core-base/9.2.0-beta.23
+      '@intlify/shared': rg.cnpmjs.org/@intlify/shared/9.2.0-beta.23
+    dev: false
 
   rg.cnpmjs.org/@jest/types/27.4.2:
     resolution: {integrity: sha512-j35yw0PMTPpZsUoOBiuHzr1zTYoad1cVIE0ajEjcrJONxxrko/IRGKkXx3os0Nsi4Hu3+5VmDbVfq5WhG/pWAg==, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/@jest/types/download/@jest/types-27.4.2.tgz}
@@ -1043,6 +1095,43 @@ packages:
     resolution: {integrity: sha512-BUgRiZCkCrqDps5aQ9av05xcge3rn092ztKIh17tHkeEFgP4zfXMQWBA2zfdoCdCEdBL26xtOv+FZYiOp9RUDA==, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/@vue/shared/download/@vue/shared-3.2.24.tgz}
     name: '@vue/shared'
     version: 3.2.24
+
+  rg.cnpmjs.org/@vueuse/core/7.3.0_vue@3.2.24:
+    resolution: {integrity: sha512-gPJyMMAquva9Qwqz63qGQT122m5hWI8Kuy8kfPV/JLQU7m01CXooyv8FIrX9TV8OxVcHBTPXPJHY0oyUiFoNgw==, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/@vueuse/core/download/@vueuse/core-7.3.0.tgz}
+    id: rg.cnpmjs.org/@vueuse/core/7.3.0
+    name: '@vueuse/core'
+    version: 7.3.0
+    peerDependencies:
+      '@vue/composition-api': ^1.1.0
+      vue: ^2.6.0 || ^3.2.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      vue:
+        optional: true
+    dependencies:
+      '@vueuse/shared': rg.cnpmjs.org/@vueuse/shared/7.3.0_vue@3.2.24
+      vue: rg.cnpmjs.org/vue/3.2.24
+      vue-demi: rg.cnpmjs.org/vue-demi/0.12.1_vue@3.2.24
+    dev: true
+
+  rg.cnpmjs.org/@vueuse/shared/7.3.0_vue@3.2.24:
+    resolution: {integrity: sha512-vOAeI84tIXKVkzm8s/Mxbrzhj0QN6NyVc/sC6LrW0AjVNdvpD8sB1dZiDn9yh8T77WJmloCEt4zZVIppeq7I+w==, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/@vueuse/shared/download/@vueuse/shared-7.3.0.tgz}
+    id: rg.cnpmjs.org/@vueuse/shared/7.3.0
+    name: '@vueuse/shared'
+    version: 7.3.0
+    peerDependencies:
+      '@vue/composition-api': ^1.1.0
+      vue: ^2.6.0 || ^3.2.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      vue:
+        optional: true
+    dependencies:
+      vue: rg.cnpmjs.org/vue/3.2.24
+      vue-demi: rg.cnpmjs.org/vue-demi/0.12.1_vue@3.2.24
+    dev: true
 
   rg.cnpmjs.org/acorn-jsx/5.3.2_acorn@8.6.0:
     resolution: {integrity: sha1-ftW7VZCLOy8bxVxq8WU7rafweTc=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/acorn-jsx/download/acorn-jsx-5.3.2.tgz}
@@ -4260,7 +4349,6 @@ packages:
         optional: true
     dependencies:
       vue: rg.cnpmjs.org/vue/3.2.24
-    dev: false
 
   rg.cnpmjs.org/vue-eslint-parser/8.0.1_eslint@8.4.1:
     resolution: {integrity: sha1-JeCLIKQUVRUx8+GfmZkC4ez0XxM=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/vue-eslint-parser/download/vue-eslint-parser-8.0.1.tgz}
@@ -4282,6 +4370,22 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  rg.cnpmjs.org/vue-i18n/9.2.0-beta.23_vue@3.2.24:
+    resolution: {integrity: sha512-9zpylFVjhMDiNnSpa8pFf/lXiALKzxDKEo9QrSV906cN0m6jtyjvjCWw6dRx/7Q4ZJuwXYg0wi/UtUkgu0wkQw==, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/vue-i18n/download/vue-i18n-9.2.0-beta.23.tgz}
+    id: rg.cnpmjs.org/vue-i18n/9.2.0-beta.23
+    name: vue-i18n
+    version: 9.2.0-beta.23
+    engines: {node: '>= 12'}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      '@intlify/core-base': rg.cnpmjs.org/@intlify/core-base/9.2.0-beta.23
+      '@intlify/shared': rg.cnpmjs.org/@intlify/shared/9.2.0-beta.23
+      '@intlify/vue-devtools': rg.cnpmjs.org/@intlify/vue-devtools/9.2.0-beta.23
+      '@vue/devtools-api': rg.cnpmjs.org/@vue/devtools-api/6.0.0-beta.20.1
+      vue: rg.cnpmjs.org/vue/3.2.24
+    dev: false
 
   rg.cnpmjs.org/vue-router/4.0.12_vue@3.2.24:
     resolution: {integrity: sha1-jceSzd9bsavMOQj5BkE23n4TxGA=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/vue-router/download/vue-router-4.0.12.tgz}

@@ -17,6 +17,7 @@
     <Header>
       <template #left></template>
       <template #right>
+        <LangSelect />
         <ThemeSelect />
       </template>
     </Header>
@@ -28,14 +29,14 @@
             :key="i"
             class="go-login-carousel-img"
             :src="getImageUrl(item, 'login')"
-            alt="展示图片"
+            alt="image"
           />
         </n-carousel>
       </div>
       <div class="login-account">
         <div class="login-account-container">
           <n-collapse-transition :appear="true" :show="show">
-            <n-card class="login-account-card" title="登录 GoView">
+            <n-card class="login-account-card" :title="$t('login.desc')">
               <div class="login-account-top">
                 <img
                   class="login-account-top-logo"
@@ -53,7 +54,7 @@
                 <n-form-item path="username">
                   <n-input
                     v-model:value="formInline.username"
-                    placeholder="请输入用户名"
+                    :placeholder="$t('global.form_account')"
                   >
                     <template #prefix>
                       <n-icon size="18">
@@ -67,7 +68,7 @@
                     v-model:value="formInline.password"
                     type="password"
                     show-password-toggle
-                    placeholder="请输入密码"
+                    :placeholder="$t('global.form_password')"
                   >
                     <template #prefix>
                       <n-icon size="18">
@@ -80,7 +81,7 @@
                   <div class="flex justify-between">
                     <div class="flex-initial">
                       <n-checkbox v-model:checked="autoLogin">
-                        自动登录
+                        {{ $t('login.form_auto') }}
                       </n-checkbox>
                     </div>
                   </div>
@@ -93,7 +94,7 @@
                     :loading="loading"
                     block
                   >
-                    登录
+                    {{ $t('login.form_button') }}
                   </n-button>
                 </n-form-item>
               </n-form>
@@ -104,7 +105,7 @@
     </div>
 
     <div class="go-login-box-footer">
-      <n-a>文档地址: </n-a>
+      <n-a>{{ $t('global.doc_addr') }}: </n-a>
       <n-a italic href="http://www.mtruning.club/">
         http://www.mtruning.club/
       </n-a>
@@ -116,16 +117,20 @@
 import { reactive, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useMessage } from 'naive-ui'
-import {
-  PersonOutline as PersonOutlineIcon,
-  LockClosedOutline as LockClosedOutlineIcon
-} from '@vicons/ionicons5'
+import { useI18n } from 'vue-i18n'
 import { requireUrl } from '@/utils/index'
+import { routerTurnByName } from '@/utils/page'
 import shuffle from 'lodash/shuffle'
 import { carouselInterval } from '@/settings/designSetting'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { ThemeSelect } from '@/components/ThemeSelect'
+import { LangSelect } from '@/components/LangSelect'
 import { Header } from '@/layout/components/Header'
+import { PageEnum } from '@/enums/pageEnum'
+import {
+  PersonOutline as PersonOutlineIcon,
+  LockClosedOutline as LockClosedOutlineIcon
+} from '@vicons/ionicons5'
 
 interface FormState {
   username: string
@@ -139,6 +144,7 @@ const loading = ref(false)
 const autoLogin = ref(true)
 const show = ref(false)
 const designStore = useDesignStore()
+const { t } = useI18n()
 
 onMounted(() => {
   setTimeout(() => {
@@ -152,8 +158,16 @@ const formInline = reactive({
 })
 
 const rules = {
-  username: { required: true, message: '请输入用户名', trigger: 'blur' },
-  password: { required: true, message: '请输入密码', trigger: 'blur' }
+  username: {
+    required: true,
+    message: t('global.form_account'),
+    trigger: 'blur'
+  },
+  password: {
+    required: true,
+    message: t('global.form_password'),
+    trigger: 'blur'
+  }
 }
 
 // 定时器
@@ -194,11 +208,10 @@ const handleSubmit = (e: Event) => {
     if (!errors) {
       const { username, password } = formInline
       loading.value = true
-
-      message.success('登录成功！')
-      router.replace('/')
+      message.success(`${t('login.login_success')}！`)
+      routerTurnByName(PageEnum.BASE_HOME_NAME, true)
     } else {
-      message.error('请填写完整信息，并且进行验证码校验')
+      message.error(`${t('login.login_message')}！`)
     }
   })
 }

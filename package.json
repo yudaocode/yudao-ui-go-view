@@ -8,12 +8,13 @@
     "lint": "eslint \"{src}/**/*.{vue,ts,tsx}\" --fix --ext"
   },
   "dependencies": {
-    "@vicons/ionicons5": "^0.11.0",
+    "@vicons/ionicons5": "~0.11.0",
     "axios": "^0.23.0",
     "mockjs": "^1.1.0",
     "naive-ui": "^2.19.9",
     "pinia": "^2.0.6",
     "vue": "^3.2.16",
+    "vue-i18n": "^9.2.0-beta.23",
     "vue-router": "4.0.12"
   },
   "devDependencies": {
@@ -23,6 +24,7 @@
     "@vitejs/plugin-vue": "^1.9.3",
     "@vitejs/plugin-vue-jsx": "^1.2.0",
     "@vue/compiler-sfc": "^3.2.20",
+    "@vueuse/core": "^7.3.0",
     "default-passive-events": "^2.0.0",
     "eslint": "^8.4.1",
     "eslint-config-prettier": "^8.3.0",

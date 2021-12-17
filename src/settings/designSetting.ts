@@ -1,4 +1,21 @@
-// app theme preset color
+import { LangEnum } from '@/enums/styleEnum'
+
+// 默认语言
+export const lang = LangEnum.zh
+
+// 语言数组
+export const langList = [
+  {
+    label: '中文',
+    key: LangEnum.zh
+  },
+  {
+    label: 'English',
+    key: LangEnum.en
+  }
+]
+
+// 主体色
 export const appThemeList: string[] = [
   '#2d8cf0',
   '#0960bd',
@@ -17,22 +34,20 @@ export const appThemeList: string[] = [
   '#78DEC7',
   '#1768AC',
   '#FB9300',
-  '#FC5404',
-];
+  '#FC5404'
+]
 
 export const theme = {
-  darkThemeName: 'dark',
-  lightThemeName: 'light',
   //深色主题
   darkTheme: true,
   //系统主题色
   appTheme: '#63e2b7',
   //系统内置主题色列表
-  appThemeList,
-};
+  appThemeList
+}
 
 // 修改边框圆角
 export const borderRadius = '8px'
 
 // 轮播间隔
-export const carouselInterval = 5000
+export const carouselInterval = 4000

@@ -2,12 +2,17 @@
   <div class="go-header">
     <header class="go-header-box">
       <div class="li">
-        <slot name="left"></slot>
+        <n-space>
+          <slot name="left"></slot>
+        </n-space>
       </div>
       <div class="ri">
-        <slot name="right">
-          <ThemeSelect />
-        </slot>
+        <n-space>
+          <slot name="right">
+            <LangSelect />
+            <ThemeSelect />
+          </slot>
+        </n-space>
       </div>
     </header>
     <n-divider class="go-header-divider" />
@@ -16,6 +21,7 @@
 
 <script setup lang="ts">
 import { ThemeSelect } from '@/components/ThemeSelect'
+import { LangSelect } from '@/components/LangSelect'
 </script>
 
 <style lang="scss" scoped>

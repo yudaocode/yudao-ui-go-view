@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <n-button quaternary @click="changeTheme">
-      <n-icon size="20" :depth="1">
-        <MoonIcon v-if="designStore.darkTheme" />
-        <SunnyIcon v-else />
-      </n-icon>
-    </n-button>
-  </div>
+  <n-button quaternary @click="changeTheme">
+    <n-icon size="20" :depth="1">
+      <MoonIcon v-if="designStore.darkTheme" />
+      <SunnyIcon v-else />
+    </n-icon>
+  </n-button>
 </template>
 
 <script lang="ts" setup>
