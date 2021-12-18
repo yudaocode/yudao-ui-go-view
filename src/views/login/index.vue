@@ -6,7 +6,7 @@
         <transition-group name="list-complete">
           <template v-for="item in bgList" :key="item">
             <div class="bg-img-box-li list-complete-item">
-              <n-collapse-transition :appear="true" :show="show">
+              <n-collapse-transition :appear="true" :show="showBg">
                 <img :src="getImageUrl(item, 'chart')" alt="chart" />
               </n-collapse-transition>
             </div>
@@ -141,12 +141,16 @@ const message = useMessage()
 const loading = ref(false)
 const autoLogin = ref(true)
 const show = ref(false)
+const showBg = ref(false)
 const designStore = useDesignStore()
 const { t } = useI18n()
 
 onMounted(() => {
   setTimeout(() => {
     show.value = true
+  }, 300)
+  setTimeout(() => {
+    showBg.value = true
   }, 100)
 })
 
@@ -274,7 +278,7 @@ $carousel-image-height: 60vh;
 
       &-card {
         @extend .go-background-filter;
-        @include filter-color('filter-color');
+        @include filter-bg-color('filter-color');
         box-shadow: 0 0 20px 5px rgba(40, 40, 40, 0.5);
       }
 

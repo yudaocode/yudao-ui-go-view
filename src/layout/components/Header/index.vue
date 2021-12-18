@@ -1,5 +1,5 @@
 <template>
-  <div class="go-header">
+  <n-layout-header bordered class="go-header">
     <header class="go-header-box">
       <div class="li">
         <n-space>
@@ -8,15 +8,14 @@
       </div>
       <div class="ri">
         <n-space>
-          <slot name="right">
-            <LangSelect />
-            <ThemeSelect />
-          </slot>
+          <slot name="ri-left"> </slot>
+          <LangSelect />
+          <ThemeSelect />
+          <slot name="ri-right"> </slot>
         </n-space>
       </div>
     </header>
-    <n-divider class="go-header-divider" />
-  </div>
+  </n-layout-header>
 </template>
 
 <script setup lang="ts">
@@ -30,7 +29,7 @@ import { LangSelect } from '@/components/LangSelect'
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 40px;
+    padding: 0 60px;
     height: $--header-height;
   }
   &-divider {

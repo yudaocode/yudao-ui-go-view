@@ -33,7 +33,7 @@
 }
 
 //获取背景颜色
-@mixin filter-color($target) {
+@mixin filter-bg-color($target) {
   @include themeify {
     background-color: themed($target);
   }
@@ -50,5 +50,12 @@
 @mixin font-color($target) {
   @include themeify {
     color: themed($target);
+  }
+}
+
+//获取边框颜色
+@mixin filter-border-color($target) {
+  @include themeify {
+    border-color: themed($target);
   }
 }

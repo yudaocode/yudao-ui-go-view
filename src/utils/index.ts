@@ -1,4 +1,4 @@
-import { h } from 'vue'
+import { h, DefineComponent } from 'vue'
 import { NIcon } from 'naive-ui'
 
 /**
@@ -14,7 +14,7 @@ export function getUUID(randomLength: number) {
 /**
  * * render 图标
  */
-export const renderIcon = (icon: typeof NIcon) => {
+export const renderIcon = (icon: any) => {
   return () => h(NIcon, null, { default: () => h(icon) })
 }
 

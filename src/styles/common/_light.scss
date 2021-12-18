@@ -4,7 +4,11 @@ $light: (
   //背景
     background_color: $--color-light-fill-3,
   //渐变背景
-    background-image: linear-gradient(120deg, $--color-text-1 0%, $--color-text-1 100%),
+    background-image:
+    linear-gradient(120deg, $--color-text-1 0%, $--color-text-1 100%),
   //毛玻璃
-    filter-color: $--filter-color-login-light
+    filter-color: $--filter-color-login-light,
+  // 侧边栏
+    aside-bg: #fff,
+    aside-color: rgb(239, 239, 245)
 );

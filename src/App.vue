@@ -2,8 +2,8 @@
   <n-config-provider
     :locale="zhCN"
     :theme="getDarkTheme"
-    :theme-overrides="getThemeOverrides"
     :date-locale="dateZhCN"
+    :theme-overrides="getThemeOverrides"
   >
     <app-provider>
       <router-view />
@@ -18,7 +18,7 @@ import {
   dateZhCN,
   darkTheme,
   NConfigProvider,
-  GlobalThemeOverrides,
+  GlobalThemeOverrides
 } from 'naive-ui'
 import { AppProvider } from '@/components/Application'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
@@ -26,21 +26,35 @@ import { borderRadius } from '@/settings/designSetting'
 
 const designStore = useDesignStore()
 
+// 返回暗黑主题
+const getDarkTheme = computed(() =>
+  designStore.getDarkTheme ? darkTheme : undefined
+)
+
+// 主题配置
 const getThemeOverrides = computed(
   (): GlobalThemeOverrides => {
-    return {
+    const commonObj = {
+      common: {
+        borderRadius
+      }
+    }
+    const lightObject = {
+      common: {
+        ...commonObj.common
+      }
+    }
+    const dartObject = {
       common: {
         primaryColor: designStore.appTheme,
-        borderRadius
+        ...commonObj.common
       },
       LoadingBar: {
         colorLoading: designStore.appTheme
       }
     }
+    return designStore.getDarkTheme ? dartObject : lightObject
   }
-)
-const getDarkTheme = computed(() =>
-  designStore.getDarkTheme ? darkTheme : undefined
 )
 </script>
 

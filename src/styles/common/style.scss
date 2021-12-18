@@ -14,3 +14,31 @@
   border-radius: $--border-radius-base;
   overflow: hidden;
 }
+
+// todo 使用 scss 循环写一套完整的
+// margin
+.go-mt-0 {
+  margin-top: 0;
+}
+
+.go-mb-0 {
+  margin-bottom: 0;
+}
+
+.go-mx-0 {
+  @extend .go-mt-0;
+  @extend .go-mb-0;
+}
+
+.go-pt-0 {
+  padding-top: 0;
+}
+
+.go-pb-0 {
+  padding-bottom: 0;
+}
+
+.go-px-0 {
+  @extend .go-pt-0;
+  @extend .go-pb-0;
+}

@@ -38,13 +38,19 @@ export const appThemeList: string[] = [
 ]
 
 export const theme = {
-  //深色主题
+  // 默认是否开启深色主题
   darkTheme: true,
   //系统主题色
   appTheme: '#63e2b7',
   //系统内置主题色列表
   appThemeList
 }
+
+// 侧边栏宽度
+export const asideWidth = '240'
+
+// 侧边栏缩小后的宽度
+export const asideCollapsedWidth = '60'
 
 // 修改边框圆角
 export const borderRadius = '8px'
