@@ -8,7 +8,6 @@
     "lint": "eslint \"{src}/**/*.{vue,ts,tsx}\" --fix --ext"
   },
   "dependencies": {
-    "@vicons/ionicons5": "~0.11.0",
     "axios": "^0.23.0",
     "mockjs": "^1.1.0",
     "naive-ui": "^2.19.9",
@@ -18,6 +17,7 @@
     "vue-router": "4.0.12"
   },
   "devDependencies": {
+    "@vicons/ionicons5": "~0.11.0",
     "@types/node": "^16.11.1",
     "@typescript-eslint/eslint-plugin": "^5.6.0",
     "@typescript-eslint/parser": "^5.6.0",

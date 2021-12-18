@@ -6,17 +6,8 @@
 import { ref, onMounted } from 'vue'
 import { useLoadingBar } from 'naive-ui'
 import { MainView } from '@/layout/components/Main/index'
-const collapsed = ref<boolean>(false)
-
-const watchWidth = () => {
-  const Width = document.body.clientWidth
-  if (Width <= 950) {
-    collapsed.value = true
-  } else collapsed.value = false
-}
 
 onMounted(() => {
-  window.addEventListener('resize', watchWidth)
   //挂载在 window 方便与在js中使用
   window['$loading'] = useLoadingBar()
   window['$loading'].finish()

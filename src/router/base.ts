@@ -40,7 +40,6 @@ export const HttpErrorPage: RouteRecordRaw[] = [
   },
 ]
 
-// 404 on a page
 export const ErrorPageRoute: AppRouteRecordRaw = {
   path: '/:path(.*)*',
   name: 'ErrorPage',

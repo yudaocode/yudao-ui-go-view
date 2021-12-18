@@ -32,9 +32,5 @@ import { LangSelect } from '@/components/LangSelect'
     padding: 0 60px;
     height: $--header-height;
   }
-  &-divider {
-    margin: 0;
-    padding-top: 0;
-  }
 }
 </style>

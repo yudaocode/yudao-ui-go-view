@@ -2,8 +2,8 @@
   <n-layout-sider
     class="go-project-layout-sider"
     bordered
-    inverted
     collapse-mode="width"
+    show-trigger="bar"
     :collapsed="collapsed"
     :native-scrollbar="false"
     :collapsed-width="asideCollapsedWidth"
@@ -21,32 +21,46 @@
           :options="menuOptions"
           :collapsed-width="asideCollapsedWidth"
           :collapsed-icon-size="22"
+          :default-expanded-keys="defaultExpandedKeys"
           @update:value="handleUpdateValue"
         />
       </aside>
       <!-- 底部提示 -->
       <div class="sider-bottom">
-        <AsideFooter />
+        <AsideFooter :collapsed="collapsed" />
       </div>
     </div>
   </n-layout-sider>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { Create } from '../Create/index'
 import { AsideFooter } from '../AsideFooter/index'
 import { asideWidth, asideCollapsedWidth } from '@/settings/designSetting'
-import { menuOptionsInit } from './menu'
+import { menuOptionsInit, expandedKeys } from './menu'
 import { useRoute } from 'vue-router'
 
-const collapsed = ref(false)
+const collapsed = ref<boolean>(false)
 
 const route = useRoute()
 const routeRame = computed(() => route.name)
 const menuValue = ref(routeRame)
 
 const menuOptions = menuOptionsInit()
+
+const defaultExpandedKeys = expandedKeys()
+
+const watchWidth = () => {
+  const Width = document.body.clientWidth
+  if (Width <= 950) {
+    collapsed.value = true
+  } else collapsed.value = false
+}
+
+onMounted(() => {
+  window.addEventListener('resize', watchWidth)
+})
 </script>
 
 <style lang="scss" scoped>
@@ -71,8 +85,6 @@ $siderHeight: 100vh;
   }
   &-layout-sider {
     height: $siderHeight;
-    @include filter-bg-color('aside-bg');
-    @include filter-border-color('aside-color');
   }
   .content-top {
     top: $--header-height;

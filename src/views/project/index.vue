@@ -12,7 +12,9 @@
           :native-scrollbar="false"
         >
           <n-layout-content>
-            <router-view></router-view>
+            <TransitionMain>
+              <router-view />
+            </TransitionMain>
           </n-layout-content>
         </n-layout>
       </n-layout>
@@ -23,6 +25,7 @@
 <script setup lang="ts">
 import { Sider } from './layout/components/Sider'
 import { Header } from './layout/components/Header/index'
+import { TransitionMain } from '@/layout/components/TransitionMain/index'
 </script>
 
 <style lang="scss" scoped>

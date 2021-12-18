@@ -2,6 +2,11 @@ import type { App } from 'vue';
 import {
   create,
   NA,
+  NP,
+  NH1,
+  NH2,
+  NH3,
+  NH4,
   NText,
   NConfigProvider,
   NMessageProvider,
@@ -76,6 +81,11 @@ import {
 const naive = create({
   components: [
     NA,
+    NP,
+    NH1,
+    NH2,
+    NH3,
+    NH4,
     NText,
     NMessageProvider,
     NDialogProvider,

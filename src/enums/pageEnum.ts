@@ -13,9 +13,17 @@ export enum PageEnum {
   BASE_HOME = '/project',
   BASE_HOME_NAME = 'Project',
 
+  // 我的项目
+  BASE_HOME_ITEMS = '/project/items',
+  BASE_HOME_ITEMS_NAME = 'Project-Ttems',
+
+  // 我的模板
+  BASE_HOME_TEMPLATE = '/project/my-template',
+  BASE_HOME_TEMPLATE_NAME = 'Project-My-Template',
+
   // 模板市场
-  BASE_HOME_Template_Market = '/project/templateMarket',
-  BASE_HOME_Template_Market_NAME = 'Project-TemplateMarket',
+  BASE_HOME_TEMPLATE_MARKET = '/project/template-market',
+  BASE_HOME_TEMPLATE_MARKET_NAME = 'Project-Template-Market',
 
   // 错误
   ERROR_PAGE_NAME_403 = 'ErrorPage403',

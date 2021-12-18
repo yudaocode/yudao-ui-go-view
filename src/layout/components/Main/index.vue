@@ -1,11 +1,7 @@
 <template>
   <router-view>
     <template #default="{ Component, route }">
-      <transition name="list-complete" mode="out-in" appear>
-        <keep-alive>
-          <component :is="Component" :key="route.fullPath" />
-        </keep-alive>
-      </transition>
+      <component :is="Component" :key="route.fullPath" />
     </template>
   </router-view>
 </template>

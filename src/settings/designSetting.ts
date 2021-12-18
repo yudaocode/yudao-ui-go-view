@@ -47,7 +47,7 @@ export const theme = {
 }
 
 // 侧边栏宽度
-export const asideWidth = '240'
+export const asideWidth = '270'
 
 // 侧边栏缩小后的宽度
 export const asideCollapsedWidth = '60'

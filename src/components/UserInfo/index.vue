@@ -5,18 +5,17 @@
     :show-arrow="true"
     :options="options"
   >
-    <n-button quaternary circle>
-      <n-icon size="20" :depth="1">
-        <PersonOutlineIcon v-show="fallback" />
-      </n-icon>
+    <div class="user-info-box">
+      <PersonIcon v-if="fallback" />
       <n-avatar
-        v-show="!fallback"
+        v-if="!fallback"
         round
-        size="small"
+        object-fit="cover"
+        size="medium"
         :src="imageUrl"
         @error="errorHandle"
       />
-    </n-button>
+    </div>
   </n-dropdown>
 </template>
 
@@ -26,9 +25,10 @@ import { NAvatar, NText } from 'naive-ui'
 import { renderIcon } from '@/utils/index'
 import { openDoc, logout } from '@/utils/page'
 import {
-  Person as PersonOutlineIcon,
+  Person as PersonIcon,
   LogOutOutline as LogOutOutlineIcon,
-  DocumentText as DocumentTextIcon
+  DocumentText as DocumentTextIcon,
+  ChatboxEllipses as ChatboxEllipsesIcon
 } from '@vicons/ionicons5'
 
 const imageUrl = 'https://www.naiveui.com/assets/naivelogo.93278402.svg'
@@ -75,6 +75,11 @@ const options = [
     icon: renderIcon(DocumentTextIcon)
   },
   {
+    label: '联系我们',
+    key: 'contact',
+    icon: renderIcon(ChatboxEllipsesIcon)
+  },
+  {
     type: 'divider',
     key: 'd2'
   },
@@ -95,9 +100,19 @@ const handleSelect = (key: string) => {
     case 'doc':
       openDoc()
       break
+    case 'contact':
+      openDoc()
+      break
     case 'logout':
       logout()
       break
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.user-info-box {
+  cursor: pointer;
+  transform: scale(.7);
+}
+</style>
