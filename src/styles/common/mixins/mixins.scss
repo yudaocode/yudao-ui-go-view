@@ -9,6 +9,12 @@
   }
 }
 
+@mixin deep() {
+  ::v-deep *{
+    @content;
+  }
+}
+
 @mixin when($state) {
   @at-root {
     &.#{$state-prefix + $state} {
@@ -46,10 +52,10 @@
   }
 }
 
-//获取字体颜色
-@mixin font-color($target) {
+//获取斑点渐变颜色
+@mixin background-point($target) {
   @include themeify {
-    color: themed($target);
+    background-image: themed($target);
   }
 }
 

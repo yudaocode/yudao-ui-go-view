@@ -1,10 +1,7 @@
 <template>
   <router-view #default="{ Component, route }">
-    <n-collapse-transition appear>
-      <component :is="Component" :key="route.fullPath" />
-    </n-collapse-transition>
-    <!-- todo 暂时不生效，待处理 -->
-    <!-- <transition name="v-modal" mode="out-in" appear>
+    <!-- todo 动画暂时不生效，待处理 -->
+    <transition name="v-modal" mode="out-in" appear>
       <component
         v-if="route.noKeepAlive"
         :is="Component"
@@ -13,6 +10,6 @@
       <keep-alive v-else>
         <component :is="Component" :key="route.fullPath" />
       </keep-alive>
-    </transition> -->
+    </transition>
   </router-view>
 </template>

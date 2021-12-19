@@ -3,7 +3,7 @@ import App from './App.vue'
 import router, { setupRouter } from '@/router'
 import i18n from '@/i18n/index'
 import { setupStore } from '@/store'
-import { setupNaive, setupDirectives } from '@/plugins'
+import { setupNaive, setupDirectives, setupCustomComponents } from '@/plugins'
 import { AppProvider } from '@/components/Application'
 import { setHtmlTheme } from '@/utils/style'
 
@@ -15,8 +15,11 @@ async function appInit() {
   // 注册全局常用的 naive-ui 组件
   setupNaive(app)
 
-  // 注册全局自定义指令，如：v-permission权限指令
+  // 注册全局自定义指令
   setupDirectives(app)
+
+  // 注册全局自定义组件
+  setupCustomComponents(app)
 
   // 挂载状态管理
   setupStore(app)

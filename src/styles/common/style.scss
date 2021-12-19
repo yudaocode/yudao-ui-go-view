@@ -1,7 +1,26 @@
 @import './var.scss';
 @import './animation.scss';
+@import './mixins/mixins.scss';
 
 // extends
+// 过度
+.go-transition {
+  transition: all 0.2s;
+}
+
+.go-flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.go-absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 // 毛玻璃
 .go-background-filter {
   backdrop-filter: $--filter-blur-base;
@@ -13,6 +32,12 @@
 .go-border-radius {
   border-radius: $--border-radius-base;
   overflow: hidden;
+}
+
+// 背景斑点需配合 @mixin background-point 使用
+.go-point-bg {
+  @include fetch-theme('background-color');
+  background-size: 15px 15px, 15px 15px;
 }
 
 // todo 使用 scss 循环写一套完整的

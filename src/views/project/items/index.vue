@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { List } from './List'
+import { List } from './components/List'
 </script>
 
 <style lang="scss" scoped>

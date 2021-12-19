@@ -53,7 +53,7 @@ export const asideWidth = '270'
 export const asideCollapsedWidth = '60'
 
 // 修改边框圆角
-export const borderRadius = '8px'
+export const borderRadius = '4px'
 
 // 轮播间隔
 export const carouselInterval = 4000

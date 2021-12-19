@@ -5,9 +5,9 @@
     :date-locale="dateZhCN"
     :theme-overrides="getThemeOverrides"
   >
-    <app-provider>
+    <AppProvider>
       <router-view />
-    </app-provider>
+    </AppProvider>
   </n-config-provider>
 </template>
 

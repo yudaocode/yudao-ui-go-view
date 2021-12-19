@@ -26,7 +26,7 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         javascriptEnabled: true,
-        additionalData: `@import "src/styles/common/style.scss";@import "src/styles/common/mixins/mixins.scss";`,
+        additionalData: `@import "src/styles/common/style.scss";`,
       },
     },
   },
