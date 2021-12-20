@@ -4,7 +4,11 @@
       <div class="list-content">
         <!-- 顶部按钮 -->
         <n-space class="list-content-top">
-          <AppleControlBtn :hidden="['remove']" @close="deleteHanlde" @resize="resizeHandle" />
+          <AppleControlBtn
+            :hidden="['remove']"
+            @close="deleteHanlde"
+            @resize="resizeHandle"
+          />
         </n-space>
         <!-- 中间 -->
         <div class="list-content-img">
@@ -76,6 +80,8 @@ import { renderIcon, goDialog } from '@/utils'
 import { icon } from '@/plugins'
 import { AppleControlBtn } from '@/components/AppleControlBtn'
 import { useMessage, useDialog } from 'naive-ui'
+import { DialogEnum } from '@/enums/pluginEnum'
+import { DialogReactive } from 'naive-ui'
 const {
   EllipsisHorizontalCircleSharpIcon,
   CopyIcon,
@@ -160,10 +166,13 @@ const requireUrl = (path: string, name: string) => {
 
 // 删除处理
 const deleteHanlde = () => {
-  goDialog(dialog.warning, {
-    type: 'delete',
-    onPositiveCallback: () => {
-      message.success('删除成功')
+  goDialog({
+    type: DialogEnum.delete,
+    promise: true,
+    onPositiveCallback: () =>
+      new Promise(res => setTimeout(() => res(1), 1000)),
+    promiseResCallback: (e: any) => {
+      window.$message.success('删除成功')
     }
   })
 }
