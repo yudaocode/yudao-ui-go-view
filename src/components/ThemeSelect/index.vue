@@ -9,7 +9,7 @@
 
 <script lang="ts" setup>
 import { useDesignStore } from '@/store/modules/designStore/designStore'
-import { setHtmlTheme } from '@/utils/style'
+import { setHtmlTheme } from '@/utils'
 import { Moon as MoonIcon, Sunny as SunnyIcon } from '@vicons/ionicons5'
 
 const designStore = useDesignStore()

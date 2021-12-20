@@ -4,7 +4,7 @@
       <div class="list-content">
         <!-- 顶部按钮 -->
         <n-space class="list-content-top">
-          <AppleControlBtn @close="deleteHanlde" @resize="resizeHandle" />
+          <AppleControlBtn :hidden="['remove']" @close="deleteHanlde" @resize="resizeHandle" />
         </n-space>
         <!-- 中间 -->
         <div class="list-content-img">
@@ -72,7 +72,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { renderIcon, goDialog } from '@/utils/index'
+import { renderIcon, goDialog } from '@/utils'
 import { icon } from '@/plugins'
 import { AppleControlBtn } from '@/components/AppleControlBtn'
 import { useMessage, useDialog } from 'naive-ui'
@@ -163,7 +163,7 @@ const deleteHanlde = () => {
   goDialog(dialog.warning, {
     type: 'delete',
     onPositiveCallback: () => {
-      message.success('确定')
+      message.success('删除成功')
     }
   })
 }

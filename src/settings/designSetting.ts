@@ -46,6 +46,12 @@ export const theme = {
   appThemeList
 }
 
+// dialog 图标的大小
+export const dialogIconSize = '20'
+
+// 弹窗是否可以通过点击遮罩关闭
+export const maskClosable = false
+
 // 侧边栏宽度
 export const asideWidth = '270'
 

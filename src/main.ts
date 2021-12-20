@@ -5,7 +5,7 @@ import i18n from '@/i18n/index'
 import { setupStore } from '@/store'
 import { setupNaive, setupDirectives, setupCustomComponents } from '@/plugins'
 import { AppProvider } from '@/components/Application'
-import { setHtmlTheme } from '@/utils/style'
+import { setHtmlTheme } from '@/utils'
 
 async function appInit() {
   const appProvider = createApp(AppProvider)

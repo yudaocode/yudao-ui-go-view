@@ -22,8 +22,8 @@
 <script lang="ts" setup>
 import { h, ref } from 'vue'
 import { NAvatar, NText } from 'naive-ui'
-import { renderIcon } from '@/utils/index'
-import { openDoc, logout } from '@/utils/page'
+import { renderIcon } from '@/utils'
+import { openDoc, logout } from '@/utils'
 import {
   Person as PersonIcon,
   LogOutOutline as LogOutOutlineIcon,

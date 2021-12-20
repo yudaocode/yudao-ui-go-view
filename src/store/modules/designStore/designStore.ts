@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { store } from '@/store'
 import { theme } from '@/settings/designSetting'
 import { DesignStateType } from './designStore.d'
-import { setLocalStorage, getLocalStorage } from '@/utils/storage'
+import { setLocalStorage, getLocalStorage } from '@/utils'
 import { GO_Theme_SELECT } from '@/settings/storageConst'
 import { ThemeEnum } from '@/enums/styleEnum'
 

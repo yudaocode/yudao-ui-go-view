@@ -3,7 +3,7 @@ import { lang } from '@/settings/designSetting'
 import { LangStateType } from './langStore.d'
 import { LangEnum } from '@/enums/styleEnum'
 import i18n from '@/i18n/index'
-import { setLocalStorage } from '@/utils/storage'
+import { setLocalStorage } from '@/utils'
 import { GO_LANG_SELECT } from '@/settings/storageConst'
 
 export const useLangStore = defineStore({

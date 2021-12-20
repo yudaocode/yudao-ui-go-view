@@ -54,7 +54,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { openDoc, openGiteeSourceCode } from '@/utils/page'
+import { openDoc, openGiteeSourceCode } from '@/utils'
 
 import {
   HelpCircleOutline as HelpOutlineIcon,

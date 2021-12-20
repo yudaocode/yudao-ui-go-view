@@ -10,7 +10,8 @@ import {
   ApertureSharp as ApertureSharpIcon,
   DownloadOutline as DownloadIcon,
   Open as OpenIcon,
-  Send as SendIcon
+  Send as SendIcon,
+  InformationCircleOutline as InformationCircleIcon
 } from '@vicons/ionicons5'
 
 // ionicons5 在这里
@@ -39,6 +40,8 @@ const ionicons5 = {
   OpenIcon,
   // 导出
   SendIcon,
+  // 信息
+  InformationCircleIcon
 }
 
 // https://www.xicons.org/#/ 还有很多

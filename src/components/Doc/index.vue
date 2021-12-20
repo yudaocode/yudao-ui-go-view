@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts" setup>
-import { openDoc } from '@/utils/page'
+import { openDoc } from '@/utils'
 import { DocumentText as DocumentTextIcon } from '@vicons/ionicons5'
 
 const handleClick = () => {

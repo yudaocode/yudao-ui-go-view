@@ -58,7 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import { renderIcon } from '@/utils/index'
+import { renderIcon } from '@/utils'
 import { icon } from '@/plugins'
 import { AppleControlBtn } from '@/components/AppleControlBtn'
 const { HammerIcon } = icon.ionicons5
