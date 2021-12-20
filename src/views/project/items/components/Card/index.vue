@@ -3,13 +3,14 @@
     <n-card hoverable size="small">
       <div class="list-content">
         <!-- 顶部按钮 -->
-        <n-space class="list-content-top">
+        <div class="list-content-top">
           <AppleControlBtn
+            class="top-btn"
             :hidden="['remove']"
             @close="deleteHanlde"
             @resize="resizeHandle"
           />
-        </n-space>
+        </div>
         <!-- 中间 -->
         <div class="list-content-img">
           <n-image
@@ -29,7 +30,6 @@
           <n-text>
             {{ cardData.title || '' }}
           </n-text>
-
           <!-- 工具 -->
           <n-space>
             <n-text>
@@ -162,10 +162,10 @@ const handleSelect = (key: string) => {
   switch (key) {
     case 'delete':
       deleteHanlde()
-      break;
-  
+      break
+
     default:
-      break;
+      break
   }
 }
 

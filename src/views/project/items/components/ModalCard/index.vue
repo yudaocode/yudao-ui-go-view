@@ -26,10 +26,18 @@
         </div>
         <template #action>
           <n-space class="list-footer" justify="space-between">
-            <n-text>
-              {{ cardData?.title || '' }}
-            </n-text>
-
+            <n-space>
+              <n-text>
+                {{ cardData?.title || '' }}
+              </n-text>
+              <n-text depth="3">
+                最后编辑于：
+                <n-time
+                  :time="new Date()"
+                  format="yyyy-MM-dd hh:mm"
+                />
+              </n-text>
+            </n-space>
             <!-- 工具 -->
             <n-space>
               <n-text>
