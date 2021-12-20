@@ -192,7 +192,7 @@ const bgList = ref([
 
 // 处理url获取
 const getImageUrl = (name: string, folder: string) => {
-  return requireUrl(`../assets/images/${folder}`, `${name}.png`)
+  return requireUrl(`../assets/images/${folder}/`, `${name}.png`)
 }
 
 // 打乱

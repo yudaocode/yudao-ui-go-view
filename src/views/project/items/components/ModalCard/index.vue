@@ -14,7 +14,12 @@
           <!-- 中间 -->
           <div class="list-content-img">
             <img
-              :src="requireUrl('.', '20211219181327.png')"
+              :src="
+                requireUrl(
+                  '../assets/images/project',
+                  'moke-20211219181327.png'
+                )
+              "
               :alt="cardData?.title"
             />
           </div>
@@ -58,7 +63,7 @@
 </template>
 
 <script setup lang="ts">
-import { renderIcon } from '@/utils'
+import { renderIcon, requireUrl, requireFallbackImg } from '@/utils'
 import { icon } from '@/plugins'
 import { AppleControlBtn } from '@/components/AppleControlBtn'
 const { HammerIcon } = icon.ionicons5
@@ -73,11 +78,6 @@ const props = defineProps({
 const handleSelect = (key: string) => {
   console.log(key)
 }
-
-const requireUrl = (path: string, name: string) => {
-  return new URL(`${path}/${name}`, import.meta.url).href
-}
-
 const fnBtnList = [
   {
     label: '编辑',

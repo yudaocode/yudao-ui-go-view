@@ -16,8 +16,11 @@
             object-fit="contain"
             height="200"
             preview-disabled
-            :src="requireUrl('.', '20211219181327.png')"
+            :src="
+              requireUrl('../assets/images/project', 'moke-20211219181327.png')
+            "
             :alt="cardData.title"
+            :fallback-src="requireFallbackImg()"
           />
         </div>
       </div>
@@ -76,12 +79,12 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { renderIcon, goDialog } from '@/utils'
+import { renderIcon, goDialog, requireUrl, requireFallbackImg } from '@/utils'
 import { icon } from '@/plugins'
 import { AppleControlBtn } from '@/components/AppleControlBtn'
 import { useMessage, useDialog } from 'naive-ui'
 import { DialogEnum } from '@/enums/pluginEnum'
-import { DialogReactive } from 'naive-ui'
+
 const {
   EllipsisHorizontalCircleSharpIcon,
   CopyIcon,
@@ -158,10 +161,6 @@ const selectOptions = [
 
 const handleSelect = (key: string) => {
   console.log(key)
-}
-
-const requireUrl = (path: string, name: string) => {
-  return new URL(`${path}/${name}`, import.meta.url).href
 }
 
 // 删除处理

@@ -20,12 +20,23 @@ export const renderIcon = (icon: any, set = {}) => {
 }
 
 /**
- * * 处理 vite 中无法使用 require 的问题
+ * * 处理 vite 中无法使用 require 的问题，utils 文件为根路径
+ * @param path
  * @param name
  * @returns url
  */
 export const requireUrl = (path: string, name: string) => {
   return new URL(`${path}/${name}`, import.meta.url).href
+}
+/**
+ * * 获取错误处理图片，默认 404 图
+ * @param path
+ * @param name
+ * @returns url
+ */
+export const requireFallbackImg = (path?: string, name?: string) => {
+  const url = path && name
+  return new URL(url?`${path}/${name}`: '../assets/images/exception/image-404.png', import.meta.url).href
 }
 
 export const screenfullFn = (isFullscreen?: boolean, isEnabled?: boolean) => {
