@@ -11,11 +11,50 @@ import {
   DownloadOutline as DownloadIcon,
   Open as OpenIcon,
   Send as SendIcon,
-  InformationCircleOutline as InformationCircleIcon
+  InformationCircleOutline as InformationCircleIcon,
+  Beer as BeerIcon,
+  Grid as GridIcon,
+  TvOutline as DesktopIcon,
+  LaptopOutline as LaptopOutlineIcon,
+  DocumentText as DocumentTextIcon,
+  Language as LanguageIcon,
+  Moon as MoonIcon,
+  Sunny as SunnyIcon,
+  Person as PersonIcon,
+  PersonOutline as PersonOutlineIcon,
+  LogOutOutline as LogOutOutlineIcon,
+  ChatboxEllipses as ChatboxEllipsesIcon,
+  LockClosedOutline as LockClosedOutlineIcon,
+  HelpCircleOutline as HelpOutlineIcon,
+  CodeSlash as CodeSlashIcon,
+  Duplicate as DuplicateIcon,
+  DuplicateOutline as DuplicateOutlineIcon
 } from '@vicons/ionicons5'
 
 // ionicons5 在这里
 const ionicons5 = {
+  // 帮助
+  HelpOutlineIcon,
+  // 添加
+  DuplicateIcon,
+  // 添加 Outline
+  DuplicateOutlineIcon,
+  // 代码
+  CodeSlashIcon,
+  // 退出
+  LogOutOutlineIcon,
+  // 锁
+  LockClosedOutlineIcon, 
+  // 人
+  PersonIcon,
+  // 人2
+  PersonOutlineIcon,
+  // 更多（省略号）
+  ChatboxEllipsesIcon,
+  // 月亮
+  MoonIcon,
+  // 太阳
+  SunnyIcon,
   // 关闭
   CloseIcon,
   // 移除（最小化）
@@ -41,7 +80,19 @@ const ionicons5 = {
   // 导出
   SendIcon,
   // 信息
-  InformationCircleIcon
+  InformationCircleIcon,
+  // 物料（颜色混合）
+  BeerIcon,
+  // 项目
+  GridIcon,
+  // 电脑1
+  DesktopIcon,
+  // 电脑2
+  LaptopOutlineIcon,
+  // 文档
+  DocumentTextIcon,
+  // 语言
+  LanguageIcon
 }
 
 // https://www.xicons.org/#/ 还有很多

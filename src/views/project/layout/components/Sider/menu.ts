@@ -3,13 +3,9 @@ import { renderIcon } from '@/utils'
 import { RouterLink } from 'vue-router'
 import { PageEnum } from '@/enums/pageEnum'
 import { MenuOption, MenuGroupOption } from 'naive-ui'
-import {
-  Grid as GridIcon,
-  LogoAppleAppstore as LogoAppleAppstoreIcon,
-  TvOutline as DesktopIcon,
-  LaptopOutline as LaptopOutlineIcon,
-} from '@vicons/ionicons5'
+import { icon } from '@/plugins'
 
+const { GridIcon, BeerIcon, DesktopIcon, LaptopOutlineIcon } = icon.ionicons5
 export const renderMenuLabel = (option: MenuOption | MenuGroupOption) => {
   return option.label
 }
@@ -81,7 +77,7 @@ export const menuOptionsInit = () => {
           { default: () => '物料市场' }
         ),
       key: PageEnum.BASE_HOME_TEMPLATE_MARKET_NAME,
-      icon: renderIcon(LogoAppleAppstoreIcon)
+      icon: renderIcon(BeerIcon)
     }
   ])
 }

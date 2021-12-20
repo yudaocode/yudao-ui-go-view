@@ -125,10 +125,9 @@ import { LangSelect } from '@/components/LangSelect'
 import { Header } from '@/layout/components/Header'
 import { Footer } from '@/layout/components/Footer'
 import { PageEnum } from '@/enums/pageEnum'
-import {
-  PersonOutline as PersonOutlineIcon,
-  LockClosedOutline as LockClosedOutlineIcon
-} from '@vicons/ionicons5'
+import { icon } from '@/plugins'
+
+const { ChatboxEllipsesIcon, LockClosedOutlineIcon } = icon.ionicons5
 
 interface FormState {
   username: string

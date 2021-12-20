@@ -24,12 +24,9 @@ import { h, ref } from 'vue'
 import { NAvatar, NText } from 'naive-ui'
 import { renderIcon } from '@/utils'
 import { openDoc, logout } from '@/utils'
-import {
-  Person as PersonIcon,
-  LogOutOutline as LogOutOutlineIcon,
-  DocumentText as DocumentTextIcon,
-  ChatboxEllipses as ChatboxEllipsesIcon
-} from '@vicons/ionicons5'
+
+import { icon } from '@/plugins'
+const { DocumentTextIcon, ChatboxEllipsesIcon, PersonIcon, LogOutOutlineIcon } = icon.ionicons5
 
 const imageUrl = 'https://www.naiveui.com/assets/naivelogo.93278402.svg'
 

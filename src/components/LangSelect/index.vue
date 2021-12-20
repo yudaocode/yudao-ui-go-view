@@ -15,10 +15,11 @@
 
 <script lang="ts" setup>
 import { useLangStore } from '@/store/modules/langStore/langStore'
-import { Language as LanguageIcon } from '@vicons/ionicons5'
 import { langList } from '@/settings/designSetting'
 import { LangEnum } from '@/enums/styleEnum'
+import { icon } from '@/plugins'
 
+const { LanguageIcon } = icon.ionicons5
 const langStore = useLangStore()
 const options = langList
 

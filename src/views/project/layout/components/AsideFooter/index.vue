@@ -56,10 +56,8 @@
 <script setup lang="ts">
 import { openDoc, openGiteeSourceCode } from '@/utils'
 
-import {
-  HelpCircleOutline as HelpOutlineIcon,
-  CodeSlash as CodeSlashIcon
-} from '@vicons/ionicons5'
+import { icon } from '@/plugins'
+const { HelpOutlineIcon, CodeSlashIcon} = icon.ionicons5
 
 const props = defineProps({
   collapsed: Boolean

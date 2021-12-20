@@ -18,10 +18,9 @@
 import { reactive, ref } from 'vue'
 import { Card } from '../Card/index'
 import { ModalCard } from '../ModalCard/index'
-import {
-  EllipsisHorizontalSharp as EllipsisHorizontalCircleSharpIcon,
-  CopyOutline as CopyIcon
-} from '@vicons/ionicons5'
+ 
+import { icon } from '@/plugins'
+const { CopyIcon, EllipsisHorizontalCircleSharpIcon } = icon.ionicons5
 
 const list = reactive([
   {

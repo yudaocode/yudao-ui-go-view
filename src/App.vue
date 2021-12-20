@@ -18,8 +18,6 @@ import { useDesignStore } from '@/store/modules/designStore/designStore'
 
 import { getDarkThemeHook, getThemeOverridesHook } from '@/hooks'
 
-const designStore = useDesignStore()
-
 // 返回暗黑主题
 const getDarkTheme = getDarkThemeHook()
 
