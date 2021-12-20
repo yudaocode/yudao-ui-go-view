@@ -3,12 +3,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import { useLoadingBar } from 'naive-ui'
 import { MainView } from '@/layout/components/Main/index'
 
 onMounted(() => {
-  //挂载在 window 方便与在js中使用
+  // 挂载在 window 方便与在js中使用
   window['$loading'] = useLoadingBar()
   window['$loading'].finish()
 })
