@@ -26,7 +26,7 @@ import { renderIcon } from '@/utils'
   const tip = {
     delete: '是否删除此数据'
   }
-  dialogFn({
+  const instance = dialogFn({
     title: '提示',
     icon: renderIcon(InformationCircleIcon, { size: dialogIconSize }),
     content: message || tip[type] || '',
@@ -34,10 +34,10 @@ import { renderIcon } from '@/utils'
     negativeText: '取消',
     maskClosable: maskClosable,
     onPositiveClick: () => {
-      onPositiveCallback && onPositiveCallback()
+      onPositiveCallback && onPositiveCallback(instance)
     },
     onNegativeClick: () => {
-      onNegativeCallback && onNegativeCallback()
+      onNegativeCallback && onNegativeCallback(instance)
     }
   })
 }
