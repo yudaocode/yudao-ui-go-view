@@ -79,11 +79,10 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { renderIcon, goDialog, requireUrl, requireFallbackImg } from '@/utils'
+import { renderIcon, requireUrl, requireFallbackImg } from '@/utils'
 import { icon } from '@/plugins'
 import { AppleControlBtn } from '@/components/AppleControlBtn'
 import { useMessage, useDialog } from 'naive-ui'
-import { DialogEnum } from '@/enums/pluginEnum'
 
 const {
   EllipsisHorizontalCircleSharpIcon,
@@ -99,7 +98,7 @@ const {
 const dialog = useDialog()
 const message = useMessage()
 
-const emit = defineEmits(['resize'])
+const emit = defineEmits(['delete', 'resize'])
 
 const props = defineProps({
   cardData: Object
@@ -160,20 +159,19 @@ const selectOptions = [
 ]
 
 const handleSelect = (key: string) => {
-  console.log(key)
+  switch (key) {
+    case 'delete':
+      deleteHanlde()
+      break;
+  
+    default:
+      break;
+  }
 }
 
 // 删除处理
 const deleteHanlde = () => {
-  goDialog({
-    type: DialogEnum.delete,
-    promise: true,
-    onPositiveCallback: () =>
-      new Promise(res => setTimeout(() => res(1), 1000)),
-    promiseResCallback: (e: any) => {
-      window.$message.success('删除成功')
-    }
-  })
+  emit('delete', props.cardData)
 }
 
 // 放大处理
