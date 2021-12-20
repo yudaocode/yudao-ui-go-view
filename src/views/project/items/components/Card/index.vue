@@ -4,37 +4,41 @@
       <div class="list-content">
         <!-- 顶部按钮 -->
         <n-space class="list-content-top">
-          <AppleControlBtn @close="deleteHanlde" />
+          <AppleControlBtn @close="deleteHanlde" @resize="resizeHandle" />
         </n-space>
         <!-- 中间 -->
         <div class="list-content-img">
           <n-image
             object-fit="contain"
             height="200"
+            preview-disabled
             :src="requireUrl('.', '20211219181327.png')"
-            :alt="CardData.title"
+            :alt="cardData.title"
           />
         </div>
       </div>
       <template #action>
-        <Skeleton v-if="loading" :loading="loading" text round size="small" />
-        <n-space v-else justify="space-between">
+        <n-space class="list-footer" justify="space-between">
           <n-text>
-            {{ CardData.title || '' }}
+            {{ cardData.title || '' }}
           </n-text>
 
           <!-- 工具 -->
           <n-space>
             <n-text>
-              <n-badge class="animation-twinkle" dot :color="CardData.release ? '#34c749' : '#fcbc40'" />
-              {{ CardData.release ? '已发布' : '未发布' }}
+              <n-badge
+                class="animation-twinkle"
+                dot
+                :color="cardData.release ? '#34c749' : '#fcbc40'"
+              />
+              {{ cardData.release ? '已发布' : '未发布' }}
             </n-text>
 
             <template v-for="item in fnBtnList" :key="item.key">
               <template v-if="item.key === 'select'">
                 <n-dropdown
                   trigger="hover"
-                  placement="bottom-start"
+                  placement="bottom"
                   :options="selectOptions"
                   :show-arrow="true"
                   @select="handleSelect"
@@ -47,11 +51,16 @@
                 </n-dropdown>
               </template>
 
-              <n-button v-else size="small">
-                <template #icon>
-                  <component :is="item.icon" />
+              <n-tooltip v-else placement="bottom" trigger="hover">
+                <template #trigger>
+                  <n-button size="small">
+                    <template #icon>
+                      <component :is="item.icon" />
+                    </template>
+                  </n-button>
                 </template>
-              </n-button>
+                <span> {{ item.label }}</span>
+              </n-tooltip>
             </template>
           </n-space>
           <!-- end -->
@@ -73,17 +82,26 @@ const {
   TrashIcon,
   PencilIcon,
   ApertureSharpIcon,
-  DownloadIcon
+  DownloadIcon,
+  HammerIcon,
+  SendIcon
 } = icon.ionicons5
 
-const loading = ref<boolean>(true)
 const dialog = useDialog()
 const message = useMessage()
-defineProps({
-  CardData: Object
+
+const emit = defineEmits(['resize'])
+
+const props = defineProps({
+  cardData: Object
 })
 
 const fnBtnList = [
+  {
+    label: '编辑',
+    key: 'edit',
+    icon: renderIcon(HammerIcon)
+  },
   {
     lable: '更多',
     key: 'select',
@@ -108,13 +126,22 @@ const selectOptions = [
     icon: renderIcon(PencilIcon)
   },
   {
+    type: 'divider',
+    key: 'd1'
+  },
+  {
+    label: props.cardData?.release ? '取消发布' : '发布',
+    key: 'send',
+    icon: renderIcon(SendIcon)
+  },
+  {
     label: '下载',
     key: 'download',
     icon: renderIcon(DownloadIcon)
   },
   {
     type: 'divider',
-    key: 'd1'
+    key: 'd2'
   },
   {
     label: '删除',
@@ -131,6 +158,7 @@ const requireUrl = (path: string, name: string) => {
   return new URL(`${path}/${name}`, import.meta.url).href
 }
 
+// 删除处理
 const deleteHanlde = () => {
   goDialog(dialog.warning, {
     type: 'delete',
@@ -140,9 +168,10 @@ const deleteHanlde = () => {
   })
 }
 
-setTimeout(() => {
-  loading.value = false
-}, 1500)
+// 放大处理
+const resizeHandle = () => {
+  emit('resize', props.cardData)
+}
 </script>
 
 <style lang="scss" scoped>
@@ -157,7 +186,7 @@ $contentHeight: 200px;
     @extend .go-point-bg;
     &-top {
       position: absolute;
-      top: 5px;
+      top: 10px;
       left: 10px;
       height: 22px;
     }
@@ -171,6 +200,9 @@ $contentHeight: 200px;
         }
       }
     }
+  }
+  .list-footer {
+    line-height: 30px;
   }
 }
 </style>

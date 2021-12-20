@@ -1,6 +1,6 @@
 <template>
   <div class="go-apple-control-btn">
-    <template v-for="item in btnList" :key="item.key">
+    <template v-for="item in filterBtnList" :key="item.key">
       <div
         class="btn"
         :class="[item.key, disabled && 'disabled']"
@@ -14,13 +14,28 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { renderIcon } from '@/utils/index'
 import { icon } from '@/plugins'
+import { computed } from 'vue'
+import { screenfullFn } from '@/utils'
 
-const emit = defineEmits(['close', 'remove', 'resize'])
+const emit = defineEmits(['close', 'remove', 'resize', 'fullResize'])
 
 const props = defineProps({
+  // 禁用所有按钮
   disabled: {
+    request: false,
+    type: Boolean,
+    default: false
+  },
+  // 要隐藏的按钮
+  hidden: {
+    request: false,
+    type: Array,
+    default: []
+  },
+  // 使用全屏功能
+  narrow: {
+    request: false,
     type: Boolean,
     default: false
   }
@@ -28,6 +43,16 @@ const props = defineProps({
 
 const { CloseIcon, RemoveIcon, ResizeIcon } = icon.ionicons5
 
+const filterBtnList = computed(() => {
+  const res = btnList.filter(e => {
+    return props.hidden.findIndex(p => e.key == p) === -1
+  })
+  return res
+})
+
+const isFull = computed(() => {
+  return props.narrow && screenfullFn(true)
+})
 const btnList = [
   {
     title: '关闭',
@@ -40,14 +65,16 @@ const btnList = [
     icon: RemoveIcon
   },
   {
-    title: '放大',
-    key: 'resize',
+    title: isFull ? '缩小' : '放大',
+    key: props.narrow ? 'fullResize' : 'resize',
     icon: ResizeIcon
   }
 ]
 
-const handleClick = (key: 'close' | 'remove' | 'resize') => {
-  console.log(key)
+const handleClick = (key: 'close' | 'remove' | 'resize' | 'fullResize') => {
+  if (key === 'fullResize') screenfullFn()
+  // 缩小并关闭全屏
+  if (key === 'remove') screenfullFn(true) && screenfullFn()
   emit(key)
 }
 </script>
@@ -74,7 +101,7 @@ const handleClick = (key: 'close' | 'remove' | 'resize') => {
     font-weight: bold;
     border-radius: 50%;
     &.disabled {
-      pointer-events:none;
+      pointer-events: none;
     }
     .icon-base {
       opacity: 0;
@@ -89,7 +116,8 @@ const handleClick = (key: 'close' | 'remove' | 'resize') => {
   .remove {
     background-color: $--color-warn;
   }
-  .resize {
+  .resize,
+  .fullResize {
     background-color: $--color-success;
   }
 }

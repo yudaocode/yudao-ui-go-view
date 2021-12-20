@@ -3,11 +3,13 @@
 $light: (
   // 文字颜色
     color: $--color-text,
+  // aside 背景
+    aside-background_color: $--color-light-fill-1,
   //背景
     background_color: $--color-light-fill-3,
   //渐变背景
     background-image:
-    linear-gradient(120deg, $--color-text-1 0%, $--color-text-1 100%),
+    linear-gradient(120deg, $--color-light-fill 0%, $--color-light-fill 100%),
   // 斑点背景
     background-point:
     (

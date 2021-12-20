@@ -6,10 +6,11 @@ import {
   CopyOutline as CopyIcon,
   Trash as TrashIcon,
   Pencil as PencilIcon,
-  Hammer as HammerIcon,
+  HammerOutline as HammerIcon,
   ApertureSharp as ApertureSharpIcon,
   DownloadOutline as DownloadIcon,
-  Open as OpenIcon
+  Open as OpenIcon,
+  Send as SendIcon
 } from '@vicons/ionicons5'
 
 // ionicons5 在这里
@@ -35,7 +36,9 @@ const ionicons5 = {
   // 下载
   DownloadIcon,
   // 导出
-  OpenIcon
+  OpenIcon,
+  // 导出
+  SendIcon,
 }
 
 // https://www.xicons.org/#/ 还有很多

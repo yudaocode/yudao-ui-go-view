@@ -41,7 +41,7 @@ export const theme = {
   // 默认是否开启深色主题
   darkTheme: true,
   //系统主题色
-  appTheme: '#63e2b7',
+  appTheme: '#51d6a9',
   //系统内置主题色列表
   appThemeList
 }
@@ -53,7 +53,7 @@ export const asideWidth = '270'
 export const asideCollapsedWidth = '60'
 
 // 修改边框圆角
-export const borderRadius = '4px'
+export const borderRadius = '6px'
 
 // 轮播间隔
 export const carouselInterval = 4000

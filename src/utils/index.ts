@@ -1,6 +1,6 @@
 import { h } from 'vue'
 import { NIcon } from 'naive-ui'
-
+import screenfull from 'screenfull'
 /**
  * * 生成一个用不重复的ID
  * @param { Number } randomLength
@@ -64,56 +64,17 @@ export const requireUrl = (path: string, name: string) => {
   return new URL(`${path}/${name}`, import.meta.url).href
 }
 
-/**
- * * 存储本地会话数据
- * @param k 键名
- * @param v 键值
- * @returns RemovableRef
- */
-export const setLocalStorage = <T>(k: string, v: T) => {
-  try {
-    window.localStorage.setItem(k, JSON.stringify(v))
-  } catch (error) {
-    return false
-  }
-}
+export const screenfullFn = (isFullscreen?: boolean, isEnabled?: boolean) => {
+  // 是否是全屏
+  if (isFullscreen) return screenfull.isFullscreen
 
-/**
- * * 获取本地会话数据
- * @returns any
- */
-export const getLocalStorage: (k: string) => any = (k: string) => {
-  const item = window.localStorage.getItem(k)
-  try {
-    return item ? JSON.parse(item) : item
-  } catch (err) {
-    return item
-  }
-}
+  // 是否支持全屏
+  if (isEnabled) return screenfull.isEnabled
 
-/**
- * * 存储临时会话数据
- * @param k 键名
- * @param v 键值
- * @returns RemovableRef
- */
-export const setSessionStorage = <T>(k: string, v: T) => {
-  try {
-    window.sessionStorage.setItem(k, JSON.stringify(v))
-  } catch (error) {
-    return false
+  if (screenfull.isEnabled) {
+    screenfull.toggle()
+    return
   }
-}
-
-/**
- * * 获取临时会话数据
- * @returns any
- */
-export const getSessionStorage: (k: string) => any = (k: string) => {
-  const item = window.sessionStorage.getItem(k)
-  try {
-    return item ? JSON.parse(item) : item
-  } catch (err) {
-    return item
-  }
+  // TODO lang
+  window['$message'].warning('您的浏览器不支持全屏功能！')
 }

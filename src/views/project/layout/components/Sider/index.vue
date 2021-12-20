@@ -1,6 +1,6 @@
 <template>
   <n-layout-sider
-    class="go-project-layout-sider"
+    class="go-project-sider"
     bordered
     collapse-mode="width"
     show-trigger="bar"
@@ -68,6 +68,7 @@ $siderHeight: 100vh;
 
 @include go(project) {
   &-sider {
+    @include filter-bg-color('aside-background_color');
     &-top {
       display: flex;
       align-items: center;
