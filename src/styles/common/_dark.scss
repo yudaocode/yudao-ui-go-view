@@ -18,5 +18,7 @@ $dark: (
     filter-color: $--filter-color-login-dark,
   // 物料市场背景
     items-top-bg:
-    linear-gradient(180deg, $--color-dark-bg-1, rgba(23, 23, 26, 0))
+    linear-gradient(180deg, $--color-dark-bg-1, rgba(23, 23, 26, 0)),
+  // hover 边框颜色
+    hover-border-color: #55606e,
 );

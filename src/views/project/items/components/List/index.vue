@@ -15,74 +15,22 @@
       </n-grid-item>
     </n-grid>
   </div>
-  <ModalCard :show="modalShow" :cardData="modalData" @close="closeModal" />
+  <ModalCard v-model:show="modalShow" :cardData="modalData" @close="closeModal" />
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 import { Card } from '../Card/index'
 import { ModalCard } from '../ModalCard/index'
-import { goDialog } from '@/utils'
-import { DialogEnum } from '@/enums/pluginEnum'
 import { icon } from '@/plugins'
+import { useModalDataInit } from './hooks/useModal.hook'
+import { useDataListInit } from './hooks/useData.hook'
 
 const { CopyIcon, EllipsisHorizontalCircleSharpIcon } = icon.ionicons5
 
-const list = ref([
-  {
-    id: 1,
-    title: '物料1',
-    release: true
-  },
-  {
-    id: 2,
-    title: '物料2',
-    release: false
-  },
-  {
-    id: 3,
-    title: '物料3',
-    release: false
-  },
-  {
-    id: 4,
-    title: '物料4',
-    release: false
-  },
-  {
-    id: 5,
-    title: '物料5',
-    release: false
-  }
-])
+const { modalData, modalShow, closeModal, resizeHandle } = useModalDataInit()
 
-const modalData = ref({})
-const modalShow = ref(false)
-
-// 删除
-const deleteHandle = (cardData: object, index: number) => {
-  goDialog({
-    type: DialogEnum.delete,
-    promise: true,
-    onPositiveCallback: () =>
-      new Promise(res => setTimeout(() => res(1), 1000)),
-    promiseResCallback: (e: any) => {
-      window.$message.success('删除成功')
-      list.value.splice(index, 1)
-    }
-  })
-}
-
-// 关闭 modal
-const closeModal = () => {
-  modalShow.value = false
-}
-
-// 打开 modal
-const resizeHandle = (cardData: object) => {
-  modalShow.value = true
-  modalData.value = cardData
-}
+const { list, deleteHandle } = useDataListInit()
 </script>
 
 <style lang="scss" scoped>

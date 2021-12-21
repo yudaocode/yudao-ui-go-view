@@ -12,7 +12,7 @@
           />
         </div>
         <!-- 中间 -->
-        <div class="list-content-img">
+        <div class="list-content-img"  @click="resizeHandle">
           <n-image
             object-fit="contain"
             height="200"
@@ -184,9 +184,16 @@ const resizeHandle = () => {
 $contentHeight: 200px;
 @include go('items-list-card') {
   position: relative;
+  border-radius: $--border-radius-base;
+  border: 1px solid rgba(0, 0, 0, 0);
+  @extend .go-transition;
+  &:hover {
+    @include hover-border-color('hover-border-color');
+  }
   .list-content {
     margin-top: 20px;
     margin-bottom: 5px;
+    cursor: pointer;
     border-radius: $--border-radius-base;
     @include background-point('background-point');
     @extend .go-point-bg;

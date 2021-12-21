@@ -4,7 +4,7 @@
       <div
         class="btn"
         :class="[item.key, disabled && 'disabled']"
-        @click="handleClick(item.key)"
+        @click.stop="handleClick(item.key)"
       >
         <n-icon size="10" class="icon-base" :class="{ hover: !disabled }">
           <component :is="item.icon" />

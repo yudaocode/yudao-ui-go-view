@@ -1,6 +1,7 @@
 import { h } from 'vue'
 import { NIcon } from 'naive-ui'
 import screenfull from 'screenfull'
+import debounce from 'lodash/debounce'
 
 /**
  * * 生成一个用不重复的ID
@@ -28,6 +29,7 @@ export const renderIcon = (icon: any, set = {}) => {
 export const requireUrl = (path: string, name: string) => {
   return new URL(`${path}/${name}`, import.meta.url).href
 }
+
 /**
  * * 获取错误处理图片，默认 404 图
  * @param path
@@ -36,7 +38,10 @@ export const requireUrl = (path: string, name: string) => {
  */
 export const requireFallbackImg = (path?: string, name?: string) => {
   const url = path && name
-  return new URL(url?`${path}/${name}`: '../assets/images/exception/image-404.png', import.meta.url).href
+  return new URL(
+    url ? `${path}/${name}` : '../assets/images/exception/image-404.png',
+    import.meta.url
+  ).href
 }
 
 export const screenfullFn = (isFullscreen?: boolean, isEnabled?: boolean) => {
@@ -52,4 +57,37 @@ export const screenfullFn = (isFullscreen?: boolean, isEnabled?: boolean) => {
   }
   // TODO lang
   window['$message'].warning('您的浏览器不支持全屏功能！')
+}
+
+/**
+ * * 挂载监听
+ * @returns url
+ */
+export const goAddEventListener = <K extends keyof WindowEventMap>(
+  target: EventTarget,
+  type: K,
+  listener: EventListenerOrEventListenerObject,
+  options?: boolean | AddEventListenerOptions | undefined
+) => {
+  if(!target) return
+  target.addEventListener(
+    type,
+    debounce(listener, 300, {
+      leading: true,
+      trailing: false
+    }),
+    options
+  )
+}
+/**
+ * * 卸载监听
+ * @returns url
+ */
+export const goRemoveEventListener = <K extends keyof WindowEventMap>(
+  target: EventTarget,
+  type: K,
+  listener: EventListenerOrEventListenerObject
+) => {
+  if(!target) return
+  target.removeEventListener(type, listener)
 }

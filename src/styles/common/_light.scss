@@ -17,5 +17,7 @@ $light: (
       linear-gradient(90deg, transparent 14px, $--color-dark-bg-5 0)
     ),
   //毛玻璃
-    filter-color: $--filter-color-login-light
+    filter-color: $--filter-color-login-light,
+  // hover 边框颜色
+    hover-border-color: $--color-light-fill-1
 );

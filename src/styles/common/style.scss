@@ -44,27 +44,51 @@
 // todo 使用 scss 循环写一套完整的
 // margin
 .go-mt-0 {
-  margin-top: 0;
+  margin-top: 0!important;
 }
 
 .go-mb-0 {
-  margin-bottom: 0;
+  margin-bottom: 0!important;
+}
+.go-ml-0 {
+  margin-left: 0!important;
 }
 
-.go-mx-0 {
+.go-mr-0 {
+  margin-right: 0!important;
+}
+
+.go-my-0 {
   @extend .go-mt-0;
   @extend .go-mb-0;
 }
 
+.go-mx-0 {
+  @extend .go-ml-0;
+  @extend .go-mr-0;
+}
+
 .go-pt-0 {
-  padding-top: 0;
+  padding-top: 0!important;
 }
 
 .go-pb-0 {
-  padding-bottom: 0;
+  padding-bottom: 0!important;
+}
+.go-pl-0 {
+  padding-left: 0!important;
+}
+
+.go-pr-0 {
+  padding-right: 0!important;
+}
+
+.go-py-0 {
+  @extend .go-pt-0;
+  @extend .go-pb-0;
 }
 
 .go-px-0 {
-  @extend .go-pt-0;
-  @extend .go-pb-0;
+  @extend .go-pl-0;
+  @extend .go-pr-0;
 }

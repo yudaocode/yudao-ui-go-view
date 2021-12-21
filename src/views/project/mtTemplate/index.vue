@@ -3,21 +3,22 @@
     <n-space vertical>
       <n-image
         object-fit="contain"
-        height="400"
+        height="300"
         preview-disabled
         :src="requireFallbackImg()"
       />
-      <n-h1>没有东西呢</n-h1>
+      <n-h3>暂时还没有东西呢</n-h3>
     </n-space>
   </div>
 </template>
 
 <script setup lang="ts">
-import { requireUrl, requireFallbackImg } from '@/utils'
+import { requireFallbackImg } from '@/utils'
 </script>
 
 <style lang="scss" scoped>
 @include go('project-my-template') {
+  margin-top: 100px;
   @extend .go-flex-center;
 }
 </style>
