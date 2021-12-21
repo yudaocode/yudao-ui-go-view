@@ -5,28 +5,40 @@
       <div class="top-content">
         <n-carousel class="top-content-carousel" show-arrow>
           <n-card title="模板1" hoverable>
-            <img
-              class="carousel-img"
-              src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel1.jpeg"
-            />
+            <n-space>
+              <img
+                class="carousel-img"
+                src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel3.jpeg"
+              />
+              <n-text>这里是介绍拉巴拉巴拉巴拉</n-text>
+            </n-space>
           </n-card>
           <n-card title="模板2" hoverable>
-            <img
-              class="carousel-img"
-              src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel2.jpeg"
-            />
+            <n-space>
+              <img
+                class="carousel-img"
+                src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel2.jpeg"
+              />
+              <n-text>这里是介绍拉巴拉巴拉巴拉</n-text>
+            </n-space>
           </n-card>
           <n-card title="模板2" hoverable>
-            <img
-              class="carousel-img"
-              src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel3.jpeg"
-            />
+            <n-space>
+              <img
+                class="carousel-img"
+                src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel3.jpeg"
+              />
+              <n-text>这里是介绍拉巴拉巴拉巴拉</n-text>
+            </n-space>
           </n-card>
           <n-card title="模板2" hoverable>
-            <img
-              class="carousel-img"
-              src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel4.jpeg"
-            />
+            <n-space>
+              <img
+                class="carousel-img"
+                src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel4.jpeg"
+              />
+              <n-text>这里是介绍拉巴拉巴拉巴拉</n-text>
+            </n-space>
           </n-card>
         </n-carousel>
       </div>

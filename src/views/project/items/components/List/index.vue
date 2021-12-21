@@ -11,11 +11,16 @@
           :cardData="item"
           @resize="resizeHandle"
           @delete="deleteHandle($event, index)"
+          @edit="editHandle"
         />
       </n-grid-item>
     </n-grid>
   </div>
-  <ModalCard v-model:show="modalShow" :cardData="modalData" @close="closeModal" />
+  <ModalCard
+    v-model:show="modalShow"
+    :cardData="modalData"
+    @close="closeModal"
+  />
 </template>
 
 <script setup lang="ts">
@@ -27,10 +32,14 @@ import { useModalDataInit } from './hooks/useModal.hook'
 import { useDataListInit } from './hooks/useData.hook'
 
 const { CopyIcon, EllipsisHorizontalCircleSharpIcon } = icon.ionicons5
-
-const { modalData, modalShow, closeModal, resizeHandle } = useModalDataInit()
-
 const { list, deleteHandle } = useDataListInit()
+const {
+  modalData,
+  modalShow,
+  closeModal,
+  resizeHandle,
+  editHandle
+} = useModalDataInit()
 </script>
 
 <style lang="scss" scoped>

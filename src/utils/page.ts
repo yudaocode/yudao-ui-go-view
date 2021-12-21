@@ -1,18 +1,23 @@
 import { ResultEnum } from '@/enums/httpEnum'
 import { ErrorPageNameMap, PageEnum } from '@/enums/pageEnum'
+import { RouteLocation } from 'vue-router'
 import router from '@/router'
 import { docPath, giteeSourceCodePath } from '@/settings/pathConst'
 
 /**
  * * 根据名字跳转路由
  * @param pageName
+ * @param isReplace
+ * @param windowOpen
  */
-export const routerTurnByName = (pageName: string, isReplace?: boolean, windowOpen?: boolean) => {
+export const routerTurnByName = (
+  pageName: string,
+  isReplace?: boolean,
+  windowOpen?: boolean
+) => {
   if (windowOpen) {
-    const path = router.resolve({
-      name: pageName
-    })
-    openNewWindow(path.href)
+    const path = fetchPathByName(pageName, 'href')
+    openNewWindow(path)
     return
   }
   if (isReplace) {
@@ -23,6 +28,49 @@ export const routerTurnByName = (pageName: string, isReplace?: boolean, windowOp
   }
   router.push({
     name: pageName
+  })
+}
+
+/**
+ * * 根据名称获取路由信息
+ * @param pageName
+ * @param pageName
+ */
+export const fetchPathByName = (pageName: string, p?: string) => {
+  const pathData = router.resolve({
+    name: pageName
+  })
+  return p ? (pathData as any)[p] : pathData
+}
+
+/**
+ * * 根据路径跳转路由
+ * @param { String } path
+ * @param { Array } query
+ * @param isReplace
+ */
+export const routerTurnByPath = (
+  path: string,
+  query?: Array<string | number>,
+  isReplace?: boolean,
+  windowOpen?: boolean
+) => {
+  let fullPath = ''
+  if (query?.length) {
+    fullPath = `${path}/${query.join('/')}`
+  }
+  if (windowOpen) {
+    openNewWindow(fullPath)
+    return
+  }
+  if (isReplace) {
+    router.replace({
+      path: fullPath
+    })
+    return
+  }
+  router.push({
+    path: fullPath
   })
 }
 
@@ -49,7 +97,7 @@ export const logout = () => {
  * * 新开页面
  * @param url
  */
- export const openNewWindow = (url: string) => {
+export const openNewWindow = (url: string) => {
   window.open(url, 'blank')
 }
 
@@ -68,4 +116,3 @@ export const openDoc = () => {
 export const openGiteeSourceCode = () => {
   openNewWindow(giteeSourceCodePath)
 }
-

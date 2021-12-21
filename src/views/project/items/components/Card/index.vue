@@ -60,7 +60,7 @@
 
               <n-tooltip v-else placement="bottom" trigger="hover">
                 <template #trigger>
-                  <n-button size="small">
+                  <n-button size="small" @click="handleSelect(item.key)">
                     <template #icon>
                       <component :is="item.icon" />
                     </template>
@@ -98,7 +98,7 @@ const {
 const dialog = useDialog()
 const message = useMessage()
 
-const emit = defineEmits(['delete', 'resize'])
+const emit = defineEmits(['delete', 'resize', 'edit'])
 
 const props = defineProps({
   cardData: Object
@@ -163,6 +163,9 @@ const handleSelect = (key: string) => {
     case 'delete':
       deleteHanlde()
       break
+    case 'edit':
+      editHandle()
+      break
 
     default:
       break
@@ -172,6 +175,11 @@ const handleSelect = (key: string) => {
 // 删除处理
 const deleteHanlde = () => {
   emit('delete', props.cardData)
+}
+
+// 编辑处理
+const editHandle = () => {
+  emit('edit', props.cardData)
 }
 
 // 放大处理

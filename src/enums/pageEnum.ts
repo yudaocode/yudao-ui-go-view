@@ -2,7 +2,7 @@ import { ResultEnum } from '@/enums/httpEnum'
 
 export enum ChartEnum {
   // 图表创建
-  CHART_HOME = '/chart/home/:id',
+  CHART_HOME = '/chart/home/:id(.*)*',
   CHART_HOME_NAME = 'ChartHome',
 }
 
