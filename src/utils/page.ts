@@ -7,7 +7,14 @@ import { docPath, giteeSourceCodePath } from '@/settings/pathConst'
  * * 根据名字跳转路由
  * @param pageName
  */
-export const routerTurnByName = (pageName: string, isReplace?: boolean) => {
+export const routerTurnByName = (pageName: string, isReplace?: boolean, windowOpen?: boolean) => {
+  if (windowOpen) {
+    const path = router.resolve({
+      name: pageName
+    })
+    openNewWindow(path.href)
+    return
+  }
   if (isReplace) {
     router.replace({
       name: pageName
@@ -39,11 +46,19 @@ export const logout = () => {
 }
 
 /**
+ * * 新开页面
+ * @param url
+ */
+ export const openNewWindow = (url: string) => {
+  window.open(url, 'blank')
+}
+
+/**
  * * 打开项目文档
  * @param url
  */
 export const openDoc = () => {
-  window.open(docPath, 'blank')
+  openNewWindow(docPath)
 }
 
 /**
@@ -51,13 +66,6 @@ export const openDoc = () => {
  * @param url
  */
 export const openGiteeSourceCode = () => {
-  window.open(giteeSourceCodePath, 'blank')
+  openNewWindow(giteeSourceCodePath)
 }
 
-/**
- * * 新开页面
- * @param url
- */
-export const openNewWindow = (url: string) => {
-  window.open(url, 'blank')
-}

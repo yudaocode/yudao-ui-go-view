@@ -3,9 +3,10 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import { RedirectRoute } from '@/router/base'
 import { createRouterGuards } from './router-guards'
 import { PageEnum } from '@/enums/pageEnum'
-import modules from '@/router/modules'
 import { HttpErrorPage, LoginRoute } from '@/router/base'
 import { Layout } from '@/router/constant'
+
+import modules from '@/router/modules'
 
 const RootRoute: Array<RouteRecordRaw> = [
   {
@@ -18,7 +19,8 @@ const RootRoute: Array<RouteRecordRaw> = [
     },
     children: [
       ...HttpErrorPage,
-      modules.projectRoutes
+      modules.projectRoutes,
+      modules.chartRoutes
     ]
   }
 ]

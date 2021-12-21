@@ -1,5 +1,11 @@
 import { ResultEnum } from '@/enums/httpEnum'
 
+export enum ChartEnum {
+  // 图表创建
+  CHART_HOME = '/chart',
+  CHART_HOME_NAME = 'Chart',
+}
+
 export enum PageEnum {
   // 登录
   BASE_LOGIN = '/login',

@@ -28,7 +28,8 @@ import {
   HelpCircleOutline as HelpOutlineIcon,
   CodeSlash as CodeSlashIcon,
   Duplicate as DuplicateIcon,
-  DuplicateOutline as DuplicateOutlineIcon
+  DuplicateOutline as DuplicateOutlineIcon,
+  Fish as FishIcon
 } from '@vicons/ionicons5'
 
 // ionicons5 在这里
@@ -92,7 +93,9 @@ const ionicons5 = {
   // 文档
   DocumentTextIcon,
   // 语言
-  LanguageIcon
+  LanguageIcon,
+  // 新项目（鱼）
+  FishIcon
 }
 
 // https://www.xicons.org/#/ 还有很多
