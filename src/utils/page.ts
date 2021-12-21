@@ -45,9 +45,10 @@ export const fetchPathByName = (pageName: string, p?: string) => {
 
 /**
  * * 根据路径跳转路由
- * @param { String } path
- * @param { Array } query
+ * @param path
+ * @param query
  * @param isReplace
+ * @param windowOpen
  */
 export const routerTurnByPath = (
   path: string,
