@@ -3,7 +3,7 @@
     <n-space size="large">
       <n-card class="card-box" hoverable>
         <template #header>
-          <n-text class="card-box-tite">选择类型</n-text>
+          <n-text class="card-box-tite">从哪里出发好呢？</n-text>
         </template>
         <template #header-extra>
           <n-text @click="closeHandle">

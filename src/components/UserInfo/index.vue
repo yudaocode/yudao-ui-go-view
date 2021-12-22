@@ -20,13 +20,16 @@
 </template>
 
 <script lang="ts" setup>
-import { h, ref } from 'vue'
+import { h, ref, reactive } from 'vue';
 import { NAvatar, NText } from 'naive-ui'
 import { renderIcon } from '@/utils'
 import { openDoc, logout } from '@/utils'
+import { useI18n } from 'vue-i18n'
 
 import { icon } from '@/plugins'
 const { DocumentTextIcon, ChatboxEllipsesIcon, PersonIcon, LogOutOutlineIcon } = icon.ionicons5
+
+const { t } = useI18n()
 
 const imageUrl = 'https://www.naiveui.com/assets/naivelogo.93278402.svg'
 
@@ -55,7 +58,7 @@ const renderUserInfo = () => {
   )
 }
 
-const options = [
+const options = reactive([
   {
     label: '我的信息',
     key: 'info',
@@ -67,12 +70,12 @@ const options = [
     key: 'd1'
   },
   {
-    label: '说明文档',
+    label: t('global.doc'),
     key: 'doc',
     icon: renderIcon(DocumentTextIcon)
   },
   {
-    label: '联系我们',
+    label: t('global.contact'),
     key: 'contact',
     icon: renderIcon(ChatboxEllipsesIcon)
   },
@@ -81,11 +84,11 @@ const options = [
     key: 'd2'
   },
   {
-    label: '退出登录',
+    label: t('global.logout'),
     key: 'logout',
     icon: renderIcon(LogOutOutlineIcon)
   }
-]
+])
 
 // 图片渲染错误
 const errorHandle = (e: Event) => {

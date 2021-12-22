@@ -2,7 +2,6 @@
   <div class="go-aside-footer">
     <n-divider class="go-mt-0" />
     <n-space justify="space-around">
-      
       <n-tooltip v-if="collapsed" placement="right" trigger="hover">
         <template #trigger>
           <n-button secondary @click="handleDoc">
@@ -14,17 +13,17 @@
           </n-button>
         </template>
         <n-text>
-          帮助中心
+          {{ $t('global.help') }}
         </n-text>
       </n-tooltip>
-      
+
       <n-button v-else secondary @click="handleDoc">
         <template #icon>
           <n-icon size="18">
             <HelpOutlineIcon />
           </n-icon>
         </template>
-        <n-text>帮助中心</n-text>
+        <n-text>{{ $t('global.help') }}</n-text>
       </n-button>
 
       <n-tooltip v-if="collapsed" placement="right" trigger="hover">
@@ -38,7 +37,7 @@
           </n-button>
         </template>
         <n-text>
-          仓库地址
+          {{ $t('global.doc_addr') }}
         </n-text>
       </n-tooltip>
 
@@ -48,7 +47,7 @@
             <CodeSlashIcon />
           </n-icon>
         </template>
-        <n-text v-show="!collapsed">仓库地址</n-text>
+        <n-text v-show="!collapsed">{{ $t('global.doc_addr') }}</n-text>
       </n-button>
     </n-space>
   </div>
@@ -57,7 +56,7 @@
 import { openDoc, openGiteeSourceCode } from '@/utils'
 
 import { icon } from '@/plugins'
-const { HelpOutlineIcon, CodeSlashIcon} = icon.ionicons5
+const { HelpOutlineIcon, CodeSlashIcon } = icon.ionicons5
 
 const props = defineProps({
   collapsed: Boolean
