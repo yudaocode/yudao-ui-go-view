@@ -3,7 +3,7 @@
     <n-space size="large">
       <n-card class="card-box" hoverable>
         <template #header>
-          <n-text class="card-box-tite">从哪里出发好呢？</n-text>
+          <n-text class="card-box-tite">{{ $t('project.create_tip') }}</n-text>
         </template>
         <template #header-extra>
           <n-text @click="closeHandle">
@@ -36,32 +36,33 @@
 </template>
 
 <script lang="ts" setup>
-import { watch, ref } from 'vue'
+import { watch, reactive } from 'vue'
 import { icon } from '@/plugins'
 import { PageEnum, ChartEnum } from '@/enums/pageEnum'
 import { routerTurnByName } from '@/utils'
 
 const { FishIcon, LaptopOutlineIcon, BeerIcon, CloseIcon } = icon.ionicons5
+const t = window['$t']
 const emit = defineEmits(['close'])
 const props = defineProps({
   show: Boolean
 })
 
-const typeList = ref([
+const typeList = reactive([
   {
-    title: '新项目',
+    title: t('project.new_project'),
     key: ChartEnum.CHART_HOME_NAME,
     icon: FishIcon,
     disabled: false
   },
   {
-    title: '我的模板',
+    title: t('project.my_templete'),
     key: PageEnum.BASE_HOME_TEMPLATE_NAME,
     icon: LaptopOutlineIcon,
     disabled: true
   },
   {
-    title: '市场模板',
+    title: t('project.template_market'),
     key: PageEnum.BASE_HOME_TEMPLATE_MARKET_NAME,
     icon: BeerIcon,
     disabled: true
@@ -87,13 +88,15 @@ const btnHandle = (key: string) => {
 }
 </script>
 <style lang="scss" scoped>
+$cardWidth: 570px;
+
 @include go('create-modal') {
   position: fixed;
   top: 200px;
   left: 50%;
   transform: translateX(-50%);
   .card-box {
-    width: 500px;
+    width: $cardWidth;
     cursor: pointer;
     border: 1px solid rgba(0, 0, 0, 0);
     @extend .go-transition;

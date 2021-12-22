@@ -114,7 +114,6 @@
 import { reactive, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useMessage } from 'naive-ui'
-import { useI18n } from 'vue-i18n'
 import { requireUrl } from '@/utils'
 import { routerTurnByName } from '@/utils'
 import shuffle from 'lodash/shuffle'
@@ -142,7 +141,7 @@ const autoLogin = ref(true)
 const show = ref(false)
 const showBg = ref(false)
 const designStore = useDesignStore()
-const { t } = useI18n()
+const t = window['$t']
 
 onMounted(() => {
   setTimeout(() => {

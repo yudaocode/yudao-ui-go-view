@@ -36,7 +36,7 @@
       <template #action>
         <n-space class="list-footer" justify="space-between">
           <n-text depth="3">
-            最后编辑于：
+            {{$t('project.last_edit')}}：
             <n-time :time="new Date()" format="yyyy-MM-dd hh:mm" />
           </n-text>
           <!-- 工具 -->
@@ -47,7 +47,7 @@
                 dot
                 :color="cardData?.release ? '#34c749' : '#fcbc40'"
               />
-              {{ cardData?.release ? '已发布' : '未发布' }}
+              {{ cardData?.release ? $t('project.release') : $t('project.unreleased') }}
             </n-text>
 
             <template v-for="item in fnBtnList" :key="item.key">
@@ -71,13 +71,16 @@
 </template>
 
 <script setup lang="ts">
-import { watchEffect } from 'vue'
+import { watchEffect, reactive } from 'vue'
 import { renderIcon, requireUrl, requireFallbackImg } from '@/utils'
 import { icon } from '@/plugins'
 import { AppleControlBtn } from '@/components/AppleControlBtn'
+
 const { HammerIcon } = icon.ionicons5
 
 const emit = defineEmits(['close'])
+
+const t = window['$t']
 
 const props = defineProps({
   show: Boolean,
@@ -91,13 +94,13 @@ watchEffect(() => {
   }
 })
 
-const fnBtnList = [
+const fnBtnList = reactive([
   {
-    label: '编辑',
+    label: t('global.r_edit'),
     key: 'edit',
     icon: renderIcon(HammerIcon)
   }
-]
+])
 
 // 关闭对话框
 const closeHandle = () => {

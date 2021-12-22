@@ -13,19 +13,22 @@ export const renderMenuLabel = (option: MenuOption | MenuGroupOption) => {
 export const expandedKeys = () => ['all-project']
 
 export const menuOptionsInit = () => {
+  
+  const t = window['$t']
+
   return reactive([
     {
       key: 'divider-1',
       type: 'divider'
     },
     {
-      label: '项目',
+      label: t('project.project'),
       key: 'all-project',
       icon: renderIcon(GridIcon),
       children: [
         {
           type: 'group',
-          label: '我的',
+          label: t('project.my'),
           key: 'my-project',
           children: [
             {
@@ -37,7 +40,7 @@ export const menuOptionsInit = () => {
                       name: PageEnum.BASE_HOME_ITEMS_NAME
                     }
                   },
-                  { default: () => '全部项目' }
+                  { default: () => t('project.all_project') }
                 ),
               key: PageEnum.BASE_HOME_ITEMS_NAME,
               icon: renderIcon(DesktopIcon)
@@ -51,7 +54,7 @@ export const menuOptionsInit = () => {
                       name: PageEnum.BASE_HOME_TEMPLATE_NAME
                     }
                   },
-                  { default: () => '我的物料' }
+                  { default: () => t('project.my_templete') }
                 ),
               key: PageEnum.BASE_HOME_TEMPLATE_NAME,
               icon: renderIcon(LaptopOutlineIcon)
@@ -74,7 +77,7 @@ export const menuOptionsInit = () => {
               name: PageEnum.BASE_HOME_TEMPLATE_MARKET_NAME
             }
           },
-          { default: () => '物料市场' }
+          { default: () => t('project.template_market') }
         ),
       key: PageEnum.BASE_HOME_TEMPLATE_MARKET_NAME,
       icon: renderIcon(BeerIcon)

@@ -12,7 +12,7 @@
           />
         </div>
         <!-- 中间 -->
-        <div class="list-content-img"  @click="resizeHandle">
+        <div class="list-content-img" @click="resizeHandle">
           <n-image
             object-fit="contain"
             height="200"
@@ -38,7 +38,11 @@
                 dot
                 :color="cardData.release ? '#34c749' : '#fcbc40'"
               />
-              {{ cardData.release ? '已发布' : '未发布' }}
+              {{
+                cardData.release
+                  ? $t('project.release')
+                  : $t('project.unreleased')
+              }}
             </n-text>
 
             <template v-for="item in fnBtnList" :key="item.key">
@@ -66,7 +70,7 @@
                     </template>
                   </n-button>
                 </template>
-                <span> {{ item.label }}</span>
+                <span> {{ item.label }} </span>
               </n-tooltip>
             </template>
           </n-space>
@@ -78,11 +82,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { reactive, h } from 'vue'
 import { renderIcon, requireUrl, requireFallbackImg } from '@/utils'
 import { icon } from '@/plugins'
 import { AppleControlBtn } from '@/components/AppleControlBtn'
-import { useMessage, useDialog } from 'naive-ui'
+import { NText } from 'naive-ui'
+
+const t = window['$t']
 
 const {
   EllipsisHorizontalCircleSharpIcon,
@@ -95,41 +101,40 @@ const {
   SendIcon
 } = icon.ionicons5
 
-const dialog = useDialog()
-const message = useMessage()
-
 const emit = defineEmits(['delete', 'resize', 'edit'])
 
 const props = defineProps({
   cardData: Object
 })
-
-const fnBtnList = [
+const renderNText = (set = {}) => {
+  return () => h(NText, set, { default: () => h('312321') })
+}
+const fnBtnList = reactive([
   {
-    label: '编辑',
+    label: t('global.r_edit'),
     key: 'edit',
     icon: renderIcon(HammerIcon)
   },
   {
-    lable: '更多',
+    lable: t('global.r_more'),
     key: 'select',
     icon: renderIcon(EllipsisHorizontalCircleSharpIcon)
   }
-]
+])
 
-const selectOptions = [
+const selectOptions = reactive([
   {
-    label: '预览',
+    label: t('global.r_preview'),
     key: 'preview',
     icon: renderIcon(ApertureSharpIcon)
   },
   {
-    label: '复制',
+    label: t('global.r_copy'),
     key: 'copy',
     icon: renderIcon(CopyIcon)
   },
   {
-    label: '重命名',
+    label: t('global.r_rename'),
     key: 'rename',
     icon: renderIcon(PencilIcon)
   },
@@ -138,12 +143,14 @@ const selectOptions = [
     key: 'd1'
   },
   {
-    label: props.cardData?.release ? '取消发布' : '发布',
+    label: props.cardData?.release
+      ? t('global.r_unpublish')
+      : t('global.r_publish'),
     key: 'send',
     icon: renderIcon(SendIcon)
   },
   {
-    label: '下载',
+    label: t('global.r_download'),
     key: 'download',
     icon: renderIcon(DownloadIcon)
   },
@@ -152,11 +159,11 @@ const selectOptions = [
     key: 'd2'
   },
   {
-    label: '删除',
+    label: t('global.r_delete'),
     key: 'delete',
     icon: renderIcon(TrashIcon)
   }
-]
+])
 
 const handleSelect = (key: string) => {
   switch (key) {

@@ -12,7 +12,7 @@
         </n-button>
       </template>
       <span>
-        新建
+        {{ $t('project.create_btn') }}
       </span>
     </n-tooltip>
     <n-button v-else ghost type="primary" size="large">
@@ -23,7 +23,7 @@
         </n-icon>
       </template>
       <span>
-        新建
+        {{ $t('project.create_btn') }}
       </span>
     </n-button>
   </div>
