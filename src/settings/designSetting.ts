@@ -56,7 +56,8 @@ export const maskClosable = false
 export const asideWidth = '270'
 
 // 侧边栏缩小后的宽度
-export const asideCollapsedWidth = '60'
+// 建议 0 或者 60，已经适配好了
+export const asideCollapsedWidth = '0'
 
 // 修改边框圆角
 export const borderRadius = '6px'
