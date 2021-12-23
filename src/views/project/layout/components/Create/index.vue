@@ -31,7 +31,6 @@
 </template>
 <script setup lang="ts">
 import { ref } from 'vue'
-import { computed } from 'node_modules/vue/dist/vue'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { CreateModal } from './components/CreateModal/index'
 import { icon } from '@/plugins'

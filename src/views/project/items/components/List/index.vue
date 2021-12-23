@@ -20,6 +20,7 @@
     v-model:show="modalShow"
     :cardData="modalData"
     @close="closeModal"
+    @edit="editHandle"
   />
 </template>
 

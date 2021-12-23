@@ -53,7 +53,7 @@
             <template v-for="item in fnBtnList" :key="item.key">
               <n-tooltip placement="bottom" trigger="hover">
                 <template #trigger>
-                  <n-button size="small">
+                  <n-button size="small" @click="handleSelect(item.key)">
                     <template #icon>
                       <component :is="item.icon" />
                     </template>
@@ -78,7 +78,7 @@ import { AppleControlBtn } from '@/components/AppleControlBtn'
 
 const { HammerIcon } = icon.ionicons5
 
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close', 'edit'])
 
 const t = window['$t']
 
@@ -101,6 +101,19 @@ const fnBtnList = reactive([
     icon: renderIcon(HammerIcon)
   }
 ])
+
+const handleSelect = (key: string) => {
+  switch (key) {
+    case 'edit':
+      editHandle()
+      break
+  }
+}
+
+// 编辑处理
+const editHandle = () => {
+  emit('edit', props.cardData)
+}
 
 // 关闭对话框
 const closeHandle = () => {

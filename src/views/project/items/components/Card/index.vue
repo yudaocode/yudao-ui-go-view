@@ -173,9 +173,6 @@ const handleSelect = (key: string) => {
     case 'edit':
       editHandle()
       break
-
-    default:
-      break
   }
 }
 
