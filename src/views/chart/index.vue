@@ -21,9 +21,9 @@
 
 <script setup lang="ts">
 import { HeaderPro } from '@/layout/components/HeaderPro'
-import { HeaderLeftBtn } from './layout/components/HeaderLeftBtn/index'
-import { HeaderRightBtn } from './layout/components/HeaderRightBtn/index'
-import { HeaderTitle } from './layout/components/HeaderTitle/index'
+import { HeaderLeftBtn } from './components/HeaderLeftBtn/index'
+import { HeaderRightBtn } from './components/HeaderRightBtn/index'
+import { HeaderTitle } from './components/HeaderTitle/index'
 </script>
 
 <style lang="scss" scoped>
