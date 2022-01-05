@@ -36,7 +36,7 @@
       <template #action>
         <n-space class="list-footer" justify="space-between">
           <n-text depth="3">
-            {{$t('project.last_edit')}}：
+            {{$t('project.last_edit')}}:
             <n-time :time="new Date()" format="yyyy-MM-dd hh:mm" />
           </n-text>
           <!-- 工具 -->

@@ -1,12 +1,15 @@
 <template>
   <n-layout-header bordered class="go-header">
     <header class="go-header-box">
-      <div class="li">
+      <div>
         <n-space>
           <slot name="left"></slot>
         </n-space>
       </div>
-      <div class="ri">
+      <div>
+        <slot name="center"></slot>
+      </div>
+      <div>
         <n-space>
           <slot name="ri-left"> </slot>
           <LangSelect />

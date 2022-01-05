@@ -31,7 +31,9 @@ import {
   DuplicateOutline as DuplicateOutlineIcon,
   Fish as FishIcon,
   BarChart as BarChartIcon,
-  Albums as AlbumsIcon
+  Layers as LayersIcon,
+  Prism as PrismIcon,
+  CubeOutline as CubeIcon
 } from '@vicons/ionicons5'
 
 // ionicons5 在这里
@@ -101,7 +103,10 @@ const ionicons5 = {
   // 图表
   BarChartIcon,
   // 图层
-  AlbumsIcon
+  LayersIcon,
+  // 组件详情设置（三棱镜）
+  PrismIcon,
+  CubeIcon
 }
 
 // https://www.xicons.org/#/ 还有很多

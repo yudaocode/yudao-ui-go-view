@@ -3,6 +3,9 @@
     <template #left>
       <slot name="left"></slot>
     </template>
+    <template #center>
+      <slot name="center"></slot>
+    </template>
     <template #ri-left>
       <slot name="ri-left"></slot>
     </template>

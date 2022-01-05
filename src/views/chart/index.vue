@@ -5,13 +5,14 @@
         <template #left>
           <HeaderLeftBtn />
         </template>
+        <template #center>
+          <HeaderTitle />
+        </template>
         <template #ri-left>
           <HeaderRightBtn />
         </template>
       </HeaderPro>
-      <n-layout-content>
-        
-      </n-layout-content>
+      <n-layout-content> </n-layout-content>
     </n-layout>
   </div>
 </template>
@@ -20,6 +21,7 @@
 import { HeaderPro } from '@/layout/components/HeaderPro'
 import { HeaderLeftBtn } from './layout/components/HeaderLeftBtn/index'
 import { HeaderRightBtn } from './layout/components/HeaderRightBtn/index'
+import { HeaderTitle } from './layout/components/HeaderTitle/index'
 </script>
 
 <style lang="scss" scoped>
