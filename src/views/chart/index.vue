@@ -12,7 +12,9 @@
           <HeaderRightBtn />
         </template>
       </HeaderPro>
-      <n-layout-content> </n-layout-content>
+      <n-layout-content>
+        <n-space></n-space>
+      </n-layout-content>
     </n-layout>
   </div>
 </template>
