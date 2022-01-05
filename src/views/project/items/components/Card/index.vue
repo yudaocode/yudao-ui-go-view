@@ -95,7 +95,7 @@ const {
   CopyIcon,
   TrashIcon,
   PencilIcon,
-  ApertureSharpIcon,
+  DesktopOutlineIcon,
   DownloadIcon,
   HammerIcon,
   SendIcon
@@ -126,7 +126,7 @@ const selectOptions = reactive([
   {
     label: t('global.r_preview'),
     key: 'preview',
-    icon: renderIcon(ApertureSharpIcon)
+    icon: renderIcon(DesktopOutlineIcon)
   },
   {
     label: t('global.r_copy'),

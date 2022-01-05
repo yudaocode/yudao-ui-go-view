@@ -10,7 +10,7 @@
 }
 
 @mixin deep() {
-  ::v-deep {
+  :deep {
     @content;
   }
 }

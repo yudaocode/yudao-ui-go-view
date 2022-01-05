@@ -25,7 +25,6 @@
 
 <script setup lang="ts">
 import { Sider } from './layout/components/Sider'
-// import { Header } from './layout/components/Header/index'
 import { HeaderPro } from '@/layout/components/HeaderPro'
 import { TransitionMain } from '@/layout/components/TransitionMain/index'
 </script>

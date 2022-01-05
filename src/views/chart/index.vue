@@ -1,11 +1,16 @@
 <template>
   <div class="go-chart">
     <n-layout>
-      <HeaderPro />
+      <HeaderPro>
+        <template #left>
+          <HeaderLeftBtn />
+        </template>
+        <template #ri-left>
+          <HeaderRightBtn />
+        </template>
+      </HeaderPro>
       <n-layout-content>
-        <TransitionMain>
-          <router-view />
-        </TransitionMain>
+        
       </n-layout-content>
     </n-layout>
   </div>
@@ -13,8 +18,8 @@
 
 <script setup lang="ts">
 import { HeaderPro } from '@/layout/components/HeaderPro'
-import { requireFallbackImg } from '@/utils'
-import { TransitionMain } from '@/layout/components/TransitionMain/index'
+import { HeaderLeftBtn } from './layout/components/HeaderLeftBtn/index'
+import { HeaderRightBtn } from './layout/components/HeaderRightBtn/index'
 </script>
 
 <style lang="scss" scoped>

@@ -7,7 +7,7 @@ import {
   Trash as TrashIcon,
   Pencil as PencilIcon,
   HammerOutline as HammerIcon,
-  ApertureSharp as ApertureSharpIcon,
+  DesktopOutline as DesktopOutlineIcon,
   DownloadOutline as DownloadIcon,
   Open as OpenIcon,
   Send as SendIcon,
@@ -29,7 +29,9 @@ import {
   CodeSlash as CodeSlashIcon,
   Duplicate as DuplicateIcon,
   DuplicateOutline as DuplicateOutlineIcon,
-  Fish as FishIcon
+  Fish as FishIcon,
+  BarChart as BarChartIcon,
+  Albums as AlbumsIcon
 } from '@vicons/ionicons5'
 
 // ionicons5 在这里
@@ -73,7 +75,7 @@ const ionicons5 = {
   // 编辑2（锤子）
   HammerIcon,
   // 预览
-  ApertureSharpIcon,
+  DesktopOutlineIcon,
   // 下载
   DownloadIcon,
   // 导出
@@ -95,7 +97,11 @@ const ionicons5 = {
   // 语言
   LanguageIcon,
   // 新项目（鱼）
-  FishIcon
+  FishIcon,
+  // 图表
+  BarChartIcon,
+  // 图层
+  AlbumsIcon
 }
 
 // https://www.xicons.org/#/ 还有很多
