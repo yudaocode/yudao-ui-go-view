@@ -13,12 +13,10 @@
         </template>
       </HeaderPro>
       <n-layout-content content-style="overflow:hidden; display: flex">
-        <!-- <n-space :size="2">
-          
-        </n-space> -->
         <ContentLayers />
         <ContentCharts />
         <ContentDraw />
+        <ContentDetails />
       </n-layout-content>
     </n-layout>
   </div>
@@ -32,6 +30,7 @@ import { HeaderTitle } from './components/HeaderTitle/index'
 import { ContentLayers } from './components/ContentLayers/index'
 import { ContentCharts } from './components/ContentCharts/index'
 import { ContentDraw } from './components/ContentDraw/index'
+import { ContentDetails } from './components/ContentDetails/index'
 </script>
 
 <style lang="scss" scoped>

@@ -33,8 +33,9 @@ import {
   BarChart as BarChartIcon,
   Layers as LayersIcon,
   Prism as PrismIcon,
-  CubeOutline as CubeIcon,
-  ChevronBackOutline as ChevronBackOutlineIcon
+  Cube as CubeIcon,
+  ChevronBackOutline as ChevronBackOutlineIcon,
+  Flash as FlashIcon
 } from '@vicons/ionicons5'
 
 // ionicons5 在这里
@@ -110,7 +111,9 @@ const ionicons5 = {
   // 正方体
   CubeIcon,
   // 折叠/回退
-  ChevronBackOutlineIcon
+  ChevronBackOutlineIcon,
+  // 后端数据（闪电）
+  FlashIcon
 }
 
 // https://www.xicons.org/#/ 还有很多

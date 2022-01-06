@@ -27,6 +27,11 @@
   cursor: pointer;
 }
 
+// IE盒模型
+.go-boderbox {
+  box-sizing: border-box;
+}
+
 // 毛玻璃
 .go-background-filter {
   backdrop-filter: $--filter-blur-base;
@@ -49,18 +54,18 @@
 // todo 使用 scss 循环写一套完整的
 // margin
 .go-mt-0 {
-  margin-top: 0!important;
+  margin-top: 0 !important;
 }
 
 .go-mb-0 {
-  margin-bottom: 0!important;
+  margin-bottom: 0 !important;
 }
 .go-ml-0 {
-  margin-left: 0!important;
+  margin-left: 0 !important;
 }
 
 .go-mr-0 {
-  margin-right: 0!important;
+  margin-right: 0 !important;
 }
 
 .go-my-0 {
@@ -74,18 +79,18 @@
 }
 
 .go-pt-0 {
-  padding-top: 0!important;
+  padding-top: 0 !important;
 }
 
 .go-pb-0 {
-  padding-bottom: 0!important;
+  padding-bottom: 0 !important;
 }
 .go-pl-0 {
-  padding-left: 0!important;
+  padding-left: 0 !important;
 }
 
 .go-pr-0 {
-  padding-right: 0!important;
+  padding-right: 0 !important;
 }
 
 .go-py-0 {
