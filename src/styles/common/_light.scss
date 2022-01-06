@@ -4,20 +4,25 @@ $light: (
   // 文字颜色
     color: $--color-text,
   // aside 背景
-    aside-background_color: $--color-light-fill-1,
+    aside-background-color: $--color-light-bg-1,
   //背景
-    background_color: $--color-light-fill-3,
+    background-color: $--color-light-bg-3,
+    background-color1: $--color-light-bg-1,
+    background-color2: $--color-light-bg-2,
+    background-color3: $--color-light-bg-3,
+    background-color4: $--color-light-bg-4,
+    background-color5: $--color-light-bg-5,
   //渐变背景
     background-image:
-    linear-gradient(120deg, $--color-light-fill 0%, $--color-light-fill 100%),
+    linear-gradient(120deg, $--color-light-bg 0%, $--color-light-bg 100%),
   // 斑点背景
     background-point:
     (
-      linear-gradient($--color-light-fill-1 14px, transparent 0),
+      linear-gradient($--color-light-bg-1 14px, transparent 0),
       linear-gradient(90deg, transparent 14px, $--color-dark-bg-5 0)
     ),
   //毛玻璃
     filter-color: $--filter-color-login-light,
   // hover 边框颜色
-    hover-border-color: $--color-light-fill-1
+    hover-border-color: $--color-light-bg-1
 );

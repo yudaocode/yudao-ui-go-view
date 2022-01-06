@@ -12,8 +12,13 @@
           <HeaderRightBtn />
         </template>
       </HeaderPro>
-      <n-layout-content>
-        <n-space></n-space>
+      <n-layout-content content-style="overflow:hidden; display: flex">
+        <!-- <n-space :size="2">
+          
+        </n-space> -->
+        <ContentLayers />
+        <ContentCharts />
+        <ContentDraw />
       </n-layout-content>
     </n-layout>
   </div>
@@ -24,6 +29,9 @@ import { HeaderPro } from '@/layout/components/HeaderPro'
 import { HeaderLeftBtn } from './components/HeaderLeftBtn/index'
 import { HeaderRightBtn } from './components/HeaderRightBtn/index'
 import { HeaderTitle } from './components/HeaderTitle/index'
+import { ContentLayers } from './components/ContentLayers/index'
+import { ContentCharts } from './components/ContentCharts/index'
+import { ContentDraw } from './components/ContentDraw/index'
 </script>
 
 <style lang="scss" scoped>
