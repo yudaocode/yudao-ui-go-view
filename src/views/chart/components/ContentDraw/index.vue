@@ -4,7 +4,7 @@
     :flex="true"
     :showTop="false"
     :showBottom="true"
-    :depth="2"
+    :depth="1"
   >
     <template #bottom>
     </template>
