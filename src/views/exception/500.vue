@@ -11,10 +11,9 @@
 </template>
 
 <script lang="ts" setup>
-import { useRouter } from 'vue-router'
 import { PageEnum } from '@/enums/pageEnum'
 import { routerTurnByName } from '@/utils'
-const router = useRouter()
+
 function goHome() {
   routerTurnByName(PageEnum.BASE_HOME_NAME)
 }

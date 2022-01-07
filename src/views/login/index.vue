@@ -112,7 +112,6 @@
 
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import { useMessage } from 'naive-ui'
 import { requireUrl } from '@/utils'
 import { routerTurnByName } from '@/utils'
@@ -133,7 +132,6 @@ interface FormState {
   password: string
 }
 
-const router = useRouter()
 const formRef = ref()
 const message = useMessage()
 const loading = ref(false)

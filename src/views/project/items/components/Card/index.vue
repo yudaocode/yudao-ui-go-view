@@ -207,7 +207,7 @@ $contentHeight: 200px;
     margin-bottom: 5px;
     cursor: pointer;
     border-radius: $--border-radius-base;
-    @include background-point('background-point');
+    @include background-image('background-point');
     @extend .go-point-bg;
     &-top {
       position: absolute;

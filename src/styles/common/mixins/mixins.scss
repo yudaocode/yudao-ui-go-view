@@ -52,13 +52,6 @@
   }
 }
 
-//获取斑点渐变颜色
-@mixin background-point($target) {
-  @include themeify {
-    background-image: themed($target);
-  }
-}
-
 //获取边框颜色
 @mixin filter-border-color($target) {
   @include themeify {

@@ -19,7 +19,7 @@ import { ContentBox } from '../ContentBox/index'
 <style lang="scss" scoped>
 @include go(content-draw) {
   overflow: hidden;
-  @include background-point('background-point');
+  @include background-image('background-point');
   @extend .go-point-bg;
 }
 </style>

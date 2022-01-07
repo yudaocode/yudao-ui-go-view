@@ -43,7 +43,6 @@ $wight: 400px;
   padding: 10px;
   .icon-position {
     padding-top: 2px;
-    color: #70c0e8;
   }
 }
 </style>

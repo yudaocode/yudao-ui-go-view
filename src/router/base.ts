@@ -2,6 +2,7 @@ import { RouteRecordRaw } from 'vue-router'
 import type { AppRouteRecordRaw } from '@/router/types';
 import { ErrorPage404, ErrorPage403, ErrorPage500, Layout } from '@/router/constant';
 import { PageEnum } from '@/enums/pageEnum'
+import { Reload } from '@/components/Reload/index'
 
 
 export const LoginRoute: RouteRecordRaw = {
@@ -50,8 +51,17 @@ export const ErrorPageRoute: AppRouteRecordRaw = {
   }
 };
 
+export const ReloadRoute: AppRouteRecordRaw = {
+  path: PageEnum.RELOAD,
+  name: PageEnum.RELOAD_NAME,
+  component: Reload,
+  meta: {
+    title: PageEnum.RELOAD_NAME,
+  },
+}
+
 export const RedirectRoute: AppRouteRecordRaw = {
-  path: '/redirect',
+  path: PageEnum.REDIRECT,
   name: PageEnum.REDIRECT_NAME,
   component: Layout,
   meta: {

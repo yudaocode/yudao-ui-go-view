@@ -3,7 +3,7 @@ import { lang } from '@/settings/designSetting'
 import { LangStateType } from './langStore.d'
 import { LangEnum } from '@/enums/styleEnum'
 import i18n from '@/i18n/index'
-import { setLocalStorage } from '@/utils'
+import { setLocalStorage, reloadRoutePage } from '@/utils'
 import { GO_LANG_SELECT } from '@/settings/storageConst'
 
 export const useLangStore = defineStore({
@@ -21,6 +21,7 @@ export const useLangStore = defineStore({
       this.lang = lang
       i18n.global.locale = lang
       setLocalStorage(GO_LANG_SELECT, lang)
+      reloadRoutePage()
     }
   }
 })

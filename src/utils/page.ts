@@ -1,6 +1,5 @@
 import { ResultEnum } from '@/enums/httpEnum'
 import { ErrorPageNameMap, PageEnum } from '@/enums/pageEnum'
-import { RouteLocation } from 'vue-router'
 import router from '@/router'
 import { docPath, giteeSourceCodePath } from '@/settings/pathConst'
 
@@ -85,6 +84,13 @@ export const redirectErrorPage = (code: ResultEnum) => {
   const pageName = ErrorPageNameMap.get(code)
   if (!pageName) return false
   routerTurnByName(pageName)
+}
+
+/**
+ * * 重新加载当前路由页面
+ */
+export const reloadRoutePage = () => {
+  routerTurnByName(PageEnum.RELOAD_NAME)
 }
 
 /**

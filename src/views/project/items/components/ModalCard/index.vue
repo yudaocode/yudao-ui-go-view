@@ -132,7 +132,7 @@ $contentWidth: calc(82vw);
     margin-top: 20px;
     border-radius: $--border-radius-base;
     overflow: hidden;
-    @include background-point('background-point');
+    @include background-image('background-point');
     @extend .go-point-bg;
     &-top {
       position: absolute;

@@ -15,7 +15,7 @@
         {{ $t('project.create_btn') }}
       </span>
     </n-tooltip>
-    <n-button v-else ghost type="primary" size="large">
+    <n-button v-else ghost type="primary">
       <template #icon>
         <n-icon>
           <DuplicateOutlineIcon v-show="designStore.getDarkTheme" />
