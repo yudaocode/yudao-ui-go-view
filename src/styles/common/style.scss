@@ -35,7 +35,7 @@
 // 毛玻璃
 .go-background-filter {
   backdrop-filter: $--filter-blur-base;
-  background-color: $--filter-color-base-1;
+  @include filter-bg-color('filter-color');
   box-shadow: $--border-shadow;
 }
 

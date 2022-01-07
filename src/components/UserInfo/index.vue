@@ -17,18 +17,30 @@
       />
     </div>
   </n-dropdown>
+
+  <!-- 系统设置 model -->
+  <SystemSet v-model:modelShow="modelShow"/>
 </template>
 
 <script lang="ts" setup>
-import { h, ref, reactive } from 'vue';
+import { h, ref, reactive } from 'vue'
 import { NAvatar, NText } from 'naive-ui'
 import { renderIcon } from '@/utils'
 import { openDoc, logout } from '@/utils'
+import { SystemSet } from './components/SystemSet/index'
 
 import { icon } from '@/plugins'
-const { DocumentTextIcon, ChatboxEllipsesIcon, PersonIcon, LogOutOutlineIcon } = icon.ionicons5
+const {
+  DocumentTextIcon,
+  ChatboxEllipsesIcon,
+  PersonIcon,
+  LogOutOutlineIcon,
+  SettingsSharpIcon
+} = icon.ionicons5
 
 const t = window['$t']
+
+const modelShow = ref(false)
 
 const imageUrl = 'https://www.naiveui.com/assets/naivelogo.93278402.svg'
 
@@ -79,8 +91,13 @@ const options = reactive([
     icon: renderIcon(ChatboxEllipsesIcon)
   },
   {
+    label: t('global.sys_set'),
+    key: 'sysSet',
+    icon: renderIcon(SettingsSharpIcon)
+  },
+  {
     type: 'divider',
-    key: 'd2'
+    key: 'd3'
   },
   {
     label: t('global.logout'),
@@ -94,6 +111,11 @@ const errorHandle = (e: Event) => {
   fallback.value = true
 }
 
+// 系统设置
+const sysSetHandle = () => {
+  modelShow.value = true
+}
+
 const handleSelect = (key: string) => {
   switch (key) {
     case 'doc':
@@ -101,6 +123,9 @@ const handleSelect = (key: string) => {
       break
     case 'contact':
       openDoc()
+      break
+    case 'sysSet':
+      sysSetHandle()
       break
     case 'logout':
       logout()
@@ -112,6 +137,6 @@ const handleSelect = (key: string) => {
 <style lang="scss" scoped>
 .user-info-box {
   cursor: pointer;
-  transform: scale(.7);
+  transform: scale(0.7);
 }
 </style>

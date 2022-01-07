@@ -9,8 +9,11 @@ const global = {
   // header
   doc: 'Document',
   help: 'Help',
-  contact: 'Contact us',
+  contact: 'Contact Us',
   logout: 'Logout',
+  // system setting
+  sys_set: 'System Setting',
+  lang_set: 'Language Setting',
   // right key
   r_edit: 'Edit',
   r_preview: 'Preview',

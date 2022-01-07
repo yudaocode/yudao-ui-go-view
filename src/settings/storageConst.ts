@@ -1,4 +1,4 @@
-export const GO_ACCESS_TOKEN = 'GO-ACCESS-TOKEN' // 用户token
-export const GO_CURRENT_USER = 'GO-CURRENT-USER' // 当前用户信息
-export const GO_LANG_SELECT = 'GO-LANG-SELECT' // 当前选择的语言类型
+export const GO_LOGIN = 'GO-ACCESS-TOKEN' // 登录信息
+export const GO_LANG = 'GO-LANG' // 语言
 export const GO_Theme_SELECT = 'GO-Theme-SELECT' // 当前选择的主题
+export const GO_Chart_Layout_Store = 'GO-Chart-Layout-Store' // 拖拽页面

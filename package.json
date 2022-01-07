@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "axios": "^0.23.0",
+    "crypto-ts": "^1.0.2",
     "mockjs": "^1.1.0",
     "naive-ui": "^2.23.2",
     "pinia": "^2.0.6",

@@ -11,6 +11,9 @@ const global = {
   help: '帮助中心',
   contact: '联系我们',
   logout: '退出登录',
+  // 系统设置
+  sys_set: '系统设置',
+  lang_set: '语言设置',
   // 功能键
   r_edit: '编辑',
   r_preview: '预览',

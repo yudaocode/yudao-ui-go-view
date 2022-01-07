@@ -35,7 +35,8 @@ import {
   Prism as PrismIcon,
   Cube as CubeIcon,
   ChevronBackOutline as ChevronBackOutlineIcon,
-  Flash as FlashIcon
+  Flash as FlashIcon,
+  SettingsSharp as SettingsSharpIcon
 } from '@vicons/ionicons5'
 
 // ionicons5 在这里
@@ -113,7 +114,9 @@ const ionicons5 = {
   // 折叠/回退
   ChevronBackOutlineIcon,
   // 后端数据（闪电）
-  FlashIcon
+  FlashIcon,
+  // 设置（齿轮）
+  SettingsSharpIcon
 }
 
 // https://www.xicons.org/#/ 还有很多

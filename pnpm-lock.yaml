@@ -10,6 +10,7 @@ specifiers:
   '@vue/compiler-sfc': ^3.2.20
   '@vueuse/core': ^7.3.0
   axios: ^0.23.0
+  crypto-ts: ^1.0.2
   default-passive-events: ^2.0.0
   eslint: ^8.4.1
   eslint-config-prettier: ^8.3.0
@@ -36,6 +37,7 @@ specifiers:
 
 dependencies:
   axios: rg.cnpmjs.org/axios/0.23.0
+  crypto-ts: r2.cnpmjs.org/crypto-ts/1.0.2
   mockjs: rg.cnpmjs.org/mockjs/1.1.0
   naive-ui: r2.cnpmjs.org/naive-ui/2.23.2_vue@3.2.24
   pinia: rg.cnpmjs.org/pinia/2.0.6_typescript@4.5.2+vue@3.2.24
@@ -214,6 +216,17 @@ packages:
     version: 1.1.4
     dev: false
 
+  r2.cnpmjs.org/crypto-ts/1.0.2:
+    resolution: {integrity: sha512-TcBWwF8ghYhVd/qPSwvY4nsbDZRN/PVxQ1Uc8ryRLiX4M4C5XSPyIhVgR4M5mIhrQEnWIktLcrv+FIqhKk2t3g==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/crypto-ts/-/crypto-ts-1.0.2.tgz}
+    name: crypto-ts
+    version: 1.0.2
+    peerDependencies:
+      '@angular/common': '>= 5.0.0'
+      '@angular/core': '>= 5.0.0'
+    dependencies:
+      tslib: r2.cnpmjs.org/tslib/1.14.1
+    dev: false
+
   r2.cnpmjs.org/css-render/0.15.8:
     resolution: {integrity: sha512-k1gp1MgYDPrFZhzheQkSwm6dmP6nPe2XE6WYpJBPwEc3GbMANPJZfxl7ofZlTl8/+tpMRiGTTgUkTlXaVbLxog==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/css-render/-/css-render-0.15.8.tgz}
     name: css-render
@@ -347,6 +360,18 @@ packages:
     dependencies:
       has-flag: r2.cnpmjs.org/has-flag/4.0.0
     dev: false
+
+  r2.cnpmjs.org/tslib/1.14.1:
+    resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/tslib/-/tslib-1.14.1.tgz}
+    name: tslib
+    version: 1.14.1
+    dev: false
+
+  r2.cnpmjs.org/tslib/2.3.1:
+    resolution: {integrity: sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/tslib/-/tslib-2.3.1.tgz}
+    name: tslib
+    version: 2.3.1
+    dev: true
 
   r2.cnpmjs.org/vdirs/0.1.7_vue@3.2.24:
     resolution: {integrity: sha512-MEUaLhV1jJyUqA2Ar4DfvlQx8jWs+PpCZ2dbM0ILelpMWGOybzt8ddL456VxeIbY/tkuDGT/Wzb8GG4LCuLuHw==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/vdirs/-/vdirs-0.1.7.tgz}
@@ -1597,7 +1622,7 @@ packages:
     version: 4.1.2
     dependencies:
       pascal-case: rg.cnpmjs.org/pascal-case/3.1.2
-      tslib: rg.cnpmjs.org/tslib/2.3.1
+      tslib: r2.cnpmjs.org/tslib/2.3.1
     dev: true
 
   rg.cnpmjs.org/camelcase/6.2.1:
@@ -1619,7 +1644,7 @@ packages:
     version: 1.0.4
     dependencies:
       no-case: rg.cnpmjs.org/no-case/3.0.4
-      tslib: rg.cnpmjs.org/tslib/2.3.1
+      tslib: r2.cnpmjs.org/tslib/2.3.1
       upper-case-first: rg.cnpmjs.org/upper-case-first/2.0.2
     dev: true
 
@@ -1723,7 +1748,7 @@ packages:
     version: 3.0.4
     dependencies:
       no-case: rg.cnpmjs.org/no-case/3.0.4
-      tslib: rg.cnpmjs.org/tslib/2.3.1
+      tslib: r2.cnpmjs.org/tslib/2.3.1
       upper-case: rg.cnpmjs.org/upper-case/2.0.2
     dev: true
 
@@ -1911,7 +1936,7 @@ packages:
     version: 3.0.4
     dependencies:
       no-case: rg.cnpmjs.org/no-case/3.0.4
-      tslib: rg.cnpmjs.org/tslib/2.3.1
+      tslib: r2.cnpmjs.org/tslib/2.3.1
     dev: true
 
   rg.cnpmjs.org/ee-first/1.1.1:
@@ -2796,7 +2821,7 @@ packages:
     version: 2.0.4
     dependencies:
       capital-case: rg.cnpmjs.org/capital-case/1.0.4
-      tslib: rg.cnpmjs.org/tslib/2.3.1
+      tslib: r2.cnpmjs.org/tslib/2.3.1
     dev: true
 
   rg.cnpmjs.org/highlight.js/11.3.1:
@@ -3186,7 +3211,7 @@ packages:
     name: lower-case
     version: 2.0.2
     dependencies:
-      tslib: rg.cnpmjs.org/tslib/2.3.1
+      tslib: r2.cnpmjs.org/tslib/2.3.1
     dev: true
 
   rg.cnpmjs.org/lru-cache/6.0.0:
@@ -3282,7 +3307,7 @@ packages:
     version: 3.0.4
     dependencies:
       lower-case: rg.cnpmjs.org/lower-case/2.0.2
-      tslib: rg.cnpmjs.org/tslib/2.3.1
+      tslib: r2.cnpmjs.org/tslib/2.3.1
     dev: true
 
   rg.cnpmjs.org/node-releases/2.0.1:
@@ -3403,7 +3428,7 @@ packages:
     version: 3.0.4
     dependencies:
       dot-case: rg.cnpmjs.org/dot-case/3.0.4
-      tslib: rg.cnpmjs.org/tslib/2.3.1
+      tslib: r2.cnpmjs.org/tslib/2.3.1
     dev: true
 
   rg.cnpmjs.org/parent-module/1.0.1:
@@ -3428,7 +3453,7 @@ packages:
     version: 3.1.2
     dependencies:
       no-case: rg.cnpmjs.org/no-case/3.0.4
-      tslib: rg.cnpmjs.org/tslib/2.3.1
+      tslib: r2.cnpmjs.org/tslib/2.3.1
     dev: true
 
   rg.cnpmjs.org/path-case/3.0.4:
@@ -3437,7 +3462,7 @@ packages:
     version: 3.0.4
     dependencies:
       dot-case: rg.cnpmjs.org/dot-case/3.0.4
-      tslib: rg.cnpmjs.org/tslib/2.3.1
+      tslib: r2.cnpmjs.org/tslib/2.3.1
     dev: true
 
   rg.cnpmjs.org/path-exists/3.0.0:
@@ -3856,7 +3881,7 @@ packages:
     version: 3.0.4
     dependencies:
       no-case: rg.cnpmjs.org/no-case/3.0.4
-      tslib: rg.cnpmjs.org/tslib/2.3.1
+      tslib: r2.cnpmjs.org/tslib/2.3.1
       upper-case-first: rg.cnpmjs.org/upper-case-first/2.0.2
     dev: true
 
@@ -3899,7 +3924,7 @@ packages:
     version: 3.0.4
     dependencies:
       dot-case: rg.cnpmjs.org/dot-case/3.0.4
-      tslib: rg.cnpmjs.org/tslib/2.3.1
+      tslib: r2.cnpmjs.org/tslib/2.3.1
     dev: true
 
   rg.cnpmjs.org/source-map-js/1.0.1:
@@ -4120,7 +4145,7 @@ packages:
     name: upper-case-first
     version: 2.0.2
     dependencies:
-      tslib: rg.cnpmjs.org/tslib/2.3.1
+      tslib: r2.cnpmjs.org/tslib/2.3.1
     dev: true
 
   rg.cnpmjs.org/upper-case/2.0.2:
@@ -4128,7 +4153,7 @@ packages:
     name: upper-case
     version: 2.0.2
     dependencies:
-      tslib: rg.cnpmjs.org/tslib/2.3.1
+      tslib: r2.cnpmjs.org/tslib/2.3.1
     dev: true
 
   rg.cnpmjs.org/uri-js/4.4.1:

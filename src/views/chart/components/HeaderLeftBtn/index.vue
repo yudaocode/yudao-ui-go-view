@@ -2,12 +2,17 @@
   <n-space class="header-left-btn">
     <n-tooltip
       v-for="item in btnList"
-      :key="item.title"
+      :key="item.key"
       placement="bottom"
       trigger="hover"
     >
       <template #trigger>
-        <n-button type="info" size="small" ghost @click="item.fn">
+        <n-button
+          :type="item.select ? 'info' : ''"
+          size="small"
+          ghost
+          @click="clickHandle(item)"
+        >
           <component :is="item.icon"></component>
         </n-button>
       </template>
@@ -19,43 +24,48 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, watchEffect, ref } from 'vue'
 import { renderIcon } from '@/utils'
 import { icon } from '@/plugins'
 const { LayersIcon, BarChartIcon, PrismIcon } = icon.ionicons5
+import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
 
-const layers = () => {
-  console.log('选择了图层控制')
-}
+const chartLayoutStore = useChartLayoutStore()
 
-const charts = () => {
-  console.log('选择了图表组件')
-}
-
-const details = () => {
-  console.log('选择了详情')
-}
-
-const btnList = reactive([
+const init = (layers: boolean, charts: boolean, details: boolean) => [
   {
-    fn: layers,
-    select: true,
+    key: 'layers',
+    select: chartLayoutStore.getLayers,
     title: '图层控制',
     icon: renderIcon(LayersIcon)
   },
   {
-    fn: charts,
-    select: true,
+    key: 'charts',
+    select: chartLayoutStore.getCharts,
     title: '图表组件',
     icon: renderIcon(BarChartIcon)
   },
   {
-    fn: details,
-    select: true,
+    key: 'details',
+    select: chartLayoutStore.getDetails,
     title: '详情设置',
     icon: renderIcon(PrismIcon)
   }
-])
+]
+
+const btnList = ref()
+
+watchEffect(() => {
+  btnList.value = init(
+    chartLayoutStore.getLayers,
+    chartLayoutStore.getCharts,
+    chartLayoutStore.getDetails
+  )
+})
+
+const clickHandle = (item: { [T: string]: string }) => {
+  chartLayoutStore.setItem(item.key, !item.select)
+}
 </script>
 <style lang="scss" scoped>
 .header-left-btn {
