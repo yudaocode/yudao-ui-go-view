@@ -2,10 +2,12 @@ import { defineStore } from 'pinia'
 import { store } from '@/store'
 import { ChartLayoutType, ChartLayoutFilterType } from './chartLayoutStore.d'
 import { setLocalStorage, getLocalStorage } from '@/utils'
-import { GO_Chart_Layout_Store } from '@/settings/storageConst'
+import { StorageEnum } from '@/enums/storageEnum'
+
+const { GO_CHART_LAYOUT_STORE } = StorageEnum
 
 const storageChartLayout: ChartLayoutType = getLocalStorage(
-  GO_Chart_Layout_Store
+  GO_CHART_LAYOUT_STORE
 )
 
 export const useChartLayoutStore = defineStore({
@@ -54,11 +56,11 @@ export const useChartLayoutStore = defineStore({
   actions: {
     setItem(key: string, value: boolean): void {
       ;(this as any)[key] = value
-      setLocalStorage(GO_Chart_Layout_Store, this.$state)
+      setLocalStorage(GO_CHART_LAYOUT_STORE, this.$state)
     },
     setFilter<T extends keyof ChartLayoutType>(key: T, value: boolean): void {
       ;(this.filter as any)[key] = value
-      setLocalStorage(GO_Chart_Layout_Store, this.$state)
+      setLocalStorage(GO_CHART_LAYOUT_STORE, this.$state)
     }
   }
 })

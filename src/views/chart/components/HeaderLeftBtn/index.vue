@@ -24,47 +24,38 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, watchEffect, ref } from 'vue'
+import { toRefs, reactive } from 'vue'
 import { renderIcon } from '@/utils'
 import { icon } from '@/plugins'
 const { LayersIcon, BarChartIcon, PrismIcon } = icon.ionicons5
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
 
-const chartLayoutStore = useChartLayoutStore()
+const { setItem } = useChartLayoutStore()
+const { getLayers, getCharts, getDetails } = toRefs(useChartLayoutStore())
 
-const init = (layers: boolean, charts: boolean, details: boolean) => [
+const btnList = reactive([
   {
     key: 'layers',
-    select: chartLayoutStore.getLayers,
+    select: getLayers,
     title: '图层控制',
     icon: renderIcon(LayersIcon)
   },
   {
     key: 'charts',
-    select: chartLayoutStore.getCharts,
+    select: getCharts,
     title: '图表组件',
     icon: renderIcon(BarChartIcon)
   },
   {
     key: 'details',
-    select: chartLayoutStore.getDetails,
+    select: getDetails,
     title: '详情设置',
     icon: renderIcon(PrismIcon)
   }
-]
-
-const btnList = ref()
-
-watchEffect(() => {
-  btnList.value = init(
-    chartLayoutStore.getLayers,
-    chartLayoutStore.getCharts,
-    chartLayoutStore.getDetails
-  )
-})
+])
 
 const clickHandle = (item: { [T: string]: string }) => {
-  chartLayoutStore.setItem(item.key, !item.select)
+  setItem(item.key, !item.select)
 }
 </script>
 <style lang="scss" scoped>

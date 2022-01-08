@@ -4,17 +4,18 @@ import { LangStateType } from './langStore.d'
 import { LangEnum } from '@/enums/styleEnum'
 import i18n from '@/i18n/index'
 import { setLocalStorage, getLocalStorage, reloadRoutePage } from '@/utils'
-import { GO_LANG } from '@/settings/storageConst'
+import { StorageEnum } from '@/enums/storageEnum'
 
-const storageLang: LangStateType = getLocalStorage(GO_LANG)
+const { GO_LANG_STORE } = StorageEnum
+
+const storageLang: LangStateType = getLocalStorage(GO_LANG_STORE)
 
 export const useLangStore = defineStore({
   id: 'useLangStore',
   state: (): LangStateType =>
     storageLang || {
       lang,
-      // 默认刷新页面
-      isReload: true
+      isReload: false
     },
   getters: {
     getLang(): LangEnum {
@@ -27,14 +28,14 @@ export const useLangStore = defineStore({
   actions: {
     changeReload(value: boolean): void {
       this.isReload = value
-      setLocalStorage(GO_LANG, this.$state)
+      setLocalStorage(GO_LANG_STORE, this.$state)
     },
     changeLang(lang: LangEnum): void {
       if (this.lang === lang) return
       this.lang = lang
       i18n.global.locale = lang
 
-      setLocalStorage(GO_LANG, this.$state)
+      setLocalStorage(GO_LANG_STORE, this.$state)
 
       if (this.getReload) {
         reloadRoutePage()

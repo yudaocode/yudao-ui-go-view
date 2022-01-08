@@ -1,27 +1,32 @@
 import { defineStore } from 'pinia'
 import { store } from '@/store'
-import { theme } from '@/settings/designSetting'
+import { theme, asideAllShrink } from '@/settings/designSetting'
 import { DesignStateType } from './designStore.d'
 import { setLocalStorage, getLocalStorage } from '@/utils'
-import { GO_Theme_SELECT } from '@/settings/storageConst'
+import { StorageEnum } from '@/enums/storageEnum'
 import { ThemeEnum } from '@/enums/styleEnum'
 
+const { GO_DESIGN_STORE } = StorageEnum
+
 const { darkTheme, appTheme, appThemeList } = theme
-const storageThemeName = getLocalStorage(GO_Theme_SELECT)
+
+const storageDesign = getLocalStorage(GO_DESIGN_STORE)
 
 export const useDesignStore = defineStore({
   id: 'useDesignStore',
-  state: (): DesignStateType => ({
-    // 是否暗黑
-    darkTheme: storageThemeName === ThemeEnum.dark,
-    // 主题名称
-    themeName:
-      storageThemeName || (darkTheme && ThemeEnum.dark) || ThemeEnum.light,
-    // 颜色色号
-    appTheme,
-    // 颜色列表
-    appThemeList
-  }),
+  state: (): DesignStateType =>
+    storageDesign || {
+      // 是否暗黑
+      darkTheme,
+      // 主题名称
+      themeName: (darkTheme && ThemeEnum.dark) || ThemeEnum.light,
+      // 颜色色号
+      appTheme,
+      // 颜色列表
+      appThemeList,
+      // 侧边栏
+      asideAllShrink
+    },
   getters: {
     getDarkTheme(e): boolean {
       return this.darkTheme
@@ -37,7 +42,11 @@ export const useDesignStore = defineStore({
     changeTheme(): void {
       this.darkTheme = !this.darkTheme
       this.themeName = this.darkTheme ? ThemeEnum.dark : ThemeEnum.light
-      setLocalStorage(GO_Theme_SELECT, this.themeName)
+      setLocalStorage(GO_DESIGN_STORE, this.$state)
+    },
+    changeAsideAllShrink(): void {
+      this.asideAllShrink = !this.asideAllShrink
+      setLocalStorage(GO_DESIGN_STORE, this.$state)
     }
   }
 })

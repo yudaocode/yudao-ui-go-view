@@ -1,5 +1,5 @@
 <template>
-  <n-modal v-model:show="modelShow" @afterLeave="closeModal">
+  <n-modal v-model:show="modelShow" @afterLeave="closeHandle">
     <n-list bordered class="go-system-setting">
       <template #header> 系统设置 </template>
 
@@ -62,7 +62,7 @@ const list = reactive<ListType[]>([
   }
 ])
 
-const closeModal = () => {
+const closeHandle = () => {
   emit('update:modelShow', false)
 }
 

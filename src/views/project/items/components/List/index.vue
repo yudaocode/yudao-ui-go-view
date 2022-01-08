@@ -17,7 +17,7 @@
     </n-grid>
   </div>
   <ModalCard
-    v-model:show="modalShow"
+    v-model:modalShow="modalShow"
     :cardData="modalData"
     @close="closeModal"
     @edit="editHandle"
@@ -25,7 +25,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import { Card } from '../Card/index'
 import { ModalCard } from '../ModalCard/index'
 import { icon } from '@/plugins'

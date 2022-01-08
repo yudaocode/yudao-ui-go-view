@@ -55,6 +55,9 @@ export const maskClosable = false
 // 侧边栏宽度
 export const asideWidth = '270'
 
+// 侧边栏是否支持全持全部收缩
+export const asideAllShrink = true
+
 // 侧边栏缩小后的宽度
 // 建议 0 或者 60，已经适配好了
 export const asideCollapsedWidth = '0'

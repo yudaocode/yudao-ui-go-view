@@ -2,8 +2,8 @@
   <!-- mask-closable 暂时是失效的，不知道为啥 -->
   <n-modal
     class="go-modal-box"
-    v-model:show="show"
-    @on-after-leave="closeHandle"
+    v-model:show="modalShow"
+    @afterLeave="closeHandle"
   >
     <n-card hoverable size="small">
       <div class="list-content">
@@ -75,7 +75,7 @@
 </template>
 
 <script setup lang="ts">
-import { watchEffect, reactive } from 'vue'
+import { reactive } from 'vue'
 import { renderIcon, renderLang, requireUrl } from '@/utils'
 import { icon } from '@/plugins'
 import { AppleControlBtn } from '@/components/AppleControlBtn'
@@ -84,18 +84,9 @@ const { HammerIcon } = icon.ionicons5
 
 const emit = defineEmits(['close', 'edit'])
 
-const t = window['$t']
-
 const props = defineProps({
-  show: Boolean,
+  modalShow: Boolean,
   cardData: Object
-})
-
-// 解决点击模态层不会触发 @on-after-leave 的问题
-watchEffect(() => {
-  if (!props.show && props.cardData) {
-    closeHandle()
-  }
 })
 
 const fnBtnList = reactive([
