@@ -5,7 +5,7 @@
 // extends
 // 过度
 .go-transition {
-  transition: all 0.2s;
+  transition: all 0.4s;
 }
 
 .go-flex-center {
@@ -13,6 +13,10 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.go-flex-no-wrap {
+  flex-wrap: nowrap!important;
 }
 
 .go-absolute-center {

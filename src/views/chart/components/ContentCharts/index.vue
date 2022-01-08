@@ -1,20 +1,36 @@
 <template>
-  <ContentBox class="go-content-charts" title="图表" :depth="2">
-    <n-scrollbar></n-scrollbar>
+  <ContentBox
+    class="go-content-charts"
+    :class="{ scoped: !getCharts }"
+    title="图表"
+    :depth="2"
+    :backIcon="getCharts"
+  >
+    <template #icon>
+      <n-icon size="14" :depth="2">
+        <component :is="BarChartIcon" />
+      </n-icon>
+    </template>
   </ContentBox>
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
-import { renderIcon } from '@/utils'
+import { toRefs } from 'vue'
 import { icon } from '@/plugins'
-const {} = icon.ionicons5
+const { BarChartIcon } = icon.ionicons5
 import { ContentBox } from '../ContentBox/index'
+import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
+const { getCharts } = toRefs(useChartLayoutStore())
 </script>
 
 <style lang="scss" scoped>
-$wight: 200px;
+$wight: 300px;
+$wightScoped: 80px;
 @include go(content-charts) {
   width: $wight;
+  @extend .go-transition;
+  &.scoped {
+    width: $wightScoped;
+  }
 }
 </style>

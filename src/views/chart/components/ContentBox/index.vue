@@ -1,10 +1,22 @@
 <template>
   <div class="go-content-box" :class="[`bg-depth${depth}`, flex && 'flex']">
-    <div v-if="showTop" class="top go-mt-0">
-      <n-text> {{ title }} </n-text>
+    <div v-if="showTop" class="top go-mt-0 go-flex-no-wrap">
+      <n-space class="go-flex-no-wrap">
+        <n-ellipsis>
+          <n-text>{{ title }}</n-text>
+        </n-ellipsis>
+        <div class="mt-1">
+          <slot name="icon"></slot>
+        </div>
+      </n-space>
       <n-space>
         <slot name="top-right"></slot>
-        <n-icon size="20" class="go-cursor-pointer">
+        <n-icon
+          v-show="backIcon"
+          size="20"
+          class="go-cursor-pointer"
+          @click="backHandle"
+        >
           <ChevronBackOutlineIcon />
         </n-icon>
       </n-space>
@@ -25,6 +37,7 @@
 <script setup lang="ts">
 import { icon } from '@/plugins'
 const { ChevronBackOutlineIcon } = icon.ionicons5
+const emit = defineEmits(['back'])
 
 defineProps({
   title: String,
@@ -40,12 +53,21 @@ defineProps({
     type: Boolean,
     default: false
   },
+  // back
+  backIcon: {
+    type: Boolean,
+    default: true
+  },
   // 背景深度
   depth: {
     type: Number,
     default: 1
   }
 })
+
+const backHandle = () => {
+  emit('back')
+}
 </script>
 
 <style lang="scss" scoped>
@@ -89,9 +111,13 @@ $topHeight: 36px;
   .bottom {
     display: flex;
     justify-content: space-between;
+    flex-wrap: nowrap;
     align-items: center;
     height: 36px;
     padding: 0 10px;
+    .mt-1 {
+      margin-top: 2px;
+    }
   }
   .content {
     height: calc(100vh - #{$--header-height} - #{$topHeight});

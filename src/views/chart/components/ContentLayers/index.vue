@@ -1,18 +1,38 @@
 <template>
-  <ContentBox class="go-content-layers" title="图层"> </ContentBox>
+  <ContentBox
+    class="go-content-layers"
+    :class="{ scoped: !chartLayoutStore.getLayers }"
+    title="图层"
+    @back="backHandle"
+  >
+    <template #icon>
+      <n-icon size="16" :depth="2">
+        <component :is="LayersIcon" />
+      </n-icon>
+    </template>
+  </ContentBox>
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
-import { renderIcon } from '@/utils'
-import { icon } from '@/plugins'
-const {} = icon.ionicons5
 import { ContentBox } from '../ContentBox/index'
+import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
+import { icon } from '@/plugins'
+const { LayersIcon } = icon.ionicons5
+const chartLayoutStore = useChartLayoutStore()
+
+const backHandle = () => {
+  chartLayoutStore.setItem('layers', false)
+}
 </script>
 
 <style lang="scss" scoped>
 $wight: 200px;
 @include go(content-layers) {
   width: $wight;
+  overflow: hidden;
+  @extend .go-transition;
+  &.scoped {
+    width: 0;
+  }
 }
 </style>
