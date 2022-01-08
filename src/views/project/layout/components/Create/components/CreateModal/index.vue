@@ -18,15 +18,14 @@
             :disabled="item.disabled"
             v-for="item in typeList"
             :key="item.key"
-            :title="item.title"
             @click="btnHandle(item.index)"
           >
+            <component :is="item.title"> </component>
             <template #icon>
               <n-icon size="18">
                 <component :is="item.icon" />
               </n-icon>
             </template>
-            <span>{{ item.title }}</span>
           </n-button>
         </n-space>
         <template #action> </template>
@@ -39,7 +38,7 @@
 import { watch, reactive } from 'vue'
 import { icon } from '@/plugins'
 import { PageEnum, ChartEnum } from '@/enums/pageEnum'
-import { routerTurnByName } from '@/utils'
+import { routerTurnByName, renderLang } from '@/utils'
 
 const { FishIcon, LaptopOutlineIcon, BeerIcon, CloseIcon } = icon.ionicons5
 const t = window['$t']
@@ -50,19 +49,19 @@ const props = defineProps({
 
 const typeList = reactive([
   {
-    title: t('project.new_project'),
+    title: renderLang('project.new_project'),
     key: ChartEnum.CHART_HOME_NAME,
     icon: FishIcon,
     disabled: false
   },
   {
-    title: t('project.my_templete'),
+    title: renderLang('project.my_templete'),
     key: PageEnum.BASE_HOME_TEMPLATE_NAME,
     icon: LaptopOutlineIcon,
     disabled: true
   },
   {
-    title: t('project.template_market'),
+    title: renderLang('project.template_market'),
     key: PageEnum.BASE_HOME_TEMPLATE_MARKET_NAME,
     icon: BeerIcon,
     disabled: true

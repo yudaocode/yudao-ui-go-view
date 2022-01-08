@@ -70,7 +70,7 @@
                     </template>
                   </n-button>
                 </template>
-                <span> {{ item.label }} </span>
+                <component :is="item.label"></component>
               </n-tooltip>
             </template>
           </n-space>
@@ -82,13 +82,10 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, h } from 'vue'
-import { renderIcon, requireUrl, requireFallbackImg } from '@/utils'
+import { reactive, ref } from 'vue'
+import { renderIcon, renderLang, requireUrl, requireFallbackImg } from '@/utils'
 import { icon } from '@/plugins'
 import { AppleControlBtn } from '@/components/AppleControlBtn'
-import { NText } from 'naive-ui'
-
-const t = window['$t']
 
 const {
   EllipsisHorizontalCircleSharpIcon,
@@ -102,39 +99,37 @@ const {
 } = icon.ionicons5
 
 const emit = defineEmits(['delete', 'resize', 'edit'])
+const t = window['$t']
 
 const props = defineProps({
   cardData: Object
 })
-const renderNText = (set = {}) => {
-  return () => h(NText, set, { default: () => h('312321') })
-}
 const fnBtnList = reactive([
   {
-    label: t('global.r_edit'),
+    label: renderLang('global.r_edit'),
     key: 'edit',
     icon: renderIcon(HammerIcon)
   },
   {
-    lable: t('global.r_more'),
+    lable: renderLang('global.r_more'),
     key: 'select',
     icon: renderIcon(EllipsisHorizontalCircleSharpIcon)
   }
 ])
 
-const selectOptions = reactive([
+const selectOptions = ref([
   {
-    label: t('global.r_preview'),
+    label: renderLang('global.r_preview'),
     key: 'preview',
     icon: renderIcon(DesktopOutlineIcon)
   },
   {
-    label: t('global.r_copy'),
+    label: renderLang('global.r_copy'),
     key: 'copy',
     icon: renderIcon(CopyIcon)
   },
   {
-    label: t('global.r_rename'),
+    label: renderLang('global.r_rename'),
     key: 'rename',
     icon: renderIcon(PencilIcon)
   },
@@ -144,13 +139,13 @@ const selectOptions = reactive([
   },
   {
     label: props.cardData?.release
-      ? t('global.r_unpublish')
-      : t('global.r_publish'),
+      ? renderLang('global.r_unpublish')
+      : renderLang('global.r_publish'),
     key: 'send',
     icon: renderIcon(SendIcon)
   },
   {
-    label: t('global.r_download'),
+    label: renderLang('global.r_download'),
     key: 'download',
     icon: renderIcon(DownloadIcon)
   },
@@ -159,7 +154,7 @@ const selectOptions = reactive([
     key: 'd2'
   },
   {
-    label: t('global.r_delete'),
+    label: renderLang('global.r_delete'),
     key: 'delete',
     icon: renderIcon(TrashIcon)
   }

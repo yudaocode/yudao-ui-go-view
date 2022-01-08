@@ -105,7 +105,7 @@ export const logout = () => {
  * @param url
  */
 export const openNewWindow = (url: string) => {
-  window.open(url, 'blank')
+  window.open(url, '_blank')
 }
 
 /**

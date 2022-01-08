@@ -36,7 +36,7 @@
       <template #action>
         <n-space class="list-footer" justify="space-between">
           <n-text depth="3">
-            {{$t('project.last_edit')}}:
+            {{ $t('project.last_edit') }}:
             <n-time :time="new Date()" format="yyyy-MM-dd hh:mm" />
           </n-text>
           <!-- 工具 -->
@@ -47,7 +47,11 @@
                 dot
                 :color="cardData?.release ? '#34c749' : '#fcbc40'"
               />
-              {{ cardData?.release ? $t('project.release') : $t('project.unreleased') }}
+              {{
+                cardData?.release
+                  ? $t('project.release')
+                  : $t('project.unreleased')
+              }}
             </n-text>
 
             <template v-for="item in fnBtnList" :key="item.key">
@@ -59,7 +63,7 @@
                     </template>
                   </n-button>
                 </template>
-                <span> {{ item.label }}</span>
+                <component :is="item.label"></component>
               </n-tooltip>
             </template>
           </n-space>
@@ -72,7 +76,7 @@
 
 <script setup lang="ts">
 import { watchEffect, reactive } from 'vue'
-import { renderIcon, requireUrl, requireFallbackImg } from '@/utils'
+import { renderIcon, renderLang, requireUrl } from '@/utils'
 import { icon } from '@/plugins'
 import { AppleControlBtn } from '@/components/AppleControlBtn'
 
@@ -96,7 +100,7 @@ watchEffect(() => {
 
 const fnBtnList = reactive([
   {
-    label: t('global.r_edit'),
+    label: renderLang('global.r_edit'),
     key: 'edit',
     icon: renderIcon(HammerIcon)
   }

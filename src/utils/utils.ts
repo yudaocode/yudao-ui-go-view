@@ -15,9 +15,20 @@ export function getUUID(randomLength: number) {
 
 /**
  * * render 图标
+ *  @param icon 图标
+ *  @param set 设置项
  */
 export const renderIcon = (icon: any, set = {}) => {
   return () => h(NIcon, set, { default: () => h(icon) })
+}
+/**
+ * * render 语言
+ *  @param lang 语言标识
+ *  @param set 设置项
+ *  @param tag 要渲染成的标签
+ */
+export const renderLang = (lang: string, set = {}, tag = 'span') => {
+  return () => h(tag, set, { default: () => window['$t'](lang) })
 }
 
 /**
@@ -69,7 +80,7 @@ export const goAddEventListener = <K extends keyof WindowEventMap>(
   listener: EventListenerOrEventListenerObject,
   options?: boolean | AddEventListenerOptions | undefined
 ) => {
-  if(!target) return
+  if (!target) return
   target.addEventListener(
     type,
     debounce(listener, 300, {
@@ -88,6 +99,6 @@ export const goRemoveEventListener = <K extends keyof WindowEventMap>(
   type: K,
   listener: EventListenerOrEventListenerObject
 ) => {
-  if(!target) return
+  if (!target) return
   target.removeEventListener(type, listener)
 }

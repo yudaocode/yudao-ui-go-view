@@ -23,10 +23,10 @@
 </template>
 
 <script lang="ts" setup>
-import { h, ref, watchEffect } from 'vue'
+import { h, ref } from 'vue'
 import { NAvatar, NText } from 'naive-ui'
 import { renderIcon } from '@/utils'
-import { openDoc, logout } from '@/utils'
+import { openDoc, logout, renderLang } from '@/utils'
 import { SystemSet } from './components/SystemSet/index'
 
 import { icon } from '@/plugins'
@@ -68,9 +68,7 @@ const renderUserInfo = () => {
     ]
   )
 }
-const options = ref()
-
-const init = (doc: string, contact: string, sysSet: string, logout: string) => [
+const options = ref([
   {
     label: '我的信息',
     key: 'info',
@@ -82,17 +80,17 @@ const init = (doc: string, contact: string, sysSet: string, logout: string) => [
     key: 'd1'
   },
   {
-    label: doc,
+    label: renderLang('global.doc'),
     key: 'doc',
     icon: renderIcon(DocumentTextIcon)
   },
   {
-    label: contact,
+    label: renderLang('global.contact'),
     key: 'contact',
     icon: renderIcon(ChatboxEllipsesIcon)
   },
   {
-    label: sysSet,
+    label: renderLang('global.sys_set'),
     key: 'sysSet',
     icon: renderIcon(SettingsSharpIcon)
   },
@@ -101,20 +99,11 @@ const init = (doc: string, contact: string, sysSet: string, logout: string) => [
     key: 'd3'
   },
   {
-    label: logout,
+    label: renderLang('global.logout'),
     key: 'logout',
     icon: renderIcon(LogOutOutlineIcon)
   }
-]
-
-watchEffect(() => {
-  options.value = init(
-    t('global.doc'),
-    t('global.contact'),
-    t('global.sys_set'),
-    t('global.logout')
-  )
-})
+])
 
 // 图片渲染错误
 const errorHandle = (e: Event) => {

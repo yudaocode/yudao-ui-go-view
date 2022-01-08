@@ -13,7 +13,6 @@ export const renderMenuLabel = (option: MenuOption | MenuGroupOption) => {
 export const expandedKeys = () => ['all-project']
 
 export const menuOptionsInit = () => {
-  
   const t = window['$t']
 
   return reactive([
@@ -22,13 +21,13 @@ export const menuOptionsInit = () => {
       type: 'divider'
     },
     {
-      label: t('project.project'),
+      label: () => h('span', null, { default: () => t('project.project') }),
       key: 'all-project',
       icon: renderIcon(GridIcon),
       children: [
         {
           type: 'group',
-          label: t('project.my'),
+          label: () => h('span', null, { default: () => t('project.my') }),
           key: 'my-project',
           children: [
             {

@@ -36,7 +36,7 @@
 </template>
 
 <script script lang="ts" setup>
-import { reactive, h } from 'vue'
+import { reactive } from 'vue'
 import { ListType } from './index.d'
 import { useLangStore } from '@/store/modules/langStore/langStore'
 import { icon } from '@/plugins'
