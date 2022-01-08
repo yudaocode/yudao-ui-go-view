@@ -54,7 +54,7 @@ const langStore = useLangStore()
 const list = reactive<ListType[]>([
   {
     key: 'lang',
-    value: false,
+    value: langStore.getReload,
     type: 'switch',
     name: '切换语言',
     desc: '切换语言是否重新加载页面',

@@ -19,11 +19,11 @@
   </n-dropdown>
 
   <!-- 系统设置 model -->
-  <SystemSet v-model:modelShow="modelShow"/>
+  <SystemSet v-model:modelShow="modelShow" />
 </template>
 
 <script lang="ts" setup>
-import { h, ref, reactive } from 'vue'
+import { h, ref, watchEffect } from 'vue'
 import { NAvatar, NText } from 'naive-ui'
 import { renderIcon } from '@/utils'
 import { openDoc, logout } from '@/utils'
@@ -68,8 +68,9 @@ const renderUserInfo = () => {
     ]
   )
 }
+const options = ref()
 
-const options = reactive([
+const init = (doc: string, contact: string, sysSet: string, logout: string) => [
   {
     label: '我的信息',
     key: 'info',
@@ -81,17 +82,17 @@ const options = reactive([
     key: 'd1'
   },
   {
-    label: t('global.doc'),
+    label: doc,
     key: 'doc',
     icon: renderIcon(DocumentTextIcon)
   },
   {
-    label: t('global.contact'),
+    label: contact,
     key: 'contact',
     icon: renderIcon(ChatboxEllipsesIcon)
   },
   {
-    label: t('global.sys_set'),
+    label: sysSet,
     key: 'sysSet',
     icon: renderIcon(SettingsSharpIcon)
   },
@@ -100,11 +101,20 @@ const options = reactive([
     key: 'd3'
   },
   {
-    label: t('global.logout'),
+    label: logout,
     key: 'logout',
     icon: renderIcon(LogOutOutlineIcon)
   }
-])
+]
+
+watchEffect(() => {
+  options.value = init(
+    t('global.doc'),
+    t('global.contact'),
+    t('global.sys_set'),
+    t('global.logout')
+  )
+})
 
 // 图片渲染错误
 const errorHandle = (e: Event) => {
