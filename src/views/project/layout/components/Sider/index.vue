@@ -6,7 +6,7 @@
     show-trigger="bar"
     :collapsed="collapsed"
     :native-scrollbar="false"
-    :collapsed-width="asideCollapsedWidth"
+    :collapsed-width="getAsideCollapsedWidth"
     :width="asideWidth"
     @collapse="collapsed = true"
     @expand="collapsed = false"
@@ -19,7 +19,7 @@
         <n-menu
           :value="menuValue"
           :options="menuOptions"
-          :collapsed-width="asideCollapsedWidth"
+          :collapsed-width="getAsideCollapsedWidth"
           :collapsed-icon-size="22"
           :default-expanded-keys="defaultExpandedKeys"
           @update:value="handleUpdateValue"
@@ -34,14 +34,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, toRefs } from 'vue'
 import { Create } from '../Create/index'
 import { AsideFooter } from '../AsideFooter/index'
 import { asideWidth, asideCollapsedWidth } from '@/settings/designSetting'
-import { menuOptionsInit, expandedKeys } from './menu'
 import { useRoute } from 'vue-router'
+import { useDesignStore } from '@/store/modules/designStore/designStore'
+import { menuOptionsInit, expandedKeys } from './menu'
 
 const collapsed = ref<boolean>(false)
+const { getAsideCollapsedWidth } = toRefs(useDesignStore())
 
 const route = useRoute()
 const routeRame = computed(() => route.name)

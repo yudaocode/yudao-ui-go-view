@@ -3,6 +3,6 @@ export type ListType = {
   type: string
   name: string
   desc: string
-  value: boolean
-  tip: string
+  value: any
+  tip?: string
 }

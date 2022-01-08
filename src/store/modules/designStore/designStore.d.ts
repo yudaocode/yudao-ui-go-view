@@ -10,5 +10,5 @@ export interface DesignStateType {
   //系统内置风格
   appThemeList: string[]
   // 侧边栏是否全收缩
-  asideAllShrink: boolean
+  asideAllCollapsed: boolean
 }

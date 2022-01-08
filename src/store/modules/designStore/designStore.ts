@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { store } from '@/store'
-import { theme, asideAllShrink } from '@/settings/designSetting'
+import { theme, asideAllCollapsed, asideCollapsedWidth } from '@/settings/designSetting'
 import { DesignStateType } from './designStore.d'
 import { setLocalStorage, getLocalStorage } from '@/utils'
 import { StorageEnum } from '@/enums/storageEnum'
@@ -25,7 +25,7 @@ export const useDesignStore = defineStore({
       // 颜色列表
       appThemeList,
       // 侧边栏
-      asideAllShrink
+      asideAllCollapsed
     },
   getters: {
     getDarkTheme(e): boolean {
@@ -36,6 +36,9 @@ export const useDesignStore = defineStore({
     },
     getAppThemeList(): string[] {
       return this.appThemeList
+    },
+    getAsideCollapsedWidth(): string {
+      return this.asideAllCollapsed ? '0' : asideCollapsedWidth
     }
   },
   actions: {
@@ -44,8 +47,8 @@ export const useDesignStore = defineStore({
       this.themeName = this.darkTheme ? ThemeEnum.dark : ThemeEnum.light
       setLocalStorage(GO_DESIGN_STORE, this.$state)
     },
-    changeAsideAllShrink(): void {
-      this.asideAllShrink = !this.asideAllShrink
+    changeAsideAllCollapsed(): void {
+      this.asideAllCollapsed = !this.asideAllCollapsed
       setLocalStorage(GO_DESIGN_STORE, this.$state)
     }
   }

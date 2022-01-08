@@ -55,12 +55,11 @@ export const maskClosable = false
 // 侧边栏宽度
 export const asideWidth = '270'
 
-// 侧边栏是否支持全持全部收缩
-export const asideAllShrink = true
+// 侧边栏折叠后的宽度，支持全部折叠会覆盖为 0
+export const asideCollapsedWidth = '60'
 
-// 侧边栏缩小后的宽度
-// 建议 0 或者 60，已经适配好了
-export const asideCollapsedWidth = '0'
+// 侧边栏是否支持全持全部折叠
+export const asideAllCollapsed = true
 
 // 修改边框圆角
 export const borderRadius = '6px'

@@ -17,7 +17,7 @@
           </n-space>
           <n-space>
             <n-text class="item-right">{{ item.desc }}</n-text>
-            <n-tooltip trigger="hover">
+            <n-tooltip v-if="item.tip" trigger="hover">
               <template #trigger>
                 <n-icon size="21">
                   <HelpOutlineIcon />
@@ -39,6 +39,7 @@
 import { reactive } from 'vue'
 import { ListType } from './index.d'
 import { useLangStore } from '@/store/modules/langStore/langStore'
+import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { icon } from '@/plugins'
 
 const { HelpOutlineIcon } = icon.ionicons5
@@ -50,6 +51,7 @@ defineProps({
 })
 
 const langStore = useLangStore()
+const designStore = useDesignStore()
 
 const list = reactive<ListType[]>([
   {
@@ -58,7 +60,14 @@ const list = reactive<ListType[]>([
     type: 'switch',
     name: '切换语言',
     desc: '切换语言是否重新加载页面',
-    tip: '不重载可能会导致部分区域语言切换失败'
+    tip: '不重载有较低可能性导致部分区域语言切换失败'
+  },
+  {
+    key: 'aollapsed',
+    value: designStore.asideAllCollapsed,
+    type: 'switch',
+    name: '菜单折叠',
+    desc: '左侧菜单是否全部折叠',
   }
 ])
 
@@ -71,8 +80,8 @@ const handleChange = (e: Event, item: ListType) => {
     case 'lang':
       langStore.changeReload(item.value)
       break
-
-    default:
+    case 'aollapsed':
+      designStore.changeAsideAllCollapsed()
       break
   }
 }

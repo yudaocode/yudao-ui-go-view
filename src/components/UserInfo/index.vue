@@ -27,7 +27,7 @@ import { h, ref } from 'vue'
 import { NAvatar, NText } from 'naive-ui'
 import { renderIcon } from '@/utils'
 import { openDoc, logout, renderLang } from '@/utils'
-import { SystemSet } from './components/SystemSet/index'
+import { SystemSet } from '@/components/SystemSet/index'
 
 import { icon } from '@/plugins'
 const {

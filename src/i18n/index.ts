@@ -10,7 +10,7 @@ import en from './en/index'
 const langStorage: LangStateType = getLocalStorage(StorageEnum.GO_LANG_STORE)
 
 const i18n = createI18n({
-  locale: langStorage.lang || lang,
+  locale: langStorage?.lang || lang,
   globalInjection: true,
   messages: {
     zh: zh,
