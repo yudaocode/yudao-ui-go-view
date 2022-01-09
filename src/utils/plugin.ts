@@ -7,16 +7,16 @@ import { renderIcon } from '@/utils'
 
 /**
  * * render 对话框
- * @param { Function } dialogFn dialog函数，暂时必须从页面传过来
  * @param { Object} params 配置参数
+ * @param { Function } dialogFn 函数
  */
 export const goDialog = (
   params: {
     // 基本
-    type: DialogEnum
+    type?: DialogEnum
     message?: string
     // 回调
-    onPositiveCallback?: Function
+    onPositiveCallback: Function
     onNegativeCallback?: Function
     // 异步
     promise?: boolean
@@ -56,12 +56,13 @@ export const goDialog = (
     }
   }
 
-  const d: DialogReactive = (typeObj as any)[type]['fn']({
+  const d: DialogReactive = (typeObj as any)[type || DialogEnum.warning]['fn']({
     title: '提示',
     icon: renderIcon(InformationCircleIcon, { size: dialogIconSize }),
-    content: (typeObj as any)[type]['message'],
+    content: (typeObj as any)[type || DialogEnum.warning]['message'],
     positiveText: '确定',
     negativeText: '取消',
+    // 是否通过遮罩关闭
     maskClosable: maskClosable,
     onPositiveClick: async () => {
       // 执行异步

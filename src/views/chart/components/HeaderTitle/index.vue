@@ -5,9 +5,7 @@
     </n-icon>
     <n-text @click="handleFocus">
       工作空间 -
-      <n-button v-show="!focus" secondary round size="tiny">
-        {{ comTitle }}
-      </n-button>
+      <n-button v-show="!focus" secondary round size="tiny">{{ comTitle }}</n-button>
     </n-text>
 
     <n-input
@@ -27,22 +25,36 @@
 
 <script setup lang="ts">
 import { ref, nextTick, computed } from 'vue'
+import { fetchRouteParams } from '@/utils'
 import { icon } from '@/plugins'
 const { FishIcon } = icon.ionicons5
 
 const focus = ref<boolean>(false)
-const title = ref<string>('')
 const inputInstRef = ref(null)
 
+// 根据路由 id 参数获取项目信息
+const fetchProhectInfoById = () => {
+  const { id } = fetchRouteParams()
+  if (id.length) {
+    // todo 从后端获取项目信息并存储
+    return '编辑项目' + id[0]
+  }
+  return ''
+
+}
+
+const title = ref<string>(fetchProhectInfoById())
+
+
 const comTitle = computed(() => {
-  title.value = title.value.replace(/\s/g,"");
+  title.value = title.value.replace(/\s/g, "");
   return title.value.length ? title.value : '新项目'
 })
 
 const handleFocus = () => {
   focus.value = true
   nextTick(() => {
-    ;(<any>inputInstRef).value.focus()
+    ; (<any>inputInstRef).value.focus()
   })
 }
 

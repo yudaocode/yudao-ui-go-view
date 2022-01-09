@@ -1,7 +1,7 @@
 <template>
   <div class="go-content-box" :class="[`bg-depth${depth}`, flex && 'flex']">
     <div v-if="showTop" class="top go-mt-0 go-flex-no-wrap">
-      <n-space class="go-flex-no-wrap">
+      <n-space class="go-flex-no-wrap" :size="5">
         <n-ellipsis>
           <n-text>{{ title }}</n-text>
         </n-ellipsis>

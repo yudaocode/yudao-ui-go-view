@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, shallowRef } from 'vue'
 import { renderIcon } from '@/utils'
 import { icon } from '@/plugins'
 import { ContentBox } from '../ContentBox/index'
@@ -43,13 +43,13 @@ const tabList = reactive([
     key: 'setting',
     title: '配置项',
     icon: renderIcon(CubeIcon),
-    render: Setting
+    render: shallowRef(Setting)
   },
   {
     key: 'behind',
     title: '后端数据',
     icon: renderIcon(FlashIcon),
-    render: Behind
+    render: shallowRef(Behind)
   }
 ])
 </script>

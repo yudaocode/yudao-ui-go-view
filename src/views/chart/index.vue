@@ -13,8 +13,8 @@
         </template>
       </HeaderPro>
       <n-layout-content content-style="overflow:hidden; display: flex">
-        <ContentLayers />
         <ContentCharts />
+        <ContentLayers />
         <ContentDraw />
         <ContentDetails />
       </n-layout-content>

@@ -1,7 +1,9 @@
+import { useRoute } from 'vue-router'
 import { ResultEnum } from '@/enums/httpEnum'
 import { ErrorPageNameMap, PageEnum } from '@/enums/pageEnum'
 import router from '@/router'
 import { docPath, giteeSourceCodePath } from '@/settings/pathConst'
+import { goDialog } from '@/utils/plugin'
 
 /**
  * * 根据名字跳转路由
@@ -21,12 +23,12 @@ export const routerTurnByName = (
   }
   if (isReplace) {
     router.replace({
-      name: pageName
+      name: pageName,
     })
     return
   }
   router.push({
-    name: pageName
+    name: pageName,
   })
 }
 
@@ -37,7 +39,7 @@ export const routerTurnByName = (
  */
 export const fetchPathByName = (pageName: string, p?: string) => {
   const pathData = router.resolve({
-    name: pageName
+    name: pageName,
   })
   return p ? (pathData as any)[p] : pathData
 }
@@ -65,12 +67,12 @@ export const routerTurnByPath = (
   }
   if (isReplace) {
     router.replace({
-      path: fullPath
+      path: fullPath,
     })
     return
   }
   router.push({
-    path: fullPath
+    path: fullPath,
   })
 }
 
@@ -122,4 +124,28 @@ export const openDoc = () => {
  */
 export const openGiteeSourceCode = () => {
   openNewWindow(giteeSourceCodePath)
+}
+
+/**
+ * * 获取当前路由下的参数
+ * @returns object
+ */
+export const fetchRouteParams = () => {
+  const route = useRoute()
+  return route.params
+}
+
+/**
+ * * 是否需要确认
+ * @param confirm
+ */
+export const goHome = (confirm?: boolean, message?: string) => {
+  if (confirm) {
+    goDialog({
+      message,
+      onPositiveCallback: () => {
+        routerTurnByName(PageEnum.BASE_HOME_NAME)
+      },
+    })
+  }
 }

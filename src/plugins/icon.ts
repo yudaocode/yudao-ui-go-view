@@ -36,7 +36,8 @@ import {
   Cube as CubeIcon,
   ChevronBackOutline as ChevronBackOutlineIcon,
   Flash as FlashIcon,
-  SettingsSharp as SettingsSharpIcon
+  SettingsSharp as SettingsSharpIcon,
+  Home as HomeIcon
 } from '@vicons/ionicons5'
 
 // ionicons5 在这里
@@ -116,7 +117,9 @@ const ionicons5 = {
   // 后端数据（闪电）
   FlashIcon,
   // 设置（齿轮）
-  SettingsSharpIcon
+  SettingsSharpIcon,
+  // 回退
+  HomeIcon
 }
 
 // https://www.xicons.org/#/ 还有很多

@@ -4,11 +4,11 @@
     :class="{ scoped: !getCharts }"
     title="图表"
     :depth="2"
-    :backIcon="getCharts"
+    :backIcon="false"
   >
     <template #icon>
       <n-icon size="14" :depth="2">
-        <component :is="BarChartIcon" />
+        <BarChartIcon />
       </n-icon>
     </template>
   </ContentBox>

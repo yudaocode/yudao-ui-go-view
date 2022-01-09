@@ -55,6 +55,12 @@ export const requireFallbackImg = (path?: string, name?: string) => {
   ).href
 }
 
+/**
+ * 全屏操作函数
+ * @param isFullscreen 
+ * @param isEnabled 
+ * @returns 
+ */
 export const screenfullFn = (isFullscreen?: boolean, isEnabled?: boolean) => {
   // 是否是全屏
   if (isFullscreen) return screenfull.isFullscreen
@@ -72,12 +78,11 @@ export const screenfullFn = (isFullscreen?: boolean, isEnabled?: boolean) => {
 
 /**
  * * 挂载监听
- * @returns url
  */
 export const goAddEventListener = <K extends keyof WindowEventMap>(
   target: EventTarget,
   type: K,
-  listener: EventListenerOrEventListenerObject,
+  listener: any,
   options?: boolean | AddEventListenerOptions | undefined
 ) => {
   if (!target) return
@@ -90,9 +95,9 @@ export const goAddEventListener = <K extends keyof WindowEventMap>(
     options
   )
 }
+
 /**
  * * 卸载监听
- * @returns url
  */
 export const goRemoveEventListener = <K extends keyof WindowEventMap>(
   target: EventTarget,
