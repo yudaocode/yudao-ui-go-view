@@ -15,7 +15,7 @@
 
 <script lang="ts" setup>
 import { useLangStore } from '@/store/modules/langStore/langStore'
-import { langList } from '@/settings/designSetting'
+import { langList } from '@/i18n/index'
 import { LangEnum } from '@/enums/styleEnum'
 import { icon } from '@/plugins'
 

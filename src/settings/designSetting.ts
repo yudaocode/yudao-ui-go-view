@@ -3,18 +3,6 @@ import { LangEnum } from '@/enums/styleEnum'
 // 默认语言
 export const lang = LangEnum.zh
 
-// 语言数组
-export const langList = [
-  {
-    label: '中文',
-    key: LangEnum.zh
-  },
-  {
-    label: 'English',
-    key: LangEnum.en
-  }
-]
-
 // 主体色
 export const appThemeList: string[] = [
   '#2d8cf0',

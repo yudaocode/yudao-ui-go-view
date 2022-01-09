@@ -102,6 +102,7 @@ const emit = defineEmits(['delete', 'resize', 'edit'])
 const t = window['$t']
 
 const props = defineProps({
+  // todo 定义列表ITEN的 type
   cardData: Object
 })
 const fnBtnList = reactive([
