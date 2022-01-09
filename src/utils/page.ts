@@ -136,16 +136,9 @@ export const fetchRouteParams = () => {
 }
 
 /**
- * * 是否需要确认
+ * * 回到主页面
  * @param confirm
  */
-export const goHome = (confirm?: boolean, message?: string) => {
-  if (confirm) {
-    goDialog({
-      message,
-      onPositiveCallback: () => {
-        routerTurnByName(PageEnum.BASE_HOME_NAME)
-      },
-    })
-  }
+export const goHome = <T extends typeof goDialog>(confirm: boolean, params: T) => {
+  routerTurnByName(PageEnum.BASE_HOME_NAME)
 }

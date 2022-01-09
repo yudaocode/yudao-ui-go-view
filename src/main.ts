@@ -4,7 +4,7 @@ import router, { setupRouter } from '@/router'
 import i18n from '@/i18n/index'
 import { setupStore } from '@/store'
 import { setupNaive, setupDirectives, setupCustomComponents } from '@/plugins'
-import { AppProvider } from '@/components/Application'
+import { AppProvider } from '@/components/AppProvider/index'
 import { setHtmlTheme } from '@/utils'
 
 async function appInit() {
@@ -24,11 +24,11 @@ async function appInit() {
   // 挂载状态管理
   setupStore(app)
 
-  // 优先挂载一下 Provider 解决路由守卫，Axios中可使用，Dialog，Message 等之类组件
+  // 解决路由守卫，Axios中可使用，Dialog，Message 等全局组件
   appProvider.mount('#appProvider', true)
 
   // 挂载路由
-  await setupRouter(app)
+  setupRouter(app)
 
   // 路由准备就绪后挂载APP实例
   await router.isReady()

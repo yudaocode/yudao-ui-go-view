@@ -1,6 +1,6 @@
 <template>
   <n-space class="header-left-btn" :size="25">
-    <n-button size="small" quaternary #icon @click="goHome(true, '返回将不会保存任何操作')">
+    <n-button size="small" quaternary #icon @click="goHomeHandle()">
       <n-icon :depth="3">
         <HomeIcon />
       </n-icon>
@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import { toRefs, Ref, reactive } from 'vue'
-import { renderIcon, routerTurnByName, goHome } from '@/utils'
+import { renderIcon, goDialog, goHome } from '@/utils'
 import { icon } from '@/plugins'
 const { LayersIcon, BarChartIcon, PrismIcon, HomeIcon } = icon.ionicons5
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
@@ -61,11 +61,19 @@ const btnList = reactive<ItemType[]>([
   }
 ])
 
-
-
 const clickHandle = (item: ItemType) => {
   setItem(item.key, !item.select)
 }
+
+const goHomeHandle = () => {
+  goDialog({
+    message: '返回将不会保存任何操作',
+    isMaskClosable: true,
+    onPositiveCallback: goHome,
+  })
+
+}
+
 </script>
 <style lang="scss" scoped>
 .header-left-btn {

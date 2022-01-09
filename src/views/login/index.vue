@@ -38,11 +38,7 @@
           <n-collapse-transition :appear="true" :show="show">
             <n-card class="login-account-card" :title="$t('login.desc')">
               <div class="login-account-top">
-                <img
-                  class="login-account-top-logo"
-                  src="~@/assets/images/logo.png"
-                  alt="logo"
-                />
+                <img class="login-account-top-logo" src="~@/assets/images/logo.png" alt="logo" />
               </div>
               <n-form
                 ref="formRef"
@@ -67,7 +63,7 @@
                   <n-input
                     v-model:value="formInline.password"
                     type="password"
-                    show-password-toggle
+                    show-password-on="click"
                     :placeholder="$t('global.form_password')"
                   >
                     <template #prefix>
@@ -80,9 +76,7 @@
                 <n-form-item>
                   <div class="flex justify-between">
                     <div class="flex-initial">
-                      <n-checkbox v-model:checked="autoLogin">
-                        {{ $t('login.form_auto') }}
-                      </n-checkbox>
+                      <n-checkbox v-model:checked="autoLogin">{{ $t('login.form_auto') }}</n-checkbox>
                     </div>
                   </div>
                 </n-form-item>
@@ -93,9 +87,7 @@
                     size="large"
                     :loading="loading"
                     block
-                  >
-                    {{ $t('login.form_button') }}
-                  </n-button>
+                  >{{ $t('login.form_button') }}</n-button>
                 </n-form-item>
               </n-form>
             </n-card>
@@ -125,7 +117,7 @@ import { Footer } from '@/layout/components/Footer'
 import { PageEnum } from '@/enums/pageEnum'
 import { icon } from '@/plugins'
 
-const { ChatboxEllipsesIcon, LockClosedOutlineIcon } = icon.ionicons5
+const { PersonOutlineIcon, LockClosedOutlineIcon } = icon.ionicons5
 
 interface FormState {
   username: string
@@ -139,6 +131,7 @@ const autoLogin = ref(true)
 const show = ref(false)
 const showBg = ref(false)
 const designStore = useDesignStore()
+
 const t = window['$t']
 
 onMounted(() => {
@@ -206,10 +199,10 @@ const handleSubmit = (e: Event) => {
     if (!errors) {
       const { username, password } = formInline
       loading.value = true
-      message.success(`${t('login.login_success')}！`)
+      message.success(`${t('login.login_success')}!`)
       routerTurnByName(PageEnum.BASE_HOME_NAME, true)
     } else {
-      message.error(`${t('login.login_message')}！`)
+      message.error(`${t('login.login_message')}!`)
     }
   })
 }
@@ -233,7 +226,7 @@ $carousel-image-height: 60vh;
 @include go(login-box) {
   height: $go-login-height;
   overflow: hidden;
-  @include background-image('background-image');
+  @include background-image("background-image");
   &-header {
     display: flex;
     justify-content: space-between;
@@ -274,7 +267,7 @@ $carousel-image-height: 60vh;
 
       &-card {
         @extend .go-background-filter;
-        @include filter-bg-color('filter-color');
+        @include filter-bg-color("filter-color");
         box-shadow: 0 0 20px 5px rgba(40, 40, 40, 0.5);
       }
 
@@ -302,7 +295,7 @@ $carousel-image-height: 60vh;
     align-items: center;
     width: $--max-width;
     height: 100vh;
-    background: url('@/assets/images/login/login-bg.png') no-repeat 0 -120px;
+    background: url("@/assets/images/login/login-bg.png") no-repeat 0 -120px;
     .bg-slot {
       width: $carousel-width;
     }

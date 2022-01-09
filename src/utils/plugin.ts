@@ -14,7 +14,10 @@ export const goDialog = (
   params: {
     // 基本
     type?: DialogEnum
+    // 提示
     message?: string
+    // 点击遮罩是否关闭
+    isMaskClosable?: boolean
     // 回调
     onPositiveCallback: Function
     onNegativeCallback?: Function
@@ -28,32 +31,33 @@ export const goDialog = (
   const {
     type,
     message,
+    isMaskClosable,
     onPositiveCallback,
     onNegativeCallback,
     promise,
     promiseResCallback,
-    promiseRejCallback
+    promiseRejCallback,
   } = params
 
   const typeObj = {
     // 自定义
     delete: {
       fn: dialogFn || window['$dialog'].warning,
-      message: message || '是否删除此数据?'
+      message: message || '是否删除此数据?',
     },
     // 原有
     warning: {
       fn: window['$dialog'].warning,
-      message: message || '是否执行此操作?'
+      message: message || '是否执行此操作?',
     },
     error: {
       fn: window['$dialog'].error,
-      message: message || '是否执行此操作?'
+      message: message || '是否执行此操作?',
     },
     success: {
       fn: window['$dialog'].success,
-      message: message || '是否执行此操作?'
-    }
+      message: message || '是否执行此操作?',
+    },
   }
 
   const d: DialogReactive = (typeObj as any)[type || DialogEnum.warning]['fn']({
@@ -63,7 +67,7 @@ export const goDialog = (
     positiveText: '确定',
     negativeText: '取消',
     // 是否通过遮罩关闭
-    maskClosable: maskClosable,
+    maskClosable: isMaskClosable || maskClosable,
     onPositiveClick: async () => {
       // 执行异步
       if (promise && onPositiveCallback) {
@@ -81,6 +85,6 @@ export const goDialog = (
     },
     onNegativeClick: async () => {
       onNegativeCallback && onNegativeCallback(d)
-    }
+    },
   })
 }

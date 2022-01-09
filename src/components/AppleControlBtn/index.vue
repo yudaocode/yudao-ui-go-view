@@ -53,23 +53,28 @@ const filterBtnList = computed(() => {
 const isFull = computed(() => {
   return props.narrow && screenfullFn(true)
 })
-const btnList = [
-  {
-    title: '关闭',
-    key: 'close',
-    icon: CloseIcon
-  },
-  {
-    title: '缩小',
-    key: 'remove',
-    icon: RemoveIcon
-  },
-  {
-    title: isFull ? '缩小' : '放大',
-    key: props.narrow ? 'fullResize' : 'resize',
-    icon: ResizeIcon
-  }
-]
+
+const btnList: {
+  title: string,
+  key: "close" | "remove" | "resize" | "fullResize",
+  icon: any
+}[] = [
+    {
+      title: '关闭',
+      key: 'close',
+      icon: CloseIcon
+    },
+    {
+      title: '缩小',
+      key: 'remove',
+      icon: RemoveIcon
+    },
+    {
+      title: isFull ? '缩小' : '放大',
+      key: props.narrow ? 'fullResize' : 'resize',
+      icon: ResizeIcon
+    }
+  ]
 
 const handleClick = (key: 'close' | 'remove' | 'resize' | 'fullResize') => {
   if (key === 'fullResize') screenfullFn()
@@ -80,7 +85,7 @@ const handleClick = (key: 'close' | 'remove' | 'resize' | 'fullResize') => {
 </script>
 
 <style lang="scss" scoped>
-@include go('apple-control-btn') {
+@include go("apple-control-btn") {
   display: flex;
   &:hover {
     .btn {
