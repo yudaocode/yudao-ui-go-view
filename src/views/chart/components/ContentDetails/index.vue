@@ -27,7 +27,6 @@
 
 <script setup lang="ts">
 import { reactive, shallowRef } from 'vue'
-import { renderIcon } from '@/utils'
 import { icon } from '@/plugins'
 import { ContentBox } from '../ContentBox/index'
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
@@ -42,13 +41,13 @@ const tabList = reactive([
   {
     key: 'setting',
     title: '配置项',
-    icon: renderIcon(CubeIcon),
+    icon: CubeIcon,
     render: shallowRef(Setting)
   },
   {
     key: 'behind',
     title: '后端数据',
-    icon: renderIcon(FlashIcon),
+    icon: FlashIcon,
     render: shallowRef(Behind)
   }
 ])
