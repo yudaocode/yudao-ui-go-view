@@ -3,10 +3,10 @@ export default {
   create_tip: 'Please select a content for development',
   project: 'Project',
   my: 'My',
-  new_project: 'NewProject',
-  all_project: 'AllProject',
-  my_templete: 'MyTemplete',
-  template_market: 'TemplateMarket',
+  new_project: 'New Project',
+  all_project: 'All Project',
+  my_templete: 'My Templete',
+  template_market: 'Template Market',
 
   // items 
   release: 'Release',
