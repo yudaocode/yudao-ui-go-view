@@ -7,6 +7,7 @@
     "lint": "eslint \"{src}/**/*.{vue,ts,tsx}\" --fix --ext"
   },
   "dependencies": {
+    "@vicons/carbon": "^0.11.0",
     "axios": "^0.23.0",
     "crypto-ts": "^1.0.2",
     "mockjs": "^1.1.0",

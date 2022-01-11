@@ -119,6 +119,10 @@ $topHeight: 36px;
       margin-top: 2px;
     }
   }
+  .top {
+    border-bottom: 1px solid;
+    @include filter-border-color('background-color1');
+  }
   .content {
     height: calc(100vh - #{$--header-height} - #{$topHeight});
     overflow: hidden;

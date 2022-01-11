@@ -4,6 +4,7 @@ specifiers:
   '@types/node': ^16.11.1
   '@typescript-eslint/eslint-plugin': ^5.6.0
   '@typescript-eslint/parser': ^5.6.0
+  '@vicons/carbon': ^0.11.0
   '@vicons/ionicons5': ~0.11.0
   '@vitejs/plugin-vue': ^1.9.3
   '@vitejs/plugin-vue-jsx': ^1.2.0
@@ -36,6 +37,7 @@ specifiers:
   vue-tsc: ^0.28.7
 
 dependencies:
+  '@vicons/carbon': r2.cnpmjs.org/@vicons/carbon/0.11.0
   axios: rg.cnpmjs.org/axios/0.23.0
   crypto-ts: r2.cnpmjs.org/crypto-ts/1.0.2
   mockjs: rg.cnpmjs.org/mockjs/1.1.0
@@ -132,6 +134,12 @@ packages:
     resolution: {integrity: sha512-DssMqTV9UnnoxDWu959sDLZzfvqCF0qDNRjaWeYSui9xkFe61kKo4l1TWNTQONpuXEm+gLMRvdlzvNHBamzmEw==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/@types/node/-/node-14.14.45.tgz}
     name: '@types/node'
     version: 14.14.45
+    dev: false
+
+  r2.cnpmjs.org/@vicons/carbon/0.11.0:
+    resolution: {integrity: sha512-+Wkl8wOP1GR7jS+OKcsJ58NnZr4i+BZhbpLRtgpZQui1zFpYjoWinwvYKLjGKJ/oiR10Q237cBDjGwmMSzXqTg==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/@vicons/carbon/-/carbon-0.11.0.tgz}
+    name: '@vicons/carbon'
+    version: 0.11.0
     dev: false
 
   r2.cnpmjs.org/ansi-regex/5.0.1:

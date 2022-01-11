@@ -3,6 +3,7 @@
     class="go-content-layers"
     :class="{ scoped: !chartLayoutStore.getLayers }"
     title="图层"
+    :depth="2"
     @back="backHandle"
   >
     <template #icon>

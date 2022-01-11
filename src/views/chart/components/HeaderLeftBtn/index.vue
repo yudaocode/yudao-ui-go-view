@@ -1,12 +1,19 @@
 <template>
   <n-space class="header-left-btn" :size="25">
-    <n-button size="small" quaternary #icon @click="goHomeHandle()">
-      <n-icon :depth="3">
-        <HomeIcon />
-      </n-icon>
+    <n-button size="small" quaternary @click="goHomeHandle()">
+      <template #icon>
+        <n-icon :depth="3">
+          <HomeIcon />
+        </n-icon>
+      </template>
     </n-button>
     <n-space>
-      <n-tooltip v-for="item in btnList" :key="item.key" placement="bottom" trigger="hover">
+      <n-tooltip
+        v-for="item in btnList"
+        :key="item.key"
+        placement="bottom"
+        trigger="hover"
+      >
         <template #trigger>
           <n-button
             :type="item.select ? 'success' : ''"
@@ -34,9 +41,9 @@ const { setItem } = useChartLayoutStore()
 const { getLayers, getCharts, getDetails } = toRefs(useChartLayoutStore())
 
 type ItemType = {
-  key: string;
-  select: Ref<boolean> | boolean;
-  title: string;
+  key: string
+  select: Ref<boolean> | boolean
+  title: string
   icon: any
 }
 
@@ -69,11 +76,9 @@ const goHomeHandle = () => {
   goDialog({
     message: '返回将不会保存任何操作',
     isMaskClosable: true,
-    onPositiveCallback: goHome,
+    onPositiveCallback: goHome
   })
-
 }
-
 </script>
 <style lang="scss" scoped>
 .header-left-btn {

@@ -17,7 +17,7 @@ $--color-light-bg-2: #f2f3f5;
 $--color-light-bg-3: #e5e6eb;
 $--color-light-bg-4: #c9cdd4;
 $--color-light-bg-5: #bebebe;
-$--color-dark-border: #efeff5;
+$--color-light-border: #efeff5;
 
 // 黑色
 $--color-dark-black: #000;
@@ -42,6 +42,5 @@ $--filter-color-login-light: rgba(240, 240, 240, 0.8);
 
 // 边框
 $--border-radius-base: 8px;
-$--border-bottom-style: 1px solid $--color-dark-border;
 // 阴影
 $--border-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);

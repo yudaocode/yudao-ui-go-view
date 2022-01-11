@@ -52,14 +52,12 @@
   }
 }
 
-//获取边框颜色
+//设置边框颜色
 @mixin filter-border-color($target) {
   @include themeify {
     border-color: themed($target);
   }
 }
-
-//获取边框颜色
 @mixin hover-border-color($target) {
   @include themeify {
     border: 1px solid themed($target);

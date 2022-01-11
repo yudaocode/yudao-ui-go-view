@@ -37,10 +37,16 @@ import {
   ChevronBackOutline as ChevronBackOutlineIcon,
   Flash as FlashIcon,
   SettingsSharp as SettingsSharpIcon,
-  Home as HomeIcon
+  Home as HomeIcon,
+  Card as CardIcon
 } from '@vicons/ionicons5'
 
-// ionicons5 在这里
+import {
+  TableSplit as TableSplitIcon,
+  Roadmap as RoadmapIcon,
+  SpellCheck as SpellCheckIcon
+} from '@vicons/carbon'
+
 const ionicons5 = {
   // 帮助
   HelpOutlineIcon,
@@ -53,7 +59,7 @@ const ionicons5 = {
   // 退出
   LogOutOutlineIcon,
   // 锁
-  LockClosedOutlineIcon, 
+  LockClosedOutlineIcon,
   // 人
   PersonIcon,
   // 人2
@@ -119,11 +125,23 @@ const ionicons5 = {
   // 设置（齿轮）
   SettingsSharpIcon,
   // 回退
-  HomeIcon
+  HomeIcon,
+  // 控件(卡片)
+  CardIcon
+}
+
+const carbon = {
+  // 信息
+  SpellCheckIcon,
+  // 图表
+  RoadmapIcon,
+  // 表格
+  TableSplitIcon
 }
 
 // https://www.xicons.org/#/ 还有很多
 
 export const icon = {
-  ionicons5
+  ionicons5,
+  carbon
 }
