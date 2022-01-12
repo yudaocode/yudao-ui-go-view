@@ -2,13 +2,13 @@
   <ContentBox
     class="go-content-charts"
     :class="{ scoped: !getCharts }"
-    title="全部组件"
+    title="组件"
     :depth="1"
     :backIcon="false"
   >
     <template #icon>
       <n-icon size="14" :depth="2">
-        <!-- <BarChartIcon /> -->
+        <BarChartIcon />
       </n-icon>
     </template>
     <!-- 图表 -->
@@ -38,19 +38,27 @@ import { icon } from '@/plugins'
 import { renderLang, renderIcon } from '@/utils'
 import { ContentBox } from '../ContentBox/index'
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
+import { useDesignStore } from '@/store/modules/designStore/designStore'
 
 import { ChartCommon } from './components/ChartCommon'
 import { TableCommon } from './components/TableCommon'
 import { TextCommon } from './components/TextCommon'
+import { DecorateCommon } from './components/DecorateCommon'
 
+// 图标
 const { BarChartIcon } = icon.ionicons5
-const { TableSplitIcon, RoadmapIcon, SpellCheckIcon } = icon.carbon
+const { TableSplitIcon, RoadmapIcon, SpellCheckIcon, GraphicalDataFlowIcon } = icon.carbon
 
+// 全局颜色
+const designStore = useDesignStore()
+const themeColor = ref(designStore.getAppTheme)
+
+// 结构控制
 const { setItem } = useChartLayoutStore()
 const { getCharts } = toRefs(useChartLayoutStore())
 
+// 菜单
 const collapsed = ref(false)
-
 const menuOptions = reactive([
   {
     key: 'ChartCommon',
@@ -69,13 +77,19 @@ const menuOptions = reactive([
     icon: renderIcon(TableSplitIcon),
     label: renderLang('表格'),
     node: TextCommon
+  },
+  {
+    key: 'DecorateCommon',
+    icon: renderIcon(GraphicalDataFlowIcon),
+    label: renderLang('装饰'),
+    node: DecorateCommon
   }
 ])
 
 // 记录选中值
 let beforeSelect: string = menuOptions[0]['key']
 const selectValue = ref<string>(menuOptions[0]['key'])
-
+// 渲染的组件控制
 const selectNode = ref(menuOptions[0]['node'])
 
 // 点击 item
@@ -90,13 +104,17 @@ const clickItemHandle = <T extends { node: any }>(key: string, item: T) => {
   }
   beforeSelect = key
 }
+
 </script>
 
 <style lang="scss" scoped>
+/* 整体宽度 */
 $width: 300px;
-$widthScoped: 80px;
+/* 列表的宽度 */
+$widthScoped: 65px;
 /* 此高度与 ContentBox 组件关联*/
 $topHeight: 36px;
+
 @include go(content-charts) {
   width: $width;
   @extend .go-transition;
@@ -116,11 +134,33 @@ $topHeight: 36px;
     }
   }
   @include deep() {
-    .n-menu-item-content {
-      padding: 0 12px !important;
-    }
-    .n-menu-item-content__icon {
-      margin-right: 0 !important;
+    .n-menu-item {
+      /* position: relative; */
+      height: auto !important;
+      &.n-menu-item--selected {
+        &::after {
+          content: '';
+          position: absolute;
+          left: 2px;
+          top: 0;
+          height: 100%;
+          width: 3px;
+          background-color: v-bind('themeColor');
+          /* background-color: rgb(62, 202, 172); */
+          border-top-right-radius: 3px;
+          border-bottom-right-radius: 3px;
+        }
+      }
+      .n-menu-item-content {
+        display: flex;
+        flex-direction: column;
+        padding: 6px 12px !important;
+        font-size: 12px !important;
+      }
+      .n-menu-item-content__icon {
+        font-size: 18px !important;
+        margin-right: 0 !important;
+      }
     }
   }
 }

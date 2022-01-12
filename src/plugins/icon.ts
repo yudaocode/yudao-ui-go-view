@@ -44,7 +44,8 @@ import {
 import {
   TableSplit as TableSplitIcon,
   Roadmap as RoadmapIcon,
-  SpellCheck as SpellCheckIcon
+  SpellCheck as SpellCheckIcon,
+  GraphicalDataFlow as GraphicalDataFlowIcon
 } from '@vicons/carbon'
 
 const ionicons5 = {
@@ -131,12 +132,14 @@ const ionicons5 = {
 }
 
 const carbon = {
-  // 信息
-  SpellCheckIcon,
   // 图表
   RoadmapIcon,
+  // 信息
+  SpellCheckIcon,
   // 表格
-  TableSplitIcon
+  TableSplitIcon,
+  // 装饰
+  GraphicalDataFlowIcon
 }
 
 // https://www.xicons.org/#/ 还有很多

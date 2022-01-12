@@ -22,11 +22,11 @@ export const getThemeOverridesHook = () => {
       }
       const dartObject = {
         common: {
-          primaryColor: designStore.appTheme,
+          primaryColor: designStore.getAppTheme,
           ...commonObj.common
         },
         LoadingBar: {
-          colorLoading: designStore.appTheme
+          colorLoading: designStore.getAppTheme
         }
       }
       return designStore.getDarkTheme ? dartObject : lightObject

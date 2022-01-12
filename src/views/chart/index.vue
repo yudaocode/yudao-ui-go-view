@@ -1,4 +1,5 @@
 <template>
+  <div class="go-bg-point"></div>
   <div class="go-chart">
     <n-layout>
       <HeaderPro>
@@ -35,6 +36,9 @@ import { ContentDetails } from './components/ContentDetails/index'
 
 <style lang="scss" scoped>
 $height: 100vh;
+@include go('bg-point') {
+  
+}
 @include go('chart') {
   height: $height;
   overflow: hidden;
