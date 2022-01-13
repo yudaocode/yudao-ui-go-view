@@ -48,7 +48,7 @@ $topHeight: 36px;
   display: flex;
   height: calc(100vh - #{$--header-height} - #{$topHeight});
   .common-menu-width {
-    @include filter-bg-color('background-color2');
+    @include filter-bg-color('background-color2-shallow');
   }
 }
 </style>

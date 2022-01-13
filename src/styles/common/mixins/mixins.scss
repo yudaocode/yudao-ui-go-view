@@ -38,6 +38,12 @@
   }
 }
 
+@mixin fetch-theme-custom ($key, $value) {
+  @include themeify {
+    #{$key}: themed($value);
+  }
+}
+
 //获取背景颜色
 @mixin filter-bg-color($target) {
   @include themeify {

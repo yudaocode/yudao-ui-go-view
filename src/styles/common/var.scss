@@ -10,22 +10,38 @@ $--color-text-2: #86909c;
 $--color-text-3: #c9cdd4;
 $--color-text-4: #f2f3f5;
 
+// 变亮值
+$--light-shalow: 2%;
+
 // 白色
 $--color-light-bg: #fff;
 $--color-light-bg-1: #fafafc;
+$--color-light-bg-1-shallow: lighten($--color-light-bg-1, $--light-shalow);
 $--color-light-bg-2: #f2f3f5;
+$--color-light-bg-2-shallow: lighten($--color-light-bg-2, $--light-shalow);
 $--color-light-bg-3: #e5e6eb;
+$--color-light-bg-3-shallow: lighten($--color-light-bg-3, $--light-shalow);
 $--color-light-bg-4: #c9cdd4;
+$--color-light-bg-4-shallow: lighten($--color-light-bg-4, $--light-shalow);
 $--color-light-bg-5: #bebebe;
+$--color-light-bg-5-shallow: lighten($--color-light-bg-5, $--light-shalow);
 $--color-light-border: #efeff5;
+
+// 变暗值
+$--dark-shalow: 2%;
 
 // 黑色
 $--color-dark-black: #000;
 $--color-dark-bg-1: #18181c;
+$--color-dark-bg-1-shallow: darken($--color-dark-bg-1, $--dark-shalow);
 $--color-dark-bg-2: #232324;
+$--color-dark-bg-2-shallow: darken($--color-dark-bg-2, $--dark-shalow);
 $--color-dark-bg-3: #2a2a2b;
+$--color-dark-bg-3-shallow: darken($--color-dark-bg-3, $--dark-shalow);
 $--color-dark-bg-4: #313132;
+$--color-dark-bg-4-shallow: darken($--color-dark-bg-4, $--dark-shalow);
 $--color-dark-bg-5: #373739;
+$--color-dark-bg-5-shallow: darken($--color-dark-bg-5, $--dark-shalow);
 $--color-dark-border: #333335;
 
 // 最大宽度
