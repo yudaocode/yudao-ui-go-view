@@ -10,6 +10,7 @@ specifiers:
   '@vitejs/plugin-vue-jsx': ^1.2.0
   '@vue/compiler-sfc': ^3.2.20
   '@vueuse/core': ^7.3.0
+  animate.css: ^4.1.1
   axios: ^0.23.0
   crypto-ts: ^1.0.2
   default-passive-events: ^2.0.0
@@ -38,6 +39,7 @@ specifiers:
 
 dependencies:
   '@vicons/carbon': r2.cnpmjs.org/@vicons/carbon/0.11.0
+  animate.css: r2.cnpmjs.org/animate.css/4.1.1
   axios: rg.cnpmjs.org/axios/0.23.0
   crypto-ts: r2.cnpmjs.org/crypto-ts/1.0.2
   mockjs: rg.cnpmjs.org/mockjs/1.1.0
@@ -140,6 +142,12 @@ packages:
     resolution: {integrity: sha512-+Wkl8wOP1GR7jS+OKcsJ58NnZr4i+BZhbpLRtgpZQui1zFpYjoWinwvYKLjGKJ/oiR10Q237cBDjGwmMSzXqTg==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/@vicons/carbon/-/carbon-0.11.0.tgz}
     name: '@vicons/carbon'
     version: 0.11.0
+    dev: false
+
+  r2.cnpmjs.org/animate.css/4.1.1:
+    resolution: {integrity: sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/animate.css/-/animate.css-4.1.1.tgz}
+    name: animate.css
+    version: 4.1.1
     dev: false
 
   r2.cnpmjs.org/ansi-regex/5.0.1:

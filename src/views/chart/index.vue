@@ -37,7 +37,8 @@ import { ContentDetails } from './components/ContentDetails/index'
 <style lang="scss" scoped>
 $height: 100vh;
 @include go('bg-point') {
-  
+  @include background-image('background-point');
+  @extend .go-point-bg;
 }
 @include go('chart') {
   height: $height;

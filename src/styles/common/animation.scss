@@ -30,15 +30,28 @@
     opacity: 0;
   }
   100% {
+    opacity: 1;
   }
 }
 
 @keyframes v-modal-out {
   0% {
+    opacity: 1;
   }
   100% {
     opacity: 0;
   }
+}
+
+// 渐变
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .2s ease;
 }
 
 // 移动动画

@@ -23,9 +23,11 @@
           @update:value="clickItemHandle"
         />
         <div class="menu-component-box">
-          <keep-alive>
-            <component :is="selectNode"></component>
-          </keep-alive>
+          <transition name="component-fade" mode="out-in">
+            <keep-alive>
+              <component :is="selectNode"></component>
+            </keep-alive>
+          </transition>
         </div>
       </div>
     </aside>
@@ -33,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, toRefs, computed } from 'vue'
+import { reactive, ref, toRefs } from 'vue'
 import { icon } from '@/plugins'
 import { renderLang, renderIcon } from '@/utils'
 import { ContentBox } from '../ContentBox/index'
@@ -47,7 +49,12 @@ import { DecorateCommon } from './components/DecorateCommon'
 
 // 图标
 const { BarChartIcon } = icon.ionicons5
-const { TableSplitIcon, RoadmapIcon, SpellCheckIcon, GraphicalDataFlowIcon } = icon.carbon
+const {
+  TableSplitIcon,
+  RoadmapIcon,
+  SpellCheckIcon,
+  GraphicalDataFlowIcon
+} = icon.carbon
 
 // 全局颜色
 const designStore = useDesignStore()
@@ -104,7 +111,6 @@ const clickItemHandle = <T extends { node: any }>(key: string, item: T) => {
   }
   beforeSelect = key
 }
-
 </script>
 
 <style lang="scss" scoped>
@@ -126,40 +132,42 @@ $topHeight: 36px;
     display: flex;
     height: calc(100vh - #{$--header-height} - #{$topHeight});
     .menu-width {
-      @include filter-bg-color('background-color2');
+      flex-shrink: 0;
+      @include filter-bg-color('background-color3');
     }
     .menu-component-box {
+      flex-shrink: 0;
       width: $width - $widthScoped;
       overflow: hidden;
     }
   }
   @include deep() {
-    .n-menu-item {
-      /* position: relative; */
-      height: auto !important;
-      &.n-menu-item--selected {
-        &::after {
-          content: '';
-          position: absolute;
-          left: 2px;
-          top: 0;
-          height: 100%;
-          width: 3px;
-          background-color: v-bind('themeColor');
-          /* background-color: rgb(62, 202, 172); */
-          border-top-right-radius: 3px;
-          border-bottom-right-radius: 3px;
+    .menu-width {
+      .n-menu-item {
+        height: auto !important;
+        &.n-menu-item--selected {
+          &::after {
+            content: '';
+            position: absolute;
+            left: 2px;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background-color: v-bind('themeColor');
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+          }
         }
-      }
-      .n-menu-item-content {
-        display: flex;
-        flex-direction: column;
-        padding: 6px 12px !important;
-        font-size: 12px !important;
-      }
-      .n-menu-item-content__icon {
-        font-size: 18px !important;
-        margin-right: 0 !important;
+        .n-menu-item-content {
+          display: flex;
+          flex-direction: column;
+          padding: 6px 12px !important;
+          font-size: 12px !important;
+        }
+        .n-menu-item-content__icon {
+          font-size: 18px !important;
+          margin-right: 0 !important;
+        }
       }
     }
   }

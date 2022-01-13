@@ -22,10 +22,8 @@
       </n-space>
     </div>
     <aside class="content">
-      <n-scrollbar x-scrollable>
-        <n-scrollbar>
-          <slot></slot>
-        </n-scrollbar>
+      <n-scrollbar>
+        <slot></slot>
       </n-scrollbar>
     </aside>
     <div v-if="showBottom" class="bottom go-mt-0">
