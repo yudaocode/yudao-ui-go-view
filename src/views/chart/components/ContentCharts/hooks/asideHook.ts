@@ -25,14 +25,14 @@ const packagesListObj = {
     icon: renderIcon(RoadmapIcon),
     label: renderLang('图表')
   },
-  // [PackagesCategoryEnum.TEXTS]: {
-  //   icon: renderIcon(SpellCheckIcon),
-  //   label: renderLang('信息')
-  // },
-  // [PackagesCategoryEnum.TABLES]: {
-  //   icon: renderIcon(GraphicalDataFlowIcon),
-  //   label: renderLang('表格')
-  // },
+  [PackagesCategoryEnum.TEXTS]: {
+    icon: renderIcon(SpellCheckIcon),
+    label: renderLang('信息')
+  },
+  [PackagesCategoryEnum.TABLES]: {
+    icon: renderIcon(GraphicalDataFlowIcon),
+    label: renderLang('表格')
+  },
   [PackagesCategoryEnum.DECORATES]: {
     icon: renderIcon(GraphicalDataFlowIcon),
     label: renderLang('装饰')
