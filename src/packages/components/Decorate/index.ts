@@ -1,3 +1,3 @@
-import { barCommonConfig } from './border/borderCommon/index'
+import Border from './Border'
 
-export const BarList = [barCommonConfig]
+export const DecorateList = [...Border]

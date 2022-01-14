@@ -1,11 +1,12 @@
 import BorderCommon from './index.vue'
-import barImg from '@/assets/images/chart/bar_y.png'
+import image from '@/assets/images/chart/static.png'
 import { ConfigType } from '@/packages/index.d'
+import { ChatCategoryEnum } from '../../index.d'
 
-// 柱状图
-export const barCommonConfig: ConfigType = {
+export const borderCommonConfig: ConfigType = {
   key: 'Border',
-  title: '柱状图',
+  title: '边框',
+  category: ChatCategoryEnum.Border,
   node: BorderCommon,
-  coverGraph: barImg
+  image: image
 }

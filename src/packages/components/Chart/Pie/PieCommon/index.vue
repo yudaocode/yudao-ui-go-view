@@ -1,6 +1,6 @@
 <template>
   <div>
-    边框
+    饼图渲染
   </div>
 </template>
 

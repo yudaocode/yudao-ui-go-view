@@ -23,11 +23,14 @@
           @update:value="clickItemHandle"
         />
         <div class="menu-component-box">
-          <transition name="component-fade" mode="out-in">
-            <keep-alive>
-              <component :is="selecOptions.node" :packagesList="selecOptions.packagesList" :key="selectValue"></component>
-            </keep-alive>
-          </transition>
+          <Skeleton
+            :load="!selectOptions"
+            round
+            text
+            :repeat="2"
+            style="width: 90%;"
+          />
+          <OptionContent v-if="selectOptions" :selectOptions="selectOptions" :key="selectValue" />
         </div>
       </div>
     </aside>
@@ -37,11 +40,12 @@
 <script setup lang="ts">
 import { reactive, ref, toRefs } from 'vue'
 import { ContentBox } from '../ContentBox/index'
+import { OptionContent } from './components/OptionContent'
 import {
   getCharts,
   BarChartIcon,
   themeColor,
-  selecOptions,
+  selectOptions,
   selectValue,
   clickItemHandle,
   menuOptions

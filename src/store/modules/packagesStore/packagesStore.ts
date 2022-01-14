@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { PackagesStoreType, ConfigType } from './packagesStore.d'
+import { PackagesStoreType, PackagesType } from './packagesStore.d'
 import { packagesList } from '@/packages/index'
 
 export const usePackagesStore = defineStore({
@@ -8,11 +8,8 @@ export const usePackagesStore = defineStore({
     packagesList
   }),
   getters: {
-    getPackagesList(): ConfigType | {} {
-      if (this.packagesList && this.packagesList.charts) {
-        return this.packagesList.charts
-      }
-      return {}
+    getPackagesList(): PackagesType {
+      return this.packagesList
     }
   }
 })

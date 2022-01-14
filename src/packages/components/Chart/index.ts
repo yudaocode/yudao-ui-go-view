@@ -1,3 +1,4 @@
-import { barCommonConfig } from './bar/barCommon/index'
+import Bar from './Bar'
+import Pie from './Pie'
 
-export const BarList = [barCommonConfig]
+export const ChartList = [...Bar, ...Pie]

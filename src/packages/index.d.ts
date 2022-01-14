@@ -4,11 +4,23 @@ import { Component } from '@/router/types'
 export type ConfigType = {
   key: string
   title: string
+  category: string
   node: Component
   image: string
   [T: string]: unknown
 }
 
+
+export enum PackagesCategoryEnum {
+  CHARTS = 'CHARTS',
+  TABLES = 'TABLES',
+  TEXTS = 'TEXTS',
+  DECORATES = 'DECORATES'
+}
+
 export type PackagesType = {
-  Charts: ConfigType[]
+  [PackagesCategoryEnum.CHARTS]: ConfigType[]
+  [PackagesCategoryEnum.TEXTS]: ConfigType[]
+  [PackagesCategoryEnum.TABLES]: ConfigType[]
+  [PackagesCategoryEnum.DECORATES]: ConfigType[]
 }
