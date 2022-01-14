@@ -1,6 +1,7 @@
 <template>
   <div class="go-chart-common">
     <n-menu
+      v-show="packages.categorysNum > 1"
       class="chart-menu-width"
       v-model:value="selectValue"
       :options="packages.menuOptions"
@@ -35,6 +36,8 @@ let packages = reactive<{
   selectOptions: {},
   // 分类归档
   categorys: {},
+  // 分类归档数量
+  categorysNum: 0,
   // 存储不同类别组件进来的选中值
   saveSelectOptions: {}
 })
@@ -53,6 +56,7 @@ watch(
   // @ts-ignore
   () => props.selectOptions,
   (newData: { list: ConfigType[] }) => {
+    packages.categorysNum = 0
     if (!newData) return
     newData.list.forEach((e: ConfigType) => {
       const value: ConfigType[] = (packages.categorys as any)[e.category]
@@ -61,6 +65,7 @@ watch(
         value && value.length ? [...value, e] : [e]
     })
     for (const val in packages.categorys) {
+      packages.categorysNum += 1
       packages.menuOptions.push({
         key: val,
         label: val
@@ -79,7 +84,6 @@ watch(
 const clickItemHandle = (key: string) => {
   packages.selectOptions = packages.categorys[key]
 }
-
 </script>
 
 <style lang="scss" scoped>

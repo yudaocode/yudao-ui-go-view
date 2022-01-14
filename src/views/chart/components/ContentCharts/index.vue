@@ -30,7 +30,11 @@
             :repeat="2"
             style="width: 90%;"
           />
-          <OptionContent v-if="selectOptions" :selectOptions="selectOptions" :key="selectValue" />
+          <OptionContent
+            v-if="selectOptions"
+            :selectOptions="selectOptions"
+            :key="selectValue"
+          />
         </div>
       </div>
     </aside>
