@@ -73,7 +73,7 @@ $imgWidth: 90%;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0 15px;
+        padding: 4px 15px;
         @include filter-bg-color('background-color4');
         &-text {
           font-size: 12px;
@@ -81,7 +81,7 @@ $imgWidth: 90%;
         }
       }
       .list-center {
-        padding: 10px 0;
+        padding: 6px 0;
         .list-img {
           width: $imgWidth;
           border-radius: 6px;
