@@ -3,7 +3,7 @@
     <template v-for="item in filterBtnList" :key="item.key">
       <div
         class="btn"
-        :class="[item.key, disabled && 'disabled']"
+        :class="[item.key, disabled && 'disabled', mini && 'mini']"
         @click.stop="handleClick(item.key)"
       >
         <n-icon size="10" class="icon-base" :class="{ hover: !disabled }">
@@ -21,6 +21,12 @@ import { screenfullFn } from '@/utils'
 const emit = defineEmits(['close', 'remove', 'resize', 'fullResize'])
 
 const props = defineProps({
+  // mini 版本
+  mini: {
+    request: false,
+    type: Boolean,
+    default: false
+  },
   // 禁用所有按钮
   disabled: {
     request: false,
@@ -55,26 +61,26 @@ const isFull = computed(() => {
 })
 
 const btnList: {
-  title: string,
-  key: "close" | "remove" | "resize" | "fullResize",
+  title: string
+  key: 'close' | 'remove' | 'resize' | 'fullResize'
   icon: any
 }[] = [
-    {
-      title: '关闭',
-      key: 'close',
-      icon: CloseIcon
-    },
-    {
-      title: '缩小',
-      key: 'remove',
-      icon: RemoveIcon
-    },
-    {
-      title: isFull ? '缩小' : '放大',
-      key: props.narrow ? 'fullResize' : 'resize',
-      icon: ResizeIcon
-    }
-  ]
+  {
+    title: '关闭',
+    key: 'close',
+    icon: CloseIcon
+  },
+  {
+    title: '缩小',
+    key: 'remove',
+    icon: RemoveIcon
+  },
+  {
+    title: isFull ? '缩小' : '放大',
+    key: props.narrow ? 'fullResize' : 'resize',
+    icon: ResizeIcon
+  }
+]
 
 const handleClick = (key: 'close' | 'remove' | 'resize' | 'fullResize') => {
   if (key === 'fullResize') screenfullFn()
@@ -85,7 +91,7 @@ const handleClick = (key: 'close' | 'remove' | 'resize' | 'fullResize') => {
 </script>
 
 <style lang="scss" scoped>
-@include go("apple-control-btn") {
+@include go('apple-control-btn') {
   display: flex;
   &:hover {
     .btn {
@@ -105,6 +111,11 @@ const handleClick = (key: 'close' | 'remove' | 'resize' | 'fullResize') => {
     color: $--color-text;
     font-weight: bold;
     border-radius: 50%;
+    &.mini {
+      width: 10px;
+      height: 10px;
+      margin: 0 2px;
+    }
     &.disabled {
       pointer-events: none;
     }

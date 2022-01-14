@@ -25,7 +25,7 @@
         <div class="menu-component-box">
           <transition name="component-fade" mode="out-in">
             <keep-alive>
-              <component :is="selectNode"></component>
+              <component :is="selecOptions.node" :packagesList="selecOptions.packagesList" :key="selectValue"></component>
             </keep-alive>
           </transition>
         </div>
@@ -36,86 +36,21 @@
 
 <script setup lang="ts">
 import { reactive, ref, toRefs } from 'vue'
-import { icon } from '@/plugins'
-import { renderLang, renderIcon } from '@/utils'
 import { ContentBox } from '../ContentBox/index'
-import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
-import { useDesignStore } from '@/store/modules/designStore/designStore'
-
-import { ChartCommon } from './components/ChartCommon'
-import { TableCommon } from './components/TableCommon'
-import { TextCommon } from './components/TextCommon'
-import { DecorateCommon } from './components/DecorateCommon'
-
-// 图标
-const { BarChartIcon } = icon.ionicons5
-const {
-  TableSplitIcon,
-  RoadmapIcon,
-  SpellCheckIcon,
-  GraphicalDataFlowIcon
-} = icon.carbon
-
-// 全局颜色
-const designStore = useDesignStore()
-const themeColor = ref(designStore.getAppTheme)
-
-// 结构控制
-const { setItem } = useChartLayoutStore()
-const { getCharts } = toRefs(useChartLayoutStore())
-
-// 菜单
-const collapsed = ref(false)
-const menuOptions = reactive([
-  {
-    key: 'ChartCommon',
-    icon: renderIcon(RoadmapIcon),
-    label: renderLang('图表'),
-    node: ChartCommon
-  },
-  {
-    key: 'TextCommon',
-    icon: renderIcon(SpellCheckIcon),
-    label: renderLang('信息'),
-    node: TableCommon
-  },
-  {
-    key: 'TableCommon',
-    icon: renderIcon(TableSplitIcon),
-    label: renderLang('表格'),
-    node: TextCommon
-  },
-  {
-    key: 'DecorateCommon',
-    icon: renderIcon(GraphicalDataFlowIcon),
-    label: renderLang('装饰'),
-    node: DecorateCommon
-  }
-])
-
-// 记录选中值
-let beforeSelect: string = menuOptions[0]['key']
-const selectValue = ref<string>(menuOptions[0]['key'])
-// 渲染的组件控制
-const selectNode = ref(menuOptions[0]['node'])
-
-// 点击 item
-const clickItemHandle = <T extends { node: any }>(key: string, item: T) => {
-  // 处理渲染的 node
-  selectNode.value = item.node
-  // 处理折叠
-  if (beforeSelect === key) {
-    setItem('charts', !getCharts.value)
-  } else {
-    setItem('charts', true)
-  }
-  beforeSelect = key
-}
+import {
+  getCharts,
+  BarChartIcon,
+  themeColor,
+  selecOptions,
+  selectValue,
+  clickItemHandle,
+  menuOptions
+} from './hooks/asideHook'
 </script>
 
 <style lang="scss" scoped>
 /* 整体宽度 */
-$width: 300px;
+$width: 330px;
 /* 列表的宽度 */
 $widthScoped: 65px;
 /* 此高度与 ContentBox 组件关联*/
@@ -162,7 +97,7 @@ $topHeight: 36px;
           display: flex;
           flex-direction: column;
           padding: 6px 12px !important;
-          font-size: 12px !important;
+          font-size: 14px !important;
         }
         .n-menu-item-content__icon {
           font-size: 18px !important;
