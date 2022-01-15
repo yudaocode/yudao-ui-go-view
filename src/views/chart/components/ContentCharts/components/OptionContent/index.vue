@@ -1,7 +1,7 @@
 <template>
   <div class="go-chart-common">
-    <!-- v-show="packages.categorysNum > 1" -->
     <n-menu
+      v-show="hidePackageOneCategory"
       class="chart-menu-width"
       v-model:value="selectValue"
       :options="packages.menuOptions"
@@ -16,15 +16,24 @@
 </template>
 
 <script setup lang="ts">
-import {  ref, watch, markRaw,reactive } from 'vue'
+import { ref, watch, markRaw, reactive, computed } from 'vue'
 import { ItemBox } from '../ItemBox/index'
 import { ConfigType } from '@/packages/index.d'
+import { useSettingStore } from '@/store/modules/settingStore/settingStore'
 
 const props = defineProps({
   selectOptions: {
     type: Object,
     default: () => []
   }
+})
+
+// 隐藏设置
+const settingStore = useSettingStore()
+
+const hidePackageOneCategory = computed(() => {
+  if (packages.categorysNum > 1) return true
+  return !settingStore.getHidePackageOneCategory
 })
 
 // TODO 调试结束改成 markeRaw
@@ -91,13 +100,13 @@ const clickItemHandle = (key: string) => {
 /* 此高度与 ContentBox 组件关联*/
 $topHeight: 60px;
 $menuWidth: 65px;
-@include go('chart-common') {
+@include go("chart-common") {
   display: flex;
   height: calc(100vh - #{$--header-height} - #{$topHeight});
   .chart-menu-width {
     width: $menuWidth;
     flex-shrink: 0;
-    @include filter-bg-color('background-color2-shallow');
+    @include filter-bg-color("background-color2-shallow");
   }
   .chart-content-list {
     flex: 1;

@@ -1,3 +1,3 @@
-import Border from './borders'
+import Borders from './Borders'
 
-export const DecorateList = [...Border]
+export const DecorateList = [...Borders]

@@ -1,3 +1,3 @@
-import { textCommonConfig } from './textCommon/index'
+import Texts from './Texts'
 
-export const InformationList = [textCommonConfig]
+export const InformationList = [...Texts]

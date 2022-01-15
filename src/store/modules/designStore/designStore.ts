@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { store } from '@/store'
-import { theme, asideAllCollapsed, asideCollapsedWidth } from '@/settings/designSetting'
+import { theme, asideCollapsedWidth } from '@/settings/designSetting'
+import { asideAllCollapsed } from '@/settings/systemSetting'
 import { DesignStateType } from './designStore.d'
 import { setLocalStorage, getLocalStorage } from '@/utils'
 import { StorageEnum } from '@/enums/storageEnum'

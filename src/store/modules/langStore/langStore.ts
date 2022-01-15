@@ -10,6 +10,7 @@ const { GO_LANG_STORE } = StorageEnum
 
 const storageLang: LangStateType = getLocalStorage(GO_LANG_STORE)
 
+// 语言
 export const useLangStore = defineStore({
   id: 'useLangStore',
   state: (): LangStateType =>

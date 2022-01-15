@@ -1,6 +1,7 @@
 import { icon } from '@/plugins'
 import { DialogEnum } from '@/enums/pluginEnum'
-import { dialogIconSize, maskClosable } from '@/settings/designSetting'
+import { dialogIconSize } from '@/settings/designSetting'
+import { maskClosable } from '@/settings/systemSetting'
 import { DialogReactive } from 'naive-ui'
 const { InformationCircleIcon } = icon.ionicons5
 import { renderIcon } from '@/utils'

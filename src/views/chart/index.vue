@@ -1,5 +1,4 @@
 <template>
-  <div class="go-bg-point"></div>
   <div class="go-chart">
     <n-layout>
       <HeaderPro>
@@ -35,13 +34,9 @@ import { ContentDetails } from './components/ContentDetails/index'
 </script>
 
 <style lang="scss" scoped>
-$height: 100vh;
-@include go('bg-point') {
-  @include background-image('background-point');
-  @extend .go-point-bg;
-}
-@include go('chart') {
-  height: $height;
+@include go("chart") {
+  height: 100vh;
+  width: 100vw;
   overflow: hidden;
   @include background-image('background-image');
 }

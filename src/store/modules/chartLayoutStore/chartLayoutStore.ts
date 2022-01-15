@@ -33,8 +33,8 @@ export const useChartLayoutStore = defineStore({
         // 对比度
         contrast: 100,
         // 不透明度
-        unOpacity: 100
-      }
+        unOpacity: 100,
+      },
     },
   getters: {
     getLayers(): boolean {
@@ -51,7 +51,7 @@ export const useChartLayoutStore = defineStore({
     },
     getFilter(): ChartLayoutFilterType {
       return this.filter
-    }
+    },
   },
   actions: {
     setItem(key: string, value: boolean): void {
@@ -61,8 +61,8 @@ export const useChartLayoutStore = defineStore({
     setFilter<T extends keyof ChartLayoutType>(key: T, value: boolean): void {
       ;(this.filter as any)[key] = value
       setLocalStorage(GO_CHART_LAYOUT_STORE, this.$state)
-    }
-  }
+    },
+  },
 })
 
 export function useChartLayoutSettingWithOut() {

@@ -37,17 +37,11 @@ export const theme = {
 // dialog 图标的大小
 export const dialogIconSize = '20'
 
-// 弹窗是否可以通过点击遮罩关闭
-export const maskClosable = false
-
 // 侧边栏宽度
 export const asideWidth = '270'
 
 // 侧边栏折叠后的宽度，支持全部折叠会覆盖为 0
 export const asideCollapsedWidth = '60'
-
-// 侧边栏是否支持全持全部折叠
-export const asideAllCollapsed = true
 
 // 修改边框圆角
 export const borderRadius = '6px'
