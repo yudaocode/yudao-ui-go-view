@@ -31,7 +31,7 @@ defineProps({
 /* 列表项宽度 */
 $itemWidth: 86%;
 /* 内容高度 */
-$centerHeight: 80px;
+$centerHeight: 100px;
 .item-box {
   margin: 0 7%;
   margin-bottom: 15px;

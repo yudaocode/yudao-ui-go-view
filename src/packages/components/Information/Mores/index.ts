@@ -1,3 +1,4 @@
 import { TextCloudConfig } from './TextCloud/index'
+import { ImageConfig } from './Image/index'
 
-export default [TextCloudConfig]
+export default [ImageConfig, TextCloudConfig]
