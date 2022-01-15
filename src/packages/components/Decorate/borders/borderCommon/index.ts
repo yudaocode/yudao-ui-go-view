@@ -6,7 +6,7 @@ import { ChatCategoryEnum } from '../../index.d'
 export const BorderCommonConfig: ConfigType = {
   key: 'BorderCommon',
   title: '边框',
-  category: ChatCategoryEnum.Border,
+  category: ChatCategoryEnum.BORDER,
   node: BorderCommon,
   image
 }

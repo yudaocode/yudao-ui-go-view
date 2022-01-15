@@ -25,3 +25,11 @@ export interface ChartLayoutType {
   // 滤镜
   filter: ChartLayoutFilterType
 }
+
+export enum ChartLayoutStoreEnums {
+  LAYERS = 'layers',
+  CHARTS = 'charts',
+  DETAILS = 'details',
+  ALIGNLINE = 'alignLine',
+  FILTER = 'filter',
+}

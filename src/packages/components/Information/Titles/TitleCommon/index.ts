@@ -5,7 +5,7 @@ import { ChatCategoryEnum } from '../../index.d'
 
 export const TitleCommonConfig: ConfigType = {
   key: 'Text',
-  title: '标题',
+  title: '普通标题',
   category: ChatCategoryEnum.TITLE,
   node: TitleCommon,
   image

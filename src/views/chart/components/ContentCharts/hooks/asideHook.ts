@@ -2,16 +2,17 @@ import { reactive, ref } from 'vue'
 import { icon } from '@/plugins'
 import { renderLang, renderIcon } from '@/utils'
 import { themeColor, setItem, getCharts } from './layoutHook'
-import { PackagesCategoryEnum } from '@/packages/index.d'
+import { PackagesCategoryEnum, PackagesCategoryName } from '@/packages/index.d'
 // 图表
 import { usePackagesStore } from '@/store/modules/packagesStore/packagesStore'
+import { ChartLayoutStoreEnums } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
 // 图标
 const { BarChartIcon } = icon.ionicons5
 const {
   TableSplitIcon,
   RoadmapIcon,
   SpellCheckIcon,
-  GraphicalDataFlowIcon
+  GraphicalDataFlowIcon,
 } = icon.carbon
 
 // 图表
@@ -23,20 +24,20 @@ const menuOptions = reactive<{
 const packagesListObj = {
   [PackagesCategoryEnum.CHARTS]: {
     icon: renderIcon(RoadmapIcon),
-    label: renderLang('图表')
+    label: renderLang(PackagesCategoryName.CHARTS),
   },
   [PackagesCategoryEnum.INFORMATION]: {
     icon: renderIcon(SpellCheckIcon),
-    label: renderLang('信息')
+    label: renderLang(PackagesCategoryName.INFORMATION),
   },
   [PackagesCategoryEnum.TABLES]: {
     icon: renderIcon(TableSplitIcon),
-    label: renderLang('表格')
+    label: renderLang(PackagesCategoryName.TABLES),
   },
   [PackagesCategoryEnum.DECORATES]: {
     icon: renderIcon(GraphicalDataFlowIcon),
-    label: renderLang('装饰')
-  }
+    label: renderLang(PackagesCategoryName.DECORATES),
+  },
 }
 
 // 处理列表
@@ -49,7 +50,7 @@ const handlePackagesList = () => {
       // @ts-ignore
       label: packagesListObj[val].label,
       // @ts-ignore
-      list: getPackagesList[val]
+      list: getPackagesList[val],
     })
   }
 }
@@ -67,9 +68,9 @@ const clickItemHandle = (key: string, item: any) => {
   selectOptions.value = item
   // 处理折叠
   if (beforeSelect === key) {
-    setItem('charts', !getCharts.value)
+    setItem(ChartLayoutStoreEnums.CHARTS, !getCharts.value)
   } else {
-    setItem('charts', true)
+    setItem(ChartLayoutStoreEnums.CHARTS, true)
   }
   beforeSelect = key
 }
@@ -81,5 +82,5 @@ export {
   selectOptions,
   selectValue,
   clickItemHandle,
-  menuOptions
+  menuOptions,
 }

@@ -36,6 +36,7 @@ import { renderIcon, goDialog, goHome } from '@/utils'
 import { icon } from '@/plugins'
 const { LayersIcon, BarChartIcon, PrismIcon, HomeIcon } = icon.ionicons5
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
+import { ChartLayoutStoreEnums } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
 
 const { setItem } = useChartLayoutStore()
 const { getLayers, getCharts, getDetails } = toRefs(useChartLayoutStore())
@@ -49,19 +50,19 @@ type ItemType = {
 
 const btnList = reactive<ItemType[]>([
   {
-    key: 'charts',
+    key: ChartLayoutStoreEnums.CHARTS,
     select: getCharts,
     title: '图表组件',
     icon: renderIcon(BarChartIcon)
   },
   {
-    key: 'layers',
+    key: ChartLayoutStoreEnums.LAYERS,
     select: getLayers,
     title: '图层控制',
     icon: renderIcon(LayersIcon)
   },
   {
-    key: 'details',
+    key: ChartLayoutStoreEnums.DETAILS,
     select: getDetails,
     title: '详情设置',
     icon: renderIcon(PrismIcon)

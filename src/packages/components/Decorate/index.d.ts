@@ -1,5 +1,4 @@
 export enum ChatCategoryEnum {
-  Border = '边框',
-  Title = '标题',
-  Else = '其它'
+  BORDER = '边框',
+  MORE = '更多'
 }
