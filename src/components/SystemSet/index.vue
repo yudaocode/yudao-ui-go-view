@@ -38,8 +38,6 @@
 <script script lang="ts" setup>
 import { reactive } from 'vue'
 import { ListType } from './index.d'
-import { useLangStore } from '@/store/modules/langStore/langStore'
-import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { useSettingStore } from '@/store/modules/settingStore/settingStore'
 import { SettingStoreEnums } from '@/store/modules/settingStore/settingStore.d'
 import { icon } from '@/plugins'
@@ -52,17 +50,15 @@ defineProps({
   modelShow: Boolean
 })
 
-const langStore = useLangStore()
-const designStore = useDesignStore()
 const settingStore = useSettingStore()
 
 const list = reactive<ListType[]>([
   {
-    key: 'aollapsed',
-    value: designStore.asideAllCollapsed,
+    key: SettingStoreEnums.ASIDE_ALL_COLLAPSED,
+    value: settingStore.getAsideAllCollapsed,
     type: 'switch',
     name: '菜单折叠',
-    desc: '左侧菜单全部折叠',
+    desc: '首页菜单折叠时隐藏全部',
   },
   {
     key: SettingStoreEnums.HIDE_PACKAGE_ONE_CATEGORY,
@@ -72,8 +68,8 @@ const list = reactive<ListType[]>([
     desc: '工作空间表单分类只有单项时隐藏',
   },
   {
-    key: 'lang',
-    value: langStore.getReload,
+    key: SettingStoreEnums.CHANGE_LANG_RELOAD,
+    value: settingStore.getChangeLangReload,
     type: 'switch',
     name: '切换语言',
     desc: '切换语言重新加载页面',
@@ -86,17 +82,7 @@ const closeHandle = () => {
 }
 
 const handleChange = (e: Event, item: ListType) => {
-  switch (item.key) {
-    case 'lang':
-      langStore.changeReload(item.value)
-      break
-    case 'aollapsed':
-      designStore.changeAsideAllCollapsed()
-      break
-    case SettingStoreEnums.HIDE_PACKAGE_ONE_CATEGORY:
-      settingStore.setItem(SettingStoreEnums.HIDE_PACKAGE_ONE_CATEGORY, item.value)
-      break
-  }
+  settingStore.setItem(item.key, item.value)
 }
 </script>
 

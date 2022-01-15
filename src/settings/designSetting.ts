@@ -43,6 +43,9 @@ export const asideWidth = '270'
 // 侧边栏折叠后的宽度，支持全部折叠会覆盖为 0
 export const asideCollapsedWidth = '60'
 
+// 弹窗是否可以通过点击遮罩关闭
+export const maskClosable = false
+
 // 修改边框圆角
 export const borderRadius = '6px'
 

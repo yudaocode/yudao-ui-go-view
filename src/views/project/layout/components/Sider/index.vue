@@ -22,7 +22,6 @@
           :collapsed-width="getAsideCollapsedWidth"
           :collapsed-icon-size="22"
           :default-expanded-keys="defaultExpandedKeys"
-          @update:value="handleUpdateValue"
         />
       </aside>
       <!-- 底部提示 -->
@@ -39,11 +38,11 @@ import { Create } from '../Create/index'
 import { AsideFooter } from '../AsideFooter/index'
 import { asideWidth, asideCollapsedWidth } from '@/settings/designSetting'
 import { useRoute } from 'vue-router'
-import { useDesignStore } from '@/store/modules/designStore/designStore'
+import { useSettingStore } from '@/store/modules/settingStore/settingStore'
 import { menuOptionsInit, expandedKeys } from './menu'
 
 const collapsed = ref<boolean>(false)
-const { getAsideCollapsedWidth } = toRefs(useDesignStore())
+const { getAsideCollapsedWidth } = toRefs(useSettingStore())
 
 const route = useRoute()
 const routeRame = computed(() => route.name)

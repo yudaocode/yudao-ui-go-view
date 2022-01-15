@@ -1,5 +1,10 @@
 import { defineStore } from 'pinia'
-import { hidePackageOneCategory } from '@/settings/systemSetting'
+import {
+  hidePackageOneCategory,
+  changeLangReload,
+  asideAllCollapsed
+} from '@/settings/systemSetting'
+import { asideCollapsedWidth } from '@/settings/designSetting'
 import { SettingStoreType } from './settingStore.d'
 import { setLocalStorage, getLocalStorage } from '@/utils'
 import { StorageEnum } from '@/enums/storageEnum'
@@ -13,15 +18,26 @@ export const useSettingStore = defineStore({
   state: (): SettingStoreType =>
     storageSetting || {
       hidePackageOneCategory,
+      changeLangReload,
+      asideAllCollapsed
     },
   getters: {
     getHidePackageOneCategory(): boolean {
       return this.hidePackageOneCategory
     },
+    getChangeLangReload(): boolean {
+      return this.changeLangReload
+    },
+    getAsideAllCollapsed(): boolean {
+      return this.asideAllCollapsed
+    },
+    getAsideCollapsedWidth(): string {
+      return this.asideAllCollapsed ? '0' : asideCollapsedWidth
+    }
   },
   actions: {
     setItem(key: string, value: boolean): void {
-      ;(this as any)[key] = value
+      ; (this as any)[key] = value
       setLocalStorage(GO_SYSTEM_SETTING, this.$state)
     },
   },

@@ -112,8 +112,8 @@ const handleClick = (key: 'close' | 'remove' | 'resize' | 'fullResize') => {
     font-weight: bold;
     border-radius: 50%;
     &.mini {
-      width: 10px;
-      height: 10px;
+      width: 8px;
+      height: 8px;
       margin: 0 2px;
     }
     &.disabled {
