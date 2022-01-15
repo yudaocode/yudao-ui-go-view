@@ -3,6 +3,7 @@
     class="go-content-layers go-boderbox"
     :class="{ scoped: !chartLayoutStore.getDetails }"
     :showTop="false"
+    :depth="2"
   >
     <n-tabs class="tabs-box" size="small" type="segment">
       <n-tab-pane

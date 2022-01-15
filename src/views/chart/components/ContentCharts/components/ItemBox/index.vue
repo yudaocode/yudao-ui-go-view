@@ -38,7 +38,16 @@ $centerHeight: 80px;
   width: $itemWidth;
   overflow: hidden;
   border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid rgba(0,0,0,0);
   @include filter-bg-color("background-color2");
+  @extend .go-transition;
+  &:hover {
+    @include hover-border-color('background-color4');
+    .list-img {
+      transform: scale(1.1);
+    }
+  }
   .list-header {
     display: flex;
     align-items: center;
@@ -53,9 +62,11 @@ $centerHeight: 80px;
   .list-center {
     padding: 6px 0;
     height: $centerHeight;
+    overflow: hidden;
     .list-img {
       height: 100%;
       border-radius: 6px;
+      @extend .go-transition;
     }
   }
 }

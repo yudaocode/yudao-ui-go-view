@@ -30,7 +30,7 @@ const packagesListObj = {
     label: renderLang('信息')
   },
   [PackagesCategoryEnum.TABLES]: {
-    icon: renderIcon(GraphicalDataFlowIcon),
+    icon: renderIcon(TableSplitIcon),
     label: renderLang('表格')
   },
   [PackagesCategoryEnum.DECORATES]: {

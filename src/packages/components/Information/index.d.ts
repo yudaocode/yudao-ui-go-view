@@ -1,3 +1,4 @@
 export enum ChatCategoryEnum {
-  text = '文本',
+  TEXT = '文本',
+  TITLE = '标题'
 }

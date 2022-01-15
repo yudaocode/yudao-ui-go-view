@@ -1,3 +1,4 @@
-import { barCommonConfig } from './BarCommon/index'
+import { BarCommonConfig } from './BarCommon/index'
+import { BarCrossrangefig } from './BarCrossrange/index'
 
-export default [barCommonConfig]
+export default [BarCommonConfig, BarCrossrangefig]

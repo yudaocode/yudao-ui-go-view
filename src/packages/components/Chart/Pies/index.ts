@@ -1,3 +1,3 @@
-import { pieCommonConfig } from './PieCommon/index'
+import { PieCommonConfig } from './PieCommon/index'
 
-export default [pieCommonConfig]
+export default [PieCommonConfig]

@@ -1,12 +1,12 @@
-import node from './index.vue'
+import PieCommon from './index.vue'
 import image from '@/assets/images/chart/charts/pie.png'
 import { ConfigType } from '@/packages/index.d'
 import { ChatCategoryEnum } from '../../index.d'
 
-export const pieCommonConfig: ConfigType = {
+export const PieCommonConfig: ConfigType = {
   key: 'PieCommon',
-  title: '饼图',
+  title: '计量图',
   category: ChatCategoryEnum.PIE,
-  node: node,
+  node: PieCommon,
   image
 }

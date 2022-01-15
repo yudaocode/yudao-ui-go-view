@@ -10,13 +10,15 @@
       @update:value="clickItemHandle"
     />
     <div class="chart-content-list">
-      <ItemBox :menuOptions="packages.selectOptions" />
+      <n-scrollbar>
+        <ItemBox :menuOptions="packages.selectOptions" />
+      </n-scrollbar>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch, markRaw, reactive, computed } from 'vue'
+import { ref, watch, reactive, computed } from 'vue'
 import { ItemBox } from '../ItemBox/index'
 import { ConfigType } from '@/packages/index.d'
 import { useSettingStore } from '@/store/modules/settingStore/settingStore'
@@ -32,7 +34,7 @@ const props = defineProps({
 const settingStore = useSettingStore()
 
 const hidePackageOneCategory = computed(() => {
-  if (packages.categorysNum > 1) return true
+  if (packages.categorysNum > 2) return true
   return !settingStore.getHidePackageOneCategory
 })
 
@@ -45,7 +47,10 @@ let packages = reactive<{
   // 当前选择
   selectOptions: {},
   // 分类归档
-  categorys: {},
+  categorys: {
+    // 全部
+    '全部': []
+  },
   // 分类归档数量
   categorysNum: 0,
   // 存储不同类别组件进来的选中值
@@ -71,8 +76,8 @@ watch(
     newData.list.forEach((e: ConfigType) => {
       const value: ConfigType[] = (packages.categorys as any)[e.category]
       // @ts-ignore
-      packages.categorys[e.category] =
-        value && value.length ? [...value, e] : [e]
+      packages.categorys[e.category] = (value && value.length ? [...value, e] : [e])
+      packages.categorys['全部'].push(e)
     })
     for (const val in packages.categorys) {
       packages.categorysNum += 1
@@ -98,7 +103,7 @@ const clickItemHandle = (key: string) => {
 
 <style lang="scss" scoped>
 /* 此高度与 ContentBox 组件关联*/
-$topHeight: 60px;
+$topHeight: 36px;
 $menuWidth: 65px;
 @include go("chart-common") {
   display: flex;

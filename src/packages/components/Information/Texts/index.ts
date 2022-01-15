@@ -1,3 +1,3 @@
-import { textCommonConfig } from './TextCommon/index'
+import { TextCommonConfig } from './TextCommon/index'
 
-export default [textCommonConfig]
+export default [TextCommonConfig]
