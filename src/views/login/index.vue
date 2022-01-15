@@ -7,7 +7,7 @@
           <template v-for="item in bgList" :key="item">
             <div class="bg-img-box-li list-complete-item">
               <n-collapse-transition :appear="true" :show="showBg">
-                <img :src="getImageUrl(item, 'chart')" alt="chart" />
+                <img :src="getImageUrl(item, 'chart/charts/')" alt="chart" />
               </n-collapse-transition>
             </div>
           </template>
@@ -23,7 +23,7 @@
     </Header>
     <div class="go-login">
       <div class="go-login-carousel">
-        <n-carousel autoplay :interval="Number(carouselInterval)">
+        <n-carousel autoplay dot-type="line" :interval="Number(carouselInterval)">
           <img
             v-for="(item, i) in carouselImgList"
             :key="i"
@@ -309,7 +309,7 @@ $carousel-image-height: 60vh;
         img {
           margin-right: 20px;
           margin-top: 20px;
-          height: 230px;
+          width: 230px;
           border-radius: 2 * $--border-radius-base;
           opacity: 0.9;
         }

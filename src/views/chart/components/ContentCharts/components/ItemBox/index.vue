@@ -5,13 +5,20 @@
       <n-text class="list-header-text" depth="3">{{ item.title }}</n-text>
     </div>
     <div class="list-center go-flex-center">
-      <img class="list-img" :src="item.image" />
+      <n-image
+        class="list-img"
+        object-fit="contain"
+        preview-disabled
+        :src="item.image"
+        :fallback-src="requireFallbackImg()"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { AppleControlBtn } from '@/components/AppleControlBtn/index'
+import { requireFallbackImg } from '@/utils'
 defineProps({
   menuOptions: {
     type: Array,
@@ -31,13 +38,13 @@ $centerHeight: 80px;
   width: $itemWidth;
   overflow: hidden;
   border-radius: 6px;
-  @include filter-bg-color('background-color2');
+  @include filter-bg-color("background-color2");
   .list-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 2px 15px;
-    @include filter-bg-color('background-color3');
+    @include filter-bg-color("background-color3");
     &-text {
       font-size: 12px;
       margin-left: 8px;

@@ -1,7 +1,7 @@
 <template>
   <div class="go-chart-common">
+    <!-- v-show="packages.categorysNum > 1" -->
     <n-menu
-      v-show="packages.categorysNum > 1"
       class="chart-menu-width"
       v-model:value="selectValue"
       :options="packages.menuOptions"
@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, watch } from 'vue'
+import {  ref, watch, markRaw,reactive } from 'vue'
 import { ItemBox } from '../ItemBox/index'
 import { ConfigType } from '@/packages/index.d'
 
@@ -27,6 +27,7 @@ const props = defineProps({
   }
 })
 
+// TODO 调试结束改成 markeRaw
 let packages = reactive<{
   [T: string]: any
 }>({

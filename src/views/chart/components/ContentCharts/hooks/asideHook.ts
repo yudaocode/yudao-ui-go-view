@@ -25,7 +25,7 @@ const packagesListObj = {
     icon: renderIcon(RoadmapIcon),
     label: renderLang('图表')
   },
-  [PackagesCategoryEnum.TEXTS]: {
+  [PackagesCategoryEnum.INFORMATION]: {
     icon: renderIcon(SpellCheckIcon),
     label: renderLang('信息')
   },
