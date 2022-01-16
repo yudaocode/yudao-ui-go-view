@@ -15,7 +15,6 @@
       <n-layout-content content-style="overflow:hidden; display: flex">
         <ContentCharts />
         <ContentLayers />
-        <ContentDrag />
         <ContentDetails />
       </n-layout-content>
     </n-layout>
@@ -29,7 +28,6 @@ import { HeaderRightBtn } from './components/HeaderRightBtn/index'
 import { HeaderTitle } from './components/HeaderTitle/index'
 import { ContentLayers } from './components/ContentLayers/index'
 import { ContentCharts } from './components/ContentCharts/index'
-import { ContentDrag } from './components/ContentDrag/index'
 import { ContentDetails } from './components/ContentDetails/index'
 </script>
 

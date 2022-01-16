@@ -4,7 +4,7 @@ import { ConfigType } from '@/packages/index.d'
 import { ChatCategoryEnum } from '../../index.d'
 
 export const TextCommonConfig: ConfigType = {
-  key: 'Text',
+  key: 'VText',
   title: '文字',
   category: ChatCategoryEnum.TEXT,
   node: TextCommon,

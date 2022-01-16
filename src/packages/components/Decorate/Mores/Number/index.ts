@@ -4,7 +4,7 @@ import { ConfigType } from '@/packages/index.d'
 import { ChatCategoryEnum } from '../../index.d'
 
 export const NumberConfig: ConfigType = {
-  key: 'Number',
+  key: 'VNumber',
   title: '数字翻牌',
   category: ChatCategoryEnum.MORE,
   node: Number,

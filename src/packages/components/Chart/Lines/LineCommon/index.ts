@@ -4,7 +4,7 @@ import { ConfigType } from '@/packages/index.d'
 import { ChatCategoryEnum } from '../../index.d'
 
 export const LineCommonConfig: ConfigType = {
-  key: 'LineCommon',
+  key: 'VLineCommon',
   title: '折线图',
   category: ChatCategoryEnum.LINE,
   node: LineCommon,

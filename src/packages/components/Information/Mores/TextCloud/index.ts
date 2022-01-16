@@ -4,7 +4,7 @@ import { ConfigType } from '@/packages/index.d'
 import { ChatCategoryEnum } from '../../index.d'
 
 export const TextCloudConfig: ConfigType = {
-  key: 'TextCloud',
+  key: 'VTextCloud',
   title: '词云',
   category: ChatCategoryEnum.MORE,
   node: TextCloud,

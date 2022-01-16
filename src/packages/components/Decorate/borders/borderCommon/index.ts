@@ -4,7 +4,7 @@ import { ConfigType } from '@/packages/index.d'
 import { ChatCategoryEnum } from '../../index.d'
 
 export const BorderCommonConfig: ConfigType = {
-  key: 'BorderCommon',
+  key: 'VBorderCommon',
   title: '边框',
   category: ChatCategoryEnum.BORDER,
   node: BorderCommon,

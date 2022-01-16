@@ -4,7 +4,7 @@ import { ConfigType } from '@/packages/index.d'
 import { ChatCategoryEnum } from '../../index.d'
 
 export const BarCommonConfig: ConfigType = {
-  key: 'BarCommon',
+  key: 'VBarCommon',
   title: '柱状图',
   category: ChatCategoryEnum.BAR,
   node: BarCommon,

@@ -4,7 +4,7 @@ import { ConfigType } from '@/packages/index.d'
 import { ChatCategoryEnum } from '../../index.d'
 
 export const LineGradientSingleConfig: ConfigType = {
-  key: 'LineGradientSingle',
+  key: 'VLineGradientSingle',
   title: '折线面积图',
   category: ChatCategoryEnum.LINE,
   node: LineGradientSingle,

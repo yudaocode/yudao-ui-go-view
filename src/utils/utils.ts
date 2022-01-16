@@ -4,7 +4,7 @@ import screenfull from 'screenfull'
 import debounce from 'lodash/debounce'
 
 /**
- * * 生成一个用不重复的ID
+ * * 生成一个不重复的ID
  * @param { Number } randomLength
  */
 export function getUUID(randomLength: number) {

@@ -4,7 +4,7 @@ import { ConfigType } from '@/packages/index.d'
 import { ChatCategoryEnum } from '../../index.d'
 
 export const TreeMapConfig: ConfigType = {
-  key: 'TreeMap',
+  key: 'VTreeMap',
   title: '树形分布',
   category: ChatCategoryEnum.MORE,
   node: TreeMap,

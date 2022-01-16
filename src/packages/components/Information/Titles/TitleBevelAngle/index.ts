@@ -4,7 +4,7 @@ import { ConfigType } from '@/packages/index.d'
 import { ChatCategoryEnum } from '../../index.d'
 
 export const TitleBevelAngleConfig: ConfigType = {
-  key: 'TitleBevelAngle',
+  key: 'VTitleBevelAngle',
   title: '斜角标题',
   category: ChatCategoryEnum.TITLE,
   node: TitleBevelAngle,

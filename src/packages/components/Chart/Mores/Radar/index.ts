@@ -4,7 +4,7 @@ import { ConfigType } from '@/packages/index.d'
 import { ChatCategoryEnum } from '../../index.d'
 
 export const RadarConfig: ConfigType = {
-  key: 'Radar',
+  key: 'VRadar',
   title: '雷达',
   category: ChatCategoryEnum.MORE,
   node: Radar,

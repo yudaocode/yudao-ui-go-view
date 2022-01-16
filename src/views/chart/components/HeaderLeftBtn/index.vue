@@ -8,19 +8,9 @@
       </template>
     </n-button>
     <n-space>
-      <n-tooltip
-        v-for="item in btnList"
-        :key="item.key"
-        placement="bottom"
-        trigger="hover"
-      >
+      <n-tooltip v-for="item in btnList" :key="item.key" placement="bottom" trigger="hover">
         <template #trigger>
-          <n-button
-            :type="item.select ? 'success' : ''"
-            size="small"
-            ghost
-            @click="clickHandle(item)"
-          >
+          <n-button :type="styleHandle(item)" size="small" ghost @click="clickHandle(item)">
             <component :is="item.icon"></component>
           </n-button>
         </template>
@@ -68,6 +58,15 @@ const btnList = reactive<ItemType[]>([
     icon: renderIcon(PrismIcon)
   }
 ])
+
+
+// store 描述的是展示的值，所以和 ContentDetails 的 collapsed 是相反的
+const styleHandle = (item: ItemType) => {
+  if (item.key === ChartLayoutStoreEnums.DETAILS) {
+    return item.select ? '' : 'success'
+  }
+  return item.select ? 'success' : ''
+}
 
 const clickHandle = (item: ItemType) => {
   setItem(item.key, !item.select)

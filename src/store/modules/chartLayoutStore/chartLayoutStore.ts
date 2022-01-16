@@ -58,7 +58,7 @@ export const useChartLayoutStore = defineStore({
       ;(this as any)[key] = value
       setLocalStorage(GO_CHART_LAYOUT_STORE, this.$state)
     },
-    setFilter<T extends keyof ChartLayoutType>(key: T, value: boolean): void {
+    setFilter<T extends keyof ChartLayoutFilterType>(key: T, value: boolean): void {
       ;(this.filter as any)[key] = value
       setLocalStorage(GO_CHART_LAYOUT_STORE, this.$state)
     },

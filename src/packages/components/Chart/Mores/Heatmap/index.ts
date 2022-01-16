@@ -4,7 +4,7 @@ import { ConfigType } from '@/packages/index.d'
 import { ChatCategoryEnum } from '../../index.d'
 
 export const HeatmapConfig: ConfigType = {
-  key: 'Heatmap',
+  key: 'VHeatmap',
   title: '热力图',
   category: ChatCategoryEnum.MORE,
   node: Heatmap,

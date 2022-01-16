@@ -4,7 +4,7 @@ import { ConfigType } from '@/packages/index.d'
 import { ChatCategoryEnum } from '../../index.d'
 
 export const PieCommonConfig: ConfigType = {
-  key: 'PieCommon',
+  key: 'VPieCommon',
   title: '计量图',
   category: ChatCategoryEnum.PIE,
   node: PieCommon,

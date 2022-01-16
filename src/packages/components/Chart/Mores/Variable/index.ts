@@ -4,7 +4,7 @@ import { ConfigType } from '@/packages/index.d'
 import { ChatCategoryEnum } from '../../index.d'
 
 export const VariableConfig: ConfigType = {
-  key: 'Variable',
+  key: 'VVariable',
   title: '折线面积图',
   category: ChatCategoryEnum.MORE,
   node: Variable,

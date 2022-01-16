@@ -4,7 +4,7 @@ import { ConfigType } from '@/packages/index.d'
 import { ChatCategoryEnum } from '../../index.d'
 
 export const MapChineConfig: ConfigType = {
-  key: 'MapChine',
+  key: 'VMapChine',
   title: '北京地图',
   category: ChatCategoryEnum.MAP,
   node: MapChine,

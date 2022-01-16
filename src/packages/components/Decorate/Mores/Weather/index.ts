@@ -4,7 +4,7 @@ import { ConfigType } from '@/packages/index.d'
 import { ChatCategoryEnum } from '../../index.d'
 
 export const WeatherConfig: ConfigType = {
-  key: 'Weather',
+  key: 'VWeather',
   title: '天气',
   category: ChatCategoryEnum.MORE,
   node: Weather,

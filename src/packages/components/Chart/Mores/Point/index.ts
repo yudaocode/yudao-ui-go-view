@@ -4,7 +4,7 @@ import { ConfigType } from '@/packages/index.d'
 import { ChatCategoryEnum } from '../../index.d'
 
 export const PointConfig: ConfigType = {
-  key: 'Point',
+  key: 'VPoint',
   title: '热力图',
   category: ChatCategoryEnum.MORE,
   node: Point,

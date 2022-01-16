@@ -4,7 +4,7 @@ import { ConfigType } from '@/packages/index.d'
 import { ChatCategoryEnum } from '../index.d'
 
 export const TableCommonConfig: ConfigType = {
-  key: 'TableCommon',
+  key: 'VTableCommon',
   title: '表格',
   category: ChatCategoryEnum.table,
   node: TableCommon,
