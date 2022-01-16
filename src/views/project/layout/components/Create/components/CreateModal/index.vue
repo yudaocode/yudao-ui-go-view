@@ -40,7 +40,8 @@ import { icon } from '@/plugins'
 import { PageEnum, ChartEnum } from '@/enums/pageEnum'
 import { routerTurnByName, renderLang } from '@/utils'
 
-const { FishIcon, LaptopOutlineIcon, BeerIcon, CloseIcon } = icon.ionicons5
+const { FishIcon, CloseIcon } = icon.ionicons5
+const { StoreIcon, ObjectStorageIcon } = icon.carbon
 const t = window['$t']
 const emit = defineEmits(['close'])
 const props = defineProps({
@@ -57,13 +58,13 @@ const typeList = reactive([
   {
     title: renderLang('project.my_templete'),
     key: PageEnum.BASE_HOME_TEMPLATE_NAME,
-    icon: LaptopOutlineIcon,
+    icon: ObjectStorageIcon,
     disabled: true
   },
   {
     title: renderLang('project.template_market'),
     key: PageEnum.BASE_HOME_TEMPLATE_MARKET_NAME,
-    icon: BeerIcon,
+    icon: StoreIcon,
     disabled: true
   }
 ])
