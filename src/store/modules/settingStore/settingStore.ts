@@ -31,8 +31,8 @@ export const useSettingStore = defineStore({
     getAsideAllCollapsed(): boolean {
       return this.asideAllCollapsed
     },
-    getAsideCollapsedWidth(): string {
-      return this.asideAllCollapsed ? '0' : asideCollapsedWidth
+    getAsideCollapsedWidth(): number {
+      return this.asideAllCollapsed ? 0 : asideCollapsedWidth
     }
   },
   actions: {

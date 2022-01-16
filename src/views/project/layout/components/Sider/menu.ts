@@ -5,7 +5,8 @@ import { PageEnum } from '@/enums/pageEnum'
 import { MenuOption, MenuGroupOption } from 'naive-ui'
 import { icon } from '@/plugins'
 
-const { GridIcon, BeerIcon, DesktopIcon, LaptopOutlineIcon } = icon.ionicons5
+const { GridIcon, DesktopIcon } = icon.ionicons5
+const { StoreIcon, ObjectStorageIcon, DevicesIcon } = icon.carbon
 export const renderMenuLabel = (option: MenuOption | MenuGroupOption) => {
   return option.label
 }
@@ -18,12 +19,12 @@ export const menuOptionsInit = () => {
   return reactive([
     {
       key: 'divider-1',
-      type: 'divider'
+      type: 'divider',
     },
     {
       label: () => h('span', null, { default: () => t('project.project') }),
       key: 'all-project',
-      icon: renderIcon(GridIcon),
+      icon: renderIcon(DevicesIcon),
       children: [
         {
           type: 'group',
@@ -36,13 +37,13 @@ export const menuOptionsInit = () => {
                   RouterLink,
                   {
                     to: {
-                      name: PageEnum.BASE_HOME_ITEMS_NAME
-                    }
+                      name: PageEnum.BASE_HOME_ITEMS_NAME,
+                    },
                   },
                   { default: () => t('project.all_project') }
                 ),
               key: PageEnum.BASE_HOME_ITEMS_NAME,
-              icon: renderIcon(DesktopIcon)
+              icon: renderIcon(DesktopIcon),
             },
             {
               label: () =>
@@ -50,22 +51,22 @@ export const menuOptionsInit = () => {
                   RouterLink,
                   {
                     to: {
-                      name: PageEnum.BASE_HOME_TEMPLATE_NAME
-                    }
+                      name: PageEnum.BASE_HOME_TEMPLATE_NAME,
+                    },
                   },
                   { default: () => t('project.my_templete') }
                 ),
               key: PageEnum.BASE_HOME_TEMPLATE_NAME,
-              icon: renderIcon(LaptopOutlineIcon)
-            }
-          ]
-        }
-      ]
+              icon: renderIcon(ObjectStorageIcon),
+            },
+          ],
+        },
+      ],
     },
 
     {
       key: 'divider-2',
-      type: 'divider'
+      type: 'divider',
     },
     {
       label: () =>
@@ -73,13 +74,13 @@ export const menuOptionsInit = () => {
           RouterLink,
           {
             to: {
-              name: PageEnum.BASE_HOME_TEMPLATE_MARKET_NAME
-            }
+              name: PageEnum.BASE_HOME_TEMPLATE_MARKET_NAME,
+            },
           },
           { default: () => t('project.template_market') }
         ),
       key: PageEnum.BASE_HOME_TEMPLATE_MARKET_NAME,
-      icon: renderIcon(BeerIcon)
-    }
+      icon: renderIcon(StoreIcon),
+    },
   ])
 }

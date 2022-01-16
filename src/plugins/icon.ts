@@ -12,10 +12,8 @@ import {
   Open as OpenIcon,
   Send as SendIcon,
   InformationCircleOutline as InformationCircleIcon,
-  Beer as BeerIcon,
   Grid as GridIcon,
   TvOutline as DesktopIcon,
-  LaptopOutline as LaptopOutlineIcon,
   DocumentText as DocumentTextIcon,
   Language as LanguageIcon,
   Moon as MoonIcon,
@@ -45,7 +43,10 @@ import {
   TableSplit as TableSplitIcon,
   Roadmap as RoadmapIcon,
   SpellCheck as SpellCheckIcon,
-  GraphicalDataFlow as GraphicalDataFlowIcon
+  GraphicalDataFlow as GraphicalDataFlowIcon,
+  Store as StoreIcon,
+  Devices as DevicesIcon,
+  ObjectStorage as ObjectStorageIcon
 } from '@vicons/carbon'
 
 const ionicons5 = {
@@ -97,14 +98,10 @@ const ionicons5 = {
   SendIcon,
   // 信息
   InformationCircleIcon,
-  // 物料（颜色混合）
-  BeerIcon,
   // 项目
   GridIcon,
   // 电脑1
   DesktopIcon,
-  // 电脑2
-  LaptopOutlineIcon,
   // 文档
   DocumentTextIcon,
   // 语言
@@ -139,7 +136,13 @@ const carbon = {
   // 表格
   TableSplitIcon,
   // 装饰
-  GraphicalDataFlowIcon
+  GraphicalDataFlowIcon,
+  // 项目
+  DevicesIcon,
+  // 模板市场
+  StoreIcon,
+  // 我的模板
+  ObjectStorageIcon
 }
 
 // https://www.xicons.org/#/ 还有很多
