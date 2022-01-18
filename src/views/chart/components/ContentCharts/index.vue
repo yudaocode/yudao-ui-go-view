@@ -1,4 +1,5 @@
 <template>
+  <!-- 左侧所有组件的展示列表 -->
   <ContentBox
     class="go-content-charts"
     :class="{ scoped: !getCharts }"

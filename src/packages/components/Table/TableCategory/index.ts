@@ -1,12 +1,13 @@
 import TableCategory from './index.vue'
 import image from '@/assets/images/chart/Tables/tables_categary.png'
 import { ConfigType } from '@/packages/index.d'
-import { ChatCategoryEnum } from '../index.d'
+import { ChatCategoryEnum, ChatCategoryEnumName } from '../index.d'
 
 export const TableCategoryConfig: ConfigType = {
   key: 'VTableCategory',
   title: '归类表格',
-  category: ChatCategoryEnum.table,
+  category: ChatCategoryEnum.TABLE,
+  categoryName: ChatCategoryEnumName.TABLE,
   node: TableCategory,
   image
 }

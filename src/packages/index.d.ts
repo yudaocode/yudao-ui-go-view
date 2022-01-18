@@ -5,6 +5,7 @@ export type ConfigType = {
   key: string
   title: string
   category: string
+  categoryName: string
   node: Component
   image: string | (() => Promise<typeof import('*.png')>)
   [T: string]: unknown

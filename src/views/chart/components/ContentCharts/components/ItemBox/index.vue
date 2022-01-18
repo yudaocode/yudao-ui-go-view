@@ -1,4 +1,5 @@
 <template>
+  <!-- 每一项组件的渲染 -->
   <div class="item-box" v-for="(item, index) in menuOptions" :key="index">
     <div class="list-header">
       <AppleControlBtn :mini="true" :disabled="true"></AppleControlBtn>
@@ -39,8 +40,8 @@ $centerHeight: 100px;
   overflow: hidden;
   border-radius: 6px;
   cursor: pointer;
-  border: 1px solid rgba(0,0,0,0);
-  @include filter-bg-color("background-color2");
+  border: 1px solid rgba(0, 0, 0, 0);
+  @include filter-bg-color('background-color2');
   @extend .go-transition;
   &:hover {
     @include hover-border-color('background-color4');
@@ -53,7 +54,7 @@ $centerHeight: 100px;
     align-items: center;
     justify-content: space-between;
     padding: 2px 15px;
-    @include filter-bg-color("background-color3");
+    @include filter-bg-color('background-color3');
     &-text {
       font-size: 12px;
       margin-left: 8px;

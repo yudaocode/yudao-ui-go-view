@@ -1,4 +1,5 @@
 <template>
+  <!-- 侧边栏和数据分发处理 -->
   <div class="go-chart-common">
     <n-menu
       v-show="hidePackageOneCategory"
@@ -48,8 +49,11 @@ let packages = reactive<{
   selectOptions: {},
   // 分类归档
   categorys: {
-    // 全部
-    '全部': []
+    // todo 先用中文, 后面需要换成关键key
+    all: []
+  },
+  categoryNames: {
+    all: '所有'
   },
   // 分类归档数量
   categorysNum: 0,
@@ -76,17 +80,19 @@ watch(
     newData.list.forEach((e: ConfigType) => {
       const value: ConfigType[] = (packages.categorys as any)[e.category]
       // @ts-ignore
-      packages.categorys[e.category] = (value && value.length ? [...value, e] : [e])
-      packages.categorys['全部'].push(e)
+      packages.categorys[e.category] = value && value.length ? [...value, e] : [e]
+      packages.categoryNames[e.category] = e.categoryName
+      packages.categorys['all'].push(e)
     })
     for (const val in packages.categorys) {
       packages.categorysNum += 1
       packages.menuOptions.push({
         key: val,
-        label: val
+        label: packages.categoryNames[val]
       })
     }
     setSelectOptions(packages.categorys)
+    // 默认选中处理
     selectValue.value = packages.menuOptions[0]['key']
   },
   {
@@ -105,13 +111,13 @@ const clickItemHandle = (key: string) => {
 /* 此高度与 ContentBox 组件关联*/
 $topHeight: 36px;
 $menuWidth: 65px;
-@include go("chart-common") {
+@include go('chart-common') {
   display: flex;
   height: calc(100vh - #{$--header-height} - #{$topHeight});
   .chart-menu-width {
     width: $menuWidth;
     flex-shrink: 0;
-    @include filter-bg-color("background-color2-shallow");
+    @include filter-bg-color('background-color2-shallow');
   }
   .chart-content-list {
     flex: 1;
