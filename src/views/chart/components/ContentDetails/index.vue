@@ -39,13 +39,14 @@
 </template>
 
 <script setup lang="ts">
-import {  shallowRef, ref, toRefs, watch } from 'vue'
+import {  shallowRef, ref, toRefs, watch, reactive } from 'vue'
 import { icon } from '@/plugins'
 import { ContentBox } from '../ContentBox/index'
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
 import { ChartLayoutStoreEnums } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
 import { Setting } from './components/Setting/index'
 import { Behind } from './components/Behind/index'
+import { Page } from './components/Page/index'
 import { ContentDrag } from '../ContentDrag/index'
 
 const { getDetails } = toRefs(useChartLayoutStore())
@@ -73,10 +74,17 @@ watch(getDetails, (newData) => {
   }
 })
 
+// 页面设置
+const pageSetting = reactive({
+  key: 'pageSetting',
+  title: '页面设置',
+  render: Page
+})
+
 const tabList = shallowRef([
   {
     key: 'setting',
-    title: '配置项',
+    title: '设置',
     icon: CubeIcon,
     render: Setting
   },

@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { store } from '@/store'
 import { theme } from '@/settings/designSetting'
 import { DesignStateType } from './designStore.d'
 import { setLocalStorage, getLocalStorage } from '@/utils'
@@ -44,7 +43,3 @@ export const useDesignStore = defineStore({
     },
   }
 })
-
-export function useDesignSettingWithOut() {
-  return useDesignStore(store)
-}

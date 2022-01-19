@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { store } from '@/store'
 import { ChartLayoutType, ChartLayoutFilterType } from './chartLayoutStore.d'
 import { setLocalStorage, getLocalStorage } from '@/utils'
 import { StorageEnum } from '@/enums/storageEnum'
@@ -64,7 +63,3 @@ export const useChartLayoutStore = defineStore({
     },
   },
 })
-
-export function useChartLayoutSettingWithOut() {
-  return useChartLayoutStore(store)
-}

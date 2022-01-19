@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "lint": "eslint \"{src}/**/*.{vue,ts,tsx}\" --fix --ext"
+    "lint": "eslint \"{src}/**/*.{vue,ts,tsx}\" --fix --ext",
+    "new": "plop --plopfile ./plop/plopfile.js"
   },
   "dependencies": {
     "@vicons/carbon": "^0.11.0",
@@ -14,6 +15,7 @@
     "mockjs": "^1.1.0",
     "naive-ui": "^2.24.1",
     "pinia": "^2.0.6",
+    "plop": "^3.0.5",
     "screenfull": "^6.0.0",
     "vue": "^3.2.16",
     "vue-i18n": "^9.2.0-beta.23",
