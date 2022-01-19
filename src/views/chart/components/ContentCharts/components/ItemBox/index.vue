@@ -1,18 +1,26 @@
 <template>
-  <!-- 每一项组件的渲染 -->
-  <div class="item-box" v-for="(item, index) in menuOptions" :key="index">
-    <div class="list-header">
-      <AppleControlBtn :mini="true" :disabled="true"></AppleControlBtn>
-      <n-text class="list-header-text" depth="3">{{ item.title }}</n-text>
-    </div>
-    <div class="list-center go-flex-center">
-      <n-image
-        class="list-img"
-        object-fit="contain"
-        preview-disabled
-        :src="item.image"
-        :fallback-src="requireFallbackImg()"
-      />
+  <div class="go-content-charts-item-box">
+    <!-- 每一项组件的渲染 -->
+    <div
+      class="item-box"
+      v-for="(item, index) in menuOptions"
+      :key="index"
+      draggable
+      @dragstart="handleDragStart($event, item)"
+    >
+      <div class="list-header">
+        <AppleControlBtn :mini="true" :disabled="true"></AppleControlBtn>
+        <n-text class="list-header-text" depth="3">{{ item.title }}</n-text>
+      </div>
+      <div class="list-center go-flex-center">
+        <n-image
+          class="list-img"
+          object-fit="contain"
+          preview-disabled
+          :src="item.image"
+          :fallback-src="requireFallbackImg()"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -26,6 +34,14 @@ defineProps({
     default: () => []
   }
 })
+
+// 拖拽处理
+const handleDragStart = (e: DragEvent, item: any) => {
+  if (e.dataTransfer instanceof Object && e.target instanceof Object) {
+    e.dataTransfer.setData('chartName', item.key)
+    e.dataTransfer.setData('chartNode', item.node)
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -33,41 +49,43 @@ defineProps({
 $itemWidth: 86%;
 /* 内容高度 */
 $centerHeight: 100px;
-.item-box {
-  margin: 0 7%;
-  margin-bottom: 15px;
-  width: $itemWidth;
-  overflow: hidden;
-  border-radius: 6px;
-  cursor: pointer;
-  border: 1px solid rgba(0, 0, 0, 0);
-  @include filter-bg-color('background-color2');
-  @extend .go-transition;
-  &:hover {
-    @include hover-border-color('background-color4');
-    .list-img {
-      transform: scale(1.1);
-    }
-  }
-  .list-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 2px 15px;
-    @include filter-bg-color('background-color3');
-    &-text {
-      font-size: 12px;
-      margin-left: 8px;
-    }
-  }
-  .list-center {
-    padding: 6px 0;
-    height: $centerHeight;
+@include go('content-charts-item-box') {
+  .item-box {
+    margin: 0 7%;
+    margin-bottom: 15px;
+    width: $itemWidth;
     overflow: hidden;
-    .list-img {
-      height: 100%;
-      border-radius: 6px;
-      @extend .go-transition;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0);
+    @include filter-bg-color('background-color2');
+    @extend .go-transition;
+    &:hover {
+      @include hover-border-color('background-color4');
+      .list-img {
+        transform: scale(1.1);
+      }
+    }
+    .list-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2px 15px;
+      @include filter-bg-color('background-color3');
+      &-text {
+        font-size: 12px;
+        margin-left: 8px;
+      }
+    }
+    .list-center {
+      padding: 6px 0;
+      height: $centerHeight;
+      overflow: hidden;
+      .list-img {
+        height: 100%;
+        border-radius: 6px;
+        @extend .go-transition;
+      }
     }
   }
 }
