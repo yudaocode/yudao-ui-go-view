@@ -56,10 +56,10 @@ export const requireFallbackImg = (path?: string, name?: string) => {
 }
 
 /**
- * 全屏操作函数
- * @param isFullscreen 
- * @param isEnabled 
- * @returns 
+ * * 全屏操作函数
+ * @param isFullscreen
+ * @param isEnabled
+ * @returns
  */
 export const screenfullFn = (isFullscreen?: boolean, isEnabled?: boolean) => {
   // 是否是全屏
@@ -74,6 +74,23 @@ export const screenfullFn = (isFullscreen?: boolean, isEnabled?: boolean) => {
   }
   // TODO lang
   window['$message'].warning('您的浏览器不支持全屏功能！')
+}
+
+/**
+ * * 设置元素属性
+ * @param HTMLElement 元素 
+ * @param key 键名
+ * @param value 键值
+ */
+export const setDomAttribute = <T extends keyof CSSStyleDeclaration>(
+  HTMLElement: HTMLElement,
+  key: T,
+  value: any
+) => {
+  if (HTMLElement) {
+    // @ts-ignore
+    HTMLElement.style[key] = value
+  }
 }
 
 /**

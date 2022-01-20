@@ -104,7 +104,6 @@
 
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
-import { useMessage } from 'naive-ui'
 import { requireUrl } from '@/utils'
 import { routerTurnByName } from '@/utils'
 import shuffle from 'lodash/shuffle'
@@ -125,7 +124,6 @@ interface FormState {
 }
 
 const formRef = ref()
-const message = useMessage()
 const loading = ref(false)
 const autoLogin = ref(true)
 const show = ref(false)
@@ -199,10 +197,10 @@ const handleSubmit = (e: Event) => {
     if (!errors) {
       const { username, password } = formInline
       loading.value = true
-      message.success(`${t('login.login_success')}!`)
+      window['$message'].success(`${t('login.login_success')}!`)
       routerTurnByName(PageEnum.BASE_HOME_NAME, true)
     } else {
-      message.error(`${t('login.login_message')}!`)
+      window['$message'].error(`${t('login.login_message')}!`)
     }
   })
 }

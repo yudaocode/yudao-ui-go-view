@@ -9,6 +9,13 @@
   }
 }
 
+@mixin goId($block) {
+  $B: $namespace + '-' + $block;
+  ##{$B} {
+    @content;
+  }
+}
+
 @mixin deep() {
   :deep {
     @content;

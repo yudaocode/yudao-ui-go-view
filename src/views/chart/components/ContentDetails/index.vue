@@ -1,8 +1,8 @@
 <template>
   <n-layout has-sider sider-placement="right">
     <n-layout-content>
-      <!-- 为了展示折叠的按钮，放在了这里 呜呜呜 -->
-      <ContentDrag />
+      <!-- 图表拖拽区域 -->
+      <ContentEdit />
     </n-layout-content>
     <n-layout-sider
       collapse-mode="transform"
@@ -43,11 +43,11 @@ import {  shallowRef, ref, toRefs, watch, reactive } from 'vue'
 import { icon } from '@/plugins'
 import { ContentBox } from '../ContentBox/index'
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
-import { ChartLayoutStoreEnums } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
+import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
 import { Setting } from './components/Setting/index'
 import { Behind } from './components/Behind/index'
 import { Page } from './components/Page/index'
-import { ContentDrag } from '../ContentDrag/index'
+import { ContentEdit } from '../ContentEdit/index'
 
 const { getDetails } = toRefs(useChartLayoutStore())
 const { setItem } = useChartLayoutStore()
@@ -58,12 +58,12 @@ const collapsed = ref<boolean>(getDetails.value)
 
 const collapsedHindle = () => {
   collapsed.value = true
-  setItem(ChartLayoutStoreEnums.DETAILS, true)
+  setItem(ChartLayoutStoreEnum.DETAILS, true)
 }
 
 const expandHindle = () => {
   collapsed.value = false
-  setItem(ChartLayoutStoreEnums.DETAILS, false)
+  setItem(ChartLayoutStoreEnum.DETAILS, false)
 }
 
 watch(getDetails, (newData) => {

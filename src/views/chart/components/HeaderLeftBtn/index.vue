@@ -26,7 +26,7 @@ import { renderIcon, goDialog, goHome } from '@/utils'
 import { icon } from '@/plugins'
 const { LayersIcon, BarChartIcon, PrismIcon, HomeIcon } = icon.ionicons5
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
-import { ChartLayoutStoreEnums } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
+import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
 
 const { setItem } = useChartLayoutStore()
 const { getLayers, getCharts, getDetails } = toRefs(useChartLayoutStore())
@@ -40,19 +40,19 @@ type ItemType = {
 
 const btnList = reactive<ItemType[]>([
   {
-    key: ChartLayoutStoreEnums.CHARTS,
+    key: ChartLayoutStoreEnum.CHARTS,
     select: getCharts,
     title: '图表组件',
     icon: renderIcon(BarChartIcon)
   },
   {
-    key: ChartLayoutStoreEnums.LAYERS,
+    key: ChartLayoutStoreEnum.LAYERS,
     select: getLayers,
     title: '图层控制',
     icon: renderIcon(LayersIcon)
   },
   {
-    key: ChartLayoutStoreEnums.DETAILS,
+    key: ChartLayoutStoreEnum.DETAILS,
     select: getDetails,
     title: '详情设置',
     icon: renderIcon(PrismIcon)
@@ -62,7 +62,7 @@ const btnList = reactive<ItemType[]>([
 
 // store 描述的是展示的值，所以和 ContentDetails 的 collapsed 是相反的
 const styleHandle = (item: ItemType) => {
-  if (item.key === ChartLayoutStoreEnums.DETAILS) {
+  if (item.key === ChartLayoutStoreEnum.DETAILS) {
     return item.select ? '' : 'success'
   }
   return item.select ? 'success' : ''

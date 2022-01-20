@@ -2,6 +2,9 @@ import { defineStore } from 'pinia'
 import { ChartLayoutType, ChartLayoutFilterType } from './chartLayoutStore.d'
 import { setLocalStorage, getLocalStorage } from '@/utils'
 import { StorageEnum } from '@/enums/storageEnum'
+import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
+
+const chartEditStore = useChartEditStoreStore()
 
 const { GO_CHART_LAYOUT_STORE } = StorageEnum
 
@@ -9,6 +12,7 @@ const storageChartLayout: ChartLayoutType = getLocalStorage(
   GO_CHART_LAYOUT_STORE
 )
 
+// 编辑区域布局和静态设置
 export const useChartLayoutStore = defineStore({
   id: 'useChartLayoutStore',
   state: (): ChartLayoutType =>
@@ -32,8 +36,8 @@ export const useChartLayoutStore = defineStore({
         // 对比度
         contrast: 100,
         // 不透明度
-        unOpacity: 100,
-      },
+        unOpacity: 100
+      }
     },
   getters: {
     getLayers(): boolean {
@@ -50,16 +54,23 @@ export const useChartLayoutStore = defineStore({
     },
     getFilter(): ChartLayoutFilterType {
       return this.filter
-    },
+    }
   },
   actions: {
     setItem(key: string, value: boolean): void {
       ;(this as any)[key] = value
       setLocalStorage(GO_CHART_LAYOUT_STORE, this.$state)
+      // 重新计算拖拽区域缩放比例
+      setTimeout(() => {
+        chartEditStore.computedScale()
+      }, 500)
     },
-    setFilter<T extends keyof ChartLayoutFilterType>(key: T, value: boolean): void {
+    setFilter<T extends keyof ChartLayoutFilterType>(
+      key: T,
+      value: boolean
+    ): void {
       ;(this.filter as any)[key] = value
       setLocalStorage(GO_CHART_LAYOUT_STORE, this.$state)
-    },
-  },
+    }
+  }
 })

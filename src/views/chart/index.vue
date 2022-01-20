@@ -22,17 +22,31 @@
 </template>
 
 <script setup lang="ts">
+import { loadAsyncComponent } from '@/utils'
 import { HeaderPro } from '@/layout/components/HeaderPro'
-import { HeaderLeftBtn } from './components/HeaderLeftBtn/index'
-import { HeaderRightBtn } from './components/HeaderRightBtn/index'
-import { HeaderTitle } from './components/HeaderTitle/index'
-import { ContentLayers } from './components/ContentLayers/index'
-import { ContentCharts } from './components/ContentCharts/index'
-import { ContentDetails } from './components/ContentDetails/index'
+
+const HeaderLeftBtn = loadAsyncComponent(() =>
+  import('./components/HeaderLeftBtn/index.vue')
+)
+const HeaderRightBtn = loadAsyncComponent(() =>
+  import('./components/HeaderRightBtn/index.vue')
+)
+const HeaderTitle = loadAsyncComponent(() =>
+  import('./components/HeaderTitle/index.vue')
+)
+const ContentLayers = loadAsyncComponent(() =>
+  import('./components/ContentLayers/index.vue')
+)
+const ContentCharts = loadAsyncComponent(() =>
+  import('./components/ContentCharts/index.vue')
+)
+const ContentDetails = loadAsyncComponent(() =>
+  import('./components/ContentDetails/index.vue')
+)
 </script>
 
 <style lang="scss" scoped>
-@include go("chart") {
+@include go('chart') {
   height: 100vh;
   width: 100vw;
   overflow: hidden;

@@ -5,7 +5,7 @@ import { themeColor, setItem, getCharts } from './layoutHook'
 import { PackagesCategoryEnum, PackagesCategoryName } from '@/packages/index.d'
 // 图表
 import { usePackagesStore } from '@/store/modules/packagesStore/packagesStore'
-import { ChartLayoutStoreEnums } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
+import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
 // 图标
 const { BarChartIcon } = icon.ionicons5
 const {
@@ -68,9 +68,9 @@ const clickItemHandle = (key: string, item: any) => {
   selectOptions.value = item
   // 处理折叠
   if (beforeSelect === key) {
-    setItem(ChartLayoutStoreEnums.CHARTS, !getCharts.value)
+    setItem(ChartLayoutStoreEnum.CHARTS, !getCharts.value)
   } else {
-    setItem(ChartLayoutStoreEnums.CHARTS, true)
+    setItem(ChartLayoutStoreEnum.CHARTS, true)
   }
   beforeSelect = key
 }

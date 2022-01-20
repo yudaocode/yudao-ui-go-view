@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, toRefs } from 'vue'
+import { ref, computed, onMounted, onUnmounted, toRefs } from 'vue'
 import { Create } from '../Create/index'
 import { AsideFooter } from '../AsideFooter/index'
 import { asideWidth, asideCollapsedWidth } from '@/settings/designSetting'
@@ -61,6 +61,10 @@ const watchWidth = () => {
 
 onMounted(() => {
   window.addEventListener('resize', watchWidth)
+})
+
+onUnmounted(()=> {
+  window.removeEventListener('resize', watchWidth)
 })
 </script>
 

@@ -18,13 +18,13 @@
 <script setup lang="ts">
 import { ContentBox } from '../ContentBox/index'
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
-import { ChartLayoutStoreEnums } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
+import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
 import { icon } from '@/plugins'
 const { LayersIcon } = icon.ionicons5
 const chartLayoutStore = useChartLayoutStore()
 
 const backHandle = () => {
-  chartLayoutStore.setItem(ChartLayoutStoreEnums.LAYERS, false)
+  chartLayoutStore.setItem(ChartLayoutStoreEnum.LAYERS, false)
 }
 </script>
 
