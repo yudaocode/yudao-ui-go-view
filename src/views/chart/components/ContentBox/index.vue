@@ -22,13 +22,15 @@
         </n-icon>
       </n-space>
     </div>
-    <aside class="content">
+
+    <aside class="content" :class="{ hideScroll: hideScrollbar }">
       <n-scrollbar x-scrollable>
         <n-scrollbar>
           <slot></slot>
         </n-scrollbar>
       </n-scrollbar>
     </aside>
+
     <div v-if="showBottom" class="bottom go-mt-0">
       <slot name="bottom"></slot>
     </div>
@@ -36,8 +38,12 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { icon } from '@/plugins'
 const { ChevronBackOutlineIcon } = icon.ionicons5
+
+const chartEditStore = useChartEditStoreStore()
 const emit = defineEmits(['back'])
 
 defineProps({
@@ -64,6 +70,12 @@ defineProps({
     type: Number,
     default: 1
   }
+})
+
+const hideScrollbar = computed(() => {
+  return (
+    chartEditStore.getEditCanvas.userScale <= chartEditStore.getEditCanvas.scale
+  )
 })
 
 const backHandle = () => {
@@ -127,6 +139,18 @@ $topHeight: 36px;
   .content {
     height: calc(100vh - #{$--header-height} - #{$topHeight});
     overflow: hidden;
+  }
+  @include deep() {
+    .content {
+      &.hideScroll {
+        .n-scrollbar-container {
+          overflow: hidden;
+        }
+        .n-scrollbar-rail {
+          display: none;
+        }
+      }
+    }
   }
 }
 </style>

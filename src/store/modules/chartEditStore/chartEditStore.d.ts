@@ -6,6 +6,7 @@ export enum EditCanvasTypeEnum {
   HEIGHT = 'height',
   OFFSET = 'offset',
   SCALE = 'scale',
+  USERSCALE = 'userScale',
   LOCKSCALE = 'lockScale',
   BACKGROUND = 'background'
 }
@@ -21,6 +22,8 @@ export type EditCanvasType = {
   [EditCanvasTypeEnum.OFFSET]: number
   // 缩放
   [EditCanvasTypeEnum.SCALE]: number
+  // 缩放
+  [EditCanvasTypeEnum.USERSCALE]: number
   // 锁定缩放
   [EditCanvasTypeEnum.LOCKSCALE]: boolean
   // 背景色

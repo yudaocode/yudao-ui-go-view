@@ -50,7 +50,7 @@
 
 // 背景斑点需配合 @mixin background-image 使用
 .go-point-bg {
-  @include fetch-theme('background-color');
+  @include fetch-theme-custom('background-color', 'background-color1');
   background-size: 15px 15px, 15px 15px;
 }
 
