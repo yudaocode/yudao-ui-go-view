@@ -9,11 +9,12 @@
   >
     <div id="go-chart-edit-content">
       <!-- 中间区域 -->
-      <EditRange>
-      </EditRange>
+      <EditRange> </EditRange>
     </div>
     <!-- 底部控制 -->
-    <template #bottom> </template>
+    <template #bottom> 
+      <EditBottom />
+    </template>
   </ContentBox>
 </template>
 
@@ -21,6 +22,7 @@
 import { ref, onUnmounted, onMounted, computed } from 'vue'
 import { ContentBox } from '../ContentBox/index'
 import { EditRange } from './components/EditRange'
+import { EditBottom } from './components/EditBottom'
 import { getChartEditStore } from './hooks/useStore'
 import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 
@@ -55,6 +57,7 @@ computed(() => {})
 @include goId(chart-edit-layout) {
   position: relative;
   width: 100%;
+  overflow: hidden;
   @include background-image('background-point');
   @extend .go-point-bg;
   @include goId(chart-edit-content) {

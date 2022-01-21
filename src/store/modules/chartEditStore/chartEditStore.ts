@@ -53,7 +53,6 @@ export const useChartEditStoreStore = defineStore({
       value: any
     ): void {
       const dom = this.getEditCanvas.editContentDom
-      console.log(dom);
       if (dom) {
         // @ts-ignore
         dom.style[key] = value
@@ -120,11 +119,12 @@ export const useChartEditStoreStore = defineStore({
     },
     // * 设置缩放
     setScale(scale: number, sys = true): void {
-      console.log(scale);
-      this.setPageAttribute('transform', `scale(${scale})`)
-      this.getEditCanvas.userScale = scale
-      if (sys) {
-        this.getEditCanvas.scale = scale
+      if(!this.getEditCanvas.lockScale) {
+        this.setPageAttribute('transform', `scale(${scale})`)
+        this.getEditCanvas.userScale = scale
+        if (sys) {
+          this.getEditCanvas.scale = scale
+        }
       }
     }
   }

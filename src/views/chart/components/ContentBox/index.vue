@@ -23,7 +23,7 @@
       </n-space>
     </div>
 
-    <aside class="content" :class="{ hideScroll: hideScrollbar }">
+    <aside class="content">
       <n-scrollbar x-scrollable>
         <n-scrollbar>
           <slot></slot>
@@ -72,19 +72,13 @@ defineProps({
   }
 })
 
-const hideScrollbar = computed(() => {
-  return (
-    chartEditStore.getEditCanvas.userScale <= chartEditStore.getEditCanvas.scale
-  )
-})
-
 const backHandle = () => {
   emit('back')
 }
 </script>
 
 <style lang="scss" scoped>
-$topHeight: 36px;
+$topHeight: 40px;
 @include go(content-box) {
   height: calc(100vh - #{$--header-height});
   margin: 1px;
@@ -126,7 +120,7 @@ $topHeight: 36px;
     justify-content: space-between;
     flex-wrap: nowrap;
     align-items: center;
-    height: 36px;
+    height: $topHeight;
     padding: 0 10px;
     .mt-1 {
       margin-top: 2px;
@@ -139,18 +133,6 @@ $topHeight: 36px;
   .content {
     height: calc(100vh - #{$--header-height} - #{$topHeight});
     overflow: hidden;
-  }
-  @include deep() {
-    .content {
-      &.hideScroll {
-        .n-scrollbar-container {
-          overflow: hidden;
-        }
-        .n-scrollbar-rail {
-          display: none;
-        }
-      }
-    }
   }
 }
 </style>

@@ -59,6 +59,7 @@ import {
   NPopover,
   NPagination,
   NSelect,
+  NSlider,
   NRadioGroup,
   NRadio,
   NSteps,
@@ -79,6 +80,7 @@ import {
   NSkeleton,
   NCarousel,
   NScrollbar,
+  NPopselect,
   NCollapseTransition
 } from 'naive-ui';
 
@@ -141,6 +143,7 @@ const naive = create({
     NDataTable,
     NPopover,
     NPagination,
+    NSlider,
     NSelect,
     NRadioGroup,
     NRadio,
@@ -162,6 +165,7 @@ const naive = create({
     NSkeleton,
     NCarousel,
     NScrollbar,
+    NPopselect,
     NCollapseTransition
   ],
 });

@@ -22,6 +22,7 @@ import {
   PersonOutline as PersonOutlineIcon,
   LogOutOutline as LogOutOutlineIcon,
   ChatboxEllipses as ChatboxEllipsesIcon,
+  LockOpenOutline as LockOpenOutlineIcon,
   LockClosedOutline as LockClosedOutlineIcon,
   HelpCircleOutline as HelpOutlineIcon,
   CodeSlash as CodeSlashIcon,
@@ -46,7 +47,8 @@ import {
   GraphicalDataFlow as GraphicalDataFlowIcon,
   Store as StoreIcon,
   Devices as DevicesIcon,
-  ObjectStorage as ObjectStorageIcon
+  ObjectStorage as ObjectStorageIcon,
+  DicomOverlay as DicomOverlayIcon
 } from '@vicons/carbon'
 
 const ionicons5 = {
@@ -61,6 +63,7 @@ const ionicons5 = {
   // 退出
   LogOutOutlineIcon,
   // 锁
+  LockOpenOutlineIcon,
   LockClosedOutlineIcon,
   // 人
   PersonIcon,
@@ -142,7 +145,9 @@ const carbon = {
   // 模板市场
   StoreIcon,
   // 我的模板
-  ObjectStorageIcon
+  ObjectStorageIcon,
+  // 键盘
+  DicomOverlayIcon
 }
 
 // https://www.xicons.org/#/ 还有很多
