@@ -12,8 +12,8 @@
   height: 1080px;
   width: 1920px;
   border: 1px solid;
-  border-radius: 15px;
   background-color: #333;
+  border-radius: 15px;
   @include filter-bg-color('background-color2');
   @include fetch-theme('box-shadow');
   @include filter-border-color('hover-border-color');

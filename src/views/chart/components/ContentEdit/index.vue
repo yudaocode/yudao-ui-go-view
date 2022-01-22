@@ -9,10 +9,10 @@
   >
     <div id="go-chart-edit-content">
       <!-- 中间区域 -->
-      <EditRange> </EditRange>
+      <EditRange></EditRange>
     </div>
     <!-- 底部控制 -->
-    <template #bottom> 
+    <template #bottom>
       <EditBottom />
     </template>
   </ContentBox>
@@ -50,7 +50,7 @@ onMounted(() => {
   })
 })
 
-computed(() => {})
+computed(() => { })
 </script>
 
 <style lang="scss" scoped>
@@ -58,14 +58,20 @@ computed(() => {})
   position: relative;
   width: 100%;
   overflow: hidden;
-  @include background-image('background-point');
+  @include background-image("background-point");
   @extend .go-point-bg;
   @include goId(chart-edit-content) {
     position: relative;
     top: 20px;
     left: 20px;
     transform-origin: left top;
+    border: 1px solid rgba(0, 0, 0, 0);
+    overflow: hidden;
     @extend .go-transition;
+    &.content-resize {
+      border-radius: 15px;
+      @include hover-border-color("hover-border-color");
+    }
   }
 }
 </style>

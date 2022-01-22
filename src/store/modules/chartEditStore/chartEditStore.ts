@@ -40,15 +40,15 @@ export const useChartEditStoreStore = defineStore({
     },
     getEditCanvas(): EditCanvasType {
       return this.editCanvas
-    }
+    },
   },
   actions: {
     // * 设置数据项
     setEditCanvasItem<T extends keyof EditCanvasType>(key: T, value: any) {
       this.editCanvas[key] = value
     },
-    // * 设置页面属性
-    setPageAttribute<T extends keyof CSSStyleDeclaration>(
+    // * 设置页面样式属性
+    setPageStyle<T extends keyof CSSStyleDeclaration>(
       key: T,
       value: any
     ): void {
@@ -58,10 +58,20 @@ export const useChartEditStoreStore = defineStore({
         dom.style[key] = value
       }
     },
+    // * 设置页面变换时候的 Class
+    setPageSizeClass(): void {
+      const dom = this.getEditCanvas.editContentDom
+      if (dom) {
+        dom.classList.add('content-resize')
+        setTimeout(() => {
+          dom.classList.remove('content-resize')
+        }, 600);
+      }
+    },
     // * 设置页面大小
     setPageSize(): void {
-      this.setPageAttribute('height', `${this.getEditCanvas.height}px`)
-      this.setPageAttribute('width', `${this.getEditCanvas.width}px`)
+      this.setPageStyle('height', `${this.getEditCanvas.height}px`)
+      this.setPageStyle('width', `${this.getEditCanvas.width}px`)
     },
     // * 设置鼠标位置
     setMousePosition(x: number, y: number): void {
@@ -119,8 +129,9 @@ export const useChartEditStoreStore = defineStore({
     },
     // * 设置缩放
     setScale(scale: number, sys = true): void {
-      if(!this.getEditCanvas.lockScale) {
-        this.setPageAttribute('transform', `scale(${scale})`)
+      if (!this.getEditCanvas.lockScale) {
+        this.setPageSizeClass()
+        this.setPageStyle('transform', `scale(${scale})`)
         this.getEditCanvas.userScale = scale
         if (sys) {
           this.getEditCanvas.scale = scale
