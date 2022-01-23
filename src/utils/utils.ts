@@ -82,13 +82,12 @@ export const screenfullFn = (isFullscreen?: boolean, isEnabled?: boolean) => {
  * @param key 键名
  * @param value 键值
  */
-export const setDomAttribute = <T extends keyof CSSStyleDeclaration>(
+export const setDomAttribute = <K extends keyof CSSStyleDeclaration, V extends CSSStyleDeclaration[K]>(
   HTMLElement: HTMLElement,
-  key: T,
-  value: any
+  key: K,
+  value: V
 ) => {
   if (HTMLElement) {
-    // @ts-ignore
     HTMLElement.style[key] = value
   }
 }

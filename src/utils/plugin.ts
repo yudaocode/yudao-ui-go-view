@@ -10,6 +10,12 @@ import { renderIcon } from '@/utils'
  * * render 对话框
  * @param { Object} params 配置参数
  * @param { Function } dialogFn 函数
+ * ```
+ * // 最简易demo
+ * goDialog({
+ *    onPositiveCallback: () => {}
+ * })
+ * ```
  */
 export const goDialog = (
   params: {

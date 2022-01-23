@@ -44,7 +44,7 @@ export const useChartEditStoreStore = defineStore({
   },
   actions: {
     // * 设置数据项
-    setEditCanvasItem<T extends keyof EditCanvasType>(key: T, value: any) {
+    setEditCanvasItem<T extends keyof EditCanvasType, K extends EditCanvasType[T]>(key: T, value: K) {
       this.editCanvas[key] = value
     },
     // * 设置页面样式属性
@@ -111,7 +111,7 @@ export const useChartEditStoreStore = defineStore({
           this.setScale(parseFloat(scaleHeight.toFixed(5)))
         }
       } else {
-        window['$message'].warning('找不到元素')
+        window['$message'].warning('请先创建画布，再进行缩放')
       }
     },
     // * 监听缩放
