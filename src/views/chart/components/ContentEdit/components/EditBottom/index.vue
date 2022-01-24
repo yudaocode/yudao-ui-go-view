@@ -68,7 +68,7 @@ const themeColor = ref(designStore.getAppTheme)
 
 const chartEditStore = getChartEditStore()
 const chartEditStoreEnum = getChartEditStoreEnum()
-const { lockScale, scale, userScale } = toRefs(chartEditStore.getEditCanvas)
+const { lockScale, scale } = toRefs(chartEditStore.getEditCanvas)
 
 // 缩放选项
 let filterOptions = reactive([

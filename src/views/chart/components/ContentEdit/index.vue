@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onUnmounted, onMounted, computed } from 'vue'
+import { onUnmounted, onMounted } from 'vue'
 import { ContentBox } from '../ContentBox/index'
 import { EditRange } from './components/EditRange'
 import { EditBottom } from './components/EditBottom'
@@ -50,7 +50,6 @@ onMounted(() => {
   })
 })
 
-computed(() => { })
 </script>
 
 <style lang="scss" scoped>

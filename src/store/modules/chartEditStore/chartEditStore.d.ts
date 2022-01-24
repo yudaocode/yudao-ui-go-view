@@ -12,8 +12,8 @@ export enum EditCanvasTypeEnum {
 }
 export type EditCanvasType = {
   // 编辑区域 DOM
-  [EditCanvasTypeEnum.EDITLAYOUTDOM]?: HTMLElement
-  [EditCanvasTypeEnum.EDITCONTENTDON]?: HTMLElement
+  [EditCanvasTypeEnum.EDITLAYOUTDOM]: HTMLElement | null
+  [EditCanvasTypeEnum.EDITCONTENTDON]: HTMLElement | null
   // 大屏宽度
   [EditCanvasTypeEnum.WIDTH]: number
   // 大屏高度

@@ -12,8 +12,8 @@ export const useChartEditStoreStore = defineStore({
   state: (): chartEditStoreType => ({
     editCanvas: {
       // 编辑区域 Dom
-      editLayoutDom: undefined,
-      editContentDom: undefined,
+      editLayoutDom: null,
+      editContentDom: null,
       // 默认宽度
       width: 1920,
       // 默认高度
@@ -54,7 +54,6 @@ export const useChartEditStoreStore = defineStore({
     ): void {
       const dom = this.getEditCanvas.editContentDom
       if (dom) {
-        // @ts-ignore
         dom.style[key] = value
       }
     },
