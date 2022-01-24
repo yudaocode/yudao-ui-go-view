@@ -54,7 +54,7 @@ import {
   selectValue,
   clickItemHandle,
   menuOptions
-} from './hooks/asideHook'
+} from './hooks/useAside.hook'
 </script>
 
 <style lang="scss" scoped>

@@ -59,7 +59,7 @@ import { reactive, ref, toRefs, shallowReactive, watchEffect } from 'vue'
 import { icon } from '@/plugins'
 const { LockClosedOutlineIcon, LockOpenOutlineIcon } = icon.ionicons5
 const { DicomOverlayIcon } = icon.carbon
-import { getChartEditStore, getChartEditStoreEnum } from '../../hooks/useStore'
+import { getChartEditStore, getChartEditStoreEnum } from '../../hooks/useStore.hook'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 
 // 全局颜色

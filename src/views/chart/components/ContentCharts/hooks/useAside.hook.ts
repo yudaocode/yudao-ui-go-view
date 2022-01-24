@@ -1,7 +1,7 @@
 import { reactive, ref } from 'vue'
 import { icon } from '@/plugins'
 import { renderLang, renderIcon } from '@/utils'
-import { themeColor, setItem, getCharts } from './layoutHook'
+import { themeColor, setItem, getCharts } from './useLayout.hook'
 import { PackagesCategoryEnum, PackagesCategoryName } from '@/packages/index.d'
 // 图表
 import { usePackagesStore } from '@/store/modules/packagesStore/packagesStore'
