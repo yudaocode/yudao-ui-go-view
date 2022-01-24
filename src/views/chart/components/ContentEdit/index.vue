@@ -6,6 +6,8 @@
     :showTop="false"
     :showBottom="true"
     :depth="1"
+    @drop="handleDrop"
+    @dragover="handleDragOver"
   >
     <div id="go-chart-edit-content">
       <!-- 中间区域 -->
@@ -19,15 +21,15 @@
 </template>
 
 <script lang="ts" setup>
-import { onUnmounted, onMounted } from 'vue'
+import { onUnmounted, onMounted,toRefs } from 'vue'
 import { ContentBox } from '../ContentBox/index'
 import { EditRange } from './components/EditRange'
 import { EditBottom } from './components/EditBottom'
 import { useLayout } from './hooks/useLayout.hook'
+import { handleDrop, handleDragOver } from './hooks/useDrop.hook'
 
 // 布局处理
 useLayout()
-
 </script>
 
 <style lang="scss" scoped>
@@ -35,7 +37,7 @@ useLayout()
   position: relative;
   width: 100%;
   overflow: hidden;
-  @include background-image("background-point");
+  @include background-image('background-point');
   @extend .go-point-bg;
   @include goId(chart-edit-content) {
     position: relative;
@@ -47,7 +49,7 @@ useLayout()
     @extend .go-transition;
     &.content-resize {
       border-radius: 15px;
-      @include hover-border-color("hover-border-color");
+      @include hover-border-color('hover-border-color');
     }
   }
 }

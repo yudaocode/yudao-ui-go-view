@@ -1,19 +1,19 @@
 // 编辑区域大小
 export enum EditCanvasTypeEnum {
-  EDITLAYOUTDOM = 'editLayoutDom',
-  EDITCONTENTDON = 'editContentDom',
+  EDIT_LAYOUT_DOM = 'editLayoutDom',
+  EDIT_CONTENT_DOM = 'editContentDom',
   WIDTH = 'width',
   HEIGHT = 'height',
   OFFSET = 'offset',
   SCALE = 'scale',
-  USERSCALE = 'userScale',
-  LOCKSCALE = 'lockScale',
-  BACKGROUND = 'background'
+  USER_SCALE = 'userScale',
+  LOCK_SCALE = 'lockScale',
+  BACKGROUND = 'background',
 }
 export type EditCanvasType = {
   // 编辑区域 DOM
-  [EditCanvasTypeEnum.EDITLAYOUTDOM]: HTMLElement | null
-  [EditCanvasTypeEnum.EDITCONTENTDON]: HTMLElement | null
+  [EditCanvasTypeEnum.EDIT_LAYOUT_DOM]: HTMLElement | null
+  [EditCanvasTypeEnum.EDIT_CONTENT_DOM]: HTMLElement | null
   // 大屏宽度
   [EditCanvasTypeEnum.WIDTH]: number
   // 大屏高度
@@ -23,9 +23,9 @@ export type EditCanvasType = {
   // 缩放
   [EditCanvasTypeEnum.SCALE]: number
   // 缩放
-  [EditCanvasTypeEnum.USERSCALE]: number
+  [EditCanvasTypeEnum.USER_SCALE]: number
   // 锁定缩放
-  [EditCanvasTypeEnum.LOCKSCALE]: boolean
+  [EditCanvasTypeEnum.LOCK_SCALE]: boolean
   // 背景色
   [EditCanvasTypeEnum.BACKGROUND]?: string
 }
@@ -45,9 +45,12 @@ export type MousePositionType = {
 // Store 类型
 export enum chartEditStoreEnum {
   EDITCANVAS = 'editCanvas',
-  MOUSEPOSITION = 'mousePosition'
+  MOUSEPOSITION = 'mousePosition',
+  COMPONENT_LIST = 'componentList'
 }
+
 export interface chartEditStoreType {
   [chartEditStoreEnum.EDITCANVAS]: EditCanvasType
   [chartEditStoreEnum.MOUSEPOSITION]: MousePositionType
+  [chartEditStoreEnum.COMPONENT_LIST]: any[]
 }

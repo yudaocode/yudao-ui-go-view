@@ -5,7 +5,7 @@ import { PageEnum } from '@/enums/pageEnum'
 export function createRouterGuards(router: Router) {
   // 前置
   router.beforeEach(async (to, from, next) => {
-    const Loading = window['$loading'] || null;
+    const Loading = window['$loading'];
     Loading && Loading.start();
     const isErrorPage = router.getRoutes().findIndex((item) => item.name === to.name);
     if (isErrorPage === -1) {
@@ -15,7 +15,7 @@ export function createRouterGuards(router: Router) {
   })
 
   router.afterEach((to, _, failure) => {
-    const Loading = window['$loading'] || null;
+    const Loading = window['$loading'];
     document.title = (to?.meta?.title as string) || document.title;
     Loading && Loading.finish();
   })

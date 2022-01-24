@@ -6,13 +6,13 @@ const chartEditStore = getChartEditStore()
 
 export const useLayout = () => {
   onMounted(() => {
-    // 设置 Dom 值(ref 不生效先用document)
+    // 设置 Dom 值(ref 不生效先用 document)
     chartEditStore.setEditCanvasItem(
-      EditCanvasTypeEnum.EDITLAYOUTDOM,
+      EditCanvasTypeEnum.EDIT_LAYOUT_DOM,
       document.getElementById('go-chart-edit-layout')
     )
     chartEditStore.setEditCanvasItem(
-      EditCanvasTypeEnum.EDITCONTENTDON,
+      EditCanvasTypeEnum.EDIT_CONTENT_DOM,
       document.getElementById('go-chart-edit-content')
     )
 

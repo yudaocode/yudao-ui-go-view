@@ -109,7 +109,7 @@ const selectHandle = (v: number) => {
 // 点击锁处理
 const lockHandle = () => {
   chartEditStore.setEditCanvasItem(
-    chartEditStoreEnum.LOCKSCALE,
+    chartEditStoreEnum.LOCK_SCALE,
     !lockScale.value
   )
 }

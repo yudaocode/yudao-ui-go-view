@@ -32,7 +32,8 @@ export const useChartEditStoreStore = defineStore({
     mousePosition: {
       x: 0,
       y: 0
-    }
+    },
+    componentList: []
   }),
   getters: {
     getMousePosition(): MousePositionType {
@@ -41,8 +42,15 @@ export const useChartEditStoreStore = defineStore({
     getEditCanvas(): EditCanvasType {
       return this.editCanvas
     },
+    getComponentList(): any[] {
+      return this.componentList
+    },
   },
   actions: {
+    // * 新增组件列表
+    addComponentList<T>(chartData:T):void {
+      this.componentList.push(chartData)
+    },
     // * 设置数据项
     setEditCanvasItem<T extends keyof EditCanvasType, K extends EditCanvasType[T]>(key: T, value: K) {
       this.editCanvas[key] = value
