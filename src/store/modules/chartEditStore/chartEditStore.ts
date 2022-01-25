@@ -44,15 +44,27 @@ export const useChartEditStoreStore = defineStore({
     },
     getComponentList(): any[] {
       return this.componentList
-    },
+    }
   },
   actions: {
     // * 新增组件列表
-    addComponentList<T>(chartData:T):void {
+    addComponentList<T>(chartData: T): void {
       this.componentList.push(chartData)
     },
+    // * 删除组件列表
+    removeComponentList<T extends { key: string }>(chartData: T): void {
+      const i = this.componentList.findIndex(e => e.key === chartData.key)
+      if (i !== -1) {
+        this.componentList.splice(i, 1)
+        return
+      }
+      window['$message'].success(`图表删除失败，无法找到此元素`)
+    },
     // * 设置数据项
-    setEditCanvasItem<T extends keyof EditCanvasType, K extends EditCanvasType[T]>(key: T, value: K) {
+    setEditCanvasItem<
+      T extends keyof EditCanvasType,
+      K extends EditCanvasType[T]
+    >(key: T, value: K) {
       this.editCanvas[key] = value
     },
     // * 设置页面样式属性
@@ -72,7 +84,7 @@ export const useChartEditStoreStore = defineStore({
         dom.classList.add('content-resize')
         setTimeout(() => {
           dom.classList.remove('content-resize')
-        }, 600);
+        }, 600)
       }
     },
     // * 设置页面大小

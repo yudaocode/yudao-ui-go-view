@@ -8,9 +8,8 @@ import { ChartList } from '@/packages/components/Charts/index'
 import { DecorateList } from '@/packages/components/Decorates/index'
 import { InformationList } from '@/packages/components/Informations/index'
 import { TableList } from '@/packages/components/Tables/index'
-import {} from './useCreate'
 
-// 所有图表
+// * 所有图表
 let packagesList: PackagesType = {
   [PackagesCategoryEnum.CHARTS]: ChartList,
   [PackagesCategoryEnum.INFORMATION]: InformationList,
@@ -18,7 +17,7 @@ let packagesList: PackagesType = {
   [PackagesCategoryEnum.DECORATES]: DecorateList
 }
 
-// 注册
+// * 注册
 const packagesInstall = (app: App): void => {
   for (const item in packagesList) {
     const chartList: ConfigType[] = (packagesList as any)[item]
@@ -28,4 +27,15 @@ const packagesInstall = (app: App): void => {
   }
 }
 
-export { packagesList, packagesInstall }
+/**
+ * * 获取目标拖拽组件信息
+ * @param dropData
+ */
+const createComponent = async (dropData: ConfigType) => {
+  const { category } = dropData
+  const key = dropData.key.substring(1)
+  const chart = await import(`./components/${dropData.package}/${category}/${key}/config.ts`)
+  return new chart.default()
+}
+
+export { packagesList, packagesInstall, createComponent }

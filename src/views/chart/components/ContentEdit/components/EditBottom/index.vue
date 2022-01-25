@@ -1,13 +1,18 @@
 <template>
   <div class="go-edit-bottom">
-    <n-popselect :options="shortcutKeyOptions" size="medium">
-      <n-button class="scale-btn" secondary size="mini">
-        <n-icon class="lock-icon" size="18" :depth="2">
-          <DicomOverlayIcon />
-        </n-icon>
-      </n-button>
-    </n-popselect>
-
+    <n-space>
+      <n-text>
+        滤镜设置
+      </n-text>
+      <!-- 快捷键提示 -->
+      <n-popselect :options="shortcutKeyOptions" size="medium">
+        <n-button class="scale-btn" secondary size="mini">
+          <n-icon class="lock-icon" size="18" :depth="3">
+            <DicomOverlayIcon />
+          </n-icon>
+        </n-button>
+      </n-popselect>
+    </n-space>
     <n-space class="bottom-ri">
       <!-- 缩放比例 -->
       <n-select
@@ -55,11 +60,14 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, toRefs, shallowReactive, watchEffect } from 'vue'
+import { reactive, ref, toRefs, watchEffect } from 'vue'
 import { icon } from '@/plugins'
 const { LockClosedOutlineIcon, LockOpenOutlineIcon } = icon.ionicons5
 const { DicomOverlayIcon } = icon.carbon
-import { getChartEditStore, getChartEditStoreEnum } from '../../hooks/useStore.hook'
+import {
+  getChartEditStore,
+  getChartEditStoreEnum
+} from '../../hooks/useStore.hook'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 
 // 全局颜色
@@ -71,7 +79,7 @@ const chartEditStoreEnum = getChartEditStoreEnum()
 const { lockScale, scale } = toRefs(chartEditStore.getEditCanvas)
 
 // 缩放选项
-let filterOptions = reactive([
+let filterOptions = [
   {
     label: '自适应',
     value: 0
@@ -92,7 +100,7 @@ let filterOptions = reactive([
     label: '200%',
     value: 200
   }
-])
+]
 
 // 选择值
 const filterValue = ref('')
@@ -127,7 +135,7 @@ const sliderMaks = reactive({
 })
 
 // 快捷键
-const shortcutKeyOptions = shallowReactive([
+const shortcutKeyOptions = [
   {
     label: '键盘快捷键列表',
     value: '1'
@@ -136,7 +144,7 @@ const shortcutKeyOptions = shallowReactive([
     label: 'Ctrl + C 复制',
     value: '2'
   }
-])
+]
 
 // 监听 scale 变化
 watchEffect(() => {

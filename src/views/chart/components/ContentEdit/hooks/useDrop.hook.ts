@@ -3,27 +3,36 @@ import { useThrottleFn } from '@vueuse/core'
 import { getChartEditStore } from './useStore.hook'
 import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { DragKeyEnum } from '@/enums/editPageEnum'
+import { createComponent } from '@/packages'
+import { ConfigType } from '@/packages/index.d'
 
 const chartEditStore = getChartEditStore()
 const { scale } = toRefs(chartEditStore.getEditCanvas)
 
 // * 拖拽中
-export const handleDrop = (e: DragEvent) => {
+export const handleDrop = async (e: DragEvent) => {
   e.preventDefault()
   const Loading = window['$loading']
   try {
     Loading.start()
 
-    const chartName = e!.dataTransfer!.getData(DragKeyEnum.DROG_KEY)
-    console.log(chartName)
-    chartEditStore.setMousePosition(e.offsetX, e.offsetY)
+    const drayDataString = e!.dataTransfer!.getData(DragKeyEnum.DROG_KEY)
+
+    const dropData: Exclude<ConfigType, ['node', 'image']> = JSON.parse(
+      drayDataString
+    )
+
+    let newComponent= await createComponent(dropData)
+    newComponent.setPosition(e.offsetX, e.offsetY)
+    
+    chartEditStore.addComponentList(newComponent)
 
     setTimeout(() => {
       Loading.finish()
     })
   } catch (error) {
     Loading.error()
-    window['$message'].success(`添加图表失败，请保存数据后刷新重试`)
+    window['$message'].success(`图表正在研发中, 敬请期待...`)
   }
 }
 

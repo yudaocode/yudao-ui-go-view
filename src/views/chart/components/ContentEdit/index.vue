@@ -11,7 +11,12 @@
   >
     <div id="go-chart-edit-content">
       <!-- 中间区域 -->
-      <EditRange></EditRange>
+      <EditRange>
+        <!-- 组件名称会重复，必须使用 id -->
+        <div v-for="item in chartEditStore.getComponentList" :key="item.id">
+          <component :is="item.key" />
+        </div>
+      </EditRange>
     </div>
     <!-- 底部控制 -->
     <template #bottom>
@@ -21,12 +26,15 @@
 </template>
 
 <script lang="ts" setup>
-import { onUnmounted, onMounted,toRefs } from 'vue'
+import { onUnmounted, onMounted, toRefs } from 'vue'
 import { ContentBox } from '../ContentBox/index'
 import { EditRange } from './components/EditRange'
 import { EditBottom } from './components/EditBottom'
 import { useLayout } from './hooks/useLayout.hook'
 import { handleDrop, handleDragOver } from './hooks/useDrop.hook'
+import { getChartEditStore } from './hooks/useStore.hook'
+
+const chartEditStore = getChartEditStore()
 
 // 布局处理
 useLayout()
