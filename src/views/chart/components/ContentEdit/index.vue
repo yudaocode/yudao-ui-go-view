@@ -14,7 +14,7 @@
       <EditRange>
         <!-- 组件名称会重复，必须使用 id -->
         <div v-for="item in chartEditStore.getComponentList" :key="item.id">
-          <component :is="item.key" />
+          <component :is="item.key" :chartData="item"/>
         </div>
       </EditRange>
     </div>
