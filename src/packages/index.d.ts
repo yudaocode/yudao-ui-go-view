@@ -6,16 +6,17 @@ export type ConfigType = {
   title: string
   category: string
   categoryName: string
+  package: string
   node: Component
   image: string | (() => Promise<typeof import('*.png')>)
   [T: string]: unknown
 }
 
 export enum PackagesCategoryEnum {
-  CHARTS = 'CHARTS',
-  TABLES = 'TABLES',
-  INFORMATION = 'INFORMATION',
-  DECORATES = 'DECORATES',
+  CHARTS = 'Charts',
+  TABLES = 'Tables',
+  INFORMATION = 'Informations',
+  DECORATES = 'Decorates',
 }
 
 export enum PackagesCategoryName {

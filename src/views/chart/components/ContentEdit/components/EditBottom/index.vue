@@ -34,7 +34,7 @@
             </n-icon>
           </n-button>
         </template>
-        <span>点击{{ lockScale ? '解锁' : '锁定' }}当前缩放比例</span>
+        <span>{{ lockScale ? '解锁' : '锁定' }}当前比例</span>
       </n-tooltip>
 
       <!-- 拖动 -->
