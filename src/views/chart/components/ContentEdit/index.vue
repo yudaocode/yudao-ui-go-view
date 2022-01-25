@@ -13,9 +13,13 @@
       <!-- 中间区域 -->
       <EditRange>
         <!-- 组件名称会重复，必须使用 id -->
-        <div v-for="item in chartEditStore.getComponentList" :key="item.id">
-          <component :is="item.key" :chartData="item"/>
-        </div>
+        <component
+          class="edit-content-chart" 
+          v-for="item in chartEditStore.getComponentList"
+          :key="item.id"
+          :is="item.key"
+          :chartData="item"
+        />
       </EditRange>
     </div>
     <!-- 底部控制 -->
@@ -45,7 +49,7 @@ useLayout()
   position: relative;
   width: 100%;
   overflow: hidden;
-  @include background-image('background-point');
+  @include background-image("background-point");
   @extend .go-point-bg;
   @include goId(chart-edit-content) {
     position: relative;
@@ -57,7 +61,10 @@ useLayout()
     @extend .go-transition;
     &.content-resize {
       border-radius: 15px;
-      @include hover-border-color('hover-border-color');
+      @include hover-border-color("hover-border-color");
+    }
+    .edit-content-chart{
+      position: absolute;
     }
   }
 }

@@ -35,6 +35,8 @@ const option = computed(() => {
 const attr = toRef(props.chartData, 'attr')
 const wrapperStyle = computed(() => {
   return {
+    left: `${attr.value.x}px`,
+    top: `${attr.value.y}px`,
     width: `${attr.value.w}px`,
     height: `${attr.value.h}px`,
   }
