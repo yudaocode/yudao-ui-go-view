@@ -10,15 +10,15 @@
     @dragover="handleDragOver"
   >
     <div id="go-chart-edit-content">
-      <!-- 中间区域 -->
+      <!-- 展示 -->
       <EditRange>
-        <!-- 组件名称会重复，必须使用 id -->
         <component
           class="edit-content-chart" 
-          v-for="item in chartEditStore.getComponentList"
+          v-for="(item, index) in chartEditStore.getComponentList"
           :key="item.id"
           :is="item.key"
           :chartData="item"
+          :style="useComponentStyle(item.attr, index)"
         />
       </EditRange>
     </div>
@@ -37,6 +37,7 @@ import { EditBottom } from './components/EditBottom'
 import { useLayout } from './hooks/useLayout.hook'
 import { handleDrop, handleDragOver } from './hooks/useDrop.hook'
 import { getChartEditStore } from './hooks/useStore.hook'
+import { useComponentStyle } from './hooks/useStyle.hook'
 
 const chartEditStore = getChartEditStore()
 

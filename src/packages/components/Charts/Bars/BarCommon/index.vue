@@ -1,7 +1,5 @@
 <template>
-  <div :style="wrapperStyle">
-    <v-chart theme="dark" :option="option" autoresize />
-  </div>
+  <v-chart theme="dark" :option="option" autoresize />
 </template>
 
 <script setup lang="ts">
@@ -10,7 +8,11 @@ import VChart from 'vue-echarts'
 import { use, graphic } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { BarChart } from 'echarts/charts'
-import { GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
+import {
+  GridComponent,
+  TooltipComponent,
+  LegendComponent
+} from 'echarts/components'
 import config from './config'
 
 const props = defineProps({
@@ -25,7 +27,7 @@ use([
   BarChart,
   GridComponent,
   TooltipComponent,
-  LegendComponent,
+  LegendComponent
 ])
 
 const option = computed(() => {
@@ -33,14 +35,7 @@ const option = computed(() => {
 })
 
 const attr = toRef(props.chartData, 'attr')
-const wrapperStyle = computed(() => {
-  return {
-    left: `${attr.value.x}px`,
-    top: `${attr.value.y}px`,
-    width: `${attr.value.w}px`,
-    height: `${attr.value.h}px`,
-  }
-})
+
 </script>
 
 <style lang="scss" scoped></style>
