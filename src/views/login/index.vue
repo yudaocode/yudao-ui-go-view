@@ -1,4 +1,5 @@
 <template>
+  <!-- 登录 -->
   <div class="go-login-box">
     <div class="go-login-box-bg">
       <aside class="bg-slot"></aside>
