@@ -52,7 +52,11 @@ export const useChartEditStoreStore = defineStore({
       this.componentList.push(chartData)
     },
     // * 删除组件列表
-    removeComponentList<T extends { key: string }>(chartData: T): void {
+    removeComponentList<T extends { key: string }>(chartData: T | number): void {
+      if(typeof chartData === 'number') {
+        this.componentList.splice(chartData, 1)
+        return
+      }
       const i = this.componentList.findIndex(e => e.key === chartData.key)
       if (i !== -1) {
         this.componentList.splice(i, 1)

@@ -1,9 +1,10 @@
-import { onUnmounted, onMounted } from 'vue'
+import { onUnmounted, onMounted, ref, nextTick } from 'vue'
 import { getChartEditStore } from './useStore.hook'
 import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 
 const chartEditStore = getChartEditStore()
 
+// 布局处理
 export const useLayout = () => {
   onMounted(() => {
     // 设置 Dom 值(ref 不生效先用 document)
