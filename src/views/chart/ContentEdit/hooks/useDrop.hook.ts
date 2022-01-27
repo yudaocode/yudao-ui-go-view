@@ -1,7 +1,5 @@
 import { toRefs } from 'vue'
-import { useThrottleFn } from '@vueuse/core'
 import { getChartEditStore } from './useStore.hook'
-import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { DragKeyEnum } from '@/enums/editPageEnum'
 import { createComponent } from '@/packages'
 import { ConfigType } from '@/packages/index.d'
