@@ -1,16 +1,20 @@
 <template>
-  <div class="go-edit-range">
+  <div class="go-edit-range" :style="useSizeStyle(size)">
     <slot></slot>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useSizeStyle } from '../../hooks/useStyle.hook'
+const size = {
+  w: 1920,
+  h: 1080
+}
+</script>
 
 <style lang="scss" scoped>
 @include go(edit-range) {
   position: relative;
-  height: 1080px;
-  width: 1920px;
   border: 1px solid;
   background-color: #333;
   border-radius: 15px;

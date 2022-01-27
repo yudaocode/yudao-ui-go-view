@@ -13,6 +13,7 @@ export const useComponentStyle = (attr: AttrType, index: number) => {
   }
   return componentStyle
 }
+
 export const useSizeStyle = (attr: AttrType) => {
   const sizeStyle = {
     width: `${attr.w}px`,

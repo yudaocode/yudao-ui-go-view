@@ -3,6 +3,7 @@ import { getChartEditStore } from './useStore.hook'
 import { DragKeyEnum } from '@/enums/editPageEnum'
 import { createComponent } from '@/packages'
 import { ConfigType } from '@/packages/index.d'
+import { loadingStart, loadingFinish, loadingError } from '@/utils'
 
 const chartEditStore = getChartEditStore()
 const { scale } = toRefs(chartEditStore.getEditCanvas)
@@ -10,27 +11,26 @@ const { scale } = toRefs(chartEditStore.getEditCanvas)
 // * 拖拽中
 export const handleDrop = async (e: DragEvent) => {
   e.preventDefault()
-  const Loading = window['$loading']
+
   try {
-    Loading.start()
+    loadingStart()
 
+    // 获取拖拽数据
     const drayDataString = e!.dataTransfer!.getData(DragKeyEnum.DROG_KEY)
-
     const dropData: Exclude<ConfigType, ['node', 'image']> = JSON.parse(
       drayDataString
     )
+    // 创建新图表组件
+    let newComponent = await createComponent(dropData)
 
-    let newComponent= await createComponent(dropData)
-    newComponent.setPosition(e.offsetX, e.offsetY)
-    
+    const { w, h } = dropData.chartData.chartSize
+    newComponent.setPosition(e.offsetX - w / 2, e.offsetY - h / 2)
     chartEditStore.addComponentList(newComponent)
 
-    setTimeout(() => {
-      Loading.finish()
-    })
+    loadingFinish()
   } catch (error) {
-    Loading.error()
-    window['$message'].success(`图表正在研发中, 敬请期待...`)
+    loadingError()
+    window['$message'].warning(`图表正在研发中, 敬请期待...`)
   }
 }
 

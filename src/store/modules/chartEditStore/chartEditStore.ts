@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import debounce from 'lodash/debounce'
+import { loadingStart, loadingFinish, loadingError } from '@/utils'
 import {
   chartEditStoreType,
   EditCanvasType,
@@ -53,16 +54,23 @@ export const useChartEditStoreStore = defineStore({
     },
     // * 删除组件列表
     removeComponentList<T extends { key: string }>(chartData: T | number): void {
-      if(typeof chartData === 'number') {
-        this.componentList.splice(chartData, 1)
-        return
+      loadingStart()
+      try {
+        if(typeof chartData === 'number') {
+          this.componentList.splice(chartData, 1)
+          loadingFinish()
+          return
+        }
+        const i = this.componentList.findIndex(e => e.key === chartData.key)
+        if (i !== -1) {
+          this.componentList.splice(i, 1)
+          loadingFinish()
+          return
+        }
+        window['$message'].success(`图表删除失败，无法找到此元素`)
+      } catch(value) {
+        loadingError()
       }
-      const i = this.componentList.findIndex(e => e.key === chartData.key)
-      if (i !== -1) {
-        this.componentList.splice(i, 1)
-        return
-      }
-      window['$message'].success(`图表删除失败，无法找到此元素`)
     },
     // * 设置数据项
     setEditCanvasItem<

@@ -1,5 +1,7 @@
 import { reactive, ref, nextTick } from 'vue'
 import { getChartEditStore } from './useStore.hook'
+import { loadingError } from '@/utils'
+
 const chartEditStore = getChartEditStore()
 
 enum MenuEnum {
@@ -46,6 +48,7 @@ export const useContextMenu = () => {
       case MenuEnum.DELETE:
         chartEditStore.removeComponentList(targetIndex.value)
         break
+      default: loadingError()
     }
   }
 

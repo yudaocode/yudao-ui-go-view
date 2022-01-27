@@ -1,3 +1,4 @@
+import { nextTick } from 'vue'
 import { icon } from '@/plugins'
 import { DialogEnum } from '@/enums/pluginEnum'
 import { dialogIconSize } from '@/settings/designSetting'
@@ -5,6 +6,25 @@ import { maskClosable } from '@/settings/designSetting'
 import { DialogReactive } from 'naive-ui'
 const { InformationCircleIcon } = icon.ionicons5
 import { renderIcon } from '@/utils'
+
+// * 开启加载
+export const loadingStart = () => {
+  window['$loading'].start()
+}
+
+// * 加载结束
+export const loadingFinish = () => {
+  setTimeout(() => {
+    window['$loading'].finish()
+  })
+}
+
+// * 加载错误
+export const loadingError = () => {
+  setTimeout(() => {
+    window['$loading'].error()
+  })
+}
 
 /**
  * * render 对话框

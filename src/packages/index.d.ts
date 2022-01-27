@@ -7,6 +7,12 @@ export type ConfigType = {
   category: string
   categoryName: string
   package: string
+  chartData: {
+    chartSize: {
+      w: number
+      h: number
+    }
+  }
   node: Component
   image: string | (() => Promise<typeof import('*.png')>)
   [T: string]: unknown
@@ -16,14 +22,14 @@ export enum PackagesCategoryEnum {
   CHARTS = 'Charts',
   TABLES = 'Tables',
   INFORMATION = 'Informations',
-  DECORATES = 'Decorates',
+  DECORATES = 'Decorates'
 }
 
 export enum PackagesCategoryName {
   CHARTS = '图表',
   TABLES = '表格',
   INFORMATION = '信息',
-  DECORATES = '小组件',
+  DECORATES = '小组件'
 }
 
 export type PackagesType = {
