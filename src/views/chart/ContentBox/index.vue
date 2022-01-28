@@ -24,11 +24,19 @@
     </div>
 
     <aside class="content">
-      <n-scrollbar x-scrollable>
+      <template v-if="xScroll">
+        <n-scrollbar x-scrollable>
+          <n-scrollbar>
+            <slot></slot>
+          </n-scrollbar>
+        </n-scrollbar>
+      </template>
+
+      <template v-else>
         <n-scrollbar>
           <slot></slot>
         </n-scrollbar>
-      </n-scrollbar>
+      </template>
     </aside>
 
     <div v-if="showBottom" class="bottom go-mt-0">
@@ -69,6 +77,11 @@ defineProps({
   depth: {
     type: Number,
     default: 1
+  },
+  // x 轴滚动
+  xScroll: {
+    type: Boolean,
+    default: false
   }
 })
 

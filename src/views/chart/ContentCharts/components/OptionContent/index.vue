@@ -109,7 +109,7 @@ const clickItemHandle = (key: string) => {
 
 <style lang="scss" scoped>
 /* 此高度与 ContentBox 组件关联*/
-$topHeight: 36px;
+$topHeight: 40px;
 $menuWidth: 65px;
 @include go('chart-common') {
   display: flex;

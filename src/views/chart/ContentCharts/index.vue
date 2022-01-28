@@ -62,8 +62,8 @@ import {
 $width: 330px;
 /* 列表的宽度 */
 $widthScoped: 65px;
-/* 此高度与 ContentBox 组件关联*/
-$topHeight: 36px;
+/* 此高度与 ContentBox 组件关联 */
+$topHeight: 40px;
 
 @include go(content-charts) {
   width: $width;

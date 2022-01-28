@@ -6,6 +6,7 @@
     :showTop="false"
     :showBottom="true"
     :depth="1"
+    :xScroll="true"
     @drop="handleDrop"
     @dragover="handleDragOver"
   >
