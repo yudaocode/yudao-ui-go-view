@@ -133,13 +133,13 @@ export const useChartEditStoreStore = defineStore({
           const scaleWidth = parseFloat(
             ((height * baseProportion) / editCanvasWidth).toFixed(5)
           )
-          this.setScale(parseFloat(scaleWidth.toFixed(5)))
+          this.setScale( scaleWidth > 1 ? 1 : scaleWidth)
         } else {
           // 表示更高
           const scaleHeight = parseFloat(
             (width / baseProportion / editCanvasHeight).toFixed(5)
           )
-          this.setScale(parseFloat(scaleHeight.toFixed(5)))
+          this.setScale(scaleHeight > 1 ? 1 : scaleHeight)
         }
       } else {
         window['$message'].warning('请先创建画布，再进行缩放')
