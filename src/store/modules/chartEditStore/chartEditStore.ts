@@ -12,6 +12,7 @@ import {
 export const useChartEditStoreStore = defineStore({
   id: 'useChartEditStoreStore',
   state: (): chartEditStoreType => ({
+    // 编辑画布属性
     editCanvas: {
       // 编辑区域 Dom
       editLayoutDom: null,
@@ -31,14 +32,17 @@ export const useChartEditStoreStore = defineStore({
       // 默认背景色
       background: undefined
     },
+    // 鼠标定位
     mousePosition: {
       x: 0,
       y: 0
     },
+    // 目标图表
     targetChart: {
       hoverIndex: undefined,
       selectIndex: undefined
     },
+    // 图表数组
     componentList: []
   }),
   getters: {
