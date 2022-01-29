@@ -4,7 +4,8 @@ import { loadingStart, loadingFinish, loadingError } from '@/utils'
 import {
   chartEditStoreType,
   EditCanvasType,
-  MousePositionType
+  MousePositionType,
+  TargetChartType
 } from './chartEditStore.d'
 
 // 编辑区域内容
@@ -35,7 +36,8 @@ export const useChartEditStoreStore = defineStore({
       y: 0
     },
     targetChart: {
-      index: 0
+      hoverIndex: undefined,
+      selectIndex: undefined
     },
     componentList: []
   }),
@@ -46,11 +48,25 @@ export const useChartEditStoreStore = defineStore({
     getEditCanvas(): EditCanvasType {
       return this.editCanvas
     },
+    getTargetChart():TargetChartType {
+      return this.targetChart
+    },
     getComponentList(): any[] {
       return this.componentList
     }
   },
   actions: {
+    // * 设置 editCanvas 数据项
+    setEditCanvasItem< T extends keyof EditCanvasType,  K extends EditCanvasType[T] >(key: T, value: K) {
+      this.editCanvas[key] = value
+    },
+    // * 设置目标数据
+    setTargetHoverChart(hoverIndex?:TargetChartType["hoverIndex"]) {
+      this.targetChart.hoverIndex = hoverIndex
+    },
+    setTargetSelectChart(selectIndex?:TargetChartType["selectIndex"]) {
+      this.targetChart.selectIndex = selectIndex
+    },
     // * 新增组件列表
     addComponentList<T>(chartData: T): void {
       this.componentList.push(chartData)
@@ -74,13 +90,6 @@ export const useChartEditStoreStore = defineStore({
       } catch(value) {
         loadingError()
       }
-    },
-    // * 设置数据项
-    setEditCanvasItem<
-      T extends keyof EditCanvasType,
-      K extends EditCanvasType[T]
-    >(key: T, value: K) {
-      this.editCanvas[key] = value
     },
     // * 设置页面样式属性
     setPageStyle<T extends keyof CSSStyleDeclaration>(

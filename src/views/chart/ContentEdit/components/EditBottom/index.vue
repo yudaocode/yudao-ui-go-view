@@ -75,7 +75,7 @@ const designStore = useDesignStore()
 const themeColor = ref(designStore.getAppTheme)
 
 const chartEditStore = getChartEditStore()
-const chartEditStoreEnum = getChartEditStoreEnum()
+const ChartEditStoreEnum = getChartEditStoreEnum()
 const { lockScale, scale } = toRefs(chartEditStore.getEditCanvas)
 
 // 缩放选项
@@ -117,7 +117,7 @@ const selectHandle = (v: number) => {
 // 点击锁处理
 const lockHandle = () => {
   chartEditStore.setEditCanvasItem(
-    chartEditStoreEnum.LOCK_SCALE,
+    ChartEditStoreEnum.LOCK_SCALE,
     !lockScale.value
   )
 }

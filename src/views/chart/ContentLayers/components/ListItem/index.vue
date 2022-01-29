@@ -1,27 +1,36 @@
 <template>
-  <div class="go-content-layers-list-item go-flex-center">
-    <n-image
-      class="list-img"
-      object-fit="contain"
-      preview-disabled
-      :src="image"
-      :fallback-src="requireFallbackImg()"
-    />
-    <n-ellipsis>
-      <b-text class="list-text">
-        {{ title }}
-      </b-text>
-    </n-ellipsis>
+  <div
+    class="go-content-layers-list-item"
+    :class="{ hover: hover, select: select }"
+  >
+    <div class="go-flex-center item-content">
+      <n-image
+        class="list-img"
+        object-fit="contain"
+        preview-disabled
+        :src="image"
+        :fallback-src="requireFallbackImg()"
+      />
+      <n-ellipsis>
+        <b-text class="list-text">
+          {{ title }}
+        </b-text>
+      </n-ellipsis>
+    </div>
+    <div :class="{ 'select-modal': select }" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs } from 'vue'
+import { ref, toRefs, computed } from 'vue'
 import { requireFallbackImg } from '@/utils'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
+import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
+
 // 全局颜色
 const designStore = useDesignStore()
 const themeColor = ref(designStore.getAppTheme)
+const chartEditStore = useChartEditStoreStore()
 
 const props = defineProps({
   componentData: {
@@ -29,22 +38,61 @@ const props = defineProps({
     required: true
   }
 })
+
 const { image, title } = toRefs(props.componentData.chartData)
+
+// 计算当前选中目标
+const select = computed(() => {
+  return props.componentData.id === chartEditStore.getTargetChart.selectIndex
+})
+
+const hover = computed(() => {
+  return props.componentData.id === chartEditStore.getTargetChart.hoverIndex
+})
 </script>
 
 <style lang="scss" scoped>
-$centerHeight: 40px;
+$centerHeight: 52px;
 $textSize: 10px;
 
 @include go(content-layers-list-item) {
-  justify-content: start !important;
-  padding: 6px 10px;
-  cursor: pointer;
+  position: relative;
+  height: $centerHeight;
+  width: 90%;
+  margin: 10px 5%;
   margin-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0);
   @extend .go-transition-quick;
+  &.hover,
   &:hover {
     @include filter-bg-color('background-color4');
-    color: v-bind('themeColor');
+  }
+  /* 选中 */
+  &.select {
+    border: 1px solid v-bind('themeColor');
+    /* 需要设置最高级，覆盖 hover 的颜色 */
+    background-color: rgba(0, 0, 0, 0) !important;
+  }
+  .select-modal,
+  .item-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .item-content {
+    z-index: 1;
+    padding: 6px 5px;
+    justify-content: start !important;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+  }
+  .select-modal {
+    background-color: v-bind('themeColor');
+    opacity: 0.3;
+    width: 100%;
+    height: 100%;
   }
   .list-img {
     flex-shrink: 0;
@@ -53,7 +101,7 @@ $textSize: 10px;
     overflow: hidden;
     border: 1px solid;
     padding: 2px;
-    @include hover-border-color('hover-border-color')
+    @include hover-border-color('hover-border-color');
   }
   .list-text {
     padding-left: 10px;

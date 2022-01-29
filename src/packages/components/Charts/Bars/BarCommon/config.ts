@@ -1,13 +1,13 @@
 import { getUUID } from '@/utils'
 import { BarCommonConfig } from './index'
-import { ConfigType } from '@/packages/index.d'
+import { ConfigType, CreateComponentType } from '@/packages/index.d'
 import omit from 'lodash/omit'
 
-export default class Config {
-  private id: string = getUUID()
-  private key: string = BarCommonConfig.key
+export default class Config implements CreateComponentType {
+  public id: string = getUUID()
+  public key: string = BarCommonConfig.key
 
-  chartData: Exclude<ConfigType, ['node']> = omit(BarCommonConfig, ['node'])
+  public chartData: Exclude<ConfigType, ['node']> = omit(BarCommonConfig, ['node'])
 
   public attr = { x: 0, y: 0, w: 500, h: 300 }
 
