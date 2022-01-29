@@ -34,6 +34,9 @@ export const useChartEditStoreStore = defineStore({
       x: 0,
       y: 0
     },
+    targetChart: {
+      index: 0
+    },
     componentList: []
   }),
   getters: {

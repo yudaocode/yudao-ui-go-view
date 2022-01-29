@@ -23,8 +23,7 @@ export const handleDrop = async (e: DragEvent) => {
     // 创建新图表组件
     let newComponent = await createComponent(dropData)
 
-    const { w, h } = dropData.chartData.chartSize
-    newComponent.setPosition(e.offsetX - w / 2, e.offsetY - h / 2)
+    newComponent.setPosition(e.offsetX - newComponent.attr.w / 2, e.offsetY - newComponent.attr.h / 2)
     chartEditStore.addComponentList(newComponent)
 
     loadingFinish()

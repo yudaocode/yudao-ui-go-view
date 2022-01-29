@@ -7,12 +7,6 @@ export type ConfigType = {
   category: string
   categoryName: string
   package: string
-  chartData: {
-    chartSize: {
-      w: number
-      h: number
-    }
-  }
   node: Component
   image: string | (() => Promise<typeof import('*.png')>)
   [T: string]: unknown

@@ -1,15 +1,15 @@
 import { getUUID } from '@/utils'
 import { BarCommonConfig } from './index'
-
-export const chartSize = {
-  w: 500,
-  h: 300
-}
+import { ConfigType } from '@/packages/index.d'
+import omit from 'lodash/omit'
 
 export default class Config {
   private id: string = getUUID()
   private key: string = BarCommonConfig.key
-  public attr = { x: 0, y: 0, ...chartSize }
+
+  chartData: Exclude<ConfigType, ['node']> = omit(BarCommonConfig, ['node'])
+
+  public attr = { x: 0, y: 0, w: 500, h: 300 }
 
   // 图表配置项
   public config = {

@@ -42,15 +42,22 @@ export type MousePositionType = {
   [EditCanvasTypeEnum.Y]: number
 }
 
+// 操作目标
+export type TargetChartType = {
+  index: number
+}
+
 // Store 类型
 export enum chartEditStoreEnum {
   EDITCANVAS = 'editCanvas',
   MOUSEPOSITION = 'mousePosition',
-  COMPONENT_LIST = 'componentList'
+  COMPONENT_LIST = 'componentList',
+  TARGET_CHART = 'targetChart'
 }
 
 export interface chartEditStoreType {
   [chartEditStoreEnum.EDITCANVAS]: EditCanvasType
   [chartEditStoreEnum.MOUSEPOSITION]: MousePositionType
+  [chartEditStoreEnum.TARGET_CHART]: TargetChartType
   [chartEditStoreEnum.COMPONENT_LIST]: any[]
 }

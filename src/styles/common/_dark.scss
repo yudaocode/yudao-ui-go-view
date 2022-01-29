@@ -24,7 +24,7 @@ $dark: (
       linear-gradient(90deg, transparent 14px, $--color-text-2 0)
     ),
   // hover 边框颜色
-    hover-border-color: #55606e,
+    hover-border-color: $--color-dark-bg-5,
   // 阴影
     box-shadow: 0 8px 20px #5252521f
     

@@ -7,6 +7,10 @@
   transition: all 0.4s;
 }
 
+.go-transition-quick {
+  transition: all 0.2s;
+}
+
 .go-flex-center {
   display: flex;
   justify-content: center;

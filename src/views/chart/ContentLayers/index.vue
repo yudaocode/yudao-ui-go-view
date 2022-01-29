@@ -13,7 +13,11 @@
     </template>
 
     <!-- 图层内容 -->
-    <ListItem v-for="item in chartEditStore.getComponentList" :key="item.id"/>
+    <ListItem
+      v-for="item in chartEditStore.getComponentList"
+      :key="item.id"
+      :componentData="item"
+    />
   </ContentBox>
 </template>
 
