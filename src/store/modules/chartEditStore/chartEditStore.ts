@@ -60,10 +60,11 @@ export const useChartEditStoreStore = defineStore({
     setEditCanvasItem< T extends keyof EditCanvasType,  K extends EditCanvasType[T] >(key: T, value: K) {
       this.editCanvas[key] = value
     },
-    // * 设置目标数据
+    // * 设置目标数据 hover
     setTargetHoverChart(hoverIndex?:TargetChartType["hoverIndex"]) {
       this.targetChart.hoverIndex = hoverIndex
     },
+    // * 设置目标数据 select
     setTargetSelectChart(selectIndex?:TargetChartType["selectIndex"]) {
       this.targetChart.selectIndex = selectIndex
     },

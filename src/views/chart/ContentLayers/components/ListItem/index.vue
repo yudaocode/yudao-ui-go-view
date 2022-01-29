@@ -73,7 +73,7 @@ $textSize: 10px;
   &.select {
     border: 1px solid v-bind('themeColor');
     /* 需要设置最高级，覆盖 hover 的颜色 */
-    background-color: rgba(0, 0, 0, 0) !important;
+    background-color: rgba(0, 0, 0, 0);
   }
   .select-modal,
   .item-content {
@@ -89,10 +89,10 @@ $textSize: 10px;
     height: calc(100% - 10px);
   }
   .select-modal {
-    background-color: v-bind('themeColor');
-    opacity: 0.3;
     width: 100%;
     height: 100%;
+    opacity: 0.3;
+    background-color: v-bind('themeColor');
   }
   .list-img {
     flex-shrink: 0;

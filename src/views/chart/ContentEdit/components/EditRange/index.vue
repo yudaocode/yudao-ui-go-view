@@ -1,15 +1,22 @@
 <template>
-  <div class="go-edit-range" :style="useSizeStyle(size)">
+  <div
+    class="go-edit-range"
+    :style="useSizeStyle(size)"
+    @mousedown="mousedownHandle($event, undefined)"
+  >
     <slot></slot>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useSizeStyle } from '../../hooks/useStyle.hook'
+import { mousedownHandle } from '../../hooks/useLayout.hook'
+
 const size = {
   w: 1920,
   h: 1080
 }
+
 </script>
 
 <style lang="scss" scoped>

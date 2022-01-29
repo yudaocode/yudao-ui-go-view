@@ -1,6 +1,7 @@
-import { onUnmounted, onMounted, ref, nextTick } from 'vue'
+import { onUnmounted, onMounted } from 'vue'
 import { getChartEditStore } from './useStore.hook'
 import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
+import { CreateComponentType } from '@/packages/index.d'
 
 const chartEditStore = getChartEditStore()
 
@@ -27,4 +28,29 @@ export const useLayout = () => {
       removeScale()
     })
   })
+}
+
+// 点击事件
+export const mousedownHandle = (e: MouseEvent, item?: CreateComponentType) => {
+  e.preventDefault()
+  e.stopPropagation()
+  if (item) {
+    chartEditStore.setTargetSelectChart(item.id)
+    return
+  }
+  chartEditStore.setTargetSelectChart(item)
+}
+
+// 进入事件
+export const mouseenterHandle = (e: MouseEvent, item: CreateComponentType) => {
+  e.preventDefault()
+  e.stopPropagation()
+  chartEditStore.setTargetHoverChart(item.id)
+}
+
+// 移出事件
+export const mouseleaveHandle = (e: MouseEvent, item: CreateComponentType) => {
+  e.preventDefault()
+  e.stopPropagation()
+  chartEditStore.setTargetHoverChart(undefined)
 }

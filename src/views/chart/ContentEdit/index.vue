@@ -25,12 +25,18 @@
           :on-clickoutside="onClickoutside"
           @select="handleMenuSelect"
         />
+        <!-- 图表 -->
         <ShapeBox
           v-for="(item, index) in chartEditStore.getComponentList"
           :key="item.id"
+          :data-id="item.id"
           :index="index"
           :style="useComponentStyle(item.attr, index)"
+          :item="item"
           @contextmenu="handleContextMenu($event, index)"
+          @mousedown="mousedownHandle($event, item)"
+          @mouseenter="mouseenterHandle($event, item)"
+          @mouseleave="mouseleaveHandle($event, item)"
         >
           <component
             class="edit-content-chart"
@@ -55,7 +61,12 @@ import { EditRange } from './components/EditRange'
 import { EditBottom } from './components/EditBottom'
 import { ShapeBox } from './components/ShapeBox/index'
 
-import { useLayout } from './hooks/useLayout.hook'
+import {
+  useLayout,
+  mousedownHandle,
+  mouseenterHandle,
+  mouseleaveHandle
+} from './hooks/useLayout.hook'
 import { handleDrop, handleDragOver } from './hooks/useDrop.hook'
 import { useContextMenu } from './hooks/useContextMenu.hook'
 import { getChartEditStore } from './hooks/useStore.hook'
@@ -68,8 +79,9 @@ const {
   onClickoutside,
   mousePosition,
   handleContextMenu,
-  handleMenuSelect,
+  handleMenuSelect
 } = useContextMenu()
+
 // 布局处理
 useLayout()
 </script>
