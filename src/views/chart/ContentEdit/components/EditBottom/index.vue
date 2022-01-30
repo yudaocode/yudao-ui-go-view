@@ -32,7 +32,7 @@
               class="lock-icon"
               :class="{ color: lockScale }"
               size="18"
-              :depth="3"
+              :depth="2"
             >
               <LockClosedOutlineIcon v-if="lockScale" />
               <LockOpenOutlineIcon v-else />

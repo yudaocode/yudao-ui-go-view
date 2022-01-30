@@ -4,14 +4,14 @@
 
     <!-- 选中 -->
     <div class="shape-modal" :style="useSizeStyle(item.attr)">
-      <div v-if="select" class="shape-modal-select"></div>
-      <div v-if="select || hover" class="shape-modal-change"></div>
+      <div class="shape-modal-select" :class="{ active: select }" />
+      <div class="shape-modal-change" :class="{ active: select || hover }" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, PropType } from 'vue'
+import { ref, computed, PropType, h } from 'vue';
 import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { CreateComponentType } from '@/packages/index.d'
@@ -37,8 +37,6 @@ const hover = computed(() => {
 const select = computed(() => {
   return props.item.id === chartEditStore.getTargetChart.selectIndex
 })
-
-
 </script>
 
 <style lang="scss" scoped>
@@ -49,20 +47,29 @@ const select = computed(() => {
     position: absolute;
     top: 0;
     left: 0;
-    .shape-modal-select {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      opacity: 0.1;
-      border-radius: 10px;
-      background-color: v-bind('themeColor');
-    }
+
+    .shape-modal-select,
     .shape-modal-change {
       position: absolute;
       width: 100%;
       height: 100%;
       border-radius: 10px;
-      border: 1px solid v-bind('themeColor');
+      @extend .go-transition-quick;
+    }
+
+    .shape-modal-select {
+      opacity: 0.2;
+      top: 1px;
+      left: 1px;
+      &.active {
+        background-color: v-bind('themeColor');
+      }
+    }
+    .shape-modal-change {
+      border: 1px solid rgba(0, 0, 0, 0);
+      &.active {
+        border: 1px solid v-bind('themeColor');
+      }
     }
   }
 }
