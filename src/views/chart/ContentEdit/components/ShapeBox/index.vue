@@ -37,11 +37,14 @@ const hover = computed(() => {
 const select = computed(() => {
   return props.item.id === chartEditStore.getTargetChart.selectIndex
 })
+
+
 </script>
 
 <style lang="scss" scoped>
 @include go(shape-box) {
   position: absolute;
+  cursor: move;
   .shape-modal {
     position: absolute;
     top: 0;
@@ -59,7 +62,7 @@ const select = computed(() => {
       width: 100%;
       height: 100%;
       border-radius: 10px;
-      border: 2px solid v-bind('themeColor');
+      border: 1px solid v-bind('themeColor');
     }
   }
 }

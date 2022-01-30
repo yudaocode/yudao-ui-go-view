@@ -2,6 +2,7 @@ import { onUnmounted, onMounted } from 'vue'
 import { getChartEditStore } from './useStore.hook'
 import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { CreateComponentType } from '@/packages/index.d'
+import throttle from 'lodash/throttle'
 
 const chartEditStore = getChartEditStore()
 
@@ -30,10 +31,11 @@ export const useLayout = () => {
   })
 }
 
-// 点击事件
-export const mousedownHandle = (e: MouseEvent, item?: CreateComponentType) => {
-  e.preventDefault()
-  e.stopPropagation()
+// 不拦截默认行为点击
+export const mousedownHandleUnStop = (
+  e: MouseEvent,
+  item?: CreateComponentType
+) => {
   if (item) {
     chartEditStore.setTargetSelectChart(item.id)
     return
@@ -41,16 +43,67 @@ export const mousedownHandle = (e: MouseEvent, item?: CreateComponentType) => {
   chartEditStore.setTargetSelectChart(item)
 }
 
-// 进入事件
-export const mouseenterHandle = (e: MouseEvent, item: CreateComponentType) => {
-  e.preventDefault()
-  e.stopPropagation()
-  chartEditStore.setTargetHoverChart(item.id)
-}
+export const useMouseHandle = () => {
+  // 点击事件（包含移动事件）
+  const mousedownHandle = (e: MouseEvent, item: CreateComponentType) => {
+    e.preventDefault()
+    e.stopPropagation()
 
-// 移出事件
-export const mouseleaveHandle = (e: MouseEvent, item: CreateComponentType) => {
-  e.preventDefault()
-  e.stopPropagation()
-  chartEditStore.setTargetHoverChart(undefined)
+    chartEditStore.setTargetSelectChart(item.id)
+    const scale = chartEditStore.getEditCanvas.scale
+    const width = chartEditStore.getEditCanvas.width
+    const height = chartEditStore.getEditCanvas.height
+
+    // 获取编辑区域 Dom
+    const editcontentDom = chartEditStore.getEditCanvas.editContentDom
+
+    // 记录图表初始位置
+    const itemAttrX = item.attr.x
+    const itemAttrY = item.attr.y
+
+    // 记录点击初始位置
+    const startX = e.screenX
+    const startY = e.screenY
+
+    // 计算偏移量（处理 scale 比例问题）
+    const mousemove = throttle((moveEvent: MouseEvent) => {
+      let currX = itemAttrX + (moveEvent.screenX - startX) / scale
+      let currY = itemAttrY + (moveEvent.screenY - startY) / scale
+
+      // 位置检测
+      currX = currX < 0 ? 0 : currX
+      currY = currY < 0 ? 0 : currY
+
+      // 预留 20px 边距
+      currX = currX > width - 20 ? width - 20 : currX
+      currY = currY > height - 20 ? height - 20 : currY
+
+      item.attr.x = currX
+      item.attr.y = currY
+    }, 30)
+
+    const mouseup = () => {
+      editcontentDom!.removeEventListener('mousemove', mousemove)
+      editcontentDom!.removeEventListener('mouseup', mouseup)
+    }
+
+    editcontentDom!.addEventListener('mousemove', mousemove)
+    editcontentDom!.addEventListener('mouseup', mouseup)
+  }
+
+  // 进入事件
+  const mouseenterHandle = (e: MouseEvent, item: CreateComponentType) => {
+    e.preventDefault()
+    e.stopPropagation()
+    chartEditStore.setTargetHoverChart(item.id)
+  }
+
+  // 移出事件
+  const mouseleaveHandle = (e: MouseEvent, item: CreateComponentType) => {
+    e.preventDefault()
+    e.stopPropagation()
+    chartEditStore.setTargetHoverChart(undefined)
+  }
+
+  return { mousedownHandle, mouseenterHandle, mouseleaveHandle }
 }

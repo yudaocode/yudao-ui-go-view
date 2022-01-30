@@ -2,7 +2,7 @@
   <div
     class="go-edit-range"
     :style="useSizeStyle(size)"
-    @mousedown="mousedownHandle($event, undefined)"
+    @mousedown="mousedownHandleUnStop($event, undefined)"
   >
     <slot></slot>
   </div>
@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import { useSizeStyle } from '../../hooks/useStyle.hook'
-import { mousedownHandle } from '../../hooks/useLayout.hook'
+import { mousedownHandleUnStop } from '../../hooks/useLayout.hook'
 
 const size = {
   w: 1920,

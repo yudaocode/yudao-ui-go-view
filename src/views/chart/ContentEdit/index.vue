@@ -12,7 +12,7 @@
   >
     <div id="go-chart-edit-content">
       <!-- 展示 -->
-      <EditRange>
+      <EditRange ref="editRangeRef">
         <!-- 右键 -->
         <n-dropdown
           placement="bottom-start"
@@ -55,24 +55,22 @@
 </template>
 
 <script lang="ts" setup>
-import { onUnmounted, onMounted, toRefs } from 'vue'
+import { ref, onMounted } from 'vue'
 import { ContentBox } from '../ContentBox/index'
 import { EditRange } from './components/EditRange'
 import { EditBottom } from './components/EditBottom'
 import { ShapeBox } from './components/ShapeBox/index'
 
-import {
-  useLayout,
-  mousedownHandle,
-  mouseenterHandle,
-  mouseleaveHandle
-} from './hooks/useLayout.hook'
+import { useLayout, useMouseHandle } from './hooks/useLayout.hook'
 import { handleDrop, handleDragOver } from './hooks/useDrop.hook'
 import { useContextMenu } from './hooks/useContextMenu.hook'
 import { getChartEditStore } from './hooks/useStore.hook'
 import { useComponentStyle, useSizeStyle } from './hooks/useStyle.hook'
+import { CreateComponentType } from '@/packages/index.d'
 
 const chartEditStore = getChartEditStore()
+
+// 右键
 const {
   showDropdownRef,
   menuOptions,
@@ -84,6 +82,10 @@ const {
 
 // 布局处理
 useLayout()
+
+// 点击事件
+const editRangeRef = ref<HTMLElement | null>(null)
+const { mouseenterHandle, mouseleaveHandle, mousedownHandle } = useMouseHandle()
 </script>
 
 <style lang="scss" scoped>
