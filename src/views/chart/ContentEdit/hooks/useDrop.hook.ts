@@ -70,9 +70,11 @@ export const useMouseHandle = () => {
     // 获取编辑区域 Dom
     const editcontentDom = chartEditStore.getEditCanvas.editContentDom
 
-    // 记录图表初始位置
+    // 记录图表初始位置和大小
     const itemAttrX = item.attr.x
     const itemAttrY = item.attr.y
+    const itemAttrW = item.attr.w
+    const itemAttrH = item.attr.h
 
     // 记录点击初始位置
     const startX = e.screenX
@@ -83,13 +85,15 @@ export const useMouseHandle = () => {
       let currX = itemAttrX + (moveEvent.screenX - startX) / scale
       let currY = itemAttrY + (moveEvent.screenY - startY) / scale
 
-      // 位置检测
-      currX = currX < 0 ? 0 : currX
-      currY = currY < 0 ? 0 : currY
+      // 要预留的距离
+      const distance = 50
+      // 基于左上角位置检测
+      currX = currX < -itemAttrW + distance ? -itemAttrW + distance : currX
+      currY = currY < -itemAttrH + distance ? -itemAttrH + distance : currY
 
-      // 预留 20px 边距
-      currX = currX > width - 20 ? width - 20 : currX
-      currY = currY > height - 20 ? height - 20 : currY
+      // 基于右下角位置检测
+      currX = currX > width - distance ? width - distance : currX
+      currY = currY > height - distance ? height - distance : currY
 
       item.attr.x = currX
       item.attr.y = currY
