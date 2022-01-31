@@ -1,4 +1,4 @@
-import { reactive, ref, nextTick } from 'vue'
+import { ref, nextTick } from 'vue'
 import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { loadingError } from '@/utils'
 
@@ -8,16 +8,38 @@ enum MenuEnum {
   DELETE = 'delete'
 }
 
-export const useContextMenu = () => {
+export interface MenuOptionsItemType {
+  label: string
+  key: MenuEnum
+  fnHandle: Function
+}
+/**
+ * * 右键hook
+ * @param menuOption
+ * @returns
+ */
+export const useContextMenu = (menuOption?: {
+  // 自定义右键配置
+  selfOptions: MenuOptionsItemType[]
+  // 前置处理函数
+  optionsHandle: Function
+}) => {
+  const selfOptions = menuOption?.selfOptions
+  const optionsHandle = menuOption?.optionsHandle
+
   const targetIndex = ref<number>(0)
 
-  // * 右键选项
-  const menuOptions = reactive([
+  // * 默认选项
+  const defaultOptions: MenuOptionsItemType[] = [
     {
       label: '删除',
-      key: MenuEnum.DELETE
+      key: MenuEnum.DELETE,
+      fnHandle: chartEditStore.removeComponentList
     }
-  ])
+  ]
+
+  // * 右键选项
+  const menuOptions: MenuOptionsItemType[] = selfOptions || defaultOptions
 
   // * 右键处理
   const handleContextMenu = (e: MouseEvent, index: number) => {
@@ -43,16 +65,15 @@ export const useContextMenu = () => {
   // * 事件处理
   const handleMenuSelect = (key: string) => {
     chartEditStore.setRightMenuShow(false)
-    switch (key) {
-      case MenuEnum.DELETE:
-        chartEditStore.removeComponentList(targetIndex.value)
-        break
-      default: loadingError()
-    }
+    const targetItem: MenuOptionsItemType[] = menuOptions.filter(
+      (e: MenuOptionsItemType) => e.key === key
+    )
+    if (!targetItem) loadingError()
+    if (targetItem.length) targetItem.pop()?.fnHandle(targetIndex.value)
   }
-
+  console.log(optionsHandle ? optionsHandle(menuOptions) : menuOptions)
   return {
-    menuOptions,
+    menuOptions: optionsHandle ? optionsHandle(menuOptions) : menuOptions,
     handleContextMenu,
     onClickoutside,
     handleMenuSelect,
