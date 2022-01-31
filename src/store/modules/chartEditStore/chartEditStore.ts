@@ -32,6 +32,8 @@ export const useChartEditStoreStore = defineStore({
       // 默认背景色
       background: undefined
     },
+    // 右键菜单
+    rightMenuShow: false,
     // 鼠标定位
     mousePosition: {
       x: 0,
@@ -49,6 +51,9 @@ export const useChartEditStoreStore = defineStore({
     getMousePosition(): MousePositionType {
       return this.mousePosition
     },
+    getRightMenuShow(): boolean {
+      return this.rightMenuShow
+    },
     getEditCanvas(): EditCanvasType {
       return this.editCanvas
     },
@@ -63,6 +68,10 @@ export const useChartEditStoreStore = defineStore({
     // * 设置 editCanvas 数据项
     setEditCanvasItem< T extends keyof EditCanvasType,  K extends EditCanvasType[T] >(key: T, value: K) {
       this.editCanvas[key] = value
+    },
+    // * 设置右键菜单
+    setRightMenuShow(value: boolean) {
+      this.rightMenuShow = value
     },
     // * 设置目标数据 hover
     setTargetHoverChart(hoverIndex?:TargetChartType["hoverIndex"]) {

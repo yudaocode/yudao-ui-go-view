@@ -20,11 +20,26 @@
       </n-layout-content>
     </n-layout>
   </div>
+  <!-- 右键 -->
+  <n-dropdown
+    placement="bottom-start"
+    trigger="manual"
+    size="small"
+    :x="mousePosition.x"
+    :y="mousePosition.y"
+    :options="menuOptions"
+    :show="chartEditStore.getRightMenuShow"
+    :on-clickoutside="onClickoutside"
+    @select="handleMenuSelect"
+  />
 </template>
 
 <script setup lang="ts">
 import { loadAsyncComponent } from '@/utils'
 import { HeaderPro } from '@/layout/components/HeaderPro'
+import { useContextMenu } from './hooks/useContextMenu.hook'
+import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
+const chartEditStore = useChartEditStoreStore()
 
 const HeaderLeftBtn = loadAsyncComponent(() =>
   import('./HeaderLeftBtn/index.vue')
@@ -44,6 +59,15 @@ const ContentCharts = loadAsyncComponent(() =>
 const ContentDetails = loadAsyncComponent(() =>
   import('./ContentDetails/index.vue')
 )
+
+// 右键
+const {
+  menuOptions,
+  onClickoutside,
+  mousePosition,
+  handleContextMenu,
+  handleMenuSelect
+} = useContextMenu()
 </script>
 
 <style lang="scss" scoped>

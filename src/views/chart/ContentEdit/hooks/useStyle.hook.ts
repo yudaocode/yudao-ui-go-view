@@ -7,7 +7,7 @@ interface AttrType {
 
 export const useComponentStyle = (attr: AttrType, index: number) => {
   const componentStyle = {
-    zIndex: index,
+    zIndex: index + 1,
     left: `${attr.x}px`,
     top: `${attr.y}px`,
   }

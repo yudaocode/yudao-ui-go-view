@@ -13,18 +13,6 @@
     <div id="go-chart-edit-content">
       <!-- 展示 -->
       <EditRange ref="editRangeRef">
-        <!-- 右键 -->
-        <n-dropdown
-          placement="bottom-start"
-          trigger="manual"
-          size="small"
-          :x="mousePosition.x"
-          :y="mousePosition.y"
-          :options="menuOptions"
-          :show="showDropdownRef"
-          :on-clickoutside="onClickoutside"
-          @select="handleMenuSelect"
-        />
         <!-- 图表 -->
         <ShapeBox
           v-for="(item, index) in chartEditStore.getComponentList"
@@ -63,22 +51,14 @@ import { ShapeBox } from './components/ShapeBox/index'
 
 import { useLayout } from './hooks/useLayout.hook'
 import { handleDrop, handleDragOver, useMouseHandle } from './hooks/useDrop.hook'
-import { useContextMenu } from './hooks/useContextMenu.hook'
+import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
 import { getChartEditStore } from './hooks/useStore.hook'
 import { useComponentStyle, useSizeStyle } from './hooks/useStyle.hook'
 import { CreateComponentType } from '@/packages/index.d'
 
 const chartEditStore = getChartEditStore()
 
-// 右键
-const {
-  showDropdownRef,
-  menuOptions,
-  onClickoutside,
-  mousePosition,
-  handleContextMenu,
-  handleMenuSelect
-} = useContextMenu()
+const { handleContextMenu } = useContextMenu()
 
 // 布局处理
 useLayout()

@@ -58,17 +58,17 @@ const select = computed(() => {
     }
 
     .shape-modal-select {
-      opacity: 0.2;
-      top: 1px;
-      left: 1px;
+      opacity: 0.1;
+      top: 2px;
+      left: 2px;
       &.active {
         background-color: v-bind('themeColor');
       }
     }
     .shape-modal-change {
-      border: 1px solid rgba(0, 0, 0, 0);
+      border: 2px solid rgba(0, 0, 0, 0);
       &.active {
-        border: 1px solid v-bind('themeColor');
+        border: 2px solid v-bind('themeColor');
       }
     }
   }

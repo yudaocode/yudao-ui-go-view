@@ -55,6 +55,7 @@ export type TargetChartType = {
 export enum ChartEditStoreEnum {
   EDIT_RANGE = 'editRange',
   EDIT_CANVAS = 'editCanvas',
+  RIGHT_MENU_SHOW = 'rightMenuShow',
   MOUSE_POSITION = 'mousePosition',
   TARGET_CHART = 'targetChart',
   COMPONENT_LIST = 'componentList'
@@ -63,6 +64,7 @@ export enum ChartEditStoreEnum {
 // Store 类型
 export interface chartEditStoreType {
   [ChartEditStoreEnum.EDIT_CANVAS]: EditCanvasType
+  [ChartEditStoreEnum.RIGHT_MENU_SHOW]: boolean
   [ChartEditStoreEnum.MOUSE_POSITION]: MousePositionType
   [ChartEditStoreEnum.TARGET_CHART]: TargetChartType
   [ChartEditStoreEnum.COMPONENT_LIST]: any[]

@@ -1,15 +1,14 @@
 import { reactive, ref, nextTick } from 'vue'
-import { getChartEditStore } from './useStore.hook'
+import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { loadingError } from '@/utils'
 
-const chartEditStore = getChartEditStore()
+const chartEditStore = useChartEditStoreStore()
 
 enum MenuEnum {
   DELETE = 'delete'
 }
 
 export const useContextMenu = () => {
-  const showDropdownRef = ref(false)
   const targetIndex = ref<number>(0)
 
   // * 右键选项
@@ -29,21 +28,21 @@ export const useContextMenu = () => {
     while (target instanceof SVGElement) {
       target = target.parentNode
     }
-    showDropdownRef.value = false
+    chartEditStore.setRightMenuShow(false)
     nextTick().then(() => {
       chartEditStore.setMousePosition(e.clientX, e.clientY)
-      showDropdownRef.value = true
+      chartEditStore.setRightMenuShow(true)
     })
   }
 
   // * 失焦
   const onClickoutside = (e: MouseEvent) => {
-    showDropdownRef.value = false
+    chartEditStore.setRightMenuShow(false)
   }
 
   // * 事件处理
   const handleMenuSelect = (key: string) => {
-    showDropdownRef.value = false
+    chartEditStore.setRightMenuShow(false)
     switch (key) {
       case MenuEnum.DELETE:
         chartEditStore.removeComponentList(targetIndex.value)
@@ -53,7 +52,6 @@ export const useContextMenu = () => {
   }
 
   return {
-    showDropdownRef,
     menuOptions,
     handleContextMenu,
     onClickoutside,
