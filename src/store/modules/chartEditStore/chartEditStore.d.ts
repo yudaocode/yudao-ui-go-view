@@ -47,8 +47,8 @@ export type MousePositionType = {
 
 // 操作目标
 export type TargetChartType = {
-  hoverIndex?: string
-  selectIndex?: string
+  hoverId?: string
+  selectId?: string
 }
 
 // Store 枚举

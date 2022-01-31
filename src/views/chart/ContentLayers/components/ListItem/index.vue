@@ -43,11 +43,11 @@ const { image, title } = toRefs(props.componentData.chartData)
 
 // 计算当前选中目标
 const select = computed(() => {
-  return props.componentData.id === chartEditStore.getTargetChart.selectIndex
+  return props.componentData.id === chartEditStore.getTargetChart.selectId
 })
 
 const hover = computed(() => {
-  return props.componentData.id === chartEditStore.getTargetChart.hoverIndex
+  return props.componentData.id === chartEditStore.getTargetChart.hoverId
 })
 </script>
 

@@ -24,7 +24,7 @@
           @mousedown="mousedownHandle($event, item)"
           @mouseenter="mouseenterHandle($event, item)"
           @mouseleave="mouseleaveHandle($event, item)"
-          @contextmenu="handleContextMenu($event, index)"
+          @contextmenu="handleContextMenu($event, item)"
         >
           <component
             class="edit-content-chart"

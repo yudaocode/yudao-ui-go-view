@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import debounce from 'lodash/debounce'
 import { loadingStart, loadingFinish, loadingError } from '@/utils'
+import { CreateComponentType } from '@/packages/index.d'
 import {
   chartEditStoreType,
   EditCanvasType,
@@ -41,8 +42,8 @@ export const useChartEditStoreStore = defineStore({
     },
     // 目标图表
     targetChart: {
-      hoverIndex: undefined,
-      selectIndex: undefined
+      hoverId: undefined,
+      selectId: undefined
     },
     // 图表数组
     componentList: []
@@ -74,27 +75,22 @@ export const useChartEditStoreStore = defineStore({
       this.rightMenuShow = value
     },
     // * 设置目标数据 hover
-    setTargetHoverChart(hoverIndex?:TargetChartType["hoverIndex"]) {
-      this.targetChart.hoverIndex = hoverIndex
+    setTargetHoverChart(hoverId?:TargetChartType["hoverId"]) {
+      this.targetChart.hoverId = hoverId
     },
     // * 设置目标数据 select
-    setTargetSelectChart(selectIndex?:TargetChartType["selectIndex"]) {
-      this.targetChart.selectIndex = selectIndex
+    setTargetSelectChart(selectId?:TargetChartType["selectId"]) {
+      this.targetChart.selectId = selectId
     },
     // * 新增组件列表
     addComponentList<T>(chartData: T): void {
       this.componentList.push(chartData)
     },
     // * 删除组件列表
-    removeComponentList<T extends { key: string }>(chartData: T | number): void {
+    removeComponentList(): void {
       loadingStart()
       try {
-        if(typeof chartData === 'number') {
-          this.componentList.splice(chartData, 1)
-          loadingFinish()
-          return
-        }
-        const i = this.componentList.findIndex(e => e.key === chartData.key)
+        const i = this.componentList.findIndex(e => e.id === this.getTargetChart.selectId)
         if (i !== -1) {
           this.componentList.splice(i, 1)
           loadingFinish()

@@ -14,13 +14,13 @@
 
     <!-- 图层内容 -->
     <ListItem
-      v-for="item in chartEditStore.getComponentList"
+      v-for="(item) in chartEditStore.getComponentList"
       :key="item.id"
       :componentData="item"
       @mousedown="mousedownHandle(item)"
       @mouseenter="mouseenterHandle(item)"
       @mouseleave="mouseleaveHandle(item)"
-      @contextmenu="handleContextMenu($event, index)"
+      @contextmenu="handleContextMenu($event, item)"
     />
   </ContentBox>
 </template>

@@ -31,11 +31,11 @@ const chartEditStore = useChartEditStoreStore()
 
 // 计算当前选中目标
 const hover = computed(() => {
-  return props.item.id === chartEditStore.getTargetChart.hoverIndex
+  return props.item.id === chartEditStore.getTargetChart.hoverId
 })
 
 const select = computed(() => {
-  return props.item.id === chartEditStore.getTargetChart.selectIndex
+  return props.item.id === chartEditStore.getTargetChart.selectId
 })
 </script>
 

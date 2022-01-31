@@ -1,5 +1,6 @@
 import { ref, nextTick } from 'vue'
 import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { CreateComponentType } from '@/packages/index.d'
 import { loadingError } from '@/utils'
 
 const chartEditStore = useChartEditStoreStore()
@@ -27,8 +28,6 @@ export const useContextMenu = (menuOption?: {
   const selfOptions = menuOption?.selfOptions
   const optionsHandle = menuOption?.optionsHandle
 
-  const targetIndex = ref<number>(0)
-
   // * 默认选项
   const defaultOptions: MenuOptionsItemType[] = [
     {
@@ -42,10 +41,9 @@ export const useContextMenu = (menuOption?: {
   const menuOptions: MenuOptionsItemType[] = selfOptions || defaultOptions
 
   // * 右键处理
-  const handleContextMenu = (e: MouseEvent, index: number) => {
+  const handleContextMenu = (e: MouseEvent, item: CreateComponentType) => {
     e.stopPropagation()
     e.preventDefault()
-    targetIndex.value = index
     let target = e.target
     while (target instanceof SVGElement) {
       target = target.parentNode
@@ -69,9 +67,9 @@ export const useContextMenu = (menuOption?: {
       (e: MenuOptionsItemType) => e.key === key
     )
     if (!targetItem) loadingError()
-    if (targetItem.length) targetItem.pop()?.fnHandle(targetIndex.value)
+    if (targetItem.length) targetItem.pop()?.fnHandle()
   }
-  console.log(optionsHandle ? optionsHandle(menuOptions) : menuOptions)
+
   return {
     menuOptions: optionsHandle ? optionsHandle(menuOptions) : menuOptions,
     handleContextMenu,

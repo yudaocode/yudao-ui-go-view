@@ -52,7 +52,7 @@ export const mousedownHandleUnStop = (
     chartEditStore.setTargetSelectChart(item.id)
     return
   }
-  chartEditStore.setTargetSelectChart(item)
+  chartEditStore.setTargetSelectChart(undefined)
 }
 
 // 移动图表
