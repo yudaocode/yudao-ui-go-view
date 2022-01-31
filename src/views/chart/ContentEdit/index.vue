@@ -21,10 +21,10 @@
           :index="index"
           :style="useComponentStyle(item.attr, index)"
           :item="item"
-          @contextmenu="handleContextMenu($event, index)"
           @mousedown="mousedownHandle($event, item)"
           @mouseenter="mouseenterHandle($event, item)"
           @mouseleave="mouseleaveHandle($event, item)"
+          @contextmenu="handleContextMenu($event, index)"
         >
           <component
             class="edit-content-chart"

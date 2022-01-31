@@ -20,6 +20,7 @@
       @mousedown="mousedownHandle(item)"
       @mouseenter="mouseenterHandle(item)"
       @mouseleave="mouseleaveHandle(item)"
+      @contextmenu="handleContextMenu($event, index)"
     />
   </ContentBox>
 </template>
@@ -33,6 +34,7 @@ import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayo
 import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { ChartEditStoreEnum, TargetChartType } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { CreateComponentType } from '@/packages/index.d'
+import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
 
 import { ListItem } from './components/ListItem/index'
 import { icon } from '@/plugins'
@@ -40,6 +42,7 @@ import { icon } from '@/plugins'
 const { LayersIcon } = icon.ionicons5
 const chartLayoutStore = useChartLayoutStore()
 const chartEditStore = useChartEditStoreStore()
+const { handleContextMenu } = useContextMenu()
 
 const backHandle = () => {
   chartLayoutStore.setItem(ChartLayoutStoreEnum.LAYERS, false)
