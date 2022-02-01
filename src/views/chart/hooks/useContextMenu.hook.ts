@@ -29,12 +29,6 @@ export interface MenuOptionsItemType {
 // * 默认选项
 const defaultOptions: MenuOptionsItemType[] = [
   {
-    label: '删除',
-    key: MenuEnum.DELETE,
-    icon: renderIcon(TrashIcon),
-    fnHandle: chartEditStore.removeComponentList
-  },
-  {
     label: '复制',
     key: MenuEnum.COPY,
     icon: renderIcon(CopyIcon),
@@ -60,13 +54,23 @@ const defaultOptions: MenuOptionsItemType[] = [
     label: '上移一层',
     key: MenuEnum.UP,
     icon: renderIcon(ChevronUpIcon),
-    fnHandle: () => {}
+    fnHandle: chartEditStore.setUp
   },
   {
     label: '下移一层',
     key: MenuEnum.DOWN,
     icon: renderIcon(ChevronDownIcon),
-    fnHandle: () => {}
+    fnHandle: chartEditStore.setDown
+  },
+  {
+    type: 'divider',
+    key: 'd2'
+  },
+  {
+    label: '删除',
+    key: MenuEnum.DELETE,
+    icon: renderIcon(TrashIcon),
+    fnHandle: chartEditStore.removeComponentList
   }
 ]
 

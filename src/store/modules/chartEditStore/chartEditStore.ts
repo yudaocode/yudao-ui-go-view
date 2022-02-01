@@ -61,7 +61,7 @@ export const useChartEditStoreStore = defineStore({
     getTargetChart():TargetChartType {
       return this.targetChart
     },
-    getComponentList(): any[] {
+    getComponentList(): CreateComponentType[] {
       return this.componentList
     }
   },
@@ -92,7 +92,7 @@ export const useChartEditStoreStore = defineStore({
       return index
     },
     // * 新增组件列表
-    addComponentList<T>(chartData: T, isEnd = false): void {
+    addComponentList(chartData: CreateComponentType, isEnd = false): void {
       if(isEnd) {
         this.componentList.unshift(chartData)
         return
@@ -113,18 +113,25 @@ export const useChartEditStoreStore = defineStore({
         loadingError()
       }
     },
-    // * 移动数组位置到两端
+    // * 更新组件列表某一项的值
+    updateComponentList(index: number, newData: CreateComponentType) {
+      if(index < 1 && index > this.getComponentList.length) return
+      this.componentList[index] = newData
+    },
+    // * 移动组件列表位置到两端
     setBothEnds(isEnd = false): void {
       try {
         loadingStart()
         const length = this.getComponentList.length
-        if(length < 2) return
+        if(length < 2) { 
+          loadingFinish()
+          return
+        }
 
         const index  = this.fetchTargetIndex()
         if (index !== -1) {
-
           // 置底排除最底层, 置顶排除最顶层
-          if((isEnd && index === 0) || (!isEnd && index === length - 1 )) { 
+          if ((isEnd && index === 0) || (!isEnd && index === length - 1 )) { 
             loadingFinish()
             return
           }
@@ -155,6 +162,46 @@ export const useChartEditStoreStore = defineStore({
       if (dom) {
         dom.style[key] = value
       }
+    },
+    // * 互换图表位置
+    wrap(isDown = false) {
+      try {
+        loadingStart()
+        const length = this.getComponentList.length
+        if (length < 2) { 
+          loadingFinish()
+          return
+        }
+
+        const index:number  = this.fetchTargetIndex()
+        if (index !== -1) {
+
+          // 下移排除最底层, 上移排除最顶层
+          if ((isDown && index === 0) || (!isDown && index === length - 1)) {
+            loadingFinish()
+            return
+          }
+          // 互换位置
+          const swapIndex = isDown ? index - 1 : index + 1
+          const targetItem = this.getComponentList[index]
+          const swapItem = this.getComponentList[swapIndex]
+          
+          this.updateComponentList(index, swapItem)
+          this.updateComponentList(swapIndex, targetItem)
+          loadingFinish()
+          return
+        }
+      } catch(value) {
+        loadingError()
+      }
+    },
+    // * 上移
+    setUp() {
+      this.wrap()
+    },
+    // * 下移
+    setDown() {
+      this.wrap(true)
     },
     // * 设置页面变换时候的 Class
     setPageSizeClass(): void {

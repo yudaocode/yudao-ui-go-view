@@ -1,3 +1,5 @@
+import { CreateComponentType } from '@/packages/index.d'
+
 // 编辑画布属性
 export enum EditCanvasTypeEnum {
   EDIT_LAYOUT_DOM = 'editLayoutDom',
@@ -67,5 +69,5 @@ export interface chartEditStoreType {
   [ChartEditStoreEnum.RIGHT_MENU_SHOW]: boolean
   [ChartEditStoreEnum.MOUSE_POSITION]: MousePositionType
   [ChartEditStoreEnum.TARGET_CHART]: TargetChartType
-  [ChartEditStoreEnum.COMPONENT_LIST]: any[]
+  [ChartEditStoreEnum.COMPONENT_LIST]: CreateComponentType[]
 }
