@@ -6,6 +6,9 @@ import { ConfigType } from '@/packages/index.d'
 import { loadingStart, loadingFinish, loadingError } from '@/utils'
 import { CreateComponentType } from '@/packages/index.d'
 import throttle from 'lodash/throttle'
+import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
+
+const { onClickoutside } = useContextMenu()
 
 const chartEditStore = getChartEditStore()
 const { scale } = toRefs(chartEditStore.getEditCanvas)
@@ -43,7 +46,7 @@ export const handleDragOver = (e: DragEvent) => {
 }
 
 
-// 不拦截默认行为点击
+// * 不拦截默认行为点击
 export const mousedownHandleUnStop = (
   e: MouseEvent,
   item?: CreateComponentType
@@ -55,13 +58,14 @@ export const mousedownHandleUnStop = (
   chartEditStore.setTargetSelectChart(undefined)
 }
 
-// 移动图表
+// * 移动图表
 export const useMouseHandle = () => {
   // 点击事件（包含移动事件）
   const mousedownHandle = (e: MouseEvent, item: CreateComponentType) => {
     e.preventDefault()
     e.stopPropagation()
 
+    onClickoutside()
     chartEditStore.setTargetSelectChart(item.id)
     const scale = chartEditStore.getEditCanvas.scale
     const width = chartEditStore.getEditCanvas.width
@@ -82,8 +86,8 @@ export const useMouseHandle = () => {
 
     // 计算偏移量（处理 scale 比例问题）
     const mousemove = throttle((moveEvent: MouseEvent) => {
-      let currX = itemAttrX + (moveEvent.screenX - startX) / scale
-      let currY = itemAttrY + (moveEvent.screenY - startY) / scale
+      let currX = Math.round(itemAttrX + (moveEvent.screenX - startX) / scale)
+      let currY = Math.round(itemAttrY + (moveEvent.screenY - startY) / scale)
 
       // 要预留的距离
       const distance = 50
@@ -108,14 +112,14 @@ export const useMouseHandle = () => {
     editcontentDom!.addEventListener('mouseup', mouseup)
   }
 
-  // 进入事件
+  // * 进入事件
   const mouseenterHandle = (e: MouseEvent, item: CreateComponentType) => {
     e.preventDefault()
     e.stopPropagation()
     chartEditStore.setTargetHoverChart(item.id)
   }
 
-  // 移出事件
+  // * 移出事件
   const mouseleaveHandle = (e: MouseEvent, item: CreateComponentType) => {
     e.preventDefault()
     e.stopPropagation()

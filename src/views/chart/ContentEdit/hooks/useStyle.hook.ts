@@ -9,7 +9,7 @@ export const useComponentStyle = (attr: AttrType, index: number) => {
   const componentStyle = {
     zIndex: index + 1,
     left: `${attr.x}px`,
-    top: `${attr.y}px`,
+    top: `${attr.y}px`
   }
   return componentStyle
 }

@@ -37,7 +37,9 @@ import {
   Flash as FlashIcon,
   SettingsSharp as SettingsSharpIcon,
   Home as HomeIcon,
-  Card as CardIcon
+  Card as CardIcon,
+  ChevronUp as ChevronUpIcon,
+  ChevronDown as ChevronDownIcon
 } from '@vicons/ionicons5'
 
 import {
@@ -48,7 +50,9 @@ import {
   Store as StoreIcon,
   Devices as DevicesIcon,
   ObjectStorage as ObjectStorageIcon,
-  DicomOverlay as DicomOverlayIcon
+  DicomOverlay as DicomOverlayIcon,
+  UpToTop as UpToTopIcon,
+  DownToBottom as DownToBottomIcon,
 } from '@vicons/carbon'
 
 const ionicons5 = {
@@ -128,7 +132,11 @@ const ionicons5 = {
   // 回退
   HomeIcon,
   // 控件(卡片)
-  CardIcon
+  CardIcon,
+  // 上移
+  ChevronUpIcon,
+  // 下移
+  ChevronDownIcon,
 }
 
 const carbon = {
@@ -147,7 +155,11 @@ const carbon = {
   // 我的模板
   ObjectStorageIcon,
   // 键盘
-  DicomOverlayIcon
+  DicomOverlayIcon,
+  // 置顶
+  UpToTopIcon,
+  // 置底
+  DownToBottomIcon
 }
 
 // https://www.xicons.org/#/ 还有很多

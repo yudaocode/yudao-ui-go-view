@@ -82,24 +82,69 @@ export const useChartEditStoreStore = defineStore({
     setTargetSelectChart(selectId?:TargetChartType["selectId"]) {
       this.targetChart.selectId = selectId
     },
+    // * 找到目标 id 数据下标位置
+    fetchTargetIndex(): number {
+      const index = this.componentList.findIndex(e => e.id === this.getTargetChart.selectId)
+      if (index === -1) {
+        window['$message'].success(`操作失败，无法找到此元素`)
+        loadingError()
+      }
+      return index
+    },
     // * 新增组件列表
-    addComponentList<T>(chartData: T): void {
+    addComponentList<T>(chartData: T, isEnd = false): void {
+      if(isEnd) {
+        this.componentList.unshift(chartData)
+        return
+      }
       this.componentList.push(chartData)
     },
     // * 删除组件列表
     removeComponentList(): void {
-      loadingStart()
       try {
-        const i = this.componentList.findIndex(e => e.id === this.getTargetChart.selectId)
-        if (i !== -1) {
-          this.componentList.splice(i, 1)
+        loadingStart()
+        const index  = this.fetchTargetIndex()
+        if (index !== -1) {
+          this.componentList.splice(index, 1)
           loadingFinish()
           return
         }
-        window['$message'].success(`图表删除失败，无法找到此元素`)
       } catch(value) {
         loadingError()
       }
+    },
+    // * 移动数组位置到两端
+    setBothEnds(isEnd = false): void {
+      try {
+        loadingStart()
+        const length = this.getComponentList.length
+        if(length < 2) return
+
+        const index  = this.fetchTargetIndex()
+        if (index !== -1) {
+
+          // 置底排除最底层, 置顶排除最顶层
+          if((isEnd && index === 0) || (!isEnd && index === length - 1 )) { 
+            loadingFinish()
+            return
+          }
+          // 插入两端
+          this.addComponentList(this.getComponentList[index], isEnd)
+          this.getComponentList.splice(isEnd ? index + 1: index, 1)
+          loadingFinish()
+          return
+        }
+      } catch(value) {
+        loadingError()
+      }
+    },
+    // * 置顶
+    setTop(): void {
+      this.setBothEnds()
+    },
+    // * 置底
+    setBottom(): void {
+      this.setBothEnds(true)
     },
     // * 设置页面样式属性
     setPageStyle<T extends keyof CSSStyleDeclaration>(

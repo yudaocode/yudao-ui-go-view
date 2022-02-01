@@ -1,19 +1,75 @@
 import { ref, nextTick } from 'vue'
 import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { CreateComponentType } from '@/packages/index.d'
-import { loadingError } from '@/utils'
+import { renderIcon, loadingError } from '@/utils'
+import { icon } from '@/plugins'
+
+const { CopyIcon, TrashIcon, ChevronDownIcon, ChevronUpIcon } = icon.ionicons5
+const { UpToTopIcon, DownToBottomIcon } = icon.carbon
 
 const chartEditStore = useChartEditStoreStore()
 
 enum MenuEnum {
-  DELETE = 'delete'
+  DELETE = 'delete',
+  COPY = 'copy',
+  TOP = 'top',
+  BOTTOM = 'bottom',
+  UP = 'up',
+  DOWN = 'down'
 }
 
 export interface MenuOptionsItemType {
-  label: string
-  key: MenuEnum
-  fnHandle: Function
+  type?: string
+  label?: string
+  key: MenuEnum | string
+  icon?: Function
+  fnHandle?: Function
 }
+
+// * 默认选项
+const defaultOptions: MenuOptionsItemType[] = [
+  {
+    label: '删除',
+    key: MenuEnum.DELETE,
+    icon: renderIcon(TrashIcon),
+    fnHandle: chartEditStore.removeComponentList
+  },
+  {
+    label: '复制',
+    key: MenuEnum.COPY,
+    icon: renderIcon(CopyIcon),
+    fnHandle: () => {}
+  },
+  {
+    type: 'divider',
+    key: 'd1'
+  },
+  {
+    label: '置顶',
+    key: MenuEnum.TOP,
+    icon: renderIcon(UpToTopIcon),
+    fnHandle: chartEditStore.setTop
+  },
+  {
+    label: '置底',
+    key: MenuEnum.BOTTOM,
+    icon: renderIcon(DownToBottomIcon),
+    fnHandle: chartEditStore.setBottom
+  },
+  {
+    label: '上移一层',
+    key: MenuEnum.UP,
+    icon: renderIcon(ChevronUpIcon),
+    fnHandle: () => {}
+  },
+  {
+    label: '下移一层',
+    key: MenuEnum.DOWN,
+    icon: renderIcon(ChevronDownIcon),
+    fnHandle: () => {}
+  }
+]
+
 /**
  * * 右键hook
  * @param menuOption
@@ -27,15 +83,6 @@ export const useContextMenu = (menuOption?: {
 }) => {
   const selfOptions = menuOption?.selfOptions
   const optionsHandle = menuOption?.optionsHandle
-
-  // * 默认选项
-  const defaultOptions: MenuOptionsItemType[] = [
-    {
-      label: '删除',
-      key: MenuEnum.DELETE,
-      fnHandle: chartEditStore.removeComponentList
-    }
-  ]
 
   // * 右键选项
   const menuOptions: MenuOptionsItemType[] = selfOptions || defaultOptions
@@ -56,7 +103,7 @@ export const useContextMenu = (menuOption?: {
   }
 
   // * 失焦
-  const onClickoutside = (e: MouseEvent) => {
+  const onClickoutside = () => {
     chartEditStore.setRightMenuShow(false)
   }
 
@@ -66,8 +113,16 @@ export const useContextMenu = (menuOption?: {
     const targetItem: MenuOptionsItemType[] = menuOptions.filter(
       (e: MenuOptionsItemType) => e.key === key
     )
-    if (!targetItem) loadingError()
-    if (targetItem.length) targetItem.pop()?.fnHandle()
+
+    menuOptions.forEach((e: MenuOptionsItemType) => {
+      if (e.key === key) {
+        if (e.fnHandle) {
+          e.fnHandle()
+          return
+        }
+        if (!targetItem) loadingError()
+      }
+    })
   }
 
   return {
