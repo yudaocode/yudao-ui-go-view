@@ -1,4 +1,5 @@
 import { getUUID } from '@/utils'
+import { echartOptionProfixHandle } from '@/packages/utils/chart'
 import { BarCrossrangefig } from './index'
 import { ConfigType, CreateComponentType } from '@/packages/index.d'
 import omit from 'lodash/omit'
@@ -12,7 +13,7 @@ export default class Config implements CreateComponentType {
   public attr = { x: 0, y: 0, w: 500, h: 300 }
 
   // 图表配置项
-  public config = {
+  public option = echartOptionProfixHandle({
     backgroundColor: 'rgba(0,0,0,0)',
     tooltip: {
       trigger: 'axis',
@@ -33,7 +34,7 @@ export default class Config implements CreateComponentType {
         type: 'bar'
       }
     ]
-  }
+  })
 
   // 设置坐标
   public setPosition(x: number, y: number): void {

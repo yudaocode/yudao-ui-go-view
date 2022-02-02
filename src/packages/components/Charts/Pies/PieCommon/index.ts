@@ -5,7 +5,7 @@ import { ChatCategoryEnum, ChatCategoryEnumName } from '../../index.d'
 
 export const PieCommonConfig: ConfigType = {
   key: 'VPieCommon',
-  title: '计量图',
+  title: '饼图',
   category: ChatCategoryEnum.PIE,
   categoryName: ChatCategoryEnumName.PIE,
   package: PackagesCategoryEnum.CHARTS,

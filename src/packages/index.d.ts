@@ -18,7 +18,7 @@ export interface CreateComponentType {
   key: string
   attr: { x: number; y: number; w: number; h: number }
   chartData: ConfigType
-  config: object
+  option: object
   setPosition: Function
 }
 
