@@ -26,11 +26,11 @@ export const handleDrop = async (e: DragEvent) => {
       drayDataString
     )
     // 创建新图表组件
-    let newComponent = await createComponent(dropData)
+    let newComponent:CreateComponentType = await createComponent(dropData)
 
     newComponent.setPosition(e.offsetX - newComponent.attr.w / 2, e.offsetY - newComponent.attr.h / 2)
     chartEditStore.addComponentList(newComponent)
-
+    chartEditStore.setTargetSelectChart(newComponent.id) 
     loadingFinish()
   } catch (error) {
     loadingError()
