@@ -1,7 +1,7 @@
 import { h } from 'vue'
 import { NIcon } from 'naive-ui'
 import screenfull from 'screenfull'
-import debounce from 'lodash/debounce'
+import throttle from 'lodash/throttle'
 
 /**
  * * 生成一个不重复的ID
@@ -91,12 +91,18 @@ export const setDomAttribute = <K extends keyof CSSStyleDeclaration, V extends C
     HTMLElement.style[key] = value
   }
 }
-
+/**
+ * * 判断是否是 mac
+ * @returns boolean
+ */
+export const isMac = () => {
+  return /macintosh|mac os x/i.test(navigator.userAgent)
+}
 /**
  * * 挂载监听
  */
-export const goAddEventListener = <K extends keyof WindowEventMap>(
-  target: EventTarget,
+export const addEventListener = <K extends keyof WindowEventMap>(
+  target: HTMLElement | Document,
   type: K,
   listener: any,
   options?: boolean | AddEventListenerOptions | undefined
@@ -104,7 +110,7 @@ export const goAddEventListener = <K extends keyof WindowEventMap>(
   if (!target) return
   target.addEventListener(
     type,
-    debounce(listener, 300, {
+    throttle(listener, 300, {
       leading: true,
       trailing: false
     }),
@@ -115,10 +121,10 @@ export const goAddEventListener = <K extends keyof WindowEventMap>(
 /**
  * * 卸载监听
  */
-export const goRemoveEventListener = <K extends keyof WindowEventMap>(
-  target: EventTarget,
+export const removeEventListener = <K extends keyof WindowEventMap>(
+  target: HTMLElement | Document,
   type: K,
-  listener: EventListenerOrEventListenerObject
+  listener: any
 ) => {
   if (!target) return
   target.removeEventListener(type, listener)

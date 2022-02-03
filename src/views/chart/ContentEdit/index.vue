@@ -50,6 +50,7 @@ import { EditBottom } from './components/EditBottom'
 import { ShapeBox } from './components/ShapeBox/index'
 
 import { useLayout } from './hooks/useLayout.hook'
+import { useAddKeyboard, useRemoveKeyboard } from './hooks/useKeyboard.hook'
 import { handleDrop, handleDragOver, useMouseHandle } from './hooks/useDrop.hook'
 import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
 import { getChartEditStore } from './hooks/useStore.hook'
@@ -66,6 +67,12 @@ useLayout()
 // 点击事件
 const editRangeRef = ref<HTMLElement | null>(null)
 const { mouseenterHandle, mouseleaveHandle, mousedownHandle } = useMouseHandle()
+
+// 键盘事件
+onMounted(() => {
+  useAddKeyboard()
+})
+
 </script>
 
 <style lang="scss" scoped>

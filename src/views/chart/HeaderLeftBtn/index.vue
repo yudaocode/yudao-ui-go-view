@@ -27,6 +27,7 @@ import { icon } from '@/plugins'
 const { LayersIcon, BarChartIcon, PrismIcon, HomeIcon } = icon.ionicons5
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
 import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
+import { useRemoveKeyboard } from '../ContentEdit/hooks/useKeyboard.hook'
 
 const { setItem } = useChartLayoutStore()
 const { getLayers, getCharts, getDetails } = toRefs(useChartLayoutStore())
@@ -76,7 +77,10 @@ const goHomeHandle = () => {
   goDialog({
     message: '返回将不会保存任何操作',
     isMaskClosable: true,
-    onPositiveCallback: goHome
+    onPositiveCallback: () => {
+      goHome()
+      useRemoveKeyboard()
+    }
   })
 }
 </script>

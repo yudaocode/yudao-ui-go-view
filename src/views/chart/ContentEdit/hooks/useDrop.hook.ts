@@ -29,7 +29,7 @@ export const handleDrop = async (e: DragEvent) => {
     let newComponent:CreateComponentType = await createComponent(dropData)
 
     newComponent.setPosition(e.offsetX - newComponent.attr.w / 2, e.offsetY - newComponent.attr.h / 2)
-    chartEditStore.addComponentList(newComponent)
+    chartEditStore.addComponentList(newComponent, false, true)
     chartEditStore.setTargetSelectChart(newComponent.id) 
     loadingFinish()
   } catch (error) {

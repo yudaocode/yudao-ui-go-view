@@ -16,6 +16,7 @@ export type ConfigType = {
 export interface CreateComponentType {
   id: string
   key: string
+  rename?: string
   attr: { x: number; y: number; w: number; h: number }
   chartData: ConfigType
   option: object

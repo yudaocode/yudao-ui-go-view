@@ -39,7 +39,9 @@ import {
   Home as HomeIcon,
   Card as CardIcon,
   ChevronUp as ChevronUpIcon,
-  ChevronDown as ChevronDownIcon
+  ChevronDown as ChevronDownIcon,
+  TimeOutline as TimeOutlineIcon,
+  ClipboardOutline as ClipboardOutlineIcon
 } from '@vicons/ionicons5'
 
 import {
@@ -53,10 +55,11 @@ import {
   DicomOverlay as DicomOverlayIcon,
   UpToTop as UpToTopIcon,
   DownToBottom as DownToBottomIcon,
+  StackedMove as StackedMoveIcon
 } from '@vicons/carbon'
 
 const ionicons5 = {
-  // 帮助
+  // 帮助（问号）
   HelpOutlineIcon,
   // 添加
   DuplicateIcon,
@@ -137,6 +140,10 @@ const ionicons5 = {
   ChevronUpIcon,
   // 下移
   ChevronDownIcon,
+  // 时间
+  TimeOutlineIcon,
+  // 剪贴板
+  ClipboardOutlineIcon
 }
 
 const carbon = {
@@ -159,7 +166,9 @@ const carbon = {
   // 置顶
   UpToTopIcon,
   // 置底
-  DownToBottomIcon
+  DownToBottomIcon,
+  // 移动
+  StackedMoveIcon
 }
 
 // https://www.xicons.org/#/ 还有很多

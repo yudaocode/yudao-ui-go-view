@@ -4,7 +4,7 @@ import { CreateComponentType } from '@/packages/index.d'
 import { renderIcon, loadingError } from '@/utils'
 import { icon } from '@/plugins'
 
-const { CopyIcon, TrashIcon, ChevronDownIcon, ChevronUpIcon } = icon.ionicons5
+const { CopyIcon, ClipboardOutlineIcon, TrashIcon, ChevronDownIcon, ChevronUpIcon } = icon.ionicons5
 const { UpToTopIcon, DownToBottomIcon } = icon.carbon
 
 const chartEditStore = useChartEditStoreStore()
@@ -12,6 +12,7 @@ const chartEditStore = useChartEditStoreStore()
 enum MenuEnum {
   DELETE = 'delete',
   COPY = 'copy',
+  PARSE = 'parse',
   TOP = 'top',
   BOTTOM = 'bottom',
   UP = 'up',
@@ -32,7 +33,13 @@ const defaultOptions: MenuOptionsItemType[] = [
     label: '复制',
     key: MenuEnum.COPY,
     icon: renderIcon(CopyIcon),
-    fnHandle: () => {}
+    fnHandle: chartEditStore.setCopy
+  },
+  {
+    label: '粘贴',
+    key: MenuEnum.PARSE,
+    icon: renderIcon(ClipboardOutlineIcon),
+    fnHandle: chartEditStore.setParse
   },
   {
     type: 'divider',

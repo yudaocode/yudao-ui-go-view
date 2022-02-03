@@ -1,19 +1,17 @@
 <template>
   <div class="go-edit-bottom">
-    <n-space>
-      <n-text>
-        滤镜设置
-      </n-text>
+    <History />
+
+    <n-space class="bottom-ri">
       <!-- 快捷键提示 -->
       <n-popselect :options="shortcutKeyOptions" size="medium">
-        <n-button class="scale-btn" secondary size="mini">
-          <n-icon class="lock-icon" size="18" :depth="3">
+        <n-button class="scale-btn" quaternary size="mini">
+          <n-icon class="lock-icon" size="18" :depth="2">
             <DicomOverlayIcon />
           </n-icon>
         </n-button>
       </n-popselect>
-    </n-space>
-    <n-space class="bottom-ri">
+
       <!-- 缩放比例 -->
       <n-select
         :disabled="lockScale"
@@ -62,13 +60,14 @@
 <script setup lang="ts">
 import { reactive, ref, toRefs, watchEffect } from 'vue'
 import { icon } from '@/plugins'
+import { History } from '../History/index'
+import { useDesignStore } from '@/store/modules/designStore/designStore'
 const { LockClosedOutlineIcon, LockOpenOutlineIcon } = icon.ionicons5
 const { DicomOverlayIcon } = icon.carbon
 import {
   getChartEditStore,
   getChartEditStoreEnum
 } from '../../hooks/useStore.hook'
-import { useDesignStore } from '@/store/modules/designStore/designStore'
 
 // 全局颜色
 const designStore = useDesignStore()
@@ -141,9 +140,25 @@ const shortcutKeyOptions = [
     value: '1'
   },
   {
-    label: 'Ctrl + C 复制',
+    label: 'Delete 删除',
     value: '2'
-  }
+  },
+  {
+    label: 'Ctrl + C 复制',
+    value: '3'
+  },
+  {
+    label: 'Ctrl + X 剪切',
+    value: '4'
+  },
+  {
+    label: 'Ctrl + Z 后退',
+    value: '5'
+  },
+  {
+    label: 'Ctrl + Shift + Z 前进',
+    value: '6'
+  },
 ]
 
 // 监听 scale 变化
@@ -157,7 +172,7 @@ watchEffect(() => {
 <style lang="scss" scoped>
 @include go(edit-bottom) {
   width: 100%;
-  padding: 0 20px;
+  padding: 0 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -5,9 +5,9 @@ import { ConfigType, CreateComponentType } from '@/packages/index.d'
 import omit from 'lodash/omit'
 
 export default class Config implements CreateComponentType {
-  public id: string = getUUID()
-  public key: string = BarCommonConfig.key
-
+  public id = getUUID()
+  public key = BarCommonConfig.key
+  public rename = undefined
   public chartData: Exclude<ConfigType, ['node']> = omit(BarCommonConfig, ['node'])
 
   public attr = { x: 0, y: 0, w: 500, h: 300 }

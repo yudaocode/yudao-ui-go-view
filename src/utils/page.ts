@@ -3,7 +3,6 @@ import { ResultEnum } from '@/enums/httpEnum'
 import { ErrorPageNameMap, PageEnum } from '@/enums/pageEnum'
 import router from '@/router'
 import { docPath, giteeSourceCodePath } from '@/settings/pathConst'
-import { goDialog } from '@/utils/plugin'
 
 /**
  * * 根据名字跳转路由
@@ -139,6 +138,6 @@ export const fetchRouteParams = () => {
  * * 回到主页面
  * @param confirm
  */
-export const goHome = <T extends typeof goDialog>(confirm: boolean, params: T) => {
+export const goHome = () => {
   routerTurnByName(PageEnum.BASE_HOME_NAME)
 }

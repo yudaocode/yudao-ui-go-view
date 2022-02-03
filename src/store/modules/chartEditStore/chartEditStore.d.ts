@@ -60,6 +60,7 @@ export enum ChartEditStoreEnum {
   RIGHT_MENU_SHOW = 'rightMenuShow',
   MOUSE_POSITION = 'mousePosition',
   TARGET_CHART = 'targetChart',
+  RECORD_CHARTS = 'recordCharts',
   COMPONENT_LIST = 'componentList'
 }
 
@@ -69,5 +70,6 @@ export interface chartEditStoreType {
   [ChartEditStoreEnum.RIGHT_MENU_SHOW]: boolean
   [ChartEditStoreEnum.MOUSE_POSITION]: MousePositionType
   [ChartEditStoreEnum.TARGET_CHART]: TargetChartType
+  [ChartEditStoreEnum.RECORD_CHARTS]?: CreateComponentType | CreateComponentType[]
   [ChartEditStoreEnum.COMPONENT_LIST]: CreateComponentType[]
 }

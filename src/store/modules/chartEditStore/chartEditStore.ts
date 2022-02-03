@@ -1,13 +1,20 @@
 import { defineStore } from 'pinia'
-import debounce from 'lodash/debounce'
-import { loadingStart, loadingFinish, loadingError } from '@/utils'
+import { getUUID, loadingStart, loadingFinish, loadingError } from '@/utils'
 import { CreateComponentType } from '@/packages/index.d'
+import debounce from 'lodash/debounce'
+import cloneDeep from 'lodash/cloneDeep'
 import {
   chartEditStoreType,
   EditCanvasType,
   MousePositionType,
   TargetChartType
 } from './chartEditStore.d'
+
+// 记录记录
+import { useChartHistoryStoreStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
+import { HistoryActionTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
+
+const chartHistoryStoreStore = useChartHistoryStoreStore()
 
 // 编辑区域内容
 export const useChartEditStoreStore = defineStore({
@@ -24,7 +31,7 @@ export const useChartEditStoreStore = defineStore({
       height: 1080,
       // 偏移量
       offset: 20,
-      // 系统控制缩放
+      // 系统控制缩放 
       scale: 1,
       // 用户控制的缩放
       userScale: 1,
@@ -45,6 +52,8 @@ export const useChartEditStoreStore = defineStore({
       hoverId: undefined,
       selectId: undefined
     },
+    // 记录临时数据（复制等）
+    recordCharts: undefined,
     // 图表数组
     componentList: []
   }),
@@ -60,6 +69,9 @@ export const useChartEditStoreStore = defineStore({
     },
     getTargetChart():TargetChartType {
       return this.targetChart
+    },
+    getRecordCharts(): CreateComponentType | CreateComponentType[] | undefined {
+      return this.recordCharts
     },
     getComponentList(): CreateComponentType[] {
       return this.componentList
@@ -82,6 +94,10 @@ export const useChartEditStoreStore = defineStore({
     setTargetSelectChart(selectId?:TargetChartType["selectId"]) {
       this.targetChart.selectId = selectId
     },
+    // * 设置记录数据
+    setRecordCharts(item: CreateComponentType | CreateComponentType[] | undefined) {
+      this.recordCharts = cloneDeep(item)
+    },
     // * 找到目标 id 数据下标位置
     fetchTargetIndex(): number {
       const index = this.componentList.findIndex(e => e.id === this.getTargetChart.selectId)
@@ -91,8 +107,17 @@ export const useChartEditStoreStore = defineStore({
       }
       return index
     },
-    // * 新增组件列表
-    addComponentList(chartData: CreateComponentType, isEnd = false): void {
+    /**
+     * * 新增组件列表
+     * @param chartData 新图表实例
+     * @param isEnd 是否末端插入
+     * @param isHistory 是否进行记录
+     * @returns 
+     */
+    addComponentList(chartData: CreateComponentType, isEnd = false, isHistory = false): void {
+      if(isHistory) {
+        chartHistoryStoreStore.createAddHistory(chartData)
+      }
       if(isEnd) {
         this.componentList.unshift(chartData)
         return
@@ -105,6 +130,7 @@ export const useChartEditStoreStore = defineStore({
         loadingStart()
         const index  = this.fetchTargetIndex()
         if (index !== -1) {
+          chartHistoryStoreStore.createDeleteHistory(this.getComponentList[index])
           this.componentList.splice(index, 1)
           loadingFinish()
           return
@@ -117,6 +143,16 @@ export const useChartEditStoreStore = defineStore({
     updateComponentList(index: number, newData: CreateComponentType) {
       if(index < 1 && index > this.getComponentList.length) return
       this.componentList[index] = newData
+    },
+    // * 设置页面样式属性
+    setPageStyle<T extends keyof CSSStyleDeclaration>(
+      key: T,
+      value: any
+    ): void {
+      const dom = this.getEditCanvas.editContentDom
+      if (dom) {
+        dom.style[key] = value
+      }
     },
     // * 移动组件列表位置到两端
     setBothEnds(isEnd = false): void {
@@ -136,6 +172,7 @@ export const useChartEditStoreStore = defineStore({
             return
           }
           // 插入两端
+          chartHistoryStoreStore.createLaryerHistory(this.getComponentList[index])
           this.addComponentList(this.getComponentList[index], isEnd)
           this.getComponentList.splice(isEnd ? index + 1: index, 1)
           loadingFinish()
@@ -152,16 +189,6 @@ export const useChartEditStoreStore = defineStore({
     // * 置底
     setBottom(): void {
       this.setBothEnds(true)
-    },
-    // * 设置页面样式属性
-    setPageStyle<T extends keyof CSSStyleDeclaration>(
-      key: T,
-      value: any
-    ): void {
-      const dom = this.getEditCanvas.editContentDom
-      if (dom) {
-        dom.style[key] = value
-      }
     },
     // * 互换图表位置
     wrap(isDown = false) {
@@ -186,8 +213,10 @@ export const useChartEditStoreStore = defineStore({
           const targetItem = this.getComponentList[index]
           const swapItem = this.getComponentList[swapIndex]
           
+          chartHistoryStoreStore.createLaryerHistory(targetItem)
           this.updateComponentList(index, swapItem)
           this.updateComponentList(swapIndex, targetItem)
+
           loadingFinish()
           return
         }
@@ -203,6 +232,57 @@ export const useChartEditStoreStore = defineStore({
     setDown() {
       this.wrap(true)
     },
+    // * 复制
+    setCopy() {
+      try {
+        loadingStart()
+        const index:number  = this.fetchTargetIndex()
+        if (index !== -1) {
+          this.setRecordCharts(this.getComponentList[index])
+          window['$message'].success('复制成功！')
+          loadingFinish()
+        }
+      } catch(value) {
+        loadingError()
+      }
+    },
+    // * 粘贴
+    setParse() {
+      try {
+        loadingStart()
+        const recordCharts = this.getRecordCharts
+        if (recordCharts === undefined) {
+          loadingFinish()
+          return
+        }
+        const parseHandle = (e: CreateComponentType) => {
+          e = cloneDeep(e)
+          // 生成新 id
+          e.id = getUUID()
+          // 偏移位置
+          e.attr.x = e.attr.x + 30
+          e.attr.y = e.attr.y + 30
+          return e
+        }
+        if (Array.isArray(recordCharts)) {
+          recordCharts.forEach((e: CreateComponentType) => {
+            console.log(parseHandle(e));
+            this.addComponentList(parseHandle(e), undefined, true)
+          })
+          loadingFinish()
+          return
+        }
+        this.addComponentList(parseHandle(recordCharts), undefined, true)
+        loadingFinish()
+      } catch(value) { 
+        loadingError()
+      }
+    },
+    // * 设置鼠标位置
+    setMousePosition(x: number, y: number): void {
+      this.mousePosition.x = x
+      this.mousePosition.y = y
+    },
     // * 设置页面变换时候的 Class
     setPageSizeClass(): void {
       const dom = this.getEditCanvas.editContentDom
@@ -217,11 +297,6 @@ export const useChartEditStoreStore = defineStore({
     setPageSize(): void {
       this.setPageStyle('height', `${this.getEditCanvas.height}px`)
       this.setPageStyle('width', `${this.getEditCanvas.width}px`)
-    },
-    // * 设置鼠标位置
-    setMousePosition(x: number, y: number): void {
-      this.mousePosition.x = x
-      this.mousePosition.y = y
     },
     // * 计算缩放
     computedScale() {

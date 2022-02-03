@@ -8,9 +8,7 @@ const chartEditStore = useChartEditStoreStore()
 
 const { GO_CHART_LAYOUT_STORE } = StorageEnum
 
-const storageChartLayout: ChartLayoutType = getLocalStorage(
-  GO_CHART_LAYOUT_STORE
-)
+const storageChartLayout: ChartLayoutType = getLocalStorage( GO_CHART_LAYOUT_STORE)
 
 // 编辑区域布局和静态设置
 export const useChartLayoutStore = defineStore({
