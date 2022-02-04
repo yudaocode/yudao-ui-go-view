@@ -7,12 +7,13 @@ import {
   chartEditStoreType,
   EditCanvasType,
   MousePositionType,
-  TargetChartType
+  TargetChartType,
+  RecordChartType
 } from './chartEditStore.d'
 
 // 记录记录
 import { useChartHistoryStoreStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
-import { HistoryActionTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
+import { HistoryActionTypeEnum, HistoryItemType } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
 
 const chartHistoryStoreStore = useChartHistoryStoreStore()
 
@@ -53,7 +54,7 @@ export const useChartEditStoreStore = defineStore({
       selectId: undefined
     },
     // 记录临时数据（复制等）
-    recordCharts: undefined,
+    recordChart: undefined,
     // 图表数组
     componentList: []
   }),
@@ -70,8 +71,8 @@ export const useChartEditStoreStore = defineStore({
     getTargetChart():TargetChartType {
       return this.targetChart
     },
-    getRecordCharts(): CreateComponentType | CreateComponentType[] | undefined {
-      return this.recordCharts
+    getRecordChart(): RecordChartType | undefined {
+      return this.recordChart
     },
     getComponentList(): CreateComponentType[] {
       return this.componentList
@@ -95,14 +96,13 @@ export const useChartEditStoreStore = defineStore({
       this.targetChart.selectId = selectId
     },
     // * 设置记录数据
-    setRecordCharts(item: CreateComponentType | CreateComponentType[] | undefined) {
-      this.recordCharts = cloneDeep(item)
+    setRecordChart(item: RecordChartType | undefined) {
+      this.recordChart = cloneDeep(item)
     },
     // * 找到目标 id 数据下标位置
     fetchTargetIndex(): number {
       const index = this.componentList.findIndex(e => e.id === this.getTargetChart.selectId)
       if (index === -1) {
-        window['$message'].success(`操作失败，无法找到此元素`)
         loadingError()
       }
       return index
@@ -202,7 +202,6 @@ export const useChartEditStoreStore = defineStore({
 
         const index:number  = this.fetchTargetIndex()
         if (index !== -1) {
-
           // 下移排除最底层, 上移排除最顶层
           if ((isDown && index === 0) || (!isDown && index === length - 1)) {
             loadingFinish()
@@ -233,24 +232,32 @@ export const useChartEditStoreStore = defineStore({
       this.wrap(true)
     },
     // * 复制
-    setCopy() {
+    setCopy(isCut = false) {
       try {
         loadingStart()
         const index:number  = this.fetchTargetIndex()
         if (index !== -1) {
-          this.setRecordCharts(this.getComponentList[index])
-          window['$message'].success('复制成功！')
+          const copyData:RecordChartType = {
+           charts :this.getComponentList[index],
+           type: isCut ? HistoryActionTypeEnum.CUT : HistoryActionTypeEnum.COPY
+          }
+          this.setRecordChart(copyData)
+          window['$message'].success(isCut ? '剪切成功' : '复制成功！')
           loadingFinish()
         }
       } catch(value) {
         loadingError()
       }
     },
+    // * 剪切
+    setCut() {
+      this.setCopy(true)
+    },
     // * 粘贴
     setParse() {
       try {
         loadingStart()
-        const recordCharts = this.getRecordCharts
+        const recordCharts = this.getRecordChart
         if (recordCharts === undefined) {
           loadingFinish()
           return
@@ -264,20 +271,90 @@ export const useChartEditStoreStore = defineStore({
           e.attr.y = e.attr.y + 30
           return e
         }
-        if (Array.isArray(recordCharts)) {
-          recordCharts.forEach((e: CreateComponentType) => {
-            console.log(parseHandle(e));
+        const isCut = recordCharts.type === HistoryActionTypeEnum.CUT
+        // 多项
+        if (Array.isArray(recordCharts.charts)) {
+          recordCharts.charts.forEach((e: CreateComponentType) => {
             this.addComponentList(parseHandle(e), undefined, true)
+            // 剪切需删除原数据
+            if (isCut) {
+              this.setTargetSelectChart(e.id)
+              this.removeComponentList()
+            }
           })
+          if (isCut) this.setRecordChart(undefined)
           loadingFinish()
           return
         }
-        this.addComponentList(parseHandle(recordCharts), undefined, true)
+        // 单项
+        this.addComponentList(parseHandle(recordCharts.charts), undefined, true)
+        if(isCut) {
+          this.setTargetSelectChart(recordCharts.charts.id)
+          this.removeComponentList()
+          this.setRecordChart(undefined)
+        }
         loadingFinish()
       } catch(value) { 
         loadingError()
       }
     },
+    // 撤回处理
+    setBackAndSetForwardHandle(item: HistoryItemType, isForward = false) {
+      // 前进
+      if (isForward) {
+        return
+      }
+      console.log(item);
+    },
+    // * 撤回
+    setBack() {
+      try {
+        loadingStart()
+        console.log('撤回');
+        const targetData = chartHistoryStoreStore.backAction()
+        if (!targetData) {
+          loadingFinish()
+          return
+        }
+        if (Array.isArray(targetData)) {
+          targetData.forEach((e: HistoryItemType) => {
+            this.setBackAndSetForwardHandle(e)
+          })
+          loadingFinish()
+          return 
+        }
+        this.setBackAndSetForwardHandle(targetData)
+        loadingFinish()
+
+      } catch(value) { 
+        loadingError()
+      }
+    },
+    // * 前进
+    setForward() {
+      try {
+        loadingStart()
+        console.log('前进');
+        const targetData = chartHistoryStoreStore.forwardAction()
+        if (!targetData) {
+          loadingFinish()
+          return
+        }
+        if (Array.isArray(targetData)) {
+          targetData.forEach((e: HistoryItemType) => {
+            this.setBackAndSetForwardHandle(e, true)
+          })
+          loadingFinish()
+          return 
+        }
+        this.setBackAndSetForwardHandle(targetData, true)
+        loadingFinish()
+
+      } catch(value) { 
+        loadingError()
+      }
+    },
+    // ----------------
     // * 设置鼠标位置
     setMousePosition(x: number, y: number): void {
       this.mousePosition.x = x

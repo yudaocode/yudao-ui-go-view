@@ -41,7 +41,8 @@ import {
   ChevronUp as ChevronUpIcon,
   ChevronDown as ChevronDownIcon,
   TimeOutline as TimeOutlineIcon,
-  ClipboardOutline as ClipboardOutlineIcon
+  ClipboardOutline as ClipboardOutlineIcon,
+  Cut as CutIcon
 } from '@vicons/ionicons5'
 
 import {
@@ -143,7 +144,9 @@ const ionicons5 = {
   // 时间
   TimeOutlineIcon,
   // 剪贴板
-  ClipboardOutlineIcon
+  ClipboardOutlineIcon,
+  // 剪贴
+  CutIcon
 }
 
 const carbon = {

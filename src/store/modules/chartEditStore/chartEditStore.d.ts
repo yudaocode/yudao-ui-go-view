@@ -1,4 +1,5 @@
 import { CreateComponentType } from '@/packages/index.d'
+import { HistoryActionTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
 
 // 编辑画布属性
 export enum EditCanvasTypeEnum {
@@ -13,6 +14,7 @@ export enum EditCanvasTypeEnum {
   BACKGROUND = 'background'
 }
 
+// 编辑区域
 export type EditCanvasType = {
   // 编辑区域 DOM
   [EditCanvasTypeEnum.EDIT_LAYOUT_DOM]: HTMLElement | null
@@ -53,6 +55,12 @@ export type TargetChartType = {
   selectId?: string
 }
 
+// 数据记录
+export type RecordChartType = {
+  charts: CreateComponentType | CreateComponentType[]
+  type: HistoryActionTypeEnum.CUT | HistoryActionTypeEnum.COPY
+}
+
 // Store 枚举
 export enum ChartEditStoreEnum {
   EDIT_RANGE = 'editRange',
@@ -60,7 +68,7 @@ export enum ChartEditStoreEnum {
   RIGHT_MENU_SHOW = 'rightMenuShow',
   MOUSE_POSITION = 'mousePosition',
   TARGET_CHART = 'targetChart',
-  RECORD_CHARTS = 'recordCharts',
+  RECORD_CHART = 'recordChart',
   COMPONENT_LIST = 'componentList'
 }
 
@@ -70,6 +78,6 @@ export interface chartEditStoreType {
   [ChartEditStoreEnum.RIGHT_MENU_SHOW]: boolean
   [ChartEditStoreEnum.MOUSE_POSITION]: MousePositionType
   [ChartEditStoreEnum.TARGET_CHART]: TargetChartType
-  [ChartEditStoreEnum.RECORD_CHARTS]?: CreateComponentType | CreateComponentType[]
+  [ChartEditStoreEnum.RECORD_CHART]?: RecordChartType
   [ChartEditStoreEnum.COMPONENT_LIST]: CreateComponentType[]
 }

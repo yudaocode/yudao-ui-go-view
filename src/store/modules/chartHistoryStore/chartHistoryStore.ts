@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { CreateComponentType } from '@/packages/index.d'
 import { ChartLayoutType } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
+import { loadingStart, loadingFinish, loadingError } from '@/utils'
 import {
   HistoryStackEnum,
   HistoryStackItemEnum,
@@ -47,9 +48,13 @@ export const useChartHistoryStoreStore = defineStore({
       this.createStackItem(canvas, HistoryActionTypeEnum.ADD, HistoryTargetTypeEnum.CANVAS)
     },
     // * 推入记录栈
-    pushBackStackItem(item: HistoryItemType | Array<HistoryItemType>): void {
+    pushBackStackItem(item: HistoryItemType | Array<HistoryItemType>, notClear = false): void {
       if (item instanceof Array) this.backStack = [...this.backStack, ...item]
       else this.backStack.push(item)
+
+      // 新动作需清空前进栈
+      if(notClear) return
+      this.clearForwardStack()
     },
     // * 推入前进栈
     pushForwardStack(item: HistoryItemType | Array<HistoryItemType>): void {
@@ -75,6 +80,51 @@ export const useChartHistoryStoreStore = defineStore({
       }
       if (this.forwardStack.length > 0) {
         return this.forwardStack.pop()
+      }
+    },
+    // * 清空前进栈
+    clearForwardStack() {
+      this.forwardStack = []
+    },
+    // * 撤回
+    backAction() {
+      try {
+        loadingStart()
+        // 排除画布初始化
+        if (this.getBackStack.length > 1) {
+          const targetData = this.popBackStackItem()
+          if (!targetData) {
+            loadingFinish()
+            return
+          } 
+          // 移除记录到前进堆
+          this.pushForwardStack(targetData)
+          loadingFinish()
+          return targetData
+        }
+        loadingFinish()
+      } catch (error) {
+        loadingError()
+      }
+    },
+    // * 前进
+    forwardAction() {
+      try {
+        loadingStart()
+        if (this.getForwardStack.length) {
+          const targetData = this.popForwardStack()
+          if (!targetData) {
+            loadingFinish()
+            return
+          } 
+          // 放入后退栈
+          this.pushBackStackItem(targetData, true)
+          loadingFinish()
+          return targetData
+        }
+        loadingFinish()
+      } catch (error) {
+        loadingError()
       }
     },
     // * 新增组件记录

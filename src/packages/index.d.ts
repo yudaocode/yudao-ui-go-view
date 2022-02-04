@@ -13,14 +13,16 @@ export type ConfigType = {
 }
 
 // 组件实例类
-export interface CreateComponentType {
+export interface PublicConfigType {
   id: string
-  key: string
   rename?: string
-  attr: { x: number; y: number; w: number; h: number }
+  attr: { x: number; y: number; w: number; h: number; zIndex: number }
+  setPosition: Function
+}
+export interface CreateComponentType extends PublicConfigType {
+  key: string
   chartData: ConfigType
   option: object
-  setPosition: Function
 }
 
 // 包分类枚举

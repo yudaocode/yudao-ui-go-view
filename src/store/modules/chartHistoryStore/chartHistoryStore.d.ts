@@ -11,6 +11,10 @@ export enum HistoryActionTypeEnum {
   UPDATE = 'update',
   // 移动
   MOVE = 'move',
+  // 复制
+  COPY = 'copy',
+  // 剪切
+  CUT = 'cut',
   // 粘贴
   PASTE = 'paste',
   // 改变层级
