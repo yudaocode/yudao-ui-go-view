@@ -75,7 +75,13 @@ const iconHandle = (e: HistoryItemType) => {
       return renderIcon(TrashIcon)
     case HistoryActionTypeEnum.PASTE:
       return renderIcon(CopyIcon)
-    case HistoryActionTypeEnum.LARYER:
+    case HistoryActionTypeEnum.TOP:
+        return renderIcon(LayersIcon)
+    case HistoryActionTypeEnum.BOTTOM:
+      return renderIcon(LayersIcon)
+    case HistoryActionTypeEnum.UP:
+      return renderIcon(LayersIcon)
+    case HistoryActionTypeEnum.DOWN:
       return renderIcon(LayersIcon)
     case HistoryActionTypeEnum.MOVE:
       return renderIcon(StackedMoveIcon)

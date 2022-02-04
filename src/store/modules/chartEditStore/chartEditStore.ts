@@ -13,7 +13,7 @@ import {
 
 // 记录记录
 import { useChartHistoryStoreStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
-import { HistoryActionTypeEnum, HistoryItemType } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
+import { HistoryActionTypeEnum, HistoryItemType, HistoryTargetTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
 
 const chartHistoryStoreStore = useChartHistoryStoreStore()
 
@@ -115,22 +115,22 @@ export const useChartEditStoreStore = defineStore({
      * @returns
      */
     addComponentList(chartData: CreateComponentType, isEnd = false, isHistory = false): void {
-      if(isHistory) {
+      if (isHistory) {
         chartHistoryStoreStore.createAddHistory(chartData)
       }
-      if(isEnd) {
+      if (isEnd) {
         this.componentList.unshift(chartData)
         return
       }
       this.componentList.push(chartData)
     },
     // * 删除组件列表
-    removeComponentList(): void {
+    removeComponentList(isHistory = true): void {
       try {
         loadingStart()
         const index  = this.fetchTargetIndex()
         if (index !== -1) {
-          chartHistoryStoreStore.createDeleteHistory(this.getComponentList[index])
+          isHistory ? chartHistoryStoreStore.createDeleteHistory(this.getComponentList[index]) : undefined
           this.componentList.splice(index, 1)
           loadingFinish()
           return
@@ -141,7 +141,7 @@ export const useChartEditStoreStore = defineStore({
     },
     // * 更新组件列表某一项的值
     updateComponentList(index: number, newData: CreateComponentType) {
-      if(index < 1 && index > this.getComponentList.length) return
+      if (index < 1 && index > this.getComponentList.length) return
       this.componentList[index] = newData
     },
     // * 设置页面样式属性
@@ -155,25 +155,41 @@ export const useChartEditStoreStore = defineStore({
       }
     },
     // * 移动组件列表位置到两端
-    setBothEnds(isEnd = false): void {
+    setBothEnds(isEnd = false, isHistory = true): void {
       try {
         loadingStart()
         const length = this.getComponentList.length
-        if(length < 2) {
+        if (length < 2) {
           loadingFinish()
           return
         }
 
         const index  = this.fetchTargetIndex()
+        const targetData = this.getComponentList[index]
         if (index !== -1) {
           // 置底排除最底层, 置顶排除最顶层
           if ((isEnd && index === 0) || (!isEnd && index === length - 1 )) {
             loadingFinish()
             return
           }
+
+          // 记录原有位置
+          const setIndex = (t:CreateComponentType, i:number) => {
+            const temp = cloneDeep(t)
+            temp.attr.zIndex = i
+            return temp
+          }
+
+          // 历史记录
+          if (isHistory) {
+            chartHistoryStoreStore.createLaryerHistory(
+              setIndex(targetData, index),
+              isEnd ? HistoryActionTypeEnum.BOTTOM : HistoryActionTypeEnum.TOP
+            )
+          }
+
           // 插入两端
-          chartHistoryStoreStore.createLaryerHistory(this.getComponentList[index])
-          this.addComponentList(this.getComponentList[index], isEnd)
+          this.addComponentList(targetData, isEnd)
           this.getComponentList.splice(isEnd ? index + 1: index, 1)
           loadingFinish()
           return
@@ -183,15 +199,15 @@ export const useChartEditStoreStore = defineStore({
       }
     },
     // * 置顶
-    setTop(): void {
-      this.setBothEnds()
+    setTop(isHistory = true): void {
+      this.setBothEnds(false, isHistory)
     },
     // * 置底
-    setBottom(): void {
-      this.setBothEnds(true)
+    setBottom(isHistory = true): void {
+      this.setBothEnds(true, isHistory)
     },
     // * 互换图表位置
-    wrap(isDown = false) {
+    wrap(isDown = false, isHistory = true) {
       try {
         loadingStart()
         const length = this.getComponentList.length
@@ -212,10 +228,15 @@ export const useChartEditStoreStore = defineStore({
           const targetItem = this.getComponentList[index]
           const swapItem = this.getComponentList[swapIndex]
 
-          chartHistoryStoreStore.createLaryerHistory(targetItem)
+          // 历史记录
+          if (isHistory) {
+            chartHistoryStoreStore.createLaryerHistory(
+              targetItem,
+              isDown ? HistoryActionTypeEnum.DOWN : HistoryActionTypeEnum.UP
+            )
+          }
           this.updateComponentList(index, swapItem)
           this.updateComponentList(swapIndex, targetItem)
-
           loadingFinish()
           return
         }
@@ -224,12 +245,12 @@ export const useChartEditStoreStore = defineStore({
       }
     },
     // * 上移
-    setUp() {
-      this.wrap()
+    setUp(isHistory = true) {
+      this.wrap(false, isHistory)
     },
     // * 下移
-    setDown() {
-      this.wrap(true)
+    setDown(isHistory = true) {
+      this.wrap(true, isHistory)
     },
     // * 复制
     setCopy(isCut = false) {
@@ -279,7 +300,7 @@ export const useChartEditStoreStore = defineStore({
             // 剪切需删除原数据
             if (isCut) {
               this.setTargetSelectChart(e.id)
-              this.removeComponentList()
+              this.removeComponentList(true)
             }
           })
           if (isCut) this.setRecordChart(undefined)
@@ -288,7 +309,7 @@ export const useChartEditStoreStore = defineStore({
         }
         // 单项
         this.addComponentList(parseHandle(recordCharts.charts), undefined, true)
-        if(isCut) {
+        if (isCut) {
           this.setTargetSelectChart(recordCharts.charts.id)
           this.removeComponentList()
           this.setRecordChart(undefined)
@@ -298,19 +319,62 @@ export const useChartEditStoreStore = defineStore({
         loadingError()
       }
     },
-    // 撤回处理
+    // * 撤回/前进 目标处理
     setBackAndSetForwardHandle(item: HistoryItemType, isForward = false) {
-      // 前进
-      if (isForward) {
+      // 处理画布
+      if (item.targetType === HistoryTargetTypeEnum.CANVAS) {
+        this.editCanvas = item.historyData as EditCanvasType
         return
       }
-      console.log(item);
+
+      const historyData = item.historyData as CreateComponentType
+
+      // 处理新增类型
+      const isAdd = item.actionType === HistoryActionTypeEnum.ADD
+      const isDel = item.actionType === HistoryActionTypeEnum.DELETE
+      this.setTargetSelectChart(historyData.id)
+      if (isAdd || isDel) {
+        if ((isAdd && isForward) || (isDel && !isForward)) {
+          this.addComponentList(historyData)
+          return  
+        }
+        this.removeComponentList(false)
+        return
+      }
+
+      // 处理层级
+      const isTop = item.actionType === HistoryActionTypeEnum.TOP
+      const isBottom = item.actionType === HistoryActionTypeEnum.BOTTOM
+      if (isTop || isBottom) {
+        if (!isForward) {
+          // 插入到原有位置
+          if (isTop) this.getComponentList.pop()
+          if (isBottom) this.getComponentList.shift()
+          this.getComponentList.splice(historyData.attr.zIndex, 0, historyData)
+          return
+        }
+        if (isTop) this.setTop(false)
+        if (isBottom) this.setBottom(false)
+      }
+
+      const isUp = item.actionType === HistoryActionTypeEnum.UP
+      const isDown = item.actionType === HistoryActionTypeEnum.DOWN
+      if (isUp || isDown) {
+        if ((isUp && isForward) || (isDown && !isForward)) {
+          this.setUp(false)
+          return
+        }
+        this.setDown(false)
+        return
+      }
+
+      // 处理内容修改
+      this.getComponentList[this.fetchTargetIndex()] = item.historyData as CreateComponentType
     },
     // * 撤回
     setBack() {
       try {
         loadingStart()
-        console.log('撤回');
         const targetData = chartHistoryStoreStore.backAction()
         if (!targetData) {
           loadingFinish()
@@ -334,7 +398,6 @@ export const useChartEditStoreStore = defineStore({
     setForward() {
       try {
         loadingStart()
-        console.log('前进');
         const targetData = chartHistoryStoreStore.forwardAction()
         if (!targetData) {
           loadingFinish()

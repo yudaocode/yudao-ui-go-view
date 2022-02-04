@@ -1,5 +1,5 @@
 import { CreateComponentType } from '@/packages/index.d'
-import { ChartLayoutType } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
+import { EditCanvasType } from '@/store/modules/chartEditStore/chartEditStore.d'
 
 // 操作类型枚举
 export enum HistoryActionTypeEnum {
@@ -17,8 +17,14 @@ export enum HistoryActionTypeEnum {
   CUT = 'cut',
   // 粘贴
   PASTE = 'paste',
-  // 改变层级
-  LARYER = 'laryer',
+  // 置顶
+  TOP = 'top',
+  // 置底
+  BOTTOM = 'bottom',
+  // 上移
+  UP = 'up',
+  // 下移
+  DOWN = 'down',
   // 选择历史记录
   SELECT_HISTORY = 'selectHistory'
 }
@@ -48,7 +54,7 @@ export interface HistoryItemType {
   [HistoryStackItemEnum.ID]: string
   [HistoryStackItemEnum.TARGET_TYPE]: HistoryTargetTypeEnum
   [HistoryStackItemEnum.ACTION_TYPE]: HistoryActionTypeEnum
-  [HistoryStackItemEnum.HISTORY_DATA]: CreateComponentType | ChartLayoutType
+  [HistoryStackItemEnum.HISTORY_DATA]: CreateComponentType | EditCanvasType
 }
 
 // 历史 Store 类型

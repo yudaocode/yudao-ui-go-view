@@ -90,7 +90,7 @@ const tabList = shallowRef([
   },
   {
     key: 'behind',
-    title: '后端数据',
+    title: '数据',
     icon: FlashIcon,
     render: Behind
   }

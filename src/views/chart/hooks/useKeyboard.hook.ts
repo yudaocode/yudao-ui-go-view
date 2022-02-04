@@ -1,5 +1,5 @@
 import { isMac, addEventListener, removeEventListener } from '@/utils'
-import { getChartEditStore } from './useStore.hook'
+import { getChartEditStore } from '../ContentEdit/hooks/useStore.hook'
 import { MenuEnum } from '@/views/chart/hooks/useContextMenu.hook'
 
 const chartEditStore = getChartEditStore()
@@ -25,6 +25,7 @@ const KeyboardHandle = (e: KeyboardEvent) => {
     chartEditStore.removeComponentList()
     return
   }
+  
   // 前进
   if (e.ctrlKey && e.shiftKey && key == keyboardValue.back) {
     chartEditStore.setForward()

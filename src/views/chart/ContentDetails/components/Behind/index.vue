@@ -1,6 +1,6 @@
 <template>
   <div>
-    后端数据
+    数据
   </div>
 </template>
 

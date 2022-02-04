@@ -27,7 +27,7 @@ import { icon } from '@/plugins'
 const { LayersIcon, BarChartIcon, PrismIcon, HomeIcon } = icon.ionicons5
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
 import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
-import { useRemoveKeyboard } from '../ContentEdit/hooks/useKeyboard.hook'
+import { useRemoveKeyboard } from '../hooks/useKeyboard.hook'
 
 const { setItem } = useChartLayoutStore()
 const { getLayers, getCharts, getDetails } = toRefs(useChartLayoutStore())

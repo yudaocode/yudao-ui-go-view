@@ -50,7 +50,7 @@ import { EditBottom } from './components/EditBottom'
 import { ShapeBox } from './components/ShapeBox/index'
 
 import { useLayout } from './hooks/useLayout.hook'
-import { useAddKeyboard, useRemoveKeyboard } from './hooks/useKeyboard.hook'
+import { useAddKeyboard } from '../hooks/useKeyboard.hook'
 import { handleDrop, handleDragOver, useMouseHandle } from './hooks/useDrop.hook'
 import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
 import { getChartEditStore } from './hooks/useStore.hook'
