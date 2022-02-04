@@ -56,7 +56,8 @@ import {
   DicomOverlay as DicomOverlayIcon,
   UpToTop as UpToTopIcon,
   DownToBottom as DownToBottomIcon,
-  StackedMove as StackedMoveIcon
+  StackedMove as StackedMoveIcon,
+  PaintBrush as PaintBrushIcon
 } from '@vicons/carbon'
 
 const ionicons5 = {
@@ -171,7 +172,9 @@ const carbon = {
   // 置底
   DownToBottomIcon,
   // 移动
-  StackedMoveIcon
+  StackedMoveIcon,
+  // 清空剪切板（刷子）
+  PaintBrushIcon
 }
 
 // https://www.xicons.org/#/ 还有很多

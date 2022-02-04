@@ -4,8 +4,15 @@ import { CreateComponentType } from '@/packages/index.d'
 import { renderIcon, loadingError } from '@/utils'
 import { icon } from '@/plugins'
 
-const { CopyIcon, CutIcon, ClipboardOutlineIcon, TrashIcon, ChevronDownIcon, ChevronUpIcon } = icon.ionicons5
-const { UpToTopIcon, DownToBottomIcon } = icon.carbon
+const {
+  CopyIcon,
+  CutIcon,
+  ClipboardOutlineIcon,
+  TrashIcon,
+  ChevronDownIcon,
+  ChevronUpIcon
+} = icon.ionicons5
+const { UpToTopIcon, DownToBottomIcon, PaintBrushIcon } = icon.carbon
 
 const chartEditStore = useChartEditStoreStore()
 
@@ -17,7 +24,8 @@ export enum MenuEnum {
   TOP = 'top',
   BOTTOM = 'bottom',
   UP = 'up',
-  DOWN = 'down'
+  DOWN = 'down',
+  CLEAR = 'clear'
 }
 
 export interface MenuOptionsItemType {
@@ -26,6 +34,8 @@ export interface MenuOptionsItemType {
   key: MenuEnum | string
   icon?: Function
   fnHandle?: Function
+  disabled?: boolean
+  hidden?: boolean
 }
 
 // * 默认选项
@@ -34,19 +44,19 @@ const defaultOptions: MenuOptionsItemType[] = [
     label: '复制',
     key: MenuEnum.COPY,
     icon: renderIcon(CopyIcon),
-    fnHandle: chartEditStore.setCopy
+    fnHandle: chartEditStore.setCopy,
   },
   {
     label: '剪切',
     key: MenuEnum.CUT,
     icon: renderIcon(CutIcon),
-    fnHandle: chartEditStore.setCut
+    fnHandle: chartEditStore.setCut,
   },
   {
     label: '粘贴',
     key: MenuEnum.PARSE,
     icon: renderIcon(ClipboardOutlineIcon),
-    fnHandle: chartEditStore.setParse
+    fnHandle: chartEditStore.setParse,
   },
   {
     type: 'divider',
@@ -56,35 +66,41 @@ const defaultOptions: MenuOptionsItemType[] = [
     label: '置顶',
     key: MenuEnum.TOP,
     icon: renderIcon(UpToTopIcon),
-    fnHandle: chartEditStore.setTop
+    fnHandle: chartEditStore.setTop,
   },
   {
     label: '置底',
     key: MenuEnum.BOTTOM,
     icon: renderIcon(DownToBottomIcon),
-    fnHandle: chartEditStore.setBottom
+    fnHandle: chartEditStore.setBottom,
   },
   {
     label: '上移一层',
     key: MenuEnum.UP,
     icon: renderIcon(ChevronUpIcon),
-    fnHandle: chartEditStore.setUp
+    fnHandle: chartEditStore.setUp,
   },
   {
     label: '下移一层',
     key: MenuEnum.DOWN,
     icon: renderIcon(ChevronDownIcon),
-    fnHandle: chartEditStore.setDown
+    fnHandle: chartEditStore.setDown,
   },
   {
     type: 'divider',
     key: 'd2'
   },
   {
+    label: '清空剪贴板',
+    key: MenuEnum.CLEAR,
+    icon: renderIcon(PaintBrushIcon),
+    fnHandle: chartEditStore.setRecordChart,
+  },
+  {
     label: '删除',
     key: MenuEnum.DELETE,
     icon: renderIcon(TrashIcon),
-    fnHandle: chartEditStore.removeComponentList
+    fnHandle: chartEditStore.removeComponentList,
   }
 ]
 
