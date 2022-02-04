@@ -32,7 +32,7 @@ export const useChartEditStoreStore = defineStore({
       height: 1080,
       // 偏移量
       offset: 20,
-      // 系统控制缩放 
+      // 系统控制缩放
       scale: 1,
       // 用户控制的缩放
       userScale: 1,
@@ -112,7 +112,7 @@ export const useChartEditStoreStore = defineStore({
      * @param chartData 新图表实例
      * @param isEnd 是否末端插入
      * @param isHistory 是否进行记录
-     * @returns 
+     * @returns
      */
     addComponentList(chartData: CreateComponentType, isEnd = false, isHistory = false): void {
       if(isHistory) {
@@ -159,7 +159,7 @@ export const useChartEditStoreStore = defineStore({
       try {
         loadingStart()
         const length = this.getComponentList.length
-        if(length < 2) { 
+        if(length < 2) {
           loadingFinish()
           return
         }
@@ -167,7 +167,7 @@ export const useChartEditStoreStore = defineStore({
         const index  = this.fetchTargetIndex()
         if (index !== -1) {
           // 置底排除最底层, 置顶排除最顶层
-          if ((isEnd && index === 0) || (!isEnd && index === length - 1 )) { 
+          if ((isEnd && index === 0) || (!isEnd && index === length - 1 )) {
             loadingFinish()
             return
           }
@@ -195,7 +195,7 @@ export const useChartEditStoreStore = defineStore({
       try {
         loadingStart()
         const length = this.getComponentList.length
-        if (length < 2) { 
+        if (length < 2) {
           loadingFinish()
           return
         }
@@ -211,7 +211,7 @@ export const useChartEditStoreStore = defineStore({
           const swapIndex = isDown ? index - 1 : index + 1
           const targetItem = this.getComponentList[index]
           const swapItem = this.getComponentList[swapIndex]
-          
+
           chartHistoryStoreStore.createLaryerHistory(targetItem)
           this.updateComponentList(index, swapItem)
           this.updateComponentList(swapIndex, targetItem)
@@ -294,7 +294,7 @@ export const useChartEditStoreStore = defineStore({
           this.setRecordChart(undefined)
         }
         loadingFinish()
-      } catch(value) { 
+      } catch(value) {
         loadingError()
       }
     },
@@ -321,12 +321,12 @@ export const useChartEditStoreStore = defineStore({
             this.setBackAndSetForwardHandle(e)
           })
           loadingFinish()
-          return 
+          return
         }
         this.setBackAndSetForwardHandle(targetData)
         loadingFinish()
 
-      } catch(value) { 
+      } catch(value) {
         loadingError()
       }
     },
@@ -345,12 +345,12 @@ export const useChartEditStoreStore = defineStore({
             this.setBackAndSetForwardHandle(e, true)
           })
           loadingFinish()
-          return 
+          return
         }
         this.setBackAndSetForwardHandle(targetData, true)
         loadingFinish()
 
-      } catch(value) { 
+      } catch(value) {
         loadingError()
       }
     },
