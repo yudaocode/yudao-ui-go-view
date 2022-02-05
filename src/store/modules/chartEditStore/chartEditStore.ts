@@ -3,17 +3,18 @@ import { getUUID, loadingStart, loadingFinish, loadingError } from '@/utils'
 import { CreateComponentType } from '@/packages/index.d'
 import debounce from 'lodash/debounce'
 import cloneDeep from 'lodash/cloneDeep'
+import { defaultTheme } from '@/settings/chartThemes/index'
+// 记录记录
+import { useChartHistoryStoreStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
+import { HistoryActionTypeEnum, HistoryItemType, HistoryTargetTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
 import {
   chartEditStoreType,
   EditCanvasType,
   MousePositionType,
   TargetChartType,
-  RecordChartType
+  RecordChartType,
+  EditCanvasConfigType
 } from './chartEditStore.d'
-
-// 记录记录
-import { useChartHistoryStoreStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
-import { HistoryActionTypeEnum, HistoryItemType, HistoryTargetTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
 
 const chartHistoryStoreStore = useChartHistoryStoreStore()
 
@@ -21,15 +22,11 @@ const chartHistoryStoreStore = useChartHistoryStoreStore()
 export const useChartEditStoreStore = defineStore({
   id: 'useChartEditStoreStore',
   state: (): chartEditStoreType => ({
-    // 编辑画布属性
+    // 画布属性
     editCanvas: {
       // 编辑区域 Dom
       editLayoutDom: null,
       editContentDom: null,
-      // 默认宽度
-      width: 1920,
-      // 默认高度
-      height: 1080,
       // 偏移量
       offset: 20,
       // 系统控制缩放
@@ -38,8 +35,27 @@ export const useChartEditStoreStore = defineStore({
       userScale: 1,
       // 锁定缩放
       lockScale: false,
+    },
+    // 画布属性（需存储给后端）
+    editCanvasConfig: {
+      // 默认宽度
+      width: 1920,
+      // 默认高度
+      height: 1080,
+      // 色相
+      hueRotate: 0,
+      // 饱和度
+      saturate: 0,
+      // 亮度
+      brightness: 100,
+      // 对比度
+      contrast: 100,
+      // 不透明度
+      unOpacity: 100,
       // 默认背景色
-      background: undefined
+      background: undefined,
+      // chart 主题色
+      chartTheme: defaultTheme || 'dark'
     },
     // 右键菜单
     rightMenuShow: false,
@@ -55,7 +71,7 @@ export const useChartEditStoreStore = defineStore({
     },
     // 记录临时数据（复制等）
     recordChart: undefined,
-    // 图表数组
+    // 图表数组（需存储给后端）
     componentList: []
   }),
   getters: {
@@ -67,6 +83,9 @@ export const useChartEditStoreStore = defineStore({
     },
     getEditCanvas(): EditCanvasType {
       return this.editCanvas
+    },
+    getEditCanvasConfig(): EditCanvasConfigType {
+      return this.editCanvasConfig
     },
     getTargetChart():TargetChartType {
       return this.targetChart
@@ -80,8 +99,11 @@ export const useChartEditStoreStore = defineStore({
   },
   actions: {
     // * 设置 editCanvas 数据项
-    setEditCanvasItem< T extends keyof EditCanvasType,  K extends EditCanvasType[T] >(key: T, value: K) {
+    setEditCanvasItem<T extends keyof EditCanvasType,  K extends EditCanvasType[T]>(key: T, value: K) {
       this.editCanvas[key] = value
+    },
+    setCanvasConfig<T extends keyof EditCanvasConfigType,  K extends EditCanvasConfigType[T]>(key: T, value: K) {
+      this.editCanvasConfig[key] = value
     },
     // * 设置右键菜单
     setRightMenuShow(value: boolean) {
@@ -435,8 +457,8 @@ export const useChartEditStoreStore = defineStore({
     },
     // * 设置页面大小
     setPageSize(): void {
-      this.setPageStyle('height', `${this.getEditCanvas.height}px`)
-      this.setPageStyle('width', `${this.getEditCanvas.width}px`)
+      this.setPageStyle('height', `${this.editCanvasConfig.height}px`)
+      this.setPageStyle('width', `${this.editCanvasConfig.width}px`)
     },
     // * 计算缩放
     computedScale() {
@@ -448,8 +470,8 @@ export const useChartEditStoreStore = defineStore({
           this.getEditCanvas.editLayoutDom.clientHeight - this.getEditCanvas.offset * 4
 
         // 用户设定大小
-        const editCanvasWidth = this.getEditCanvas.width
-        const editCanvasHeight = this.getEditCanvas.height
+        const editCanvasWidth = this.editCanvasConfig.width
+        const editCanvasHeight = this.editCanvasConfig.height
 
         // 需保持的比例
         const baseProportion = parseFloat(

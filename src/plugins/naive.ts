@@ -82,6 +82,8 @@ import {
   NCarousel,
   NScrollbar,
   NPopselect,
+  NCollapse,
+  NCollapseItem,
   NCollapseTransition
 } from 'naive-ui';
 
@@ -168,6 +170,8 @@ const naive = create({
     NCarousel,
     NScrollbar,
     NPopselect,
+    NCollapse,
+    NCollapseItem,
     NCollapseTransition
   ],
 });

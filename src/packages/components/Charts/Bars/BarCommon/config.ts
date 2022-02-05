@@ -26,6 +26,10 @@ export default class Config extends publicConfig implements CreateComponentType 
       {
         data: [120, 200, 150, 80, 70, 110, 130],
         type: 'bar'
+      },
+      {
+        data: [130, 130, 312, 268, 155, 117, 160],
+        type: 'bar'
       }
     ]
   })

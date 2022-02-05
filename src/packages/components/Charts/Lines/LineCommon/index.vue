@@ -1,5 +1,5 @@
 <template>
-  <VChart theme="dark" :option="option" autoresize />
+  <VChart :theme="themeData" :option="option" autoresize />
 </template>
 
 <script setup lang="ts">
@@ -16,6 +16,11 @@ import {
 import config from './config'
 
 const props = defineProps({
+   themeData: {
+    type: Object || String,
+    default: 'dark',
+    required: true
+  },
   chartData: {
     type: Object as PropType<config>,
     required: true

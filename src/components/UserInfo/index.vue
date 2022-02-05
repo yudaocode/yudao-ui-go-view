@@ -12,7 +12,7 @@
         round
         object-fit="cover"
         size="medium"
-        :src="imageUrl"
+        :src="Person"
         @error="errorHandle"
       />
     </div>
@@ -28,6 +28,7 @@ import { NAvatar, NText } from 'naive-ui'
 import { renderIcon } from '@/utils'
 import { openDoc, logout, renderLang } from '@/utils'
 import { SystemSet } from '@/components/SystemSet/index'
+import Person from './person.png'
 
 import { icon } from '@/plugins'
 const {
@@ -41,8 +42,6 @@ const {
 const t = window['$t']
 
 const modelShow = ref(false)
-
-const imageUrl = 'https://www.naiveui.com/assets/naivelogo.93278402.svg'
 
 // 是否失败
 const fallback = ref(false)
@@ -58,7 +57,7 @@ const renderUserInfo = () => {
       h(NAvatar, {
         round: true,
         style: 'margin-right: 12px;',
-        src: imageUrl
+        src: Person
       }),
       h('div', null, [
         h('div', null, [

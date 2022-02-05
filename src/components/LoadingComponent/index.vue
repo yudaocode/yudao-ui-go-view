@@ -1,5 +1,5 @@
 <template>
   <div>
-    <Skeleton :repeat="3" :load="true"/>
+     <n-spin size="medium" />
   </div>
 </template>

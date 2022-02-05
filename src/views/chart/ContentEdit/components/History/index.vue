@@ -17,9 +17,6 @@
         @click="handleClick"
       >
         <span class="btn-text">历史记录</span>
-        <!-- <n-icon class="lock-icon" size="18" :depth="2">
-          <TimeOutlineIcon />
-        </n-icon> -->
       </n-button>
     </n-dropdown>
 
@@ -48,7 +45,6 @@ import {
 } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
 
 const {
-  TimeOutlineIcon,
   DesktopOutlineIcon,
   PencilIcon,
   TrashIcon,

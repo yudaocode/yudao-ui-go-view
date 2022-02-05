@@ -14,10 +14,10 @@ export const keyboardValue = {
 }
 
 const KeyboardHandle = (e: KeyboardEvent) => {
-  const ismacRes = isMac()
+  const isMacRes = isMac()
 
   // 暂不支持mac，因为我没有😤👻
-  if (ismacRes) return
+  if (isMacRes) return
   const key = e.key.toLowerCase()
 
   // 删除

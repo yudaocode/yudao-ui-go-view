@@ -1,7 +1,7 @@
 <template>
   <div
     class="go-edit-range"
-    :style="useSizeStyle(size)"
+    :style="style"
     @mousedown="mousedownHandleUnStop($event, undefined)"
   >
     <slot></slot>
@@ -9,21 +9,37 @@
 </template>
 
 <script setup lang="ts">
+import { ref, computed } from 'vue'
+import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { useSizeStyle } from '../../hooks/useStyle.hook'
 import { mousedownHandleUnStop } from '../../hooks/useDrop.hook'
 
-const size = {
-  w: 1920,
-  h: 1080
-}
+const chartEditStoreStore = useChartEditStoreStore()
 
+const canvasConfig = ref(chartEditStoreStore.getEditCanvasConfig)
+
+const size = computed(() => {
+  return {
+    w: canvasConfig.value.width,
+    h: canvasConfig.value.height
+  }
+})
+
+const background = computed(() => {
+  const background = canvasConfig.value.background
+  return background ? background : '#232324'
+})
+
+const style = computed(() => {
+  // @ts-ignore
+  return { ...useSizeStyle(size.value), background: background.value }
+})
 </script>
 
 <style lang="scss" scoped>
 @include go(edit-range) {
   position: relative;
   border: 1px solid;
-  background-color: #333;
   border-radius: 15px;
   @include filter-bg-color('background-color2');
   @include fetch-theme('box-shadow');

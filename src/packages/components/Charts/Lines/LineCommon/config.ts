@@ -1,16 +1,12 @@
-import { getUUID } from '@/utils'
-import { echartOptionProfixHandle } from '@/packages/utils/chart'
+import { echartOptionProfixHandle, publicConfig } from '@/packages/utils'
 import { LineCommonConfig } from './index'
 import { ConfigType, CreateComponentType } from '@/packages/index.d'
 import omit from 'lodash/omit'
 
-export default class Config implements CreateComponentType {
-  public id: string = getUUID()
+export default class Config extends publicConfig implements CreateComponentType {
   public key: string = LineCommonConfig.key
 
   public chartData: Exclude<ConfigType, ['node']> = omit(LineCommonConfig, ['node'])
-
-  public attr = { x: 0, y: 0, w: 500, h: 300 }
 
   // 图表配置项
   public option = echartOptionProfixHandle({
@@ -24,6 +20,10 @@ export default class Config implements CreateComponentType {
     series: [
       {
         data: [150, 230, 224, 218, 135, 147, 260],
+        type: 'line'
+      },
+      {
+        data: [130, 130, 312, 268, 155, 117, 160],
         type: 'line'
       }
     ]

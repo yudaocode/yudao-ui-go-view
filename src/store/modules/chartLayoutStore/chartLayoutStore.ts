@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ChartLayoutType, ChartLayoutFilterType } from './chartLayoutStore.d'
+import { ChartLayoutType } from './chartLayoutStore.d'
 import { setLocalStorage, getLocalStorage } from '@/utils'
 import { StorageEnum } from '@/enums/storageEnum'
 import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
@@ -23,19 +23,6 @@ export const useChartLayoutStore = defineStore({
       details: true,
       // 对齐线
       alignLine: true,
-      // 滤镜
-      filter: {
-        // 色相
-        hueRotate: 0,
-        // 饱和度
-        saturate: 0,
-        // 亮度
-        brightness: 100,
-        // 对比度
-        contrast: 100,
-        // 不透明度
-        unOpacity: 100
-      }
     },
   getters: {
     getLayers(): boolean {
@@ -49,9 +36,6 @@ export const useChartLayoutStore = defineStore({
     },
     getAlignLine(): boolean {
       return this.alignLine
-    },
-    getFilter(): ChartLayoutFilterType {
-      return this.filter
     }
   },
   actions: {
@@ -62,13 +46,6 @@ export const useChartLayoutStore = defineStore({
       setTimeout(() => {
         chartEditStore.computedScale()
       }, 500)
-    },
-    setFilter<T extends keyof ChartLayoutFilterType>(
-      key: T,
-      value: boolean
-    ): void {
-      ;(this.filter as any)[key] = value
-      setLocalStorage(GO_CHART_LAYOUT_STORE, this.$state)
     }
   }
 })

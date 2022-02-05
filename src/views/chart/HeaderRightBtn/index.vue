@@ -1,6 +1,6 @@
 <template>
   <n-space class="go-mt-0">
-    <n-button v-for="item in btnList" :key="item.title" ghost>
+    <n-button v-for="item in btnList" :key="item.title" ghost size="small">
       <template #icon>
         <component :is="item.icon"></component>
       </template>

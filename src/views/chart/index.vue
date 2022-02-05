@@ -39,15 +39,13 @@ import { loadAsyncComponent } from '@/utils'
 import { HeaderPro } from '@/layout/components/HeaderPro'
 import { useContextMenu } from './hooks/useContextMenu.hook'
 import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
-
-import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
 import { useChartHistoryStoreStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
-const chartLayoutStore = useChartLayoutStore()
-const chartHistoryStoreStore = useChartHistoryStoreStore()
-// 记录初始化
-chartHistoryStoreStore.canvasInit(chartLayoutStore)
 
+const chartHistoryStoreStore = useChartHistoryStoreStore()
 const chartEditStore = useChartEditStoreStore()
+
+// 记录初始化
+chartHistoryStoreStore.canvasInit(chartEditStore.getEditCanvas)
 
 const HeaderLeftBtn = loadAsyncComponent(() =>
   import('./HeaderLeftBtn/index.vue')

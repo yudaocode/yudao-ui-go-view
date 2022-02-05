@@ -19,10 +19,6 @@ export type EditCanvasType = {
   // 编辑区域 DOM
   [EditCanvasTypeEnum.EDIT_LAYOUT_DOM]: HTMLElement | null
   [EditCanvasTypeEnum.EDIT_CONTENT_DOM]: HTMLElement | null
-  // 大屏宽度
-  [EditCanvasTypeEnum.WIDTH]: number
-  // 大屏高度
-  [EditCanvasTypeEnum.HEIGHT]: number
   // 偏移大小
   [EditCanvasTypeEnum.OFFSET]: number
   // 缩放
@@ -31,8 +27,36 @@ export type EditCanvasType = {
   [EditCanvasTypeEnum.USER_SCALE]: number
   // 锁定缩放
   [EditCanvasTypeEnum.LOCK_SCALE]: boolean
+}
+
+// 滤镜
+export enum EditCanvasFilterEnum {
+  HUE_ROTATE = 'hueRotate',
+  SATURATE = 'saturate',
+  BRIGHTNESS = 'brightness',
+  CONTRAST = 'contrast',
+  UN_OPACITY = 'unOpacity',
+  CHART_THEME = 'chartTheme',
+}
+export interface EditCanvasConfigType {
+  // 大屏宽度
+  [EditCanvasTypeEnum.WIDTH]: number
+  // 大屏高度
+  [EditCanvasTypeEnum.HEIGHT]: number
+  // 色相
+  [EditCanvasFilterEnum.HUE_ROTATE]: number
+  // 饱和度
+  [EditCanvasFilterEnum.SATURATE]: number
+  // 亮度
+  [EditCanvasFilterEnum.BRIGHTNESS]: number
+  // 对比度
+  [EditCanvasFilterEnum.CONTRAST]: number
+  // 不透明度
+  [EditCanvasFilterEnum.UN_OPACITY]: number
   // 背景色
   [EditCanvasTypeEnum.BACKGROUND]?: string
+  // 图表主题颜色
+  [EditCanvasFilterEnum.CHART_THEME]: string
 }
 
 // 坐标轴信息
@@ -65,6 +89,7 @@ export type RecordChartType = {
 export enum ChartEditStoreEnum {
   EDIT_RANGE = 'editRange',
   EDIT_CANVAS = 'editCanvas',
+  EDIT_CANVAS_CONFIG = 'editCanvasConfig',
   RIGHT_MENU_SHOW = 'rightMenuShow',
   MOUSE_POSITION = 'mousePosition',
   TARGET_CHART = 'targetChart',
@@ -75,6 +100,7 @@ export enum ChartEditStoreEnum {
 // Store 类型
 export interface chartEditStoreType {
   [ChartEditStoreEnum.EDIT_CANVAS]: EditCanvasType
+  [ChartEditStoreEnum.EDIT_CANVAS_CONFIG]: EditCanvasConfigType
   [ChartEditStoreEnum.RIGHT_MENU_SHOW]: boolean
   [ChartEditStoreEnum.MOUSE_POSITION]: MousePositionType
   [ChartEditStoreEnum.TARGET_CHART]: TargetChartType

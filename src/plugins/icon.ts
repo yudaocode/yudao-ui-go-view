@@ -13,7 +13,7 @@ import {
   Send as SendIcon,
   InformationCircleOutline as InformationCircleIcon,
   Grid as GridIcon,
-  TvOutline as DesktopIcon,
+  TvOutline as TvOutlineIcon,
   DocumentText as DocumentTextIcon,
   Language as LanguageIcon,
   Moon as MoonIcon,
@@ -32,7 +32,7 @@ import {
   BarChart as BarChartIcon,
   Layers as LayersIcon,
   Prism as PrismIcon,
-  Cube as CubeIcon,
+  Construct as ConstructIcon,
   ChevronBackOutline as ChevronBackOutlineIcon,
   Flash as FlashIcon,
   SettingsSharp as SettingsSharpIcon,
@@ -40,9 +40,10 @@ import {
   Card as CardIcon,
   ChevronUp as ChevronUpIcon,
   ChevronDown as ChevronDownIcon,
-  TimeOutline as TimeOutlineIcon,
   ClipboardOutline as ClipboardOutlineIcon,
-  Cut as CutIcon
+  BrowsersOutline as BrowsersOutlineIcon,
+  Cut as CutIcon,
+  Square as SquareIcon
 } from '@vicons/ionicons5'
 
 import {
@@ -57,7 +58,7 @@ import {
   UpToTop as UpToTopIcon,
   DownToBottom as DownToBottomIcon,
   StackedMove as StackedMoveIcon,
-  PaintBrush as PaintBrushIcon
+  PaintBrush as PaintBrushIcon,
 } from '@vicons/carbon'
 
 const ionicons5 = {
@@ -113,7 +114,9 @@ const ionicons5 = {
   // 项目
   GridIcon,
   // 电脑1
-  DesktopIcon,
+  TvOutlineIcon,
+  // 浏览器
+  BrowsersOutlineIcon,
   // 文档
   DocumentTextIcon,
   // 语言
@@ -127,7 +130,7 @@ const ionicons5 = {
   // 组件详情设置（三棱镜）
   PrismIcon,
   // 正方体
-  CubeIcon,
+  ConstructIcon,
   // 折叠/回退
   ChevronBackOutlineIcon,
   // 后端数据（闪电）
@@ -142,12 +145,12 @@ const ionicons5 = {
   ChevronUpIcon,
   // 下移
   ChevronDownIcon,
-  // 时间
-  TimeOutlineIcon,
   // 剪贴板
   ClipboardOutlineIcon,
   // 剪贴
-  CutIcon
+  CutIcon,
+  // 正方形
+  SquareIcon
 }
 
 const carbon = {
@@ -174,7 +177,7 @@ const carbon = {
   // 移动
   StackedMoveIcon,
   // 清空剪切板（刷子）
-  PaintBrushIcon
+  PaintBrushIcon,
 }
 
 // https://www.xicons.org/#/ 还有很多

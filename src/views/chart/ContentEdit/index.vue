@@ -30,6 +30,7 @@
             class="edit-content-chart"
             :is="item.key"
             :chartData="item"
+            :themeData="themeData"
             :style="useSizeStyle(item.attr)"
           />
         </ShapeBox>
@@ -43,7 +44,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { ContentBox } from '../ContentBox/index'
 import { EditRange } from './components/EditRange'
 import { EditBottom } from './components/EditBottom'
@@ -56,9 +57,9 @@ import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
 import { getChartEditStore } from './hooks/useStore.hook'
 import { useComponentStyle, useSizeStyle } from './hooks/useStyle.hook'
 import { CreateComponentType } from '@/packages/index.d'
+import { chartColors } from '@/settings/chartThemes/index'
 
 const chartEditStore = getChartEditStore()
-
 const { handleContextMenu } = useContextMenu()
 
 // 布局处理
@@ -67,6 +68,14 @@ useLayout()
 // 点击事件
 const editRangeRef = ref<HTMLElement | null>(null)
 const { mouseenterHandle, mouseleaveHandle, mousedownHandle } = useMouseHandle()
+
+// 主题色注入
+const themeData = computed(() => {
+  const theme = chartEditStore.getEditCanvasConfig.chartTheme
+  if(theme === 'dark') return 'dark'
+  //  @ts-ignore
+  return chartColors[theme]
+})
 
 // 键盘事件
 onMounted(() => {

@@ -1,11 +1,11 @@
 <template>
-  <VChart theme="dark" :option="option" autoresize />
+  <VChart :theme="themeData" :option="option" autoresize />
 </template>
 
 <script setup lang="ts">
 import { computed, PropType } from 'vue'
 import VChart from 'vue-echarts'
-import { use, graphic } from 'echarts/core'
+import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { BarChart } from 'echarts/charts'
 import {
@@ -16,6 +16,11 @@ import {
 import config from './config'
 
 const props = defineProps({
+  themeData: {
+    type: Object || String,
+    default: 'dark',
+    required: true
+  },
   chartData: {
     type: Object as PropType<config>,
     required: true
