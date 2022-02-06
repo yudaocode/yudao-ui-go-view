@@ -54,6 +54,9 @@ export const useChartEditStoreStore = defineStore({
       unOpacity: 100,
       // 默认背景色
       background: undefined,
+      backgroundImage: undefined,
+      // 是否使用纯颜色
+      selectColor: true,
       // chart 主题色
       chartTheme: defaultTheme || 'dark'
     },

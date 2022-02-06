@@ -15,13 +15,13 @@
 import { reactive } from 'vue'
 import { renderIcon } from '@/utils'
 import { icon } from '@/plugins'
-const { DesktopOutlineIcon, SendIcon } = icon.ionicons5
+const { BrowsersOutlineIcon, SendIcon } = icon.ionicons5
 
 const btnList = reactive([
   {
     select: true,
     title: '预览',
-    icon: renderIcon(DesktopOutlineIcon)
+    icon: renderIcon(BrowsersOutlineIcon)
   },
   {
     select: true,

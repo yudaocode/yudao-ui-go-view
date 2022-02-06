@@ -9,30 +9,32 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { toRefs, computed } from 'vue'
 import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { useSizeStyle } from '../../hooks/useStyle.hook'
 import { mousedownHandleUnStop } from '../../hooks/useDrop.hook'
 
 const chartEditStoreStore = useChartEditStoreStore()
 
-const canvasConfig = ref(chartEditStoreStore.getEditCanvasConfig)
+const { getEditCanvasConfig } = toRefs(chartEditStoreStore)
 
 const size = computed(() => {
   return {
-    w: canvasConfig.value.width,
-    h: canvasConfig.value.height
+    w: getEditCanvasConfig.value.width,
+    h: getEditCanvasConfig.value.height
   }
 })
 
-const background = computed(() => {
-  const background = canvasConfig.value.background
-  return background ? background : '#232324'
-})
-
 const style = computed(() => {
+  const background = getEditCanvasConfig.value.background
+  const backgroundImage = getEditCanvasConfig.value.backgroundImage
+  const selectColor = getEditCanvasConfig.value.selectColor
+  const backgroundColor = background ? background : null
+  const computed = selectColor
+    ? { background: backgroundColor }
+    : { background: `url(${backgroundImage}) no-repeat center/100% !important` }
   // @ts-ignore
-  return { ...useSizeStyle(size.value), background: background.value }
+  return { ...useSizeStyle(size.value), ...computed }
 })
 </script>
 
@@ -41,7 +43,7 @@ const style = computed(() => {
   position: relative;
   border: 1px solid;
   border-radius: 15px;
-  @include filter-bg-color('background-color2');
+  background: url('@/assets/images/canvas/pageBg.png');
   @include fetch-theme('box-shadow');
   @include filter-border-color('hover-border-color');
   @include fetch-theme-custom('border-color', 'background-color4');

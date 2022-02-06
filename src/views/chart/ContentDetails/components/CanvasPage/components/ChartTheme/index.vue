@@ -34,7 +34,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { EditCanvasFilterEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
+import { EditCanvasConfigEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import {
   chartColors,
   chartColorsName,
@@ -61,7 +61,7 @@ const fetchShowColors = (colors: Array<string>) => {
 }
 
 const selectTheme = (theme: string) => {
-  chartEditStoreStore.setCanvasConfig(EditCanvasFilterEnum.CHART_THEME, theme)
+  chartEditStoreStore.setCanvasConfig(EditCanvasConfigEnum.CHART_THEME, theme)
 }
 </script>
 

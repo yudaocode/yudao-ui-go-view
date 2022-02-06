@@ -101,7 +101,7 @@ const ionicons5 = {
   PencilIcon,
   // 编辑2（锤子）
   HammerIcon,
-  // 预览
+  // 电脑
   DesktopOutlineIcon,
   // 下载
   DownloadIcon,
@@ -115,7 +115,7 @@ const ionicons5 = {
   GridIcon,
   // 电脑1
   TvOutlineIcon,
-  // 浏览器
+  // 预览，浏览器
   BrowsersOutlineIcon,
   // 文档
   DocumentTextIcon,

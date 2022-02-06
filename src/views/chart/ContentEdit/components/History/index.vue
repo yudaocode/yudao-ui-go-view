@@ -4,7 +4,6 @@
       @select="handleSelect"
       :show="showDropdownRef"
       :options="options"
-      scrollable
       size="small"
       placement="top-start"
       style="max-height: 100vh; overflow-y: auto;"

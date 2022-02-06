@@ -92,7 +92,7 @@ const {
   CopyIcon,
   TrashIcon,
   PencilIcon,
-  DesktopOutlineIcon,
+  BrowsersOutlineIcon,
   DownloadIcon,
   HammerIcon,
   SendIcon
@@ -122,7 +122,7 @@ const selectOptions = ref([
   {
     label: renderLang('global.r_preview'),
     key: 'preview',
-    icon: renderIcon(DesktopOutlineIcon)
+    icon: renderIcon(BrowsersOutlineIcon)
   },
   {
     label: renderLang('global.r_copy'),

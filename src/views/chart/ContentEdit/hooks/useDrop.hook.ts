@@ -19,9 +19,13 @@ export const handleDrop = async (e: DragEvent) => {
 
   try {
     loadingStart()
-
     // 获取拖拽数据
     const drayDataString = e!.dataTransfer!.getData(DragKeyEnum.DROG_KEY)
+    if (!drayDataString) {
+      loadingFinish()
+      return
+    } 
+
     const dropData: Exclude<ConfigType, ['node', 'image']> = JSON.parse(
       drayDataString
     )
@@ -67,8 +71,8 @@ export const useMouseHandle = () => {
     onClickoutside()
     chartEditStore.setTargetSelectChart(item.id)
     const scale = chartEditStore.getEditCanvas.scale
-    const width = chartEditStore.getEditCanvas.width
-    const height = chartEditStore.getEditCanvas.height
+    const width = chartEditStore.getEditCanvasConfig.width
+    const height = chartEditStore.getEditCanvasConfig.height
 
     // 获取编辑区域 Dom
     const editcontentDom = chartEditStore.getEditCanvas.editContentDom

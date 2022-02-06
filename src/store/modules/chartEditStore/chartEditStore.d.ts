@@ -5,13 +5,10 @@ import { HistoryActionTypeEnum } from '@/store/modules/chartHistoryStore/chartHi
 export enum EditCanvasTypeEnum {
   EDIT_LAYOUT_DOM = 'editLayoutDom',
   EDIT_CONTENT_DOM = 'editContentDom',
-  WIDTH = 'width',
-  HEIGHT = 'height',
   OFFSET = 'offset',
   SCALE = 'scale',
   USER_SCALE = 'userScale',
   LOCK_SCALE = 'lockScale',
-  BACKGROUND = 'background'
 }
 
 // 编辑区域
@@ -30,33 +27,42 @@ export type EditCanvasType = {
 }
 
 // 滤镜
-export enum EditCanvasFilterEnum {
+export enum EditCanvasConfigEnum {
+  WIDTH = 'width',
+  HEIGHT = 'height',
   HUE_ROTATE = 'hueRotate',
   SATURATE = 'saturate',
   BRIGHTNESS = 'brightness',
   CONTRAST = 'contrast',
   UN_OPACITY = 'unOpacity',
   CHART_THEME = 'chartTheme',
+  BACKGROUND = 'background',
+  BACKGROUND_IAMGE = 'backgroundImage',
+  SELECT_COLOR = 'selectColor'
 }
+
 export interface EditCanvasConfigType {
   // 大屏宽度
-  [EditCanvasTypeEnum.WIDTH]: number
+  [EditCanvasConfigEnum.WIDTH]: number
   // 大屏高度
-  [EditCanvasTypeEnum.HEIGHT]: number
+  [EditCanvasConfigEnum.HEIGHT]: number
   // 色相
-  [EditCanvasFilterEnum.HUE_ROTATE]: number
+  [EditCanvasConfigEnum.HUE_ROTATE]: number
   // 饱和度
-  [EditCanvasFilterEnum.SATURATE]: number
+  [EditCanvasConfigEnum.SATURATE]: number
   // 亮度
-  [EditCanvasFilterEnum.BRIGHTNESS]: number
+  [EditCanvasConfigEnum.BRIGHTNESS]: number
   // 对比度
-  [EditCanvasFilterEnum.CONTRAST]: number
+  [EditCanvasConfigEnum.CONTRAST]: number
   // 不透明度
-  [EditCanvasFilterEnum.UN_OPACITY]: number
+  [EditCanvasConfigEnum.UN_OPACITY]: number
   // 背景色
-  [EditCanvasTypeEnum.BACKGROUND]?: string
+  [EditCanvasConfigEnum.BACKGROUND]?: string
+  [EditCanvasConfigEnum.BACKGROUND_IAMGE]?: string | ArrayBuffer | null
   // 图表主题颜色
-  [EditCanvasFilterEnum.CHART_THEME]: string
+  [EditCanvasConfigEnum.CHART_THEME]: string
+  // 图表主题颜色
+  [EditCanvasConfigEnum.SELECT_COLOR]: boolean
 }
 
 // 坐标轴信息

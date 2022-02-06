@@ -91,6 +91,7 @@ export const setDomAttribute = <K extends keyof CSSStyleDeclaration, V extends C
     HTMLElement.style[key] = value
   }
 }
+
 /**
  * * 判断是否是 mac
  * @returns boolean
@@ -98,6 +99,21 @@ export const setDomAttribute = <K extends keyof CSSStyleDeclaration, V extends C
 export const isMac = () => {
   return /macintosh|mac os x/i.test(navigator.userAgent)
 }
+
+/** 
+ * * file转base64
+*/
+export const fileTobase64 = (file:File, callback: Function) => {
+  let reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = function (e: ProgressEvent<FileReader>) {
+    if(e.target) {
+      let base64 = e.target.result;
+      callback(base64)
+    }
+  };
+};
+
 /**
  * * 挂载监听
  */

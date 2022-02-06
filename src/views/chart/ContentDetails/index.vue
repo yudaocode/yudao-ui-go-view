@@ -31,7 +31,7 @@
               <n-space>
                 <span> 页面设置 </span>
                 <n-icon size="16" class="icon-position">
-                  <BrowsersOutlineIcon />
+                  <DesktopOutlineIcon />
                 </n-icon>
               </n-space>
             </template>
@@ -72,7 +72,7 @@
 <script setup lang="ts">
 import { shallowRef, ref, toRefs, watch, computed, reactive } from 'vue'
 import { icon } from '@/plugins'
-import { loadAsyncComponent } from '@/utils'
+import { loadAsyncComponent, loadSkeletonAsyncComponent } from '@/utils'
 import { ContentBox } from '../ContentBox/index'
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
 import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
@@ -82,17 +82,12 @@ const { getDetails } = toRefs(useChartLayoutStore())
 const { setItem } = useChartLayoutStore()
 const chartEditStoreStore = useChartEditStoreStore()
 
-const { ConstructIcon, FlashIcon, BrowsersOutlineIcon } = icon.ionicons5
+const { ConstructIcon, FlashIcon, DesktopOutlineIcon } = icon.ionicons5
 
 const ContentEdit = loadAsyncComponent(() => import('../ContentEdit/index.vue'))
-const CanvasPage = loadAsyncComponent(() =>
-  import('./components/CanvasPage/index.vue')
-)
-
-const Setting = loadAsyncComponent(() =>
-  import('./components/Setting/index.vue')
-)
-const Behind = loadAsyncComponent(() => import('./components/Behind/index.vue'))
+const CanvasPage = loadSkeletonAsyncComponent(() =>import('./components/CanvasPage/index.vue'))
+const Setting = loadSkeletonAsyncComponent(() =>import('./components/Setting/index.vue'))
+const Behind = loadSkeletonAsyncComponent(() => import('./components/Behind/index.vue'))
 
 const collapsed = ref<boolean>(getDetails.value)
 

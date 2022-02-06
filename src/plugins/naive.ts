@@ -84,6 +84,7 @@ import {
   NPopselect,
   NCollapse,
   NCollapseItem,
+  NColorPicker,
   NCollapseTransition
 } from 'naive-ui';
 
@@ -172,6 +173,7 @@ const naive = create({
     NPopselect,
     NCollapse,
     NCollapseItem,
+    NColorPicker,
     NCollapseTransition
   ],
 });

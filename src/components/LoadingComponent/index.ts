@@ -1,6 +1,7 @@
 import type { App } from 'vue'
 import LoadingComponent from './index.vue'
 import AsyncLoading from './index.vue'
+import AsyncSkeletonLoading from './Skeleton.vue'
 
 // 正常组件
 export { LoadingComponent }
@@ -9,4 +10,8 @@ export { LoadingComponent }
 AsyncLoading.install = (app: App): void => {
   app.component('AsyncLoading', AsyncLoading)
 }
-export { AsyncLoading }
+
+AsyncSkeletonLoading.install = (app: App): void => {
+  app.component('AsyncSkeletonLoading', AsyncSkeletonLoading)
+}
+export { AsyncLoading, AsyncSkeletonLoading }
