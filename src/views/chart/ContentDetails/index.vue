@@ -26,16 +26,22 @@
           size="small"
           type="segment"
         >
-          <n-tab-pane size="small" display-directive="show:lazy">
+          <n-tab-pane
+            v-for="item in globalTabList"
+            :key="item.key"
+            :name="item.key"
+            size="small"
+            display-directive="show:lazy"
+          >
             <template #tab>
               <n-space>
-                <span> 页面设置 </span>
+                <span>{{ item.title }}</span>
                 <n-icon size="16" class="icon-position">
-                  <DesktopOutlineIcon />
+                  <component :is="item.icon"></component>
                 </n-icon>
               </n-space>
             </template>
-            <CanvasPage name="canvas" />
+            <component :is="item.render"></component>
           </n-tab-pane>
         </n-tabs>
 
@@ -47,7 +53,7 @@
           type="segment"
         >
           <n-tab-pane
-            v-for="item in tabList"
+            v-for="item in canvasTabList"
             :key="item.key"
             :name="item.key"
             size="small"
@@ -86,8 +92,8 @@ const { ConstructIcon, FlashIcon, DesktopOutlineIcon } = icon.ionicons5
 
 const ContentEdit = loadAsyncComponent(() => import('../ContentEdit/index.vue'))
 const CanvasPage = loadSkeletonAsyncComponent(() =>import('./components/CanvasPage/index.vue'))
-const Setting = loadSkeletonAsyncComponent(() =>import('./components/Setting/index.vue'))
-const Behind = loadSkeletonAsyncComponent(() => import('./components/Behind/index.vue'))
+const ChartSetting = loadSkeletonAsyncComponent(() =>import('./components/ChartSetting/index.vue'))
+const ChartBehind = loadSkeletonAsyncComponent(() => import('./components/ChartBehind/index.vue'))
 
 const collapsed = ref<boolean>(getDetails.value)
 
@@ -118,24 +124,27 @@ watch(getDetails, newData => {
 })
 
 // 页面设置
-const pageSetting = reactive({
-  key: 'pageSetting',
-  title: '页面设置',
-  render: CanvasPage
-})
-
-const tabList = shallowRef([
+const globalTabList = reactive([
   {
-    key: 'setting',
-    title: '设置',
+    key: 'pageSetting',
+    title: '页面配置',
+    icon: DesktopOutlineIcon,
+    render: CanvasPage
+  }
+])
+
+const canvasTabList = shallowRef([
+  {
+    key: 'ChartSetting',
+    title: '定制',
     icon: ConstructIcon,
-    render: Setting
+    render: ChartSetting
   },
   {
-    key: 'behind',
+    key: 'ChartBehind',
     title: '数据',
     icon: FlashIcon,
-    render: Behind
+    render: ChartBehind
   }
 ])
 </script>

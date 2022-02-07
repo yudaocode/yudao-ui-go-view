@@ -1,4 +1,4 @@
-import { ref, nextTick } from 'vue'
+import { reactive, nextTick } from 'vue'
 import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { CreateComponentType } from '@/packages/index.d'
 import { renderIcon, loadingError } from '@/utils'
@@ -104,37 +104,48 @@ const defaultOptions: MenuOptionsItemType[] = [
   }
 ]
 
+// * 去除隐藏选项
+const clearHideOption = (options: MenuOptionsItemType[], hideList?: MenuEnum[]) => {
+  if(!hideList) return options
+  const a = options.filter((op: MenuOptionsItemType) => {
+    return hideList.findIndex((e: MenuEnum) => e !== op.key)
+  })
+}
+
+// * 右键处理
+const handleContextMenu = (e: MouseEvent, item: CreateComponentType) => {
+  e.stopPropagation()
+  e.preventDefault()
+  let target = e.target
+  while (target instanceof SVGElement) {
+    target = target.parentNode
+  }
+  chartEditStore.setRightMenuShow(false)
+  nextTick().then(() => {
+    chartEditStore.setMousePosition(e.clientX, e.clientY)
+    chartEditStore.setRightMenuShow(true)
+  })
+}
+
 /**
  * * 右键hook
- * @param menuOption
+ * @param menuConfig
  * @returns
  */
-export const useContextMenu = (menuOption?: {
+export const useContextMenu = (menuConfig: {
   // 自定义右键配置
-  selfOptions: MenuOptionsItemType[]
+  selfOptions?: MenuOptionsItemType[]
   // 前置处理函数
-  optionsHandle: Function
+  optionsHandle?: Function
+  // 隐藏列表
+  hideOptionsList?: MenuEnum[]
 }) => {
-  const selfOptions = menuOption?.selfOptions
-  const optionsHandle = menuOption?.optionsHandle
+  const selfOptions = menuConfig?.selfOptions
+  const optionsHandle = menuConfig?.optionsHandle
+  const hideOptionsList = menuConfig?.hideOptionsList
 
   // * 右键选项
   const menuOptions: MenuOptionsItemType[] = selfOptions || defaultOptions
-
-  // * 右键处理
-  const handleContextMenu = (e: MouseEvent, item: CreateComponentType) => {
-    e.stopPropagation()
-    e.preventDefault()
-    let target = e.target
-    while (target instanceof SVGElement) {
-      target = target.parentNode
-    }
-    chartEditStore.setRightMenuShow(false)
-    nextTick().then(() => {
-      chartEditStore.setMousePosition(e.clientX, e.clientY)
-      chartEditStore.setRightMenuShow(true)
-    })
-  }
 
   // * 失焦
   const onClickoutside = () => {
@@ -158,9 +169,10 @@ export const useContextMenu = (menuOption?: {
       }
     })
   }
-
   return {
-    menuOptions: optionsHandle ? optionsHandle(menuOptions) : menuOptions,
+    // todo 每次都重新计算的功能
+    // menuOptions: clearHideOption ? clearHideOption(menuOptions, hideOptionsList) : menuOptions,
+    menuOptions: menuOptions,
     handleContextMenu,
     onClickoutside,
     handleMenuSelect,

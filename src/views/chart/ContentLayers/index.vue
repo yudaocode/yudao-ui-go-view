@@ -14,13 +14,13 @@
 
     <!-- 图层内容 -->
     <ListItem
-      v-for="(item) in chartEditStore.getComponentList"
+      v-for="item in chartEditStore.getComponentList"
       :key="item.id"
       :componentData="item"
       @mousedown="mousedownHandle(item)"
       @mouseenter="mouseenterHandle(item)"
       @mouseleave="mouseleaveHandle(item)"
-      @contextmenu="handleContextMenu($event, item)"
+      @contextmenu="handleContextMenu($event)"
     />
   </ContentBox>
 </template>
@@ -30,11 +30,17 @@ import { ContentBox } from '../ContentBox/index'
 
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
 import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
-
 import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { ChartEditStoreEnum, TargetChartType } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { CreateComponentType } from '@/packages/index.d'
-import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
+import {
+  ChartEditStoreEnum,
+  TargetChartType
+} from '@/store/modules/chartEditStore/chartEditStore.d'
+import {
+  useContextMenu,
+  MenuOptionsItemType,
+  MenuEnum
+} from '@/views/chart/hooks/useContextMenu.hook'
 
 import { ListItem } from './components/ListItem/index'
 import { icon } from '@/plugins'
@@ -42,7 +48,10 @@ import { icon } from '@/plugins'
 const { LayersIcon } = icon.ionicons5
 const chartLayoutStore = useChartLayoutStore()
 const chartEditStore = useChartEditStoreStore()
-const { handleContextMenu } = useContextMenu()
+
+const { handleContextMenu } = useContextMenu({
+  hideOptionsList: [MenuEnum.CLEAR, MenuEnum.PARSE]
+})
 
 const backHandle = () => {
   chartLayoutStore.setItem(ChartLayoutStoreEnum.LAYERS, false)

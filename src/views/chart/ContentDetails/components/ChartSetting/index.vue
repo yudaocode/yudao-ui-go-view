@@ -8,6 +8,5 @@
 
 <style lang="scss" scoped>
 @include go('chart-content-details') {
-  position: relative;
 }
 </style>
