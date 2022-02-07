@@ -14,7 +14,7 @@
 
     <!-- 图层内容 -->
     <ListItem
-      v-for="item in chartEditStore.getComponentList"
+      v-for="item in  reverseList"
       :key="item.id"
       :componentData="item"
       @mousedown="mousedownHandle(item)"
@@ -26,12 +26,13 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { ContentBox } from '../ContentBox/index'
-
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
 import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
 import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { CreateComponentType } from '@/packages/index.d'
+import cloneDeep from 'lodash/cloneDeep';
 import {
   ChartEditStoreEnum,
   TargetChartType
@@ -51,6 +52,12 @@ const chartEditStore = useChartEditStoreStore()
 
 const { handleContextMenu } = useContextMenu({
   hideOptionsList: [MenuEnum.CLEAR, MenuEnum.PARSE]
+})
+
+// 逆序输出
+const reverseList = computed(()=>{
+  const list: CreateComponentType[] = cloneDeep(chartEditStore.getComponentList)
+  return list.reverse()
 })
 
 const backHandle = () => {
