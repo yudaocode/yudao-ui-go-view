@@ -124,16 +124,16 @@ watch(getDetails, newData => {
 })
 
 // 页面设置
-const globalTabList = reactive([
+const globalTabList = [
   {
     key: 'pageSetting',
     title: '页面配置',
     icon: DesktopOutlineIcon,
     render: CanvasPage
   }
-])
+]
 
-const canvasTabList = shallowRef([
+const canvasTabList = [
   {
     key: 'ChartSetting',
     title: '定制',
@@ -146,7 +146,7 @@ const canvasTabList = shallowRef([
     icon: FlashIcon,
     render: ChartBehind
   }
-])
+]
 </script>
 
 <style lang="scss" scoped>

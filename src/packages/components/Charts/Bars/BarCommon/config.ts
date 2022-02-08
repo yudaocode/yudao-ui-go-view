@@ -1,4 +1,4 @@
-import { echartOptionProfixHandle, publicConfig } from '@/packages/utils'
+import { echartOptionProfixHandle, publicConfig } from '@/packages/public'
 import { BarCommonConfig } from './index'
 import { ConfigType, CreateComponentType } from '@/packages/index.d'
 import omit from 'lodash/omit'

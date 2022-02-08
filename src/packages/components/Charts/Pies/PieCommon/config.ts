@@ -1,4 +1,4 @@
-import { echartOptionProfixHandle, publicConfig } from '@/packages/utils'
+import { echartOptionProfixHandle, publicConfig } from '@/packages/public'
 import { PieCommonConfig } from './index'
 import { ConfigType, CreateComponentType } from '@/packages/index.d'
 import omit from 'lodash/omit'

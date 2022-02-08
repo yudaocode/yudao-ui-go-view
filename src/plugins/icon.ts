@@ -43,7 +43,8 @@ import {
   ClipboardOutline as ClipboardOutlineIcon,
   BrowsersOutline as BrowsersOutlineIcon,
   Cut as CutIcon,
-  Square as SquareIcon
+  Square as SquareIcon,
+  ColorPalette as ColorPaletteIcon,
 } from '@vicons/ionicons5'
 
 import {
@@ -59,6 +60,7 @@ import {
   DownToBottom as DownToBottomIcon,
   StackedMove as StackedMoveIcon,
   PaintBrush as PaintBrushIcon,
+  ComposerEdit as ZAxisIcon,
 } from '@vicons/carbon'
 
 const ionicons5 = {
@@ -150,7 +152,10 @@ const ionicons5 = {
   // 剪贴
   CutIcon,
   // 正方形
-  SquareIcon
+  SquareIcon,
+  // 色彩选择
+  ColorPaletteIcon,
+  ZAxisIcon
 }
 
 const carbon = {
@@ -178,6 +183,8 @@ const carbon = {
   StackedMoveIcon,
   // 清空剪切板（刷子）
   PaintBrushIcon,
+  // 坐标轴
+  ZAxisIcon
 }
 
 // https://www.xicons.org/#/ 还有很多

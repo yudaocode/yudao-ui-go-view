@@ -1,33 +1,29 @@
 <template>
   <div class="go-canvas-chart-color">
-    <n-collapse :default-expanded-names="['1']">
-      <n-collapse-item title="主题选择" name="1">
-        <n-card
-          v-for="(value, key) in chartColors"
-          :key="key"
-          class="card-box"
-          :class="{ selected: key === selectName }"
-          size="small"
-          hoverable
-          embedded
-          @click="selectTheme(key)"
-        >
-          <div class="go-flex-items-center">
-            <n-text>{{ chartColorsName[key] }}</n-text>
-            <span
-              class="theme-color-item"
-              v-for="colorItem in fetchShowColors(value.color)"
-              :key="colorItem"
-              :style="{ backgroundColor: colorItem }"
-            />
-          </div>
-          <div
-            class="theme-bottom"
-            :style="{ backgroundImage: chartColorsshow[key] }"
-          ></div>
-        </n-card>
-      </n-collapse-item>
-    </n-collapse>
+    <n-card
+      v-for="(value, key) in chartColors"
+      :key="key"
+      class="card-box"
+      :class="{ selected: key === selectName }"
+      size="small"
+      hoverable
+      embedded
+      @click="selectTheme(key)"
+    >
+      <div class="go-flex-items-center">
+        <n-text>{{ chartColorsName[key] }}</n-text>
+        <span
+          class="theme-color-item"
+          v-for="colorItem in fetchShowColors(value.color)"
+          :key="colorItem"
+          :style="{ backgroundColor: colorItem }"
+        />
+      </div>
+      <div
+        class="theme-bottom"
+        :style="{ backgroundImage: chartColorsshow[key] }"
+      ></div>
+    </n-card>
   </div>
 </template>
 
@@ -67,6 +63,7 @@ const selectTheme = (theme: string) => {
 
 <style lang="scss" scoped>
 @include go(canvas-chart-color) {
+  padding-top: 20px;
   .card-box {
     cursor: pointer;
     margin-top: 15px;

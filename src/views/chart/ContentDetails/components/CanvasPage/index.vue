@@ -94,8 +94,26 @@
 
     <n-divider />
 
-    <!-- 主题选择 -->
-    <ChartTheme />
+    <!-- 主题选择和全局配置 -->
+    <n-tabs v-show="!selectTarget" class="tabs-box" size="small" type="segment">
+      <n-tab-pane
+        v-for="item in globalTabList"
+        :key="item.key"
+        :name="item.key"
+        size="small"
+        display-directive="show:lazy"
+      >
+        <template #tab>
+          <n-space>
+            <span>{{ item.title }}</span>
+            <n-icon size="16" class="icon-position">
+              <component :is="item.icon"></component>
+            </n-icon>
+          </n-space>
+        </template>
+        <component :is="item.render"></component>
+      </n-tab-pane>
+    </n-tabs>
   </div>
 </template>
 
@@ -103,15 +121,36 @@
 import { ref, nextTick, onMounted } from 'vue'
 import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasConfigEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
-import { UploadCustomRequestOptions, UploadFileInfo } from 'naive-ui'
+import { UploadCustomRequestOptions } from 'naive-ui'
 import { ChartTheme } from './components/ChartTheme/index'
+import { ChartSysSetting } from './components/ChartSysSetting/index'
 import { fileTobase64 } from '@/utils'
+import { icon } from '@/plugins'
+
+const { ColorPaletteIcon } = icon.ionicons5
+const { ZAxisIcon } = icon.carbon
 
 const chartEditStoreStore = useChartEditStoreStore()
 const canvasConfig = chartEditStoreStore.getEditCanvasConfig
 
 const uploadFileListRef = ref()
 const switchSelectColorLoading = ref(false)
+
+// 页面设置
+const globalTabList = [
+  {
+    key: 'ChartTheme',
+    title: '主题',
+    icon: ColorPaletteIcon,
+    render: ChartTheme
+  },
+  {
+    key: 'ChartSysSetting',
+    title: '轴线',
+    icon: ZAxisIcon,
+    render: ChartSysSetting
+  },
+]
 
 // 规则
 const validator = (x: number) => x > 50
@@ -213,6 +252,9 @@ const customRequest = (options: UploadCustomRequestOptions) => {
         padding: 10px 0;
       }
     }
+  }
+  .icon-position {
+    padding-top: 2px;
   }
 }
 </style>

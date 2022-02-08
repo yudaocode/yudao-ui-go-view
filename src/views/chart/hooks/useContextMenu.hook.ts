@@ -132,7 +132,7 @@ const handleContextMenu = (e: MouseEvent, item: CreateComponentType) => {
  * @param menuConfig
  * @returns
  */
-export const useContextMenu = (menuConfig: {
+export const useContextMenu = (menuConfig?: {
   // 自定义右键配置
   selfOptions?: MenuOptionsItemType[]
   // 前置处理函数
