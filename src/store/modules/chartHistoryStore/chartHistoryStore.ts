@@ -39,12 +39,13 @@ export const useChartHistoryStoreStore = defineStore({
       actionType: HistoryActionTypeEnum,
       targetType: HistoryTargetTypeEnum = HistoryTargetTypeEnum.CHART
     ) {
-      this.pushBackStackItem({
+      // 优化性能转为freeze
+      this.pushBackStackItem(Object.freeze({
         [HistoryStackItemEnum.ID]: new Date().getTime().toString(),
         [HistoryStackItemEnum.HISTORY_DATA]: item,
         [HistoryStackItemEnum.ACTION_TYPE]: actionType,
         [HistoryStackItemEnum.TARGET_TYPE]: targetType
-      })
+      }))
     },
     // * 画布初始化
     canvasInit(canvas: EditCanvasType) {
