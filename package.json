@@ -2,7 +2,7 @@
   "name": "go-view",
   "version": "0.1.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vue-tsc --noEmit && vite build",
     "lint": "eslint \"{src}/**/*.{vue,ts,tsx}\" --fix --ext",
     "new": "plop --plopfile ./plop/plopfile.js"
