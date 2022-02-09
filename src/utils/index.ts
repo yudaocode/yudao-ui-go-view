@@ -1,5 +1,5 @@
 export * from '@/utils/utils'
-export * from '@/utils/page'
+export * from '@/utils/router'
 export * from '@/utils/storage'
 export * from '@/utils/style'
 export * from '@/utils/plugin'
