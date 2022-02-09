@@ -146,7 +146,7 @@ const globalTabList = [
   },
   {
     key: 'ChartSysSetting',
-    title: '轴线',
+    title: '全局图表',
     icon: ZAxisIcon,
     render: ChartSysSetting
   },
