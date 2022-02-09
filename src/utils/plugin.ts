@@ -68,29 +68,29 @@ export const goDialog = (
 
   const typeObj = {
     // 自定义
-    delete: {
+    [DialogEnum.delete]: {
       fn: dialogFn || window['$dialog'].warning,
       message: message || '是否删除此数据?',
     },
     // 原有
-    warning: {
+    [DialogEnum.warning]: {
       fn: window['$dialog'].warning,
       message: message || '是否执行此操作?',
     },
-    error: {
+    [DialogEnum.error]: {
       fn: window['$dialog'].error,
       message: message || '是否执行此操作?',
     },
-    success: {
+    [DialogEnum.success]: {
       fn: window['$dialog'].success,
       message: message || '是否执行此操作?',
     },
   }
 
-  const d: DialogReactive = (typeObj as any)[type || DialogEnum.warning]['fn']({
+  const d: DialogReactive = typeObj[type || DialogEnum.warning]['fn']({
     title: '提示',
     icon: renderIcon(InformationCircleIcon, { size: dialogIconSize }),
-    content: (typeObj as any)[type || DialogEnum.warning]['message'],
+    content: typeObj[type || DialogEnum.warning]['message'],
     positiveText: '确定',
     negativeText: '取消',
     // 是否通过遮罩关闭
