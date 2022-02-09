@@ -45,7 +45,7 @@ export const useChartHistoryStoreStore = defineStore({
         [HistoryStackItemEnum.HISTORY_DATA]: item,
         [HistoryStackItemEnum.ACTION_TYPE]: actionType,
         [HistoryStackItemEnum.TARGET_TYPE]: targetType
-      }))
+      } as const))
     },
     // * 画布初始化
     canvasInit(canvas: EditCanvasType) {
