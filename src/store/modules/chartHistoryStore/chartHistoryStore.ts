@@ -14,7 +14,7 @@ import {
 export const useChartHistoryStoreStore = defineStore({
   id: 'useChartHistoryStore',
   state: (): ChartHistoryStoreType => ({
-    // 后退栈（记录栈）
+    // 后退栈
     backStack: [],
     // 前进栈
     forwardStack: []
@@ -55,7 +55,7 @@ export const useChartHistoryStoreStore = defineStore({
         HistoryTargetTypeEnum.CANVAS
       )
     },
-    // * 推入记录栈
+    // * 推入后退栈
     pushBackStackItem(
       item: HistoryItemType | Array<HistoryItemType>,
       notClear = false
@@ -73,7 +73,7 @@ export const useChartHistoryStoreStore = defineStore({
         this.forwardStack = [...this.forwardStack, ...item]
       else this.forwardStack.push(item)
     },
-    // * 移出记录栈
+    // * 移出后退栈
     popBackStackItem(
       index?: number
     ): HistoryItemType[] | HistoryItemType | undefined {
