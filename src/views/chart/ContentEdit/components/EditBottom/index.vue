@@ -1,6 +1,6 @@
 <template>
   <div class="go-edit-bottom">
-    <History />
+    <EditHistory />
 
     <n-space class="bottom-ri">
       <!-- 快捷键提示 -->
@@ -60,7 +60,7 @@
 <script setup lang="ts">
 import { reactive, ref, toRefs, watchEffect } from 'vue'
 import { icon } from '@/plugins'
-import { History } from '../History/index'
+import { EditHistory } from '../EditHistory/index'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 const { LockClosedOutlineIcon, LockOpenOutlineIcon } = icon.ionicons5
 const { DicomOverlayIcon } = icon.carbon

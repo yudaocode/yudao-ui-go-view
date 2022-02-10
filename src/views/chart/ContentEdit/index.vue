@@ -14,7 +14,7 @@
       <!-- 展示 -->
       <EditRange ref="editRangeRef">
         <!-- 图表 -->
-        <ShapeBox
+        <EditShapeBox
           v-for="(item, index) in chartEditStore.getComponentList"
           :key="item.id"
           :data-id="item.id"
@@ -33,7 +33,7 @@
             :themeData="themeData"
             :style="useSizeStyle(item.attr)"
           />
-        </ShapeBox>
+        </EditShapeBox>
       </EditRange>
     </div>
     <!-- 底部控制 -->
@@ -48,7 +48,7 @@ import { ref, onMounted, computed } from 'vue'
 import { ContentBox } from '../ContentBox/index'
 import { EditRange } from './components/EditRange'
 import { EditBottom } from './components/EditBottom'
-import { ShapeBox } from './components/ShapeBox/index'
+import { EditShapeBox } from './components/EditShapeBox/index'
 
 import { useLayout } from './hooks/useLayout.hook'
 import { useAddKeyboard } from '../hooks/useKeyboard.hook'
