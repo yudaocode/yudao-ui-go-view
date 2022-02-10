@@ -101,6 +101,15 @@ export const isMac = () => {
 }
 
 /** 
+ * * file转url
+*/
+export const fileToUrl = (file:File): string => {
+  const Url = URL || window.URL || window.webkitURL;
+  const ImageUrl = Url.createObjectURL(file);
+  return ImageUrl
+};
+
+/** 
  * * file转base64
 */
 export const fileTobase64 = (file:File, callback: Function) => {

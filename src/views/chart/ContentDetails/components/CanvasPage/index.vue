@@ -37,7 +37,7 @@
           <div class="upload-img" v-show="!canvasConfig.backgroundImage">
             <img src="@/assets/images/canvas/noImage.png" />
             <n-text class="upload-desc" depth="3">
-              背景图需小于 2M ，格式为 png/jpg/gif 的文件
+              背景图需小于 {{backgroundImageSize}}M ，格式为 png/jpg/gif 的文件
             </n-text>
           </div>
         </n-upload-dragger>
@@ -118,13 +118,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick, onMounted } from 'vue'
+import { ref, nextTick } from 'vue'
+import { backgroundImageSize } from '@/settings/designSetting'
 import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasConfigEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { UploadCustomRequestOptions } from 'naive-ui'
 import { ChartTheme } from './components/ChartTheme/index'
 import { ChartSysSetting } from './components/ChartSysSetting/index'
-import { fileTobase64 } from '@/utils'
+import { fileToUrl } from '@/utils'
 import { icon } from '@/plugins'
 
 const { ColorPaletteIcon } = icon.ionicons5
@@ -149,7 +150,7 @@ const globalTabList = [
     title: '全局图表',
     icon: ZAxisIcon,
     render: ChartSysSetting
-  },
+  }
 ]
 
 // 规则
@@ -162,8 +163,8 @@ const beforeUploadHandle = async ({ file }) => {
   const type = file.file.type
   const size = file.file.size
 
-  if (size > 1024 * 1024 * 2) {
-    window['$message'].warning('图片超出 2M 限制，请重新上传！')
+  if (size > 1024 * 1024 * backgroundImageSize) {
+    window['$message'].warning(`图片超出 ${backgroundImageSize}M 限制，请重新上传！`)
     return false
   }
   if (type !== 'image/png' && type !== 'image/jpeg' && type !== 'image/gif') {
@@ -211,12 +212,15 @@ const customRequest = (options: UploadCustomRequestOptions) => {
   } = options
 
   nextTick(() => {
-    fileTobase64(file.file as File, (e: string | ArrayBuffer | null) => {
+    if (file.file) {
+      const ImageUrl = fileToUrl(file.file)
       chartEditStoreStore.setCanvasConfig(
         EditCanvasConfigEnum.BACKGROUND_IAMGE,
-        e
+        ImageUrl
       )
-    })
+    } else {
+      window['$message'].error('添加图片失败，请稍后重试！')
+    }
   })
 }
 </script>

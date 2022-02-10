@@ -51,3 +51,6 @@ export const borderRadius = '6px'
 
 // 轮播间隔
 export const carouselInterval = 4000
+
+// 工作台大屏背景图片大小限制（5M）
+export const backgroundImageSize = 5
