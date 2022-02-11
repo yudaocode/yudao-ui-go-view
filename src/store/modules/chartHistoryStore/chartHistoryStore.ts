@@ -3,7 +3,6 @@ import { CreateComponentType } from '@/packages/index.d'
 import { EditCanvasType } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { loadingStart, loadingFinish, loadingError } from '@/utils'
 import {
-  HistoryStackEnum,
   HistoryStackItemEnum,
   HistoryActionTypeEnum,
   HistoryTargetTypeEnum,
