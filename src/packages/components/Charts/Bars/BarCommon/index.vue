@@ -18,7 +18,6 @@ import config from './config'
 const props = defineProps({
   themeData: {
     type: Object || String,
-    default: 'dark',
     required: true
   },
   chartData: {

@@ -1,8 +1,8 @@
-import { reactive, ref } from 'vue'
+import { shallowReactive, ref } from 'vue'
 import { icon } from '@/plugins'
 import { renderLang, renderIcon } from '@/utils'
 import { themeColor, setItem, getCharts } from './useLayout.hook'
-import { PackagesCategoryEnum, PackagesCategoryName } from '@/packages/index.d'
+import { PackagesCategoryEnum, PackagesCategoryName, PackagesType } from '@/packages/index.d'
 // 图表
 import { usePackagesStore } from '@/store/modules/packagesStore/packagesStore'
 import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
@@ -17,9 +17,12 @@ const {
 
 // 图表
 const { getPackagesList } = usePackagesStore()
-const menuOptions = reactive<{
-  [T: string]: any
-}>([])
+const menuOptions = shallowReactive<{
+  key: string
+  icon: ReturnType<typeof renderIcon>
+  label: ReturnType<typeof renderLang>
+  list: PackagesType
+}[]>([])
 
 const packagesListObj = {
   [PackagesCategoryEnum.CHARTS]: {

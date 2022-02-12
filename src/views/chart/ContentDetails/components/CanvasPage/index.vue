@@ -29,8 +29,8 @@
       >
         <n-upload-dragger>
           <img
-            class="upload-show"
             v-if="canvasConfig.backgroundImage"
+            class="upload-show"
             :src="canvasConfig.backgroundImage"
             alt="背景"
           />
@@ -95,7 +95,7 @@
     <n-divider />
 
     <!-- 主题选择和全局配置 -->
-    <n-tabs v-show="!selectTarget" class="tabs-box" size="small" type="segment">
+    <n-tabs class="tabs-box" size="small" type="segment">
       <n-tab-pane
         v-for="item in globalTabList"
         :key="item.key"
@@ -226,6 +226,8 @@ const customRequest = (options: UploadCustomRequestOptions) => {
 </script>
 
 <style lang="scss" scoped>
+$updloadWidth: 326px;
+$updloadHeight: 193px;
 @include go(canvas-setting) {
   padding-top: 20px;
   .upload-box {
@@ -233,22 +235,23 @@ const customRequest = (options: UploadCustomRequestOptions) => {
     margin-bottom: 20px;
     @include deep() {
       .n-card__content {
-        padding: 0px;
+        padding: 0;
         overflow: hidden;
+      }
+      .n-upload-dragger {
+        padding: 5px;
+        width: $updloadWidth;
       }
     }
     .upload-show {
-      display: block;
-      width: 326px;
-      height: 193px;
-      margin-bottom: -7px;
+      width: -webkit-fill-available;
+      height: $updloadHeight;
       border-radius: 5px;
     }
     .upload-img {
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 326px;
       img {
         height: 150px;
       }

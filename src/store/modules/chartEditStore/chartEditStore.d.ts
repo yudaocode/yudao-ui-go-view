@@ -58,7 +58,7 @@ export interface EditCanvasConfigType {
   [EditCanvasConfigEnum.UN_OPACITY]: number
   // 背景色
   [EditCanvasConfigEnum.BACKGROUND]?: string
-  [EditCanvasConfigEnum.BACKGROUND_IAMGE]?: string | ArrayBuffer | null
+  [EditCanvasConfigEnum.BACKGROUND_IAMGE]?: string | null
   // 图表主题颜色
   [EditCanvasConfigEnum.CHART_THEME]: string
   // 图表主题颜色

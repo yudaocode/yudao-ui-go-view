@@ -12,9 +12,9 @@
         :fallback-src="requireFallbackImg()"
       />
       <n-ellipsis>
-        <b-text class="list-text">
+        <n-text class="list-text">
           {{ title }}
-        </b-text>
+        </n-text>
       </n-ellipsis>
     </div>
     <div :class="{ 'select-modal': select }" />
