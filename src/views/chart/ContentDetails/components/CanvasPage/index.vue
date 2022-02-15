@@ -37,7 +37,8 @@
           <div class="upload-img" v-show="!canvasConfig.backgroundImage">
             <img src="@/assets/images/canvas/noImage.png" />
             <n-text class="upload-desc" depth="3">
-              背景图需小于 {{backgroundImageSize}}M ，格式为 png/jpg/gif 的文件
+              背景图需小于 {{ backgroundImageSize }}M ，格式为 png/jpg/gif
+              的文件
             </n-text>
           </div>
         </n-upload-dragger>
@@ -164,7 +165,9 @@ const beforeUploadHandle = async ({ file }) => {
   const size = file.file.size
 
   if (size > 1024 * 1024 * backgroundImageSize) {
-    window['$message'].warning(`图片超出 ${backgroundImageSize}M 限制，请重新上传！`)
+    window['$message'].warning(
+      `图片超出 ${backgroundImageSize}M 限制，请重新上传！`
+    )
     return false
   }
   if (type !== 'image/png' && type !== 'image/jpeg' && type !== 'image/gif') {
@@ -180,6 +183,7 @@ const clearImage = () => {
     EditCanvasConfigEnum.BACKGROUND_IAMGE,
     undefined
   )
+  chartEditStoreStore.setCanvasConfig(EditCanvasConfigEnum.SELECT_COLOR, true)
 }
 
 // 清除颜色
@@ -188,9 +192,15 @@ const clearColor = () => {
     EditCanvasConfigEnum.BACKGROUND,
     undefined
   )
+  if (canvasConfig.backgroundImage) {
+    chartEditStoreStore.setCanvasConfig(
+      EditCanvasConfigEnum.SELECT_COLOR,
+      false
+    )
+  }
 }
 
-// 启用背景
+// 启用/关闭 颜色
 const switchSelectColorHandle = () => {
   switchSelectColorLoading.value = true
   setTimeout(() => {
@@ -217,6 +227,10 @@ const customRequest = (options: UploadCustomRequestOptions) => {
       chartEditStoreStore.setCanvasConfig(
         EditCanvasConfigEnum.BACKGROUND_IAMGE,
         ImageUrl
+      )
+      chartEditStoreStore.setCanvasConfig(
+        EditCanvasConfigEnum.SELECT_COLOR,
+        false
       )
     } else {
       window['$message'].error('添加图片失败，请稍后重试！')
