@@ -179,21 +179,21 @@ const beforeUploadHandle = async ({ file }) => {
 
 // 清除背景
 const clearImage = () => {
-  chartEditStoreStore.setCanvasConfig(
+  chartEditStoreStore.setEditCanvasConfig(
     EditCanvasConfigEnum.BACKGROUND_IAMGE,
     undefined
   )
-  chartEditStoreStore.setCanvasConfig(EditCanvasConfigEnum.SELECT_COLOR, true)
+  chartEditStoreStore.setEditCanvasConfig(EditCanvasConfigEnum.SELECT_COLOR, true)
 }
 
 // 清除颜色
 const clearColor = () => {
-  chartEditStoreStore.setCanvasConfig(
+  chartEditStoreStore.setEditCanvasConfig(
     EditCanvasConfigEnum.BACKGROUND,
     undefined
   )
   if (canvasConfig.backgroundImage) {
-    chartEditStoreStore.setCanvasConfig(
+    chartEditStoreStore.setEditCanvasConfig(
       EditCanvasConfigEnum.SELECT_COLOR,
       false
     )
@@ -224,11 +224,11 @@ const customRequest = (options: UploadCustomRequestOptions) => {
   nextTick(() => {
     if (file.file) {
       const ImageUrl = fileToUrl(file.file)
-      chartEditStoreStore.setCanvasConfig(
+      chartEditStoreStore.setEditCanvasConfig(
         EditCanvasConfigEnum.BACKGROUND_IAMGE,
         ImageUrl
       )
-      chartEditStoreStore.setCanvasConfig(
+      chartEditStoreStore.setEditCanvasConfig(
         EditCanvasConfigEnum.SELECT_COLOR,
         false
       )

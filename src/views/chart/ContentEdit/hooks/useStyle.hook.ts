@@ -1,9 +1,5 @@
-interface AttrType {
-  x: number
-  y: number
-  w: number
-  h: number
-}
+import { PublicConfigType } from '@/packages/index.d'
+type AttrType = Pick<PublicConfigType, 'attr'>['attr']
 
 export const useComponentStyle = (attr: AttrType, index: number) => {
   const componentStyle = {

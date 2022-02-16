@@ -1,20 +1,21 @@
 import { toRefs } from 'vue'
-import { getChartEditStore } from './useStore.hook'
 import { DragKeyEnum } from '@/enums/editPageEnum'
 import { createComponent } from '@/packages'
 import { ConfigType } from '@/packages/index.d'
-import { loadingStart, loadingFinish, loadingError } from '@/utils'
 import { CreateComponentType } from '@/packages/index.d'
-import throttle from 'lodash/throttle'
 import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
+import { getChartEditStore, getChartEditStoreEnum } from './useStore.hook'
+import { loadingStart, loadingFinish, loadingError } from '@/utils'
+import throttle from 'lodash/throttle'
 
 const { onClickoutside } = useContextMenu()
 
 const chartEditStore = getChartEditStore()
+const chartEditStoreEnum = getChartEditStoreEnum()
 const { scale } = toRefs(chartEditStore.getEditCanvas)
 
-// * 拖拽中
-export const handleDrop = async (e: DragEvent) => {
+// * 拖拽到编辑区域里
+export const handleDrag = async (e: DragEvent) => {
   e.preventDefault()
 
   try {
@@ -24,7 +25,10 @@ export const handleDrop = async (e: DragEvent) => {
     if (!drayDataString) {
       loadingFinish()
       return
-    } 
+    }
+
+    // 设置拖拽状态
+    chartEditStore.setEditCanvas(chartEditStoreEnum.Is_Drag, false)
 
     const dropData: Exclude<ConfigType, ['node', 'image']> = JSON.parse(
       drayDataString
@@ -42,10 +46,13 @@ export const handleDrop = async (e: DragEvent) => {
   }
 }
 
-// * 拖拽结束
+// * 拖拽中
 export const handleDragOver = (e: DragEvent) => {
   e.preventDefault()
   e.stopPropagation()
+
+  // 设置拖拽状态
+  chartEditStore.setEditCanvas(chartEditStoreEnum.Is_Drag, true)
   if (e.dataTransfer) e.dataTransfer.dropEffect = 'copy'
 }
 

@@ -57,7 +57,7 @@ const fetchShowColors = (colors: Array<string>) => {
 }
 
 const selectTheme = (theme: string) => {
-  chartEditStoreStore.setCanvasConfig(EditCanvasConfigEnum.CHART_THEME, theme)
+  chartEditStoreStore.setEditCanvasConfig(EditCanvasConfigEnum.CHART_THEME, theme)
 }
 </script>
 

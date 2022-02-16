@@ -35,6 +35,8 @@ export const useChartEditStoreStore = defineStore({
       userScale: 1,
       // 锁定缩放
       lockScale: false,
+      // 拖拽中
+      isDrag: false
     },
     // 画布属性（需存储给后端）
     editCanvasConfig: {
@@ -102,10 +104,10 @@ export const useChartEditStoreStore = defineStore({
   },
   actions: {
     // * 设置 editCanvas 数据项
-    setEditCanvasItem<T extends keyof EditCanvasType,  K extends EditCanvasType[T]>(key: T, value: K) {
+    setEditCanvas<T extends keyof EditCanvasType,  K extends EditCanvasType[T]>(key: T, value: K) {
       this.editCanvas[key] = value
     },
-    setCanvasConfig<T extends keyof EditCanvasConfigType,  K extends EditCanvasConfigType[T]>(key: T, value: K) {
+    setEditCanvasConfig<T extends keyof EditCanvasConfigType,  K extends EditCanvasConfigType[T]>(key: T, value: K) {
       this.editCanvasConfig[key] = value
     },
     // * 设置右键菜单

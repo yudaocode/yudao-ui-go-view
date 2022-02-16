@@ -7,7 +7,7 @@
     :showBottom="true"
     :depth="1"
     :xScroll="true"
-    @drop="handleDrop"
+    @drop="handleDrag"
     @dragover="handleDragOver"
   >
     <div id="go-chart-edit-content">
@@ -52,7 +52,7 @@ import { EditShapeBox } from './components/EditShapeBox/index'
 
 import { useLayout } from './hooks/useLayout.hook'
 import { useAddKeyboard } from '../hooks/useKeyboard.hook'
-import { handleDrop, handleDragOver, useMouseHandle } from './hooks/useDrop.hook'
+import { handleDrag, handleDragOver, useMouseHandle } from './hooks/useDrag.hook'
 import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
 import { getChartEditStore } from './hooks/useStore.hook'
 import { useComponentStyle, useSizeStyle } from './hooks/useStyle.hook'
@@ -93,7 +93,7 @@ onMounted(() => {
   @extend .go-point-bg;
   @include goId(chart-edit-content) {
     margin: 20px;
-    overflow: hidden;
+    /* overflow: hidden; */
     transform-origin: left top;
     border: 1px solid rgba(0, 0, 0, 0);
     @extend .go-transition;
