@@ -76,9 +76,9 @@
 </template>
 
 <script setup lang="ts">
-import { shallowRef, ref, toRefs, watch, computed, reactive } from 'vue'
+import { ref, toRefs, watch, computed } from 'vue'
 import { icon } from '@/plugins'
-import { loadAsyncComponent, loadSkeletonAsyncComponent } from '@/utils'
+import { loadAsyncComponent } from '@/utils'
 import { ContentBox } from '../ContentBox/index'
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
 import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
@@ -91,9 +91,9 @@ const chartEditStoreStore = useChartEditStoreStore()
 const { ConstructIcon, FlashIcon, DesktopOutlineIcon } = icon.ionicons5
 
 const ContentEdit = loadAsyncComponent(() => import('../ContentEdit/index.vue'))
-const CanvasPage = loadSkeletonAsyncComponent(() =>import('./components/CanvasPage/index.vue'))
-const ChartSetting = loadSkeletonAsyncComponent(() =>import('./components/ChartSetting/index.vue'))
-const ChartBehind = loadSkeletonAsyncComponent(() => import('./components/ChartBehind/index.vue'))
+const CanvasPage = loadAsyncComponent(() =>import('./components/CanvasPage/index.vue'))
+const ChartSetting = loadAsyncComponent(() =>import('./components/ChartSetting/index.vue'))
+const ChartBehind = loadAsyncComponent(() => import('./components/ChartBehind/index.vue'))
 
 const collapsed = ref<boolean>(getDetails.value)
 
