@@ -1,5 +1,7 @@
 import { PublicConfigType } from '@/packages/index.d'
-type AttrType = Pick<PublicConfigType, 'attr'>['attr']
+
+type PickPublicConfigType<T extends keyof PublicConfigType> = Pick<PublicConfigType, T>[T]
+type AttrType = PickPublicConfigType<'attr'>
 
 export const useComponentStyle = (attr: AttrType, index: number) => {
   const componentStyle = {
