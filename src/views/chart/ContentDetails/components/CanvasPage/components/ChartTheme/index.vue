@@ -34,7 +34,8 @@ import { EditCanvasConfigEnum } from '@/store/modules/chartEditStore/chartEditSt
 import {
   chartColors,
   chartColorsName,
-  chartColorsshow
+  chartColorsshow,
+  ChartColorsNameType
 } from '@/settings/chartThemes/index'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import cloneDeep from 'lodash/cloneDeep'
@@ -48,7 +49,7 @@ const designStore = useDesignStore()
 const themeColor = ref(designStore.getAppTheme)
 
 const selectName = computed(() => {
-  return chartEditStoreStore.getEditCanvasConfig.chartTheme
+  return chartEditStoreStore.getEditCanvasConfig.chartThemeColor
 })
 
 // 获取用来展示的色号
@@ -56,8 +57,9 @@ const fetchShowColors = (colors: Array<string>) => {
   return cloneDeep(colors).splice(0, 6)
 }
 
-const selectTheme = (theme: string) => {
-  chartEditStoreStore.setEditCanvasConfig(EditCanvasConfigEnum.CHART_THEME, theme)
+// 设置主体色（在 ContentEdit > List 中进行注入）
+const selectTheme = (theme: ChartColorsNameType) => {
+  chartEditStoreStore.setEditCanvasConfig(EditCanvasConfigEnum.CHART_THEME_COLOR, theme)
 }
 </script>
 

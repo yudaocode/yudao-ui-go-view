@@ -1,5 +1,5 @@
 <template>
-  <VChart :theme="themeData" :option="option" autoresize />
+  <VChart :theme="themeColor" :option="option" autoresize />
 </template>
 
 <script setup lang="ts">
@@ -8,17 +8,22 @@ import VChart from 'vue-echarts'
 import { use, graphic } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { PieChart } from 'echarts/charts'
+import merge from 'lodash/merge'
+import config from './config'
 import {
   GridComponent,
   TooltipComponent,
-  LegendComponent
+  LegendComponent,
+  TitleComponent
 } from 'echarts/components'
-import config from './config'
 
 const props = defineProps({
-  themeData: {
-    type: Object || String,
-    default: 'dark',
+  themeSetting: {
+    type: Object,
+    required: true
+  },
+  themeColor: {
+    type: Object,
     required: true
   },
   chartData: {
@@ -32,10 +37,11 @@ use([
   PieChart,
   GridComponent,
   TooltipComponent,
-  LegendComponent
+  LegendComponent,
+  TitleComponent
 ])
 
 const option = computed(() => {
-  return props.chartData.option
+  return merge(props.chartData.option, props.themeSetting)
 })
 </script>

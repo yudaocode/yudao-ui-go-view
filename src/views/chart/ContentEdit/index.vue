@@ -30,7 +30,8 @@
             class="edit-content-chart"
             :is="item.key"
             :chartData="item"
-            :themeData="themeData"
+            :themeSetting="themeSetting"
+            :themeColor="themeColor"
             :style="useSizeStyle(item.attr)"
           />
         </EditShapeBox>
@@ -69,12 +70,16 @@ useLayout()
 const editRangeRef = ref<HTMLElement | null>(null)
 const { mouseenterHandle, mouseleaveHandle, mousedownHandle } = useMouseHandle()
 
-// 主题色注入
-const themeData = computed(() => {
-  const theme = chartEditStore.getEditCanvasConfig.chartTheme
-  if(theme === 'dark') return 'dark'
-  //  @ts-ignore
-  return chartColors[theme]
+// 主题色
+const themeSetting = computed(() => {
+  const chartThemeSetting = chartEditStore.getEditCanvasConfig.chartThemeSetting
+  return chartThemeSetting
+})
+
+// 配置项
+const themeColor = computed(() => {
+  const chartThemeColor = chartEditStore.getEditCanvasConfig.chartThemeColor
+  return chartColors[chartThemeColor]
 })
 
 // 键盘事件

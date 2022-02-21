@@ -142,7 +142,7 @@ const switchSelectColorLoading = ref(false)
 const globalTabList = [
   {
     key: 'ChartTheme',
-    title: '主题',
+    title: '主题颜色',
     icon: ColorPaletteIcon,
     render: ChartTheme
   },

@@ -10,6 +10,8 @@ import vintage from './themes/vintage.json'
 import walden from './themes/walden.json'
 import westeros from './themes/westeros.json'
 import wonderland from './themes/wonderland.json'
+// 默认主题详细配置
+import themeJson from './global.theme.json'
 
 export const chartColors = {
   dark,
@@ -26,8 +28,11 @@ export const chartColors = {
   roma,
 }
 
+// 默认主题
 export const defaultTheme = 'dark'
 
+// 主题色列表
+export type ChartColorsNameType = keyof typeof chartColorsName
 export const chartColorsName = {
   dark: '明亮',
   customed: '暗淡',
@@ -43,6 +48,7 @@ export const chartColorsName = {
   roma: '罗马红',
 }
 
+// 主题色列表
 export const chartColorsshow = {
   dark: 'linear-gradient(to right, #4992ff 0%, #7cffb2 100%)',
   customed: 'linear-gradient(to right, #5470c6 0%, #91cc75 100%)',
@@ -57,3 +63,7 @@ export const chartColorsshow = {
   shine: 'linear-gradient(to right, #c12e34 0%, #0098d9 100%)',
   roma: 'linear-gradient(to right, #e01f54 0%, #5e4ea5 100%)',
 }
+
+// 默认主题详细配置
+export type GlobalThemeJsonType = typeof themeJson
+export const globalThemeJson = themeJson

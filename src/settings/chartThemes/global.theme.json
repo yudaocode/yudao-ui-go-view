@@ -1,0 +1,53 @@
+{
+  "title": {
+    "textStyle": {
+      "color": "#464646"
+    },
+    "subtextStyle": {
+      "color": "#6e7079"
+    }
+  },
+  "xAxis": {
+    "nameTextStyle": {
+      "color": "#B9B8CE"
+    },
+    "axisLine": {
+      "lineStyle": {
+        "color": "#B9B8CE",
+        "width": 1
+      },
+      "onZero": true,
+      "onZeroAxisIndex": null
+    },
+    "splitLine": {
+      "lineStyle": {
+        "color": "#484753",
+        "width": 1
+      }
+    }
+  },
+  "yAxis": {
+    "nameTextStyle": {
+      "color": "#B9B8CE"
+    },
+    "axisLine": {
+      "lineStyle": {
+        "color": "#B9B8CE",
+        "width": 1
+      },
+      "onZero": true,
+      "onZeroAxisIndex": null
+    },
+    "splitLine": {
+      "lineStyle": {
+        "color": "#484753",
+        "width": 1
+      }
+    }
+  },
+  "legend": {
+    "textStyle": {
+      "color": "#B9B8CE"
+    }
+  }
+}

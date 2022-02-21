@@ -1,5 +1,6 @@
 import { CreateComponentType } from '@/packages/index.d'
 import { HistoryActionTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
+import { ChartColorsNameType, GlobalThemeJsonType } from '@/settings/chartThemes/index'
 
 // 编辑画布属性
 export enum EditCanvasTypeEnum {
@@ -38,7 +39,8 @@ export enum EditCanvasConfigEnum {
   BRIGHTNESS = 'brightness',
   CONTRAST = 'contrast',
   UN_OPACITY = 'unOpacity',
-  CHART_THEME = 'chartTheme',
+  CHART_THEME_COLOR = 'chartThemeColor',
+  CHART_THEME_SETTING = 'chartThemeSetting',
   BACKGROUND = 'background',
   BACKGROUND_IAMGE = 'backgroundImage',
   SELECT_COLOR = 'selectColor'
@@ -63,7 +65,9 @@ export interface EditCanvasConfigType {
   [EditCanvasConfigEnum.BACKGROUND]?: string
   [EditCanvasConfigEnum.BACKGROUND_IAMGE]?: string | null
   // 图表主题颜色
-  [EditCanvasConfigEnum.CHART_THEME]: string
+  [EditCanvasConfigEnum.CHART_THEME_COLOR]: ChartColorsNameType
+  // 图表全局配置
+  [EditCanvasConfigEnum.CHART_THEME_SETTING]: GlobalThemeJsonType
   // 图表主题颜色
   [EditCanvasConfigEnum.SELECT_COLOR]: boolean
 }

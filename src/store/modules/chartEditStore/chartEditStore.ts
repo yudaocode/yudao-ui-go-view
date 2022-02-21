@@ -3,7 +3,7 @@ import { getUUID, loadingStart, loadingFinish, loadingError } from '@/utils'
 import { CreateComponentType } from '@/packages/index.d'
 import debounce from 'lodash/debounce'
 import cloneDeep from 'lodash/cloneDeep'
-import { defaultTheme } from '@/settings/chartThemes/index'
+import { defaultTheme, globalThemeJson } from '@/settings/chartThemes/index'
 // 记录记录
 import { useChartHistoryStoreStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
 import { HistoryActionTypeEnum, HistoryItemType, HistoryTargetTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
@@ -38,6 +38,20 @@ export const useChartEditStoreStore = defineStore({
       // 拖拽中
       isDrag: false
     },
+    // 右键菜单
+    rightMenuShow: false,
+    // 鼠标定位
+    mousePosition: {
+      x: 0,
+      y: 0
+    },
+    // 目标图表
+    targetChart: {
+      hoverId: undefined,
+      selectId: undefined
+    },
+    // 记录临时数据（复制等）
+    recordChart: undefined,
     // 画布属性（需存储给后端）
     editCanvasConfig: {
       // 默认宽度
@@ -60,22 +74,10 @@ export const useChartEditStoreStore = defineStore({
       // 是否使用纯颜色
       selectColor: true,
       // chart 主题色
-      chartTheme: defaultTheme || 'dark'
+      chartThemeColor: defaultTheme || 'dark',
+      // 全局配置
+      chartThemeSetting: globalThemeJson
     },
-    // 右键菜单
-    rightMenuShow: false,
-    // 鼠标定位
-    mousePosition: {
-      x: 0,
-      y: 0
-    },
-    // 目标图表
-    targetChart: {
-      hoverId: undefined,
-      selectId: undefined
-    },
-    // 记录临时数据（复制等）
-    recordChart: undefined,
     // 图表数组（需存储给后端）
     componentList: []
   }),
