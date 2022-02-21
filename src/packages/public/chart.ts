@@ -22,5 +22,5 @@ export const mergeTheme = <T, U, E extends keyof U> (
   themeSetting: U,
   includes: E[] = []
 ) => {
-  return merge(pick(themeSetting, includes), option)
+  return merge({}, pick(themeSetting, includes), option)
 }
