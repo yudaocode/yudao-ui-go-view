@@ -15,7 +15,7 @@ export default class Config extends publicConfig implements CreateComponentType 
     },
     legend: {
       top: '5%',
-      left: 'center'
+      left: 'center',
     },
     series: [
       {

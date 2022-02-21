@@ -8,7 +8,7 @@ import VChart from 'vue-echarts'
 import { use, graphic } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { PieChart } from 'echarts/charts'
-import merge from 'lodash/merge'
+import { mergeTheme } from '@/packages/public/chart'
 import config from './config'
 import {
   GridComponent,
@@ -41,7 +41,9 @@ use([
   TitleComponent
 ])
 
+const includes = ['title', 'legend']
+
 const option = computed(() => {
-  return merge(props.chartData.option, props.themeSetting)
+  return mergeTheme( props.chartData.option, props.themeSetting, includes)
 })
 </script>

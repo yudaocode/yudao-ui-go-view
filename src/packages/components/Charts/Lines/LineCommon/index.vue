@@ -9,7 +9,7 @@ import { use, graphic } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { LineChart } from 'echarts/charts'
 import config from './config'
-import merge from 'lodash/merge'
+import { mergeTheme } from '@/packages/public/chart'
 import {
   GridComponent,
   TooltipComponent,
@@ -41,7 +41,9 @@ use([
   TitleComponent
 ])
 
+const includes = ['title', 'legend', 'xAxis', 'yAxis']
+
 const option = computed(() => {
-  return merge(props.chartData.option, props.themeSetting)
+  return mergeTheme( props.chartData.option, props.themeSetting, includes)
 })
 </script>

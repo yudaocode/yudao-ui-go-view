@@ -42,7 +42,7 @@ use([
 ])
 
 const option = computed(() => {
-  return merge(props.chartData.option, props.themeSetting)
+  return merge(props.themeSetting, props.chartData.option)
 })
 </script>
 

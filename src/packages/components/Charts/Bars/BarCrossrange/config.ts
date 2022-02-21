@@ -10,7 +10,6 @@ export default class Config extends publicConfig implements CreateComponentType 
 
   // 图表配置项
   public option = echartOptionProfixHandle({
-    backgroundColor: 'rgba(0,0,0,0)',
     tooltip: {
       trigger: 'axis',
       axisPointer: {
