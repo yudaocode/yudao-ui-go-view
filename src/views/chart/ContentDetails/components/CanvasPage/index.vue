@@ -124,9 +124,7 @@ import { backgroundImageSize } from '@/settings/designSetting'
 import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasConfigEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { UploadCustomRequestOptions } from 'naive-ui'
-import { ChartTheme } from './components/ChartTheme/index'
-import { ChartSysSetting } from './components/ChartSysSetting/index'
-import { fileToUrl } from '@/utils'
+import { fileToUrl, loadAsyncComponent } from '@/utils'
 import { icon } from '@/plugins'
 
 const { ColorPaletteIcon } = icon.ionicons5
@@ -138,19 +136,22 @@ const canvasConfig = chartEditStoreStore.getEditCanvasConfig
 const uploadFileListRef = ref()
 const switchSelectColorLoading = ref(false)
 
+const ChartThemeColor = loadAsyncComponent(() => import('./components/ChartThemeColor/index.vue'))
+const ChartThemSetting = loadAsyncComponent(() => import('./components/ChartThemSetting/index.vue'))
+
 // 页面设置
 const globalTabList = [
   {
     key: 'ChartTheme',
     title: '主题颜色',
     icon: ColorPaletteIcon,
-    render: ChartTheme
+    render: ChartThemeColor
   },
   {
     key: 'ChartSysSetting',
     title: '全局图表',
     icon: ZAxisIcon,
-    render: ChartSysSetting
+    render: ChartThemSetting
   }
 ]
 
