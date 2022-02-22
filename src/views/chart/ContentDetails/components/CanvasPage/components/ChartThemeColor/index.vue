@@ -1,5 +1,5 @@
 <template>
-  <div class="go-canvas-chart-color">
+  <div class="go-chart-theme-color">
     <n-card
       v-for="(value, key) in chartColors"
       :key="key"
@@ -64,7 +64,7 @@ const selectTheme = (theme: ChartColorsNameType) => {
 </script>
 
 <style lang="scss" scoped>
-@include go(canvas-chart-color) {
+@include go(chart-theme-color) {
   padding-top: 20px;
   .card-box {
     cursor: pointer;
