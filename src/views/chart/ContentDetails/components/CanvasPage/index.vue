@@ -50,16 +50,7 @@
         <n-color-picker
           style="width: 326px;"
           :showPreview="true"
-          :swatches="[
-            '#232324',
-            '#2a2a2b',
-            '#313132',
-            '#373739',
-            '#757575',
-            '#e0e0e0',
-            '#eeeeee',
-            '#fafafa'
-          ]"
+          :swatches="swatchesColors"
           v-model:value="canvasConfig.background"
         />
       </n-space>
@@ -92,8 +83,6 @@
         </n-button>
       </n-space>
     </n-space>
-
-    <n-divider />
 
     <!-- 主题选择和全局配置 -->
     <n-tabs class="tabs-box" size="small" type="segment">
@@ -136,10 +125,25 @@ const canvasConfig = chartEditStoreStore.getEditCanvasConfig
 const uploadFileListRef = ref()
 const switchSelectColorLoading = ref(false)
 
-const ChartThemeColor = loadAsyncComponent(() => import('./components/ChartThemeColor/index.vue'))
-const ChartThemSetting = loadAsyncComponent(() => import('./components/ChartThemSetting/index.vue'))
+const ChartThemeColor = loadAsyncComponent(() =>
+  import('./components/ChartThemeColor/index.vue')
+)
+const ChartThemSetting = loadAsyncComponent(() =>
+  import('./components/ChartThemSetting/index.vue')
+)
 
 // 页面设置
+const swatchesColors = [
+  '#232324',
+  '#2a2a2b',
+  '#313132',
+  '#373739',
+  '#757575',
+  '#e0e0e0',
+  '#eeeeee',
+  '#fafafa'
+]
+
 const globalTabList = [
   {
     key: 'ChartTheme',
@@ -184,7 +188,10 @@ const clearImage = () => {
     EditCanvasConfigEnum.BACKGROUND_IAMGE,
     undefined
   )
-  chartEditStoreStore.setEditCanvasConfig(EditCanvasConfigEnum.SELECT_COLOR, true)
+  chartEditStoreStore.setEditCanvasConfig(
+    EditCanvasConfigEnum.SELECT_COLOR,
+    true
+  )
 }
 
 // 清除颜色
@@ -277,6 +284,9 @@ $updloadHeight: 193px;
   }
   .icon-position {
     padding-top: 2px;
+  }
+  .tabs-box {
+    margin-top: 30px;
   }
 }
 </style>
