@@ -24,6 +24,8 @@ export const useLayout = () => {
     const removeScale = chartEditStore.listenerScale()
 
     onUnmounted(() => {
+      chartEditStore.setEditCanvas(EditCanvasTypeEnum.EDIT_LAYOUT_DOM, null)
+      chartEditStore.setEditCanvas(EditCanvasTypeEnum.EDIT_CONTENT_DOM, null)
       removeScale()
     })
   })
