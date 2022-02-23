@@ -16,13 +16,13 @@
         "color": "#B9B8CE",
         "width": 1
       },
-      "onZero": true,
-      "onZeroAxisIndex": null
+      "onZero": true
     },
     "splitLine": {
       "lineStyle": {
         "color": "#484753",
-        "width": 1
+        "width": 1,
+        "type": "solid"
       }
     }
   },
@@ -35,13 +35,13 @@
         "color": "#B9B8CE",
         "width": 1
       },
-      "onZero": true,
-      "onZeroAxisIndex": null
+      "onZero": true
     },
     "splitLine": {
       "lineStyle": {
         "color": "#484753",
-        "width": 1
+        "width": 1,
+        "type": "solid"
       }
     }
   },

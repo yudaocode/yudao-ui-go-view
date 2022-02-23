@@ -1,5 +1,5 @@
 <template>
-  <n-divider />
+  <n-divider style="margin: 10px 0" />
   <n-collapse arrow-placement="right" default-expanded-names="1">
     <!-- 右侧 -->
     <template #header-extra>
