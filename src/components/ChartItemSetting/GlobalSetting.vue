@@ -17,11 +17,24 @@
     </CollapseItem>
 
     <CollapseItem name="X轴">
-      <SettingItemBox name="文本">
+      <SettingItemBox name="名称">
         <SettingItem name="颜色">
           <n-color-picker
             size="small"
             v-model:value="xAxis.nameTextStyle.color"
+          />
+        </SettingItem>
+      </SettingItemBox>
+      <SettingItemBox name="标签">
+        <SettingItem name="展示">
+          <n-space>
+            <n-switch v-model:value="xAxis.axisLabel.show" size="small" />
+          </n-space>
+        </SettingItem>
+        <SettingItem name="颜色">
+          <n-color-picker
+            size="small"
+            v-model:value="xAxis.axisLabel.color"
           />
         </SettingItem>
       </SettingItemBox>
@@ -45,6 +58,20 @@
           </n-space>
         </SettingItem>
       </SettingItemBox>
+      <SettingItemBox name="刻度">
+        <SettingItem name="展示">
+          <n-space>
+            <n-switch v-model:value="xAxis.axisTick.show" size="small" />
+          </n-space>
+        </SettingItem>
+        <SettingItem name="长度">
+          <n-input-number
+            v-model:value="xAxis.axisTick.length"
+            :min="1"
+            size="small"
+          />
+        </SettingItem>
+      </SettingItemBox>
       <SettingItemBox name="分割线">
         <SettingItem name="颜色">
           <n-color-picker
@@ -62,11 +89,14 @@
         <SettingItem name="类型">
           <n-select v-model:value="xAxis.splitLine.lineStyle.type" size="small" :options="axisConf.splitLint.lineStyle.type" />
         </SettingItem>
+        <SettingItem name="位置">
+          <n-select v-model:value="xAxis.position" size="small" :options="axisConf.xposition" />
+        </SettingItem>
       </SettingItemBox>
     </CollapseItem>
 
     <CollapseItem name="Y轴">
-      <SettingItemBox name="文本">
+      <SettingItemBox name="名称">
         <SettingItem name="颜色">
           <n-color-picker
             size="small"
@@ -74,7 +104,25 @@
           />
         </SettingItem>
       </SettingItemBox>
+       <SettingItemBox name="标签">
+        <SettingItem name="展示">
+          <n-space>
+            <n-switch v-model:value="yAxis.axisLabel.show" size="small" />
+          </n-space>
+        </SettingItem>
+        <SettingItem name="颜色">
+          <n-color-picker
+            size="small"
+            v-model:value="yAxis.axisLabel.color"
+          />
+        </SettingItem>
+      </SettingItemBox>
       <SettingItemBox name="轴线">
+        <SettingItem name="展示">
+          <n-space>
+            <n-switch v-model:value="yAxis.axisLine.show" size="small" />
+          </n-space>
+        </SettingItem>
         <SettingItem name="颜色">
           <n-color-picker
             v-model:value="yAxis.axisLine.lineStyle.color"
@@ -94,6 +142,20 @@
           </n-space>
         </SettingItem>
       </SettingItemBox>
+      <SettingItemBox name="刻度">
+        <SettingItem name="展示">
+          <n-space>
+            <n-switch v-model:value="yAxis.axisTick.show" size="small" />
+          </n-space>
+        </SettingItem>
+        <SettingItem name="长度">
+          <n-input-number
+            v-model:value="yAxis.axisTick.length"
+            :min="1"
+            size="small"
+          />
+        </SettingItem>
+      </SettingItemBox>
       <SettingItemBox name="分割线">
         <SettingItem name="颜色">
           <n-color-picker
@@ -110,6 +172,9 @@
         </SettingItem>
         <SettingItem name="类型">
           <n-select v-model:value="yAxis.splitLine.lineStyle.type" size="small" :options="axisConf.splitLint.lineStyle.type" />
+        </SettingItem>
+        <SettingItem name="位置">
+          <n-select v-model:value="yAxis.position" size="small" :options="axisConf.yposition" />
         </SettingItem>
       </SettingItemBox>
     </CollapseItem>

@@ -1,4 +1,24 @@
 export const axisConf = {
+  xposition: [
+    {
+      label: 'top',
+      value: 'top'
+    },
+    {
+      label: 'bottom',
+      value: 'bottom'
+    }
+  ],
+  yposition: [
+    {
+      label: 'left',
+      value: 'left'
+    },
+    {
+      label: 'right',
+      value: 'right'
+    }
+  ],
   splitLint: {
     lineStyle: {
       type: [

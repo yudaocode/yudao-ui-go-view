@@ -11,12 +11,22 @@
     "nameTextStyle": {
       "color": "#B9B8CE"
     },
+    "axisLabel": {
+      "show": true,
+      "color": "#B9B8CE"
+    },
+    "position": "bottom",
     "axisLine": {
+      "show": true,
       "lineStyle": {
         "color": "#B9B8CE",
         "width": 1
       },
       "onZero": true
+    },
+    "axisTick": {
+      "show": true,
+      "length": 5
     },
     "splitLine": {
       "lineStyle": {
@@ -30,12 +40,22 @@
     "nameTextStyle": {
       "color": "#B9B8CE"
     },
+    "axisLabel": {
+      "show": true,
+      "color": "#B9B8CE"
+    },
+    "position": "left",
     "axisLine": {
+      "show": true,
       "lineStyle": {
         "color": "#B9B8CE",
         "width": 1
       },
       "onZero": true
+    },
+    "axisTick": {
+      "show": true,
+      "length": 5
     },
     "splitLine": {
       "lineStyle": {
