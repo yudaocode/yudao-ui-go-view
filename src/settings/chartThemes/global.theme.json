@@ -1,13 +1,17 @@
 {
   "title": {
+    "show": true,
     "textStyle": {
-      "color": "#464646"
+      "color": "#464646",
+      "fontSize": 18
     },
     "subtextStyle": {
-      "color": "#6e7079"
+      "color": "#6e7079",
+      "fontSize": 14
     }
   },
   "xAxis": {
+    "show": true,
     "nameTextStyle": {
       "color": "#B9B8CE"
     },
@@ -37,6 +41,7 @@
     }
   },
   "yAxis": {
+    "show": true,
     "nameTextStyle": {
       "color": "#B9B8CE"
     },
@@ -66,6 +71,7 @@
     }
   },
   "legend": {
+    "show": true,
     "textStyle": {
       "color": "#B9B8CE"
     }

@@ -1,22 +1,42 @@
 <template>
   <div class="go-global-setting">
     <CollapseItem name="标题">
+      <template #header>
+        <n-switch v-model:value="title.show" size="small" />
+      </template>
       <SettingItemBox name="标题">
-        <SettingItem width="200">
+        <SettingItem name="颜色">
           <n-color-picker v-model:value="title.textStyle.color" size="small" />
+        </SettingItem>
+        <SettingItem name="大小">
+          <n-input-number
+            v-model:value="title.textStyle.fontSize"
+            :min="1"
+            size="small"
+          />
         </SettingItem>
       </SettingItemBox>
       <SettingItemBox name="副标题">
-        <SettingItem width="200">
+        <SettingItem name="颜色">
           <n-color-picker
             size="small"
             v-model:value="title.subtextStyle.color"
+          />
+        </SettingItem>
+        <SettingItem name="大小">
+          <n-input-number
+            v-model:value="title.subtextStyle.fontSize"
+            :min="1"
+            size="small"
           />
         </SettingItem>
       </SettingItemBox>
     </CollapseItem>
 
     <CollapseItem name="X轴">
+      <template #header>
+        <n-switch v-model:value="xAxis.show" size="small" />
+      </template>
       <SettingItemBox name="名称">
         <SettingItem name="颜色">
           <n-color-picker
@@ -32,10 +52,7 @@
           </n-space>
         </SettingItem>
         <SettingItem name="颜色">
-          <n-color-picker
-            size="small"
-            v-model:value="xAxis.axisLabel.color"
-          />
+          <n-color-picker size="small" v-model:value="xAxis.axisLabel.color" />
         </SettingItem>
       </SettingItemBox>
       <SettingItemBox name="轴线">
@@ -87,15 +104,26 @@
           />
         </SettingItem>
         <SettingItem name="类型">
-          <n-select v-model:value="xAxis.splitLine.lineStyle.type" size="small" :options="axisConf.splitLint.lineStyle.type" />
+          <n-select
+            v-model:value="xAxis.splitLine.lineStyle.type"
+            size="small"
+            :options="axisConf.splitLint.lineStyle.type"
+          />
         </SettingItem>
         <SettingItem name="位置">
-          <n-select v-model:value="xAxis.position" size="small" :options="axisConf.xposition" />
+          <n-select
+            v-model:value="xAxis.position"
+            size="small"
+            :options="axisConf.xposition"
+          />
         </SettingItem>
       </SettingItemBox>
     </CollapseItem>
 
     <CollapseItem name="Y轴">
+      <template #header>
+        <n-switch v-model:value="yAxis.show" size="small" />
+      </template>
       <SettingItemBox name="名称">
         <SettingItem name="颜色">
           <n-color-picker
@@ -104,17 +132,14 @@
           />
         </SettingItem>
       </SettingItemBox>
-       <SettingItemBox name="标签">
+      <SettingItemBox name="标签">
         <SettingItem name="展示">
           <n-space>
             <n-switch v-model:value="yAxis.axisLabel.show" size="small" />
           </n-space>
         </SettingItem>
         <SettingItem name="颜色">
-          <n-color-picker
-            size="small"
-            v-model:value="yAxis.axisLabel.color"
-          />
+          <n-color-picker size="small" v-model:value="yAxis.axisLabel.color" />
         </SettingItem>
       </SettingItemBox>
       <SettingItemBox name="轴线">
@@ -171,15 +196,26 @@
           />
         </SettingItem>
         <SettingItem name="类型">
-          <n-select v-model:value="yAxis.splitLine.lineStyle.type" size="small" :options="axisConf.splitLint.lineStyle.type" />
+          <n-select
+            v-model:value="yAxis.splitLine.lineStyle.type"
+            size="small"
+            :options="axisConf.splitLint.lineStyle.type"
+          />
         </SettingItem>
         <SettingItem name="位置">
-          <n-select v-model:value="yAxis.position" size="small" :options="axisConf.yposition" />
+          <n-select
+            v-model:value="yAxis.position"
+            size="small"
+            :options="axisConf.yposition"
+          />
         </SettingItem>
       </SettingItemBox>
     </CollapseItem>
 
     <CollapseItem name="图例">
+      <template #header>
+        <n-switch v-model:value="legend.show" size="small" />
+      </template>
       <SettingItemBox name="图例文字">
         <SettingItem>
           <n-color-picker size="small" v-model:value="legend.textStyle.color" />

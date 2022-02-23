@@ -1,9 +1,11 @@
 <template>
-  <n-divider style="margin: 10px 0" />
-  <n-collapse arrow-placement="right" default-expanded-names="1">
+  <n-divider style="margin: 10px 0;" />
+  <n-collapse arrow-placement="right">
     <!-- 右侧 -->
     <template #header-extra>
-      <slot name="header" />
+      <div @click="click">
+        <slot name="header" />
+      </div>
     </template>
 
     <n-collapse-item :title="name" name="1">
@@ -19,4 +21,8 @@ defineProps({
     required: true
   }
 })
+const click = (e:MouseEvent) => {
+  e.preventDefault()
+  e.stopPropagation()
+}
 </script>
