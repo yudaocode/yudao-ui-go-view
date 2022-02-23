@@ -39,7 +39,7 @@
           <n-collapse-transition :appear="true" :show="show">
             <n-card class="login-account-card" :title="$t('login.desc')">
               <div class="login-account-top">
-                <img class="login-account-top-logo" src="~@/assets/images/logo.png" alt="logo" />
+                <img class="login-account-top-logo" src="~@/assets/images/login/input.png" alt="展示图片" />
               </div>
               <n-form
                 ref="formRef"
