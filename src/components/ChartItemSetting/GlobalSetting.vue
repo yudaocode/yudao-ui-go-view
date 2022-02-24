@@ -236,7 +236,7 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs, PropType } from 'vue'
+import { toRefs, PropType, watchEffect, computed } from 'vue'
 import { GlobalThemeJsonType } from '@/settings/chartThemes/index'
 import { axisConf } from '@/packages/chartConfiguration/echarts/index'
 import {
@@ -257,7 +257,21 @@ const props = defineProps({
   }
 })
 
-const { title, xAxis, yAxis, legend } = toRefs(props.data)
+const title = computed(() => {
+  return props.data.title
+})
+
+const xAxis = computed(() => {
+  return props.data.xAxis
+})
+
+const yAxis = computed(() => {
+  return props.data.yAxis
+})
+
+const legend = computed(() => {
+  return props.data.legend
+})
 </script>
 
 <style lang="scss" scoped>
