@@ -9,7 +9,6 @@ export type ConfigType = {
   package: string
   node: Component
   image: string | (() => Promise<typeof import('*.png')>)
-  [T: string]: unknown
 }
 
 // 组件实例类
@@ -21,7 +20,7 @@ export interface PublicConfigType {
 }
 export interface CreateComponentType extends PublicConfigType {
   key: string
-  chartData: ConfigType
+  chartData: Omit<ConfigType, 'node'>
   option: object
 }
 

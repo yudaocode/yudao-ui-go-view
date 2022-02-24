@@ -2,11 +2,11 @@
   "title": {
     "show": true,
     "textStyle": {
-      "color": "#464646",
+      "color": "#BFBFBF",
       "fontSize": 18
     },
     "subtextStyle": {
-      "color": "#6e7079",
+      "color": "#A2A2A2",
       "fontSize": 14
     }
   },

@@ -1,12 +1,12 @@
 import { echartOptionProfixHandle, publicConfig } from '@/packages/public'
 import { LineCommonConfig } from './index'
-import { ConfigType, CreateComponentType } from '@/packages/index.d'
+import { CreateComponentType } from '@/packages/index.d'
 import omit from 'lodash/omit'
 
 export default class Config extends publicConfig implements CreateComponentType {
   public key: string = LineCommonConfig.key
 
-  public chartData: Exclude<ConfigType, ['node']> = omit(LineCommonConfig, ['node'])
+  public chartData = omit(LineCommonConfig, ['node'])
 
   // 图表配置项
   public option = echartOptionProfixHandle({
