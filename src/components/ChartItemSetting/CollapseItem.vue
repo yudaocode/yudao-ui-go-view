@@ -1,6 +1,6 @@
 <template>
   <n-divider style="margin: 10px 0;" />
-  <n-collapse arrow-placement="right">
+  <n-collapse arrow-placement="right" :default-expanded-names="name" accordion>
     <!-- 右侧 -->
     <template #header-extra>
       <div @click="click">
@@ -8,7 +8,7 @@
       </div>
     </template>
 
-    <n-collapse-item :title="name" name="1">
+    <n-collapse-item :title="name" :name="name">
       <slot />
     </n-collapse-item>
   </n-collapse>
@@ -21,6 +21,9 @@ defineProps({
     required: true
   }
 })
+
+// const name = new Date().getTime()
+
 const click = (e:MouseEvent) => {
   e.preventDefault()
   e.stopPropagation()

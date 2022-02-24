@@ -22,6 +22,7 @@ const option = echartOptionProfixHandle({
       radius: ['40%', '70%'],
       avoidLabelOverlap: false,
       itemStyle: {
+        show: true,
         borderRadius: 10,
         borderColor: '#fff',
         borderWidth: 2

@@ -12,6 +12,7 @@ const option = echartOptionProfixHandle(
       show: true,
       trigger: 'axis',
       axisPointer: {
+        show: true,
         type: 'shadow'
       }
     },
