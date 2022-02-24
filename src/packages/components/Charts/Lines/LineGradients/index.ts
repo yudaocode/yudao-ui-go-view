@@ -4,7 +4,7 @@ import { ConfigType, PackagesCategoryEnum } from '@/packages/index.d'
 import { ChatCategoryEnum, ChatCategoryEnumName } from '../../index.d'
 
 export const LineGradientsConfig: ConfigType = {
-  key: 'VLineGradientSingle',
+  key: 'VLineGradients',
   title: '折线面积图',
   category: ChatCategoryEnum.LINE,
   categoryName: ChatCategoryEnumName.LINE,

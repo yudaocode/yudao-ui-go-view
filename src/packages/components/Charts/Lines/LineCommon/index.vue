@@ -14,7 +14,6 @@ import {
   GridComponent,
   TooltipComponent,
   LegendComponent,
-  TitleComponent
 } from 'echarts/components'
 
 const props = defineProps({
@@ -38,7 +37,6 @@ use([
   GridComponent,
   TooltipComponent,
   LegendComponent,
-  TitleComponent
 ])
 
 const option = computed(() => {

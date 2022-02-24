@@ -12,14 +12,13 @@ const option = echartOptionProfixHandle({
   },
   legend: {
     show: true,
-    top: '5%',
-    left: 'center'
   },
   series: [
     {
       name: 'Access From',
       type: 'pie',
       radius: ['40%', '70%'],
+      center: ['50%', '60%'],
       avoidLabelOverlap: false,
       itemStyle: {
         show: true,
