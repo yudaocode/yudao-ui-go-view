@@ -128,8 +128,8 @@ const switchSelectColorLoading = ref(false)
 const ChartThemeColor = loadAsyncComponent(() =>
   import('./components/ChartThemeColor/index.vue')
 )
-const ChartThemSetting = loadAsyncComponent(() =>
-  import('./components/ChartThemSetting/index.vue')
+const ChartDataSetting = loadAsyncComponent(() =>
+  import('./components/ChartDataSetting/index.vue')
 )
 
 // 页面设置
@@ -153,9 +153,9 @@ const globalTabList = [
   },
   {
     key: 'ChartSysSetting',
-    title: '全局图表',
+    title: '数据配置',
     icon: ZAxisIcon,
-    render: ChartThemSetting
+    render: ChartDataSetting
   }
 ]
 

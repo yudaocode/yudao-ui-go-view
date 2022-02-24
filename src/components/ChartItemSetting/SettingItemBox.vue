@@ -25,6 +25,7 @@ $leftWidth: 60px;
   .item-left {
     width: $leftWidth;
     text-align: left;
+    margin-top: 4px;
     margin-left: 10px;
     font-size: 12px;
   }

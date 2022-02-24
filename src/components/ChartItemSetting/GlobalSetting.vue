@@ -257,7 +257,6 @@ const props = defineProps({
   }
 })
 
-console.log(props.data)
 const { title, xAxis, yAxis, legend } = toRefs(props.data)
 </script>
 
