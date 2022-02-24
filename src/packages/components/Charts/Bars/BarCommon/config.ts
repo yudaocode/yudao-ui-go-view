@@ -4,39 +4,50 @@ import { CreateComponentType } from '@/packages/index.d'
 import omit from 'lodash/omit'
 import cloneDeep from 'lodash/cloneDeep'
 
-export default class Config extends publicConfig implements CreateComponentType {
-  public key = BarCommonConfig.key
-  public chartData = omit(cloneDeep(BarCommonConfig), ['node'])
+export const includes = ['legend', 'xAxis', 'yAxis']
 
-  // 图表配置项
-  public option = echartOptionProfixHandle({
+// 图表配置项
+const option = echartOptionProfixHandle(
+  {
     tooltip: {
+      show: true,
       trigger: 'axis',
       axisPointer: {
         type: 'shadow'
       }
     },
     legend: {
-      data: ["name1", "name2"]
+      show: true,
     },
     xAxis: {
+      show: true,
       type: 'category',
       data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
     },
     yAxis: {
+      show: true,
       type: 'value'
     },
     series: [
       {
-        name: 'name1',
+        name: 'data1',
         type: 'bar',
-        data: [120, 200, 150, 80, 70, 110, 130],
+        data: [120, 200, 150, 80, 70, 110, 130]
       },
       {
-        name: 'name2',
+        name: 'data2',
         type: 'bar',
-        data: [130, 130, 312, 268, 155, 117, 160],
+        data: [130, 130, 312, 268, 155, 117, 160]
       }
     ]
-  })
+  },
+  includes
+)
+
+export default class Config extends publicConfig
+  implements CreateComponentType {
+  public key = BarCommonConfig.key
+  public chartConfig = omit(cloneDeep(BarCommonConfig), ['node'])
+  // 图表配置项
+  public option = option
 }

@@ -8,7 +8,7 @@ import VChart from 'vue-echarts'
 import { use, graphic } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { LineChart } from 'echarts/charts'
-import config from './config'
+import config, { includes } from './config'
 import { mergeTheme } from '@/packages/public/chart'
 import {
   GridComponent,
@@ -26,7 +26,7 @@ const props = defineProps({
     type: Object,
     required: true
   },
-  chartData: {
+  chartConfig: {
     type: Object as PropType<config>,
     required: true
   }
@@ -41,9 +41,7 @@ use([
   TitleComponent
 ])
 
-const includes = ['title', 'legend', 'xAxis', 'yAxis']
-
 const option = computed(() => {
-  return mergeTheme( props.chartData.option, props.themeSetting, includes)
+  return mergeTheme( props.chartConfig.option, props.themeSetting, includes)
 })
 </script>

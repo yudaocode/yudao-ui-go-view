@@ -1,14 +1,6 @@
 import merge from 'lodash/merge'
 import pick from 'lodash/pick'
-
-/**
- * * ECharts option 统一前置处理
- * @param option
- */
-export const echartOptionProfixHandle = (option: any) => {
-  option['backgroundColor'] = 'rgba(0,0,0,0)'
-  return option
-}
+import { globalThemeJson } from '@/settings/chartThemes/index'
 
 /**
  * * 合并 color 和全局配置项
@@ -17,10 +9,19 @@ export const echartOptionProfixHandle = (option: any) => {
  * @param excludes 排除元素
  * @returns object
  */
-export const mergeTheme = <T, U, E extends keyof U> (
+export const mergeTheme = <T, U> (
   option: T,
   themeSetting: U,
-  includes: E[] = []
+  includes: string[]
 ) => {
   return merge({}, pick(themeSetting, includes), option)
+}
+
+/**
+ * * ECharts option 统一前置处理
+ * @param option
+ */
+ export const echartOptionProfixHandle = (option: any, includes: string[]) => {
+  option['backgroundColor'] = 'rgba(0,0,0,0)'
+  return mergeTheme(option, globalThemeJson, includes)
 }

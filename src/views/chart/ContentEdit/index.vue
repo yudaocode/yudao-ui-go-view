@@ -29,7 +29,7 @@
           <component
             class="edit-content-chart"
             :is="item.key"
-            :chartData="item"
+            :chartConfig="item"
             :themeSetting="themeSetting"
             :themeColor="themeColor"
             :style="useSizeStyle(item.attr)"

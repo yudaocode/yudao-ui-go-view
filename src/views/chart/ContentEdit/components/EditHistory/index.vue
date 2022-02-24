@@ -94,7 +94,7 @@ const labelHandle = (e: HistoryItemType) => {
     return historyActionTypeName[HistoryTargetTypeEnum.CANVAS]
   }
   return `${historyActionTypeName[e.actionType]} - ${
-    (e.historyData as CreateComponentType).chartData.title
+    (e.historyData as CreateComponentType).chartConfig.title
   }`
 }
 

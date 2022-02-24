@@ -8,13 +8,12 @@ import VChart from 'vue-echarts'
 import { use, graphic } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { BarChart } from 'echarts/charts'
-import merge from 'lodash/merge'
-import config from './config'
+import { mergeTheme } from '@/packages/public/chart'
+import config, { includes } from './config'
 import {
   GridComponent,
   TooltipComponent,
   LegendComponent,
-  TitleComponent
 } from 'echarts/components'
 
 const props = defineProps({
@@ -26,7 +25,7 @@ const props = defineProps({
     type: Object,
     required: true
   },
-  chartData: {
+  chartConfig: {
     type: Object as PropType<config>,
     required: true
   }
@@ -38,11 +37,10 @@ use([
   GridComponent,
   TooltipComponent,
   LegendComponent,
-  TitleComponent
 ])
 
 const option = computed(() => {
-  return merge(props.themeSetting, props.chartData.option)
+  return mergeTheme(props.chartConfig.option, props.themeSetting, includes)
 })
 </script>
 

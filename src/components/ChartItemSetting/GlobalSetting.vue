@@ -1,8 +1,8 @@
 <template>
   <div class="go-global-setting">
-    <CollapseItem name="标题">
+    <CollapseItem v-if="title" name="标题">
       <template #header>
-        <n-switch v-model:value="title.show" size="small" />
+        <n-switch v-show="inChart" v-model:value="title.show" size="small" />
       </template>
       <SettingItemBox name="标题">
         <SettingItem name="颜色">
@@ -33,9 +33,9 @@
       </SettingItemBox>
     </CollapseItem>
 
-    <CollapseItem name="X轴">
+    <CollapseItem v-if="xAxis" name="X轴">
       <template #header>
-        <n-switch v-model:value="xAxis.show" size="small" />
+        <n-switch v-show="inChart" v-model:value="xAxis.show" size="small" />
       </template>
       <SettingItemBox name="名称">
         <SettingItem name="颜色">
@@ -46,7 +46,7 @@
         </SettingItem>
       </SettingItemBox>
       <SettingItemBox name="标签">
-        <SettingItem name="展示">
+        <SettingItem v-show="inChart" name="展示">
           <n-space>
             <n-switch v-model:value="xAxis.axisLabel.show" size="small" />
           </n-space>
@@ -76,7 +76,7 @@
         </SettingItem>
       </SettingItemBox>
       <SettingItemBox name="刻度">
-        <SettingItem name="展示">
+        <SettingItem v-show="inChart" name="展示">
           <n-space>
             <n-switch v-model:value="xAxis.axisTick.show" size="small" />
           </n-space>
@@ -90,6 +90,11 @@
         </SettingItem>
       </SettingItemBox>
       <SettingItemBox name="分割线">
+        <SettingItem v-show="inChart" name="展示">
+          <n-space>
+            <n-switch v-model:value="xAxis.splitLine.show" size="small" />
+          </n-space>
+        </SettingItem>
         <SettingItem name="颜色">
           <n-color-picker
             v-model:value="xAxis.splitLine.lineStyle.color"
@@ -120,9 +125,9 @@
       </SettingItemBox>
     </CollapseItem>
 
-    <CollapseItem name="Y轴">
+    <CollapseItem v-if="yAxis" name="Y轴">
       <template #header>
-        <n-switch v-model:value="yAxis.show" size="small" />
+        <n-switch v-show="inChart" v-model:value="yAxis.show" size="small" />
       </template>
       <SettingItemBox name="名称">
         <SettingItem name="颜色">
@@ -133,7 +138,7 @@
         </SettingItem>
       </SettingItemBox>
       <SettingItemBox name="标签">
-        <SettingItem name="展示">
+        <SettingItem v-show="inChart" name="展示">
           <n-space>
             <n-switch v-model:value="yAxis.axisLabel.show" size="small" />
           </n-space>
@@ -143,7 +148,7 @@
         </SettingItem>
       </SettingItemBox>
       <SettingItemBox name="轴线">
-        <SettingItem name="展示">
+        <SettingItem v-show="inChart" name="展示">
           <n-space>
             <n-switch v-model:value="yAxis.axisLine.show" size="small" />
           </n-space>
@@ -168,7 +173,7 @@
         </SettingItem>
       </SettingItemBox>
       <SettingItemBox name="刻度">
-        <SettingItem name="展示">
+        <SettingItem v-show="inChart" name="展示">
           <n-space>
             <n-switch v-model:value="yAxis.axisTick.show" size="small" />
           </n-space>
@@ -182,6 +187,11 @@
         </SettingItem>
       </SettingItemBox>
       <SettingItemBox name="分割线">
+        <SettingItem v-show="inChart" name="展示">
+          <n-space>
+            <n-switch v-model:value="yAxis.splitLine.show" size="small" />
+          </n-space>
+        </SettingItem>
         <SettingItem name="颜色">
           <n-color-picker
             v-model:value="yAxis.splitLine.lineStyle.color"
@@ -212,9 +222,9 @@
       </SettingItemBox>
     </CollapseItem>
 
-    <CollapseItem name="图例">
+    <CollapseItem v-if="legend" name="图例">
       <template #header>
-        <n-switch v-model:value="legend.show" size="small" />
+        <n-switch v-show="inChart" v-model:value="legend.show" size="small" />
       </template>
       <SettingItemBox name="图例文字">
         <SettingItem>
@@ -239,9 +249,15 @@ const props = defineProps({
   data: {
     type: Object as PropType<GlobalThemeJsonType>,
     required: true
+  },
+  inChart: {
+    type: Boolean,
+    required: false,
+    default: false
   }
 })
 
+console.log(props.data)
 const { title, xAxis, yAxis, legend } = toRefs(props.data)
 </script>
 

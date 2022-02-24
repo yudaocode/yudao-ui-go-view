@@ -20,7 +20,7 @@ export interface PublicConfigType {
 }
 export interface CreateComponentType extends PublicConfigType {
   key: string
-  chartData: Omit<ConfigType, 'node'>
+  chartConfig: Omit<ConfigType, 'node'>
   option: object
 }
 

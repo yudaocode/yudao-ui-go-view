@@ -138,20 +138,20 @@ export const useChartEditStoreStore = defineStore({
     },
     /**
      * * 新增组件列表
-     * @param chartData 新图表实例
+     * @param chartConfig 新图表实例
      * @param isEnd 是否末端插入
      * @param isHistory 是否进行记录
      * @returns
      */
-    addComponentList(chartData: CreateComponentType, isEnd = false, isHistory = false): void {
+    addComponentList(chartConfig: CreateComponentType, isEnd = false, isHistory = false): void {
       if (isHistory) {
-        chartHistoryStoreStore.createAddHistory(chartData)
+        chartHistoryStoreStore.createAddHistory(chartConfig)
       }
       if (isEnd) {
-        this.componentList.unshift(chartData)
+        this.componentList.unshift(chartConfig)
         return
       }
-      this.componentList.push(chartData)
+      this.componentList.push(chartConfig)
     },
     // * 删除组件列表
     removeComponentList(isHistory = true): void {

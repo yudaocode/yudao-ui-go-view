@@ -9,12 +9,11 @@ import { use, graphic } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { PieChart } from 'echarts/charts'
 import { mergeTheme } from '@/packages/public/chart'
-import config from './config'
+import config, { includes } from './config'
 import {
   GridComponent,
   TooltipComponent,
   LegendComponent,
-  TitleComponent
 } from 'echarts/components'
 
 const props = defineProps({
@@ -26,7 +25,7 @@ const props = defineProps({
     type: Object,
     required: true
   },
-  chartData: {
+  chartConfig: {
     type: Object as PropType<config>,
     required: true
   }
@@ -38,12 +37,10 @@ use([
   GridComponent,
   TooltipComponent,
   LegendComponent,
-  TitleComponent
 ])
 
-const includes = ['title', 'legend']
 
 const option = computed(() => {
-  return mergeTheme( props.chartData.option, props.themeSetting, includes)
+  return mergeTheme(props.chartConfig.option, props.themeSetting, includes)
 })
 </script>
