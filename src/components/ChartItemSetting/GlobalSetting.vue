@@ -246,7 +246,7 @@ import {
 } from '@/components/ChartItemSetting/index'
 
 const props = defineProps({
-  data: {
+  optiondata: {
     type: Object as PropType<GlobalThemeJsonType>,
     required: true
   },
@@ -258,19 +258,19 @@ const props = defineProps({
 })
 
 const title = computed(() => {
-  return props.data.title
+  return props.optiondata.title
 })
 
 const xAxis = computed(() => {
-  return props.data.xAxis
+  return props.optiondata.xAxis
 })
 
 const yAxis = computed(() => {
-  return props.data.yAxis
+  return props.optiondata.yAxis
 })
 
 const legend = computed(() => {
-  return props.data.legend
+  return props.optiondata.legend
 })
 </script>
 

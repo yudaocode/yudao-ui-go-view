@@ -12,7 +12,7 @@
         />
       </SettingItemBox>
     </div>
-    <GlobalSetting :data="targetData.option" :in-chart="true" />
+    <GlobalSetting :optionData="targetData.option" :in-chart="true" />
   </div>
 </template>
 

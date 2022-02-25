@@ -1,4 +1,5 @@
 import { Component } from '@/router/types'
+import { GlobalThemeJsonType } from '@/settings/chartThemes/index'
 
 // 组件配置
 export type ConfigType = {
@@ -21,7 +22,7 @@ export interface PublicConfigType {
 export interface CreateComponentType extends PublicConfigType {
   key: string
   chartConfig: Omit<ConfigType, 'node'>
-  option: object
+  option: GlobalThemeJsonType
 }
 
 // 包分类枚举
