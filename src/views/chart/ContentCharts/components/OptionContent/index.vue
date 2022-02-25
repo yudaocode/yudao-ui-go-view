@@ -20,9 +20,13 @@
 
 <script setup lang="ts">
 import { ref, watch, reactive, computed } from 'vue'
-import { ItemBox } from '../ItemBox/index'
 import { ConfigType } from '@/packages/index.d'
 import { useSettingStore } from '@/store/modules/settingStore/settingStore'
+import { loadAsyncComponent } from '@/utils'
+
+const ItemBox = loadAsyncComponent(() =>
+  import('../ItemBox/index.vue')
+)
 
 const props = defineProps({
   selectOptions: {
