@@ -2,6 +2,15 @@ import { defineAsyncComponent, AsyncComponentLoader } from 'vue'
 import { AsyncLoading, AsyncSkeletonLoading } from '@/components/LoadingComponent'
 
 /**
+ * * 动态注册组件
+ */
+export const componentInstall = <T> (key:string, node: T)  => {
+  if(!window['$vue'].component(key)) {
+    window['$vue'].component(key, node)
+  }
+}
+
+/**
  * * 异步加载组件
  * @param loader
  * @returns

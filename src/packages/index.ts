@@ -17,16 +17,6 @@ let packagesList: PackagesType = {
   [PackagesCategoryEnum.DECORATES]: DecorateList
 }
 
-// * 注册
-const packagesInstall = (app: App): void => {
-  for (const item in packagesList) {
-    const chartList: ConfigType[] = (packagesList as any)[item]
-    chartList.forEach((chart: ConfigType) => {
-      app.component(chart.key, chart.node)
-    })
-  }
-}
-
 /**
  * * 获取目标拖拽组件信息
  * @param dropData
@@ -38,4 +28,4 @@ const createComponent = async (dropData: ConfigType) => {
   return new chart.default()
 }
 
-export { packagesList, packagesInstall, createComponent }
+export { packagesList, createComponent }

@@ -4,7 +4,6 @@ import router, { setupRouter } from '@/router'
 import i18n from '@/i18n/index'
 import { setupStore } from '@/store'
 import { setupNaive, setupDirectives, setupCustomComponents } from '@/plugins'
-import { packagesInstall } from '@/packages/index'
 import { AppProvider } from '@/components/AppProvider/index'
 import { setHtmlTheme } from '@/utils'
 
@@ -40,13 +39,14 @@ async function appInit() {
   // Store 准备就绪后处理主题色
   setHtmlTheme()
 
-  // 注册 pakage 组件
-  app.use(packagesInstall)
-
   // 语言注册
   app.use(i18n)
 
+  // 挂载到页面
   app.mount('#app', true)
+
+  // 挂载到 window
+  window['$vue'] = app
 }
 
 void appInit()

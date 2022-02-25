@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
 import { AppleControlBtn } from '@/components/AppleControlBtn/index'
-import { requireFallbackImg } from '@/utils'
+import { requireFallbackImg, componentInstall } from '@/utils'
 import { DragKeyEnum } from '@/enums/editPageEnum'
 import { ConfigType } from '@/packages/index.d'
 import omit from 'lodash/omit'
@@ -41,6 +41,7 @@ defineProps({
 
 // 拖拽处理
 const handleDragStart = (e: DragEvent, item: ConfigType) => {
+  componentInstall(item.key, item.node)
   // 将配置项绑定到拖拽属性上
   e!.dataTransfer!.setData(DragKeyEnum.DROG_KEY, JSON.stringify(omit(item, ['node', 'image'])))
 }
