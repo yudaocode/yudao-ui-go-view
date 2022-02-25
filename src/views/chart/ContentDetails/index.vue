@@ -19,7 +19,7 @@
         :showTop="false"
         :depth="2"
       >
-        <!-- 画布 -->
+        <!-- 页面配置 -->
         <n-tabs
           v-show="!selectTarget"
           class="tabs-box"
@@ -91,9 +91,15 @@ const chartEditStoreStore = useChartEditStoreStore()
 const { ConstructIcon, FlashIcon, DesktopOutlineIcon } = icon.ionicons5
 
 const ContentEdit = loadAsyncComponent(() => import('../ContentEdit/index.vue'))
-const CanvasPage = loadAsyncComponent(() =>import('./components/CanvasPage/index.vue'))
-const ChartSetting = loadAsyncComponent(() =>import('./components/ChartSetting/index.vue'))
-const ChartData = loadAsyncComponent(() => import('./components/ChartData/index.vue'))
+const CanvasPage = loadAsyncComponent(() =>
+  import('./components/CanvasPage/index.vue')
+)
+const ChartSetting = loadAsyncComponent(() =>
+  import('./components/ChartSetting/index.vue')
+)
+const ChartData = loadAsyncComponent(() =>
+  import('./components/ChartData/index.vue')
+)
 
 const collapsed = ref<boolean>(getDetails.value)
 
@@ -151,10 +157,12 @@ const canvasTabList = [
 
 <style lang="scss" scoped>
 @include go(content-layers) {
-  padding: 10px;
   overflow: hidden;
-  .icon-position {
-    padding-top: 2px;
+  .tabs-box {
+    padding: 10px;
+    .icon-position {
+      padding-top: 2px;
+    }
   }
 }
 </style>

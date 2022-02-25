@@ -130,6 +130,10 @@ export const useChartEditStoreStore = defineStore({
     },
     // * 找到目标 id 数据下标位置
     fetchTargetIndex(): number {
+      if(!this.getTargetChart.selectId) {
+        loadingFinish()
+        return -1
+      }
       const index = this.componentList.findIndex(e => e.id === this.getTargetChart.selectId)
       if (index === -1) {
         loadingError()
@@ -183,7 +187,7 @@ export const useChartEditStoreStore = defineStore({
         dom.style[key] = value
       }
     },
-    // * 移动组件列表位置到两端
+    // * 移动组件列表层级位置到两端
     setBothEnds(isEnd = false, isHistory = true): void {
       try {
         loadingStart()

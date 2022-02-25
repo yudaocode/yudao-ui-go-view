@@ -32,7 +32,6 @@ const packagesInstall = (app: App): void => {
  * @param dropData
  */
 const createComponent = async (dropData: ConfigType) => {
-  console.log(dropData)
   const { category } = dropData
   const key = dropData.key.substring(1)
   const chart = await import(`./components/${dropData.package}/${category}/${key}/config.ts`)

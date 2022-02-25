@@ -32,7 +32,7 @@
       "length": 5
     },
     "splitLine": {
-      "show": true,
+      "show": false,
       "lineStyle": {
         "color": "#484753",
         "width": 1,

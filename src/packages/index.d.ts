@@ -25,6 +25,9 @@ export interface CreateComponentType extends PublicConfigType {
   option: GlobalThemeJsonType
 }
 
+// 获取组件实例类中某个key对应value类型的方法
+export type PickCreateComponentType<T extends keyof CreateComponentType> = Pick<CreateComponentType, T>[T]
+
 // 包分类枚举
 export enum PackagesCategoryEnum {
   CHARTS = 'Charts',

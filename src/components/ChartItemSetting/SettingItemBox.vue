@@ -21,7 +21,7 @@ $leftWidth: 60px;
 @include go('config-item-box') {
   position: relative;
   display: flex;
-  margin-top: 10px;
+  margin: 20px 0;
   .item-left {
     width: $leftWidth;
     text-align: left;
