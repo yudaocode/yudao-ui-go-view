@@ -6,7 +6,7 @@ import { packagesList } from '@/packages/index'
 export const usePackagesStore = defineStore({
   id: 'usePackagesStore',
   state: (): PackagesStoreType => ({
-    packagesList
+    packagesList: Object.freeze(packagesList)
   }),
   getters: {
     getPackagesList(): PackagesType {

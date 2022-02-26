@@ -5,7 +5,7 @@ import omit from 'lodash/omit'
 
 export const includes = ['legend', 'xAxis', 'yAxis']
 
-const options = echartOptionProfixHandle({
+const option = {
   legend: {
     show: true,
   },
@@ -23,18 +23,13 @@ const options = echartOptionProfixHandle({
       name: 'data1',
       type: 'line',
       data: [120, 200, 150, 80, 70, 110, 130]
-    },
-    {
-      name: 'data2',
-      type: 'line',
-      data: [130, 130, 312, 268, 155, 117, 160]
     }
   ]
-}, includes)
+}
 
 export default class Config extends publicConfig implements CreateComponentType {
   public key: string = LineCommonConfig.key
   public chartConfig = omit(LineCommonConfig, ['node'])
   // 图表配置项
-  public option = options
+  public option = echartOptionProfixHandle(option, includes)
 }

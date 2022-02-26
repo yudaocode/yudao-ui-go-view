@@ -5,7 +5,7 @@ import { AsyncLoading, AsyncSkeletonLoading } from '@/components/LoadingComponen
  * * 动态注册组件
  */
 export const componentInstall = <T> (key:string, node: T)  => {
-  if(!window['$vue'].component(key)) {
+  if(!window['$vue'].component(key) && key && node) {
     window['$vue'].component(key, node)
   }
 }

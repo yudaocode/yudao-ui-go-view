@@ -17,12 +17,12 @@ const {
 
 // 图表
 const { getPackagesList } = usePackagesStore()
-const menuOptions = shallowReactive<{
+const menuOptions:{
   key: string
   icon: ReturnType<typeof renderIcon>
   label: ReturnType<typeof renderLang>
   list: PackagesType
-}[]>([])
+}[] = []
 
 const packagesListObj = {
   [PackagesCategoryEnum.CHARTS]: {

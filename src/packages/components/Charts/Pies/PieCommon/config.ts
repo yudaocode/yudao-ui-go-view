@@ -5,7 +5,7 @@ import omit from 'lodash/omit'
 
 export const includes = ['legend']
 
-const option = echartOptionProfixHandle({
+const option = {
   tooltip: {
     show: true,
     trigger: 'item'
@@ -17,7 +17,7 @@ const option = echartOptionProfixHandle({
     {
       name: 'Access From',
       type: 'pie',
-      radius: ['40%', '70%'],
+      radius: ['40%', '65%'],
       center: ['50%', '60%'],
       avoidLabelOverlap: false,
       itemStyle: {
@@ -49,7 +49,7 @@ const option = echartOptionProfixHandle({
       ]
     }
   ]
-}, includes)
+}
 
 export default class Config extends publicConfig implements CreateComponentType {
   public key: string = PieCommonConfig.key
@@ -57,5 +57,5 @@ export default class Config extends publicConfig implements CreateComponentType 
   public chartConfig = omit(PieCommonConfig, ['node'])
 
   // 图表配置项
-  public option = option
+  public option = echartOptionProfixHandle(option, includes)
 }

@@ -43,7 +43,6 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, toRefs } from 'vue'
 import { ContentBox } from '../ContentBox/index'
 import { OptionContent } from './components/OptionContent'
 import {

@@ -9,7 +9,7 @@
       @dragstart="handleDragStart($event, item)"
     >
       <div class="list-header">
-        <AppleControlBtn :mini="true" :disabled="true"></AppleControlBtn>
+        <MacOsControlBtn :mini="true" :disabled="true"></MacOsControlBtn>
         <n-text class="list-header-text" depth="3">{{ item.title }}</n-text>
       </div>
       <div class="list-center go-flex-center">
@@ -26,7 +26,8 @@
 </template>
 
 <script setup lang="ts">
-import { AppleControlBtn } from '@/components/AppleControlBtn/index'
+import { PropType } from 'vue'
+import { MacOsControlBtn } from '@/components/MacOsControlBtn/index'
 import { requireFallbackImg, componentInstall } from '@/utils'
 import { DragKeyEnum } from '@/enums/editPageEnum'
 import { ConfigType } from '@/packages/index.d'
@@ -34,13 +35,14 @@ import omit from 'lodash/omit'
 
 defineProps({
   menuOptions: {
-    type: Array,
+    type: Array as PropType<ConfigType[]>,
     default: () => []
   }
 })
 
 // 拖拽处理
 const handleDragStart = (e: DragEvent, item: ConfigType) => {
+  // 动态注册图表组件
   componentInstall(item.key, item.node)
   // 将配置项绑定到拖拽属性上
   e!.dataTransfer!.setData(DragKeyEnum.DROG_KEY, JSON.stringify(omit(item, ['node', 'image'])))

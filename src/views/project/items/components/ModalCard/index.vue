@@ -17,7 +17,7 @@
         </n-space>
         <!-- 顶部按钮 -->
         <n-space class="list-content-top">
-          <AppleControlBtn
+          <MacOsControlBtn
             :narrow="true"
             :hidden="['close']"
             @remove="closeHandle"
@@ -78,7 +78,7 @@
 import { reactive } from 'vue'
 import { renderIcon, renderLang, requireUrl } from '@/utils'
 import { icon } from '@/plugins'
-import { AppleControlBtn } from '@/components/AppleControlBtn'
+import { MacOsControlBtn } from '@/components/MacOsControlBtn'
 
 const { HammerIcon } = icon.ionicons5
 

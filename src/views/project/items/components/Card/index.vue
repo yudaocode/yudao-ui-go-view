@@ -4,7 +4,7 @@
       <div class="list-content">
         <!-- 顶部按钮 -->
         <div class="list-content-top">
-          <AppleControlBtn
+          <MacOsControlBtn
             class="top-btn"
             :hidden="['remove']"
             @close="deleteHanlde"
@@ -85,7 +85,7 @@
 import { reactive, ref } from 'vue'
 import { renderIcon, renderLang, requireUrl, requireFallbackImg } from '@/utils'
 import { icon } from '@/plugins'
-import { AppleControlBtn } from '@/components/AppleControlBtn'
+import { MacOsControlBtn } from '@/components/MacOsControlBtn'
 
 const {
   EllipsisHorizontalCircleSharpIcon,

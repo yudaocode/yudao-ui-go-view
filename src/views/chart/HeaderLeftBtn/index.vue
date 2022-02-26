@@ -61,7 +61,7 @@ const btnList = reactive<ItemType[]>([
 ])
 
 
-// store 描述的是展示的值，所以和 ContentDetails 的 collapsed 是相反的
+// store 描述的是展示的值，所以和 ContentConfigurations 的 collapsed 是相反的
 const styleHandle = (item: ItemType) => {
   if (item.key === ChartLayoutStoreEnum.DETAILS) {
     return item.select ? '' : 'success'

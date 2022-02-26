@@ -16,7 +16,7 @@
       <n-layout-content content-style="overflow:hidden; display: flex">
         <ContentCharts />
         <ContentLayers />
-        <ContentDetails />
+        <ContentConfigurations />
       </n-layout-content>
     </n-layout>
   </div>
@@ -60,8 +60,8 @@ const ContentLayers = loadAsyncComponent(() =>
 const ContentCharts = loadAsyncComponent(() =>
   import('./ContentCharts/index.vue')
 )
-const ContentDetails = loadAsyncComponent(() =>
-  import('./ContentDetails/index.vue')
+const ContentConfigurations = loadAsyncComponent(() =>
+  import('./ContentConfigurations/index.vue')
 )
 
 // 右键

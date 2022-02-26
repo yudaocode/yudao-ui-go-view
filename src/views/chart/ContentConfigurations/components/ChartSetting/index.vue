@@ -1,5 +1,6 @@
 <template>
   <div class="go-chart-content-details" v-if="targetData">
+    <!-- 名称 -->
     <SettingItemBox name="名称">
       <n-input
         type="text"
@@ -10,7 +11,11 @@
         v-model:value="targetData.chartConfig.title"
       />
     </SettingItemBox>
+    <!-- 位置 -->
     <PositionSetting :chartAttr="targetData.attr" />
+    <!-- 自定义配置项 -->
+    <component :is="targetData.chartConfig.conNode()" :optionData="targetData.option"></component>
+    <!-- 全局设置 --> 
     <GlobalSetting :optionData="targetData.option" :in-chart="true" />
   </div>
 </template>

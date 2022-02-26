@@ -1,6 +1,6 @@
 <template>
   <n-divider style="margin: 10px 0;" />
-  <n-collapse arrow-placement="right" :default-expanded-names="name" accordion>
+  <n-collapse arrow-placement="right" :default-expanded-names="expanded ? name : null" accordion>
     <!-- 右侧 -->
     <template #header-extra>
       <div @click="click">
@@ -19,6 +19,11 @@ defineProps({
   name: {
     type: String,
     required: true
+  },
+  expanded: {
+    type: Boolean,
+    required: false,
+    default: false
   }
 })
 

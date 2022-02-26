@@ -9,6 +9,7 @@ export type ConfigType = {
   categoryName: string
   package: string
   node: Component
+  conNode: () => Component
   image: string | (() => Promise<typeof import('*.png')>)
 }
 
