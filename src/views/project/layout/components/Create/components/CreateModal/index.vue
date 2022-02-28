@@ -18,7 +18,7 @@
             :disabled="item.disabled"
             v-for="item in typeList"
             :key="item.key"
-            @click="btnHandle(item.index)"
+            @click="btnHandle"
           >
             <component :is="item.title"> </component>
             <template #icon>

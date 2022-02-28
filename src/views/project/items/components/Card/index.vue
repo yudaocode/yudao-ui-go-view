@@ -82,11 +82,11 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { reactive, ref, PropType } from 'vue'
 import { renderIcon, renderLang, requireUrl, requireFallbackImg } from '@/utils'
 import { icon } from '@/plugins'
 import { MacOsControlBtn } from '@/components/MacOsControlBtn'
-
+import { Chartype } from '../../index.d'
 const {
   EllipsisHorizontalCircleSharpIcon,
   CopyIcon,
@@ -103,7 +103,7 @@ const t = window['$t']
 
 const props = defineProps({
   // todo 定义列表ITEN的 type
-  cardData: Object
+  cardData: Object as PropType<Chartype>
 })
 const fnBtnList = reactive([
   {

@@ -4,7 +4,7 @@ import { DialogEnum } from '@/enums/pluginEnum'
 
 // 数据初始化
 export const useDataListInit = () => {
-  const list = ref<object[]>([
+  const list = ref<{id: number, title:string, release: boolean}[]>([
     {
       id: 1,
       title: '物料1',

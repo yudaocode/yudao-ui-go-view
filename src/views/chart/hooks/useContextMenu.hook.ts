@@ -113,7 +113,7 @@ const clearHideOption = (options: MenuOptionsItemType[], hideList?: MenuEnum[]) 
 }
 
 // * 右键处理
-const handleContextMenu = (e: MouseEvent, item: CreateComponentType) => {
+const handleContextMenu = (e: MouseEvent, item?: CreateComponentType) => {
   e.stopPropagation()
   e.preventDefault()
   let target = e.target
