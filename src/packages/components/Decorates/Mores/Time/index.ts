@@ -1,4 +1,5 @@
 import Time from './index.vue'
+import Configuration from './config.vue'
 import image from '@/assets/images/chart/decorates/time.png'
 import { ConfigType, PackagesCategoryEnum } from '@/packages/index.d'
 import { ChatCategoryEnum,ChatCategoryEnumName } from '../../index.d'
@@ -10,5 +11,6 @@ export const TimeConfig: ConfigType = {
   categoryName: ChatCategoryEnumName.MORE,
   package: PackagesCategoryEnum.DECORATES,
   node: Time,
+  conNode: () => Configuration,
   image
 }

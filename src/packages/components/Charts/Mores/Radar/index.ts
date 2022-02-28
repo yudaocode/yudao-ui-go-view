@@ -1,4 +1,5 @@
 import Radar from './index.vue'
+import Configuration from './config.vue'
 import image from '@/assets/images/chart/charts/radar.png'
 import { ConfigType, PackagesCategoryEnum } from '@/packages/index.d'
 import { ChatCategoryEnum, ChatCategoryEnumName } from '../../index.d'
@@ -10,5 +11,6 @@ export const RadarConfig: ConfigType = {
   categoryName: ChatCategoryEnumName.MORE,
   package: PackagesCategoryEnum.CHARTS,
   node: Radar,
+  conNode: () => Configuration,
   image: image
 }
