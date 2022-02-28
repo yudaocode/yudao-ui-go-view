@@ -37,7 +37,7 @@
           </n-button>
         </template>
         <n-text>
-          {{ $t('global.doc_addr') }}
+          {{ $t('global.code_addr') }}
         </n-text>
       </n-tooltip>
 
@@ -47,7 +47,7 @@
             <CodeSlashIcon />
           </n-icon>
         </template>
-        <n-text v-show="!collapsed">{{ $t('global.doc_addr') }}</n-text>
+        <n-text v-show="!collapsed">{{ $t('global.code_addr') }}</n-text>
       </n-button>
     </n-space>
   </div>

@@ -27,7 +27,7 @@
         <div class="list-content-img">
           <img
             :src="
-              requireUrl('/project/moke-20211219181327.png')
+              requireUrl('project/moke-20211219181327.png')
             "
             :alt="cardData?.title"
           />

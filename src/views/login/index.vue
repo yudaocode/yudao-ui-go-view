@@ -8,7 +8,7 @@
           <template v-for="item in bgList" :key="item">
             <div class="bg-img-box-li list-complete-item">
               <n-collapse-transition :appear="true" :show="showBg">
-                <img :src="getImageUrl(item, 'chart/charts/')" alt="chart" />
+                <img :src="getImageUrl(item, 'chart/charts')" alt="chart" />
               </n-collapse-transition>
             </div>
           </template>
