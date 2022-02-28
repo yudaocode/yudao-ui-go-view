@@ -7,4 +7,4 @@ export const asideAllCollapsed = true
 export const hidePackageOneCategory = true
 
 // 切换语言是否进行路由刷新
-export const changeLangReload = true
+export const changeLangReload = false

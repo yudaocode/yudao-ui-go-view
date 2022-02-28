@@ -9,8 +9,10 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "skipLibCheck": true,
     "lib": [
-      "esnext",
+      "es6",
+      "ESNext",
       "dom"
     ],
     "types": [

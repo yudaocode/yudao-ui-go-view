@@ -17,6 +17,7 @@
     </n-grid>
   </div>
   <ModalCard
+    v-if="modalData"
     v-model:modalShow="modalShow"
     :cardData="modalData"
     @close="closeModal"

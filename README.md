@@ -1,1 +1,1 @@
-# Vue 3 + Typescript + Vite2 + Pinia2
+# Vue3 + Typescript + Vite2 + NaiveUI + ECharts  + Axios  + Pinia2 + Plop

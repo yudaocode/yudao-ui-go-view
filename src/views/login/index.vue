@@ -118,7 +118,6 @@
 import { reactive, ref, onMounted } from 'vue'
 import {
   routerTurnByName,
-  requireUrl,
   cryptoEncode,
   setLocalStorage
 } from '@/utils'
@@ -199,7 +198,7 @@ const bgList = ref([
 
 // 处理url获取
 const getImageUrl = (name: string, folder: string) => {
-  return requireUrl(`../assets/images/${folder}/`, `${name}.png`)
+  return new URL(`../../assets/images/${folder}/${name}.png`, import.meta.url).href
 }
 
 // 打乱

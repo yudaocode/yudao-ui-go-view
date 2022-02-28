@@ -30,7 +30,7 @@ const rangeStyle = computed(() => {
   const background = getEditCanvasConfig.value.background
   const backgroundImage = getEditCanvasConfig.value.backgroundImage
   const selectColor = getEditCanvasConfig.value.selectColor
-  const backgroundColor = background ? background : null
+  const backgroundColor = background ? background : undefined
   const computedBackground = selectColor
     ? { background: backgroundColor }
     : { background: `url(${backgroundImage}) no-repeat center/100% !important` }
@@ -51,7 +51,6 @@ const rangeModelStyle = computed(() => {
   position: relative;
   border: 1px solid;
   border-radius: 15px;
-  background: url('@/assets/images/canvas/pageBg.png');
   @include fetch-theme('box-shadow');
   @include filter-border-color('hover-border-color');
   @include fetch-theme-custom('border-color', 'background-color4');

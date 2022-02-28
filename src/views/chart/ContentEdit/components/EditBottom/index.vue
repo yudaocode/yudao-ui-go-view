@@ -48,7 +48,7 @@
         :min="10"
         :max="200"
         :step="5"
-        :format-tooltip="v => `${v}%`"
+        :format-tooltip="sliderFormatTooltip"
         :disabled="lockScale"
         :marks="sliderMaks"
         @update:value="sliderHandle"
@@ -123,6 +123,9 @@ const lockHandle = () => {
 
 // 拖动
 const sliderValue = ref(100)
+
+// 拖动格式化
+const sliderFormatTooltip =  (v: string) => `${v}%`
 
 // 拖动处理
 const sliderHandle = (v: number) => {

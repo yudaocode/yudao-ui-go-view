@@ -2,12 +2,13 @@ import { h } from 'vue'
 import { NIcon } from 'naive-ui'
 import screenfull from 'screenfull'
 import throttle from 'lodash/throttle'
+import Image_404 from '../assets/images/exception/image-404.png'
 
 /**
  * * 生成一个不重复的ID
  * @param { Number } randomLength
  */
-export const getUUID = (randomLength = 10) =>{
+export const getUUID = (randomLength = 10) => {
   return Number(
     Math.random().toString().substr(2, randomLength) + Date.now()
   ).toString(36)
@@ -32,14 +33,15 @@ export const renderLang = (lang: string, set = {}, tag = 'span') => {
 }
 
 /**
+ * ! 编译会报错，暂不使用
  * * 处理 vite 中无法使用 require 的问题，utils 文件为根路径
  * @param path
  * @param name
  * @returns url
  */
-export const requireUrl = (path: string, name: string) => {
-  return new URL(`${path}/${name}`, import.meta.url).href
-}
+// export const requireUrl = (path: string, name: string) => {
+//   return new URL(`${path}/${name}`, import.meta.url).href
+// }
 
 /**
  * * 获取错误处理图片，默认 404 图
@@ -47,12 +49,8 @@ export const requireUrl = (path: string, name: string) => {
  * @param name
  * @returns url
  */
-export const requireFallbackImg = (path?: string, name?: string) => {
-  const url = path && name
-  return new URL(
-    url ? `${path}/${name}` : '../assets/images/exception/image-404.png',
-    import.meta.url
-  ).href
+export const requireFallbackImg = () => {
+  return Image_404
 }
 
 /**
@@ -78,11 +76,14 @@ export const screenfullFn = (isFullscreen?: boolean, isEnabled?: boolean) => {
 
 /**
  * * 设置元素属性
- * @param HTMLElement 元素 
+ * @param HTMLElement 元素
  * @param key 键名
  * @param value 键值
  */
-export const setDomAttribute = <K extends keyof CSSStyleDeclaration, V extends CSSStyleDeclaration[K]>(
+export const setDomAttribute = <
+  K extends keyof CSSStyleDeclaration,
+  V extends CSSStyleDeclaration[K]
+>(
   HTMLElement: HTMLElement,
   key: K,
   value: V
@@ -100,28 +101,28 @@ export const isMac = () => {
   return /macintosh|mac os x/i.test(navigator.userAgent)
 }
 
-/** 
+/**
  * * file转url
-*/
-export const fileToUrl = (file:File): string => {
-  const Url = URL || window.URL || window.webkitURL;
-  const ImageUrl = Url.createObjectURL(file);
+ */
+export const fileToUrl = (file: File): string => {
+  const Url = URL || window.URL || window.webkitURL
+  const ImageUrl = Url.createObjectURL(file)
   return ImageUrl
-};
+}
 
-/** 
+/**
  * * file转base64
-*/
-export const fileTobase64 = (file:File, callback: Function) => {
-  let reader = new FileReader();
-  reader.readAsDataURL(file);
+ */
+export const fileTobase64 = (file: File, callback: Function) => {
+  let reader = new FileReader()
+  reader.readAsDataURL(file)
   reader.onload = function (e: ProgressEvent<FileReader>) {
-    if(e.target) {
-      let base64 = e.target.result;
+    if (e.target) {
+      let base64 = e.target.result
       callback(base64)
     }
-  };
-};
+  }
+}
 
 /**
  * * 挂载监听

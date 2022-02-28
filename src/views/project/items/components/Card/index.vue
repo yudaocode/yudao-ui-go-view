@@ -1,5 +1,5 @@
 <template>
-  <div class="go-items-list-card">
+  <div v-if="cardData" class="go-items-list-card">
     <n-card hoverable size="small">
       <div class="list-content">
         <!-- 顶部按钮 -->
@@ -18,7 +18,7 @@
             height="200"
             preview-disabled
             :src="
-              requireUrl('../assets/images/project', 'moke-20211219181327.png')
+              requireUrl('project/moke-20211219181327.png')
             "
             :alt="cardData.title"
             :fallback-src="requireFallbackImg()"
@@ -83,7 +83,7 @@
 
 <script setup lang="ts">
 import { reactive, ref, PropType } from 'vue'
-import { renderIcon, renderLang, requireUrl, requireFallbackImg } from '@/utils'
+import { renderIcon, renderLang,  requireFallbackImg } from '@/utils'
 import { icon } from '@/plugins'
 import { MacOsControlBtn } from '@/components/MacOsControlBtn'
 import { Chartype } from '../../index.d'
@@ -99,12 +99,17 @@ const {
 } = icon.ionicons5
 
 const emit = defineEmits(['delete', 'resize', 'edit'])
-const t = window['$t']
 
 const props = defineProps({
   // todo 定义列表ITEN的 type
   cardData: Object as PropType<Chartype>
 })
+
+// 处理url获取
+const requireUrl = (name: string) => {
+  return new URL(`../../../../../assets/images/${name}`, import.meta.url).href
+}
+
 const fnBtnList = reactive([
   {
     label: renderLang('global.r_edit'),

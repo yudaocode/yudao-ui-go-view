@@ -27,7 +27,7 @@
         <div class="list-content-img">
           <img
             :src="
-              requireUrl('../assets/images/project', 'moke-20211219181327.png')
+              requireUrl('/project/moke-20211219181327.png')
             "
             :alt="cardData?.title"
           />
@@ -76,7 +76,7 @@
 
 <script setup lang="ts">
 import { reactive } from 'vue'
-import { renderIcon, renderLang, requireUrl } from '@/utils'
+import { renderIcon, renderLang } from '@/utils'
 import { icon } from '@/plugins'
 import { MacOsControlBtn } from '@/components/MacOsControlBtn'
 
@@ -88,6 +88,11 @@ const props = defineProps({
   modalShow: Boolean,
   cardData: Object
 })
+
+// 处理url获取
+const requireUrl = (name: string) => {
+  return new URL(`../../../../../assets/images/${name}`, import.meta.url).href
+}
 
 const fnBtnList = reactive([
   {
