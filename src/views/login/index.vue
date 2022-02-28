@@ -24,7 +24,11 @@
     </Header>
     <div class="go-login">
       <div class="go-login-carousel">
-        <n-carousel autoplay dot-type="line" :interval="Number(carouselInterval)">
+        <n-carousel
+          autoplay
+          dot-type="line"
+          :interval="Number(carouselInterval)"
+        >
           <img
             v-for="(item, i) in carouselImgList"
             :key="i"
@@ -39,7 +43,11 @@
           <n-collapse-transition :appear="true" :show="show">
             <n-card class="login-account-card" :title="$t('login.desc')">
               <div class="login-account-top">
-                <img class="login-account-top-logo" src="~@/assets/images/login/input.png" alt="展示图片" />
+                <img
+                  class="login-account-top-logo"
+                  src="~@/assets/images/login/input.png"
+                  alt="展示图片"
+                />
               </div>
               <n-form
                 ref="formRef"
@@ -77,7 +85,9 @@
                 <n-form-item>
                   <div class="flex justify-between">
                     <div class="flex-initial">
-                      <n-checkbox v-model:checked="autoLogin">{{ $t('login.form_auto') }}</n-checkbox>
+                      <n-checkbox v-model:checked="autoLogin">{{
+                        $t('login.form_auto')
+                      }}</n-checkbox>
                     </div>
                   </div>
                 </n-form-item>
@@ -88,7 +98,8 @@
                     size="large"
                     :loading="loading"
                     block
-                  >{{ $t('login.form_button') }}</n-button>
+                    >{{ $t('login.form_button') }}</n-button
+                  >
                 </n-form-item>
               </n-form>
             </n-card>
@@ -105,8 +116,12 @@
 
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
-import { requireUrl } from '@/utils'
-import { routerTurnByName } from '@/utils'
+import {
+  routerTurnByName,
+  requireUrl,
+  cryptoEncode,
+  setLocalStorage
+} from '@/utils'
 import shuffle from 'lodash/shuffle'
 import { carouselInterval } from '@/settings/designSetting'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
@@ -116,6 +131,9 @@ import { Header } from '@/layout/components/Header'
 import { Footer } from '@/layout/components/Footer'
 import { PageEnum } from '@/enums/pageEnum'
 import { icon } from '@/plugins'
+import { StorageEnum } from '@/enums/storageEnum'
+
+const { GO_LOGIN_INFO_STORE } = StorageEnum
 
 const { PersonOutlineIcon, LockClosedOutlineIcon } = icon.ionicons5
 
@@ -198,6 +216,15 @@ const handleSubmit = (e: Event) => {
     if (!errors) {
       const { username, password } = formInline
       loading.value = true
+      setLocalStorage(
+        GO_LOGIN_INFO_STORE,
+        cryptoEncode(
+          JSON.stringify({
+            username,
+            password
+          })
+        )
+      )
       window['$message'].success(`${t('login.login_success')}!`)
       routerTurnByName(PageEnum.BASE_HOME_NAME, true)
     } else {
@@ -225,7 +252,7 @@ $carousel-image-height: 60vh;
 @include go(login-box) {
   height: $go-login-height;
   overflow: hidden;
-  @include background-image("background-image");
+  @include background-image('background-image');
   &-header {
     display: flex;
     justify-content: space-between;
@@ -266,7 +293,7 @@ $carousel-image-height: 60vh;
 
       &-card {
         @extend .go-background-filter;
-        @include filter-bg-color("filter-color");
+        @include filter-bg-color('filter-color');
         box-shadow: 0 0 20px 5px rgba(40, 40, 40, 0.5);
       }
 
@@ -294,7 +321,7 @@ $carousel-image-height: 60vh;
     align-items: center;
     width: $--max-width;
     height: 100vh;
-    background: url("@/assets/images/login/login-bg.png") no-repeat 0 -120px;
+    background: url('@/assets/images/login/login-bg.png') no-repeat 0 -120px;
     .bg-slot {
       width: $carousel-width;
     }

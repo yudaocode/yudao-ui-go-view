@@ -7,7 +7,7 @@ export const includes = ['legend', 'xAxis', 'yAxis']
 
 const option = {
   legend: {
-    show: true,
+    show: true
   },
   xAxis: {
     show: true,
@@ -22,12 +22,43 @@ const option = {
     {
       name: 'data1',
       type: 'line',
+      lineStyle: {
+        normal: {
+          width: 3,
+          color: {
+            type: 'linear',
+
+            colorStops: [
+              {
+                offset: 0,
+                color: '#42a5f5' // 0% 处的颜色
+              },
+              {
+                offset: 1,
+                color: '#48D8BF' // 100% 处的颜色
+              }
+            ],
+            globalCoord: false // 缺省为 false
+          },
+          shadowColor: 'rgba(68, 181, 226, 0.3)',
+          shadowBlur: 5,
+          shadowOffsetY: 20
+        }
+      },
+      itemStyle: {
+        normal: {
+          color: '#fff',
+          borderWidth: 10,
+          borderColor: '#42a5f5'
+        }
+      },
       data: [120, 200, 150, 80, 70, 110, 130]
     }
   ]
 }
 
-export default class Config extends publicConfig implements CreateComponentType {
+export default class Config extends publicConfig
+  implements CreateComponentType {
   public key: string = LineCommonConfig.key
   public chartConfig = omit(LineCommonConfig, ['node'])
   // 图表配置项

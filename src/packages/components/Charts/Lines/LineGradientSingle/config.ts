@@ -25,12 +25,17 @@ const options = echartOptionProfixHandle(
         name: 'data1',
         type: 'line',
         smooth: false,
+        lineStyle: {
+          normal: {
+            width: 3
+          }
+        },
         areaStyle: {
           opacity: 0.8,
           color: new graphic.LinearGradient(0, 0, 0, 1, [
             {
               offset: 0,
-              color: 'rgba(25,163,223,.3)'
+              color: 'rgba(25,163,223,.5)'
             },
             {
               offset: 1,

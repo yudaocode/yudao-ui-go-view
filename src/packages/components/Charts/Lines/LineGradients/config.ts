@@ -8,61 +8,71 @@ export const includes = ['legend', 'xAxis', 'yAxis']
 
 const option = {
   legend: {
-    show: true,
+    show: true
   },
   xAxis: {
     show: true,
     type: 'category',
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
   },
   yAxis: {
     show: true,
-    type: 'value',
+    type: 'value'
   },
   series: [
     {
       name: 'data1',
       type: 'line',
       smooth: false,
-      data: [120, 200, 150, 80, 70, 110, 130],
+      lineStyle: {
+        normal: {
+          width: 3
+        }
+      },
       areaStyle: {
         opacity: 0.8,
         color: new graphic.LinearGradient(0, 0, 0, 1, [
           {
             offset: 0,
-            color: 'rgba(25,163,223,.3)',
+            color: 'rgba(25,163,223,.3)'
           },
           {
             offset: 1,
-            color: 'rgba(25,163,223, 0)',
-          },
-        ]),
+            color: 'rgba(25,163,223, 0)'
+          }
+        ])
       },
+      data: [120, 200, 150, 80, 70, 110, 130],
     },
     {
       name: 'data2',
       type: 'line',
       smooth: false,
+      lineStyle: {
+        normal: {
+          width: 3
+        }
+      },
       areaStyle: {
         normal: {
           opacity: 0.8,
           color: new graphic.LinearGradient(0, 0, 0, 1, [
             {
               offset: 0,
-              color: 'rgba(0,202,149,0.3)',
+              color: 'rgba(0,202,149,0.3)'
             },
             {
               offset: 1,
-              color: 'rgba(0,202,149,0)',
-            },
+              color: 'rgba(0,202,149,0)'
+            }
           ]),
           shadowColor: 'rgba(0,202,149, 0.9)',
-          shadowBlur: 20,
-        },
+          shadowBlur: 20
+        }
       },
-      data: [130, 130, 312, 268, 155, 117, 160],
-    },
-  ],
+      data: [130, 130, 312, 268, 155, 117, 160]
+    }
+  ]
 }
 
 export default class Config extends publicConfig
