@@ -21,7 +21,7 @@
               requireUrl('project/moke-20211219181327.png')
             "
             :alt="cardData.title"
-            :fallback-src="requireFallbackImg()"
+            :fallback-src="requireErrorImg()"
           />
         </div>
       </div>
@@ -83,7 +83,7 @@
 
 <script setup lang="ts">
 import { reactive, ref, PropType } from 'vue'
-import { renderIcon, renderLang,  requireFallbackImg } from '@/utils'
+import { renderIcon, renderLang,  requireErrorImg } from '@/utils'
 import { icon } from '@/plugins'
 import { MacOsControlBtn } from '@/components/MacOsControlBtn'
 import { Chartype } from '../../index.d'

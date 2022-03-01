@@ -40,6 +40,7 @@ specifiers:
   vue-i18n: ^9.2.0-beta.23
   vue-router: 4.0.12
   vue-tsc: ^0.28.7
+  vue3-lazyload: ^0.2.5-beta
 
 dependencies:
   animate.css: r2.cnpmjs.org/animate.css/4.1.1
@@ -51,6 +52,7 @@ dependencies:
   vue: rg.cnpmjs.org/vue/3.2.24
   vue-i18n: rg.cnpmjs.org/vue-i18n/9.2.0-beta.23_vue@3.2.24
   vue-router: rg.cnpmjs.org/vue-router/4.0.12_vue@3.2.24
+  vue3-lazyload: registry.npmjs.org/vue3-lazyload/0.2.5-beta_e9ad48123e44f1efa3c90c8e8375ea6d
 
 devDependencies:
   '@types/node': rg.cnpmjs.org/@types/node/16.11.12
@@ -2338,6 +2340,19 @@ packages:
       vue: ^3.0.0
     dependencies:
       evtd: registry.npmjs.org/evtd/0.2.3
+      vue: rg.cnpmjs.org/vue/3.2.24
+    dev: false
+
+  registry.npmjs.org/vue3-lazyload/0.2.5-beta_e9ad48123e44f1efa3c90c8e8375ea6d:
+    resolution: {integrity: sha512-GVhJfL9Hcu+AvWsYmUwODivvt+gzpT0ztgAzZaUduoiTaGCv/qzhr0VwAQXfjGF3XFYFyOJsHlAi3/WE0P8XTQ==, registry: https://skimdb.npmjs.com/registry/, tarball: https://registry.npmjs.org/vue3-lazyload/-/vue3-lazyload-0.2.5-beta.tgz}
+    id: registry.npmjs.org/vue3-lazyload/0.2.5-beta
+    name: vue3-lazyload
+    version: 0.2.5-beta
+    peerDependencies:
+      '@vue/compiler-sfc': '>=3.0.0'
+      vue: '>=3.0.0'
+    dependencies:
+      '@vue/compiler-sfc': rg.cnpmjs.org/@vue/compiler-sfc/3.2.24
       vue: rg.cnpmjs.org/vue/3.2.24
     dev: false
 

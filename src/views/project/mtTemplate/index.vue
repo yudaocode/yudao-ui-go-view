@@ -5,7 +5,7 @@
         object-fit="contain"
         height="300"
         preview-disabled
-        :src="requireFallbackImg()"
+        :src="requireErrorImg()"
       />
       <n-h3>暂时还没有东西呢</n-h3>
     </n-space>
@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { requireFallbackImg } from '@/utils'
+import { requireErrorImg } from '@/utils'
 </script>
 
 <style lang="scss" scoped>

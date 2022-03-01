@@ -9,7 +9,7 @@
         object-fit="contain"
         preview-disabled
         :src="image"
-        :fallback-src="requireFallbackImg()"
+        :fallback-src="requireErrorImg()"
       />
       <n-ellipsis>
         <n-text class="list-text">
@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import { ref, toRefs, computed } from 'vue'
-import { requireFallbackImg } from '@/utils'
+import { requireErrorImg } from '@/utils'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
 

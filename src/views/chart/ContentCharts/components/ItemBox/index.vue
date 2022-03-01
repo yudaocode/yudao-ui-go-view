@@ -13,13 +13,7 @@
         <n-text class="list-header-text" depth="3">{{ item.title }}</n-text>
       </div>
       <div class="list-center go-flex-center">
-        <n-image
-          class="list-img"
-          object-fit="contain"
-          preview-disabled
-          :src="item.image"
-          :fallback-src="requireFallbackImg()"
-        />
+        <img class="list-img" v-lazy="item.image" alt="图表图片" />
       </div>
     </div>
   </div>
@@ -28,7 +22,7 @@
 <script setup lang="ts">
 import { PropType } from 'vue'
 import { MacOsControlBtn } from '@/components/MacOsControlBtn/index'
-import { requireFallbackImg, componentInstall } from '@/utils'
+import { requireErrorImg, componentInstall } from '@/utils'
 import { DragKeyEnum } from '@/enums/editPageEnum'
 import { ConfigType } from '@/packages/index.d'
 import omit from 'lodash/omit'

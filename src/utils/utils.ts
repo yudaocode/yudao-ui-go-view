@@ -49,7 +49,7 @@ export const renderLang = (lang: string, set = {}, tag = 'span') => {
  * @param name
  * @returns url
  */
-export const requireFallbackImg = () => {
+export const requireErrorImg = () => {
   return Image_404
 }
 
