@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
-import { OUTPUT_DIR } from './build/constant'
+import { OUTPUT_DIR, brotliSize, chunkSizeWarningLimit, terserOptions, rollupOptions } from './build/constant'
 import viteCompression from 'vite-plugin-compression'
 
 function pathResolve(dir: string) {
@@ -44,21 +44,9 @@ export default defineConfig({
   build: {
     target: 'es2015',
     outDir: OUTPUT_DIR,
-    terserOptions: {
-      compress: {
-        keep_infinity: true,
-        drop_console: true,
-        drop_debugger: true
-      }
-    },
-    rollupOptions: {
-      output: {
-        chunkFileNames: 'static/js/[name]-[hash].js',
-        entryFileNames: 'static/js/[name]-[hash].js',
-        assetFileNames: 'static/[ext]/[name]-[hash].[ext]'
-      }
-    },
-    brotliSize: false,
-    chunkSizeWarningLimit: 2000
+    terserOptions: terserOptions,
+    rollupOptions: rollupOptions,
+    brotliSize: brotliSize,
+    chunkSizeWarningLimit: chunkSizeWarningLimit
   }
 })
