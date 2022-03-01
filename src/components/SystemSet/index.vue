@@ -2,7 +2,12 @@
   <n-modal v-model:show="modelShow" @afterLeave="closeHandle">
     <n-list bordered class="go-system-setting">
       <template #header>
-        <n-h3 class="go-mb-0">系统设置</n-h3>
+        <n-space justify="space-between">
+          <n-h3 class="go-mb-0">系统设置</n-h3>
+          <n-icon size="20" class="go-cursor-pointer" @click="closeHandle">
+            <CloseIcon />
+          </n-icon>
+        </n-space>
       </template>
 
       <n-list-item v-for="item in list" :key="item.name">
@@ -42,7 +47,7 @@ import { useSettingStore } from '@/store/modules/settingStore/settingStore'
 import { SettingStoreEnums } from '@/store/modules/settingStore/settingStore.d'
 import { icon } from '@/plugins'
 
-const { HelpOutlineIcon } = icon.ionicons5
+const { HelpOutlineIcon, CloseIcon } = icon.ionicons5
 
 const emit = defineEmits(['update:modelShow'])
 
@@ -58,14 +63,14 @@ const list = reactive<ListType[]>([
     value: settingStore.getAsideAllCollapsed,
     type: 'switch',
     name: '菜单折叠',
-    desc: '首页菜单折叠时隐藏全部',
+    desc: '首页菜单折叠时隐藏全部'
   },
   {
     key: SettingStoreEnums.HIDE_PACKAGE_ONE_CATEGORY,
     value: settingStore.getHidePackageOneCategory,
     type: 'switch',
     name: '隐藏分类',
-    desc: '工作空间表单分类只有单项时隐藏',
+    desc: '工作空间表单分类只有单项时隐藏'
   },
   {
     key: SettingStoreEnums.CHANGE_LANG_RELOAD,
@@ -74,7 +79,7 @@ const list = reactive<ListType[]>([
     name: '切换语言',
     desc: '切换语言重新加载页面',
     tip: '若遇到部分区域语言切换失败，则开启'
-  },
+  }
 ])
 
 const closeHandle = () => {
@@ -87,7 +92,7 @@ const handleChange = (e: Event, item: ListType) => {
 </script>
 
 <style lang="scss" scoped>
-@include go("system-setting") {
+@include go('system-setting') {
   @extend .go-background-filter;
   min-width: 100px;
   max-width: 60vw;
