@@ -11,6 +11,8 @@
         v-model:value="targetData.chartConfig.title"
       />
     </SettingItemBox>
+    <!-- 尺寸 -->
+    <SizeSetting :chartAttr="targetData.attr" />
     <!-- 位置 -->
     <PositionSetting :chartAttr="targetData.attr" />
     <!-- 自定义配置项 -->
@@ -24,7 +26,7 @@
 import { computed, Ref } from 'vue'
 import { loadAsyncComponent } from '@/utils'
 import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { GlobalSetting, PositionSetting } from '@/components/ChartItemSetting/index'
+import { GlobalSetting, PositionSetting, SizeSetting } from '@/components/ChartItemSetting/index'
 import { CreateComponentType } from '@/packages/index.d'
 import { SettingItemBox } from '@/components/ChartItemSetting/index'
 
