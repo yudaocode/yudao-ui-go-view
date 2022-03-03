@@ -1,21 +1,33 @@
 <template>
   <div class="go-shape-box">
     <slot></slot>
+    <!-- 锚点 -->
+    <div
+      class="shape-point"
+      v-for="(point, index) in (select? pointList : [])"
+      :key="index"
+      :style="usePointStyle(point, index, item.attr, cursorResize)"
+      @mousedown="useMousePointHandle($event, point, item.attr)"
+    />
 
     <!-- 选中 -->
     <div class="shape-modal" :style="useSizeStyle(item.attr)">
       <div class="shape-modal-select" :class="{ active: select }" />
-      <div class="shape-modal-change" :class="{ active: select || hover }" />
+      <div
+        class="shape-modal-change"
+        :class="{ selectActive: select, hoverActive: hover }"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, PropType } from 'vue';
+import { ref, computed, PropType, toRefs } from 'vue'
 import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
-import { CreateComponentType } from '@/packages/index.d'
-import { useSizeStyle } from '../../hooks/useStyle.hook'
+import { CreateComponentType, PickCreateComponentType } from '@/packages/index.d'
+import { useSizeStyle, usePointStyle } from '../../hooks/useStyle.hook'
+import { useMousePointHandle } from '../../hooks/useDrag.hook'
 
 const props = defineProps({
   item: {
@@ -28,6 +40,12 @@ const props = defineProps({
 const designStore = useDesignStore()
 const themeColor = ref(designStore.getAppTheme)
 const chartEditStore = useChartEditStoreStore()
+
+// 锚点
+const pointList = ['t', 'r', 'b', 'l', 'lt', 'rt', 'lb', 'rb']
+
+// 光标朝向
+const cursorResize = ['n', 'e', 's', 'w', 'nw', 'ne', 'sw', 'se']
 
 // 计算当前选中目标
 const hover = computed(() => {
@@ -43,6 +61,17 @@ const select = computed(() => {
 @include go(shape-box) {
   position: absolute;
   cursor: move;
+  /* 锚点 */
+  .shape-point {
+    z-index: 1;
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border: 3px solid v-bind('themeColor');
+    border-radius: 5px;
+    background-color: #fff;
+  }
+  /* 选中 */
   .shape-modal {
     position: absolute;
     top: 0;
@@ -54,7 +83,6 @@ const select = computed(() => {
       width: 100%;
       height: 100%;
       border-radius: 10px;
-      @extend .go-transition-quick;
     }
 
     .shape-modal-select {
@@ -67,8 +95,16 @@ const select = computed(() => {
     }
     .shape-modal-change {
       border: 2px solid rgba(0, 0, 0, 0);
-      &.active {
-        border: 2px solid v-bind('themeColor');
+      &.selectActive,
+      &.hoverActive {
+        border-color: v-bind('themeColor');
+        border-width: 2px;
+      }
+      &.hoverActive {
+        border-style: dotted;
+      }
+      &.selectActive {
+        border-style: solid;
       }
     }
   }

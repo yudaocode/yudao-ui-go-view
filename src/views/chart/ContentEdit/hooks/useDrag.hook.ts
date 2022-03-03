@@ -1,18 +1,15 @@
-import { toRefs } from 'vue'
 import { DragKeyEnum } from '@/enums/editPageEnum'
 import { createComponent } from '@/packages'
 import { ConfigType } from '@/packages/index.d'
-import { CreateComponentType } from '@/packages/index.d'
+import { CreateComponentType, PickCreateComponentType } from '@/packages/index.d'
 import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
 import { getChartEditStore, getChartEditStoreEnum } from './useStore.hook'
 import { loadingStart, loadingFinish, loadingError } from '@/utils'
 import throttle from 'lodash/throttle'
-
 const { onClickoutside } = useContextMenu()
 
 const chartEditStore = getChartEditStore()
 const chartEditStoreEnum = getChartEditStoreEnum()
-const { scale } = toRefs(chartEditStore.getEditCanvas)
 
 // * 拖拽到编辑区域里
 export const handleDrag = async (e: DragEvent) => {
@@ -34,11 +31,14 @@ export const handleDrag = async (e: DragEvent) => {
       drayDataString
     )
     // 创建新图表组件
-    let newComponent:CreateComponentType = await createComponent(dropData)
+    let newComponent: CreateComponentType = await createComponent(dropData)
 
-    newComponent.setPosition(e.offsetX - newComponent.attr.w / 2, e.offsetY - newComponent.attr.h / 2)
+    newComponent.setPosition(
+      e.offsetX - newComponent.attr.w / 2,
+      e.offsetY - newComponent.attr.h / 2
+    )
     chartEditStore.addComponentList(newComponent, false, true)
-    chartEditStore.setTargetSelectChart(newComponent.id) 
+    chartEditStore.setTargetSelectChart(newComponent.id)
     loadingFinish()
   } catch (error) {
     loadingError()
@@ -81,9 +81,6 @@ export const useMouseHandle = () => {
     const width = chartEditStore.getEditCanvasConfig.width
     const height = chartEditStore.getEditCanvasConfig.height
 
-    // 获取编辑区域 Dom
-    const editcontentDom = chartEditStore.getEditCanvas.editContentDom
-
     // 记录图表初始位置和大小
     const itemAttrX = item.attr.x
     const itemAttrY = item.attr.y
@@ -114,12 +111,12 @@ export const useMouseHandle = () => {
     }, 30)
 
     const mouseup = () => {
-      editcontentDom!.removeEventListener('mousemove', mousemove)
-      editcontentDom!.removeEventListener('mouseup', mouseup)
+      document.removeEventListener('mousemove', mousemove)
+      document.removeEventListener('mouseup', mouseup)
     }
 
-    editcontentDom!.addEventListener('mousemove', mousemove)
-    editcontentDom!.addEventListener('mouseup', mouseup)
+    document.addEventListener('mousemove', mousemove)
+    document.addEventListener('mouseup', mouseup)
   }
 
   // * 进入事件
@@ -137,4 +134,50 @@ export const useMouseHandle = () => {
   }
 
   return { mousedownHandle, mouseenterHandle, mouseleaveHandle }
+}
+
+// * 移动锚点
+export const useMousePointHandle = (
+  e: MouseEvent,
+  point: string,
+  attr: PickCreateComponentType<'attr'>
+) => {
+  e.stopPropagation()
+  e.preventDefault()
+  const scale = chartEditStore.getEditCanvas.scale
+
+  const itemAttrX = attr.x
+  const itemAttrY = attr.y
+  const itemAttrW = attr.w
+  const itemAttrH = attr.h
+
+  // 记录点击初始位置
+  const startX = e.screenX
+  const startY = e.screenY
+ 
+  const move = throttle((moveEvent: MouseEvent) => {
+    let currX = Math.round((moveEvent.screenX - startX) / scale)
+    let currY = Math.round((moveEvent.screenY - startY) / scale)
+ 
+    const isTop = /t/.test(point)
+    const isBottom = /b/.test(point)
+    const isLeft = /l/.test(point)
+    const isRight = /r/.test(point)
+
+    const newHeight = itemAttrH + (isTop ? -currY : (isBottom ? currY : 0))
+    const newWidth = itemAttrW + (isLeft ? -currX : (isRight ? currX : 0))
+    
+    attr.h = newHeight > 0 ? newHeight : 0
+    attr.w = newWidth > 0 ? newWidth : 0
+    attr.x = itemAttrX + (isLeft ? currX : 0)
+    attr.y = itemAttrY + (isTop ? currY : 0)
+  })
+
+  const up = () => {
+    document.removeEventListener('mousemove', move)
+    document.removeEventListener('mouseup', up)
+  }
+
+  document.addEventListener('mousemove', move)
+  document.addEventListener('mouseup', up)
 }
