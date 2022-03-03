@@ -80,24 +80,24 @@ const { lockScale, scale } = toRefs(chartEditStore.getEditCanvas)
 // 缩放选项
 let filterOptions = [
   {
-    label: '自适应',
-    value: 0
-  },
-  {
-    label: '50%',
-    value: 50
-  },
-  {
-    label: '100%',
-    value: 100
+    label: '200%',
+    value: 200
   },
   {
     label: '150%',
     value: 150
   },
   {
-    label: '200%',
-    value: 200
+    label: '100%',
+    value: 100
+  },
+  {
+    label: '50%',
+    value: 50
+  },
+  {
+    label: '自适应',
+    value: 0
   }
 ]
 
@@ -115,17 +115,14 @@ const selectHandle = (v: number) => {
 
 // 点击锁处理
 const lockHandle = () => {
-  chartEditStore.setEditCanvas(
-    ChartEditStoreEnum.LOCK_SCALE,
-    !lockScale.value
-  )
+  chartEditStore.setEditCanvas(ChartEditStoreEnum.LOCK_SCALE, !lockScale.value)
 }
 
 // 拖动
 const sliderValue = ref(100)
 
 // 拖动格式化
-const sliderFormatTooltip =  (v: string) => `${v}%`
+const sliderFormatTooltip = (v: string) => `${v}%`
 
 // 拖动处理
 const sliderHandle = (v: number) => {
@@ -161,7 +158,7 @@ const shortcutKeyOptions = [
   {
     label: 'Ctrl + Shift + Z 前进',
     value: '6'
-  },
+  }
 ]
 
 // 监听 scale 变化
