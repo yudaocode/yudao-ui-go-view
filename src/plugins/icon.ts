@@ -7,7 +7,7 @@ import {
   Trash as TrashIcon,
   Pencil as PencilIcon,
   HammerOutline as HammerIcon,
-  DesktopOutline as DesktopOutlineIcon,
+DesktopOutline as DesktopOutlineIcon,
   DownloadOutline as DownloadIcon,
   Open as OpenIcon,
   Send as SendIcon,
@@ -26,6 +26,7 @@ import {
   LockClosedOutline as LockClosedOutlineIcon,
   HelpCircleOutline as HelpOutlineIcon,
   CodeSlash as CodeSlashIcon,
+  Rocket as RocketIcon,
   Duplicate as DuplicateIcon,
   DuplicateOutline as DuplicateOutlineIcon,
   Fish as FishIcon,
@@ -72,6 +73,8 @@ const ionicons5 = {
   DuplicateOutlineIcon,
   // 代码
   CodeSlashIcon,
+  // 事件(火箭)
+  RocketIcon,
   // 退出
   LogOutOutlineIcon,
   // 锁
