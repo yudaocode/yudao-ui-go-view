@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, reactive, computed } from 'vue'
+import { ref, watch, computed, reactive } from 'vue'
 import { ConfigType } from '@/packages/index.d'
 import { useSettingStore } from '@/store/modules/settingStore/settingStore'
 import { loadAsyncComponent } from '@/utils'
@@ -43,7 +43,6 @@ const hidePackageOneCategory = computed(() => {
   return !settingStore.getHidePackageOneCategory
 })
 
-// TODO 调试结束改成 markeRaw
 let packages = reactive<{
   [T: string]: any
 }>({
@@ -53,7 +52,6 @@ let packages = reactive<{
   selectOptions: {},
   // 分类归档
   categorys: {
-    // todo 先用中文, 后面需要换成关键key
     all: []
   },
   categoryNames: {
@@ -100,7 +98,6 @@ watch(
     selectValue.value = packages.menuOptions[0]['key']
   },
   {
-    deep: true,
     immediate: true
   }
 )
