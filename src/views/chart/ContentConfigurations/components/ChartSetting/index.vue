@@ -25,7 +25,7 @@
 <script setup lang="ts">
 import { computed, Ref } from 'vue'
 import { loadAsyncComponent } from '@/utils'
-import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { GlobalSetting, PositionSetting, SizeSetting } from '@/components/ChartItemSetting/index'
 import { CreateComponentType } from '@/packages/index.d'
 import { SettingItemBox } from '@/components/ChartItemSetting/index'
@@ -33,11 +33,11 @@ import { SettingItemBox } from '@/components/ChartItemSetting/index'
 const GlobalSettingCom = loadAsyncComponent(() =>
   import('@/components/ChartItemSetting/index')
 )
-const chartEditStoreStore = useChartEditStoreStore()
+const chartEditStore = useChartEditStore()
 
 const targetData: Ref<CreateComponentType> = computed(() => {
-  const list = chartEditStoreStore.getComponentList
-  const targetIndex = chartEditStoreStore.fetchTargetIndex()
+  const list = chartEditStore.getComponentList
+  const targetIndex = chartEditStore.fetchTargetIndex()
   return list[targetIndex]
 })
 </script>

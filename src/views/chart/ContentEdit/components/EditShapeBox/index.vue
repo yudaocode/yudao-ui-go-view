@@ -23,9 +23,9 @@
 
 <script setup lang="ts">
 import { ref, computed, PropType, toRefs } from 'vue'
-import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
-import { CreateComponentType, PickCreateComponentType } from '@/packages/index.d'
+import { CreateComponentType } from '@/packages/index.d'
 import { useSizeStyle, usePointStyle } from '../../hooks/useStyle.hook'
 import { useMousePointHandle } from '../../hooks/useDrag.hook'
 
@@ -39,7 +39,7 @@ const props = defineProps({
 // 全局颜色
 const designStore = useDesignStore()
 const themeColor = ref(designStore.getAppTheme)
-const chartEditStore = useChartEditStoreStore()
+const chartEditStore = useChartEditStore()
 
 // 锚点
 const pointList = ['t', 'r', 'b', 'l', 'lt', 'rt', 'lb', 'rb']
@@ -70,6 +70,7 @@ const select = computed(() => {
     border: 3px solid v-bind('themeColor');
     border-radius: 5px;
     background-color: #fff;
+    transform: translate(-40%, -30%);
   }
   /* 选中 */
   .shape-modal {

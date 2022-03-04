@@ -38,11 +38,11 @@
 import { loadAsyncComponent } from '@/utils'
 import { HeaderPro } from '@/layout/components/HeaderPro'
 import { useContextMenu } from './hooks/useContextMenu.hook'
-import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { useChartHistoryStoreStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
 
 const chartHistoryStoreStore = useChartHistoryStoreStore()
-const chartEditStore = useChartEditStoreStore()
+const chartEditStore = useChartEditStore()
 
 // 记录初始化
 chartHistoryStoreStore.canvasInit(chartEditStore.getEditCanvas)

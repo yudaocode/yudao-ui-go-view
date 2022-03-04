@@ -10,7 +10,8 @@ export enum EditCanvasTypeEnum {
   SCALE = 'scale',
   USER_SCALE = 'userScale',
   LOCK_SCALE = 'lockScale',
-  Is_Drag= 'isDrag',
+  IS_CREATE = 'isCreate',
+  IS_DRAG= 'isDrag',
 }
 
 // 编辑区域
@@ -26,8 +27,10 @@ export type EditCanvasType = {
   [EditCanvasTypeEnum.USER_SCALE]: number
   // 锁定缩放
   [EditCanvasTypeEnum.LOCK_SCALE]: boolean
+  // 初始化创建
+  [EditCanvasTypeEnum.IS_CREATE]: boolean
   // 拖拽中
-  [EditCanvasTypeEnum.Is_Drag]: boolean
+  [EditCanvasTypeEnum.IS_DRAG]: boolean
 }
 
 // 滤镜
@@ -74,15 +77,21 @@ export interface EditCanvasConfigType {
 
 // 坐标轴信息
 export enum EditCanvasTypeEnum {
+  START_X = 'startX',
+  START_Y = 'startY',
   X = 'x',
   Y = 'y'
 }
 
 // 鼠标位置
 export type MousePositionType = {
-  // X 轴
+  // 开始 X
+  [EditCanvasTypeEnum.START_X]: number
+  // 开始 Y
+  [EditCanvasTypeEnum.START_Y]: number
+  // X
   [EditCanvasTypeEnum.X]: number
-  // y 轴
+  // y
   [EditCanvasTypeEnum.Y]: number
 }
 

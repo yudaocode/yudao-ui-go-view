@@ -1,8 +1,8 @@
 import { isMac, addEventListener, removeEventListener } from '@/utils'
-import { getChartEditStore } from '../ContentEdit/hooks/useStore.hook'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { MenuEnum } from '@/views/chart/hooks/useContextMenu.hook'
 
-const chartEditStore = getChartEditStore()
+const chartEditStore = useChartEditStore()
 
 
 export const keyboardValue = {

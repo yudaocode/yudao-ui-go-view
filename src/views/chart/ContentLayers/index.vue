@@ -30,7 +30,7 @@ import { computed } from 'vue'
 import { ContentBox } from '../ContentBox/index'
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
 import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
-import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { CreateComponentType } from '@/packages/index.d'
 import cloneDeep from 'lodash/cloneDeep';
 import {
@@ -48,7 +48,7 @@ import { icon } from '@/plugins'
 
 const { LayersIcon } = icon.ionicons5
 const chartLayoutStore = useChartLayoutStore()
-const chartEditStore = useChartEditStoreStore()
+const chartEditStore = useChartEditStore()
 
 const { handleContextMenu } = useContextMenu({
   hideOptionsList: [MenuEnum.CLEAR, MenuEnum.PARSE]

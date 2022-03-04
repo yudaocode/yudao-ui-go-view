@@ -62,19 +62,18 @@ import { reactive, ref, toRefs, watchEffect } from 'vue'
 import { icon } from '@/plugins'
 import { EditHistory } from '../EditHistory/index'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
+
 const { LockClosedOutlineIcon, LockOpenOutlineIcon } = icon.ionicons5
 const { DicomOverlayIcon } = icon.carbon
-import {
-  getChartEditStore,
-  getChartEditStoreEnum
-} from '../../hooks/useStore.hook'
+
 
 // 全局颜色
 const designStore = useDesignStore()
 const themeColor = ref(designStore.getAppTheme)
 
-const chartEditStore = getChartEditStore()
-const ChartEditStoreEnum = getChartEditStoreEnum()
+const chartEditStore = useChartEditStore()
 const { lockScale, scale } = toRefs(chartEditStore.getEditCanvas)
 
 // 缩放选项
@@ -115,7 +114,7 @@ const selectHandle = (v: number) => {
 
 // 点击锁处理
 const lockHandle = () => {
-  chartEditStore.setEditCanvas(ChartEditStoreEnum.LOCK_SCALE, !lockScale.value)
+  chartEditStore.setEditCanvas(EditCanvasTypeEnum.LOCK_SCALE, !lockScale.value)
 }
 
 // 拖动

@@ -2,9 +2,9 @@ import { defineStore } from 'pinia'
 import { ChartLayoutType } from './chartLayoutStore.d'
 import { setLocalStorage, getLocalStorage } from '@/utils'
 import { StorageEnum } from '@/enums/storageEnum'
-import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 
-const chartEditStore = useChartEditStoreStore()
+const chartEditStore = useChartEditStore()
 
 const { GO_CHART_LAYOUT_STORE } = StorageEnum
 

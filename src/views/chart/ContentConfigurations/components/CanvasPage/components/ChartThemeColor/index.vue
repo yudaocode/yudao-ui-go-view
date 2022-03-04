@@ -29,7 +29,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasConfigEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import {
   chartColors,
@@ -42,14 +42,14 @@ import cloneDeep from 'lodash/cloneDeep'
 import { icon } from '@/plugins'
 
 const { SquareIcon } = icon.ionicons5
-const chartEditStoreStore = useChartEditStoreStore()
+const chartEditStore = useChartEditStore()
 
 // 全局颜色
 const designStore = useDesignStore()
 const themeColor = ref(designStore.getAppTheme)
 
 const selectName = computed(() => {
-  return chartEditStoreStore.getEditCanvasConfig.chartThemeColor
+  return chartEditStore.getEditCanvasConfig.chartThemeColor
 })
 
 // 获取用来展示的色号
@@ -59,7 +59,7 @@ const fetchShowColors = (colors: Array<string>) => {
 
 // 设置主体色（在 ContentEdit > List 中进行注入）
 const selectTheme = (theme: ChartColorsNameType) => {
-  chartEditStoreStore.setEditCanvasConfig(EditCanvasConfigEnum.CHART_THEME_COLOR, theme)
+  chartEditStore.setEditCanvasConfig(EditCanvasConfigEnum.CHART_THEME_COLOR, theme)
 }
 </script>
 

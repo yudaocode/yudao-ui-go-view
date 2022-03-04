@@ -11,10 +11,10 @@ export const useComponentStyle = (attr: AttrType, index: number) => {
   return componentStyle
 }
 
-export const useSizeStyle = (attr: AttrType) => {
+export const useSizeStyle = (attr: AttrType, scale?: number) => {
   const sizeStyle = {
-    width: `${attr.w}px`,
-    height: `${attr.h}px`
+    width: `${scale ? scale * attr.w : attr.w}px`,
+    height: `${scale ? scale * attr.h : attr.h}px`
   }
   return sizeStyle
 }
@@ -55,11 +55,9 @@ export const usePointStyle = (
   }
 
   const style = {
-    marginLeft: isRight ? '-3px' : '-3px',
-    marginTop: '-3px',
     left: `${newLeft}px`,
     top: `${newTop}px`,
-    cursor: cursorResize[index] + '-resize',
+    cursor: cursorResize[index] + '-resize'
   }
 
   return style

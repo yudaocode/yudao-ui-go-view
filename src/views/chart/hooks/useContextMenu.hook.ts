@@ -1,5 +1,5 @@
 import { reactive, nextTick } from 'vue'
-import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { CreateComponentType } from '@/packages/index.d'
 import { renderIcon, loadingError } from '@/utils'
 import { icon } from '@/plugins'
@@ -14,7 +14,7 @@ const {
 } = icon.ionicons5
 const { UpToTopIcon, DownToBottomIcon, PaintBrushIcon } = icon.carbon
 
-const chartEditStore = useChartEditStoreStore()
+const chartEditStore = useChartEditStore()
 
 export enum MenuEnum {
   DELETE = 'delete',

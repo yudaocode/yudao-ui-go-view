@@ -6,18 +6,22 @@
   >
     <slot></slot>
   </div>
+  <!-- 拖拽时的辅助线 -->
+  <EditAlignLine />
+  <!-- 拖拽时的遮罩 -->
   <div class="go-edit-range-model" :style="rangeModelStyle"></div>
 </template>
 
 <script setup lang="ts">
 import { toRefs, computed } from 'vue'
-import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { useSizeStyle } from '../../hooks/useStyle.hook'
 import { mousedownHandleUnStop } from '../../hooks/useDrag.hook'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { EditAlignLine } from '../EditAlignLine/index'
 
-const chartEditStoreStore = useChartEditStoreStore()
+const chartEditStore = useChartEditStore()
 
-const { getEditCanvasConfig, getEditCanvas } = toRefs(chartEditStoreStore)
+const { getEditCanvasConfig, getEditCanvas } = toRefs(chartEditStore)
 
 const size = computed(() => {
   return {
@@ -40,7 +44,7 @@ const rangeStyle = computed(() => {
 
 // 模态层
 const rangeModelStyle = computed(() => {
-  const dragStyle = getEditCanvas.value.isDrag && {'z-index': 99999 }
+  const dragStyle = getEditCanvas.value.isCreate && {'z-index': 99999 }
   // @ts-ignore
   return { ...useSizeStyle(size.value), ...dragStyle}
 })
@@ -54,6 +58,7 @@ const rangeModelStyle = computed(() => {
   @include fetch-theme('box-shadow');
   @include filter-border-color('hover-border-color');
   @include fetch-theme-custom('border-color', 'background-color4');
+  @include filter-bg-color('background-color2')
 }
 @include go(edit-range-model) {
   z-index: -1;

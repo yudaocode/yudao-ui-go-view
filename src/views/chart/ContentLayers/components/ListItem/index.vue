@@ -25,12 +25,12 @@
 import { ref, toRefs, computed } from 'vue'
 import { requireErrorImg } from '@/utils'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
-import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 
 // 全局颜色
 const designStore = useDesignStore()
 const themeColor = ref(designStore.getAppTheme)
-const chartEditStore = useChartEditStoreStore()
+const chartEditStore = useChartEditStore()
 
 const props = defineProps({
   componentData: {

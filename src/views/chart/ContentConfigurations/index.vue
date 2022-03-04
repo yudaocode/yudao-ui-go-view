@@ -82,11 +82,11 @@ import { loadAsyncComponent } from '@/utils'
 import { ContentBox } from '../ContentBox/index'
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
 import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
-import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 
 const { getDetails } = toRefs(useChartLayoutStore())
 const { setItem } = useChartLayoutStore()
-const chartEditStoreStore = useChartEditStoreStore()
+const chartEditStore = useChartEditStore()
 
 const { ConstructIcon, FlashIcon, DesktopOutlineIcon, RocketIcon } = icon.ionicons5
 
@@ -117,10 +117,10 @@ const expandHindle = () => {
 }
 
 const selectTarget = computed(() => {
-  const selectId = chartEditStoreStore.getTargetChart.selectId
+  const selectId = chartEditStore.getTargetChart.selectId
   if (!selectId) return undefined
-  return chartEditStoreStore.componentList[
-    chartEditStoreStore.fetchTargetIndex()
+  return chartEditStore.componentList[
+    chartEditStore.fetchTargetIndex()
   ]
 })
 

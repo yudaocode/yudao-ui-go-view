@@ -47,11 +47,11 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { icon } from '@/plugins'
 const { ChevronBackOutlineIcon } = icon.ionicons5
 
-const chartEditStore = useChartEditStoreStore()
+const chartEditStore = useChartEditStore()
 const emit = defineEmits(['back'])
 
 defineProps({

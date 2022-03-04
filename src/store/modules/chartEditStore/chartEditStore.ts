@@ -19,8 +19,8 @@ import {
 const chartHistoryStoreStore = useChartHistoryStoreStore()
 
 // 编辑区域内容
-export const useChartEditStoreStore = defineStore({
-  id: 'useChartEditStoreStore',
+export const useChartEditStore = defineStore({
+  id: 'useChartEditStore',
   state: (): chartEditStoreType => ({
     // 画布属性
     editCanvas: {
@@ -35,6 +35,8 @@ export const useChartEditStoreStore = defineStore({
       userScale: 1,
       // 锁定缩放
       lockScale: false,
+      // 初始化
+      isCreate: false,
       // 拖拽中
       isDrag: false
     },
@@ -42,6 +44,8 @@ export const useChartEditStoreStore = defineStore({
     rightMenuShow: false,
     // 鼠标定位
     mousePosition: {
+      startX: 0,
+      startY: 0,
       x: 0,
       y: 0
     },
@@ -127,6 +131,13 @@ export const useChartEditStoreStore = defineStore({
     // * 设置记录数据
     setRecordChart(item: RecordChartType | undefined) {
       this.recordChart = cloneDeep(item)
+    },
+    // * 设置鼠标位置
+    setMousePosition(x?: number, y?: number, startX?: number, startY?: number): void {
+      if (startX) this.mousePosition.startX = startX
+      if (startY) this.mousePosition.startY = startY
+      if (x) this.mousePosition.x = x
+      if (y) this.mousePosition.y = y
     },
     // * 找到目标 id 数据下标位置
     fetchTargetIndex(): number {
@@ -451,11 +462,6 @@ export const useChartEditStoreStore = defineStore({
       }
     },
     // ----------------
-    // * 设置鼠标位置
-    setMousePosition(x: number, y: number): void {
-      this.mousePosition.x = x
-      this.mousePosition.y = y
-    },
     // * 设置页面变换时候的 Class
     setPageSizeClass(): void {
       const dom = this.getEditCanvas.editContentDom

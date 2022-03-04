@@ -1,15 +1,18 @@
 import { DragKeyEnum } from '@/enums/editPageEnum'
 import { createComponent } from '@/packages'
 import { ConfigType } from '@/packages/index.d'
-import { CreateComponentType, PickCreateComponentType } from '@/packages/index.d'
+import {
+  CreateComponentType,
+  PickCreateComponentType
+} from '@/packages/index.d'
 import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
-import { getChartEditStore, getChartEditStoreEnum } from './useStore.hook'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { loadingStart, loadingFinish, loadingError } from '@/utils'
 import throttle from 'lodash/throttle'
-const { onClickoutside } = useContextMenu()
 
-const chartEditStore = getChartEditStore()
-const chartEditStoreEnum = getChartEditStoreEnum()
+const chartEditStore = useChartEditStore()
+const { onClickoutside } = useContextMenu()
 
 // * 拖拽到编辑区域里
 export const handleDrag = async (e: DragEvent) => {
@@ -25,7 +28,7 @@ export const handleDrag = async (e: DragEvent) => {
     }
 
     // 设置拖拽状态
-    chartEditStore.setEditCanvas(chartEditStoreEnum.Is_Drag, false)
+    chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_CREATE, false)
 
     const dropData: Exclude<ConfigType, ['node', 'image']> = JSON.parse(
       drayDataString
@@ -52,7 +55,7 @@ export const handleDragOver = (e: DragEvent) => {
   e.stopPropagation()
 
   // 设置拖拽状态
-  chartEditStore.setEditCanvas(chartEditStoreEnum.Is_Drag, true)
+  chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_CREATE, true)
   if (e.dataTransfer) e.dataTransfer.dropEffect = 'copy'
 }
 
@@ -90,9 +93,14 @@ export const useMouseHandle = () => {
     // 记录点击初始位置
     const startX = e.screenX
     const startY = e.screenY
+    // 记录初始位置
+    chartEditStore.setMousePosition(startX, startY)
 
     // 计算偏移量（处理 scale 比例问题）
     const mousemove = throttle((moveEvent: MouseEvent) => {
+      chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_DRAG, true)
+      chartEditStore.setMousePosition(moveEvent.screenX, moveEvent.screenY)
+
       let currX = Math.round(itemAttrX + (moveEvent.screenX - startX) / scale)
       let currY = Math.round(itemAttrY + (moveEvent.screenY - startY) / scale)
 
@@ -111,6 +119,8 @@ export const useMouseHandle = () => {
     }, 30)
 
     const mouseup = () => {
+      chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_DRAG, false)
+      chartEditStore.setMousePosition(0, 0)
       document.removeEventListener('mousemove', mousemove)
       document.removeEventListener('mouseup', mouseup)
     }
@@ -144,6 +154,9 @@ export const useMousePointHandle = (
 ) => {
   e.stopPropagation()
   e.preventDefault()
+
+  // 设置拖拽状态
+  chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_DRAG, true)
   const scale = chartEditStore.getEditCanvas.scale
 
   const itemAttrX = attr.x
@@ -154,11 +167,16 @@ export const useMousePointHandle = (
   // 记录点击初始位置
   const startX = e.screenX
   const startY = e.screenY
- 
-  const move = throttle((moveEvent: MouseEvent) => {
+
+  // 记录初始位置
+  chartEditStore.setMousePosition(startX, startY)
+
+  const mousemove = throttle((moveEvent: MouseEvent) => {
+    chartEditStore.setMousePosition(moveEvent.screenX, moveEvent.screenY)
+
     let currX = Math.round((moveEvent.screenX - startX) / scale)
     let currY = Math.round((moveEvent.screenY - startY) / scale)
- 
+
     const isTop = /t/.test(point)
     const isBottom = /b/.test(point)
     const isLeft = /l/.test(point)
@@ -166,18 +184,21 @@ export const useMousePointHandle = (
 
     const newHeight = itemAttrH + (isTop ? -currY : (isBottom ? currY : 0))
     const newWidth = itemAttrW + (isLeft ? -currX : (isRight ? currX : 0))
-    
+
     attr.h = newHeight > 0 ? newHeight : 0
     attr.w = newWidth > 0 ? newWidth : 0
     attr.x = itemAttrX + (isLeft ? currX : 0)
     attr.y = itemAttrY + (isTop ? currY : 0)
   })
 
-  const up = () => {
-    document.removeEventListener('mousemove', move)
-    document.removeEventListener('mouseup', up)
+  const mouseup = () => {
+    // 设置拖拽状态
+    chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_DRAG, false)
+    chartEditStore.setMousePosition(0, 0)
+    document.removeEventListener('mousemove', mousemove)
+    document.removeEventListener('mouseup', mouseup)
   }
 
-  document.addEventListener('mousemove', move)
-  document.addEventListener('mouseup', up)
+  document.addEventListener('mousemove', mousemove)
+  document.addEventListener('mouseup', mouseup)
 }

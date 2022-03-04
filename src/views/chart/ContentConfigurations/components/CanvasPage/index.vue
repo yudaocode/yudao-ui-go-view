@@ -7,7 +7,7 @@
           size="small"
           v-model:value="canvasConfig.width"
           :validator="validator"
-          @update:value="chartEditStoreStore.computedScale"
+          @update:value="chartEditStore.computedScale"
         />
       </n-form-item>
       <n-form-item label="高度">
@@ -15,7 +15,7 @@
           size="small"
           v-model:value="canvasConfig.height"
           :validator="validator"
-          @update:value="chartEditStoreStore.computedScale"
+          @update:value="chartEditStore.computedScale"
         />
       </n-form-item>
     </n-form>
@@ -110,7 +110,7 @@
 <script setup lang="ts">
 import { ref, nextTick } from 'vue'
 import { backgroundImageSize } from '@/settings/designSetting'
-import { useChartEditStoreStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasConfigEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { UploadCustomRequestOptions } from 'naive-ui'
 import { fileToUrl, loadAsyncComponent } from '@/utils'
@@ -119,8 +119,8 @@ import { icon } from '@/plugins'
 const { ColorPaletteIcon } = icon.ionicons5
 const { ZAxisIcon } = icon.carbon
 
-const chartEditStoreStore = useChartEditStoreStore()
-const canvasConfig = chartEditStoreStore.getEditCanvasConfig
+const chartEditStore = useChartEditStore()
+const canvasConfig = chartEditStore.getEditCanvasConfig
 
 const uploadFileListRef = ref()
 const switchSelectColorLoading = ref(false)
@@ -184,11 +184,11 @@ const beforeUploadHandle = async ({ file }) => {
 
 // 清除背景
 const clearImage = () => {
-  chartEditStoreStore.setEditCanvasConfig(
+  chartEditStore.setEditCanvasConfig(
     EditCanvasConfigEnum.BACKGROUND_IAMGE,
     undefined
   )
-  chartEditStoreStore.setEditCanvasConfig(
+  chartEditStore.setEditCanvasConfig(
     EditCanvasConfigEnum.SELECT_COLOR,
     true
   )
@@ -196,12 +196,12 @@ const clearImage = () => {
 
 // 清除颜色
 const clearColor = () => {
-  chartEditStoreStore.setEditCanvasConfig(
+  chartEditStore.setEditCanvasConfig(
     EditCanvasConfigEnum.BACKGROUND,
     undefined
   )
   if (canvasConfig.backgroundImage) {
-    chartEditStoreStore.setEditCanvasConfig(
+    chartEditStore.setEditCanvasConfig(
       EditCanvasConfigEnum.SELECT_COLOR,
       false
     )
@@ -232,11 +232,11 @@ const customRequest = (options: UploadCustomRequestOptions) => {
   nextTick(() => {
     if (file.file) {
       const ImageUrl = fileToUrl(file.file)
-      chartEditStoreStore.setEditCanvasConfig(
+      chartEditStore.setEditCanvasConfig(
         EditCanvasConfigEnum.BACKGROUND_IAMGE,
         ImageUrl
       )
-      chartEditStoreStore.setEditCanvasConfig(
+      chartEditStore.setEditCanvasConfig(
         EditCanvasConfigEnum.SELECT_COLOR,
         false
       )

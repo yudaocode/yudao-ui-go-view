@@ -1,8 +1,8 @@
 import { onUnmounted, onMounted } from 'vue'
-import { getChartEditStore } from './useStore.hook'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 
-const chartEditStore = getChartEditStore()
+const chartEditStore = useChartEditStore()
 
 // 布局处理
 export const useLayout = () => {
