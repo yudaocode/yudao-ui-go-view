@@ -21,6 +21,17 @@
                 @update:value="handleChange($event, item)"
               />
             </template>
+            <template v-else-if="item.type === 'number'">
+              <n-input-number
+                v-model:value="item.value"
+                class="input-num-width"
+                size="small"
+                :step="item.step || null"
+                :suffix="item.suffix || null"
+                :min="item.min || 0"
+                @update:value="handleChange($event, item)"
+              />
+            </template>
           </n-space>
           <n-space>
             <n-text class="item-right">{{ item.desc }}</n-text>
@@ -59,6 +70,16 @@ const settingStore = useSettingStore()
 
 const list = reactive<ListType[]>([
   {
+    key: SettingStoreEnums.CHART_ALIGN_RANGE,
+    value: settingStore.getChartAlignRange,
+    type: 'number',
+    name: '吸附距离',
+    min: 10,
+    suffix: 'px',
+    step: 2,
+    desc: '移动图表时的吸附距离'
+  },
+  {
     key: SettingStoreEnums.ASIDE_ALL_COLLAPSED,
     value: settingStore.getAsideAllCollapsed,
     type: 'switch',
@@ -86,18 +107,21 @@ const closeHandle = () => {
   emit('update:modelShow', false)
 }
 
-const handleChange = (e: Event, item: ListType) => {
+const handleChange = (e: MouseEvent, item: ListType) => {
   settingStore.setItem(item.key, item.value)
 }
 </script>
 
 <style lang="scss" scoped>
-@include go('system-setting') {
+@include go("system-setting") {
   @extend .go-background-filter;
   min-width: 100px;
   max-width: 60vw;
   .item-left {
     width: 200px;
+  }
+  .input-num-width {
+    width: 100px;
   }
 }
 </style>

@@ -18,6 +18,7 @@ import { ref, reactive, computed, watch } from 'vue'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
+import { useSettingStore } from '@/store/modules/settingStore/settingStore'
 import { CreateComponentType } from '@/packages/index.d'
 import throttle from 'lodash/throttle'
 import cloneDeep  from 'lodash/cloneDeep'
@@ -26,11 +27,10 @@ const designStore = useDesignStore()
 const themeColor = ref(designStore.getAppTheme)
 
 const chartEditStore = useChartEditStore()
+const settingStore = useSettingStore()
 
-// 线条集合
+// * 线条集合
 const line = reactive({
-  // 吸附距离（px）
-  minDistance: 10,
   // 行横向row（上中下），列竖线col（左中右）
   lineArr: ['rowt', 'rowc', 'rowb', 'coll', 'colc', 'colr'],
   // 展示线
@@ -42,7 +42,7 @@ const line = reactive({
   }
 })
 
-// 位置计算
+// * 位置计算
 const useComponentStyle = (attr?: Partial<{ x: number; y: number }>) => {
   if (!attr) return {}
   const componentStyle = {
@@ -52,26 +52,32 @@ const useComponentStyle = (attr?: Partial<{ x: number; y: number }>) => {
   return componentStyle
 }
 
-// 是否开始计算
+// * 吸附距离
+const minDistance = computed(()=>{
+  return settingStore.getChartAlignRange
+})
+
+// * 是否开始计算
 const isComputedLine = computed(() => {
   const isDrag = chartEditStore.getEditCanvas[EditCanvasTypeEnum.IS_DRAG]
   return isDrag
 })
 
-// 吸附判定
+// * 吸附判定
 const isSorption = (selectValue: number, componentValue: number) => {
-  const isSorption = Math.abs(selectValue - componentValue) <= line.minDistance
+  console.log(minDistance.value);
+  const isSorption = Math.abs(selectValue - componentValue) <= minDistance.value
   return isSorption
 }
 
-// 当前目标
+// * 当前目标
 const selectId = computed(() => chartEditStore.getTargetChart.selectId)
 const selectTatget = computed(
   () => chartEditStore.getComponentList[chartEditStore.fetchTargetIndex()]
 )
 const selectAttr = computed(() => selectTatget.value.attr)
 
-// 画布坐标
+// * 画布坐标
 const canvasPositionList = computed(() => {
   return {
     id: '0',
@@ -85,7 +91,7 @@ const canvasPositionList = computed(() => {
   }
 })
 
-// 监听鼠标移动
+// * 监听鼠标移动
 watch(
   () => chartEditStore.getMousePosition,
   throttle(e => {
@@ -282,7 +288,8 @@ watch(
     deep: true
   }
 )
-// 取消对齐线
+
+// * 取消对齐线
 watch(
   () => isComputedLine.value,
   (val: boolean) => {

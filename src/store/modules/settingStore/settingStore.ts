@@ -2,7 +2,8 @@ import { defineStore } from 'pinia'
 import {
   hidePackageOneCategory,
   changeLangReload,
-  asideAllCollapsed
+  asideAllCollapsed,
+  chartAlignRange
 } from '@/settings/systemSetting'
 import { asideCollapsedWidth } from '@/settings/designSetting'
 import { SettingStoreType } from './settingStore.d'
@@ -19,7 +20,8 @@ export const useSettingStore = defineStore({
     storageSetting || {
       hidePackageOneCategory,
       changeLangReload,
-      asideAllCollapsed
+      asideAllCollapsed,
+      chartAlignRange
     },
   getters: {
     getHidePackageOneCategory(): boolean {
@@ -33,11 +35,16 @@ export const useSettingStore = defineStore({
     },
     getAsideCollapsedWidth(): number {
       return this.asideAllCollapsed ? 0 : asideCollapsedWidth
+    },
+    getChartAlignRange(): number {
+      return this.chartAlignRange
     }
   },
   actions: {
-    setItem(key: string, value: boolean): void {
-      ; (this as any)[key] = value
+    setItem<T extends keyof SettingStoreType, K extends SettingStoreType[T]>(key: T, value: K): void {
+      this.$patch(state => {
+        state[key]= value
+      });
       setLocalStorage(GO_SYSTEM_SETTING_STORE, this.$state)
     },
   },

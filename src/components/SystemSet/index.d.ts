@@ -1,8 +1,11 @@
 export type ListType = {
-  key: string
+  key: any
   type: string
   name: string
   desc: string
   value: any
+  suffix?: string
+  step?: number
+  min?: number
   tip?: string
 }
