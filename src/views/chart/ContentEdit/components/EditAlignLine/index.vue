@@ -65,7 +65,6 @@ const isComputedLine = computed(() => {
 
 // * 吸附判定
 const isSorption = (selectValue: number, componentValue: number) => {
-  console.log(minDistance.value);
   const isSorption = Math.abs(selectValue - componentValue) <= minDistance.value
   return isSorption
 }
