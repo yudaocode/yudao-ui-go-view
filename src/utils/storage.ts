@@ -2,7 +2,7 @@
 /**
  * * 存储本地会话数据
  * @param k 键名
- * @param v 键值
+ * @param v 键值（无需stringiiy）
  * @returns RemovableRef
  */
  export const setLocalStorage = <T>(k: string, v: T) => {
@@ -15,9 +15,10 @@
 
 /**
  * * 获取本地会话数据
+ * @param k 键名
  * @returns any
  */
-export const getLocalStorage: (k: string) => any = (k: string) => {
+export const getLocalStorage = (k: string) => {
   const item = window.localStorage.getItem(k)
   try {
     return item ? JSON.parse(item) : item

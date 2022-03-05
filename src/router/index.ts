@@ -20,7 +20,8 @@ const RootRoute: Array<RouteRecordRaw> = [
     children: [
       ...HttpErrorPage,
       modules.projectRoutes,
-      modules.chartRoutes
+      modules.chartRoutes,
+      modules.previewRoutes
     ]
   }
 ]

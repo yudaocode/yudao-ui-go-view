@@ -37,10 +37,14 @@ export const routerTurnByName = (
  * @param pageName
  */
 export const fetchPathByName = (pageName: string, p?: string) => {
-  const pathData = router.resolve({
-    name: pageName,
-  })
-  return p ? (pathData as any)[p] : pathData
+  try {
+    const pathData = router.resolve({
+      name: pageName,
+    })
+    return p ? (pathData as any)[p] : pathData
+  } catch (error) {
+    window['$message'].warning('查询路由信息失败，请联系管理员！')
+  }
 }
 
 /**
@@ -130,8 +134,12 @@ export const openGiteeSourceCode = () => {
  * @returns object
  */
 export const fetchRouteParams = () => {
-  const route = useRoute()
-  return route.params
+  try {
+    const route = useRoute()
+    return route.params
+  } catch (error) {
+    window['$message'].warning('查询路由信息失败，请联系管理员！')
+  }
 }
 
 /**

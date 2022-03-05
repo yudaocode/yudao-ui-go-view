@@ -34,7 +34,9 @@ const inputInstRef = ref(null)
 
 // 根据路由 id 参数获取项目信息
 const fetchProhectInfoById = () => {
-  const { id } = fetchRouteParams()
+  const routeParamsRes = fetchRouteParams()
+  if (!routeParamsRes) return
+  const { id } = routeParamsRes
   if (id.length) {
     // todo 从后端获取项目信息并存储
     return '编辑项目' + id[0]
@@ -43,7 +45,7 @@ const fetchProhectInfoById = () => {
 
 }
 
-const title = ref<string>(fetchProhectInfoById())
+const title = ref<string>(fetchProhectInfoById() || '')
 
 
 const comTitle = computed(() => {

@@ -8,7 +8,9 @@ import { defaultTheme, globalThemeJson } from '@/settings/chartThemes/index'
 import { useChartHistoryStoreStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
 import { HistoryActionTypeEnum, HistoryItemType, HistoryTargetTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
 import {
-  chartEditStoreType,
+  ChartEditStoreEnum,
+  ChartEditStorage,
+  ChartEditStoreType,
   EditCanvasType,
   MousePositionType,
   TargetChartType,
@@ -21,7 +23,7 @@ const chartHistoryStoreStore = useChartHistoryStoreStore()
 // 编辑区域内容
 export const useChartEditStore = defineStore({
   id: 'useChartEditStore',
-  state: (): chartEditStoreType => ({
+  state: (): ChartEditStoreType => ({
     // 画布属性
     editCanvas: {
       // 编辑区域 Dom
@@ -106,6 +108,13 @@ export const useChartEditStore = defineStore({
     },
     getComponentList(): CreateComponentType[] {
       return this.componentList
+    },
+    // 获取需要存储的数据项
+    getStorageInfo(): ChartEditStorage {
+      return {
+        [ChartEditStoreEnum.EDIT_CANVAS_CONFIG]: this.getEditCanvasConfig,
+        [ChartEditStoreEnum.COMPONENT_LIST]: this.getComponentList
+      }
     }
   },
   actions: {
@@ -113,6 +122,7 @@ export const useChartEditStore = defineStore({
     setEditCanvas<T extends keyof EditCanvasType,  K extends EditCanvasType[T]>(key: T, value: K) {
       this.editCanvas[key] = value
     },
+    // * 设置 editCanvasConfig（需保存后端） 数据项
     setEditCanvasConfig<T extends keyof EditCanvasConfigType,  K extends EditCanvasConfigType[T]>(key: T, value: K) {
       this.editCanvasConfig[key] = value
     },

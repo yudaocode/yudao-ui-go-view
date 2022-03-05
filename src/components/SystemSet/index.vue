@@ -70,16 +70,6 @@ const settingStore = useSettingStore()
 
 const list = reactive<ListType[]>([
   {
-    key: SettingStoreEnums.CHART_ALIGN_RANGE,
-    value: settingStore.getChartAlignRange,
-    type: 'number',
-    name: '吸附距离',
-    min: 10,
-    suffix: 'px',
-    step: 2,
-    desc: '移动图表时的吸附距离'
-  },
-  {
     key: SettingStoreEnums.ASIDE_ALL_COLLAPSED,
     value: settingStore.getAsideAllCollapsed,
     type: 'switch',
@@ -100,6 +90,16 @@ const list = reactive<ListType[]>([
     name: '切换语言',
     desc: '切换语言重新加载页面',
     tip: '若遇到部分区域语言切换失败，则开启'
+  },
+  {
+    key: SettingStoreEnums.CHART_ALIGN_RANGE,
+    value: settingStore.getChartAlignRange,
+    type: 'number',
+    name: '吸附距离',
+    min: 10,
+    suffix: 'px',
+    step: 2,
+    desc: '移动图表时的吸附距离'
   }
 ])
 

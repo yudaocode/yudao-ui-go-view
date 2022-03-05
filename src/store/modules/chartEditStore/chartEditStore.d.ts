@@ -120,12 +120,17 @@ export enum ChartEditStoreEnum {
 }
 
 // Store 类型
-export interface chartEditStoreType {
+export interface ChartEditStoreType {
   [ChartEditStoreEnum.EDIT_CANVAS]: EditCanvasType
   [ChartEditStoreEnum.EDIT_CANVAS_CONFIG]: EditCanvasConfigType
   [ChartEditStoreEnum.RIGHT_MENU_SHOW]: boolean
   [ChartEditStoreEnum.MOUSE_POSITION]: MousePositionType
   [ChartEditStoreEnum.TARGET_CHART]: TargetChartType
   [ChartEditStoreEnum.RECORD_CHART]?: RecordChartType
+  [ChartEditStoreEnum.COMPONENT_LIST]: CreateComponentType[]
+}
+
+export interface ChartEditStorage {
+  [ChartEditStoreEnum.EDIT_CANVAS_CONFIG]: EditCanvasConfigType,
   [ChartEditStoreEnum.COMPONENT_LIST]: CreateComponentType[]
 }
