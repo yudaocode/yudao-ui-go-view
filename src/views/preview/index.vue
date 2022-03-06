@@ -1,21 +1,24 @@
 <template>
   <div class="go-preview">
+    <!-- 缩放层 -->
     <div ref="previewRef">
-      <h1>预览</h1>
+      <!-- 展示层 -->
+      <div :style="previewRefStyle">
+        <!-- 渲染层 -->
+        <RenderList :localStorageInfo="localStorageInfo" />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onUnmounted, ref, nextTick } from 'vue'
+import { onUnmounted, ref, nextTick, computed } from 'vue'
 import { usePreviewScale } from '@/hooks/index'
 import { getLocalStorage, fetchRouteParams } from '@/utils'
 import { StorageEnum } from '@/enums/storageEnum'
-import { ChartEditStorage } from '@/store/modules/chartEditStore/chartEditStore.d'
-
-interface ChartEditStorageType extends ChartEditStorage {
-  id: string
-}
+import { RenderList } from './components/RenderList/index'
+import { ChartEditStorageType } from './index.d'
+import { useSizeStyle } from './hooks/useStyle.hook'
 
 const previewRef = ref()
 
@@ -35,16 +38,26 @@ const getLocalStorageInfo: () => ChartEditStorageType | undefined = () => {
   }
 }
 
-const localStorageInfo: ChartEditStorageType | undefined = getLocalStorageInfo()
-const width = localStorageInfo?.editCanvasConfig.width
-const height = localStorageInfo?.editCanvasConfig.height
+const localStorageInfo: ChartEditStorageType = getLocalStorageInfo() as ChartEditStorageType
+
+const width = ref(localStorageInfo?.editCanvasConfig.width)
+const height = ref(localStorageInfo?.editCanvasConfig.height)
+
+const previewRefStyle = computed(() => {
+  return {
+    position: 'relative',
+    width: width.value? `${width.value || 100}px` : '100%',
+    height: height.value? `${height.value}px` : '100%',
+    border: '1px solid red'
+  }
+})
 
 if (!localStorageInfo) {
   window['$message'].warning('获取数据失败')
 }
 
 nextTick(() => {
-  const { calcRate, windowResize, unWindowResize } = usePreviewScale(width as number, height as number, previewRef.value)
+  const { calcRate, windowResize, unWindowResize } = usePreviewScale(width.value as number, height.value as number, previewRef.value)
 
   calcRate()
   windowResize()
@@ -58,6 +71,7 @@ nextTick(() => {
 
 <style lang="scss" scoped>
 @include go("preview") {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;

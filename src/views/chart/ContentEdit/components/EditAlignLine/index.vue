@@ -312,7 +312,7 @@ watch(
     border-width: 1px;
     border-style: solid;
     border-color: v-bind('themeColor');
-    opacity: 0.7;
+    opacity: 0.3;
     &.visible {
       display: block;
     }

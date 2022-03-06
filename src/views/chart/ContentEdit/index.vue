@@ -57,7 +57,6 @@ import { handleDrag, handleDragOver, useMouseHandle } from './hooks/useDrag.hook
 import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { useComponentStyle, useSizeStyle } from './hooks/useStyle.hook'
-import { CreateComponentType } from '@/packages/index.d'
 import { chartColors } from '@/settings/chartThemes/index'
 
 const chartEditStore = useChartEditStore()
