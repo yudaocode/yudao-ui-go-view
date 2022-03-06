@@ -189,7 +189,7 @@ export const useMousePointHandle = (
     attr.w = newWidth > 0 ? newWidth : 0
     attr.x = itemAttrX + (isLeft ? currX : 0)
     attr.y = itemAttrY + (isTop ? currY : 0)
-  })
+  }, 50)
 
   const mouseup = () => {
     // 设置拖拽状态
