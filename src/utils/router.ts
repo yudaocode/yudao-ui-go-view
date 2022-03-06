@@ -65,8 +65,7 @@ export const routerTurnByPath = (
     fullPath = `${path}/${query.join('/')}`
   }
   if (windowOpen) {
-    openNewWindow(fullPath)
-    return
+    return openNewWindow(fullPath)
   }
   if (isReplace) {
     router.replace({
@@ -110,7 +109,7 @@ export const logout = () => {
  * @param url
  */
 export const openNewWindow = (url: string) => {
-  window.open(url, '_blank')
+  return window.open(url, '_blank')
 }
 
 /**
