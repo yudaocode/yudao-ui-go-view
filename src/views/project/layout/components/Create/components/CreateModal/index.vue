@@ -20,7 +20,7 @@
             :key="item.key"
             @click="btnHandle"
           >
-            <component :is="item.title"> </component>
+            <component :is="item.title"></component>
             <template #icon>
               <n-icon size="18">
                 <component :is="item.icon" />
@@ -28,7 +28,7 @@
             </template>
           </n-button>
         </n-space>
-        <template #action> </template>
+        <template #action></template>
       </n-card>
     </n-space>
   </n-modal>
@@ -38,7 +38,7 @@
 import { watch, reactive } from 'vue'
 import { icon } from '@/plugins'
 import { PageEnum, ChartEnum } from '@/enums/pageEnum'
-import { routerTurnByName, renderLang } from '@/utils'
+import { fetchPathByName, routerTurnByPath, renderLang, getUUID } from '@/utils'
 
 const { FishIcon, CloseIcon } = icon.ionicons5
 const { StoreIcon, ObjectStorageIcon } = icon.carbon
@@ -84,13 +84,15 @@ const closeHandle = () => {
 // 处理按钮点击
 const btnHandle = (key: string) => {
   closeHandle()
-  routerTurnByName(ChartEnum.CHART_HOME_NAME, undefined, true)
+  const id = getUUID()
+  const path = fetchPathByName(ChartEnum.CHART_HOME_NAME, 'href')
+  routerTurnByPath(path, [id], undefined, true)
 }
 </script>
 <style lang="scss" scoped>
 $cardWidth: 570px;
 
-@include go('create-modal') {
+@include go("create-modal") {
   position: fixed;
   top: 200px;
   left: 50%;
@@ -101,7 +103,7 @@ $cardWidth: 570px;
     border: 1px solid rgba(0, 0, 0, 0);
     @extend .go-transition;
     &:hover {
-      @include hover-border-color('hover-border-color');
+      @include hover-border-color("hover-border-color");
     }
     &-tite {
       font-size: 14px;

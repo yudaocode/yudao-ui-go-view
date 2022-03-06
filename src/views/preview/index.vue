@@ -55,7 +55,7 @@ const previewRefStyle = computed(() => {
 if (!localStorageInfo) {
   window['$message'].warning('获取数据失败')
 }
-
+console.log(localStorageInfo);
 nextTick(() => {
   const { calcRate, windowResize, unWindowResize } = usePreviewScale(width.value as number, height.value as number, previewRef.value)
 

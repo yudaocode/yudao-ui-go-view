@@ -31,21 +31,24 @@ const previewHandle = () => {
   const { id } = routerParamsInfo.params
   // id 标识
   const previewId = typeof id === 'string' ? id : id[0]
-
   const storageInfo = chartEditStore.getStorageInfo
   const localStorageInfo = getLocalStorage(StorageEnum.GO_CHART_STORAGE_LIST) || []
 
   if (localStorageInfo?.length) {
-    // 重复替换
     const repeateIndex = localStorageInfo.findIndex((e: { id: string }) => e.id === previewId)
+    // 重复替换
     if (repeateIndex !== -1) {
       localStorageInfo.splice(repeateIndex, 1, { id: previewId, ...storageInfo })
+      setLocalStorage(StorageEnum.GO_CHART_STORAGE_LIST, localStorageInfo)
+    } else {
+      localStorageInfo.push({
+        id: previewId, ...storageInfo
+      })
+      setLocalStorage(StorageEnum.GO_CHART_STORAGE_LIST, localStorageInfo)
     }
-    setLocalStorage(StorageEnum.GO_CHART_STORAGE_LIST, localStorageInfo)
   } else {
     setLocalStorage(StorageEnum.GO_CHART_STORAGE_LIST, [{ id: previewId, ...storageInfo }])
   }
-
   // 跳转
   routerTurnByPath(path, [previewId], undefined, true)
 }
