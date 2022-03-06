@@ -19,6 +19,8 @@ import { PropType, computed } from 'vue'
 import { ChartEditStorageType } from '../../index.d'
 import { chartColors } from '@/settings/chartThemes/index'
 import { useSizeStyle, useComponentStyle } from '../../hooks/useStyle.hook'
+import { componentPackageInstall } from '@/utils'
+import { CreateComponentType } from '@/packages/index.d'
 
 const props = defineProps({
   localStorageInfo: {
@@ -26,6 +28,11 @@ const props = defineProps({
     required: true
   }
 })
+
+// 动态注册
+props.localStorageInfo.componentList.forEach((e: CreateComponentType) => {
+  componentPackageInstall(e.chartConfig)
+});
 
 // 主题色
 const themeSetting = computed(() => {

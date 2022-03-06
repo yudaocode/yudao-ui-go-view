@@ -1,11 +1,24 @@
 import { defineAsyncComponent, AsyncComponentLoader } from 'vue'
 import { AsyncLoading, AsyncSkeletonLoading } from '@/components/LoadingComponent'
-
+import { ConfigType } from '@/packages/index.d'
+import { fetchChartComponent } from '@/packages/index'
+/**
+ * * 预览页面动态注册 package 组件
+ * @param  {ConfigType} dropData
+ */
+export const componentPackageInstall = async (dropData: Omit<ConfigType, "node">)  => {
+  const key = dropData.key.substring(1)
+  console.log(window['$vue']);
+  if (!window['$vue'].component(key)) {
+    const chart = await fetchChartComponent(dropData)
+    window['$vue'].component(key, chart)
+  }
+}
 /**
  * * 动态注册组件
  */
 export const componentInstall = <T> (key:string, node: T)  => {
-  if(!window['$vue'].component(key) && key && node) {
+  if(!window['$vue'].component(key) && node) {
     window['$vue'].component(key, node)
   }
 }

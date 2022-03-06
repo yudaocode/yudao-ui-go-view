@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import { PropType } from 'vue'
 import { MacOsControlBtn } from '@/components/MacOsControlBtn/index'
-import { requireErrorImg, componentInstall } from '@/utils'
+import { componentInstall } from '@/utils'
 import { DragKeyEnum } from '@/enums/editPageEnum'
 import { ConfigType } from '@/packages/index.d'
 import omit from 'lodash/omit'

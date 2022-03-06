@@ -28,4 +28,13 @@ const createComponent = async (dropData: ConfigType) => {
   return new chart.default()
 }
 
-export { packagesList, createComponent }
+/**
+ * * 获取组件信息
+ */
+const fetchChartComponent = async (dropData: ConfigType | Omit<ConfigType, "node">) => {
+  const key = dropData.key.substring(1)
+  const { category } = dropData
+  return await import(`../packages/components/${dropData.package}/${category}/${key}/index.vue`)
+}
+
+export { packagesList, createComponent, fetchChartComponent }

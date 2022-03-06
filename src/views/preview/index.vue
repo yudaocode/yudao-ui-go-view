@@ -18,7 +18,6 @@ import { getLocalStorage, fetchRouteParams } from '@/utils'
 import { StorageEnum } from '@/enums/storageEnum'
 import { RenderList } from './components/RenderList/index'
 import { ChartEditStorageType } from './index.d'
-import { useSizeStyle } from './hooks/useStyle.hook'
 
 const previewRef = ref()
 
@@ -55,7 +54,7 @@ const previewRefStyle = computed(() => {
 if (!localStorageInfo) {
   window['$message'].warning('获取数据失败')
 }
-console.log(localStorageInfo);
+
 nextTick(() => {
   const { calcRate, windowResize, unWindowResize } = usePreviewScale(width.value as number, height.value as number, previewRef.value)
 
