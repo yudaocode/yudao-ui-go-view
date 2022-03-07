@@ -3,7 +3,7 @@ import App from './App.vue'
 import router, { setupRouter } from '@/router'
 import i18n from '@/i18n/index'
 import { setupStore } from '@/store'
-import { setupNaive, setupDirectives, setupCustomComponents } from '@/plugins'
+import { setupNaive, setupDirectives, setupCustomComponents, setupPreviewPackages } from '@/plugins'
 import { AppProvider } from '@/components/AppProvider/index'
 import { setHtmlTheme } from '@/utils'
 
@@ -24,6 +24,9 @@ async function appInit() {
   // 注册全局自定义组件
   setupCustomComponents(app)
 
+  // 预览页面注册（）
+  setupPreviewPackages(app)
+  
   // 挂载状态管理
   setupStore(app)
 

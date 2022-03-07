@@ -16,7 +16,7 @@
     <!-- 位置 -->
     <PositionSetting :chartAttr="targetData.attr" />
     <!-- 自定义配置项 -->
-    <component :is="targetData.chartConfig.conNode()" :optionData="targetData.option"></component>
+    <component :is="targetData.chartConfig.conKey" :optionData="targetData.option"></component>
     <!-- 全局设置 --> 
     <GlobalSetting :optionData="targetData.option" :in-chart="true" />
   </div>
@@ -24,15 +24,11 @@
 
 <script setup lang="ts">
 import { computed, Ref } from 'vue'
-import { loadAsyncComponent } from '@/utils'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { GlobalSetting, PositionSetting, SizeSetting } from '@/components/ChartItemSetting/index'
 import { CreateComponentType } from '@/packages/index.d'
 import { SettingItemBox } from '@/components/ChartItemSetting/index'
 
-const GlobalSettingCom = loadAsyncComponent(() =>
-  import('@/components/ChartItemSetting/index')
-)
 const chartEditStore = useChartEditStore()
 
 const targetData: Ref<CreateComponentType> = computed(() => {

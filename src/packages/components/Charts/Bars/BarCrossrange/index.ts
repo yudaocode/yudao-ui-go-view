@@ -6,11 +6,12 @@ import { ChatCategoryEnum, ChatCategoryEnumName } from '../../index.d'
 
 export const BarCrossrangefig: ConfigType = {
   key: 'VBarCrossrange',
+  conKey: 'VCBarCrossrange',
   title: '横向柱状图',
   category: ChatCategoryEnum.BAR,
   categoryName: ChatCategoryEnumName.BAR,
   package: PackagesCategoryEnum.CHARTS,
-  node: BarCrossrange,
+  node: () => BarCrossrange,
   conNode: () => Configuration,
   image: image
 }

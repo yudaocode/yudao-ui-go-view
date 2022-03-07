@@ -6,11 +6,12 @@ import { ChatCategoryEnum, ChatCategoryEnumName } from '../../index.d'
 
 export const FunnelConfig: ConfigType = {
   key: 'VFunnel',
+  conKey: 'VCFunnel',
   title: '漏斗图',
   category: ChatCategoryEnum.MORE,
   categoryName: ChatCategoryEnumName.MORE,
   package: PackagesCategoryEnum.CHARTS,
-  node: Funnel,
+  node: () => Funnel,
   conNode: () => Configuration,
   image: image
 }

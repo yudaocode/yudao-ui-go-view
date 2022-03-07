@@ -6,11 +6,12 @@ import { ChatCategoryEnum, ChatCategoryEnumName } from '../../index.d'
 
 export const RadarConfig: ConfigType = {
   key: 'VRadar',
+  conKey: 'VCRadar',
   title: '雷达',
   category: ChatCategoryEnum.MORE,
   categoryName: ChatCategoryEnumName.MORE,
   package: PackagesCategoryEnum.CHARTS,
-  node: Radar,
+  node: () => Radar,
   conNode: () => Configuration,
   image: image
 }

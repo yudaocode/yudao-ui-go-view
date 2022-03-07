@@ -6,11 +6,12 @@ import { ChatCategoryEnum,ChatCategoryEnumName } from '../../index.d'
 
 export const BorderCommonConfig: ConfigType = {
   key: 'VBorderCommon',
+  conKey: 'VCBorderCommon',
   title: '边框',
   category: ChatCategoryEnum.BORDER,
   categoryName: ChatCategoryEnumName.BORDER,
   package: PackagesCategoryEnum.DECORATES,
-  node: BorderCommon,
+  node: () => BorderCommon,
   conNode: () => Configuration,
   image
 }

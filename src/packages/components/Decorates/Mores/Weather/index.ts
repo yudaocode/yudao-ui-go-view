@@ -6,11 +6,12 @@ import { ChatCategoryEnum,ChatCategoryEnumName } from '../../index.d'
 
 export const WeatherConfig: ConfigType = {
   key: 'VWeather',
+  conKey: 'VCWeather',
   title: '天气',
   category: ChatCategoryEnum.MORE,
   categoryName: ChatCategoryEnumName.MORE,
   package: PackagesCategoryEnum.DECORATES,
-  node: Weather,
+  node: () => Weather,
   conNode: () => Configuration,
   image
 }

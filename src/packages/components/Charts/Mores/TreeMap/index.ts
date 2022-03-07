@@ -6,11 +6,12 @@ import { ChatCategoryEnum, ChatCategoryEnumName } from '../../index.d'
 
 export const TreeMapConfig: ConfigType = {
   key: 'VTreeMap',
+  conKey: 'VCTreeMap',
   title: '树形分布',
   category: ChatCategoryEnum.MORE,
   categoryName: ChatCategoryEnumName.MORE,
   package: PackagesCategoryEnum.CHARTS,
-  node: TreeMap,
+  node: () => TreeMap,
   conNode: () => Configuration,
   image: image
 }

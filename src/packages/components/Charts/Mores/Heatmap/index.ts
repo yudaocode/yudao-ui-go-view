@@ -6,11 +6,12 @@ import { ChatCategoryEnum, ChatCategoryEnumName } from '../../index.d'
 
 export const HeatmapConfig: ConfigType = {
   key: 'VHeatmap',
+  conKey: 'VCHeatmap',
   title: '热力图',
   category: ChatCategoryEnum.MORE,
   categoryName: ChatCategoryEnumName.MORE,
   package: PackagesCategoryEnum.CHARTS,
-  node: Heatmap,
+  node: () => Heatmap,
   conNode: () => Configuration,
   image: image
 }

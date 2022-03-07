@@ -6,11 +6,12 @@ import { ChatCategoryEnum,ChatCategoryEnumName } from '../../index.d'
 
 export const NumberConfig: ConfigType = {
   key: 'VNumber',
+  conKey: 'VCNumber',
   title: '数字翻牌',
   category: ChatCategoryEnum.MORE,
   categoryName: ChatCategoryEnumName.MORE,
   package: PackagesCategoryEnum.DECORATES,
-  node: Number,
+  node: () => Number,
   conNode: () => Configuration,
   image
 }

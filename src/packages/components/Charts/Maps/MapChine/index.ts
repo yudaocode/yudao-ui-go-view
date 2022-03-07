@@ -6,11 +6,12 @@ import { ChatCategoryEnum, ChatCategoryEnumName } from '../../index.d'
 
 export const MapChineConfig: ConfigType = {
   key: 'VMapChine',
+  conKey: 'VCMapChine',
   title: '北京地图',
   category: ChatCategoryEnum.MAP,
   categoryName: ChatCategoryEnumName.MAP,
   package: PackagesCategoryEnum.CHARTS,
-  node: MapChine,
+  node: () => MapChine,
   conNode: () => Configuration,
   image: image
 }

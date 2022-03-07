@@ -6,11 +6,12 @@ import { ChatCategoryEnum, ChatCategoryEnumName } from '../../index.d'
 
 export const LineGradientsConfig: ConfigType = {
   key: 'VLineGradients',
+  conKey: 'VCLineGradients',
   title: '折线面积图',
   category: ChatCategoryEnum.LINE,
   categoryName: ChatCategoryEnumName.LINE,
   package: PackagesCategoryEnum.CHARTS,
-  node: LineGradients,
+  node: () => LineGradients,
   conNode: () => Configuration,
   image: image
 }

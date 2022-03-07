@@ -30,7 +30,7 @@ import { SettingItemBox } from '@/components/ChartItemSetting/index'
 
 const props = defineProps({
   chartAttr: {
-    type: Object as PropType<Omit<PickCreateComponentType<'attr'>, 'node'>>,
+    type: Object as PropType<Omit<PickCreateComponentType<'attr'>, 'node' | 'conNode'>>,
     required: true
   }
 })

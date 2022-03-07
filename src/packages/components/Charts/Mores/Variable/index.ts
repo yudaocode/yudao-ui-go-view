@@ -6,11 +6,12 @@ import { ChatCategoryEnum, ChatCategoryEnumName } from '../../index.d'
 
 export const VariableConfig: ConfigType = {
   key: 'VVariable',
+  conKey: 'VCVariable',
   title: '折线面积图',
   category: ChatCategoryEnum.MORE,
   categoryName: ChatCategoryEnumName.MORE,
   package: PackagesCategoryEnum.CHARTS,
-  node: Variable,
+  node: () => Variable,
   conNode: () => Configuration,
   image: image
 }

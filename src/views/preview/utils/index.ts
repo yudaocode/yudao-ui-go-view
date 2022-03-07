@@ -1,4 +1,4 @@
-import { getLocalStorage, fetchRouteParams } from '@/utils'
+import { getLocalStorage } from '@/utils'
 import { StorageEnum } from '@/enums/storageEnum'
 import { ChartEditStorage } from '@/store/modules/chartEditStore/chartEditStore.d'
 
@@ -6,10 +6,10 @@ export interface ChartEditStorageType extends ChartEditStorage {
   id: string
 }
 
-export const getLocalStorageInfo: () => ChartEditStorageType | undefined = () => {
-  const routeParamsRes = fetchRouteParams()
-  if (!routeParamsRes) return
-  const { id } = routeParamsRes
+export const getLocalStorageInfo = () => {
+  const urlHash = document.location.hash
+  const toPathArray = urlHash.split('/')
+  const id = toPathArray && toPathArray[toPathArray.length - 1]
 
   const storageList: ChartEditStorageType[] = getLocalStorage(
     StorageEnum.GO_CHART_STORAGE_LIST

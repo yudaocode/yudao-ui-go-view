@@ -6,11 +6,12 @@ import { ChatCategoryEnum, ChatCategoryEnumName } from '../../index.d'
 
 export const PieCommonConfig: ConfigType = {
   key: 'VPieCommon',
+  conKey: 'VCPieCommon',
   title: '饼图',
   category: ChatCategoryEnum.PIE,
   categoryName: ChatCategoryEnumName.PIE,
   package: PackagesCategoryEnum.CHARTS,
-  node: PieCommon,
+  node: () => PieCommon,
   conNode: () => Configuration,
   image
 }

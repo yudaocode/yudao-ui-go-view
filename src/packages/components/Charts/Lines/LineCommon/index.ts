@@ -6,11 +6,12 @@ import { ChatCategoryEnum, ChatCategoryEnumName } from '../../index.d'
 
 export const LineCommonConfig: ConfigType = {
   key: 'VLineCommon',
+  conKey: 'VCLineCommon',
   title: '折线图',
   category: ChatCategoryEnum.LINE,
   categoryName: ChatCategoryEnumName.LINE,
   package: PackagesCategoryEnum.CHARTS,
-  node: LineCommon,
+  node: () => LineCommon,
   conNode: () => Configuration,
   image: image
 }

@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { PropType } from 'vue'
+import { PropType, toRaw } from 'vue'
 import { MacOsControlBtn } from '@/components/MacOsControlBtn/index'
 import { componentInstall } from '@/utils'
 import { DragKeyEnum } from '@/enums/editPageEnum'
@@ -37,9 +37,10 @@ defineProps({
 // 拖拽处理
 const handleDragStart = (e: DragEvent, item: ConfigType) => {
   // 动态注册图表组件
-  componentInstall(item.key, item.node)
+  componentInstall(item.key, item.node())
+  componentInstall(item.conKey, item.conNode())
   // 将配置项绑定到拖拽属性上
-  e!.dataTransfer!.setData(DragKeyEnum.DROG_KEY, JSON.stringify(omit(item, ['node', 'image'])))
+  e!.dataTransfer!.setData(DragKeyEnum.DROG_KEY, JSON.stringify(omit(item, ['node', 'conNode', 'image'])))
 }
 </script>
 
