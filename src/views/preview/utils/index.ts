@@ -1,3 +1,4 @@
+export * from './style'
 import { getLocalStorage } from '@/utils'
 import { StorageEnum } from '@/enums/storageEnum'
 import { ChartEditStorage } from '@/store/modules/chartEditStore/chartEditStore.d'

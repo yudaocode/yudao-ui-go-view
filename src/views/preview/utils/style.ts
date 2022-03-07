@@ -16,16 +16,19 @@ export const useSizeStyle = (attr: AttrType, scale?: number) => {
   const sizeStyle = {
     width: `${scale ? scale * attr.w : attr.w}px`,
     height: `${scale ? scale * attr.h : attr.h}px`,
-    border: '1px solid red'
   }
   return sizeStyle
 }
 
 export const useEditCanvasConfigStyle = (canvas: EditCanvasConfigType) => {
+  // 背景
+  const computedBackground = canvas.selectColor
+    ? { background: canvas.background }
+    : { background: `url(${canvas.backgroundImage}) no-repeat center/100% !important` }
   return {
     position: 'relative',
     width: canvas.width ? `${canvas.width || 100}px` : '100%',
     height: canvas.height ? `${canvas.height}px` : '100%',
-    border: '1px solid red'
+    ...computedBackground
   }
 }

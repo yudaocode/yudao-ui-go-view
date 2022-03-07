@@ -18,7 +18,7 @@
 import { PropType, computed } from 'vue'
 import { ChartEditStorageType } from '../../index.d'
 import { chartColors } from '@/settings/chartThemes/index'
-import { useSizeStyle, useComponentStyle } from '../../hooks/useStyle.hook'
+import { useSizeStyle, useComponentStyle } from '../../utils'
 
 const props = defineProps({
   localStorageInfo: {

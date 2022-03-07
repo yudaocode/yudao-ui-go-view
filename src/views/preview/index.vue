@@ -17,7 +17,7 @@ import { usePreviewScale } from '@/hooks/index'
 import { RenderList } from './components/RenderList/index'
 import { ChartEditStorageType } from './index.d'
 import { getLocalStorageInfo } from './utils/index'
-import { useEditCanvasConfigStyle } from './hooks/useStyle.hook'
+import { useEditCanvasConfigStyle } from './utils'
 
 const previewRef = ref()
 
