@@ -10,8 +10,9 @@ import { CreateComponentType } from '@/packages/index.d'
  * @param app
  */
 export const setupPreviewPackages = (app: App) => {
+  if(!document.location.hash.includes('preview')) return
   const localStorageInfo = getLocalStorageInfo()
-  if(!document.location.hash.includes('preview') || !localStorageInfo) return
+  if(!localStorageInfo) return
   localStorageInfo.componentList.forEach(async (e: CreateComponentType) => {
     if (!app.component(e.key)) {
       const chart = fetchChartComponent(e.chartConfig)

@@ -15,6 +15,8 @@ export const getLocalStorageInfo = () => {
     StorageEnum.GO_CHART_STORAGE_LIST
   )
 
+  if(!storageList) return
+
   for (let i = 0; i < storageList.length; i++) {
     if (id.toString() === storageList[i]['id']) {
       return storageList[i]
