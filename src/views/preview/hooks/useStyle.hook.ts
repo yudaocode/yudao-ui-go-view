@@ -1,4 +1,5 @@
 import { PickCreateComponentType } from '@/packages/index.d'
+import { EditCanvasConfigType } from '@/store/modules/chartEditStore/chartEditStore.d'
 
 type AttrType = PickCreateComponentType<'attr'>
 
@@ -18,4 +19,13 @@ export const useSizeStyle = (attr: AttrType, scale?: number) => {
     border: '1px solid red'
   }
   return sizeStyle
+}
+
+export const useEditCanvasConfigStyle = (canvas: EditCanvasConfigType) => {
+  return {
+    position: 'relative',
+    width: canvas.width ? `${canvas.width || 100}px` : '100%',
+    height: canvas.height ? `${canvas.height}px` : '100%',
+    border: '1px solid red'
+  }
 }

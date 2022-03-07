@@ -6,11 +6,12 @@ import { ChatCategoryEnum,ChatCategoryEnumName } from '../../index.d'
 
 export const TextCommonConfig: ConfigType = {
   key: 'VText',
+  conKey: 'VCText',
   title: '文字',
   category: ChatCategoryEnum.TEXT,
   categoryName: ChatCategoryEnumName.TEXT,
   package: PackagesCategoryEnum.INFORMATION,
-  node: TextCommon,
+  node: () => TextCommon,
   conNode: () => Configuration,
   image
 }

@@ -6,11 +6,12 @@ import { ChatCategoryEnum,ChatCategoryEnumName } from '../../index.d'
 
 export const TextCloudConfig: ConfigType = {
   key: 'VTextCloud',
+  conKey: 'VCTextCloud',
   title: '词云',
   category: ChatCategoryEnum.MORE,
   categoryName: ChatCategoryEnumName.MORE,
   package: PackagesCategoryEnum.INFORMATION,
-  node: TextCloud,
+  node: () => TextCloud,
   conNode: () => Configuration,
   image
 }

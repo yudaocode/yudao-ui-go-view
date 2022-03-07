@@ -6,11 +6,12 @@ import { ChatCategoryEnum,ChatCategoryEnumName } from '../../index.d'
 
 export const ImageConfig: ConfigType = {
   key: 'VImage',
+  conKey: 'VCImage',
   title: '图片',
   category: ChatCategoryEnum.MORE,
   categoryName: ChatCategoryEnumName.MORE,
   package: PackagesCategoryEnum.INFORMATION,
-  node: Image,
+  node: () => Image,
   conNode: () => Configuration,
   image
 }

@@ -17,6 +17,7 @@ import { usePreviewScale } from '@/hooks/index'
 import { RenderList } from './components/RenderList/index'
 import { ChartEditStorageType } from './index.d'
 import { getLocalStorageInfo } from './utils/index'
+import { useEditCanvasConfigStyle } from './hooks/useStyle.hook'
 
 const previewRef = ref()
 
@@ -25,13 +26,8 @@ const localStorageInfo: ChartEditStorageType = getLocalStorageInfo() as ChartEdi
 const width = ref(localStorageInfo?.editCanvasConfig.width)
 const height = ref(localStorageInfo?.editCanvasConfig.height)
 
-const previewRefStyle = computed(() => {
-  return {
-    position: 'relative',
-    width: width.value ? `${width.value || 100}px` : '100%',
-    height: height.value ? `${height.value}px` : '100%',
-    border: '1px solid red'
-  }
+const previewRefStyle: any = computed(() => {
+  return useEditCanvasConfigStyle(localStorageInfo.editCanvasConfig)
 })
 
 if (!localStorageInfo) {

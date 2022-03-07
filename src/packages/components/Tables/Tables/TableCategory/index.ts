@@ -6,11 +6,12 @@ import { ChatCategoryEnum, ChatCategoryEnumName } from '../../index.d'
 
 export const TableCategoryConfig: ConfigType = {
   key: 'VTableCategory',
+  conKey: 'VCableCategory',
   title: '归类表格',
   category: ChatCategoryEnum.TABLE,
   categoryName: ChatCategoryEnumName.TABLE,
   package: PackagesCategoryEnum.TABLES,
-  node: TableCategory,
+  node: () => TableCategory,
   conNode: () => Configuration,
   image
 }

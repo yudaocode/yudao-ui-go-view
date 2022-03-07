@@ -6,6 +6,7 @@ export interface ChartEditStorageType extends ChartEditStorage {
   id: string
 }
 
+// 根据路由 id 获取存储数据的信息
 export const getLocalStorageInfo = () => {
   const urlHash = document.location.hash
   const toPathArray = urlHash.split('/')

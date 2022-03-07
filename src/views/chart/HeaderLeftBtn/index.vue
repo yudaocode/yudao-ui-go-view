@@ -24,16 +24,16 @@
 import { toRefs, Ref, reactive } from 'vue'
 import { renderIcon, goDialog, goHome } from '@/utils'
 import { icon } from '@/plugins'
-const { LayersIcon, BarChartIcon, PrismIcon, HomeIcon } = icon.ionicons5
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
 import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
 import { useRemoveKeyboard } from '../hooks/useKeyboard.hook'
 
+const { LayersIcon, BarChartIcon, PrismIcon, HomeIcon } = icon.ionicons5
 const { setItem } = useChartLayoutStore()
 const { getLayers, getCharts, getDetails } = toRefs(useChartLayoutStore())
 
-type ItemType = {
-  key: string
+interface ItemType {
+  key: ChartLayoutStoreEnum
   select: Ref<boolean> | boolean
   title: string
   icon: any

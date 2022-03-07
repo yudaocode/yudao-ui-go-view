@@ -6,11 +6,12 @@ import { ChatCategoryEnum,ChatCategoryEnumName } from '../../index.d'
 
 export const TitleProConfig: ConfigType = {
   key: 'VTitlePro',
+  conKey: 'VCTitlePro',
   title: '中心标题',
   category: ChatCategoryEnum.TITLE,
   categoryName: ChatCategoryEnumName.TITLE,
   package: PackagesCategoryEnum.INFORMATION,
-  node: TitlePro,
+  node: () => TitlePro,
   conNode: () => Configuration,
   image
 }

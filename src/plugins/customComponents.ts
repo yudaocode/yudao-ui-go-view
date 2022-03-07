@@ -10,15 +10,16 @@ import { CreateComponentType } from '@/packages/index.d'
  * @param app
  */
 export const setupPreviewPackages = (app: App) => {
-  if(!document.location.hash.includes('preview')) return
-  const localStorageInfo = getLocalStorageInfo()
-  if(!localStorageInfo) return
-  localStorageInfo.componentList.forEach(async (e: CreateComponentType) => {
-    if (!app.component(e.key)) {
-      const chart = fetchChartComponent(e.chartConfig)
-      app.component(e.key, chart)
-    }
-  })
+  if (document.location.hash.includes('preview')) {
+    const localStorageInfo = getLocalStorageInfo()
+    if (!localStorageInfo) return
+    localStorageInfo.componentList.forEach(async (e: CreateComponentType) => {
+      if (!app.component(e.key)) {
+        const chart = fetchChartComponent(e.chartConfig)
+        app.component(e.key, chart)
+      }
+    })
+  }
 }
 
 /**
