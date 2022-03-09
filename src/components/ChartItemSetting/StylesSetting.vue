@@ -1,5 +1,5 @@
 <template>
-  <CollapseItem name="通用样式" :expanded="true">
+  <CollapseItem name="通用样式">
     <SettingItemBox name="透明度" :alone="true">
       <!-- 透明度 -->
       <n-slider
