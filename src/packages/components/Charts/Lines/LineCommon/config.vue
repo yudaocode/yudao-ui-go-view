@@ -1,6 +1,87 @@
 <template>
+  <CollapseItem
+    v-for="(item, index) in seriesList"
+    :key="index"
+    :name="`折线图-${index + 1}`"
+    :expanded="true"
+  >
+    <SettingItemBox name="线条">
+      <SettingItem name="颜色">
+        <n-color-picker
+          size="small"
+          :modes="['hex']"
+          v-model:value="item.lineStyle.color.colorStops[0].color"
+        />
+      </SettingItem>
+      <SettingItem name="颜色">
+        <n-color-picker
+          size="small"
+          :modes="['hex']"
+          v-model:value="item.lineStyle.color.colorStops[1].color"
+        />
+      </SettingItem>
+      <SettingItem name="宽度">
+        <n-input-number
+          v-model:value="item.lineStyle.width"
+          :min="1"
+          :max="100"
+          size="small"
+          placeholder="自动计算"
+        />
+      </SettingItem>
+      <SettingItem name="类型">
+        <n-select
+          v-model:value="item.lineStyle.type"
+          size="small"
+          :options="lineConf.lineStyle.type"
+        />
+      </SettingItem>
+      <SettingItem name="类型">
+        <n-select
+          v-model:value="item.lineStyle.type"
+          size="small"
+          :options="lineConf.lineStyle.type"
+        />
+      </SettingItem>
+    </SettingItemBox>
+    <SettingItemBox name="阴影">
+      <SettingItem name="颜色">
+        <n-color-picker
+          size="small"
+          :modes="['hex']"
+          v-model:value="item.lineStyle.shadowColor"
+        />
+      </SettingItem>
+      <SettingItem name="控制">
+        <n-button
+          size="small"
+          @click="item.lineStyle.shadowColor = 'rgba(0, 0, 0, 0)'"
+        >
+          去除阴影
+        </n-button>
+      </SettingItem>
+    </SettingItemBox>
+  </CollapseItem>
 </template>
 
 <script setup lang="ts">
+import { PropType, computed } from 'vue'
+import { lineConf } from '@/packages/chartConfiguration/echarts/index'
+import {
+  CollapseItem,
+  SettingItemBox,
+  SettingItem
+} from '@/components/ChartItemSetting/index'
+import { option } from './config'
 
+const props = defineProps({
+  optionData: {
+    type: Object as PropType<typeof option>,
+    required: true
+  }
+})
+
+const seriesList = computed(() => {
+  return props.optionData.series
+})
 </script>

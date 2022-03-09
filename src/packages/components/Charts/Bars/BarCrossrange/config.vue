@@ -1,5 +1,5 @@
 <template>
-  <CollapseItem v-for="(item, index) in seriesList" :key="index" :name="`柱状图-数据-${index+1}`" :expanded="true">
+  <CollapseItem v-for="(item, index) in seriesList" :key="index" :name="`柱状图-${index+1}`" :expanded="true">
     <SettingItemBox name="图形">
       <SettingItem name="颜色">
         <n-color-picker size="small" :modes="['hex']" v-model:value="item.itemStyle.color" />

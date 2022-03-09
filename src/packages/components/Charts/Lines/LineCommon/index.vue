@@ -10,11 +10,7 @@ import { CanvasRenderer } from 'echarts/renderers'
 import { LineChart } from 'echarts/charts'
 import config, { includes } from './config'
 import { mergeTheme } from '@/packages/public/chart'
-import {
-  GridComponent,
-  TooltipComponent,
-  LegendComponent,
-} from 'echarts/components'
+import { GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
 
 const props = defineProps({
   themeSetting: {
@@ -36,10 +32,10 @@ use([
   LineChart,
   GridComponent,
   TooltipComponent,
-  LegendComponent,
+  LegendComponent
 ])
 
 const option = computed(() => {
-  return mergeTheme( props.chartConfig.option, props.themeSetting, includes)
+  return mergeTheme(props.chartConfig.option, props.themeSetting, includes)
 })
 </script>
