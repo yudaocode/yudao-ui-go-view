@@ -1,5 +1,5 @@
 <template>
-  <div class="go-chart-content-details" v-if="targetData">
+  <div class="go-chart-configurations-setting" v-if="targetData">
     <!-- 名称 -->
     <SettingItemBox name="名称">
       <n-input
@@ -39,6 +39,6 @@ const targetData: Ref<CreateComponentType> = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-@include go('chart-content-details') {
+@include go('chart-configurations-setting') {
 }
 </style>

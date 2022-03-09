@@ -19,6 +19,7 @@ export interface PublicConfigType {
   id: string
   rename?: string
   attr: { x: number; y: number; w: number; h: number; zIndex: number }
+  styles: { opacity: number, animations: string[] }
   setPosition: Function
 }
 export interface CreateComponentType extends PublicConfigType {

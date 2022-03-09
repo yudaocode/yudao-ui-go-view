@@ -88,7 +88,12 @@ const { getDetails } = toRefs(useChartLayoutStore())
 const { setItem } = useChartLayoutStore()
 const chartEditStore = useChartEditStore()
 
-const { ConstructIcon, FlashIcon, DesktopOutlineIcon, RocketIcon } = icon.ionicons5
+const {
+  ConstructIcon,
+  FlashIcon,
+  DesktopOutlineIcon,
+  LeafIcon
+} = icon.ionicons5
 
 const ContentEdit = loadAsyncComponent(() => import('../ContentEdit/index.vue'))
 const CanvasPage = loadAsyncComponent(() =>
@@ -100,8 +105,8 @@ const ChartSetting = loadAsyncComponent(() =>
 const ChartData = loadAsyncComponent(() =>
   import('./components/ChartData/index.vue')
 )
-const ChartEvent = loadAsyncComponent(() =>
-  import('./components/ChartEvent/index.vue')
+const ChartAnimation = loadAsyncComponent(() =>
+  import('./components/ChartAnimation/index.vue')
 )
 
 const collapsed = ref<boolean>(getDetails.value)
@@ -119,9 +124,7 @@ const expandHindle = () => {
 const selectTarget = computed(() => {
   const selectId = chartEditStore.getTargetChart.selectId
   if (!selectId) return undefined
-  return chartEditStore.componentList[
-    chartEditStore.fetchTargetIndex()
-  ]
+  return chartEditStore.componentList[chartEditStore.fetchTargetIndex()]
 })
 
 watch(getDetails, newData => {
@@ -150,17 +153,17 @@ const canvasTabList = [
     render: ChartSetting
   },
   {
+    key: 'ChartAnimation',
+    title: '动画',
+    icon: LeafIcon,
+    render: ChartAnimation
+  },
+  {
     key: 'ChartData',
     title: '数据',
     icon: FlashIcon,
     render: ChartData
-  },
-  {
-    key: 'ChartEvent',
-    title: '事件',
-    icon: RocketIcon,
-    render: ChartEvent
-  },
+  }
 ]
 </script>
 

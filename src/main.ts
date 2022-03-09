@@ -6,8 +6,6 @@ import { setupStore } from '@/store'
 import { setupNaive, setupDirectives, setupCustomComponents, setupPreviewPackages } from '@/plugins'
 import { AppProvider } from '@/components/AppProvider/index'
 import { setHtmlTheme } from '@/utils'
-
-// 引入动画
 import 'animate.css/animate.min.css'
 
 async function appInit() {

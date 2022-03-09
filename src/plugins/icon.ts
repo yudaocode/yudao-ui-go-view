@@ -46,6 +46,7 @@ DesktopOutline as DesktopOutlineIcon,
   Cut as CutIcon,
   Square as SquareIcon,
   ColorPalette as ColorPaletteIcon,
+  Leaf as LeafIcon
 } from '@vicons/ionicons5'
 
 import {
@@ -158,7 +159,9 @@ const ionicons5 = {
   SquareIcon,
   // 色彩选择
   ColorPaletteIcon,
-  ZAxisIcon
+  ZAxisIcon,
+  // 气球
+  LeafIcon
 }
 
 const carbon = {
