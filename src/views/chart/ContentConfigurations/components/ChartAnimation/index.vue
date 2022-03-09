@@ -54,7 +54,7 @@ const targetData: Ref<CreateComponentType> = computed(() => {
   return list[targetIndex]
 })
 
-// * 选中样式
+// * 选中的动画样式
 const activeIndex = (value: string) => {
   const selectValue = targetData.value.styles.animations
   if (!selectValue.length) return false

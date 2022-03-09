@@ -1,4 +1,18 @@
 <template>
+  <n-divider style="margin: 10px 0;" />
+  <n-space :size="8" justify="space-between" style="margin-top: 10px;">
+    <n-button
+      secondary
+      v-for="item in positionList"
+      :key="item.key"
+      @click="positonHandle(item.key)"
+    >
+      <template #icon>
+        <component :is="item.icon" />
+      </template>
+    </n-button>
+  </n-space>
+  <!-- </SettingItemBox> -->
   <SettingItemBox name="边距">
     <n-input-number
       v-model:value="chartAttr.y"
@@ -27,11 +41,92 @@
 import { PropType } from 'vue'
 import { PickCreateComponentType } from '@/packages/index.d'
 import { SettingItemBox } from '@/components/ChartItemSetting/index'
+import { renderIcon } from '@/utils'
+import { icon } from '@/plugins/index'
+import { EditCanvasConfigType } from '@/store/modules/chartEditStore/chartEditStore.d'
+
+const {
+  AlignHorizontalLeftIcon,
+  AlignVerticalCenterIcon,
+  AlignVerticalTopIcon,
+  AlignHorizontalCenterIcon,
+  AlignHorizontalRightIcon,
+  AlignVerticalBottomIcon
+} = icon.carbon
+
+const positionList = [
+  {
+    key: 'AlignHorizontalLeftIcon',
+    lable: '局左',
+    icon: renderIcon(AlignHorizontalLeftIcon)
+  },
+  {
+    key: 'AlignVerticalCenterIcon',
+    lable: 'X轴居中',
+    icon: renderIcon(AlignVerticalCenterIcon)
+  },
+  {
+    key: 'AlignHorizontalRightIcon',
+    lable: '局右',
+    icon: renderIcon(AlignHorizontalRightIcon)
+  },
+  {
+    key: 'AlignVerticalTopIcon',
+    lable: '顶部',
+    icon: renderIcon(AlignVerticalTopIcon)
+  },
+  {
+    key: 'AlignHorizontalCenterIcon',
+    lable: 'Y轴居中',
+    icon: renderIcon(AlignHorizontalCenterIcon)
+  },
+  {
+    key: 'AlignVerticalBottomIcon',
+    lable: '底部',
+    icon: renderIcon(AlignVerticalBottomIcon)
+  }
+]
 
 const props = defineProps({
+  canvasConfig: {
+    type: Object as PropType<EditCanvasConfigType>,
+    required: true
+  },
   chartAttr: {
-    type: Object as PropType<Omit<PickCreateComponentType<'attr'>, 'node' | 'conNode'>>,
+    type: Object as PropType<
+      Omit<PickCreateComponentType<'attr'>, 'node' | 'conNode'>
+    >,
     required: true
   }
 })
+
+const positonHandle = (key: string) => {
+  console.log(key)
+  switch (key) {
+    // 局左
+    case positionList[0]['key']:
+      props.chartAttr.x = 0
+      break
+    // X轴居中
+    case positionList[1]['key']:
+      props.chartAttr.y = (props.canvasConfig.height - props.chartAttr.h) / 2
+      break
+    // 局右
+    case positionList[2]['key']:
+      props.chartAttr.x = props.canvasConfig.width - props.chartAttr.w
+      break
+    // 顶部
+    case positionList[3]['key']:
+      props.chartAttr.y = 0
+      break
+    // Y轴居中
+    case positionList[4]['key']:
+      props.chartAttr.x = (props.canvasConfig.width - props.chartAttr.w) / 2
+      break
+    // 底部
+    case positionList[5]['key']:
+      props.chartAttr.y = props.canvasConfig.height - props.chartAttr.h
+      break
+  }
+}
 </script>

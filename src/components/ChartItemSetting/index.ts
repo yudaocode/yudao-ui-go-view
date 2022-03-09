@@ -9,5 +9,7 @@ import GlobalSetting from './GlobalSetting.vue'
 import PositionSetting from './PositionSetting.vue'
 // 尺寸
 import SizeSetting from './SizeSetting.vue'
+// 样式
+import StylesSetting from './StylesSetting.vue'
 
-export { CollapseItem, SettingItemBox, SettingItem, GlobalSetting, PositionSetting, SizeSetting }
+export { CollapseItem, SettingItemBox, SettingItem, GlobalSetting, PositionSetting, SizeSetting, StylesSetting }

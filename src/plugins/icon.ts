@@ -63,6 +63,12 @@ import {
   StackedMove as StackedMoveIcon,
   PaintBrush as PaintBrushIcon,
   ComposerEdit as ZAxisIcon,
+  AlignHorizontalLeft as AlignHorizontalLeftIcon,
+  AlignVerticalCenter as AlignVerticalCenterIcon,
+  AlignVerticalTop as AlignVerticalTopIcon,
+  AlignHorizontalCenter as AlignHorizontalCenterIcon,
+  AlignHorizontalRight as AlignHorizontalRightIcon,
+  AlignVerticalBottom as AlignVerticalBottomIcon
 } from '@vicons/carbon'
 
 const ionicons5 = {
@@ -190,7 +196,13 @@ const carbon = {
   // 清空剪切板（刷子）
   PaintBrushIcon,
   // 坐标轴
-  ZAxisIcon
+  ZAxisIcon,
+  AlignHorizontalLeftIcon,
+  AlignVerticalCenterIcon,
+  AlignVerticalTopIcon,
+  AlignHorizontalCenterIcon,
+  AlignHorizontalRightIcon,
+  AlignVerticalBottomIcon
 }
 
 // https://www.xicons.org/#/ 还有很多

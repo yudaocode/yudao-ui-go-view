@@ -43,3 +43,10 @@ export const animationsClass = (animations: string[]) => {
   }
   return ''
 }
+
+export const useStyle = (styles: StylesType) => {
+  return {
+    // 透明度
+    opacity: styles.opacity
+  }
+}

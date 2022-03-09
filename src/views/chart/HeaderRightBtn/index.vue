@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { shallowReactive } from 'vue'
 import { renderIcon, fetchPathByName, routerTurnByPath, setLocalStorage, getLocalStorage } from '@/utils'
 import { PreviewEnum } from '@/enums/pageEnum'
 import { StorageEnum } from '@/enums/storageEnum'
@@ -58,7 +58,7 @@ const sendHandle = () => {
   window['$message'].warning('该功能暂未实现（因为压根没有后台）')
 }
 
-const btnList = reactive([
+const btnList = shallowReactive([
   {
     key: '',
     select: true,

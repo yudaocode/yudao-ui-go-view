@@ -14,7 +14,9 @@
     <!-- 尺寸 -->
     <SizeSetting :chartAttr="targetData.attr" />
     <!-- 位置 -->
-    <PositionSetting :chartAttr="targetData.attr" />
+    <PositionSetting :chartAttr="targetData.attr" :canvasConfig="chartEditStore.getEditCanvasConfig"/>
+    <!-- 样式 -->
+    <StylesSetting :chartStyles="targetData.styles" />
     <!-- 自定义配置项 -->
     <component :is="targetData.chartConfig.conKey" :optionData="targetData.option"></component>
     <!-- 全局设置 --> 
@@ -25,7 +27,7 @@
 <script setup lang="ts">
 import { computed, Ref } from 'vue'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { GlobalSetting, PositionSetting, SizeSetting } from '@/components/ChartItemSetting/index'
+import { GlobalSetting, PositionSetting, SizeSetting, StylesSetting } from '@/components/ChartItemSetting/index'
 import { CreateComponentType } from '@/packages/index.d'
 import { SettingItemBox } from '@/components/ChartItemSetting/index'
 
