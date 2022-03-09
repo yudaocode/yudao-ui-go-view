@@ -6,6 +6,13 @@ import omit from 'lodash/omit'
 export const includes = ['legend', 'xAxis', 'yAxis']
 
 const option = {
+  tooltip: {
+    show: true,
+    trigger: 'axis',
+    axisPointer: {
+      type: 'line'
+    }
+  },
   legend: {
     show: true
   },
@@ -60,7 +67,7 @@ const option = {
 export default class Config extends publicConfig
   implements CreateComponentType {
   public key: string = LineCommonConfig.key
-  public chartConfig = omit(LineCommonConfig, ['node'])
+  public chartConfig = omit(LineCommonConfig, ['node', 'conNode'])
   // 图表配置项
   public option = echartOptionProfixHandle(option, includes)
 }

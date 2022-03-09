@@ -54,7 +54,7 @@ const option = {
 export default class Config extends publicConfig implements CreateComponentType {
   public key: string = PieCommonConfig.key
 
-  public chartConfig = omit(PieCommonConfig, ['node'])
+  public chartConfig = omit(PieCommonConfig, ['node', 'conNode'])
 
   // 图表配置项
   public option = echartOptionProfixHandle(option, includes)

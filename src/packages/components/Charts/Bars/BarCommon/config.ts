@@ -54,7 +54,7 @@ export const option = {
 export default class Config extends publicConfig
   implements CreateComponentType {
   public key = BarCommonConfig.key
-  public chartConfig = omit(cloneDeep(BarCommonConfig), ['node'])
+  public chartConfig = omit(cloneDeep(BarCommonConfig), ['node', 'conNode'])
   // 图表配置项
   public option = echartOptionProfixHandle(option, includes)
 }

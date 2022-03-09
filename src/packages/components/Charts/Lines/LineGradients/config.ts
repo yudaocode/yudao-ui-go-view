@@ -10,6 +10,13 @@ const option = {
   legend: {
     show: true
   },
+  tooltip: {
+    show: true,
+    trigger: 'axis',
+    axisPointer: {
+      type: 'line'
+    }
+  },
   xAxis: {
     show: true,
     type: 'category',
@@ -78,7 +85,7 @@ const option = {
 export default class Config extends publicConfig
   implements CreateComponentType {
   public key: string = LineGradientsConfig.key
-  public chartConfig = omit(LineGradientsConfig, ['node'])
+  public chartConfig = omit(LineGradientsConfig, ['node', 'conNode'])
   // 图表配置项
   public option = echartOptionProfixHandle(option, includes)
 }

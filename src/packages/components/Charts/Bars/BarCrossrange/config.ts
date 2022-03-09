@@ -54,7 +54,7 @@ export const option = {
 export default class Config extends publicConfig
   implements CreateComponentType {
   public key: string = BarCrossrangefig.key
-  public chartConfig = omit(cloneDeep(BarCrossrangefig), ['node'])
+  public chartConfig = omit(cloneDeep(BarCrossrangefig), ['node', 'conNode'])
   // 图表配置项
   public option = echartOptionProfixHandle(option, includes)
 }
