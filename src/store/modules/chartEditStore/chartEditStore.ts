@@ -483,9 +483,9 @@ export const useChartEditStore = defineStore({
       }
     },
     // * 设置页面大小
-    setPageSize(): void {
-      this.setPageStyle('height', `${this.editCanvasConfig.height}px`)
-      this.setPageStyle('width', `${this.editCanvasConfig.width}px`)
+    setPageSize(scale: number): void {
+      this.setPageStyle('height', `${this.editCanvasConfig.height * scale}px`)
+      this.setPageStyle('width', `${this.editCanvasConfig.width * scale}px`)
     },
     // * 计算缩放
     computedScale() {
@@ -540,6 +540,7 @@ export const useChartEditStore = defineStore({
     setScale(scale: number, sys = true): void {
       if (!this.getEditCanvas.lockScale) {
         this.setPageSizeClass()
+        this.setPageSize(scale)
         this.setPageStyle('transform', `scale(${scale})`)
         this.getEditCanvas.userScale = scale
         if (sys) {

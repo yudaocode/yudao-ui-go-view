@@ -1,7 +1,6 @@
 <template>
   <ContentBox
     id="go-chart-edit-layout"
-    ref="editDomRef"
     :flex="true"
     :showTop="false"
     :showBottom="true"

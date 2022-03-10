@@ -17,9 +17,6 @@ export const useLayout = () => {
       document.getElementById('go-chart-edit-content')
     )
 
-    // 大小初始化
-    chartEditStore.setPageSize()
-
     // 监听初始化
     const removeScale = chartEditStore.listenerScale()
 

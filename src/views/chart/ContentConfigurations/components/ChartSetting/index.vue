@@ -38,6 +38,7 @@ const targetData: Ref<CreateComponentType> = computed(() => {
   const targetIndex = chartEditStore.fetchTargetIndex()
   return list[targetIndex]
 })
+
 </script>
 
 <style lang="scss" scoped>

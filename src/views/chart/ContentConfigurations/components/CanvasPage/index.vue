@@ -7,7 +7,7 @@
           size="small"
           v-model:value="canvasConfig.width"
           :validator="validator"
-          @update:value="chartEditStore.computedScale"
+          @update:value="changeSizeHandle"
         />
       </n-form-item>
       <n-form-item label="高度">
@@ -15,7 +15,7 @@
           size="small"
           v-model:value="canvasConfig.height"
           :validator="validator"
-          @update:value="chartEditStore.computedScale"
+          @update:value="changeSizeHandle"
         />
       </n-form-item>
     </n-form>
@@ -180,6 +180,12 @@ const beforeUploadHandle = async ({ file }) => {
     return false
   }
   return true
+}
+
+// 修改尺寸
+const changeSizeHandle = () => {
+  chartEditStore.computedScale
+  chartEditStore.setPageSize
 }
 
 // 清除背景
