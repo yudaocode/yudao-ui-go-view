@@ -170,7 +170,7 @@ export const useContextMenu = (menuConfig?: {
     })
   }
   return {
-    // todo 每次都重新计算的功能
+    // todo 每次右键都执行判断功能
     // menuOptions: clearHideOption ? clearHideOption(menuOptions, hideOptionsList) : menuOptions,
     menuOptions: menuOptions,
     handleContextMenu,

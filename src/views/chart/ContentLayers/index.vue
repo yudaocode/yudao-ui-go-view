@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { ContentBox } from '../ContentBox/index'
+import { ContentBox } from '../contentBox/index'
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
 import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'

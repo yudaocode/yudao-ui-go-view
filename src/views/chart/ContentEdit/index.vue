@@ -46,7 +46,7 @@
 
 <script lang="ts" setup>
 import { ref, onMounted, computed } from 'vue'
-import { ContentBox } from '../ContentBox/index'
+import { ContentBox } from '../contentBox/index'
 import { EditRange } from './components/EditRange'
 import { EditBottom } from './components/EditBottom'
 import { EditShapeBox } from './components/EditShapeBox/index'
