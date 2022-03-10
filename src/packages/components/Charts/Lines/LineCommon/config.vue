@@ -44,7 +44,7 @@
         />
       </SettingItem>
     </SettingItemBox>
-    <SettingItemBox name="阴影">
+    <SettingItemBox name="阴影" :alone="true">
       <SettingItem name="颜色">
         <n-color-picker
           size="small"
@@ -52,7 +52,10 @@
           v-model:value="item.lineStyle.shadowColor"
         />
       </SettingItem>
-      <SettingItem name="控制">
+      
+    </SettingItemBox>
+    <SettingItemBox name="设置">
+     <SettingItem name="阴影">
         <n-button
           size="small"
           @click="item.lineStyle.shadowColor = 'rgba(0, 0, 0, 0)'"

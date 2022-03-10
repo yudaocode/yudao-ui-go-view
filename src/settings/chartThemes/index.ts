@@ -25,7 +25,7 @@ export const chartColors = {
   wonderland,
   essos,
   shine,
-  roma,
+  roma
 }
 
 // 默认主题
@@ -45,7 +45,7 @@ export const chartColorsName = {
   westeros: '灰粉',
   essos: '橘红',
   shine: '深色',
-  roma: '罗马红',
+  roma: '罗马红'
 }
 
 // 主题色列表
@@ -61,7 +61,22 @@ export const chartColorsshow = {
   westeros: 'linear-gradient(to right, #516b91 0%, #edafda 100%)',
   essos: 'linear-gradient(to right, #893448 0%, #d95850 100%)',
   shine: 'linear-gradient(to right, #c12e34 0%, #0098d9 100%)',
-  roma: 'linear-gradient(to right, #e01f54 0%, #5e4ea5 100%)',
+  roma: 'linear-gradient(to right, #e01f54 0%, #5e4ea5 100%)'
+}
+// 主题色列表
+export const chartColorsSearch = {
+  dark: ['#4992ff', '#7cffb2'],
+  customed: ['#5470c6', '#91cc75'],
+  macarons: ['#2ec7c9', '#b6a2de'],
+  walden: ['#3fb1e3', '#6be6c1'],
+  wonderland: ['#4ea397', '#22c3aa'],
+  purplePassion: ['#9b8bba', '#e098c7'],
+  vintage: ['#d87c7c', '#919e8b'],
+  chalk: ['#fc97af', '#d4a4eb'],
+  westeros: ['#516b91', '#edafda'],
+  essos: ['#893448', '#d95850'],
+  shine: ['#c12e34', '#0098d9'],
+  roma: ['#e01f54', '#5e4ea5'],
 }
 
 // 默认主题详细配置

@@ -1,9 +1,9 @@
 <template>
-  <VChart :theme="themeColor" :option="option" autoresize />
+  <VChart :theme="themeColor" :option="option.options" autoresize />
 </template>
 
 <script setup lang="ts">
-import { computed, PropType } from 'vue'
+import { computed, PropType, watch, reactive, watchEffect } from 'vue';
 import VChart from 'vue-echarts'
 import { use, graphic } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
@@ -12,6 +12,7 @@ import config, { includes } from './config'
 import { mergeTheme } from '@/packages/public/chart'
 import { GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { chartColorsSearch, defaultTheme } from  '@/settings/chartThemes/index'
 
 const props = defineProps({
   themeSetting: {
@@ -37,9 +38,19 @@ use([
 ])
 
 const chartEditStore = useChartEditStore()
+const option = reactive({
+  options: {}
+})
 
-const option = computed(() => {
-  console.log(chartEditStore.getEditCanvasConfig.chartThemeColor)
-  return mergeTheme(props.chartConfig.option, props.themeSetting, includes)
+watchEffect(()=> {
+  option.options = mergeTheme(props.chartConfig.option, props.themeSetting, includes)
+})
+
+// 渐变色处理
+watch(()=>chartEditStore.getEditCanvasConfig.chartThemeColor, (newColor: string) => {
+  const themeColor = (chartColorsSearch as any)[newColor] || chartColorsSearch[defaultTheme]
+  props.chartConfig.option.series[0].lineStyle.color.colorStops[0].color = themeColor[0]
+  props.chartConfig.option.series[0].lineStyle.color.colorStops[1].color = themeColor[1]
+  option.options = mergeTheme(props.chartConfig.option, props.themeSetting, includes)
 })
 </script>

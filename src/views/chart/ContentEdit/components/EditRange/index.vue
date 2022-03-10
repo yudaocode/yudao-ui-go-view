@@ -35,7 +35,6 @@ const rangeStyle = computed(() => {
   const scale = {
     transform: `scale(${getEditCanvas.value.scale})`
   }
-  console.log(scale)
   // 设置背景色和图片背景
   const background = getEditCanvasConfig.value.background
   const backgroundImage = getEditCanvasConfig.value.backgroundImage
@@ -77,5 +76,7 @@ const rangeModelStyle = computed(() => {
   top: 0;
   border-radius: 15px;
   border: 1px solid rgba(0, 0, 0, 0);
+  background-color: greenyellow;
+  opacity: .2;
 }
 </style>
