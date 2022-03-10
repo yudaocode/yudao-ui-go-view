@@ -1,7 +1,6 @@
 import { echartOptionProfixHandle, publicConfig } from '@/packages/public'
-import { BarCrossrangefig } from './index'
+import { BarCrossrangeConfig } from './index'
 import { CreateComponentType } from '@/packages/index.d'
-import omit from 'lodash/omit'
 import cloneDeep from 'lodash/cloneDeep'
 
 export const includes = ['legend', 'xAxis', 'yAxis']
@@ -53,8 +52,8 @@ export const option = {
 
 export default class Config extends publicConfig
   implements CreateComponentType {
-  public key: string = BarCrossrangefig.key
-  public chartConfig = omit(cloneDeep(BarCrossrangefig), ['node', 'conNode'])
+  public key: string = BarCrossrangeConfig.key
+  public chartConfig = cloneDeep(BarCrossrangeConfig)
   // 图表配置项
   public option = echartOptionProfixHandle(option, includes)
 }

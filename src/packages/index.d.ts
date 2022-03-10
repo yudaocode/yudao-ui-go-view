@@ -4,13 +4,12 @@ import { GlobalThemeJsonType } from '@/settings/chartThemes/index'
 // 组件配置
 export type ConfigType = {
   key: string
+  chartKey: string,
   conKey: string,
   title: string
   category: string
   categoryName: string
   package: string
-  node: () => Component
-  conNode: () => Component
   image: string | (() => Promise<typeof import('*.png')>)
 }
 

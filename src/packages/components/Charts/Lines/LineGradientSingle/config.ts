@@ -2,7 +2,6 @@ import { echartOptionProfixHandle, publicConfig } from '@/packages/public'
 import { LineGradientSingleConfig } from './index'
 import { CreateComponentType } from '@/packages/index.d'
 import { graphic } from 'echarts/core'
-import omit from 'lodash/omit'
 
 export const includes = ['legend', 'xAxis', 'yAxis']
 
@@ -57,7 +56,7 @@ const options = {
 export default class Config extends publicConfig
   implements CreateComponentType {
   public key: string = LineGradientSingleConfig.key
-  public chartConfig = omit(LineGradientSingleConfig, ['node', 'conNode'])
+  public chartConfig = LineGradientSingleConfig
   // 图表配置项
   public option = echartOptionProfixHandle(options, includes)
 }

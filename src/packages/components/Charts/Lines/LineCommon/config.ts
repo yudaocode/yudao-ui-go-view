@@ -1,7 +1,6 @@
 import { echartOptionProfixHandle, publicConfig } from '@/packages/public'
 import { LineCommonConfig } from './index'
 import { CreateComponentType } from '@/packages/index.d'
-import omit from 'lodash/omit'
 
 export const includes = ['legend', 'xAxis', 'yAxis']
 
@@ -58,7 +57,7 @@ export const option = {
 export default class Config extends publicConfig
   implements CreateComponentType {
   public key: string = LineCommonConfig.key
-  public chartConfig = omit(LineCommonConfig, ['node', 'conNode'])
+  public chartConfig = LineCommonConfig
   // 图表配置项
   public option = echartOptionProfixHandle(option, includes)
 }

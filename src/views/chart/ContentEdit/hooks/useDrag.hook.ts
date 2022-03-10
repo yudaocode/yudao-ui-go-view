@@ -30,9 +30,10 @@ export const handleDrag = async (e: DragEvent) => {
     // 设置拖拽状态
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_CREATE, false)
 
-    const dropData: Exclude<ConfigType, ['node', 'image']> = JSON.parse(
+    const dropData: Exclude<ConfigType, ['image']> = JSON.parse(
       drayDataString
     )
+    
     // 创建新图表组件
     let newComponent: CreateComponentType = await createComponent(dropData)
 

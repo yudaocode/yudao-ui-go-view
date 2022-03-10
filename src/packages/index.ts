@@ -21,20 +21,12 @@ export let packagesList: PackagesType = {
   [PackagesCategoryEnum.DECORATES]: DecorateList
 }
 
-export const packgeInstall = (app:App) => {
-  ChartList.forEach(e=>{
-    console.log(e)
-    app.component(e.key, e.node)
-  })
-}
-
 /**
  * * 获取目标拖拽组件配置信息
  * @param dropData
  */
  export const createComponent = async (dropData: ConfigType) => {
-  const { category } = dropData
-  const key = dropData.key.substring(1)
+  const { category, key } = dropData
   const chart = await import(`./components/${dropData.package}/${category}/${key}/config.ts`)
   return new chart.default()
 }
@@ -45,7 +37,6 @@ export const packgeInstall = (app:App) => {
  * @param {FetchComFlagType} flag 标识 0为展示组件, 1为配置组件
  */
 const fetchComponent = (chartName: string, flag: FetchComFlagType) => {
-  chartName = chartName.substring(1)
   const module = flag === FetchComFlagType.VIEW ? indexModules: configModules
   for (const key in module) {
     const urlSplit = key.split('/')

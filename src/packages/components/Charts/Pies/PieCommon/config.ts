@@ -1,7 +1,6 @@
 import { echartOptionProfixHandle, publicConfig } from '@/packages/public'
 import { PieCommonConfig } from './index'
 import { CreateComponentType } from '@/packages/index.d'
-import omit from 'lodash/omit'
 
 export const includes = ['legend']
 
@@ -54,7 +53,7 @@ const option = {
 export default class Config extends publicConfig implements CreateComponentType {
   public key: string = PieCommonConfig.key
 
-  public chartConfig = omit(PieCommonConfig, ['node', 'conNode'])
+  public chartConfig = PieCommonConfig
 
   // 图表配置项
   public option = echartOptionProfixHandle(option, includes)

@@ -25,6 +25,7 @@ import { MacOsControlBtn } from '@/components/MacOsControlBtn/index'
 import { componentInstall } from '@/utils'
 import { DragKeyEnum } from '@/enums/editPageEnum'
 import { ConfigType } from '@/packages/index.d'
+import { fetchConfigComponent, fetchChartComponent } from '@/packages/index'
 import omit from 'lodash/omit'
 
 defineProps({
@@ -37,10 +38,10 @@ defineProps({
 // 拖拽处理
 const handleDragStart = (e: DragEvent, item: ConfigType) => {
   // 动态注册图表组件
-  componentInstall(item.key, item.node())
-  componentInstall(item.conKey, item.conNode())
+  componentInstall(item.chartKey, fetchChartComponent(item))
+  componentInstall(item.conKey, fetchConfigComponent(item))
   // 将配置项绑定到拖拽属性上
-  e!.dataTransfer!.setData(DragKeyEnum.DROG_KEY, JSON.stringify(omit(item, ['node', 'conNode', 'image'])))
+  e!.dataTransfer!.setData(DragKeyEnum.DROG_KEY, JSON.stringify(omit(item, ['image'])))
 }
 </script>
 
