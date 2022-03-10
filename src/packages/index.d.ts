@@ -47,6 +47,11 @@ export enum PackagesCategoryName {
   DECORATES = '小组件'
 }
 
+// 获取组件
+export enum FetchComFlagType {
+  VIEW, CONFIG
+}
+
 // 图表包类型
 export type PackagesType = {
   [PackagesCategoryEnum.CHARTS]: ConfigType[]

@@ -1,13 +1,17 @@
 import type { App } from 'vue'
-import {
-  PackagesCategoryEnum,
-  PackagesType,
-  ConfigType
-} from '@/packages/index.d'
 import { ChartList } from '@/packages/components/Charts/index'
 import { DecorateList } from '@/packages/components/Decorates/index'
 import { InformationList } from '@/packages/components/Informations/index'
 import { TableList } from '@/packages/components/Tables/index'
+import {
+  PackagesCategoryEnum,
+  PackagesType,
+  ConfigType,
+  FetchComFlagType
+} from '@/packages/index.d'
+
+const configModules = import.meta.globEager("./components/**/config.vue")
+const indexModules = import.meta.globEager("./components/**/index.vue")
 
 // * 所有图表
 export let packagesList: PackagesType = {
@@ -36,10 +40,35 @@ export const packgeInstall = (app:App) => {
 }
 
 /**
- * * 获取组件信息
- * * import.meta.globEager 不好使，先从原来的位置拿把
+ * * 获取组件
+ * @param {string} chartName 名称
+ * @param {FetchComFlagType} flag 标识 0为展示组件, 1为配置组件
  */
- export const fetchChartComponent = (dropData: ConfigType | Omit<ConfigType, "node" | 'conNode'>) => {
-  const { key, package:packageName  } = dropData
-  return packagesList[packageName as PackagesCategoryEnum].filter(e=> e.key === key)[0].node()
+const fetchComponent = (chartName: string, flag: FetchComFlagType) => {
+  chartName = chartName.substring(1)
+  const module = flag === FetchComFlagType.VIEW ? indexModules: configModules
+  for (const key in module) {
+    const urlSplit = key.split('/')
+    if(urlSplit[urlSplit.length -2 ] === chartName) {
+      return module[key]
+    }
+  }
+}
+
+/**
+ * * 获取展示组件
+ * @param {ConfigType} dropData 配置项
+ */
+ export const fetchChartComponent = (dropData: ConfigType) => {
+  const { key } = dropData
+  return fetchComponent(key, FetchComFlagType.VIEW)?.default
+}
+
+/**
+ * * 获取配置组件
+ * @param {ConfigType} dropData 配置项
+ */
+ export const fetchConfigComponent = (dropData: ConfigType) => {
+  const { key } = dropData
+  return fetchComponent(key, FetchComFlagType.CONFIG)?.default
 }
