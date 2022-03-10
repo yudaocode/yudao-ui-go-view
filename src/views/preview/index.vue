@@ -16,14 +16,13 @@ import { onUnmounted, ref, nextTick, computed } from 'vue'
 import { usePreviewScale } from '@/hooks/index'
 import { RenderList } from './components/RenderList/index'
 import { ChartEditStorageType } from './index.d'
-import { getLocalStorageInfo } from './utils/index'
-import { useEditCanvasConfigStyle } from './utils'
+import { useEditCanvasConfigStyle, getSessionStorageInfo } from './utils'
 import { CreateComponentType } from '@/packages/index.d'
 import { fetchChartComponent } from '@/packages/index'
 
 const previewRef = ref()
 
-const localStorageInfo: ChartEditStorageType = getLocalStorageInfo() as ChartEditStorageType
+const localStorageInfo: ChartEditStorageType = getSessionStorageInfo() as ChartEditStorageType
 
 const width = ref(localStorageInfo?.editCanvasConfig.width)
 const height = ref(localStorageInfo?.editCanvasConfig.height)

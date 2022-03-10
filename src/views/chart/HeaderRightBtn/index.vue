@@ -11,7 +11,7 @@
 
 <script setup lang="ts">
 import { shallowReactive } from 'vue'
-import { renderIcon, fetchPathByName, routerTurnByPath, setLocalStorage, getLocalStorage } from '@/utils'
+import { renderIcon, fetchPathByName, routerTurnByPath,setSessionStorage, getLocalStorage } from '@/utils'
 import { PreviewEnum } from '@/enums/pageEnum'
 import { StorageEnum } from '@/enums/storageEnum'
 import { icon } from '@/plugins'
@@ -32,22 +32,22 @@ const previewHandle = () => {
   // id 标识
   const previewId = typeof id === 'string' ? id : id[0]
   const storageInfo = chartEditStore.getStorageInfo
-  const localStorageInfo = getLocalStorage(StorageEnum.GO_CHART_STORAGE_LIST) || []
+  const sessionStorageInfo = getLocalStorage(StorageEnum.GO_CHART_STORAGE_LIST) || []
 
-  if (localStorageInfo?.length) {
-    const repeateIndex = localStorageInfo.findIndex((e: { id: string }) => e.id === previewId)
+  if (sessionStorageInfo?.length) {
+    const repeateIndex = sessionStorageInfo.findIndex((e: { id: string }) => e.id === previewId)
     // 重复替换
     if (repeateIndex !== -1) {
-      localStorageInfo.splice(repeateIndex, 1, { id: previewId, ...storageInfo })
-      setLocalStorage(StorageEnum.GO_CHART_STORAGE_LIST, localStorageInfo)
+      sessionStorageInfo.splice(repeateIndex, 1, { id: previewId, ...storageInfo })
+      setSessionStorage(StorageEnum.GO_CHART_STORAGE_LIST, sessionStorageInfo)
     } else {
-      localStorageInfo.push({
+      sessionStorageInfo.push({
         id: previewId, ...storageInfo
       })
-      setLocalStorage(StorageEnum.GO_CHART_STORAGE_LIST, localStorageInfo)
+      setSessionStorage(StorageEnum.GO_CHART_STORAGE_LIST, sessionStorageInfo)
     }
   } else {
-    setLocalStorage(StorageEnum.GO_CHART_STORAGE_LIST, [{ id: previewId, ...storageInfo }])
+    setSessionStorage(StorageEnum.GO_CHART_STORAGE_LIST, [{ id: previewId, ...storageInfo }])
   }
   // 跳转
   routerTurnByPath(path, [previewId], undefined, true)
