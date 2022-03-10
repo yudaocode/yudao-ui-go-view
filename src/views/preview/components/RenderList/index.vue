@@ -7,7 +7,7 @@
     :style="{ ...useComponentAttrStyle(item.attr, index), ...useSizeStyle(item.attr), ...useStyle(item.styles)}"
   >
     <component
-      :is="item.key"
+      :is="item.chartConfig.chartKey"
       :chartConfig="item"
       :themeSetting="themeSetting"
       :themeColor="themeColor"

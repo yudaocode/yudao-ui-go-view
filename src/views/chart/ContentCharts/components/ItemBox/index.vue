@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, toRaw } from 'vue'
+import { PropType } from 'vue'
 import { MacOsControlBtn } from '@/components/MacOsControlBtn/index'
 import { componentInstall } from '@/utils'
 import { DragKeyEnum } from '@/enums/editPageEnum'

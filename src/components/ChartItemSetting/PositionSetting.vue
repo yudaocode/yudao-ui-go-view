@@ -101,7 +101,6 @@ const props = defineProps({
 })
 
 const positonHandle = (key: string) => {
-  console.log(key)
   switch (key) {
     // 局左
     case positionList[0]['key']:

@@ -3,7 +3,7 @@
     <!-- 缩放层 -->
     <div ref="previewRef">
       <!-- 展示层 -->
-      <div :style="previewRefStyle">
+      <div :style="previewRefStyle" v-if="show">
         <!-- 渲染层 -->
         <RenderList :localStorageInfo="localStorageInfo" />
       </div>
@@ -18,6 +18,8 @@ import { RenderList } from './components/RenderList/index'
 import { ChartEditStorageType } from './index.d'
 import { getLocalStorageInfo } from './utils/index'
 import { useEditCanvasConfigStyle } from './utils'
+import { CreateComponentType } from '@/packages/index.d'
+import { fetchChartComponent } from '@/packages/index'
 
 const previewRef = ref()
 
@@ -25,15 +27,29 @@ const localStorageInfo: ChartEditStorageType = getLocalStorageInfo() as ChartEdi
 
 const width = ref(localStorageInfo?.editCanvasConfig.width)
 const height = ref(localStorageInfo?.editCanvasConfig.height)
+const show = ref(false)
 
 const previewRefStyle: any = computed(() => {
   return useEditCanvasConfigStyle(localStorageInfo.editCanvasConfig)
 })
 
-if (!localStorageInfo) {
-  window['$message'].warning('获取数据失败')
-}
+// 注册组件(一开始无法获取window['$vue'])
+const intervalTiming = setInterval(() => {
+  if (window['$vue'].component) {
+    clearInterval(intervalTiming)
+    show.value = true
+    localStorageInfo.componentList.forEach(async (e: CreateComponentType) => {
+      if (!window['$vue'].component(e.chartConfig.chartKey)) {
+        window['$vue'].component(
+          e.chartConfig.chartKey,
+          fetchChartComponent(e.chartConfig)
+        )
+      }
+    })
+  }
+}, 200)
 
+// 屏幕适配
 nextTick(() => {
   const { calcRate, windowResize, unWindowResize } = usePreviewScale(
     width.value as number,
