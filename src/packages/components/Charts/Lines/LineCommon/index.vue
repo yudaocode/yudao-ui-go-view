@@ -11,6 +11,7 @@ import { LineChart } from 'echarts/charts'
 import config, { includes } from './config'
 import { mergeTheme } from '@/packages/public/chart'
 import { GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 
 const props = defineProps({
   themeSetting: {
@@ -35,7 +36,10 @@ use([
   LegendComponent
 ])
 
+const chartEditStore = useChartEditStore()
+
 const option = computed(() => {
+  console.log(chartEditStore.getEditCanvasConfig.chartThemeColor)
   return mergeTheme(props.chartConfig.option, props.themeSetting, includes)
 })
 </script>

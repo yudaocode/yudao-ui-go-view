@@ -541,7 +541,6 @@ export const useChartEditStore = defineStore({
       if (!this.getEditCanvas.lockScale) {
         this.setPageSizeClass()
         this.setPageSize(scale)
-        this.setPageStyle('transform', `scale(${scale})`)
         this.getEditCanvas.userScale = scale
         if (sys) {
           this.getEditCanvas.scale = scale

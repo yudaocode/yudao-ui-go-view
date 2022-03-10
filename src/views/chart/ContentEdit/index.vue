@@ -96,8 +96,6 @@ onMounted(() => {
   @extend .go-point-bg;
   @include goId(chart-edit-content) {
     margin: 20px;
-    /* overflow: hidden; */
-    transform-origin: left top;
     border: 1px solid rgba(0, 0, 0, 0);
     @extend .go-transition;
     &.content-resize {

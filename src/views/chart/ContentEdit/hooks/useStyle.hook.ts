@@ -12,11 +12,10 @@ export const useComponentStyle = (attr: AttrType, index: number) => {
 }
 
 export const useSizeStyle = (attr: AttrType, scale?: number) => {
-  const sizeStyle = {
+  return {
     width: `${scale ? scale * attr.w : attr.w}px`,
     height: `${scale ? scale * attr.h : attr.h}px`
   }
-  return sizeStyle
 }
 
 // 锚点位置

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="go-edit-range"
+    class="go-edit-range go-transition"
     :style="rangeStyle"
     @mousedown="mousedownHandleUnStop($event, undefined)"
   >
@@ -31,15 +31,24 @@ const size = computed(() => {
 })
 
 const rangeStyle = computed(() => {
+    // 缩放 
+  const scale = {
+    transform: `scale(${getEditCanvas.value.scale})`
+  }
+  console.log(scale)
+  // 设置背景色和图片背景
   const background = getEditCanvasConfig.value.background
   const backgroundImage = getEditCanvasConfig.value.backgroundImage
   const selectColor = getEditCanvasConfig.value.selectColor
   const backgroundColor = background ? background : undefined
+
   const computedBackground = selectColor
     ? { background: backgroundColor }
     : { background: `url(${backgroundImage}) no-repeat center/100% !important` }
+
+
   // @ts-ignore
-  return { ...useSizeStyle(size.value), ...computedBackground }
+  return { ...useSizeStyle(size.value), ...computedBackground, ...scale }
 })
 
 // 模态层
@@ -55,6 +64,7 @@ const rangeModelStyle = computed(() => {
   position: relative;
   border: 1px solid;
   border-radius: 15px;
+  transform-origin: left top;
   @include fetch-theme('box-shadow');
   @include filter-border-color('hover-border-color');
   @include fetch-theme-custom('border-color', 'background-color4');
