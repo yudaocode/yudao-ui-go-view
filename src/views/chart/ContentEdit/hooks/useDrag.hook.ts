@@ -27,9 +27,6 @@ export const handleDrag = async (e: DragEvent) => {
       return
     }
 
-    // 设置拖拽状态
-    chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_CREATE, false)
-
     const dropData: Exclude<ConfigType, ['image']> = JSON.parse(
       drayDataString
     )
@@ -55,8 +52,6 @@ export const handleDragOver = (e: DragEvent) => {
   e.preventDefault()
   e.stopPropagation()
 
-  // 设置拖拽状态
-  chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_CREATE, true)
   if (e.dataTransfer) e.dataTransfer.dropEffect = 'copy'
 }
 

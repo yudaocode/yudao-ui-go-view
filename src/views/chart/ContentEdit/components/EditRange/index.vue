@@ -5,11 +5,9 @@
     @mousedown="mousedownHandleUnStop($event, undefined)"
   >
     <slot></slot>
+    <!-- 拖拽时的辅助线 -->
+    <EditAlignLine />
   </div>
-  <!-- 拖拽时的辅助线 -->
-  <EditAlignLine />
-  <!-- 拖拽时的遮罩 -->
-  <div class="go-edit-range-model" :style="rangeModelStyle"></div>
 </template>
 
 <script setup lang="ts">
@@ -31,7 +29,7 @@ const size = computed(() => {
 })
 
 const rangeStyle = computed(() => {
-    // 缩放 
+  // 缩放
   const scale = {
     transform: `scale(${getEditCanvas.value.scale})`
   }
@@ -45,17 +43,10 @@ const rangeStyle = computed(() => {
     ? { background: backgroundColor }
     : { background: `url(${backgroundImage}) no-repeat center/100% !important` }
 
-
   // @ts-ignore
   return { ...useSizeStyle(size.value), ...computedBackground, ...scale }
 })
 
-// 模态层
-const rangeModelStyle = computed(() => {
-  const dragStyle = getEditCanvas.value.isCreate && {'z-index': 99999 }
-  // @ts-ignore
-  return { ...useSizeStyle(size.value), ...dragStyle}
-})
 </script>
 
 <style lang="scss" scoped>
@@ -67,7 +58,7 @@ const rangeModelStyle = computed(() => {
   @include fetch-theme('box-shadow');
   @include filter-border-color('hover-border-color');
   @include fetch-theme-custom('border-color', 'background-color4');
-  @include filter-bg-color('background-color2')
+  @include filter-bg-color('background-color2');
 }
 @include go(edit-range-model) {
   z-index: -1;
@@ -77,6 +68,6 @@ const rangeModelStyle = computed(() => {
   border-radius: 15px;
   border: 1px solid rgba(0, 0, 0, 0);
   background-color: greenyellow;
-  opacity: .2;
+  opacity: 0.2;
 }
 </style>

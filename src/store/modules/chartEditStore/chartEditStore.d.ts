@@ -10,7 +10,6 @@ export enum EditCanvasTypeEnum {
   SCALE = 'scale',
   USER_SCALE = 'userScale',
   LOCK_SCALE = 'lockScale',
-  IS_CREATE = 'isCreate',
   IS_DRAG= 'isDrag',
 }
 
@@ -27,8 +26,6 @@ export type EditCanvasType = {
   [EditCanvasTypeEnum.USER_SCALE]: number
   // 锁定缩放
   [EditCanvasTypeEnum.LOCK_SCALE]: boolean
-  // 初始化创建
-  [EditCanvasTypeEnum.IS_CREATE]: boolean
   // 拖拽中
   [EditCanvasTypeEnum.IS_DRAG]: boolean
 }
