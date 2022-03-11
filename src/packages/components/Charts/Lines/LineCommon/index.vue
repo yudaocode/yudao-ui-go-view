@@ -47,10 +47,17 @@ watchEffect(()=> {
 })
 
 // 渐变色处理
-watch(()=>chartEditStore.getEditCanvasConfig.chartThemeColor, (newColor: string) => {
-  const themeColor = (chartColorsSearch as any)[newColor] || chartColorsSearch[defaultTheme]
-  props.chartConfig.option.series[0].lineStyle.color.colorStops[0].color = themeColor[0]
-  props.chartConfig.option.series[0].lineStyle.color.colorStops[1].color = themeColor[1]
-  option.options = mergeTheme(props.chartConfig.option, props.themeSetting, includes)
-})
+watch(()=>chartEditStore.getEditCanvasConfig.chartThemeColor, (newColor: keyof typeof chartColorsSearch) => {
+    const themeColor = chartColorsSearch[newColor] || chartColorsSearch[defaultTheme]
+    props.chartConfig.option.series.forEach((value: any) => {
+      value.lineStyle.shadowColor = themeColor[2]
+      value.lineStyle.color.colorStops.forEach((v: {color: string}, i:number) => {
+        v.color = themeColor[i]
+      })
+    })
+    option.options = mergeTheme(props.chartConfig.option, props.themeSetting, includes)
+  }, 
+  {
+    immediate: true
+  })
 </script>

@@ -46,7 +46,7 @@ export const option = {
           globalCoord: false // 缺省为 false
         },
         shadowColor: 'rgba(68, 181, 226, 0.3)',
-        shadowBlur: 5,
+        shadowBlur: 10,
         shadowOffsetY: 20
       },
       data: [120, 200, 150, 80, 70, 110, 130]

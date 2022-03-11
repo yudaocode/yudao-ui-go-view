@@ -188,7 +188,6 @@ export const useMousePointHandle = (
   }, 50)
 
   const mouseup = () => {
-    // 设置拖拽状态
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_DRAG, false)
     chartEditStore.setMousePosition(0, 0)
     document.removeEventListener('mousemove', mousemove)

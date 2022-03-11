@@ -48,7 +48,7 @@ const option = {
           }
         ])
       },
-      data: [120, 200, 150, 80, 70, 110, 130],
+      data: [120, 200, 150, 80, 70, 110, 130]
     },
     {
       name: 'data2',
@@ -60,21 +60,17 @@ const option = {
         }
       },
       areaStyle: {
-        normal: {
-          opacity: 0.8,
-          color: new graphic.LinearGradient(0, 0, 0, 1, [
-            {
-              offset: 0,
-              color: 'rgba(0,202,149,0.3)'
-            },
-            {
-              offset: 1,
-              color: 'rgba(0,202,149,0)'
-            }
-          ]),
-          shadowColor: 'rgba(0,202,149, 0.9)',
-          shadowBlur: 20
-        }
+        opacity: 0.8,
+        color: new graphic.LinearGradient(0, 0, 0, 1, [
+          {
+            offset: 0,
+            color: 'rgba(0,202,149,0.3)'
+          },
+          {
+            offset: 1,
+            color: 'rgba(0,202,149,0)'
+          }
+        ])
       },
       data: [130, 130, 312, 268, 155, 117, 160]
     }
