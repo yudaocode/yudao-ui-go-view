@@ -1,6 +1,7 @@
 import { echartOptionProfixHandle, publicConfig } from '@/packages/public'
 import { LineCommonConfig } from './index'
 import { CreateComponentType } from '@/packages/index.d'
+import { defaultTheme, chartColorsSearch } from '@/settings/chartThemes/index'
 
 export const includes = ['legend', 'xAxis', 'yAxis']
 
@@ -36,16 +37,16 @@ export const option = {
           colorStops: [
             {
               offset: 0,
-              color: '#42a5f5' // 0% 处的颜色
+              color: chartColorsSearch[defaultTheme][0] // 0% 处的颜色
             },
             {
               offset: 1,
-              color: '#48D8BF' // 100% 处的颜色
+              color: chartColorsSearch[defaultTheme][1] // 100% 处的颜色
             }
           ],
           globalCoord: false // 缺省为 false
         },
-        shadowColor: 'rgba(68, 181, 226, 0.3)',
+        shadowColor: chartColorsSearch[defaultTheme][2],
         shadowBlur: 10,
         shadowOffsetY: 20
       },

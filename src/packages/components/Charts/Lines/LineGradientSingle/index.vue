@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, watchEffect, watch, PropType } from 'vue'
+import { reactive, watch, PropType } from 'vue'
 import VChart from 'vue-echarts'
 import { use, graphic } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
@@ -42,26 +42,24 @@ const option = reactive({
   options: {}
 })
 
-watchEffect(()=> {
-  option.options = mergeTheme(props.chartConfig.option, props.themeSetting, includes)
-})
-
 // 渐变色处理
 watch(()=>chartEditStore.getEditCanvasConfig.chartThemeColor, (newColor: keyof typeof chartColorsSearch) => {
-    const themeColor = chartColorsSearch[newColor] || chartColorsSearch[defaultTheme]
-    props.chartConfig.option.series.forEach((value: any, index: number) => {
-      value.areaStyle.color = new graphic.LinearGradient(0, 0, 0, 1, [
-        {
-          offset: 0,
-          color: themeColor[3]
-        },
-        {
-          offset: 1,
-          color: 'rgba(0,0,0, 0)'
-        }
-      ])
-      themeColor[index]
-    })
+    if (!document.location.hash.includes('preview')) {
+      const themeColor = chartColorsSearch[newColor] || chartColorsSearch[defaultTheme]
+      props.chartConfig.option.series.forEach((value: any, index: number) => {
+        value.areaStyle.color = new graphic.LinearGradient(0, 0, 0, 1, [
+          {
+            offset: 0,
+            color: themeColor[3]
+          },
+          {
+            offset: 1,
+            color: 'rgba(0,0,0, 0)'
+          }
+        ])
+        themeColor[index]
+      })
+    }
     option.options = mergeTheme(props.chartConfig.option, props.themeSetting, includes)
   }, 
   {

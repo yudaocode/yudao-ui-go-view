@@ -3,9 +3,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, PropType, watch, reactive, watchEffect } from 'vue';
+import { PropType, watch, reactive } from 'vue';
 import VChart from 'vue-echarts'
-import { use, graphic } from 'echarts/core'
+import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { LineChart } from 'echarts/charts'
 import config, { includes } from './config'
@@ -42,19 +42,17 @@ const option = reactive({
   options: {}
 })
 
-watchEffect(()=> {
-  option.options = mergeTheme(props.chartConfig.option, props.themeSetting, includes)
-})
-
-// 渐变色处理
-watch(()=>chartEditStore.getEditCanvasConfig.chartThemeColor, (newColor: keyof typeof chartColorsSearch) => {
-    const themeColor = chartColorsSearch[newColor] || chartColorsSearch[defaultTheme]
-    props.chartConfig.option.series.forEach((value: any) => {
-      value.lineStyle.shadowColor = themeColor[2]
-      value.lineStyle.color.colorStops.forEach((v: {color: string}, i:number) => {
-        v.color = themeColor[i]
+// 初始化与渐变色处理
+watch(() => chartEditStore.getEditCanvasConfig.chartThemeColor, (newColor: keyof typeof chartColorsSearch) => {
+    if (!document.location.hash.includes('preview')) {
+      const themeColor = chartColorsSearch[newColor] || chartColorsSearch[defaultTheme]
+      props.chartConfig.option.series.forEach((value: any) => {
+        value.lineStyle.shadowColor = themeColor[2]
+        value.lineStyle.color.colorStops.forEach((v: {color: string}, i:number) => {
+          v.color = themeColor[i]
+        })
       })
-    })
+    }
     option.options = mergeTheme(props.chartConfig.option, props.themeSetting, includes)
   }, 
   {

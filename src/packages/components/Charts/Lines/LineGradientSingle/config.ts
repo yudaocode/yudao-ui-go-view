@@ -2,6 +2,7 @@ import { echartOptionProfixHandle, publicConfig } from '@/packages/public'
 import { LineGradientSingleConfig } from './index'
 import { CreateComponentType } from '@/packages/index.d'
 import { graphic } from 'echarts/core'
+import { defaultTheme, chartColorsSearch } from '@/settings/chartThemes/index'
 
 export const includes = ['legend', 'xAxis', 'yAxis']
 
@@ -40,11 +41,11 @@ const options = {
         color: new graphic.LinearGradient(0, 0, 0, 1, [
           {
             offset: 0,
-            color: 'rgba(25,163,223,.5)'
+            color: chartColorsSearch[defaultTheme][3]
           },
           {
             offset: 1,
-            color: 'rgba(25,163,223, 0)'
+            color: 'rgba(0,0,0,0)'
           }
         ])
       },
