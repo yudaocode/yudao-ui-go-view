@@ -15,6 +15,10 @@ export const getThemeOverridesHook = () => {
       // 通用
       const commonObj = {
         common: {
+          primaryColor: getAppTheme.value,
+          primaryColorHover: toLight(getAppTheme.value, 6),
+          primaryColorPressed: toLight(getAppTheme.value, 6),
+          primaryColorSuppl: getAppTheme.value,
           borderRadius
         }
       }
@@ -27,10 +31,6 @@ export const getThemeOverridesHook = () => {
       // 暗色主题
       const dartObject = {
         common: {
-          primaryColor: getAppTheme.value,
-          primaryColorHover: toLight(getAppTheme.value, 6),
-          primaryColorPressed: toLight(getAppTheme.value, 6),
-          primaryColorSuppl: getAppTheme.value,
           ...commonObj.common
         },
         LoadingBar: {

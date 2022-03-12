@@ -16,51 +16,17 @@
       <div class="model-content">
         <n-scrollbar>
           <div class="content-left">
-            <n-grid x-gap="12" cols="2 600:3 1150:4 1600: 5">
-              <n-gi
-                class="content-left-item go-transition-quick"
-                v-for="(item, index) in appThemeList"
-                :key="index"
-                @click="colorSelectHandle(item)"
-              >
-                <n-space>
-                  <div
-                    class="content-left-item-color"
-                    :style="{ backgroundColor: item.hex }"
-                  />
-                  <n-space vertical>
-                    <n-space>
-                      <span :style="{ color: item.hex }">
-                        {{ item.name }}
-                      </span>
-                      <span class="Pinyin-upper">
-                        {{ item.pinyin.toUpperCase() }}
-                      </span>
-                    </n-space>
-                    <n-text>
-                      {{ item.hex }}
-                      <n-divider vertical />
-                      {{
-                        `rgb(${item.RGB[0]}, ${item.RGB[0]}, ${item.RGB[0]})`
-                      }}
-                    </n-text>
-                  </n-space>
-                </n-space>
-              </n-gi>
-            </n-grid>
+            <ColorList @colorSelectHandle="colorSelectHandle" />
           </div>
         </n-scrollbar>
         <div class="content-right">
           <div class="color-name-detail">
-            <n-text v-if="appThemeDetail" class="color-name">
-              {{ appThemeDetail.name }}
-            </n-text>
-            <n-text v-else="appThemeDetail" class="color-name">
-              中国色
-            </n-text>
-            <n-text v-if="appThemeDetail" class="color-name-Pinyin">
-              {{ appThemeDetail.pinyin.toUpperCase() }}
-            </n-text>
+            <n-text v-if="appThemeDetail" class="color-name">{{ appThemeDetail.name }}</n-text>
+            <n-text v-else="appThemeDetail" class="color-name">中国色</n-text>
+            <n-text
+              v-if="appThemeDetail"
+              class="color-name-Pinyin"
+            >{{ appThemeDetail.pinyin.toUpperCase() }}</n-text>
             <div
               v-if="appThemeDetail"
               class="select-color"
@@ -72,9 +38,7 @@
       </div>
       <div class="model-footer">
         中国色列表来自于：
-        <n-a href="http://zhongguose.com">
-          http://zhongguose.com
-        </n-a>
+        <n-a href="http://zhongguose.com">http://zhongguose.com</n-a>
       </div>
     </div>
   </n-modal>
@@ -86,16 +50,17 @@ import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { AppThemeColorType } from '@/store/modules/designStore/designStore.d'
 import { icon } from '@/plugins'
 import themeColorLogo from '@/assets/images/exception/theme-color.png'
+import { loadAsyncComponent } from '@/utils'
 
+const ColorList = loadAsyncComponent(() =>
+  import('./components/ColorList.vue')
+)
 const { ColorWandIcon, CloseIcon } = icon.ionicons5
 
 const designStore = useDesignStore()
 const modelShow = ref(false)
 
-const { appThemeList } = designStore
-
 const appThemeDetail = computed(() => {
-  console.log(designStore.getAppThemeDetail)
   return designStore.getAppThemeDetail
 })
 
@@ -106,7 +71,7 @@ const colorSelectHandle = (color: AppThemeColorType) => {
 
 <style lang="scss" scoped>
 $height: 85vh;
-@include go('system-color-setting') {
+@include go("system-color-setting") {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -117,7 +82,7 @@ $height: 85vh;
   border-radius: 15px;
   overflow: hidden;
   @extend .go-background-filter;
-  @include hover-border-color('background-color5');
+  @include hover-border-color("background-color5");
   .title {
     margin: 0;
   }
@@ -128,41 +93,7 @@ $height: 85vh;
     .content-left {
       display: flex;
       flex-wrap: wrap;
-      margin-right: 300px;
-      /* 每个项 */
-      &-item {
-        position: relative;
-        display: flex;
-        margin-bottom: 20px;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        border: 1px solid rgba(0, 0, 0, 0);
-        &:hover {
-          @include hover-border-color('background-color5');
-        }
-        &::after {
-          content: '';
-          z-index: -1;
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          opacity: 0.7;
-          overflow: hidden;
-          border-radius: 5px;
-          @extend .go-background-filter-shallow;
-        }
-        &-color {
-          width: 8px;
-          height: 40px;
-          border-radius: 2px;
-        }
-        .Pinyin-upper {
-          font-size: 8px;
-        }
-      }
+      margin-right: 200px;
     }
     /* 右侧 */
     .content-right {
@@ -187,7 +118,7 @@ $height: 85vh;
           width: 100px;
           height: 20px;
           border-radius: 3px;
-          background-image: url('~@/assets/images/exception/texture.png');
+          background-image: url("@/assets/images/exception/texture.png");
         }
         .color-name {
           font-family: serif;

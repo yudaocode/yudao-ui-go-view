@@ -7,7 +7,7 @@ import { ThemeEnum } from '@/enums/styleEnum'
 
 const { GO_DESIGN_STORE } = StorageEnum
 
-const { darkTheme, appTheme, appThemeList, appThemeDetail } = theme
+const { darkTheme, appTheme, appThemeDetail } = theme
 
 const storageDesign = getLocalStorage(GO_DESIGN_STORE)
 
@@ -22,8 +22,6 @@ export const useDesignStore = defineStore({
       // 颜色色号
       appTheme,
       appThemeDetail,
-      // 颜色列表
-      appThemeList,
     },
   getters: {
     getDarkTheme(e): boolean {
@@ -34,9 +32,6 @@ export const useDesignStore = defineStore({
     },
     getAppThemeDetail(): AppThemeColorType | null {
       return this.appThemeDetail
-    },
-    getAppThemeList(): AppThemeColorType[] {
-      return this.appThemeList
     }
   },
   actions: {

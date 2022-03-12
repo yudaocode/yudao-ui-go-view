@@ -4,8 +4,6 @@ import designColor from './designColor.json'
 // 默认语言
 export const lang = LangEnum.zh
 
-// 主体色
-export const appThemeList = designColor
 
 export const theme = {
   // 默认是否开启深色主题
@@ -13,8 +11,6 @@ export const theme = {
   //默认主题色
   appTheme: '#51d6a9',
   appThemeDetail: null,
-  //系统内置主题色列表
-  appThemeList
 }
 
 // dialog 图标的大小

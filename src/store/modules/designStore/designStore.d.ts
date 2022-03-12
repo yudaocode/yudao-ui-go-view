@@ -16,6 +16,4 @@ export interface DesignStateType {
   //色号
   appTheme: string
   appThemeDetail: AppThemeColorType | null
-  //系统内置风格
-  appThemeList: AppThemeColorType[]
 }
