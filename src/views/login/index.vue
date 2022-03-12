@@ -271,7 +271,7 @@ $carousel-image-height: 60vh;
     align-items: center;
     margin-top: -$--header-height;
     height: $go-login-height;
-    max-width: $--max-width;
+    width: 100vw;
     &-carousel {
       width: $carousel-width;
       margin-top: 100px;
@@ -318,7 +318,7 @@ $carousel-image-height: 60vh;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: $--max-width;
+    width: 100vw;
     height: 100vh;
     background: url('@/assets/images/login/login-bg.png') no-repeat 0 -120px;
     .bg-slot {
