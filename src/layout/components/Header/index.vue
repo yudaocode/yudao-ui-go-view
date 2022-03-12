@@ -14,6 +14,7 @@
           <slot name="ri-left"> </slot>
           <LangSelect />
           <ThemeSelect />
+          <ThemeColorSelect />
           <slot name="ri-right"> </slot>
         </n-space>
       </div>
@@ -24,6 +25,7 @@
 <script setup lang="ts">
 import { ThemeSelect } from '@/components/ThemeSelect'
 import { LangSelect } from '@/components/LangSelect'
+import { ThemeColorSelect } from '@/components/ThemeColorSelect'
 </script>
 
 <style lang="scss" scoped>

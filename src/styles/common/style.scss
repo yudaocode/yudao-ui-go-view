@@ -53,6 +53,13 @@
   box-shadow: $--border-shadow;
 }
 
+// 毛玻璃
+.go-background-filter-shallow {
+  backdrop-filter: $--filter-blur-base;
+  @include filter-bg-color('filter-color-shallow');
+  box-shadow: $--border-shadow;
+}
+
 // 边框圆角
 .go-border-radius {
   border-radius: $--border-radius-base;

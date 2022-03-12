@@ -1,35 +1,18 @@
 import { LangEnum } from '@/enums/styleEnum'
+import designColor from './designColor.json'
 
 // 默认语言
 export const lang = LangEnum.zh
 
 // 主体色
-export const appThemeList: string[] = [
-  '#2d8cf0',
-  '#0960bd',
-  '#0084f4',
-  '#009688',
-  '#536dfe',
-  '#ff5c93',
-  '#ee4f12',
-  '#0096c7',
-  '#9c27b0',
-  '#ff9800',
-  '#FF3D68',
-  '#00C1D4',
-  '#71EFA3',
-  '#171010',
-  '#78DEC7',
-  '#1768AC',
-  '#FB9300',
-  '#FC5404'
-]
+export const appThemeList = designColor
 
 export const theme = {
   // 默认是否开启深色主题
   darkTheme: true,
-  //系统主题色
+  //默认主题色
   appTheme: '#51d6a9',
+  appThemeDetail: null,
   //系统内置主题色列表
   appThemeList
 }

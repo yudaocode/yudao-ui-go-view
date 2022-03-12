@@ -19,6 +19,7 @@ $light: (
     background-color5-shallow: $--color-light-bg-5-shallow,
   // 毛玻璃背景
     filter-color: $--filter-color-login-light,
+    filter-color-shallow: $--filter-color-login-light-shallow,
   //渐变背景
     background-image:
     linear-gradient(120deg, $--color-light-bg 0%, $--color-light-bg 100%),
