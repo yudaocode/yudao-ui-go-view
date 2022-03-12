@@ -1,0 +1,25 @@
+[{
+    "RGB": [81, 214, 169],
+    "hex": "#51d6a9",
+    "name": "碧空绿",
+    "pinyin": "bikonlv"
+  },
+  {
+    "RGB": [16, 174, 194],
+    "hex": "#10aec2",
+    "name": "甸子蓝",
+    "pinyin": "dianzilan"
+  },
+  {
+    "RGB": [60, 126, 255],
+    "hex": "#3c7eff",
+    "name": "深海蓝",
+    "pinyin": "shenhailan"
+  },
+  {
+    "RGB": [248, 223, 114],
+    "hex": "#f8df72",
+    "name": "茉莉黄",
+    "pinyin": "molihuang"
+  }
+]

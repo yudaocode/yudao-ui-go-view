@@ -1,5 +1,30 @@
 <template>
   <div
+    class="content-left-item go-transition-quick go-mb-0"
+    span="12 1000:6 1400:4 1800:4 2200:2"
+    v-for="(item, index) in designColorRecommend"
+    :key="index"
+    @click="colorSelectHandle(item)"
+  >
+    <n-space>
+      <div class="content-left-item-color" :style="{ backgroundColor: item.hex }" />
+      <n-space vertical>
+        <n-space>
+          <span :style="{ color: item.hex }">{{ item.name }}</span>
+          <span class="Pinyin-upper">{{ item.pinyin.toUpperCase() }}</span>
+        </n-space>
+        <n-text>
+          {{ item.hex }}
+          <n-divider vertical />
+          {{
+            `rgb(${item.RGB[0]}, ${item.RGB[1]}, ${item.RGB[2]})`
+          }}
+        </n-text>
+      </n-space>
+    </n-space>
+  </div>
+  <n-divider/>
+  <div
     class="content-left-item go-transition-quick"
     span="12 1000:6 1400:4 1800:4 2200:2"
     v-for="(item, index) in designColor"
@@ -17,7 +42,7 @@
           {{ item.hex }}
           <n-divider vertical />
           {{
-            `rgb(${item.RGB[0]}, ${item.RGB[0]}, ${item.RGB[0]})`
+            `rgb(${item.RGB[0]}, ${item.RGB[1]}, ${item.RGB[2]})`
           }}
         </n-text>
       </n-space>
@@ -28,6 +53,7 @@
 <script lang="ts" setup>
 import { AppThemeColorType } from '@/store/modules/designStore/designStore.d'
 import designColor from '@/settings/designColor.json'
+import designColorRecommend from '@/settings/designColorRecommend.json'
 
 const emits = defineEmits(['colorSelectHandle'])
 
@@ -40,8 +66,8 @@ const colorSelectHandle = (color: AppThemeColorType) => {
 .content-left-item {
   position: relative;
   display: flex;
-  margin-bottom: 20px;
-  margin-right: 20px;
+  margin-bottom: 10px;
+  margin-right: 10px;
   padding: 10px 20px;
   min-width: 300px;
   border-radius: 5px;
