@@ -15,7 +15,6 @@
 <script lang="ts" setup>
 import { zhCN, dateZhCN, NConfigProvider } from 'naive-ui'
 import { AppProvider } from '@/components/AppProvider'
-import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { I18n } from '@/components/I18n'
 
 import { getDarkThemeHook, getThemeOverridesHook } from '@/hooks'

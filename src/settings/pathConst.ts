@@ -1,3 +1,5 @@
+// * 外部路径地址
+
 // 项目文档地址
 export const docPath = "http://www.mtruning.club:81/"
 

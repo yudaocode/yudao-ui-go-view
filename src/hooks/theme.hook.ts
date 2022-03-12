@@ -1,32 +1,40 @@
-import { computed } from 'vue'
+import { computed, toRefs } from 'vue'
 import { darkTheme, GlobalThemeOverrides } from 'naive-ui'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { borderRadius } from '@/settings/designSetting'
+import { toLight } from '@/utils'
 
 /**
  * 设置全局主题
  */
 export const getThemeOverridesHook = () => {
   const designStore = useDesignStore()
+  const { getAppTheme } = toRefs(designStore)
   const getDarkTheme = computed(
     (): GlobalThemeOverrides => {
+      // 通用
       const commonObj = {
         common: {
           borderRadius
         }
       }
+      // 亮色主题
       const lightObject = {
         common: {
           ...commonObj.common
         }
       }
+      // 暗色主题
       const dartObject = {
         common: {
-          primaryColor: designStore.getAppTheme,
+          primaryColor: getAppTheme.value,
+          primaryColorHover: toLight(getAppTheme.value, 6),
+          primaryColorPressed: toLight(getAppTheme.value, 6),
+          primaryColorSuppl: getAppTheme.value,
           ...commonObj.common
         },
         LoadingBar: {
-          colorLoading: designStore.getAppTheme
+          colorLoading: getAppTheme.value
         }
       }
       return designStore.getDarkTheme ? dartObject : lightObject
