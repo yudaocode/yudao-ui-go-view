@@ -13,12 +13,10 @@
         </n-icon>
       </n-space>
       <n-divider />
-      <div class="model-content">
-        <n-scrollbar>
-          <div class="content-left">
-            <ColorList @colorSelectHandle="colorSelectHandle" />
-          </div>
-        </n-scrollbar>
+      <div class="model-content" ref="contentLeftRef">
+        <div class="content-left" v-if="modelShow">
+          <ColorList :designColor="designColorSplit" @colorSelectHandle="colorSelectHandle" />
+        </div>
         <div class="content-right">
           <div class="color-name-detail">
             <n-text v-if="appThemeDetail" class="color-name">{{ appThemeDetail.name }}</n-text>
@@ -45,20 +43,31 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch, toRefs } from 'vue'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { AppThemeColorType } from '@/store/modules/designStore/designStore.d'
 import { icon } from '@/plugins'
 import themeColorLogo from '@/assets/images/exception/theme-color.png'
 import { loadAsyncComponent } from '@/utils'
+import { useScroll } from '@vueuse/core'
+import designColor from '@/settings/designColor.json'
 
 const ColorList = loadAsyncComponent(() =>
   import('./components/ColorList.vue')
 )
 const { ColorWandIcon, CloseIcon } = icon.ionicons5
 
+let splitNumber = 50
+
 const designStore = useDesignStore()
 const modelShow = ref(false)
+const contentLeftRef = ref<HTMLElement | null>(null)
+const designColorSplit = ref(designColor.slice(0, splitNumber))
+
+const { arrivedState } = useScroll(contentLeftRef, {
+  offset: { bottom: 200 },
+})
+const { bottom } = toRefs(arrivedState)
 
 const appThemeDetail = computed(() => {
   return designStore.getAppThemeDetail
@@ -67,6 +76,19 @@ const appThemeDetail = computed(() => {
 const colorSelectHandle = (color: AppThemeColorType) => {
   designStore.setAppColor(color)
 }
+
+watch(() => bottom.value, (newData: boolean) => {
+  if (newData) {
+    splitNumber = splitNumber + 50
+    designColorSplit.value = designColor.slice(0, splitNumber)
+  }
+})
+
+watch(() => modelShow.value, (modelShow: boolean) => {
+  if (!modelShow) {
+    splitNumber = 50
+  }
+})
 </script>
 
 <style lang="scss" scoped>
@@ -89,12 +111,7 @@ $height: 85vh;
   .model-content {
     flex: 1;
     height: calc(#{$height} - 40px - 48px - 36px);
-    /* 左侧 */
-    .content-left {
-      display: flex;
-      flex-wrap: wrap;
-      margin-right: 200px;
-    }
+    overflow: auto;
     /* 右侧 */
     .content-right {
       position: absolute;
