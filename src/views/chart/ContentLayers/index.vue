@@ -13,15 +13,15 @@
     </template>
 
     <!-- 图层内容 -->
-    <list-item
-      v-for="item in  reverseList"
+    <layers-list-item
+      v-for="item in reverseList"
       :key="item.id"
       :componentData="item"
       @mousedown="mousedownHandle(item)"
       @mouseenter="mouseenterHandle(item)"
       @mouseleave="mouseleaveHandle(item)"
       @contextmenu="handleContextMenu($event)"
-   ></list-item>
+    ></layers-list-item>
   </content-box>
 </template>
 
@@ -32,18 +32,13 @@ import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayou
 import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { CreateComponentType } from '@/packages/index.d'
-import cloneDeep from 'lodash/cloneDeep';
-import {
-  ChartEditStoreEnum,
-  TargetChartType
-} from '@/store/modules/chartEditStore/chartEditStore.d'
+import cloneDeep from 'lodash/cloneDeep'
 import {
   useContextMenu,
-  MenuOptionsItemType,
   MenuEnum
 } from '@/views/chart/hooks/useContextMenu.hook'
 
-import { ListItem } from './components/ListItem/index'
+import { LayersListItem } from './components/LayersListItem/index'
 import { icon } from '@/plugins'
 
 const { LayersIcon } = icon.ionicons5
@@ -55,7 +50,7 @@ const { handleContextMenu } = useContextMenu({
 })
 
 // 逆序输出
-const reverseList = computed(()=>{
+const reverseList = computed(() => {
   const list: CreateComponentType[] = cloneDeep(chartEditStore.getComponentList)
   return list.reverse()
 })
