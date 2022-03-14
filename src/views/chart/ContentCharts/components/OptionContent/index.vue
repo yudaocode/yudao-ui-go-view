@@ -12,7 +12,7 @@
    ></n-menu>
     <div class="chart-content-list">
       <n-scrollbar>
-        <ItemBox :menuOptions="packages.selectOptions"></ItemBox>
+        <item-box :menuOptions="packages.selectOptions"></item-box>
       </n-scrollbar>
     </div>
   </div>

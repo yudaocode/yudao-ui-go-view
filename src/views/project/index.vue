@@ -2,10 +2,10 @@
   <div class="go-project">
     <n-layout has-sider position="absolute">
       <n-space vertical>
-        <Sider></Sider>
+        <project-layout-sider></project-layout-sider>
       </n-space>
       <n-layout>
-        <HeaderPro></HeaderPro>
+        <layout-header-pro></layout-header-pro>
         <n-layout
           id="go-project-content-top"
           class="content-top"
@@ -13,9 +13,9 @@
           :native-scrollbar="false"
         >
           <n-layout-content>
-            <TransitionMain>
+            <layout-transition-main>
               <router-view></router-view>
-            </TransitionMain>
+            </layout-transition-main>
           </n-layout-content>
         </n-layout>
       </n-layout>
@@ -24,9 +24,9 @@
 </template>
 
 <script setup lang="ts">
-import { Sider } from './layout/components/Sider'
-import { HeaderPro } from '@/layout/components/HeaderPro'
-import { TransitionMain } from '@/layout/components/TransitionMain/index'
+import { ProjectLayoutSider } from './layout/components/ProjectLayoutSider'
+import { LayoutHeaderPro } from '@/layout/components/LayoutHeaderPro'
+import { LayoutTransitionMain } from '@/layout/components/LayoutTransitionMain/index'
 </script>
 
 <style lang="scss" scoped>

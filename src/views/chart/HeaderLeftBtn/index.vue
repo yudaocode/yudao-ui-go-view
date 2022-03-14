@@ -3,7 +3,7 @@
     <n-button size="small" quaternary @click="goHomeHandle()">
       <template #icon>
         <n-icon :depth="3">
-          <HomeIcon></HomeIcon>
+          <home-icon></home-icon>
         </n-icon>
       </template>
     </n-button>

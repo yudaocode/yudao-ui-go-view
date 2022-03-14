@@ -1,6 +1,6 @@
 <template>
   <!-- 左侧所有组件的展示列表 -->
-  <ContentBox
+  <content-box
     class="go-content-charts"
     :class="{ scoped: !getCharts }"
     title="组件"
@@ -9,7 +9,7 @@
   >
     <template #icon>
       <n-icon size="14" :depth="2">
-        <BarChartIcon></BarChartIcon>
+        <bar-chart-icon></bar-chart-icon>
       </n-icon>
     </template>
     <!-- 图表 -->
@@ -24,22 +24,22 @@
           @update:value="clickItemHandle"
        ></n-menu>
         <div class="menu-component-box">
-          <GoSkeleton
+          <go-skeleton
             :load="!selectOptions"
             round
             text
             :repeat="2"
             style="width: 90%;"
-         ></GoSkeleton>
-          <OptionContent
+         ></go-skeleton>
+          <option-content
             v-if="selectOptions"
             :selectOptions="selectOptions"
             :key="selectValue"
-         ></OptionContent>
+         ></option-content>
         </div>
       </div>
     </aside>
-  </ContentBox>
+  </content-box>
 </template>
 
 <script setup lang="ts">

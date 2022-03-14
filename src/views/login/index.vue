@@ -15,13 +15,13 @@
         </transition-group>
       </aside>
     </div>
-    <GoHeader>
+    <layout-header>
       <template #left></template>
       <template #right>
-        <LangSelect></LangSelect>
-        <ThemeSelect></ThemeSelect>
+        <lang-select></lang-select>
+        <theme-select></theme-select>
       </template>
-    </GoHeader>
+    </layout-header>
     <div class="go-login">
       <div class="go-login-carousel">
         <n-carousel
@@ -109,7 +109,7 @@
     </div>
 
     <div class="go-login-box-footer">
-      <GoFooter></GoFooter>
+      <layout-footer></layout-footer>
     </div>
   </div>
 </template>
@@ -126,8 +126,8 @@ import { carouselInterval } from '@/settings/designSetting'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { ThemeSelect } from '@/components/ThemeSelect'
 import { LangSelect } from '@/components/LangSelect'
-import { GoHeader } from '@/layout/components/GoHeader'
-import { GoFooter } from '@/layout/components/GoFooter'
+import { LayoutHeader } from '@/layout/components/LayoutHeader'
+import { LayoutFooter } from '@/layout/components/LayoutFooter'
 import { PageEnum } from '@/enums/pageEnum'
 import { icon } from '@/plugins'
 import { StorageEnum } from '@/enums/storageEnum'

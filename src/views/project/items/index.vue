@@ -1,11 +1,11 @@
 <template>
   <div class="go-project-items">
-    <List></List>
+    <project-items-list></project-items-list>
   </div>
 </template>
 
 <script setup lang="ts">
-import { List } from './components/List'
+import { ProjectItemsList } from './components/ProjectItemsList'
 </script>
 
 <style lang="scss" scoped>

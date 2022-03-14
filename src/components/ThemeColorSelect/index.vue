@@ -1,7 +1,7 @@
 <template>
   <n-button quaternary @click="modelShow = true" title="颜色">
     <n-icon size="20" :depth="1">
-      <ColorWandIcon></ColorWandIcon>
+      <color-wand-icon></color-wand-icon>
     </n-icon>
   </n-button>
   <n-modal v-model:show="modelShow">
@@ -9,13 +9,13 @@
       <n-space justify="space-between">
         <n-h3 class="title">主题颜色选择</n-h3>
         <n-icon size="20" class="go-cursor-pointer" @click="modelShow = false">
-          <CloseIcon></CloseIcon>
+          <close-icon></close-icon>
         </n-icon>
       </n-space>
       <n-divider></n-divider>
       <div class="model-content" ref="contentLeftRef">
         <div class="content-left" v-if="modelShow">
-          <ColorList :designColor="designColorSplit" @colorSelectHandle="colorSelectHandle"></ColorList>
+          <color-list :designColor="designColorSplit" @colorSelectHandle="colorSelectHandle"></color-list>
         </div>
         <div class="content-right">
           <div class="color-name-detail">

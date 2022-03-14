@@ -1,6 +1,6 @@
 <template>
   <div class="go-edit-bottom">
-    <EditHistory></EditHistory>
+    <edit-history></edit-history>
 
     <n-space class="bottom-ri">
       <!-- 快捷键提示 -->
@@ -32,8 +32,8 @@
               size="18"
               :depth="2"
             >
-              <LockClosedOutlineIcon v-if="lockScale"></LockClosedOutlineIcon>
-              <LockOpenOutlineIcon v-else></LockOpenOutlineIcon>
+              <lock-closed-outline-icon v-if="lockScale"></lock-closed-outline-icon>
+              <lock-open-outline-icon v-else></lock-open-outline-icon>
             </n-icon>
           </n-button>
         </template>

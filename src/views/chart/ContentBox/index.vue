@@ -18,7 +18,7 @@
           class="go-cursor-pointer"
           @click="backHandle"
         >
-          <ChevronBackOutlineIcon></ChevronBackOutlineIcon>
+          <chevron-back-outline-icon></chevron-back-outline-icon>
         </n-icon>
       </n-space>
     </div>
@@ -46,12 +46,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { icon } from '@/plugins'
 const { ChevronBackOutlineIcon } = icon.ionicons5
 
-const chartEditStore = useChartEditStore()
 const emit = defineEmits(['back'])
 
 defineProps({

@@ -9,7 +9,7 @@
       @dragstart="handleDragStart($event, item)"
     >
       <div class="list-header">
-        <MacOsControlBtn :mini="true" :disabled="true"></MacOsControlBtn>
+        <mac-os-control-btn :mini="true" :disabled="true"></mac-os-control-btn>
         <n-text class="list-header-text" depth="3">{{ item.title }}</n-text>
       </div>
       <div class="list-center go-flex-center">

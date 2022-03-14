@@ -1,5 +1,5 @@
 <template>
-  <ContentBox
+  <content-box
     class="go-content-layers"
     :class="{ scoped: !chartLayoutStore.getLayers }"
     title="图层"
@@ -13,7 +13,7 @@
     </template>
 
     <!-- 图层内容 -->
-    <ListItem
+    <list-item
       v-for="item in  reverseList"
       :key="item.id"
       :componentData="item"
@@ -21,8 +21,8 @@
       @mouseenter="mouseenterHandle(item)"
       @mouseleave="mouseleaveHandle(item)"
       @contextmenu="handleContextMenu($event)"
-   ></ListItem>
-  </ContentBox>
+   ></list-item>
+  </content-box>
 </template>
 
 <script setup lang="ts">

@@ -6,7 +6,7 @@
     :theme-overrides="getThemeOverrides"
   >
     <app-provider>
-      <i18n></i18n>
+      <I18n></I18n>
       <router-view></router-view>
     </app-provider>
   </n-config-provider>

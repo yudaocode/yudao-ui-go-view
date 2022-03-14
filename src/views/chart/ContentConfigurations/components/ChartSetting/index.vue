@@ -1,7 +1,7 @@
 <template>
   <div class="go-chart-configurations-setting" v-if="targetData">
     <!-- 名称 -->
-    <SettingItemBox name="名称">
+    <setting-item-box name="名称">
       <n-input
         type="text"
         maxlength="6"
@@ -10,17 +10,17 @@
         size="small"
         v-model:value="targetData.chartConfig.title"
      ></n-input>
-    </SettingItemBox>
+    </setting-item-box>
     <!-- 尺寸 -->
-    <SizeSetting :chartAttr="targetData.attr"></SizeSetting>
+    <size-setting :chartAttr="targetData.attr"></size-setting>
     <!-- 位置 -->
-    <PositionSetting :chartAttr="targetData.attr" :canvasConfig="chartEditStore.getEditCanvasConfig"/>
+    <position-setting :chartAttr="targetData.attr" :canvasConfig="chartEditStore.getEditCanvasConfig"/>
     <!-- 样式 -->
-    <StylesSetting :chartStyles="targetData.styles"></StylesSetting>
+    <styles-setting :chartStyles="targetData.styles"></styles-setting>
     <!-- 自定义配置项 -->
     <component :is="targetData.chartConfig.conKey" :optionData="targetData.option"></component>
     <!-- 全局设置 --> 
-    <GlobalSetting :optionData="targetData.option" :in-chart="true"></GlobalSetting>
+    <global-setting :optionData="targetData.option" :in-chart="true"></global-setting>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <ContentBox
+  <content-box
     id="go-chart-edit-layout"
     :flex="true"
     :showTop="false"
@@ -11,9 +11,9 @@
   >
     <div id="go-chart-edit-content">
       <!-- 展示 -->
-      <EditRange ref="editRangeRef">
+      <edit-range ref="editRangeRef">
         <!-- 图表 -->
-        <EditShapeBox
+        <edit-shape-box
           v-for="(item, index) in chartEditStore.getComponentList"
           :key="item.id"
           :data-id="item.id"
@@ -33,14 +33,14 @@
             :themeColor="themeColor"
             :style="useSizeStyle(item.attr)"
          ></component>
-        </EditShapeBox>
-      </EditRange>
+        </edit-shape-box>
+      </edit-range>
     </div>
     <!-- 底部控制 -->
     <template #bottom>
       <EditBottom></EditBottom>
     </template>
-  </ContentBox>
+  </content-box>
 </template>
 
 <script lang="ts" setup>

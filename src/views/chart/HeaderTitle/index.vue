@@ -1,7 +1,7 @@
 <template>
   <n-space>
     <n-icon size="20" :depth="3">
-      <FishIcon></FishIcon>
+      <fish-icon></fish-icon>
     </n-icon>
     <n-text @click="handleFocus">
       工作空间 -

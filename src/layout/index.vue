@@ -1,7 +1,7 @@
 <template>
-  <MainView></MainView>
+  <layout-main></layout-main>
 </template>
 
 <script lang="ts" setup>
-import { MainView } from '@/layout/components/Main/index'
+import { LayoutMain } from '@/layout/components/LayoutMain/index'
 </script>

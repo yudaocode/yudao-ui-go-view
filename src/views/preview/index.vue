@@ -5,7 +5,7 @@
       <!-- 展示层 -->
       <div :style="previewRefStyle" v-if="show">
         <!-- 渲染层 -->
-        <render-list :localStorageInfo="localStorageInfo"></render-list>
+        <preview-render-list :localStorageInfo="localStorageInfo"></preview-render-list>
       </div>
     </div>
   </div>
@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import { onUnmounted, ref, nextTick, computed } from 'vue'
 import { usePreviewScale } from '@/hooks/index'
-import { RenderList } from './components/RenderList/index'
+import { PreviewRenderList } from './components/PreviewRenderList/index'
 import { ChartEditStorageType } from './index.d'
 import { useEditCanvasConfigStyle, getSessionStorageInfo } from './utils'
 import { CreateComponentType } from '@/packages/index.d'

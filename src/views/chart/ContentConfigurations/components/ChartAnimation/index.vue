@@ -7,7 +7,7 @@
     >
       清除动画
     </n-button>
-    <CollapseItem
+    <collapse-item
       v-for="(item, index) in animations"
       :key="index"
       :name="item.label"
@@ -29,7 +29,7 @@
           {{ childrenItem.label }}
         </n-grid-item>
       </n-grid>
-    </CollapseItem>
+    </collapse-item>
   </div>
 </template>
 

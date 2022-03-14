@@ -2,7 +2,7 @@
   <n-layout has-sider sider-placement="right">
     <n-layout-content>
       <!-- 图表拖拽区域 -->
-      <ContentEdit></ContentEdit>
+      <content-edit></content-edit>
     </n-layout-content>
     <n-layout-sider
       collapse-mode="transform"
@@ -14,7 +14,7 @@
       @collapse="collapsedHindle"
       @expand="expandHindle"
     >
-      <ContentBox
+      <content-box
         class="go-content-layers go-boderbox"
         :showTop="false"
         :depth="2"
@@ -70,7 +70,7 @@
             <component :is="item.render"></component>
           </n-tab-pane>
         </n-tabs>
-      </ContentBox>
+      </content-box>
     </n-layout-sider>
   </n-layout>
 </template>

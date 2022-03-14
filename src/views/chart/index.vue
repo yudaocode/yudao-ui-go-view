@@ -2,21 +2,21 @@
   <!-- 工作台相关 -->
   <div class="go-chart">
     <n-layout>
-      <HeaderPro>
+      <layout-header-pro>
         <template #left>
-          <HeaderLeftBtn></HeaderLeftBtn>
+          <header-left-btn></header-left-btn>
         </template>
         <template #center>
-          <HeaderTitle></HeaderTitle>
+          <header-title></header-title>
         </template>
         <template #ri-left>
-          <HeaderRightBtn></HeaderRightBtn>
+          <header-right-btn></header-right-btn>
         </template>
-      </HeaderPro>
+      </layout-header-pro>
       <n-layout-content content-style="overflow:hidden; display: flex">
-        <ContentCharts></ContentCharts>
-        <ContentLayers></ContentLayers>
-        <ContentConfigurations></ContentConfigurations>
+        <content-charts></content-charts>
+        <content-layers></content-layers>
+        <content-configurations></content-configurations>
       </n-layout-content>
     </n-layout>
   </div>
@@ -36,7 +36,7 @@
 
 <script setup lang="ts">
 import { loadAsyncComponent } from '@/utils'
-import { HeaderPro } from '@/layout/components/HeaderPro'
+import { LayoutHeaderPro } from '@/layout/components/LayoutHeaderPro'
 import { useContextMenu } from './hooks/useContextMenu.hook'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { useChartHistoryStoreStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
