@@ -6,7 +6,7 @@
   >
     <slot></slot>
     <!-- 拖拽时的辅助线 -->
-    <EditAlignLine />
+    <EditAlignLine></EditAlignLine>
   </div>
 </template>
 

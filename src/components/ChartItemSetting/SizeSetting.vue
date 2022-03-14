@@ -1,5 +1,5 @@
 <template>
-  <SettingItemBox name="尺寸">
+  <setting-item-box name="尺寸">
     <n-input-number
       v-model:value="chartAttr.w"
       :min="50"
@@ -20,7 +20,7 @@
         <n-text depth="3">高度</n-text>
       </template>
     </n-input-number>
-  </SettingItemBox>
+  </setting-item-box>
 </template>
 
 <script setup lang="ts">

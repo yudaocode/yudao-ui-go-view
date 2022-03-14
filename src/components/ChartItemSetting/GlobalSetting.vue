@@ -1,237 +1,286 @@
 <template>
-  <CollapseItem v-if="title" name="标题">
+  <collapse-item v-if="title" name="标题">
     <template #header>
-      <n-switch v-show="inChart" v-model:value="title.show" size="small" />
+      <n-switch
+        v-show="inChart"
+        v-model:value="title.show"
+        size="small"
+      ></n-switch>
     </template>
-    <SettingItemBox name="标题">
-      <SettingItem name="颜色">
-        <n-color-picker v-model:value="title.textStyle.color" size="small" />
-      </SettingItem>
-      <SettingItem name="大小">
+    <setting-item-box name="标题">
+      <setting-item name="颜色">
+        <n-color-picker
+          v-model:value="title.textStyle.color"
+          size="small"
+        ></n-color-picker>
+      </setting-item>
+      <setting-item name="大小">
         <n-input-number
           v-model:value="title.textStyle.fontSize"
           :min="1"
           size="small"
-        />
-      </SettingItem>
-    </SettingItemBox>
-    <SettingItemBox name="副标题">
-      <SettingItem name="颜色">
-        <n-color-picker size="small" v-model:value="title.subtextStyle.color" />
-      </SettingItem>
-      <SettingItem name="大小">
+        ></n-input-number>
+      </setting-item>
+    </setting-item-box>
+    <setting-item-box name="副标题">
+      <setting-item name="颜色">
+        <n-color-picker
+          size="small"
+          v-model:value="title.subtextStyle.color"
+        ></n-color-picker>
+      </setting-item>
+      <setting-item name="大小">
         <n-input-number
           v-model:value="title.subtextStyle.fontSize"
           :min="1"
           size="small"
-        />
-      </SettingItem>
-    </SettingItemBox>
-  </CollapseItem>
+        ></n-input-number>
+      </setting-item>
+    </setting-item-box>
+  </collapse-item>
 
-  <CollapseItem v-if="xAxis" name="X轴">
+  <collapse-item v-if="xAxis" name="X轴">
     <template #header>
-      <n-switch v-show="inChart" v-model:value="xAxis.show" size="small" />
+      <n-switch
+        v-show="inChart"
+        v-model:value="xAxis.show"
+        size="small"
+      ></n-switch>
     </template>
-    <SettingItemBox name="名称">
-      <SettingItem name="颜色">
+    <setting-item-box name="名称">
+      <setting-item name="颜色">
         <n-color-picker
           size="small"
           v-model:value="xAxis.nameTextStyle.color"
-        />
-      </SettingItem>
-    </SettingItemBox>
-    <SettingItemBox name="标签">
-      <SettingItem v-show="inChart" name="展示">
+        ></n-color-picker>
+      </setting-item>
+    </setting-item-box>
+    <setting-item-box name="标签">
+      <setting-item v-show="inChart" name="展示">
         <n-space>
-          <n-switch v-model:value="xAxis.axisLabel.show" size="small" />
+          <n-switch
+            v-model:value="xAxis.axisLabel.show"
+            size="small"
+          ></n-switch>
         </n-space>
-      </SettingItem>
-      <SettingItem name="颜色">
-        <n-color-picker size="small" v-model:value="xAxis.axisLabel.color" />
-      </SettingItem>
-    </SettingItemBox>
-    <SettingItemBox name="轴线">
-      <SettingItem name="颜色">
+      </setting-item>
+      <setting-item name="颜色">
+        <n-color-picker
+          size="small"
+          v-model:value="xAxis.axisLabel.color"
+        ></n-color-picker>
+      </setting-item>
+    </setting-item-box>
+    <setting-item-box name="轴线">
+      <setting-item name="颜色">
         <n-color-picker
           v-model:value="xAxis.axisLine.lineStyle.color"
           size="small"
-        />
-      </SettingItem>
-      <SettingItem name="粗细">
+        ></n-color-picker>
+      </setting-item>
+      <setting-item name="粗细">
         <n-input-number
           v-model:value="xAxis.axisLine.lineStyle.width"
           :min="1"
           size="small"
-        />
-      </SettingItem>
-      <SettingItem name="对齐零">
+        ></n-input-number>
+      </setting-item>
+      <setting-item name="对齐零">
         <n-space>
-          <n-switch v-model:value="xAxis.axisLine.onZero" size="small" />
+          <n-switch
+            v-model:value="xAxis.axisLine.onZero"
+            size="small"
+          ></n-switch>
         </n-space>
-      </SettingItem>
-    </SettingItemBox>
-    <SettingItemBox name="刻度">
-      <SettingItem v-show="inChart" name="展示">
+      </setting-item>
+    </setting-item-box>
+    <setting-item-box name="刻度">
+      <setting-item v-show="inChart" name="展示">
         <n-space>
-          <n-switch v-model:value="xAxis.axisTick.show" size="small" />
+          <n-switch v-model:value="xAxis.axisTick.show" size="small"></n-switch>
         </n-space>
-      </SettingItem>
-      <SettingItem name="长度">
+      </setting-item>
+      <setting-item name="长度">
         <n-input-number
           v-model:value="xAxis.axisTick.length"
           :min="1"
           size="small"
-        />
-      </SettingItem>
-    </SettingItemBox>
-    <SettingItemBox name="分割线">
-      <SettingItem v-show="inChart" name="展示">
+        ></n-input-number>
+      </setting-item>
+    </setting-item-box>
+    <setting-item-box name="分割线">
+      <setting-item v-show="inChart" name="展示">
         <n-space>
-          <n-switch v-model:value="xAxis.splitLine.show" size="small" />
+          <n-switch
+            v-model:value="xAxis.splitLine.show"
+            size="small"
+          ></n-switch>
         </n-space>
-      </SettingItem>
-      <SettingItem name="颜色">
+      </setting-item>
+      <setting-item name="颜色">
         <n-color-picker
           v-model:value="xAxis.splitLine.lineStyle.color"
           size="small"
-        />
-      </SettingItem>
-      <SettingItem name="粗细">
+        ></n-color-picker>
+      </setting-item>
+      <setting-item name="粗细">
         <n-input-number
           v-model:value="xAxis.splitLine.lineStyle.width"
           :min="1"
           size="small"
-        />
-      </SettingItem>
-      <SettingItem name="类型">
+        ></n-input-number>
+      </setting-item>
+      <setting-item name="类型">
         <n-select
           v-model:value="xAxis.splitLine.lineStyle.type"
           size="small"
           :options="axisConf.splitLint.lineStyle.type"
-        />
-      </SettingItem>
-      <SettingItem name="位置">
+        ></n-select>
+      </setting-item>
+      <setting-item name="位置">
         <n-select
           v-model:value="xAxis.position"
           size="small"
           :options="axisConf.xposition"
-        />
-      </SettingItem>
-    </SettingItemBox>
-  </CollapseItem>
+        ></n-select>
+      </setting-item>
+    </setting-item-box>
+  </collapse-item>
 
-  <CollapseItem v-if="yAxis" name="Y轴">
+  <collapse-item v-if="yAxis" name="Y轴">
     <template #header>
-      <n-switch v-show="inChart" v-model:value="yAxis.show" size="small" />
+      <n-switch
+        v-show="inChart"
+        v-model:value="yAxis.show"
+        size="small"
+      ></n-switch>
     </template>
-    <SettingItemBox name="名称">
-      <SettingItem name="颜色">
+    <setting-item-box name="名称">
+      <setting-item name="颜色">
         <n-color-picker
           size="small"
           v-model:value="yAxis.nameTextStyle.color"
-        />
-      </SettingItem>
-    </SettingItemBox>
-    <SettingItemBox name="标签">
-      <SettingItem v-show="inChart" name="展示">
+        ></n-color-picker>
+      </setting-item>
+    </setting-item-box>
+    <setting-item-box name="标签">
+      <setting-item v-show="inChart" name="展示">
         <n-space>
-          <n-switch v-model:value="yAxis.axisLabel.show" size="small" />
+          <n-switch
+            v-model:value="yAxis.axisLabel.show"
+            size="small"
+          ></n-switch>
         </n-space>
-      </SettingItem>
-      <SettingItem name="颜色">
-        <n-color-picker size="small" v-model:value="yAxis.axisLabel.color" />
-      </SettingItem>
-    </SettingItemBox>
-    <SettingItemBox name="轴线">
-      <SettingItem v-show="inChart" name="展示">
+      </setting-item>
+      <setting-item name="颜色">
+        <n-color-picker
+          size="small"
+          v-model:value="yAxis.axisLabel.color"
+        ></n-color-picker>
+      </setting-item>
+    </setting-item-box>
+    <setting-item-box name="轴线">
+      <setting-item v-show="inChart" name="展示">
         <n-space>
-          <n-switch v-model:value="yAxis.axisLine.show" size="small" />
+          <n-switch v-model:value="yAxis.axisLine.show" size="small"></n-switch>
         </n-space>
-      </SettingItem>
-      <SettingItem name="颜色">
+      </setting-item>
+      <setting-item name="颜色">
         <n-color-picker
           v-model:value="yAxis.axisLine.lineStyle.color"
           size="small"
-        />
-      </SettingItem>
-      <SettingItem name="粗细">
+        ></n-color-picker>
+      </setting-item>
+      <setting-item name="粗细">
         <n-input-number
           v-model:value="yAxis.axisLine.lineStyle.width"
           :min="1"
           size="small"
-        />
-      </SettingItem>
-      <SettingItem name="对齐零">
+        ></n-input-number>
+      </setting-item>
+      <setting-item name="对齐零">
         <n-space>
-          <n-switch v-model:value="yAxis.axisLine.onZero" size="small" />
+          <n-switch
+            v-model:value="yAxis.axisLine.onZero"
+            size="small"
+          ></n-switch>
         </n-space>
-      </SettingItem>
-    </SettingItemBox>
-    <SettingItemBox name="刻度">
-      <SettingItem v-show="inChart" name="展示">
+      </setting-item>
+    </setting-item-box>
+    <setting-item-box name="刻度">
+      <setting-item v-show="inChart" name="展示">
         <n-space>
-          <n-switch v-model:value="yAxis.axisTick.show" size="small" />
+          <n-switch v-model:value="yAxis.axisTick.show" size="small"></n-switch>
         </n-space>
-      </SettingItem>
-      <SettingItem name="长度">
+      </setting-item>
+      <setting-item name="长度">
         <n-input-number
           v-model:value="yAxis.axisTick.length"
           :min="1"
           size="small"
-        />
-      </SettingItem>
-    </SettingItemBox>
-    <SettingItemBox name="分割线">
-      <SettingItem v-show="inChart" name="展示">
+        ></n-input-number>
+      </setting-item>
+    </setting-item-box>
+    <setting-item-box name="分割线">
+      <setting-item v-show="inChart" name="展示">
         <n-space>
-          <n-switch v-model:value="yAxis.splitLine.show" size="small" />
+          <n-switch
+            v-model:value="yAxis.splitLine.show"
+            size="small"
+          ></n-switch>
         </n-space>
-      </SettingItem>
-      <SettingItem name="颜色">
+      </setting-item>
+      <setting-item name="颜色">
         <n-color-picker
           v-model:value="yAxis.splitLine.lineStyle.color"
           size="small"
-        />
-      </SettingItem>
-      <SettingItem name="粗细">
+        ></n-color-picker>
+      </setting-item>
+      <setting-item name="粗细">
         <n-input-number
           v-model:value="yAxis.splitLine.lineStyle.width"
           :min="1"
           size="small"
-        />
-      </SettingItem>
-      <SettingItem name="类型">
+        ></n-input-number>
+      </setting-item>
+      <setting-item name="类型">
         <n-select
           v-model:value="yAxis.splitLine.lineStyle.type"
           size="small"
           :options="axisConf.splitLint.lineStyle.type"
-        />
-      </SettingItem>
-      <SettingItem name="位置">
+        ></n-select>
+      </setting-item>
+      <setting-item name="位置">
         <n-select
           v-model:value="yAxis.position"
           size="small"
           :options="axisConf.yposition"
-        />
-      </SettingItem>
-    </SettingItemBox>
-  </CollapseItem>
+        ></n-select>
+      </setting-item>
+    </setting-item-box>
+  </collapse-item>
 
-  <CollapseItem v-if="legend" name="图例">
+  <collapse-item v-if="legend" name="图例">
     <template #header>
-      <n-switch v-show="inChart" v-model:value="legend.show" size="small" />
+      <n-switch
+        v-show="inChart"
+        v-model:value="legend.show"
+        size="small"
+      ></n-switch>
     </template>
-    <SettingItemBox name="图例文字">
-      <SettingItem>
-        <n-color-picker size="small" v-model:value="legend.textStyle.color" />
-      </SettingItem>
-    </SettingItemBox>
-  </CollapseItem>
+    <setting-item-box name="图例文字">
+      <setting-item>
+        <n-color-picker
+          size="small"
+          v-model:value="legend.textStyle.color"
+        ></n-color-picker>
+      </setting-item>
+    </setting-item-box>
+  </collapse-item>
 </template>
 
 <script setup lang="ts">
-import { toRefs, PropType, watchEffect, computed } from 'vue'
+import { PropType, computed } from 'vue'
 import { GlobalThemeJsonType } from '@/settings/chartThemes/index'
 import { axisConf } from '@/packages/chartConfiguration/echarts/index'
 import {

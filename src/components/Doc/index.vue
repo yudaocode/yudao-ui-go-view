@@ -1,7 +1,7 @@
 <template>
   <n-button quaternary @click="handleClick" title="说明文档">
     <n-icon size="20" :depth="1">
-      <DocumentTextIcon />
+      <document-text-icon></document-text-icon>
     </n-icon>
   </n-button>
 </template>

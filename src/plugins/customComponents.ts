@@ -1,5 +1,5 @@
 import type { App } from 'vue'
-import { Skeleton } from '@/components/Skeleton'
+import { GoSkeleton } from '@/components/GoSkeleton'
 import { LoadingComponent } from '@/components/LoadingComponent'
 
 /**
@@ -7,6 +7,6 @@ import { LoadingComponent } from '@/components/LoadingComponent'
  * @param app
  */
 export function setupCustomComponents(app: App) {
-  app.component('Skeleton', Skeleton)
+  app.component('GoSkeleton', GoSkeleton)
   app.component('LoadingComponent', LoadingComponent)
 }

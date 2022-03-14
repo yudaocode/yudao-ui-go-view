@@ -1,7 +1,7 @@
 <template>
   <n-space>
     <n-icon size="20" :depth="3">
-      <FishIcon />
+      <FishIcon></FishIcon>
     </n-icon>
     <n-text @click="handleFocus">
       工作空间 -
@@ -19,7 +19,7 @@
       placeholder="请输入项目名称"
       v-model:value.trim="title"
       @blur="handleBlur"
-    />
+   ></n-input>
   </n-space>
 </template>
 

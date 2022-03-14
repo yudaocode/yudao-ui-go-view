@@ -1,8 +1,8 @@
 <template>
   <n-button quaternary @click="changeTheme" title="主题">
     <n-icon size="20" :depth="1">
-      <MoonIcon v-if="designStore.darkTheme" />
-      <SunnyIcon v-else />
+      <moon-icon v-if="designStore.darkTheme"></moon-icon>
+      <sunny-icon v-else></sunny-icon>
     </n-icon>
   </n-button>
 </template>

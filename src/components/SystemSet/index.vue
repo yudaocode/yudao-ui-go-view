@@ -5,7 +5,7 @@
         <n-space justify="space-between">
           <n-h3 class="go-mb-0">系统设置</n-h3>
           <n-icon size="20" class="go-cursor-pointer" @click="closeHandle">
-            <CloseIcon />
+            <close-icon></close-icon>
           </n-icon>
         </n-space>
       </template>
@@ -19,7 +19,7 @@
                 v-model:value="item.value"
                 size="small"
                 @update:value="handleChange($event, item)"
-              />
+              ></n-switch>
             </template>
             <template v-else-if="item.type === 'number'">
               <n-input-number
@@ -30,7 +30,7 @@
                 :suffix="item.suffix || null"
                 :min="item.min || 0"
                 @update:value="handleChange($event, item)"
-              />
+              ></n-input-number>
             </template>
           </n-space>
           <n-space>
@@ -38,7 +38,7 @@
             <n-tooltip v-if="item.tip" trigger="hover">
               <template #trigger>
                 <n-icon size="21">
-                  <HelpOutlineIcon />
+                  <help-outline-icon></help-outline-icon>
                 </n-icon>
               </template>
               <span>{{ item.tip }}</span>

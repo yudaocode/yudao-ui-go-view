@@ -1,13 +1,13 @@
 <template>
   <div class="go-edit-bottom">
-    <EditHistory />
+    <EditHistory></EditHistory>
 
     <n-space class="bottom-ri">
       <!-- 快捷键提示 -->
       <n-popselect :options="shortcutKeyOptions" size="medium">
         <n-button class="scale-btn" quaternary size="mini">
           <n-icon class="lock-icon" size="18" :depth="2">
-            <DicomOverlayIcon />
+            <DicomOverlayIcon></DicomOverlayIcon>
           </n-icon>
         </n-button>
       </n-popselect>
@@ -20,7 +20,7 @@
         size="mini"
         :options="filterOptions"
         @update:value="selectHandle"
-      />
+     ></n-select>
 
       <!-- 锁定缩放 -->
       <n-tooltip trigger="hover">
@@ -32,8 +32,8 @@
               size="18"
               :depth="2"
             >
-              <LockClosedOutlineIcon v-if="lockScale" />
-              <LockOpenOutlineIcon v-else />
+              <LockClosedOutlineIcon v-if="lockScale"></LockClosedOutlineIcon>
+              <LockOpenOutlineIcon v-else></LockOpenOutlineIcon>
             </n-icon>
           </n-button>
         </template>
@@ -52,7 +52,7 @@
         :disabled="lockScale"
         :marks="sliderMaks"
         @update:value="sliderHandle"
-      />
+     ></n-slider>
     </n-space>
   </div>
 </template>

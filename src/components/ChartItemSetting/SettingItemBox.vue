@@ -4,7 +4,7 @@
     <div class="item-right" justify="space-between" :style="{
       gridTemplateColumns: alone? '1fr': '1fr 1fr'
     }">
-      <slot />
+      <slot></slot>
     </div>
   </div>
 </template>

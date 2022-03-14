@@ -9,7 +9,7 @@
             :hidden="['remove']"
             @close="deleteHanlde"
             @resize="resizeHandle"
-          />
+         ></MacOsControlBtn>
         </div>
         <!-- 中间 -->
         <div class="list-content-img" @click="resizeHandle">
@@ -22,7 +22,7 @@
             "
             :alt="cardData.title"
             :fallback-src="requireErrorImg()"
-          />
+         ></n-image>
         </div>
       </div>
       <template #action>
@@ -37,7 +37,7 @@
                 class="animation-twinkle"
                 dot
                 :color="cardData.release ? '#34c749' : '#fcbc40'"
-              />
+             ></n-badge>
               {{
                 cardData.release
                   ? $t('project.release')
@@ -56,7 +56,7 @@
                 >
                   <n-button size="small">
                     <template #icon>
-                      <component :is="item.icon" />
+                      <component :is="item.icon"></component>
                     </template>
                   </n-button>
                 </n-dropdown>
@@ -66,7 +66,7 @@
                 <template #trigger>
                   <n-button size="small" @click="handleSelect(item.key)">
                     <template #icon>
-                      <component :is="item.icon" />
+                      <component :is="item.icon"></component>
                     </template>
                   </n-button>
                 </template>

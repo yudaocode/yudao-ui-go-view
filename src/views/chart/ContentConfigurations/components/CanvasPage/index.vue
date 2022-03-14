@@ -8,7 +8,7 @@
           v-model:value="canvasConfig.width"
           :validator="validator"
           @update:value="changeSizeHandle"
-        />
+       ></n-input-number>
       </n-form-item>
       <n-form-item label="高度">
         <n-input-number
@@ -16,7 +16,7 @@
           v-model:value="canvasConfig.height"
           :validator="validator"
           @update:value="changeSizeHandle"
-        />
+       ></n-input-number>
       </n-form-item>
     </n-form>
 
@@ -52,7 +52,7 @@
           :showPreview="true"
           :swatches="swatchesColors"
           v-model:value="canvasConfig.background"
-        />
+       ></n-color-picker>
       </n-space>
       <n-space>
         <n-text>使用颜色</n-text>
@@ -63,7 +63,7 @@
           :round="false"
           :disabled="!canvasConfig.backgroundImage"
           :onUpdate="switchSelectColorHandle"
-        />
+       ></n-switch>
       </n-space>
       <n-space>
         <n-text>背景</n-text>

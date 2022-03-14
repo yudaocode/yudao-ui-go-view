@@ -10,14 +10,14 @@
         preview-disabled
         :src="image"
         :fallback-src="requireErrorImg()"
-      />
+     ></n-image>
       <n-ellipsis>
         <n-text class="list-text">
           {{ props.componentData.chartConfig.title }}
         </n-text>
       </n-ellipsis>
     </div>
-    <div :class="{ 'select-modal': select }" />
+    <div :class="{ 'select-modal': select }"></div>
   </div>
 </template>
 

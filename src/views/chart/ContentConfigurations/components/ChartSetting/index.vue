@@ -9,18 +9,18 @@
         placeholder="请输入图表名称"
         size="small"
         v-model:value="targetData.chartConfig.title"
-      />
+     ></n-input>
     </SettingItemBox>
     <!-- 尺寸 -->
-    <SizeSetting :chartAttr="targetData.attr" />
+    <SizeSetting :chartAttr="targetData.attr"></SizeSetting>
     <!-- 位置 -->
     <PositionSetting :chartAttr="targetData.attr" :canvasConfig="chartEditStore.getEditCanvasConfig"/>
     <!-- 样式 -->
-    <StylesSetting :chartStyles="targetData.styles" />
+    <StylesSetting :chartStyles="targetData.styles"></StylesSetting>
     <!-- 自定义配置项 -->
     <component :is="targetData.chartConfig.conKey" :optionData="targetData.option"></component>
     <!-- 全局设置 --> 
-    <GlobalSetting :optionData="targetData.option" :in-chart="true" />
+    <GlobalSetting :optionData="targetData.option" :in-chart="true"></GlobalSetting>
   </div>
 </template>
 

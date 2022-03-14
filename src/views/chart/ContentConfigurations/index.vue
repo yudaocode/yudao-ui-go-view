@@ -2,7 +2,7 @@
   <n-layout has-sider sider-placement="right">
     <n-layout-content>
       <!-- 图表拖拽区域 -->
-      <ContentEdit />
+      <ContentEdit></ContentEdit>
     </n-layout-content>
     <n-layout-sider
       collapse-mode="transform"

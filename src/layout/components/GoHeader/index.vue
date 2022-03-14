@@ -12,9 +12,9 @@
       <div>
         <n-space>
           <slot name="ri-left"> </slot>
-          <LangSelect />
-          <ThemeSelect />
-          <ThemeColorSelect />
+          <lang-select></lang-select>
+          <Theme-select></Theme-select>
+          <theme-color-select></theme-color-select>
           <slot name="ri-right"> </slot>
         </n-space>
       </div>

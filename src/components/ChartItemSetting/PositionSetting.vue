@@ -1,5 +1,5 @@
 <template>
-  <n-divider style="margin: 10px 0;" />
+  <n-divider style="margin: 10px 0;" ></n-divider>
   <n-space :size="8" justify="space-between" style="margin-top: 10px;">
     <n-button
       secondary
@@ -8,12 +8,11 @@
       @click="positonHandle(item.key)"
     >
       <template #icon>
-        <component :is="item.icon" />
+        <component :is="item.icon" ></component>
       </template>
     </n-button>
   </n-space>
-  <!-- </SettingItemBox> -->
-  <SettingItemBox name="边距">
+  <setting-item-box name="边距">
     <n-input-number
       v-model:value="chartAttr.y"
       :min="0"
@@ -34,7 +33,7 @@
         <n-text depth="3">左</n-text>
       </template>
     </n-input-number>
-  </SettingItemBox>
+  </setting-item-box>
 </template>
 
 <script setup lang="ts">

@@ -5,7 +5,7 @@
       <!-- 展示层 -->
       <div :style="previewRefStyle" v-if="show">
         <!-- 渲染层 -->
-        <RenderList :localStorageInfo="localStorageInfo" />
+        <render-list :localStorageInfo="localStorageInfo"></render-list>
       </div>
     </div>
   </div>

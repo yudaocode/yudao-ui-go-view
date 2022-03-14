@@ -17,7 +17,7 @@
           v-for="colorItem in fetchShowColors(value.color)"
           :key="colorItem"
           :style="{ backgroundColor: colorItem }"
-        />
+       ></span>
       </div>
       <div
         class="theme-bottom"

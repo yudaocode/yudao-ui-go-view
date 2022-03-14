@@ -7,7 +7,7 @@
   >
     <n-button quaternary>
       <n-icon size="20" :depth="1">
-        <LanguageIcon />
+        <language-icon></language-icon>
       </n-icon>
     </n-button>
   </n-dropdown>

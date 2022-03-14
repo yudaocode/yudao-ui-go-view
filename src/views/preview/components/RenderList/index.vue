@@ -11,7 +11,7 @@
       :chartConfig="item"
       :themeSetting="themeSetting"
       :themeColor="themeColor"
-    />
+    ></component>
   </div>
 </template>
 

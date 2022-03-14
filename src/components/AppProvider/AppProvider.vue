@@ -1,11 +1,11 @@
 <template>
   <n-loading-bar-provider>
     <n-dialog-provider>
-      <DialogContent />
-      <LoadingContent />
+      <dialog-content></dialog-content>
+      <loading-content></loading-content>
       <n-notification-provider>
         <n-message-provider>
-          <MessageContent />
+          <message-content></message-content>
           <slot></slot>
         </n-message-provider>
       </n-notification-provider>

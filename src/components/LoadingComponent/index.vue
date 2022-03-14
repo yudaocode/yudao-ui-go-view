@@ -1,7 +1,7 @@
 <template>
   <!-- svg加载图 -->
   <div class="go-loading-svg go-flex-center">
-    <img src="~@/assets/images/tips/loadingSvg.svg" alt="" />
+    <img src="~@/assets/images/tips/loadingSvg.svg" alt=""></div>
   </div>
 </template>
 <style lang="scss" scoped>

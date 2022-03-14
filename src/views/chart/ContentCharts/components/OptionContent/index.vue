@@ -9,10 +9,10 @@
       :icon-size="16"
       :indent="18"
       @update:value="clickItemHandle"
-    />
+   ></n-menu>
     <div class="chart-content-list">
       <n-scrollbar>
-        <ItemBox :menuOptions="packages.selectOptions" />
+        <ItemBox :menuOptions="packages.selectOptions"></ItemBox>
       </n-scrollbar>
     </div>
   </div>

@@ -6,7 +6,7 @@
     :options="options"
   >
     <div class="user-info-box">
-      <PersonIcon v-if="fallback" />
+      <person-icon v-if="fallback"></person-icon>
       <n-avatar
         v-if="!fallback"
         round
@@ -14,12 +14,12 @@
         size="medium"
         :src="Person"
         @error="errorHandle"
-      />
+      ></n-avatar>
     </div>
   </n-dropdown>
 
   <!-- 系统设置 model -->
-  <SystemSet v-model:modelShow="modelShow" />
+  <system-set v-model:modelShow="modelShow"></system-set>
 </template>
 
 <script lang="ts" setup>

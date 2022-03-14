@@ -1,7 +1,7 @@
 import type { App } from 'vue'
 import LoadingComponent from './index.vue'
 import AsyncLoading from './index.vue'
-import AsyncSkeletonLoading from './Skeleton.vue'
+import AsyncSkeletonLoading from './GoSkeleton.vue'
 
 // 正常组件
 export { LoadingComponent }

@@ -5,8 +5,8 @@
         <n-button ghost type="primary" size="small">
           <template #icon>
             <n-icon>
-              <DuplicateOutlineIcon v-show="designStore.getDarkTheme" />
-              <DuplicateIcon v-show="!designStore.getDarkTheme" />
+              <DuplicateOutlineIcon v-show="designStore.getDarkTheme"></DuplicateOutlineIcon>
+              <DuplicateIcon v-show="!designStore.getDarkTheme"></DuplicateOutlineIcon>
             </n-icon>
           </template>
         </n-button>
@@ -18,8 +18,8 @@
     <n-button v-else ghost type="primary">
       <template #icon>
         <n-icon>
-          <DuplicateOutlineIcon v-show="designStore.getDarkTheme" />
-          <DuplicateIcon v-show="!designStore.getDarkTheme" />
+          <DuplicateOutlineIcon v-show="designStore.getDarkTheme"></DuplicateOutlineIcon>
+          <DuplicateIcon v-show="!designStore.getDarkTheme"></DuplicateOutlineIcon>
         </n-icon>
       </template>
       <span>
@@ -27,7 +27,7 @@
       </span>
     </n-button>
   </div>
-  <CreateModal :show="modalShow" @close="closeHandle" />
+  <CreateModal :show="modalShow" @close="closeHandle"></CreateModal>
 </template>
 <script setup lang="ts">
 import { ref } from 'vue'

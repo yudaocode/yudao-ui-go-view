@@ -7,7 +7,7 @@
         @click.stop="handleClick(item.key)"
       >
         <n-icon size="10" class="icon-base" :class="{ hover: !disabled }">
-          <component :is="item.icon" />
+          <component :is="item.icon"></component>
         </n-icon>
       </div>
     </template>

@@ -1,6 +1,6 @@
 <template>
   <div class="go-setting-item" :style="{ width: width + 'px' }">
-    <slot />
+    <slot ></slot>
     <n-text class="name" depth="3">{{ name }}</n-text>
   </div>
 </template>

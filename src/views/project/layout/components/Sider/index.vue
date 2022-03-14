@@ -14,7 +14,7 @@
     <div class="go-project-sider-flex">
       <aside>
         <n-space vertical class="go-project-sider-top">
-          <Create :collapsed="collapsed" />
+          <Create :collapsed="collapsed"></Create>
         </n-space>
         <n-menu
           :value="menuValue"
@@ -22,11 +22,11 @@
           :collapsed-width="getAsideCollapsedWidth"
           :collapsed-icon-size="22"
           :default-expanded-keys="defaultExpandedKeys"
-        />
+       ></n-menu>
       </aside>
       <!-- 底部提示 -->
       <div class="sider-bottom">
-        <AsideFooter :collapsed="collapsed" />
+        <AsideFooter :collapsed="collapsed"></AsideFooter>
       </div>
     </div>
   </n-layout-sider>

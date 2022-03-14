@@ -1,13 +1,13 @@
 <template>
-  <Header>
+  <go-header>
     <template #ri-left>
     </template>
     <template #ri-right>
-      <UserInfo />
+      <user-info></user-info>
     </template>
-  </Header>
+  </go-header>
 </template>
 <script setup lang="ts">
-import { Header } from '@/layout/components/Header'
+import { GoHeader } from '@/layout/components/GoHeader'
 import { UserInfo } from '@/components/UserInfo'
 </script>

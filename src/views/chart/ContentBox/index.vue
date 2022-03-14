@@ -18,7 +18,7 @@
           class="go-cursor-pointer"
           @click="backHandle"
         >
-          <ChevronBackOutlineIcon />
+          <ChevronBackOutlineIcon></ChevronBackOutlineIcon>
         </n-icon>
       </n-space>
     </div>

@@ -8,7 +8,7 @@
   >
     <template #icon>
       <n-icon size="16" :depth="2">
-        <component :is="LayersIcon" />
+        <component :is="LayersIcon"></component>
       </n-icon>
     </template>
 
@@ -21,7 +21,7 @@
       @mouseenter="mouseenterHandle(item)"
       @mouseleave="mouseleaveHandle(item)"
       @contextmenu="handleContextMenu($event)"
-    />
+   ></ListItem>
   </ContentBox>
 </template>
 

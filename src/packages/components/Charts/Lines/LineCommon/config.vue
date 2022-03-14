@@ -11,14 +11,14 @@
           size="small"
           :modes="['hex']"
           v-model:value="item.lineStyle.color.colorStops[0].color"
-        />
+       ></n-color-picker>
       </SettingItem>
       <SettingItem name="颜色">
         <n-color-picker
           size="small"
           :modes="['hex']"
           v-model:value="item.lineStyle.color.colorStops[1].color"
-        />
+       ></n-color-picker>
       </SettingItem>
       <SettingItem name="宽度">
         <n-input-number
@@ -27,21 +27,21 @@
           :max="100"
           size="small"
           placeholder="自动计算"
-        />
+       ></n-input-number>
       </SettingItem>
       <SettingItem name="类型">
         <n-select
           v-model:value="item.lineStyle.type"
           size="small"
           :options="lineConf.lineStyle.type"
-        />
+       ></n-select>
       </SettingItem>
       <SettingItem name="类型">
         <n-select
           v-model:value="item.lineStyle.type"
           size="small"
           :options="lineConf.lineStyle.type"
-        />
+       ></n-select>
       </SettingItem>
     </SettingItemBox>
     <SettingItemBox name="阴影" :alone="true">
@@ -50,7 +50,7 @@
           size="small"
           :modes="['hex']"
           v-model:value="item.lineStyle.shadowColor"
-        />
+      ></n-color-picker>
       </SettingItem>
       
     </SettingItemBox>

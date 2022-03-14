@@ -4,19 +4,19 @@
     <n-layout>
       <HeaderPro>
         <template #left>
-          <HeaderLeftBtn />
+          <HeaderLeftBtn></HeaderLeftBtn>
         </template>
         <template #center>
-          <HeaderTitle />
+          <HeaderTitle></HeaderTitle>
         </template>
         <template #ri-left>
-          <HeaderRightBtn />
+          <HeaderRightBtn></HeaderRightBtn>
         </template>
       </HeaderPro>
       <n-layout-content content-style="overflow:hidden; display: flex">
-        <ContentCharts />
-        <ContentLayers />
-        <ContentConfigurations />
+        <ContentCharts></ContentCharts>
+        <ContentLayers></ContentLayers>
+        <ContentConfigurations></ContentConfigurations>
       </n-layout-content>
     </n-layout>
   </div>
@@ -31,7 +31,7 @@
     :show="chartEditStore.getRightMenuShow"
     :on-clickoutside="onClickoutside"
     @select="handleMenuSelect"
-  />
+  ></n-dropdown>
 </template>
 
 <script setup lang="ts">

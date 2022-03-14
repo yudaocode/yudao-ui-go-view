@@ -15,13 +15,13 @@
         </transition-group>
       </aside>
     </div>
-    <Header>
+    <GoHeader>
       <template #left></template>
       <template #right>
-        <LangSelect />
-        <ThemeSelect />
+        <LangSelect></LangSelect>
+        <ThemeSelect></ThemeSelect>
       </template>
-    </Header>
+    </GoHeader>
     <div class="go-login">
       <div class="go-login-carousel">
         <n-carousel
@@ -63,7 +63,7 @@
                   >
                     <template #prefix>
                       <n-icon size="18">
-                        <PersonOutlineIcon />
+                        <PersonOutlineIcon></PersonOutlineIcon>
                       </n-icon>
                     </template>
                   </n-input>
@@ -77,7 +77,7 @@
                   >
                     <template #prefix>
                       <n-icon size="18">
-                        <LockClosedOutlineIcon />
+                        <LockClosedOutlineIcon></LockClosedOutlineIcon>
                       </n-icon>
                     </template>
                   </n-input>
@@ -109,7 +109,7 @@
     </div>
 
     <div class="go-login-box-footer">
-      <Footer />
+      <GoFooter></GoFooter>
     </div>
   </div>
 </template>
@@ -126,8 +126,8 @@ import { carouselInterval } from '@/settings/designSetting'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { ThemeSelect } from '@/components/ThemeSelect'
 import { LangSelect } from '@/components/LangSelect'
-import { Header } from '@/layout/components/Header'
-import { Footer } from '@/layout/components/Footer'
+import { GoHeader } from '@/layout/components/GoHeader'
+import { GoFooter } from '@/layout/components/GoFooter'
 import { PageEnum } from '@/enums/pageEnum'
 import { icon } from '@/plugins'
 import { StorageEnum } from '@/enums/storageEnum'

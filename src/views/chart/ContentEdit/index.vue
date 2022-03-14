@@ -32,13 +32,13 @@
             :themeSetting="themeSetting"
             :themeColor="themeColor"
             :style="useSizeStyle(item.attr)"
-          />
+         ></component>
         </EditShapeBox>
       </EditRange>
     </div>
     <!-- 底部控制 -->
     <template #bottom>
-      <EditBottom />
+      <EditBottom></EditBottom>
     </template>
   </ContentBox>
 </template>

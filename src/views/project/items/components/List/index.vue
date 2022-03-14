@@ -7,12 +7,12 @@
       responsive="screen"
     >
       <n-grid-item v-for="(item, index) in list" :key="item.id">
-        <Card
+        <card
           :cardData="item"
           @resize="resizeHandle"
           @delete="deleteHandle($event, index)"
           @edit="editHandle"
-        />
+       ></card>
       </n-grid-item>
     </n-grid>
   </div>
@@ -22,7 +22,7 @@
     :cardData="modalData"
     @close="closeModal"
     @edit="editHandle"
-  />
+ ></ModalCard>
 </template>
 
 <script setup lang="ts">

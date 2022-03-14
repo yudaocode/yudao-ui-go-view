@@ -22,7 +22,7 @@
     <n-tooltip trigger="hover">
       <template #trigger>
         <n-icon size="21" :depth="3">
-          <HelpOutlineIcon />
+          <HelpOutlineIcon></HelpOutlineIcon>
         </n-icon>
       </template>
       <span>最多只保留 20 条记录</span>

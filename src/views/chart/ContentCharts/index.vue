@@ -9,7 +9,7 @@
   >
     <template #icon>
       <n-icon size="14" :depth="2">
-        <BarChartIcon />
+        <BarChartIcon></BarChartIcon>
       </n-icon>
     </template>
     <!-- 图表 -->
@@ -22,20 +22,20 @@
           :icon-size="16"
           :indent="18"
           @update:value="clickItemHandle"
-        />
+       ></n-menu>
         <div class="menu-component-box">
-          <Skeleton
+          <GoSkeleton
             :load="!selectOptions"
             round
             text
             :repeat="2"
             style="width: 90%;"
-          />
+         ></GoSkeleton>
           <OptionContent
             v-if="selectOptions"
             :selectOptions="selectOptions"
             :key="selectValue"
-          />
+         ></OptionContent>
         </div>
       </div>
     </aside>

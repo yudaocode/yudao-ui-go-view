@@ -21,7 +21,7 @@
             :narrow="true"
             :hidden="['close']"
             @remove="closeHandle"
-          />
+         ></MacOsControlBtn>
         </n-space>
         <!-- 中间 -->
         <div class="list-content-img">
@@ -37,7 +37,7 @@
         <n-space class="list-footer" justify="space-between">
           <n-text depth="3">
             {{ $t('project.last_edit') }}:
-            <n-time :time="new Date()" format="yyyy-MM-dd hh:mm" />
+            <n-time :time="new Date()" format="yyyy-MM-dd hh:mm"></n-time>
           </n-text>
           <!-- 工具 -->
           <n-space>
@@ -46,7 +46,7 @@
                 class="animation-twinkle"
                 dot
                 :color="cardData?.release ? '#34c749' : '#fcbc40'"
-              />
+             ></n-badge>
               {{
                 cardData?.release
                   ? $t('project.release')
@@ -59,7 +59,7 @@
                 <template #trigger>
                   <n-button size="small" @click="handleSelect(item.key)">
                     <template #icon>
-                      <component :is="item.icon" />
+                      <component :is="item.icon"></component>
                     </template>
                   </n-button>
                 </template>

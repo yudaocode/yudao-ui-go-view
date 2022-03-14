@@ -2,10 +2,10 @@
   <div class="go-project">
     <n-layout has-sider position="absolute">
       <n-space vertical>
-        <Sider />
+        <Sider></Sider>
       </n-space>
       <n-layout>
-        <HeaderPro />
+        <HeaderPro></HeaderPro>
         <n-layout
           id="go-project-content-top"
           class="content-top"
@@ -14,7 +14,7 @@
         >
           <n-layout-content>
             <TransitionMain>
-              <router-view />
+              <router-view></router-view>
             </TransitionMain>
           </n-layout-content>
         </n-layout>

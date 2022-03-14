@@ -5,10 +5,10 @@
     :date-locale="dateZhCN"
     :theme-overrides="getThemeOverrides"
   >
-    <AppProvider>
-      <I18n />
-      <router-view />
-    </AppProvider>
+    <app-provider>
+      <i18n></i18n>
+      <router-view></router-view>
+    </app-provider>
   </n-config-provider>
 </template>
 

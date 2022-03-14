@@ -1,6 +1,6 @@
 <template>
   <div class="go-project-items">
-    <List />
+    <List></List>
   </div>
 </template>
 

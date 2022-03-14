@@ -9,7 +9,7 @@
         line['select'].has(item) && 'visible'
       ]"
       :style="useComponentStyle(line['select'].get(item))"
-    />
+  ></div>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <Header>
+  <GoHeader>
     <template #left>
       <slot name="left"></slot>
     </template>
@@ -10,12 +10,12 @@
       <slot name="ri-left"></slot>
     </template>
     <template #ri-right>
-      <UserInfo />
+      <uer-info></uer-info>
       <slot name="ri-right"></slot>
     </template>
-  </Header>
+  </GoHeader>
 </template>
 <script setup lang="ts">
-import { Header } from '@/layout/components/Header'
+import { GoHeader } from '@/layout/components/GoHeader'
 import { UserInfo } from '@/components/UserInfo'
 </script>

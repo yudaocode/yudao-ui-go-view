@@ -8,15 +8,15 @@
       :key="index"
       :style="usePointStyle(point, index, item.attr, cursorResize)"
       @mousedown="useMousePointHandle($event, point, item.attr)"
-    />
+   ></div>
 
     <!-- 选中 -->
     <div class="shape-modal" :style="useSizeStyle(item.attr)">
-      <div class="shape-modal-select" :class="{ active: select }" />
+      <div class="shape-modal-select" :class="{ active: select }"></div>
       <div
         class="shape-modal-change"
         :class="{ selectActive: select, hoverActive: hover }"
-      />
+     ></div>
     </div>
   </div>
 </template>

@@ -1,3 +1,3 @@
-import Skeleton from './index.vue';
+import GoSkeleton from './index.vue';
 
-export { Skeleton };
+export { GoSkeleton };

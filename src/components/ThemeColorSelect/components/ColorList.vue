@@ -8,7 +8,7 @@
       @click="colorSelectHandle(item)"
     >
       <n-space>
-        <div class="content-left-item-color" :style="{ backgroundColor: item.hex }" />
+        <div class="content-left-item-color" :style="{ backgroundColor: item.hex }"></div>
         <n-space vertical>
           <n-space>
             <span :style="{ color: item.hex }">{{ item.name }}</span>
@@ -16,7 +16,7 @@
           </n-space>
           <n-text>
             {{ item.hex }}
-            <n-divider vertical />
+            <n-divider vertical></n-divider>
             {{
               `rgb(${item.RGB[0]}, ${item.RGB[1]}, ${item.RGB[2]})`
             }}
@@ -24,7 +24,7 @@
         </n-space>
       </n-space>
     </div>
-    <n-divider />
+    <n-divider></n-divider>
     <div
       class="content-left-item go-transition-quick"
       span="12 1000:6 1400:4 1800:4 2200:2"
@@ -33,7 +33,7 @@
       @click="colorSelectHandle(item)"
     >
       <n-space>
-        <div class="content-left-item-color" :style="{ backgroundColor: item.hex }" />
+        <div class="content-left-item-color" :style="{ backgroundColor: item.hex }"></div>
         <n-space vertical>
           <n-space>
             <span :style="{ color: item.hex }">{{ item.name }}</span>
@@ -41,7 +41,7 @@
           </n-space>
           <n-text>
             {{ item.hex }}
-            <n-divider vertical />
+            <n-divider vertical></n-divider>
             {{
               `rgb(${item.RGB[0]}, ${item.RGB[1]}, ${item.RGB[2]})`
             }}

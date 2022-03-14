@@ -8,7 +8,7 @@
         <template #header-extra>
           <n-text @click="closeHandle">
             <n-icon size="20">
-              <component :is="CloseIcon" />
+              <component :is="CloseIcon"></component>
             </n-icon>
           </n-text>
         </template>
@@ -23,7 +23,7 @@
             <component :is="item.title"></component>
             <template #icon>
               <n-icon size="18">
-                <component :is="item.icon" />
+                <component :is="item.icon"></component>
               </n-icon>
             </template>
           </n-button>
