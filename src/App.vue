@@ -25,5 +25,3 @@ const getDarkTheme = getDarkThemeHook()
 // 主题配置
 const getThemeOverrides = getThemeOverridesHook()
 </script>
-
-<style lang="scss"></style>
