@@ -37,6 +37,10 @@ const lines = {
 </script>
 
 <style>
+
+/* 使用 SCSS 会报错，直接使用最基础的 CSS 进行修改，
+此库有计划 Vue3 版本，但是开发的时候还没发布 */
+
 /* 横线 */
 #mb-ruler .v-container .lines .line {
   border-top: 1px dashed v-bind('themeColor') !important;
