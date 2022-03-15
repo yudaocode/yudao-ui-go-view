@@ -9,9 +9,10 @@
     @drop="handleDrag"
     @dragover="handleDragOver"
   >
+    <edit-rule></edit-rule>
     <div id="go-chart-edit-content">
       <!-- 展示 -->
-      <edit-range ref="editRangeRef">
+      <edit-range>
         <!-- 图表 -->
         <edit-shape-box
           v-for="(item, index) in chartEditStore.getComponentList"
@@ -44,11 +45,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, computed } from 'vue'
+import { onMounted, computed } from 'vue'
 import { ContentBox } from '../contentBox/index'
 import { EditRange } from './components/EditRange'
 import { EditBottom } from './components/EditBottom'
-import { EditShapeBox } from './components/EditShapeBox/index'
+import { EditShapeBox } from './components/EditShapeBox'
+import { EditRule } from './components/EditRule'
 
 import { useLayout } from './hooks/useLayout.hook'
 import { useAddKeyboard } from '../hooks/useKeyboard.hook'
@@ -65,7 +67,6 @@ const { handleContextMenu } = useContextMenu()
 useLayout()
 
 // 点击事件
-const editRangeRef = ref<HTMLElement | null>(null)
 const { mouseenterHandle, mouseleaveHandle, mousedownHandle } = useMouseHandle()
 
 // 主题色
@@ -95,7 +96,7 @@ onMounted(() => {
   @include background-image('background-point');
   @extend .go-point-bg;
   @include goId(chart-edit-content) {
-    margin: 20px;
+    padding: 25px;
     border: 1px solid rgba(0, 0, 0, 0);
     @extend .go-transition;
     &.content-resize {

@@ -41,6 +41,7 @@ specifiers:
   vue-router: 4.0.12
   vue-tsc: ^0.28.7
   vue3-lazyload: ^0.2.5-beta
+  vue3-sketch-ruler: ^1.3.3
 
 dependencies:
   animate.css: r2.cnpmjs.org/animate.css/4.1.1
@@ -53,6 +54,7 @@ dependencies:
   vue-i18n: rg.cnpmjs.org/vue-i18n/9.2.0-beta.23_vue@3.2.24
   vue-router: rg.cnpmjs.org/vue-router/4.0.12_vue@3.2.24
   vue3-lazyload: registry.npmjs.org/vue3-lazyload/0.2.5-beta_e9ad48123e44f1efa3c90c8e8375ea6d
+  vue3-sketch-ruler: registry.npmjs.org/vue3-sketch-ruler/1.3.3_vue@3.2.24
 
 devDependencies:
   '@types/node': rg.cnpmjs.org/@types/node/16.11.12
@@ -2353,6 +2355,25 @@ packages:
       vue: '>=3.0.0'
     dependencies:
       '@vue/compiler-sfc': rg.cnpmjs.org/@vue/compiler-sfc/3.2.24
+      vue: rg.cnpmjs.org/vue/3.2.24
+    dev: false
+
+  registry.npmjs.org/vue3-sketch-ruler/1.3.3_vue@3.2.24:
+    resolution: {integrity: sha512-k7wK34fWq0v4PiEklF0KAxS37UJS2nm8mMaE8g4Bqv9ZbBY7MxqrkM1wIj9VHmjN/MyQeodFWdg6lJv/ZESKlw==, registry: https://skimdb.npmjs.com/registry/, tarball: https://registry.npmjs.org/vue3-sketch-ruler/-/vue3-sketch-ruler-1.3.3.tgz}
+    id: registry.npmjs.org/vue3-sketch-ruler/1.3.3
+    name: vue3-sketch-ruler
+    version: 1.3.3
+    hasBin: true
+    requiresBuild: true
+    peerDependencies:
+      '@vue/composition-api': ^1.1.0
+      vue: ^2.6.0 || ^3.2.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      vue:
+        optional: true
+    dependencies:
       vue: rg.cnpmjs.org/vue/3.2.24
     dev: false
 

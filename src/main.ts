@@ -6,7 +6,11 @@ import { setupStore } from '@/store'
 import { setupNaive, setupDirectives, setupCustomComponents } from '@/plugins'
 import { AppProvider } from '@/components/AppProvider/index'
 import { setHtmlTheme } from '@/utils'
+
+// 引入动画
 import 'animate.css/animate.min.css'
+// 引入标尺
+import 'vue3-sketch-ruler/lib/style.css'
 
 async function appInit() {
   const appProvider = createApp(AppProvider)
