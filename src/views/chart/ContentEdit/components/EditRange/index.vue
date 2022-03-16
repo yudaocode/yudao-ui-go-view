@@ -4,6 +4,7 @@
     :style="rangeStyle"
     @mousedown="mousedownHandleUnStop($event, undefined)"
   >
+    <edit-rule></edit-rule>
     <slot></slot>
     <!-- 拖拽时的辅助线 -->
     <edit-align-line></edit-align-line>
@@ -15,7 +16,8 @@ import { toRefs, computed } from 'vue'
 import { useSizeStyle } from '../../hooks/useStyle.hook'
 import { mousedownHandleUnStop } from '../../hooks/useDrag.hook'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { EditAlignLine } from '../EditAlignLine/index'
+import { EditAlignLine } from '../EditAlignLine'
+import { EditRule } from '../EditRule'
 
 const chartEditStore = useChartEditStore()
 

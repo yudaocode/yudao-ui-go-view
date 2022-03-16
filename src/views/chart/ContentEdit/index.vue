@@ -9,7 +9,6 @@
     @drop="handleDrag"
     @dragover="handleDragOver"
   >
-    <edit-rule></edit-rule>
     <div id="go-chart-edit-content">
       <!-- 展示 -->
       <edit-range>
@@ -50,7 +49,6 @@ import { ContentBox } from '../contentBox/index'
 import { EditRange } from './components/EditRange'
 import { EditBottom } from './components/EditBottom'
 import { EditShapeBox } from './components/EditShapeBox'
-import { EditRule } from './components/EditRule'
 
 import { useLayout } from './hooks/useLayout.hook'
 import { useAddKeyboard } from '../hooks/useKeyboard.hook'
@@ -96,7 +94,7 @@ onMounted(() => {
   @include background-image('background-point');
   @extend .go-point-bg;
   @include goId(chart-edit-content) {
-    padding: 25px;
+    padding: 20px;
     border: 1px solid rgba(0, 0, 0, 0);
     @extend .go-transition;
     &.content-resize {
