@@ -62,14 +62,4 @@ const rangeStyle = computed(() => {
   @include fetch-theme-custom('border-color', 'background-color4');
   @include filter-bg-color('background-color2');
 }
-@include go(edit-range-model) {
-  z-index: -1;
-  position: absolute;
-  left: 0;
-  top: 0;
-  border-radius: 15px;
-  border: 1px solid rgba(0, 0, 0, 0);
-  background-color: greenyellow;
-  opacity: 0.2;
-}
 </style>

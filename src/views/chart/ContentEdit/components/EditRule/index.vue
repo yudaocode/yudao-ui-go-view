@@ -22,11 +22,11 @@ const themeColor = ref(designStore.getAppTheme)
 const { width, height } = toRefs(chartEditStore.getEditCanvasConfig)
 
 // 初始化标尺的缩放
-const scale = 2
+const scale = 1
 // x轴标尺开始的坐标数值
-const startX = 0
+const startX = 20
 // y轴标尺开始的坐标数值
-const startY = 0
+const startY = 20
 // 标尺的厚度
 const thick = 20
 // 初始化水平标尺上的参考线
@@ -43,13 +43,18 @@ const lines = {
 
 /* 横线 */
 #mb-ruler .v-container .lines .line {
+  /* 最大缩放 200% */
+  height: 200vw!important;
   border-top: 1px dashed v-bind('themeColor') !important;
+  
 }
 #mb-ruler .v-container .indicator {
   border-bottom: 1px dashed v-bind('themeColor') !important;
 }
 /* 竖线 */
 #mb-ruler .h-container .lines .line {
+  /* 最大缩放 200% */
+  height: 200vh!important;
   border-left: 1px dashed v-bind('themeColor') !important;
 }
 #mb-ruler .h-container .indicator {
