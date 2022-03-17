@@ -15,6 +15,8 @@ import {
   MousePositionType,
   TargetChartType,
   RecordChartType,
+  RequestConfigType,
+  RequestDataTypeEnum,
   EditCanvasConfigType
 } from './chartEditStore.d'
 
@@ -82,6 +84,12 @@ export const useChartEditStore = defineStore({
       // 全局配置
       chartThemeSetting: globalThemeJson
     },
+    // 数据请求处理
+    requestConfig: {
+      requestDataType: RequestDataTypeEnum.STATIC,
+      requestUrl: undefined,
+      requestInterval: 10 
+    },
     // 图表数组（需存储给后端）
     componentList: []
   }),
@@ -104,6 +112,9 @@ export const useChartEditStore = defineStore({
     getRecordChart(): RecordChartType | undefined {
       return this.recordChart
     },
+    getRequestConfig(): RequestConfigType {
+      return this.requestConfig
+    },
     getComponentList(): CreateComponentType[] {
       return this.componentList
     },
@@ -111,7 +122,8 @@ export const useChartEditStore = defineStore({
     getStorageInfo(): ChartEditStorage {
       return {
         [ChartEditStoreEnum.EDIT_CANVAS_CONFIG]: this.getEditCanvasConfig,
-        [ChartEditStoreEnum.COMPONENT_LIST]: this.getComponentList
+        [ChartEditStoreEnum.COMPONENT_LIST]: this.getComponentList,
+        [ChartEditStoreEnum.REQUEST_CONFIG]: this.getRequestConfig
       }
     }
   },

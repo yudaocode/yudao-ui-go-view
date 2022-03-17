@@ -1,11 +1,11 @@
-import { Component } from '@/router/types'
-import { GlobalThemeJsonType } from '@/settings/chartThemes/index'
+import type { GlobalThemeJsonType } from '@/settings/chartThemes/index'
+import type { RequestConfigType } from '@/store/modules/chartEditStore/chartEditStore.d'
 
 // 组件配置
 export type ConfigType = {
   key: string
-  chartKey: string,
-  conKey: string,
+  chartKey: string
+  conKey: string
   title: string
   category: string
   categoryName: string
@@ -13,22 +13,27 @@ export type ConfigType = {
   image: string | (() => Promise<typeof import('*.png')>)
 }
 
+// 数据请求
+interface requestConfig {
+  data: RequestConfigType
+}
+
 // 组件实例类
-export interface PublicConfigType {
+export interface PublicConfigType extends requestConfig {
   id: string
   rename?: string
   attr: { x: number; y: number; w: number; h: number; zIndex: number }
-  styles: { opacity: number, animations: string[] }
+  styles: { opacity: number; animations: string[] }
   setPosition: Function
 }
 export interface CreateComponentType extends PublicConfigType {
   key: string
-  chartConfig: Omit<ConfigType, 'node' | 'conNode'>
+  chartConfig: ConfigType
   option: GlobalThemeJsonType
 }
 
 // 获取组件实例类中某个key对应value类型的方法
-export type PickCreateComponentType<T extends keyof CreateComponentType> = Pick<CreateComponentType, T>[T]
+export type PickCreateComponentType<T extends keyof CreateComponentType> = Pick<CreateComponentType,T>[T]
 
 // 包分类枚举
 export enum PackagesCategoryEnum {
@@ -48,7 +53,8 @@ export enum PackagesCategoryName {
 
 // 获取组件
 export enum FetchComFlagType {
-  VIEW, CONFIG
+  VIEW,
+  CONFIG
 }
 
 // 图表包类型

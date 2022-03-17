@@ -13,8 +13,8 @@
         <n-space>
           <slot name="ri-left"> </slot>
           <lang-select></lang-select>
-          <Theme-select></Theme-select>
           <theme-color-select></theme-color-select>
+          <Theme-select></Theme-select>
           <slot name="ri-right"> </slot>
         </n-space>
       </div>

@@ -1,5 +1,10 @@
 import { getUUID } from '@/utils'
 import { PublicConfigType } from '@/packages/index.d'
+import { RequestDataTypeEnum, RequestConfigType } from '@/store/modules/chartEditStore/chartEditStore.d'
+
+const requestConfig: RequestConfigType = {
+  requestDataType: RequestDataTypeEnum.STATIC,
+}
 
 export class publicConfig implements PublicConfigType {
   public id = getUUID()
@@ -12,6 +17,11 @@ export class publicConfig implements PublicConfigType {
     opacity: 1,
     animations: []
   }
+  public data = {
+    requestDataType: RequestDataTypeEnum.STATIC
+  }
+  // 数据获取
+  public requestData = { ...requestConfig }
   // 设置坐标
   public setPosition(x: number, y: number): void {
     this.attr.x = x

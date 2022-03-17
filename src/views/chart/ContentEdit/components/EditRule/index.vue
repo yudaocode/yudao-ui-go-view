@@ -44,7 +44,7 @@ const lines = {
 /* 横线 */
 #mb-ruler .v-container .lines .line {
   /* 最大缩放 200% */
-  height: 200vw!important;
+  width: 200vw!important;
   border-top: 1px dashed v-bind('themeColor') !important;
   
 }
