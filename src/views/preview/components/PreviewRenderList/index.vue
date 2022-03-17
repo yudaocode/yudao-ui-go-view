@@ -4,7 +4,7 @@
     :class="animationsClass(item.styles.animations)"
     v-for="(item, index) in localStorageInfo.componentList"
     :key="item.id"
-    :style="{ ...useComponentAttrStyle(item.attr, index), ...useSizeStyle(item.attr), ...useStyle(item.styles)}"
+    :style="{ ...getComponentAttrStyle(item.attr, index), ...getSizeStyle(item.attr), ...getStyle(item.styles)}"
   >
     <component
       :is="item.chartConfig.chartKey"
@@ -19,7 +19,7 @@
 import { PropType, computed } from 'vue'
 import { ChartEditStorageType } from '../../index.d'
 import { chartColors } from '@/settings/chartThemes/index'
-import { useSizeStyle, useStyle, useComponentAttrStyle, animationsClass } from '../../utils'
+import { getSizeStyle, getStyle, getComponentAttrStyle, animationsClass } from '../../utils'
 
 const props = defineProps({
   localStorageInfo: {
