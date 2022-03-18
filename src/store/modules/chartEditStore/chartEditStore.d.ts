@@ -124,17 +124,17 @@ export enum ChartEditStoreEnum {
 // 数据相关
 export enum RequestDataTypeEnum {
   // 静态数据
-  STATIC = 'static',
+  STATIC,
   // 请求数据
-  AJAX = 'ajax'
+  AJAX
 }
 
 // 数据配置
 export type RequestConfigType = {
   // 获取数据的方式
-  requestDataType: RequestDataTypeEnum,
+  requestDataType: RequestDataTypeEnum
   // 请求源地址
-  requestUrl?: string,
+  requestUrl?: string
   requestInterval?: number
 }
 

@@ -7,10 +7,10 @@ import { toLight } from '@/utils'
 /**
  * 设置全局主题
  */
-export const getThemeOverridesHook = () => {
+export const useThemeOverridesHook = () => {
   const designStore = useDesignStore()
   const { getAppTheme } = toRefs(designStore)
-  const getDarkTheme = computed(
+  const darkTheme = computed(
     (): GlobalThemeOverrides => {
       // 通用
       const commonObj = {
@@ -40,11 +40,11 @@ export const getThemeOverridesHook = () => {
       return designStore.getDarkTheme ? dartObject : lightObject
     }
   )
-  return getDarkTheme
+  return darkTheme
 }
 
 // 返回暗黑主题
-export const getDarkThemeHook = () => {
+export const useDarkThemeHook = () => {
   const designStore = useDesignStore()
   return computed(() => (designStore.getDarkTheme ? darkTheme : undefined))
 }

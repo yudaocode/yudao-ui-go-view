@@ -20,6 +20,7 @@ specifiers:
   eslint-plugin-import: ^2.25.3
   eslint-plugin-prettier: ^4.0.0
   eslint-plugin-vue: ^8.2.0
+  highlight.js: ^11.5.0
   lodash: ~4.17.21
   mockjs: ^1.1.0
   naive-ui: ^2.25.2
@@ -47,6 +48,7 @@ dependencies:
   animate.css: r2.cnpmjs.org/animate.css/4.1.1
   axios: rg.cnpmjs.org/axios/0.23.0
   crypto-ts: r2.cnpmjs.org/crypto-ts/1.0.2
+  highlight.js: registry.npmjs.org/highlight.js/11.5.0
   naive-ui: registry.npmjs.org/naive-ui/2.25.2_vue@3.2.24
   pinia: rg.cnpmjs.org/pinia/2.0.6_typescript@4.5.2+vue@3.2.24
   screenfull: rg.cnpmjs.org/screenfull/6.0.0
@@ -2147,6 +2149,13 @@ packages:
     version: 4.0.0
     engines: {node: '>=8'}
 
+  registry.npmjs.org/highlight.js/11.5.0:
+    resolution: {integrity: sha512-SM6WDj5/C+VfIY8pZ6yW6Xa0Fm1tniYVYWYW1Q/DcMnISZFrC3aQAZZZFAAZtybKNrGId3p/DNbFTtcTXXgYBw==, registry: https://skimdb.npmjs.com/registry/, tarball: https://registry.npmjs.org/highlight.js/-/highlight.js-11.5.0.tgz}
+    name: highlight.js
+    version: 11.5.0
+    engines: {node: '>=12.0.0'}
+    dev: false
+
   registry.npmjs.org/jest-diff/27.5.1:
     resolution: {integrity: sha512-m0NvkX55LDt9T4mctTEgnZk3fmEg3NRYutvMPWM/0iPnkFj2wIeF45O1718cMSOFO1vINkqmxqD8vE37uTEbqw==, registry: https://skimdb.npmjs.com/registry/, tarball: https://registry.npmjs.org/jest-diff/-/jest-diff-27.5.1.tgz}
     name: jest-diff
@@ -2205,7 +2214,7 @@ packages:
       date-fns: rg.cnpmjs.org/date-fns/2.27.0
       date-fns-tz: rg.cnpmjs.org/date-fns-tz/1.1.6_date-fns@2.27.0
       evtd: rg.cnpmjs.org/evtd/0.2.3
-      highlight.js: rg.cnpmjs.org/highlight.js/11.3.1
+      highlight.js: registry.npmjs.org/highlight.js/11.5.0
       lodash: rg.cnpmjs.org/lodash/4.17.21
       lodash-es: rg.cnpmjs.org/lodash-es/4.17.21
       seemly: rg.cnpmjs.org/seemly/0.3.3
@@ -4595,13 +4604,6 @@ packages:
       capital-case: rg.cnpmjs.org/capital-case/1.0.4
       tslib: registry.npmjs.org/tslib/2.3.1
     dev: true
-
-  rg.cnpmjs.org/highlight.js/11.3.1:
-    resolution: {integrity: sha1-gTB47zqlGcYXAPhP6QRyMcXcMpE=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/highlight.js/download/highlight.js-11.3.1.tgz}
-    name: highlight.js
-    version: 11.3.1
-    engines: {node: '>=12.0.0'}
-    dev: false
 
   rg.cnpmjs.org/html-tags/3.1.0:
     resolution: {integrity: sha1-e15vfmZen7QfMAB+2eDUHpf7IUA=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/html-tags/download/html-tags-3.1.0.tgz}

@@ -3,7 +3,7 @@ import { BarCommonConfig } from './index'
 import { CreateComponentType } from '@/packages/index.d'
 import cloneDeep from 'lodash/cloneDeep'
 
-export const includes = ['legend', 'xAxis', 'yAxis']
+export const includes = ['legend', 'xAxis', 'yAxis', 'dataset']
 
 export const option = {
   tooltip: {
@@ -15,12 +15,11 @@ export const option = {
     }
   },
   legend: {
-    show: true,
+    show: true
   },
   xAxis: {
     show: true,
-    type: 'category',
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    type: 'category'
   },
   yAxis: {
     show: true,
@@ -28,24 +27,20 @@ export const option = {
   },
   series: [
     {
-      name: 'data1',
       type: 'bar',
       barWidth: null,
       itemStyle: {
         color: null,
         borderRadius: 0
-      },
-      data: [120, 200, 150, 80, 70, 110, 130]
+      }
     },
     {
-      name: 'data2',
       type: 'bar',
       barWidth: null,
       itemStyle: {
         color: null,
         borderRadius: 0
-      },
-      data: [130, 130, 312, 268, 155, 117, 160]
+      }
     }
   ]
 }

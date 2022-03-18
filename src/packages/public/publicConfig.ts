@@ -17,6 +17,7 @@ export class publicConfig implements PublicConfigType {
     opacity: 1,
     animations: []
   }
+  // 数据
   public data = {
     requestDataType: RequestDataTypeEnum.STATIC
   }

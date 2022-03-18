@@ -34,25 +34,19 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, Ref } from 'vue'
+import { ref } from 'vue'
 import { animations } from '@/settings/animations/index'
 import { CollapseItem } from '@/components/ChartItemSetting/index'
-import { CreateComponentType } from '@/packages/index.d'
-import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
+import { useTargetData } from '../hooks/useTargetData.hook'
 
 // 全局颜色
 const designStore = useDesignStore()
 const themeColor = ref(designStore.getAppTheme)
 
-const chartEditStore = useChartEditStore()
 const hoverPreviewAnimate = ref('')
 
-const targetData: Ref<CreateComponentType> = computed(() => {
-  const list = chartEditStore.getComponentList
-  const targetIndex = chartEditStore.fetchTargetIndex()
-  return list[targetIndex]
-})
+const { targetData } = useTargetData()
 
 // * 选中的动画样式
 const activeIndex = (value: string) => {

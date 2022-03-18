@@ -25,19 +25,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, Ref } from 'vue'
-import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { GlobalSetting, PositionSetting, SizeSetting, StylesSetting } from '@/components/ChartItemSetting/index'
-import { CreateComponentType } from '@/packages/index.d'
 import { SettingItemBox } from '@/components/ChartItemSetting/index'
+import { useTargetData } from '../hooks/useTargetData.hook'
 
-const chartEditStore = useChartEditStore()
-
-const targetData: Ref<CreateComponentType> = computed(() => {
-  const list = chartEditStore.getComponentList
-  const targetIndex = chartEditStore.fetchTargetIndex()
-  return list[targetIndex]
-})
+const { targetData, chartEditStore } = useTargetData()
 
 </script>
 

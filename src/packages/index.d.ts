@@ -18,6 +18,11 @@ interface requestConfig {
   data: RequestConfigType
 }
 
+// Echarts 数据类型
+interface EchartsDataType {
+  dimensions: string[],
+  source: any[]
+}
 // 组件实例类
 export interface PublicConfigType extends requestConfig {
   id: string

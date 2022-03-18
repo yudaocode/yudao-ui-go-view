@@ -9,8 +9,10 @@ import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { BarChart } from 'echarts/charts'
 import config, { includes } from './config'
-import { mergeTheme } from '@/packages/public/chart'
+import { mergeTheme, setData } from '@/packages/public/chart'
+import dataJson from './data.json'
 import {
+  DatasetComponent,
   GridComponent,
   TooltipComponent,
   LegendComponent
@@ -32,6 +34,7 @@ const props = defineProps({
 })
 
 use([
+  DatasetComponent,
   CanvasRenderer,
   BarChart,
   GridComponent,
@@ -40,6 +43,6 @@ use([
 ])
 
 const option = computed(() => {
-  return mergeTheme(props.chartConfig.option, props.themeSetting, includes)
+  return setData(mergeTheme(props.chartConfig.option, props.themeSetting, includes), dataJson)
 })
 </script>

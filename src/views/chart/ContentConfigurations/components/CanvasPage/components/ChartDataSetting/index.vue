@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="go-chart-data-setting">
     <setting-item-box name="源地址" :alone="true">
       <n-input
         v-model:value="requestConfig.requestUrl"
@@ -33,5 +33,3 @@ const requestConfig: Ref<RequestConfigType> = computed(() => {
   return chartEditStore.getRequestConfig
 })
 </script>
-
-<style lang="scss" scoped></style>

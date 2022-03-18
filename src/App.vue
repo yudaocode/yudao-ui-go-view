@@ -1,9 +1,10 @@
 <template>
   <n-config-provider
     :locale="zhCN"
-    :theme="getDarkTheme"
+    :theme="darkTheme"
+    :hljs="hljsTheme"
     :date-locale="dateZhCN"
-    :theme-overrides="getThemeOverrides"
+    :theme-overrides="overridesTheme"
   >
     <app-provider>
       <I18n></I18n>
@@ -17,11 +18,14 @@ import { zhCN, dateZhCN, NConfigProvider } from 'naive-ui'
 import { AppProvider } from '@/components/AppProvider'
 import { I18n } from '@/components/I18n'
 
-import { getDarkThemeHook, getThemeOverridesHook } from '@/hooks'
+import { useDarkThemeHook, useThemeOverridesHook, useHook } from '@/hooks'
 
-// 返回暗黑主题
-const getDarkTheme = getDarkThemeHook()
+// 暗黑主题
+const darkTheme = useDarkThemeHook()
 
 // 主题配置
-const getThemeOverrides = getThemeOverridesHook()
+const overridesTheme = useThemeOverridesHook()
+
+// 代码主题
+const hljsTheme = useHook()
 </script>
