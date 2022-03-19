@@ -2,8 +2,9 @@ import { echartOptionProfixHandle, publicConfig } from '@/packages/public'
 import { BarCommonConfig } from './index'
 import { CreateComponentType } from '@/packages/index.d'
 import cloneDeep from 'lodash/cloneDeep'
+import dataJson from './data.json'
 
-export const includes = ['legend', 'xAxis', 'yAxis', 'dataset']
+export const includes = ['legend', 'xAxis', 'yAxis']
 
 export const option = {
   tooltip: {
@@ -25,6 +26,7 @@ export const option = {
     show: true,
     type: 'value'
   },
+  dataset: { ...dataJson },
   series: [
     {
       type: 'bar',

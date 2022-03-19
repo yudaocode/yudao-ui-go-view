@@ -69,7 +69,9 @@ import {
   AlignVerticalTop as AlignVerticalTopIcon,
   AlignHorizontalCenter as AlignHorizontalCenterIcon,
   AlignHorizontalRight as AlignHorizontalRightIcon,
-  AlignVerticalBottom as AlignVerticalBottomIcon
+  AlignVerticalBottom as AlignVerticalBottomIcon,
+  DocumentAdd as DocumentAddIcon,
+  DocumentDownload as DocumentDownloadIcon,
 } from '@vicons/carbon'
 
 const ionicons5 = {
@@ -205,7 +207,11 @@ const carbon = {
   AlignVerticalTopIcon,
   AlignHorizontalCenterIcon,
   AlignHorizontalRightIcon,
-  AlignVerticalBottomIcon
+  AlignVerticalBottomIcon,
+  // 添加文件
+  DocumentAddIcon,
+  // 下载文件
+  DocumentDownloadIcon
 }
 
 // https://www.xicons.org/#/ 还有很多

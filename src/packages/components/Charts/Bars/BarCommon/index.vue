@@ -43,6 +43,7 @@ use([
 ])
 
 const option = computed(() => {
-  return setData(mergeTheme(props.chartConfig.option, props.themeSetting, includes), dataJson)
+  // TODO dataset的数据要设计一下，不能这样把数据进行监听，太耗性能
+  return mergeTheme(props.chartConfig.option, props.themeSetting, includes)
 })
 </script>

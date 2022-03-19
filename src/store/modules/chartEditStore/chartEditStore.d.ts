@@ -2,7 +2,7 @@ import { CreateComponentType } from '@/packages/index.d'
 import { HistoryActionTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
 import type {
   ChartColorsNameType,
-  GlobalThemeJsonType
+  GlobalThemeJsonType,
 } from '@/settings/chartThemes/index'
 
 // 编辑画布属性
@@ -13,7 +13,7 @@ export enum EditCanvasTypeEnum {
   SCALE = 'scale',
   USER_SCALE = 'userScale',
   LOCK_SCALE = 'lockScale',
-  IS_DRAG = 'isDrag'
+  IS_DRAG = 'isDrag',
 }
 
 // 编辑区域
@@ -46,7 +46,7 @@ export enum EditCanvasConfigEnum {
   CHART_THEME_SETTING = 'chartThemeSetting',
   BACKGROUND = 'background',
   BACKGROUND_IAMGE = 'backgroundImage',
-  SELECT_COLOR = 'selectColor'
+  SELECT_COLOR = 'selectColor',
 }
 
 export interface EditCanvasConfigType {
@@ -80,7 +80,7 @@ export enum EditCanvasTypeEnum {
   START_X = 'startX',
   START_Y = 'startY',
   X = 'x',
-  Y = 'y'
+  Y = 'y',
 }
 
 // 鼠标位置
@@ -118,15 +118,15 @@ export enum ChartEditStoreEnum {
   // 以下需要存储
   EDIT_CANVAS_CONFIG = 'editCanvasConfig',
   REQUEST_CONFIG = 'requestConfig',
-  COMPONENT_LIST = 'componentList'
+  COMPONENT_LIST = 'componentList',
 }
 
 // 数据相关
 export enum RequestDataTypeEnum {
   // 静态数据
-  STATIC,
+  STATIC = 0,
   // 请求数据
-  AJAX
+  AJAX = 1,
 }
 
 // 数据配置
