@@ -1,16 +1,7 @@
 <template>
   <div class="go-chart-configurations-setting" v-if="targetData">
     <!-- 名称 -->
-    <setting-item-box name="名称">
-      <n-input
-        type="text"
-        maxlength="6"
-        show-count
-        placeholder="请输入图表名称"
-        size="small"
-        v-model:value="targetData.chartConfig.title"
-     ></n-input>
-    </setting-item-box>
+    <name-setting :chartConfig="targetData.chartConfig"></name-setting>
     <!-- 尺寸 -->
     <size-setting :chartAttr="targetData.attr"></size-setting>
     <!-- 位置 -->
@@ -25,10 +16,8 @@
 </template>
 
 <script setup lang="ts">
-import { GlobalSetting, PositionSetting, SizeSetting, StylesSetting } from '@/components/ChartItemSetting/index'
-import { SettingItemBox } from '@/components/ChartItemSetting/index'
+import { GlobalSetting, NameSetting, PositionSetting, SizeSetting, StylesSetting } from '@/components/ChartItemSetting/index'
 import { useTargetData } from '../hooks/useTargetData.hook'
-
 const { targetData, chartEditStore } = useTargetData()
 
 </script>

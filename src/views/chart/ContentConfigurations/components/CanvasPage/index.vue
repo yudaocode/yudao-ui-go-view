@@ -8,7 +8,7 @@
           v-model:value="canvasConfig.width"
           :validator="validator"
           @update:value="changeSizeHandle"
-       ></n-input-number>
+        ></n-input-number>
       </n-form-item>
       <n-form-item label="高度">
         <n-input-number
@@ -16,7 +16,7 @@
           v-model:value="canvasConfig.height"
           :validator="validator"
           @update:value="changeSizeHandle"
-       ></n-input-number>
+        ></n-input-number>
       </n-form-item>
     </n-form>
 
@@ -52,7 +52,7 @@
           :showPreview="true"
           :swatches="swatchesColors"
           v-model:value="canvasConfig.background"
-       ></n-color-picker>
+        ></n-color-picker>
       </n-space>
       <n-space>
         <n-text>使用颜色</n-text>
@@ -63,24 +63,12 @@
           :round="false"
           :disabled="!canvasConfig.backgroundImage"
           :onUpdate="switchSelectColorHandle"
-       ></n-switch>
+        ></n-switch>
       </n-space>
       <n-space>
         <n-text>背景</n-text>
-        <n-button
-          size="small"
-          :disabled="!canvasConfig.backgroundImage"
-          @click="clearImage"
-        >
-          清除背景图
-        </n-button>
-        <n-button
-          size="small"
-          :disabled="!canvasConfig.background"
-          @click="clearColor"
-        >
-          清除颜色
-        </n-button>
+        <n-button size="small" :disabled="!canvasConfig.backgroundImage" @click="clearImage">清除背景图</n-button>
+        <n-button size="small" :disabled="!canvasConfig.background" @click="clearColor">清除颜色</n-button>
       </n-space>
     </n-space>
 
@@ -110,6 +98,7 @@
 <script setup lang="ts">
 import { ref, nextTick } from 'vue'
 import { backgroundImageSize } from '@/settings/designSetting'
+import { FileTypeEnum } from '@/enums/fileTypeEnum'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasConfigEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { UploadCustomRequestOptions } from 'naive-ui'
@@ -175,7 +164,7 @@ const beforeUploadHandle = async ({ file }) => {
     )
     return false
   }
-  if (type !== 'image/png' && type !== 'image/jpeg' && type !== 'image/gif') {
+  if (type !== FileTypeEnum.PNG && type !== FileTypeEnum.JPEG && type !== FileTypeEnum.GIF) {
     window['$message'].warning('文件格式不符合，请重新上传！')
     return false
   }
@@ -224,16 +213,7 @@ const switchSelectColorHandle = () => {
 
 // 自定义上传操作
 const customRequest = (options: UploadCustomRequestOptions) => {
-  const {
-    file,
-    data,
-    headers,
-    withCredentials,
-    action,
-    onFinish,
-    onError,
-    onProgress
-  } = options
+  const { file } = options
 
   nextTick(() => {
     if (file.file) {

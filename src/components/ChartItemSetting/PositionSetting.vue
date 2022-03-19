@@ -92,9 +92,7 @@ const props = defineProps({
     required: true
   },
   chartAttr: {
-    type: Object as PropType<
-      Omit<PickCreateComponentType<'attr'>, 'node' | 'conNode'>
-    >,
+    type: Object as PropType<PickCreateComponentType<'attr'>>,
     required: true
   }
 })

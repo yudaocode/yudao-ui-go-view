@@ -5,6 +5,8 @@ import CollapseItem from './CollapseItem.vue'
 
 // 全局配置属性
 import GlobalSetting from './GlobalSetting.vue'
+// 名称
+import NameSetting from './NameSetting.vue'
 // 方向
 import PositionSetting from './PositionSetting.vue'
 // 尺寸
@@ -12,4 +14,4 @@ import SizeSetting from './SizeSetting.vue'
 // 样式
 import StylesSetting from './StylesSetting.vue'
 
-export { CollapseItem, SettingItemBox, SettingItem, GlobalSetting, PositionSetting, SizeSetting, StylesSetting }
+export { CollapseItem, SettingItemBox, SettingItem, GlobalSetting, NameSetting, PositionSetting, SizeSetting, StylesSetting }
