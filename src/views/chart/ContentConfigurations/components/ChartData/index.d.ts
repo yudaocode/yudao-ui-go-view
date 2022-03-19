@@ -7,6 +7,11 @@ export enum DataResultEnum {
   FAILURE = 2,
 }
 
+export enum TimelineTitleEnum {
+  MAPPING = '数据映射',
+  CONTENT = '数据内容',
+}
+
 export enum SelcetOptionsLableEnum {
   STATIC = '静态数据',
   AJAX = '动态请求',

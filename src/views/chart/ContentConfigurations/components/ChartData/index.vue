@@ -8,7 +8,7 @@
       />
     </setting-item-box>
     <n-timeline>
-      <n-timeline-item type="info" title="数据映射">
+      <n-timeline-item type="info" :title="TimelineTitleEnum.MAPPING">
         <n-table striped>
           <thead>
             <tr>
@@ -34,8 +34,9 @@
           </tbody>
         </n-table>
       </n-timeline-item>
-      <n-timeline-item type="success" title="静态数据">
+      <n-timeline-item type="success" :title="TimelineTitleEnum.CONTENT">
         <n-space vertical>
+          <n-text prefix="bar" depth="3">数据格式需要符合 ECharts-setdata 规范</n-text>
           <n-space class="source-btn-box">
             <n-upload
               v-model:file-list="uploadFileListRef"
@@ -43,14 +44,16 @@
               :customRequest="customRequest"
               @before-upload="beforeUpload"
             >
-              <n-button class="sourceBtn-item">
-                <template #icon>
-                  <n-icon>
-                    <document-add-icon />
-                  </n-icon>
-                </template>
-                导入（json / txt）
-              </n-button>
+              <n-space>
+                <n-button class="sourceBtn-item">
+                  <template #icon>
+                    <n-icon>
+                      <document-add-icon />
+                    </n-icon>
+                  </template>
+                  导入（json / txt）
+                </n-button>
+              </n-space>
             </n-upload>
             <n-button class="sourceBtn-item" @click="download">
               <template #icon>
@@ -71,14 +74,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs, computed, watch, nextTick } from 'vue'
+import { ref, computed, watch, nextTick } from 'vue'
 import { SettingItemBox } from '@/components/ChartItemSetting/index'
 import { RequestDataTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { useTargetData } from '../hooks/useTargetData.hook'
 import { UploadCustomRequestOptions } from 'naive-ui'
 import { FileTypeEnum } from '@/enums/fileTypeEnum'
 import { readFile, downloadFile } from '@/utils'
-import { DataResultEnum, SelcetOptionsLableEnum, SelectOptionsType } from './index.d'
+import { DataResultEnum, TimelineTitleEnum, SelcetOptionsLableEnum, SelectOptionsType } from './index.d'
 import { icon } from '@/plugins'
 
 const { DocumentAddIcon, DocumentDownloadIcon } = icon.carbon
@@ -102,7 +105,6 @@ const selectOptions: SelectOptionsType[] = [
     disabled: true,
   }
 ]
-
 
 // 获取数据
 const getSource = computed(() => {
