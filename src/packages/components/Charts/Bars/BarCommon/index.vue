@@ -9,8 +9,7 @@ import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { BarChart } from 'echarts/charts'
 import config, { includes } from './config'
-import { mergeTheme, setData } from '@/packages/public/chart'
-import dataJson from './data.json'
+import { mergeTheme } from '@/packages/public/chart'
 import {
   DatasetComponent,
   GridComponent,

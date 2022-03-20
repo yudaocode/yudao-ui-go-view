@@ -186,8 +186,12 @@ const customRequest = (options: UploadCustomRequestOptions) => {
 
 // 下载文件
 const download = () => {
-  window['$message'].success('正在下载文件...')
-  downloadFile(getSource.value, undefined, 'json')
+  try {
+    window['$message'].success('正在下载文件！')
+    downloadFile(JSON.stringify(targetData.value?.option?.dataset), undefined, 'json')
+  } catch (error) {
+    window['$message'].success('下载失败，数据错误！')
+  }
 }
 </script>
 
