@@ -1,14 +1,14 @@
 <template>
   <div v-show="load" class="go-skeleton">
     <div v-show="repeat == 1">
-      <n-skeleton v-bind="$attrs"></n-skeleton>
+      <n-skeleton class="item" v-bind="$attrs"></n-skeleton>
     </div>
     <div v-show="repeat == 2">
-      <n-skeleton v-bind="$attrs"></n-skeleton>
+      <n-skeleton class="item" v-bind="$attrs"></n-skeleton>
       <n-skeleton class="item" v-bind="$attrs" style="width: 60%;"></n-skeleton>
     </div>
     <div v-show="repeat > 2">
-      <n-skeleton v-bind="$attrs" :repeat="repeat - 2"></n-skeleton>
+      <n-skeleton class="item" v-bind="$attrs" :repeat="repeat - 2"></n-skeleton>
       <n-skeleton class="item" v-bind="$attrs" style="width: 60%;"></n-skeleton>
       <n-skeleton class="item" v-bind="$attrs" style="width: 50%;"></n-skeleton>
     </div>
@@ -29,9 +29,11 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-@include go('skeleton') {
+@include go("skeleton") {
   .item {
     margin-top: 5px;
+    margin-left: 5px;
   }
+  padding-bottom: 5px;
 }
 </style>
