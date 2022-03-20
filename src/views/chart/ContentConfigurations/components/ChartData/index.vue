@@ -36,7 +36,7 @@
       </n-timeline-item>
       <n-timeline-item type="success" :title="TimelineTitleEnum.CONTENT">
         <n-space vertical>
-          <n-text prefix="bar" depth="3">数据格式需要符合 ECharts-setdata 规范</n-text>
+          <n-text depth="3">数据需要符合 ECharts-setdata 规范</n-text>
           <n-space class="source-btn-box">
             <n-upload
               v-model:file-list="uploadFileListRef"

@@ -5,12 +5,13 @@
 <script setup lang="ts">
 import { computed, PropType } from 'vue'
 import VChart from 'vue-echarts'
-import { use, graphic } from 'echarts/core'
+import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { BarChart } from 'echarts/charts'
 import { mergeTheme } from '@/packages/public/chart'
 import config, { includes } from './config'
 import {
+  DatasetComponent,
   GridComponent,
   TooltipComponent,
   LegendComponent,
@@ -32,6 +33,7 @@ const props = defineProps({
 })
 
 use([
+  DatasetComponent,
   CanvasRenderer,
   BarChart,
   GridComponent,
@@ -43,5 +45,3 @@ const option = computed(() => {
   return mergeTheme(props.chartConfig.option, props.themeSetting, includes)
 })
 </script>
-
-<style lang="scss" scoped></style>

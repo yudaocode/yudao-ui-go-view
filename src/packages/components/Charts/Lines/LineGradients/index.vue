@@ -10,9 +10,9 @@ import { CanvasRenderer } from 'echarts/renderers'
 import { LineChart } from 'echarts/charts'
 import config, { includes } from './config'
 import { mergeTheme } from '@/packages/public/chart'
-import { GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { chartColorsSearch, defaultTheme } from  '@/settings/chartThemes/index'
+import { chartColorsSearch, defaultTheme } from '@/settings/chartThemes/index'
+import { DatasetComponent, GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
 
 const props = defineProps({
   themeSetting: {
@@ -30,6 +30,7 @@ const props = defineProps({
 })
 
 use([
+  DatasetComponent,
   CanvasRenderer,
   LineChart,
   GridComponent,
@@ -43,25 +44,30 @@ const option = reactive({
 })
 
 // 渐变色处理
-watch(()=>chartEditStore.getEditCanvasConfig.chartThemeColor, (newColor: keyof typeof chartColorsSearch) => {
-    if (!document.location.hash.includes('preview')) {
-      const themeColor = chartColorsSearch[newColor] || chartColorsSearch[defaultTheme]
-      props.chartConfig.option.series.forEach((value: any, index: number) => {
-        value.areaStyle.color = new graphic.LinearGradient(0, 0, 0, 1, [
-          {
-            offset: 0,
-            color: themeColor[3 + index]
-          },
-          {
-            offset: 1,
-            color: 'rgba(0,0,0, 0)'
-          }
-        ])
-      })
-    }
-    option.options = mergeTheme(props.chartConfig.option, props.themeSetting, includes)
-  }, 
-  {
-    immediate: true
-  })
+watch(() => chartEditStore.getEditCanvasConfig.chartThemeColor, (newColor: keyof typeof chartColorsSearch) => {
+  if (!document.location.hash.includes('preview')) {
+    const themeColor = chartColorsSearch[newColor] || chartColorsSearch[defaultTheme]
+    props.chartConfig.option.series.forEach((value: any, index: number) => {
+      value.areaStyle.color = new graphic.LinearGradient(0, 0, 0, 1, [
+        {
+          offset: 0,
+          color: themeColor[3 + index]
+        },
+        {
+          offset: 1,
+          color: 'rgba(0,0,0, 0)'
+        }
+      ])
+    })
+  }
+  option.options = mergeTheme(props.chartConfig.option, props.themeSetting, includes)
+}, {
+  immediate: true
+})
+
+watch(() => props.chartConfig.option.dataset, () => {
+  option.options = props.chartConfig.option
+}, {
+  deep: true
+})
 </script>

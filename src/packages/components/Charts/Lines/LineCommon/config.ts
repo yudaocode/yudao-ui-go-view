@@ -2,6 +2,7 @@ import { echartOptionProfixHandle, publicConfig } from '@/packages/public'
 import { LineCommonConfig } from './index'
 import { CreateComponentType } from '@/packages/index.d'
 import { defaultTheme, chartColorsSearch } from '@/settings/chartThemes/index'
+import dataJson from './data.json'
 
 export const includes = ['legend', 'xAxis', 'yAxis']
 
@@ -19,15 +20,14 @@ export const option = {
   xAxis: {
     show: true,
     type: 'category',
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
   },
   yAxis: {
     show: true,
     type: 'value'
   },
+  dataset: { ...dataJson },
   series: [
     {
-      name: 'data1',
       type: 'line',
       lineStyle: {
         type: 'solid',
@@ -50,7 +50,6 @@ export const option = {
         shadowBlur: 10,
         shadowOffsetY: 20
       },
-      data: [120, 200, 150, 80, 70, 110, 130]
     }
   ]
 }

@@ -3,6 +3,7 @@ import { LineGradientsConfig } from './index'
 import { CreateComponentType } from '@/packages/index.d'
 import { graphic } from 'echarts/core'
 import { defaultTheme, chartColorsSearch } from '@/settings/chartThemes/index'
+import dataJson from './data.json'
 
 export const includes = ['legend', 'xAxis', 'yAxis']
 
@@ -26,9 +27,9 @@ const option = {
     show: true,
     type: 'value'
   },
+  dataset: { ...dataJson },
   series: [
     {
-      name: 'data1',
       type: 'line',
       smooth: false,
       lineStyle: {
@@ -49,10 +50,8 @@ const option = {
           }
         ])
       },
-      data: [120, 200, 150, 80, 70, 110, 130]
     },
     {
-      name: 'data2',
       type: 'line',
       smooth: false,
       lineStyle: {
@@ -73,7 +72,6 @@ const option = {
           }
         ])
       },
-      data: [130, 130, 312, 268, 155, 117, 160]
     }
   ]
 }

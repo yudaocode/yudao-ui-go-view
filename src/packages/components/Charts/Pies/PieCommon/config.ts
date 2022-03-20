@@ -1,6 +1,7 @@
 import { echartOptionProfixHandle, publicConfig } from '@/packages/public'
 import { PieCommonConfig } from './index'
 import { CreateComponentType } from '@/packages/index.d'
+import dataJson from './data.json'
 
 export const includes = ['legend']
 
@@ -12,9 +13,9 @@ const option = {
   legend: {
     show: true,
   },
+  dataset: { ...dataJson },
   series: [
     {
-      name: 'Access From',
       type: 'pie',
       radius: ['40%', '65%'],
       center: ['50%', '60%'],
@@ -38,14 +39,7 @@ const option = {
       },
       labelLine: {
         show: false
-      },
-      data: [
-        { value: 1048, name: 'Search Engine' },
-        { value: 735, name: 'Direct' },
-        { value: 580, name: 'Email' },
-        { value: 484, name: 'Union Ads' },
-        { value: 300, name: 'Video Ads' }
-      ]
+      }
     }
   ]
 }
