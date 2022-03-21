@@ -6,7 +6,7 @@ Mock.setup({
 
 // 单个X数据
 const featchMockData = '/api/mockData'
-Mock.mock(/\/api\/test(|\?\S*)$/, 'get', test.featchMockData)
+Mock.mock(/\/api\/mockData(|\?\S*)$/, 'get', test.featchMockData)
 
 export {
   featchMockData

@@ -1,9 +1,18 @@
 <template>
   <div class="go-config-item-box">
-    <n-text class="item-left" depth="2">{{ name }}</n-text>
-    <div class="item-right" justify="space-between" :style="{
-      gridTemplateColumns: alone? '1fr': '1fr 1fr'
-    }">
+    <n-text class="item-left" depth="2">
+      {{ name }}
+      <n-space :size="5">
+        <slot name="name"></slot>
+      </n-space>
+    </n-text>
+    <div
+      class="item-right"
+      justify="space-between"
+      :style="{
+        gridTemplateColumns: alone ? '1fr' : '1fr 1fr'
+      }"
+    >
       <slot></slot>
     </div>
   </div>
@@ -13,7 +22,7 @@
 defineProps({
   name: {
     type: String,
-    required: true
+    required: false
   },
   alone: {
     type: Boolean,

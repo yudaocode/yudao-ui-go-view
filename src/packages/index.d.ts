@@ -15,7 +15,9 @@ export type ConfigType = {
 
 // 数据请求
 interface requestConfig {
-  data: RequestConfigType
+  data: RequestConfigType,
+  // 暂时约定为数据存储区域（未使用）
+  requestData: any
 }
 
 // Echarts 数据类型

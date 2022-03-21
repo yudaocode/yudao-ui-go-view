@@ -1,4 +1,5 @@
 import { RequestDataTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
+import { RequestHttpEnum } from '@/enums/httpEnum'
 
 // 匹配结果
 export enum DataResultEnum {
@@ -12,13 +13,20 @@ export enum TimelineTitleEnum {
   CONTENT = '数据内容',
 }
 
-export enum SelcetOptionsLableEnum {
+export enum SelectCreateDataEnum {
   STATIC = '静态数据',
   AJAX = '动态请求',
 }
 
-export interface SelectOptionsType {
-  label: SelcetOptionsLableEnum
+export interface SelectCreateDataType {
+  label: SelectCreateDataEnum
   value: RequestDataTypeEnum
+  disabled?: boolean
+}
+
+// ajax 请求
+export interface SelectHttpType {
+  label: RequestHttpEnum
+  value: RequestHttpEnum
   disabled?: boolean
 }

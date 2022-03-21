@@ -13,7 +13,7 @@ export enum ResultEnum {
 /**
  * @description: 请求方法
  */
-export enum RequestEnum {
+export enum RequestHttpEnum {
   GET = 'get',
   POST = 'post',
   PATCH = 'patch',

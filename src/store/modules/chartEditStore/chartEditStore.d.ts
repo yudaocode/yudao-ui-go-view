@@ -1,5 +1,6 @@
 import { CreateComponentType } from '@/packages/index.d'
 import { HistoryActionTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
+import { RequestHttpEnum } from '@/enums/httpEnum'
 import type {
   ChartColorsNameType,
   GlobalThemeJsonType,
@@ -133,6 +134,8 @@ export enum RequestDataTypeEnum {
 export type RequestConfigType = {
   // 获取数据的方式
   requestDataType: RequestDataTypeEnum
+  // 请求方式 get/post/del/put/patch
+  requestHttpType: RequestHttpEnum
   // 请求源地址
   requestUrl?: string
   requestInterval?: number

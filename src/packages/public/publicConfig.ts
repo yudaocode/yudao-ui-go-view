@@ -1,9 +1,11 @@
 import { getUUID } from '@/utils'
 import { PublicConfigType } from '@/packages/index.d'
 import { RequestDataTypeEnum, RequestConfigType } from '@/store/modules/chartEditStore/chartEditStore.d'
+import { RequestHttpEnum } from '@/enums/httpEnum'
 
 const requestConfig: RequestConfigType = {
   requestDataType: RequestDataTypeEnum.STATIC,
+  requestHttpType: RequestHttpEnum.GET
 }
 
 export class publicConfig implements PublicConfigType {
@@ -18,11 +20,9 @@ export class publicConfig implements PublicConfigType {
     animations: []
   }
   // 数据
-  public data = {
-    requestDataType: RequestDataTypeEnum.STATIC
-  }
+  public data = { ...requestConfig }
   // 数据获取
-  public requestData = { ...requestConfig }
+  public requestData = []
   // 设置坐标
   public setPosition(x: number, y: number): void {
     this.attr.x = x

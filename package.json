@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "animate.css": "^4.1.1",
-    "axios": "^0.23.0",
+    "axios": "0.23.0",
     "crypto-ts": "^1.0.2",
     "highlight.js": "^11.5.0",
     "naive-ui": "^2.25.2",

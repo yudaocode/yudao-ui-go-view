@@ -1,6 +1,8 @@
 <template>
-  <div class="go-chart-configurations-data-static" v-if="targetData">
-    <ChartDataMatchingAndShow :tableData="targetData"></ChartDataMatchingAndShow>
+  <div class="go-chart-configurations-data-static">
+    <chart-data-matching-and-show
+      :targetData="targetData"
+    ></chart-data-matching-and-show>
   </div>
 </template>
 
@@ -15,19 +17,9 @@ const props = defineProps({
     required: true
   }
 })
-
 </script>
 
 <style lang="scss" scoped>
-@include go("chart-configurations-data-static") {
-  @include deep() {
-    pre {
-      white-space: pre-wrap;
-      word-wrap: break-word;
-    }
-  }
-  .source-btn-box {
-    margin-top: 10px !important;
-  }
+@include go('chart-configurations-data-static') {
 }
 </style>

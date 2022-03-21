@@ -7,9 +7,8 @@
             <th v-for="item in tableTitle" :key="item">{{ item }}</th>
           </tr>
         </thead>
-        <tbody v-show="!tableLoad">
-          <go-skeleton :repeat="3" :load="tableLoad" style="width: 200px;"></go-skeleton>
-          <tr v-for="(item, index) in tableData" :key="index">
+        <tbody>
+          <tr v-for="(item, index) in getDimensionsAndSource" :key="index">
             <td>{{ item.field }}</td>
             <td>{{ item.mapping }}</td>
             <td>
@@ -69,29 +68,19 @@ import { ref, computed, watch, nextTick, PropType } from 'vue'
 import { UploadCustomRequestOptions } from 'naive-ui'
 import { FileTypeEnum } from '@/enums/fileTypeEnum'
 import { readFile, downloadFile } from '@/utils'
+import { CreateComponentType } from '@/packages/index.d'
 import { icon } from '@/plugins'
 import { DataResultEnum, TimelineTitleEnum } from '../../index.d'
 
 const props = defineProps({
-  tableData: {
-    type: Object,
+  targetData: {
+    type: Object as PropType<CreateComponentType>,
     required: true
   }
 })
 
-const tableLoad = ref(true)
-
 // 表格标题
 const tableTitle = ['字段', '映射', '状态']
-
-// 表格数据加载
-watch(() => props.tableData.value, (newData: object[]) => {
-  if (!(newData && newData.length !== 0)) {
-    tableLoad.value = false
-  }
-}, {
-  immediate: true
-})
 
 const { DocumentAddIcon, DocumentDownloadIcon } = icon.carbon
 const uploadFileListRef = ref()
@@ -172,7 +161,7 @@ const customRequest = (options: UploadCustomRequestOptions) => {
 // 下载文件
 const download = () => {
   try {
-    window['$message'].success('正在下载文件！')
+    window['$message'].success('下载中，请耐心等待...')
     downloadFile(JSON.stringify(props.targetData?.option?.dataset), undefined, 'json')
   } catch (error) {
     window['$message'].success('下载失败，数据错误！')
@@ -181,7 +170,7 @@ const download = () => {
 </script>
 
 <style lang="scss" scoped>
-@include go("chart-configurations-data-static") {
+@include go("chart-configurations-timeline") {
   @include deep() {
     pre {
       white-space: pre-wrap;

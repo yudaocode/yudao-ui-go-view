@@ -1,35 +1,40 @@
 import axiosInstance from './axios'
-import { RequestEnum, ContentTypeEnum } from '@/enums/httpEnum'
+import { RequestHttpEnum, ContentTypeEnum } from '@/enums/httpEnum'
 
 export const get = (url: string, params: object) => {
   return axiosInstance({
     url: url,
-    method: RequestEnum.GET,
-    params,
+    method: RequestHttpEnum.GET,
+    params
   })
 }
 
-export const post = (url: string, params: object, headersType: string) => {
+export const post = (url: string, params: object, headersType?: string) => {
   return axiosInstance({
     url: url,
-    method: RequestEnum.POST,
+    method: RequestHttpEnum.POST,
     data: params,
     headers: {
-      'Content-Type': headersType || ContentTypeEnum.JSON,
-    },
+      'Content-Type': headersType || ContentTypeEnum.JSON
+    }
   })
 }
 
 export const del = (url: string, params: object) => {
   return axiosInstance({
     url: url,
-    method: RequestEnum.DELETE,
-    params,
+    method: RequestHttpEnum.DELETE,
+    params
   })
 }
 
-export default {
-  get,
-  post,
-  del,
+// 获取请求函数，默认get
+export const http = (type?: RequestHttpEnum) => {
+  return type === RequestHttpEnum.GET
+    ? get
+    : type === RequestHttpEnum.POST
+    ? post
+    : type === RequestHttpEnum.DELETE
+    ? del
+    : get
 }
