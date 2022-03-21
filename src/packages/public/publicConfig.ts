@@ -23,6 +23,7 @@ export class publicConfig implements PublicConfigType {
   public data = { ...requestConfig }
   // 数据获取
   public requestData = []
+
   // 设置坐标
   public setPosition(x: number, y: number): void {
     this.attr.x = x

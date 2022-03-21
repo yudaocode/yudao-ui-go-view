@@ -36,7 +36,7 @@
             @before-upload="beforeUpload"
           >
             <n-space>
-              <n-button class="sourceBtn-item">
+              <n-button v-if="!ajax" class="sourceBtn-item">
                 <template #icon>
                   <n-icon>
                     <document-add-icon />
@@ -76,6 +76,11 @@ const props = defineProps({
   targetData: {
     type: Object as PropType<CreateComponentType>,
     required: true
+  },
+  ajax: {
+    type: Boolean,
+    default: false,
+    required: true
   }
 })
 
@@ -103,10 +108,11 @@ watch(() => props.targetData?.option?.dataset, (newData) => {
 
 // 处理映射列表状态结果
 const matchingHandle = (mapping: string) => {
+  let res = DataResultEnum.SUCCESS
   for (let i = 0; i < source.value.length; i++) {
-    let res = DataResultEnum.FAILURE
-    if (source.value[i][mapping] !== undefined) {
-      return DataResultEnum.SUCCESS
+    if (source.value[i][mapping] === undefined) {
+      res =  DataResultEnum.FAILURE
+      break
     }
     return res
   }

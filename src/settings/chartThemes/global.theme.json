@@ -79,7 +79,7 @@
     }
   },
   "dataset": {
-    "dimensions": [],
-    "source": []
+    "dimensions": [""],
+    "source": [{}]
   }
 }

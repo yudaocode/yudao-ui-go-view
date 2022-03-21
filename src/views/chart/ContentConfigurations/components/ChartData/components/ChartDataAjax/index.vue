@@ -42,15 +42,17 @@
         </n-button>
       </n-space>
     </setting-item-box>
+    <go-skeleton :load="loading" :repeat="3"></go-skeleton>
     <chart-data-matching-and-show
-      v-show="showMatching"
+      v-show="showMatching && !loading"
       :targetData="targetData"
+      :ajax="true"
     ></chart-data-matching-and-show>
   </div>
 </template>
 
 <script setup lang="ts">
-import { PropType, ref, toRefs } from 'vue'
+import { PropType, ref } from 'vue'
 import { icon } from '@/plugins'
 import { CreateComponentType } from '@/packages/index.d'
 import { SettingItemBox } from '@/components/ChartItemSetting/index'
@@ -72,9 +74,8 @@ const props = defineProps({
 // 是否是开发环境
 const ISDEV = import.meta.env.DEV === true
 // 是否展示数据分析
+const loading = ref(false)
 const showMatching = ref(false)
-// 请求相关
-const { requestUrl, requestHttpType } = toRefs(props.targetData.data)
 
 // 选项
 const selectOptions: SelectHttpType[] = [
@@ -90,16 +91,24 @@ const selectOptions: SelectHttpType[] = [
 
 // 发送请求
 const sendHandle = async () => {
-  if(!requestUrl || !requestUrl.value) {
-    window['$message'].warn('请求参数不正确，请检查！')
+  loading.value = true
+  const { requestUrl, requestHttpType } = props.targetData.data
+  if(!requestUrl) {
+    window['$message'].warning('请求参数不正确，请检查！')
     return
   }
-  const res = await http(requestHttpType.value)(requestUrl.value as string, {})
-  console.log(res)
+  const res = await http(requestHttpType)((requestUrl as string).trim(), {})
+  loading.value = false
+  if(res.status === 200) {
+    // @ts-ignore
+    props.targetData.option.dataset = res.data
+    showMatching.value = true
+    return
+  }
+  window['$message'].warning('数据异常，请检查接口数据！')
 }
 </script>
 
 <style lang="scss" scoped>
-@include go('chart-configurations-data-ajax') {
-}
+@include go('chart-configurations-data-ajax') {}
 </style>

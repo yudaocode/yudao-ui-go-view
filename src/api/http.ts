@@ -1,11 +1,10 @@
 import axiosInstance from './axios'
 import { RequestHttpEnum, ContentTypeEnum } from '@/enums/httpEnum'
 
-export const get = (url: string, params: object) => {
+export const get = (url: string) => {
   return axiosInstance({
     url: url,
     method: RequestHttpEnum.GET,
-    params
   })
 }
 
