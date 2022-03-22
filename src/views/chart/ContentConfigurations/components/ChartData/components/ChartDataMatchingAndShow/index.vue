@@ -8,7 +8,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in getDimensionsAndSource" :key="index">
+          <tr v-for="(item, index) in dimensionsAndSource" :key="index">
             <td>{{ item.field }}</td>
             <td>{{ item.mapping }}</td>
             <td>
@@ -91,19 +91,11 @@ const { DocumentAddIcon, DocumentDownloadIcon } = icon.carbon
 const uploadFileListRef = ref()
 const source = ref()
 const dimensions = ref()
+const dimensionsAndSource = ref()
 
 // 获取数据
 const getSource = computed(() => {
   return JSON.stringify(source.value)
-})
-
-watch(() => props.targetData?.option?.dataset, (newData) => {
-  if (newData) {
-    source.value = newData.source
-    dimensions.value = newData.dimensions
-  }
-}, {
-  immediate: true
 })
 
 // 处理映射列表状态结果
@@ -112,31 +104,40 @@ const matchingHandle = (mapping: string) => {
   for (let i = 0; i < source.value.length; i++) {
     if (source.value[i][mapping] === undefined) {
       res =  DataResultEnum.FAILURE
-      break
+      return res
     }
-    return res
   }
   return DataResultEnum.SUCCESS
 }
 
 // 处理映射列表
-const getDimensionsAndSource = computed(() => {
+const dimensionsAndSourceHandle = () => {
   // 去除首项数据轴标识
-  return dimensions.value.map((item: string, index: number) => {
+  return dimensions.value.map((dimensionsItem: string, index: number) => {
     return index === 0 ?
       {
         // 字段
         field: '通用标识',
         // 映射
-        mapping: item,
+        mapping: dimensionsItem,
         // 结果
         result: DataResultEnum.NULL
       } : {
         field: `数据项-${index}`,
-        mapping: item,
-        result: matchingHandle(item)
+        mapping: dimensionsItem,
+        result: matchingHandle(dimensionsItem)
       }
   })
+}
+
+watch(() => props.targetData?.option?.dataset, (newData) => {
+  if (newData) {
+    source.value = newData.source
+    dimensions.value = newData.dimensions
+    dimensionsAndSource.value = dimensionsAndSourceHandle()
+  }
+}, {
+  immediate: true
 })
 
 //@ts-ignore

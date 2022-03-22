@@ -18,7 +18,7 @@ export default {
         },
         {
           'product': '@name',
-          'dataOne1|100-900': 3,
+          'dataOne|100-900': 3,
           'dataTwo|100-900': 3,
         },
         {
