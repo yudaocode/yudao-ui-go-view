@@ -64,17 +64,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, PropType } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { CreateComponentType } from '@/packages/index.d'
 import { icon } from '@/plugins'
 import { DataResultEnum, TimelineTitleEnum } from '../../index.d'
 import { useFile } from '../../hooks/useFile.hooks'
+import { useTargetData } from '../../../hooks/useTargetData.hook'
+const { targetData } = useTargetData()
 
 const props = defineProps({
-  targetData: {
-    type: Object as PropType<CreateComponentType>,
-    required: true
-  },
   ajax: {
     type: Boolean,
     default: false,
@@ -90,7 +88,7 @@ const source = ref()
 const dimensions = ref()
 const dimensionsAndSource = ref()
 
-const { uploadFileListRef, customRequest, beforeUpload, download} = useFile(props.targetData)
+const { uploadFileListRef, customRequest, beforeUpload, download} = useFile(targetData)
 
 // 获取数据
 const getSource = computed(() => {
@@ -129,7 +127,7 @@ const dimensionsAndSourceHandle = () => {
   })
 }
 
-watch(() => props.targetData?.option?.dataset, (newData) => {
+watch(() => targetData.value?.option?.dataset, (newData) => {
   if (newData) {
     source.value = newData.source
     dimensions.value = newData.dimensions

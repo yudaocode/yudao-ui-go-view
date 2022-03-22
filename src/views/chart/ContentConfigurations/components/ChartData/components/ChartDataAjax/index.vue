@@ -6,6 +6,9 @@
         :options="selectOptions"
       />
     </setting-item-box>
+    <setting-item-box name="源地址:" :alone="true">
+      <n-text type="info">{{ requestOriginUrl || '暂无' }}</n-text>
+    </setting-item-box>
     <setting-item-box :alone="true">
       <template #name>
         地址
@@ -25,9 +28,9 @@
         </n-tooltip>
       </template>
       <n-input
-        v-model:value="targetData.data.requestUrl"
+        v-model:value.trim="targetData.data.requestUrl"
         :min="1"
-        placeholder="http(s)://..."
+        placeholder="请输入地址（去除源）"
       />
     </setting-item-box>
     <setting-item-box name="测试" :alone="true">
@@ -38,39 +41,34 @@
               <flash-icon />
             </n-icon>
           </template>
-          发送地址请求
+          发送请求
         </n-button>
       </n-space>
     </setting-item-box>
     <go-skeleton :load="loading" :repeat="3"></go-skeleton>
     <chart-data-matching-and-show
       v-show="showMatching && !loading"
-      :targetData="targetData"
       :ajax="true"
     ></chart-data-matching-and-show>
   </div>
 </template>
 
 <script setup lang="ts">
-import { PropType, ref } from 'vue'
+import { ref, toRefs } from 'vue'
 import { icon } from '@/plugins'
 import { CreateComponentType } from '@/packages/index.d'
 import { SettingItemBox } from '@/components/ChartItemSetting/index'
 import { RequestHttpEnum } from '@/enums/httpEnum'
-import { SelectHttpType } from '../../index.d'
 import { featchMockData } from '@/api/mock'
 import { http } from '@/api/http'
+import { SelectHttpType } from '../../index.d'
 import { ChartDataMatchingAndShow } from '../ChartDataMatchingAndShow'
+import { useTargetData } from '../../../hooks/useTargetData.hook'
 
 const { HelpOutlineIcon, FlashIcon } = icon.ionicons5
 
-const props = defineProps({
-  targetData: {
-    type: Object as PropType<CreateComponentType>,
-    required: true
-  }
-})
-
+const { targetData, chartEditStore } = useTargetData()
+const { requestOriginUrl } = toRefs(chartEditStore.getRequestGlobalConfig)
 // 是否是开发环境
 const ISDEV = import.meta.env.DEV === true
 // 是否展示数据分析
@@ -92,16 +90,17 @@ const selectOptions: SelectHttpType[] = [
 // 发送请求
 const sendHandle = async () => {
   loading.value = true
-  const { requestUrl, requestHttpType } = props.targetData.data
-  if(!requestUrl) {
+  const { requestUrl, requestHttpType } = targetData.value.data
+  if (!requestUrl) {
     window['$message'].warning('请求参数不正确，请检查！')
     return
   }
-  const res = await http(requestHttpType)((requestUrl as string).trim(), {})
+  const completePath = requestOriginUrl && requestOriginUrl.value + requestUrl
+  const res = await http(requestHttpType)(completePath || '', {})
   loading.value = false
-  if(res.status === 200) {
+  if (res.status === 200) {
     // @ts-ignore
-    props.targetData.option.dataset = res.data
+    targetData.value.option.dataset = res.data
     showMatching.value = true
     return
   }
@@ -110,5 +109,6 @@ const sendHandle = async () => {
 </script>
 
 <style lang="scss" scoped>
-@include go('chart-configurations-data-ajax') {}
+@include go('chart-configurations-data-ajax') {
+}
 </style>

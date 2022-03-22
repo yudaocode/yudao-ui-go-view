@@ -118,7 +118,7 @@ export enum ChartEditStoreEnum {
   RECORD_CHART = 'recordChart',
   // 以下需要存储
   EDIT_CANVAS_CONFIG = 'editCanvasConfig',
-  REQUEST_CONFIG = 'requestConfig',
+  REQUEST_GLOBAL_CONFIG = 'requestGlobalConfig',
   COMPONENT_LIST = 'componentList',
 }
 
@@ -130,15 +130,21 @@ export enum RequestDataTypeEnum {
   AJAX = 1,
 }
 
-// 数据配置
+// 全局的图表请求配置
+export type RequestGlobalConfigType = {
+  // 请求源地址
+  requestOriginUrl?: string
+  // 轮询时间
+  requestInterval?: number
+}
+// 单个图表请求配置
 export type RequestConfigType = {
   // 获取数据的方式
   requestDataType: RequestDataTypeEnum
   // 请求方式 get/post/del/put/patch
   requestHttpType: RequestHttpEnum
-  // 请求源地址
+  // 去除源的 url
   requestUrl?: string
-  requestInterval?: number
 }
 
 // Store 类型
@@ -149,12 +155,12 @@ export interface ChartEditStoreType {
   [ChartEditStoreEnum.MOUSE_POSITION]: MousePositionType
   [ChartEditStoreEnum.TARGET_CHART]: TargetChartType
   [ChartEditStoreEnum.RECORD_CHART]?: RecordChartType
-  [ChartEditStoreEnum.REQUEST_CONFIG]: RequestConfigType
+  [ChartEditStoreEnum.REQUEST_GLOBAL_CONFIG]: RequestGlobalConfigType
   [ChartEditStoreEnum.COMPONENT_LIST]: CreateComponentType[]
 }
 
 export interface ChartEditStorage {
   [ChartEditStoreEnum.EDIT_CANVAS_CONFIG]: EditCanvasConfigType
-  [ChartEditStoreEnum.REQUEST_CONFIG]: RequestConfigType
+  [ChartEditStoreEnum.REQUEST_GLOBAL_CONFIG]: RequestGlobalConfigType
   [ChartEditStoreEnum.COMPONENT_LIST]: CreateComponentType[]
 }

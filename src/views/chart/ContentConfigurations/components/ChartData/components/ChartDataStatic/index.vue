@@ -1,8 +1,6 @@
 <template>
   <div class="go-chart-configurations-data-static">
-    <chart-data-matching-and-show
-      :targetData="targetData"
-    ></chart-data-matching-and-show>
+    <chart-data-matching-and-show></chart-data-matching-and-show>
   </div>
 </template>
 

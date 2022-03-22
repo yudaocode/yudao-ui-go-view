@@ -10,10 +10,9 @@
     <!-- 静态 -->
     <chart-data-static
       v-if="targetData.data.requestDataType === RequestDataTypeEnum.STATIC"
-      :targetData="targetData"
     ></chart-data-static>
     <!-- 动态 -->
-    <chart-data-ajax v-else :targetData="targetData"></chart-data-ajax>
+    <chart-data-ajax></chart-data-ajax>
   </div>
 </template>
 

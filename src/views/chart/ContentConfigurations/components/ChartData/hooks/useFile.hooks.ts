@@ -6,7 +6,7 @@ import { readFile, downloadFile } from '@/utils'
 export const useFile = (targetData: any) => {
   const uploadFileListRef = ref()
   const option = toRef(targetData, 'option')
-  console.log(option)
+
   //@ts-ignore
   const beforeUpload = ({ file }) => {
     uploadFileListRef.value = []

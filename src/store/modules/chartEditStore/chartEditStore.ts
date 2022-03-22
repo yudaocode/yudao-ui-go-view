@@ -4,7 +4,7 @@ import { CreateComponentType } from '@/packages/index.d'
 import debounce from 'lodash/debounce'
 import cloneDeep from 'lodash/cloneDeep'
 import { defaultTheme, globalThemeJson } from '@/settings/chartThemes/index'
-import { RequestHttpEnum } from '@/enums/httpEnum'
+import { requestInterval } from '@/settings/designSetting'
 // 记录记录
 import { useChartHistoryStoreStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
 import { HistoryActionTypeEnum, HistoryItemType, HistoryTargetTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
@@ -16,8 +16,7 @@ import {
   MousePositionType,
   TargetChartType,
   RecordChartType,
-  RequestConfigType,
-  RequestDataTypeEnum,
+  RequestGlobalConfigType,
   EditCanvasConfigType
 } from './chartEditStore.d'
 
@@ -86,11 +85,9 @@ export const useChartEditStore = defineStore({
       chartThemeSetting: globalThemeJson
     },
     // 数据请求处理（需存储给后端）
-    requestConfig: {
-      requestDataType: RequestDataTypeEnum.STATIC,
-      requestHttpType: RequestHttpEnum.GET,
-      requestUrl: undefined,
-      requestInterval: 10 
+    requestGlobalConfig: {
+      requestOriginUrl: '',
+      requestInterval: requestInterval 
     },
     // 图表数组（需存储给后端）
     componentList: []
@@ -114,8 +111,8 @@ export const useChartEditStore = defineStore({
     getRecordChart(): RecordChartType | undefined {
       return this.recordChart
     },
-    getRequestConfig(): RequestConfigType {
-      return this.requestConfig
+    getRequestGlobalConfig(): RequestGlobalConfigType {
+      return this.requestGlobalConfig
     },
     getComponentList(): CreateComponentType[] {
       return this.componentList
@@ -125,7 +122,7 @@ export const useChartEditStore = defineStore({
       return {
         [ChartEditStoreEnum.EDIT_CANVAS_CONFIG]: this.getEditCanvasConfig,
         [ChartEditStoreEnum.COMPONENT_LIST]: this.getComponentList,
-        [ChartEditStoreEnum.REQUEST_CONFIG]: this.getRequestConfig
+        [ChartEditStoreEnum.REQUEST_GLOBAL_CONFIG]: this.getRequestGlobalConfig
       }
     }
   },
