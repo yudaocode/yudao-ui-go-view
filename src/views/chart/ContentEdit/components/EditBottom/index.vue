@@ -139,23 +139,23 @@ const shortcutKeyOptions = [
     value: '1'
   },
   {
-    label: 'Delete 删除',
+    label: 'Alt + Delete 删除',
     value: '2'
   },
   {
-    label: 'Ctrl + C 复制',
+    label: 'Alt + C 复制',
     value: '3'
   },
   {
-    label: 'Ctrl + X 剪切',
+    label: 'Alt + X 剪切',
     value: '4'
   },
   {
-    label: 'Ctrl + Z 后退',
+    label: 'Alt + Z 后退',
     value: '5'
   },
   {
-    label: 'Ctrl + Shift + Z 前进',
+    label: 'Alt + Shift + Z 前进',
     value: '6'
   }
 ]

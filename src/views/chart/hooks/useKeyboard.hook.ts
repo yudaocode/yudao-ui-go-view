@@ -21,19 +21,22 @@ const KeyboardHandle = (e: KeyboardEvent) => {
   const key = e.key.toLowerCase()
 
   // 删除
-  if (key === keyboardValue.delete) {
-    chartEditStore.removeComponentList()
-    return
-  }
+  // if (key === keyboardValue.delete) {
+  //   chartEditStore.removeComponentList()
+  //   return
+  // }
   
   // 前进
-  if (e.ctrlKey && e.shiftKey && key == keyboardValue.back) {
+  if (e.altKey && e.shiftKey && key == keyboardValue.back) {
     chartEditStore.setForward()
     return
   }
 
-  if (e.ctrlKey) {
+  if (e.altKey) {
     switch (key) {
+      // 删除
+      case keyboardValue.delete: chartEditStore.removeComponentList()
+        break;
       // 复制
       case keyboardValue.copy: chartEditStore.setCopy()
         break;

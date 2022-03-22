@@ -4,6 +4,7 @@ import { CreateComponentType } from '@/packages/index.d'
 import debounce from 'lodash/debounce'
 import cloneDeep from 'lodash/cloneDeep'
 import { defaultTheme, globalThemeJson } from '@/settings/chartThemes/index'
+import { RequestHttpEnum } from '@/enums/httpEnum'
 // 记录记录
 import { useChartHistoryStoreStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
 import { HistoryActionTypeEnum, HistoryItemType, HistoryTargetTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
@@ -84,9 +85,10 @@ export const useChartEditStore = defineStore({
       // 全局配置
       chartThemeSetting: globalThemeJson
     },
-    // 数据请求处理
+    // 数据请求处理（需存储给后端）
     requestConfig: {
       requestDataType: RequestDataTypeEnum.STATIC,
+      requestHttpType: RequestHttpEnum.GET,
       requestUrl: undefined,
       requestInterval: 10 
     },
