@@ -18,7 +18,7 @@ import { zhCN, dateZhCN, NConfigProvider } from 'naive-ui'
 import { AppProvider } from '@/components/AppProvider'
 import { I18n } from '@/components/I18n'
 
-import { useDarkThemeHook, useThemeOverridesHook, useHook } from '@/hooks'
+import { useDarkThemeHook, useThemeOverridesHook, useCode } from '@/hooks'
 
 // 暗黑主题
 const darkTheme = useDarkThemeHook()
@@ -27,5 +27,5 @@ const darkTheme = useDarkThemeHook()
 const overridesTheme = useThemeOverridesHook()
 
 // 代码主题
-const hljsTheme = useHook()
+const hljsTheme = useCode()
 </script>

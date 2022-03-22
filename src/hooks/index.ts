@@ -1,3 +1,3 @@
-export * from '@/hooks/theme.hook'
-export * from '@/hooks/previewScale.hook'
-export * from '@/hooks/code.hook'
+export * from '@/hooks/useTheme.hook'
+export * from '@/hooks/usePreviewScale.hook'
+export * from '@/hooks/useCode.hook'

@@ -64,13 +64,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, nextTick, PropType } from 'vue'
-import { UploadCustomRequestOptions } from 'naive-ui'
-import { FileTypeEnum } from '@/enums/fileTypeEnum'
-import { readFile, downloadFile } from '@/utils'
+import { ref, computed, watch, PropType } from 'vue'
 import { CreateComponentType } from '@/packages/index.d'
 import { icon } from '@/plugins'
 import { DataResultEnum, TimelineTitleEnum } from '../../index.d'
+import { useFile } from '../../hooks/useFile.hooks'
 
 const props = defineProps({
   targetData: {
@@ -88,10 +86,11 @@ const props = defineProps({
 const tableTitle = ['字段', '映射', '状态']
 
 const { DocumentAddIcon, DocumentDownloadIcon } = icon.carbon
-const uploadFileListRef = ref()
 const source = ref()
 const dimensions = ref()
 const dimensionsAndSource = ref()
+
+const { uploadFileListRef, customRequest, beforeUpload, download} = useFile(props.targetData)
 
 // 获取数据
 const getSource = computed(() => {
@@ -139,41 +138,6 @@ watch(() => props.targetData?.option?.dataset, (newData) => {
 }, {
   immediate: true
 })
-
-//@ts-ignore
-const beforeUpload = ({ file }) => {
-  uploadFileListRef.value = []
-  const type = file.file.type
-  if (type !== FileTypeEnum.JSON && type !== FileTypeEnum.TXT) {
-    window['$message'].warning('仅支持上传 【JSON】 格式文件，请重新上传！')
-    return false
-  }
-  return true
-}
-
-// 自定义上传操作
-const customRequest = (options: UploadCustomRequestOptions) => {
-  const { file } = options
-  nextTick(() => {
-    if (file.file) {
-      readFile(file.file).then((fileData: any) => {
-        props.targetData.option.dataset = JSON.parse(fileData)
-      });
-    } else {
-      window['$message'].error('导入数据失败，请稍后重试或联系管理员！')
-    }
-  })
-}
-
-// 下载文件
-const download = () => {
-  try {
-    window['$message'].success('下载中，请耐心等待...')
-    downloadFile(JSON.stringify(props.targetData?.option?.dataset), undefined, 'json')
-  } catch (error) {
-    window['$message'].success('下载失败，数据错误！')
-  }
-}
 </script>
 
 <style lang="scss" scoped>
