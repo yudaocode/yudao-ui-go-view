@@ -1,5 +1,5 @@
 <template>
-  <VChart :theme="themeColor" :option="option" autoresize></VChart>
+  <v-chart :theme="themeColor" :option="option" autoresize></v-chart>
 </template>
 
 <script setup lang="ts">

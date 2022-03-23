@@ -1,5 +1,5 @@
 <template>
-  <VChart :theme="themeColor" :option="option" autoresize></VChart>
+  <v-chart :theme="themeColor" :option="option" autoresize></v-chart>
 </template>
 
 <script setup lang="ts">
@@ -8,8 +8,10 @@ import VChart from 'vue-echarts'
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { BarChart } from 'echarts/charts'
-import config, { includes } from './config'
+import { includes } from './config'
 import { mergeTheme } from '@/packages/public/chart'
+import { useChartDataFetch } from '@/hooks/useChartDataFetch.hook'
+import { CreateComponentType } from '@/packages/index.d'
 import {
   DatasetComponent,
   GridComponent,
@@ -27,7 +29,7 @@ const props = defineProps({
     required: true
   },
   chartConfig: {
-    type: Object as PropType<config>,
+    type: Object as PropType<CreateComponentType>,
     required: true
   }
 })
@@ -42,7 +44,8 @@ use([
 ])
 
 const option = computed(() => {
-  // TODO dataset的数据要设计一下，不能这样把数据进行监听，太耗性能
   return mergeTheme(props.chartConfig.option, props.themeSetting, includes)
 })
+
+useChartDataFetch(props.chartConfig)
 </script>

@@ -1,7 +1,7 @@
 import { getUUID } from '@/utils'
 import { PublicConfigType } from '@/packages/index.d'
-import { RequestDataTypeEnum, RequestConfigType } from '@/store/modules/chartEditStore/chartEditStore.d'
-import { RequestHttpEnum } from '@/enums/httpEnum'
+import { RequestConfigType } from '@/store/modules/chartEditStore/chartEditStore.d'
+import { RequestHttpEnum, RequestDataTypeEnum } from '@/enums/httpEnum'
 
 const requestConfig: RequestConfigType = {
   requestDataType: RequestDataTypeEnum.STATIC,

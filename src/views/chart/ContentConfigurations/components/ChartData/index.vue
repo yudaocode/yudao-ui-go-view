@@ -6,23 +6,26 @@
         :options="selectOptions"
       />
     </setting-item-box>
+
     <n-divider style="margin: 10px 0;"></n-divider>
+
     <!-- 静态 -->
     <chart-data-static
       v-if="targetData.data.requestDataType === RequestDataTypeEnum.STATIC"
     ></chart-data-static>
+
     <!-- 动态 -->
-    <chart-data-ajax></chart-data-ajax>
+    <chart-data-ajax v-else></chart-data-ajax>
   </div>
 </template>
 
 <script setup lang="ts">
 import { SettingItemBox } from '@/components/ChartItemSetting/index'
-import { RequestDataTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { useTargetData } from '../hooks/useTargetData.hook'
 import { ChartDataStatic } from './components/ChartDataStatic/index'
 import { ChartDataAjax } from './components/ChartDataAjax/index'
 import { SelectCreateDataType, SelectCreateDataEnum } from './index.d'
+import { RequestDataTypeEnum } from '@/enums/httpEnum'
 
 const { targetData } = useTargetData()
 

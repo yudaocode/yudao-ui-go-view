@@ -1,6 +1,6 @@
 import { onUnmounted, ref, nextTick, computed } from 'vue'
 import { usePreviewScale } from '@/hooks/index'
-import type { ChartEditStorageType } from '..'
+import type { ChartEditStorageType } from '../index.d'
 
 export const useScale = (localStorageInfo: ChartEditStorageType) => {
 

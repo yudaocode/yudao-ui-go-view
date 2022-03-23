@@ -21,7 +21,7 @@
           <span>
             开发环境使用 mock 数据，请输入【
             <n-text type="info">
-              {{ featchMockData }}
+              {{featchMockData}}
             </n-text>
             】
           </span>
@@ -56,7 +56,6 @@
 <script setup lang="ts">
 import { ref, toRefs } from 'vue'
 import { icon } from '@/plugins'
-import { CreateComponentType } from '@/packages/index.d'
 import { SettingItemBox } from '@/components/ChartItemSetting/index'
 import { RequestHttpEnum } from '@/enums/httpEnum'
 import { featchMockData } from '@/api/mock'

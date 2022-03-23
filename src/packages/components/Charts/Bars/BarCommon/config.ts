@@ -47,8 +47,7 @@ export const option = {
   ]
 }
 
-export default class Config extends publicConfig
-  implements CreateComponentType {
+export default class Config extends publicConfig implements CreateComponentType {
   public key = BarCommonConfig.key
   public chartConfig = cloneDeep(BarCommonConfig)
   // 图表配置项

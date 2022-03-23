@@ -19,6 +19,7 @@ import { PreviewRenderList } from './components/PreviewRenderList'
 import { getEditCanvasConfigStyle, getSessionStorageInfo } from './utils'
 import { useComInstall } from './hooks/useComInstall.hook'
 import { useScale } from './hooks/useScale.hook'
+import { useStore } from './hooks/useStore.hook'
 import type { ChartEditStorageType } from './index.d'
 
 const localStorageInfo: ChartEditStorageType = getSessionStorageInfo() as ChartEditStorageType
@@ -27,6 +28,7 @@ const previewRefStyle: any = computed(() => {
   return getEditCanvasConfigStyle(localStorageInfo.editCanvasConfig)
 })
 
+useStore(localStorageInfo)
 const { previewRef } = useScale(localStorageInfo)
 const { show } = useComInstall(localStorageInfo)
 </script>

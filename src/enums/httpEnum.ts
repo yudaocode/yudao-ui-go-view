@@ -10,6 +10,14 @@ export enum ResultEnum {
   TIMEOUT = 10042,
 }
 
+// 数据相关
+export enum RequestDataTypeEnum {
+  // 静态数据
+  STATIC = 0,
+  // 请求数据
+  AJAX = 1,
+}
+
 /**
  * @description: 请求方法
  */

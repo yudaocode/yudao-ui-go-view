@@ -1,5 +1,4 @@
-import { RequestDataTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
-import { RequestHttpEnum } from '@/enums/httpEnum'
+import { RequestHttpEnum, RequestDataTypeEnum } from '@/enums/httpEnum'
 
 // 匹配结果
 export enum DataResultEnum {

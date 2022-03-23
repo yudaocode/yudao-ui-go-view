@@ -1,6 +1,6 @@
 import { CreateComponentType } from '@/packages/index.d'
 import { HistoryActionTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
-import { RequestHttpEnum } from '@/enums/httpEnum'
+import { RequestHttpEnum, RequestDataTypeEnum } from '@/enums/httpEnum'
 import type {
   ChartColorsNameType,
   GlobalThemeJsonType,
@@ -122,20 +122,12 @@ export enum ChartEditStoreEnum {
   COMPONENT_LIST = 'componentList',
 }
 
-// 数据相关
-export enum RequestDataTypeEnum {
-  // 静态数据
-  STATIC = 0,
-  // 请求数据
-  AJAX = 1,
-}
-
 // 全局的图表请求配置
 export type RequestGlobalConfigType = {
   // 请求源地址
   requestOriginUrl?: string
   // 轮询时间
-  requestInterval?: number
+  requestInterval: number
 }
 // 单个图表请求配置
 export type RequestConfigType = {

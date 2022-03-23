@@ -5,7 +5,6 @@ import { readFile, downloadFile } from '@/utils'
 
 export const useFile = (targetData: any) => {
   const uploadFileListRef = ref()
-  const option = toRef(targetData, 'option')
 
   //@ts-ignore
   const beforeUpload = ({ file }) => {
@@ -24,8 +23,7 @@ export const useFile = (targetData: any) => {
     nextTick(() => {
       if (file.file) {
         readFile(file.file).then((fileData: any) => {
-          option.value.dataset = JSON.parse(fileData)
-          console.log(option.value.dataset)
+          targetData.value.option.dataset = JSON.parse(fileData)
         })
       } else {
         window['$message'].error('导入数据失败，请稍后重试或联系管理员！')
@@ -37,9 +35,9 @@ export const useFile = (targetData: any) => {
   const download = () => {
     try {
       window['$message'].success('下载中，请耐心等待...')
-      downloadFile(JSON.stringify(option.value.dataset), undefined, 'json')
+      downloadFile(JSON.stringify(targetData.value.option.dataset), undefined, 'json')
     } catch (error) {
-      window['$message'].success('下载失败，数据错误！')
+      window['$message'].error('下载失败，数据错误！')
     }
   }
   return {

@@ -75,7 +75,6 @@ const { targetData } = useTargetData()
 const props = defineProps({
   ajax: {
     type: Boolean,
-    default: false,
     required: true
   }
 })

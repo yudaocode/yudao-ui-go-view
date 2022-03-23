@@ -1,5 +1,5 @@
 <template>
-  <VChart :theme="themeColor" :option="option" autoresize></VChart>
+  <v-chart :theme="themeColor" :option="option" autoresize></v-chart>
 </template>
 
 <script setup lang="ts">
@@ -10,6 +10,7 @@ import { CanvasRenderer } from 'echarts/renderers'
 import { BarChart } from 'echarts/charts'
 import { mergeTheme } from '@/packages/public/chart'
 import config, { includes } from './config'
+import { useChartDataFetch } from '@/hooks/useChartDataFetch.hook'
 import {
   DatasetComponent,
   GridComponent,
@@ -44,4 +45,6 @@ use([
 const option = computed(() => {
   return mergeTheme(props.chartConfig.option, props.themeSetting, includes)
 })
+
+useChartDataFetch(props.chartConfig)
 </script>
