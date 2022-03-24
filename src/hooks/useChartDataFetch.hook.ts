@@ -9,7 +9,7 @@ import { RequestDataTypeEnum } from '@/enums/httpEnum'
  * @param chartConfig
  */
 export const useChartDataFetch = (chartConfig: CreateComponentType) => {
-  let fetchInterval = 0
+  let fetchInterval:any = 0
 
   watchEffect(() => {
     clearInterval(fetchInterval)

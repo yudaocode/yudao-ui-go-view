@@ -1,13 +1,16 @@
-import Mock from 'mockjs'
 import test from './test.mock'
-Mock.setup({
-  timeout: '300-600'
-})
+import { MockMethod } from 'vite-plugin-mock'
+import { RequestHttpEnum } from '@/enums/httpEnum'
 
 // 单个X数据
-const featchMockData = '/api/mockData'
-Mock.mock(/\/api\/mockData(|\?\S*)$/, 'get', test.featchMockData)
+export const mockDataUrl = '/mock/mockData'
 
-export {
-  featchMockData
-}
+const mockObject: MockMethod[] =[{
+  // 正则
+  // url: /\/mock\/mockData(|\?\S*)$/,
+  url: '/mock/mockData',
+  method: RequestHttpEnum.GET,
+  response: () => test.featchMockData
+}]
+
+export default mockObject
