@@ -5,6 +5,14 @@ import throttle from 'lodash/throttle'
 import Image_404 from '../assets/images/exception/image-404.png'
 
 /**
+ * * 判断是否是开发环境
+ * @return { Boolean }
+ */
+export const isDev = () => {
+  return import.meta.env.DEV
+}
+
+/**
  * * 生成一个不重复的ID
  * @param { Number } randomLength
  */

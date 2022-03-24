@@ -1,6 +1,7 @@
 import { ref } from 'vue'
 import throttle from 'lodash/throttle'
 
+// * 屏幕缩放适配
 export const usePreviewScale = (
   width: number,
   height: number,

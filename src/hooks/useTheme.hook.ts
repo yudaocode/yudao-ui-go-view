@@ -5,7 +5,7 @@ import { borderRadius } from '@/settings/designSetting'
 import { toLight } from '@/utils'
 
 /**
- * 设置全局主题
+ * * 设置全局主题
  */
 export const useThemeOverridesHook = () => {
   const designStore = useDesignStore()

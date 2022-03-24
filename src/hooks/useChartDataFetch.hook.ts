@@ -1,15 +1,18 @@
-import { toRefs, watchEffect } from 'vue'
+import { ref, toRefs, watchEffect, nextTick } from 'vue'
+import type VChart from 'vue-echarts'
 import { http } from '@/api/http'
 import { CreateComponentType } from '@/packages/index.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { RequestDataTypeEnum } from '@/enums/httpEnum'
+import { isPreview } from '@/utils'
 
 /**
- * 数据监听与更改
+ * 图表的 setdata 数据监听与更改
  * @param chartConfig
  */
 export const useChartDataFetch = (chartConfig: CreateComponentType) => {
-  let fetchInterval:any = 0
+  const vChartRef = ref<typeof VChart | null>(null)
+  let fetchInterval: any = 0
 
   watchEffect(() => {
     clearInterval(fetchInterval)
@@ -25,15 +28,23 @@ export const useChartDataFetch = (chartConfig: CreateComponentType) => {
     // 处理地址
     if (requestUrl?.value && requestInterval.value > 0) {
       // requestOriginUrl 允许为空
-      const completePath = requestOriginUrl && requestOriginUrl.value + requestUrl.value
+      const completePath =
+        requestOriginUrl && requestOriginUrl.value + requestUrl.value
       if (!completePath) return
 
       fetchInterval = setInterval(async () => {
         const res = await http(requestHttpType.value)(completePath || '', {})
-        if(res.data) {
-          chartConfig.option.dataset = res.data as any
+        if (res.data) {
+          nextTick(() => {
+            chartConfig.option.dataset = res.data as any
+            if(isPreview() && vChartRef.value) {
+              vChartRef.value.setOption(chartConfig.option)
+            }
+          })
         }
       }, requestInterval.value * 1000)
     }
   })
+
+  return { vChartRef }
 }

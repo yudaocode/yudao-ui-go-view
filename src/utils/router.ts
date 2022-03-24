@@ -128,6 +128,10 @@ export const openGiteeSourceCode = () => {
   openNewWindow(giteeSourceCodePath)
 }
 
+export const isPreview = () => {
+  return document.location.hash.includes('preview')
+}
+
 /**
  * * 获取当前路由下的参数
  * @returns object

@@ -1,5 +1,5 @@
 <template>
-  <v-chart :theme="themeColor" :option="option.options" autoresize></v-chart>
+  <v-chart ref="vChartRef" :theme="themeColor" :option="option.options" :manual-update="isPreview()" autoresize></v-chart>
 </template>
 
 <script setup lang="ts">
@@ -13,6 +13,8 @@ import { mergeTheme } from '@/packages/public/chart'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { chartColorsSearch, defaultTheme } from '@/settings/chartThemes/index'
 import { DatasetComponent, GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
+import { useChartDataFetch } from '@/hooks/useChartDataFetch.hook'
+import { isPreview } from '@/utils'
 
 const props = defineProps({
   themeSetting: {
@@ -45,7 +47,7 @@ const option = reactive({
 
 // 初始化与渐变色处理
 watch(() => chartEditStore.getEditCanvasConfig.chartThemeColor, (newColor: keyof typeof chartColorsSearch) => {
-  if (!document.location.hash.includes('preview')) {
+  if (!isPreview()) {
     const themeColor = chartColorsSearch[newColor] || chartColorsSearch[defaultTheme]
     props.chartConfig.option.series.forEach((value: any) => {
       value.lineStyle.shadowColor = themeColor[2]
@@ -64,4 +66,6 @@ watch(() => props.chartConfig.option.dataset, () => {
 }, {
   deep: true
 })
+
+const { vChartRef } = useChartDataFetch(props.chartConfig)
 </script>

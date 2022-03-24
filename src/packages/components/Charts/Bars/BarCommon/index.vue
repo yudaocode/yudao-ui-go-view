@@ -1,5 +1,5 @@
 <template>
-  <v-chart :theme="themeColor" :option="option" autoresize></v-chart>
+  <v-chart ref="vChartRef" :theme="themeColor" :option="option" :manual-update="isPreview()" autoresize></v-chart>
 </template>
 
 <script setup lang="ts">
@@ -12,6 +12,7 @@ import { includes } from './config'
 import { mergeTheme } from '@/packages/public/chart'
 import { useChartDataFetch } from '@/hooks/useChartDataFetch.hook'
 import { CreateComponentType } from '@/packages/index.d'
+import { isPreview } from '@/utils'
 import {
   DatasetComponent,
   GridComponent,
@@ -47,5 +48,5 @@ const option = computed(() => {
   return mergeTheme(props.chartConfig.option, props.themeSetting, includes)
 })
 
-useChartDataFetch(props.chartConfig)
+const { vChartRef } = useChartDataFetch(props.chartConfig)
 </script>

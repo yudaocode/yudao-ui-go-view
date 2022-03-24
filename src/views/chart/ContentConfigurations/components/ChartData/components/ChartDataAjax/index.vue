@@ -6,13 +6,15 @@
         :options="selectOptions"
       />
     </setting-item-box>
+
     <setting-item-box name="源地址:" :alone="true">
       <n-text type="info">{{ requestOriginUrl || '暂无' }}</n-text>
     </setting-item-box>
+
     <setting-item-box :alone="true">
       <template #name>
         地址
-        <n-tooltip trigger="hover" v-if="ISDEV">
+        <n-tooltip trigger="hover" v-if="isDev()">
           <template #trigger>
             <n-icon size="21" :depth="3">
               <help-outline-icon></help-outline-icon>
@@ -21,7 +23,7 @@
           <span>
             开发环境使用 mock 数据，请输入【
             <n-text type="info">
-              {{mockDataUrl}}
+              {{ mockDataUrl }}
             </n-text>
             】
           </span>
@@ -33,6 +35,7 @@
         placeholder="请输入地址（去除源）"
       />
     </setting-item-box>
+
     <setting-item-box name="测试" :alone="true">
       <n-space>
         <n-button @click="sendHandle">
@@ -45,7 +48,9 @@
         </n-button>
       </n-space>
     </setting-item-box>
+
     <go-skeleton :load="loading" :repeat="3"></go-skeleton>
+
     <chart-data-matching-and-show
       v-show="showMatching && !loading"
       :ajax="true"
@@ -63,13 +68,12 @@ import { http } from '@/api/http'
 import { SelectHttpType } from '../../index.d'
 import { ChartDataMatchingAndShow } from '../ChartDataMatchingAndShow'
 import { useTargetData } from '../../../hooks/useTargetData.hook'
+import { isDev } from '@/utils'
 
 const { HelpOutlineIcon, FlashIcon } = icon.ionicons5
 
 const { targetData, chartEditStore } = useTargetData()
 const { requestOriginUrl } = toRefs(chartEditStore.getRequestGlobalConfig)
-// 是否是开发环境
-const ISDEV = import.meta.env.DEV === true
 // 是否展示数据分析
 const loading = ref(false)
 const showMatching = ref(false)
@@ -96,14 +100,16 @@ const sendHandle = async () => {
   }
   const completePath = requestOriginUrl && requestOriginUrl.value + requestUrl
   const res = await http(requestHttpType)(completePath || '', {})
-  loading.value = false
-  if (res.status === 200) {
-    // @ts-ignore
-    targetData.value.option.dataset = res.data
-    showMatching.value = true
-    return
-  }
-  window['$message'].warning('数据异常，请检查接口数据！')
+  setTimeout(() => {
+    loading.value = false
+    if (res.status === 200) {
+      // @ts-ignore
+      targetData.value.option.dataset = res.data
+      showMatching.value = true
+      return
+    }
+    window['$message'].warning('数据异常，请检查接口数据！')
+  }, 500)
 }
 </script>
 
