@@ -14,7 +14,7 @@ export const useChartDataFetch = (chartConfig: CreateComponentType) => {
   const vChartRef = ref<typeof VChart | null>(null)
   let fetchInterval: any = 0
 
-  watchEffect(() => {
+  isPreview() && watchEffect(() => {
     clearInterval(fetchInterval)
 
     const chartEditStore = useChartEditStore()
@@ -36,9 +36,8 @@ export const useChartDataFetch = (chartConfig: CreateComponentType) => {
         const res = await http(requestHttpType.value)(completePath || '', {})
         if (res.data) {
           nextTick(() => {
-            chartConfig.option.dataset = res.data as any
-            if(isPreview() && vChartRef.value) {
-              vChartRef.value.setOption(chartConfig.option)
+            if(vChartRef.value) {
+              vChartRef.value.setOption({dataset: res.data})
             }
           })
         }
