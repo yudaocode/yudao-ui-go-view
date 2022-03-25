@@ -6,7 +6,7 @@ import cloneDeep from 'lodash/cloneDeep'
 import { defaultTheme, globalThemeJson } from '@/settings/chartThemes/index'
 import { requestInterval } from '@/settings/designSetting'
 // 记录记录
-import { useChartHistoryStoreStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
+import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
 import { HistoryActionTypeEnum, HistoryItemType, HistoryTargetTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
 import {
   ChartEditStoreEnum,
@@ -20,7 +20,7 @@ import {
   EditCanvasConfigType
 } from './chartEditStore.d'
 
-const chartHistoryStoreStore = useChartHistoryStoreStore()
+const chartHistoryStoreStore = useChartHistoryStore()
 
 // 编辑区域内容
 export const useChartEditStore = defineStore({

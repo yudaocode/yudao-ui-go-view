@@ -39,9 +39,9 @@ import { loadAsyncComponent } from '@/utils'
 import { LayoutHeaderPro } from '@/layout/components/LayoutHeaderPro'
 import { useContextMenu } from './hooks/useContextMenu.hook'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { useChartHistoryStoreStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
+import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
 
-const chartHistoryStoreStore = useChartHistoryStoreStore()
+const chartHistoryStoreStore = useChartHistoryStore()
 const chartEditStore = useChartEditStore()
 
 // 记录初始化

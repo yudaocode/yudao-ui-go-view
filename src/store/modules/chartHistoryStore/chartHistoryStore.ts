@@ -10,7 +10,7 @@ import {
   ChartHistoryStoreType
 } from './chartHistoryStore.d'
 
-export const useChartHistoryStoreStore = defineStore({
+export const useChartHistoryStore = defineStore({
   id: 'useChartHistoryStore',
   state: (): ChartHistoryStoreType => ({
     // 后退栈

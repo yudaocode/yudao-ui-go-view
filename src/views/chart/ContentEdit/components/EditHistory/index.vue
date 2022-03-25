@@ -34,7 +34,7 @@
 import { ref, computed } from 'vue'
 import { icon } from '@/plugins'
 import { renderIcon } from '@/utils'
-import { useChartHistoryStoreStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
+import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
 import { historyActionTypeName } from '@/store/modules/chartHistoryStore/chartHistoryDefine'
 import { CreateComponentType } from '@/packages/index.d'
 import {
@@ -55,7 +55,7 @@ const {
 const { StackedMoveIcon } = icon.carbon
 const showDropdownRef = ref(false)
 
-const chartHistoryStoreStore = useChartHistoryStoreStore()
+const chartHistoryStoreStore = useChartHistoryStore()
 
 // 设置类型对应图标
 const iconHandle = (e: HistoryItemType) => {
