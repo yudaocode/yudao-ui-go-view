@@ -10,7 +10,8 @@ import { CanvasRenderer } from 'echarts/renderers'
 import { PieChart } from 'echarts/charts'
 import { mergeTheme } from '@/packages/public/chart'
 import config, { includes } from './config'
-import { useChartDataFetch } from '@/hooks/useChartDataFetch.hook'
+import { useChartDataFetch } from '@/hooks'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { isPreview } from '@/utils'
 import {
   DatasetComponent,
@@ -48,5 +49,5 @@ const option = computed(() => {
   return mergeTheme(props.chartConfig.option, props.themeSetting, includes)
 })
 
-const { vChartRef } = useChartDataFetch(props.chartConfig)
+const { vChartRef } = useChartDataFetch(props.chartConfig, useChartEditStore)
 </script>

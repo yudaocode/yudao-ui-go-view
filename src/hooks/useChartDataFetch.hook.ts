@@ -6,11 +6,13 @@ import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore
 import { RequestDataTypeEnum } from '@/enums/httpEnum'
 import { isPreview } from '@/utils'
 
+type ChartEditStoreType = typeof useChartEditStore
+
 /**
  * 图表的 setdata 数据监听与更改
  * @param chartConfig
  */
-export const useChartDataFetch = (chartConfig: CreateComponentType) => {
+export const useChartDataFetch = (chartConfig: CreateComponentType, useChartEditStore: ChartEditStoreType) => {
   const vChartRef = ref<typeof VChart | null>(null)
   let fetchInterval: any = 0
 

@@ -10,8 +10,9 @@ import { CanvasRenderer } from 'echarts/renderers'
 import { BarChart } from 'echarts/charts'
 import { includes } from './config'
 import { mergeTheme } from '@/packages/public/chart'
-import { useChartDataFetch } from '@/hooks/useChartDataFetch.hook'
+import { useChartDataFetch } from '@/hooks'
 import { CreateComponentType } from '@/packages/index.d'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { isPreview } from '@/utils'
 import {
   DatasetComponent,
@@ -48,5 +49,5 @@ const option = computed(() => {
   return mergeTheme(props.chartConfig.option, props.themeSetting, includes)
 })
 
-const { vChartRef } = useChartDataFetch(props.chartConfig)
+const { vChartRef } = useChartDataFetch(props.chartConfig, useChartEditStore)
 </script>

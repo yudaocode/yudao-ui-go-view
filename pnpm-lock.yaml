@@ -49,7 +49,6 @@ dependencies:
   axios: rg.cnpmjs.org/axios/0.23.0
   crypto-ts: r2.cnpmjs.org/crypto-ts/1.0.2
   highlight.js: registry.npmjs.org/highlight.js/11.5.0
-  mockjs: registry.npmjs.org/mockjs/1.1.0
   naive-ui: registry.npmjs.org/naive-ui/2.25.2_vue@3.2.24
   pinia: rg.cnpmjs.org/pinia/2.0.6_typescript@4.5.2+vue@3.2.24
   screenfull: rg.cnpmjs.org/screenfull/6.0.0
@@ -77,6 +76,7 @@ devDependencies:
   eslint-plugin-prettier: rg.cnpmjs.org/eslint-plugin-prettier/4.0.0_90bd2ba582f6d1348d73031482d782e2
   eslint-plugin-vue: rg.cnpmjs.org/eslint-plugin-vue/8.2.0_eslint@8.4.1
   lodash: rg.cnpmjs.org/lodash/4.17.21
+  mockjs: registry.npmjs.org/mockjs/1.1.0
   plop: r2.cnpmjs.org/plop/3.0.5
   prettier: rg.cnpmjs.org/prettier/2.5.1
   sass: rg.cnpmjs.org/sass/1.44.0
@@ -1875,7 +1875,7 @@ packages:
     name: commander
     version: 9.1.0
     engines: {node: ^12.20.0 || >=14}
-    dev: false
+    dev: true
 
   registry.npmjs.org/css-render/0.15.8:
     resolution: {integrity: sha512-k1gp1MgYDPrFZhzheQkSwm6dmP6nPe2XE6WYpJBPwEc3GbMANPJZfxl7ofZlTl8/+tpMRiGTTgUkTlXaVbLxog==, registry: https://skimdb.npmjs.com/registry/, tarball: https://registry.npmjs.org/css-render/-/css-render-0.15.8.tgz}
@@ -2199,7 +2199,7 @@ packages:
     hasBin: true
     dependencies:
       commander: registry.npmjs.org/commander/9.1.0
-    dev: false
+    dev: true
 
   registry.npmjs.org/ms/2.0.0:
     resolution: {integrity: sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=, registry: https://skimdb.npmjs.com/registry/, tarball: https://registry.npmjs.org/ms/-/ms-2.0.0.tgz}

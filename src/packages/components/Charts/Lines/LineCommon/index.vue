@@ -13,7 +13,7 @@ import { mergeTheme } from '@/packages/public/chart'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { chartColorsSearch, defaultTheme } from '@/settings/chartThemes/index'
 import { DatasetComponent, GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
-import { useChartDataFetch } from '@/hooks/useChartDataFetch.hook'
+import { useChartDataFetch } from '@/hooks'
 import { isPreview } from '@/utils'
 
 const props = defineProps({
@@ -67,5 +67,5 @@ watch(() => props.chartConfig.option.dataset, () => {
   deep: true
 })
 
-const { vChartRef } = useChartDataFetch(props.chartConfig)
+const { vChartRef } = useChartDataFetch(props.chartConfig, useChartEditStore)
 </script>
