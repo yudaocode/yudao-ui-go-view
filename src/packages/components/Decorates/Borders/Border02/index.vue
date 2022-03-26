@@ -37,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, toRefs, computed } from 'vue'
+import { PropType, toRefs } from 'vue'
 import { CreateComponentType } from '@/packages/index.d'
 
 const props = defineProps({

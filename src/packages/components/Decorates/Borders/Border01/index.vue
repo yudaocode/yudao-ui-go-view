@@ -16,7 +16,7 @@
       :height="h"
       :key="item"
       v-for="item in borders"
-      :class="`${item} border-item`"
+      :class="`border-item ${item}`"
     >
       <polygon
         :fill="colors[0]"
@@ -59,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, toRefs, computed } from 'vue'
+import { PropType, toRefs } from 'vue'
 import { CreateComponentType } from '@/packages/index.d'
 
 const props = defineProps({
