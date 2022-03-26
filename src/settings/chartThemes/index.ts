@@ -83,5 +83,8 @@ export const chartColorsSearch = {
 }
 
 // 默认主题详细配置
-export type GlobalThemeJsonType = typeof themeJson
+type ThemeJsonType = typeof themeJson
+export interface GlobalThemeJsonType extends Partial<ThemeJsonType> {
+  [T:string]: any
+}
 export const globalThemeJson = themeJson

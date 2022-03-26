@@ -25,16 +25,19 @@
       </SettingItem>
     </SettingItemBox>
   </CollapseItem>
+  <!-- Echarts 全局设置 --> 
+  <global-setting :optionData="optionData" :in-chart="true"></global-setting>
 </template>
 
 <script setup lang="ts">
 import { PropType, computed } from 'vue'
-import { CollapseItem, SettingItemBox, SettingItem } from '@/components/ChartItemSetting/index'
+import { GlobalSetting, CollapseItem, SettingItemBox, SettingItem } from '@/components/ChartItemSetting/index'
 import { option } from './config'
+import { GlobalThemeJsonType } from '@/settings/chartThemes/index'
 
 const props = defineProps({
   optionData: {
-    type: Object as PropType<typeof option>,
+    type: Object as PropType<GlobalThemeJsonType>,
     required: true
   }
 })

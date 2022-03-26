@@ -10,13 +10,11 @@
     <styles-setting :chartStyles="targetData.styles"></styles-setting>
     <!-- 自定义配置项 -->
     <component :is="targetData.chartConfig.conKey" :optionData="targetData.option"></component>
-    <!-- Echarts 全局设置 --> 
-    <global-setting v-if="targetData.option" :optionData="targetData.option" :in-chart="true"></global-setting>
   </div>
 </template>
 
 <script setup lang="ts">
-import { GlobalSetting, NameSetting, PositionSetting, SizeSetting, StylesSetting } from '@/components/ChartItemSetting/index'
+import { NameSetting, PositionSetting, SizeSetting, StylesSetting } from '@/components/ChartItemSetting/index'
 import { useTargetData } from '../hooks/useTargetData.hook'
 const { targetData, chartEditStore } = useTargetData()
 

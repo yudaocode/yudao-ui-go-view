@@ -30,9 +30,7 @@
       <path
         fill="transparent"
         :stroke="colors[1]"
-        :d="`M ${w - 5} ${h - 30} L ${w - 5} ${h - 5} L ${
-          w - 30
-        } ${h - 5}`"
+        :d="`M ${w - 5} ${h - 30} L ${w - 5} ${h - 5} L ${w - 30} ${h - 5}`"
       />
     </svg>
 
@@ -43,18 +41,21 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, toRefs } from 'vue'
+import { PropType, toRefs, computed } from 'vue'
 import { CreateComponentType } from '@/packages/index.d'
 
 const props = defineProps({
   chartConfig: {
     type: Object as PropType<CreateComponentType>,
     required: true
-  },
+  }
 })
 
 const { w, h } = toRefs(props.chartConfig.attr)
-const { colors } = toRefs(props.chartConfig.borderOptions)
+
+const colors = computed(() => {
+  return props.chartConfig.option?.colors
+})
 </script>
 
 <style lang="scss" scoped></style>
