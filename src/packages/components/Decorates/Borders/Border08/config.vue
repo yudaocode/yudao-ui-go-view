@@ -1,4 +1,23 @@
 <template>
+  <CollapseItem name="动画" :expanded="true">
+    <SettingItemBox name="设置">
+      <SettingItem name="速度">
+        <n-input-number
+          v-model:value="optionData.dur"
+          size="small"
+          :step="0.5"
+          :min="0.5"
+        ></n-input-number>
+      </SettingItem>
+      <SettingItem>
+        <n-space>
+          <n-text>开启反向</n-text>
+          <n-switch size="small" v-model:value="optionData.reverse" />
+        </n-space>
+      </SettingItem>
+    </SettingItemBox>
+  </CollapseItem>
+  
   <CollapseItem name="边框" :expanded="true">
     <SettingItemBox
       :name="`颜色-${index + 1}`"
@@ -23,26 +42,13 @@
     </SettingItemBox>
   </CollapseItem>
 
-  <CollapseItem name="动画" :expanded="true">
-    <SettingItemBox name="速度">
-      <SettingItem>
-        <n-input-number
-          v-model:value="optionData.dur"
-          size="small"
-          :step="0.5"
-          :min="0.5"
-        ></n-input-number>
-      </SettingItem>
-    </SettingItemBox>
-  </CollapseItem>
-
   <CollapseItem name="背景" :expanded="true">
     <SettingItemBox name="颜色">
       <SettingItem>
         <n-color-picker
-          v-model:value="optionData.backgroundColor"
           size="small"
           :modes="['hex']"
+          v-model:value="optionData.backgroundColor"
         ></n-color-picker>
       </SettingItem>
     </SettingItemBox>
