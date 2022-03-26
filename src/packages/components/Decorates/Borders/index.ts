@@ -10,6 +10,7 @@ import { Border09Config } from './Border09/index'
 import { Border10Config } from './Border10/index'
 import { Border11Config } from './Border11/index'
 import { Border12Config } from './Border12/index'
+import { Border13Config } from './Border13/index'
 
 export default [
   Border01Config,
@@ -23,5 +24,6 @@ export default [
   Border09Config,
   Border10Config,
   Border11Config,
-  Border12Config
+  Border12Config,
+  Border13Config
 ]
