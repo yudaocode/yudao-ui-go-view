@@ -1,3 +1,4 @@
-import { BorderCommonConfig } from './BorderCommon/index'
+import { BorderThirteenthConfig } from './BorderThirteenth/index'
+import { BorderFirstConfig } from './BorderFirst/index'
 
-export default [BorderCommonConfig]
+export default [BorderFirstConfig, BorderThirteenthConfig]

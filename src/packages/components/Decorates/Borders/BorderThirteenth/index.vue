@@ -50,6 +50,10 @@ const props = defineProps({
 const { w, h } = toRefs(props.chartConfig.attr)
 
 const colors = computed(() => {
-  return props.chartConfig.option?.colors
+  return props.chartConfig.option.colors
 })
 </script>
+
+<style lang="scss" scoped>
+@include go('border-box') {}
+</style>
