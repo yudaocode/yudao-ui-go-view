@@ -9,7 +9,8 @@ export const option = {
   borderTitleHeight: 32,
   borderTitleSize: 18,
   borderTitleColor: '#fff',
-  colors: ['#8aaafb', '#1f33a2']
+  colors: ['#8aaafb', '#1f33a2'],
+  backgroundColor: '#00000000'
 }
 
 export default class Config extends publicConfig implements CreateComponentType {

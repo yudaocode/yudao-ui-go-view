@@ -22,6 +22,18 @@
       </SettingItem>
     </SettingItemBox>
   </CollapseItem>
+
+  <CollapseItem name="背景" :expanded="true">
+    <SettingItemBox name="颜色">
+      <SettingItem>
+        <n-color-picker
+          size="small"
+          :modes="['hex']"
+          v-model:value="optionData.backgroundColor"
+        ></n-color-picker>
+      </SettingItem>
+    </SettingItemBox>
+  </CollapseItem>
 </template>
 
 <script setup lang="ts">

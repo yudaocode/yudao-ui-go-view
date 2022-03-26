@@ -25,7 +25,7 @@
       </defs>
 
       <polygon
-        fill="transparent"
+        :fill="backgroundColor"
         :points="`
         20, 32 ${w * 0.5 - borderTitleWidth / 2}, 32 ${w * 0.5 - borderTitleWidth / 2 + 20}, 53
         ${w * 0.5 + borderTitleWidth / 2 - 20}, 53 ${w * 0.5 + borderTitleWidth / 2}, 32
@@ -35,7 +35,7 @@
       />
 
       <polyline
-        fill="transparent"
+        :fill="backgroundColor"
         :stroke="colors[0]"
         :filter="`url(#${filterId})`"
         :points="`
@@ -236,7 +236,15 @@ const props = defineProps({
 
 const filterId = `border-box-04-filterId-${getUUID()}`
 const { w, h } = toRefs(props.chartConfig.attr)
-const { colors, borderTitle, borderTitleColor, borderTitleSize, borderTitleHeight, borderTitleWidth} = toRefs(props.chartConfig.option)
+const {
+  colors,
+  borderTitle,
+  borderTitleColor,
+  borderTitleSize,
+  borderTitleHeight,
+  borderTitleWidth,
+  backgroundColor
+} = toRefs(props.chartConfig.option)
 </script>
 
 <style lang="scss" scoped>

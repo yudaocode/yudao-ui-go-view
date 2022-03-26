@@ -1,7 +1,11 @@
 <template>
   <div
     class="go-border-box"
-    :style="`box-shadow: inset 0 0 40px ${colors[0]}; border: 1px solid ${colors[1]};`"
+    :style="`
+      box-shadow: inset 0 0 40px ${colors[0]}; 
+      border: 1px solid ${colors[1]};
+      background-color: ${backgroundColor};
+    `"
   >
     <svg :width="w" :height="h">
       <polyline
@@ -61,7 +65,7 @@ const props = defineProps({
 })
 
 const { w, h } = toRefs(props.chartConfig.attr)
-const { colors } = toRefs(props.chartConfig.option)
+const { colors, backgroundColor } = toRefs(props.chartConfig.option)
 </script>
 
 <style lang="scss" scoped>

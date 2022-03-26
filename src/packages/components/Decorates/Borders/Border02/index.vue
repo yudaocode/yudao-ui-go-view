@@ -2,7 +2,7 @@
   <div class="go-border-box">
     <svg :width="w" :height="h">
       <path
-        fill="transparent"
+        :fill="backgroundColor"
         :stroke="colors[0]"
         :d="`
           M 5 20 L 5 10 L 12 3  L 60 3 L 68 10
@@ -48,7 +48,7 @@ const props = defineProps({
 })
 
 const { w, h } = toRefs(props.chartConfig.attr)
-const { colors } = toRefs(props.chartConfig.option)
+const { colors, backgroundColor } = toRefs(props.chartConfig.option)
 </script>
 
 <style lang="scss" scoped>

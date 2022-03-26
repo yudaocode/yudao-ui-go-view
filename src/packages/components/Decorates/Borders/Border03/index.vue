@@ -38,7 +38,7 @@
 
       <path
         v-if="w && h"
-        fill="transparent"
+        :fill="backgroundColor"
         stroke-width="2"
         :stroke="colors[0]"
         :d="`
@@ -112,7 +112,7 @@ const props = defineProps({
 const filterId = `border-box-03-filterId-${getUUID()}`
 
 const { w, h } = toRefs(props.chartConfig.attr)
-const { colors } = toRefs(props.chartConfig.option)
+const { colors, backgroundColor } = toRefs(props.chartConfig.option)
 
 </script>
 

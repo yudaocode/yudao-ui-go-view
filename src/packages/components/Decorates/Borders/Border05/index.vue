@@ -1,7 +1,7 @@
 <template>
   <div class="go-border-box"  :style="`box-shadow: inset 0 0 25px 3px ${colors[0]}`">
     <svg :width="w" :height="h">
-      <polygon fill="transparent" :points="`
+      <polygon :fill="backgroundColor" :points="`
         4, 0 ${w - 4}, 0 ${w}, 4 ${w}, ${h - 4} ${w - 4}, ${h}
         4, ${h} 0, ${h - 4} 0, 4
       `"/>
@@ -35,7 +35,7 @@ const props = defineProps({
 
 const border = ['left-top', 'right-top', 'left-bottom', 'right-bottom']
 const { w, h } = toRefs(props.chartConfig.attr)
-const { colors } = toRefs(props.chartConfig.option)
+const { colors, backgroundColor } = toRefs(props.chartConfig.option)
 </script>
 
 <style lang="scss" scoped>
