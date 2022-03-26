@@ -14,5 +14,4 @@ const props = defineProps({
     required: true
   }
 })
-console.log(props.optionData)
 </script>

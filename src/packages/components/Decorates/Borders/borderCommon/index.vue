@@ -1,6 +1,6 @@
 <template>
-  <div class="bv-border-box-13" ref="domRef">
-    <svg class="bv-border-svg-container" :width="w" :height="h">
+  <div class="go-border-box">
+    <svg :width="w" :height="h">
       <path
         fill="transparent"
         :stroke="colors[0]"
@@ -33,10 +33,6 @@
         :d="`M ${w - 5} ${h - 30} L ${w - 5} ${h - 5} L ${w - 30} ${h - 5}`"
       />
     </svg>
-
-    <div class="border-box-content">
-      <slot></slot>
-    </div>
   </div>
 </template>
 
@@ -57,5 +53,3 @@ const colors = computed(() => {
   return props.chartConfig.option?.colors
 })
 </script>
-
-<style lang="scss" scoped></style>
