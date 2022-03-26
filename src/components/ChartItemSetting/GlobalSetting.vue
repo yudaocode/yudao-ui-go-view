@@ -134,14 +134,14 @@
         <n-select
           v-model:value="xAxis.splitLine.lineStyle.type"
           size="small"
-          :options="axisConf.splitLint.lineStyle.type"
+          :options="axisConfig.splitLint.lineStyle.type"
         ></n-select>
       </setting-item>
       <setting-item name="位置">
         <n-select
           v-model:value="xAxis.position"
           size="small"
-          :options="axisConf.xposition"
+          :options="axisConfig.xposition"
         ></n-select>
       </setting-item>
     </setting-item-box>
@@ -247,14 +247,14 @@
         <n-select
           v-model:value="yAxis.splitLine.lineStyle.type"
           size="small"
-          :options="axisConf.splitLint.lineStyle.type"
+          :options="axisConfig.splitLint.lineStyle.type"
         ></n-select>
       </setting-item>
       <setting-item name="位置">
         <n-select
           v-model:value="yAxis.position"
           size="small"
-          :options="axisConf.yposition"
+          :options="axisConfig.yposition"
         ></n-select>
       </setting-item>
     </setting-item-box>
@@ -282,7 +282,7 @@
 <script setup lang="ts">
 import { PropType, computed } from 'vue'
 import { GlobalThemeJsonType } from '@/settings/chartThemes/index'
-import { axisConf } from '@/packages/chartConfiguration/echarts/index'
+import { axisConfig } from '@/packages/chartConfiguration/echarts/index'
 import {
   CollapseItem,
   SettingItemBox,

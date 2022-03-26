@@ -10,8 +10,8 @@
     <styles-setting :chartStyles="targetData.styles"></styles-setting>
     <!-- 自定义配置项 -->
     <component :is="targetData.chartConfig.conKey" :optionData="targetData.option"></component>
-    <!-- 全局设置 --> 
-    <global-setting :optionData="targetData.option" :in-chart="true"></global-setting>
+    <!-- Echarts 全局设置 --> 
+    <global-setting v-if="targetData.option" :optionData="targetData.option" :in-chart="true"></global-setting>
   </div>
 </template>
 

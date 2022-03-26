@@ -1,4 +1,4 @@
-export const axisConf = {
+export const axisConfig = {
   xposition: [
     {
       label: 'top',

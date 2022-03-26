@@ -36,7 +36,8 @@ export interface PublicConfigType extends requestConfig {
 export interface CreateComponentType extends PublicConfigType {
   key: string
   chartConfig: ConfigType
-  option: GlobalThemeJsonType
+  option?: GlobalThemeJsonType
+  [T: string]: any
 }
 
 // 获取组件实例类中某个key对应value类型的方法

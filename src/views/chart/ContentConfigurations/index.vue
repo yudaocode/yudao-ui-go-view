@@ -53,7 +53,7 @@
           type="segment"
         >
           <n-tab-pane
-            v-for="item in canvasTabList"
+            v-for="(item, index) in canvasTabList"
             :key="item.key"
             :name="item.key"
             size="small"
