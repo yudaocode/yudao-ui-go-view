@@ -1,6 +1,6 @@
 <template>
   <div class="go-border-box">
-    <svg class="bv-border-svg-container" :width="w" :height="h">
+    <svg :width="w" :height="h">
       <defs>
         <path :id="path" :d="pathD" fill="transparent" />
         <radialGradient :id="gradient" cx="50%" cy="50%" r="50%">
@@ -22,9 +22,7 @@
 
       <polygon
         :fill="backgroundColor"
-        :points="`5, 5 ${w - 5}, 5 ${w - 5} ${h - 5} 5, ${
-          h - 5
-        }`"
+        :points="`5, 5 ${w - 5}, 5 ${w - 5} ${h - 5} 5, ${h - 5}`"
       />
 
       <use :stroke="colors[0]" stroke-width="1" :xlink:href="`#${path}`" />
@@ -64,17 +62,23 @@ const gradient = `border-box-08-gradient-${getUUID()}`
 const mask = `border-box-08-mask-${getUUID()}`
 
 const { w, h } = toRefs(props.chartConfig.attr)
-const { colors, dur, backgroundColor, reverse } = toRefs(props.chartConfig.option)
+const { colors, dur, backgroundColor, reverse } = toRefs(
+  props.chartConfig.option
+)
 
-const length =  computed(() => {
+const length = computed(() => {
   return (w.value + h.value - 5) * 2
 })
 
-const pathD =  computed(() => {
-  if (reverse.value) return `M 2.5, 2.5 L 2.5, ${h.value - 2.5} L ${w.value - 2.5}, ${h.value - 2.5} L ${w.value - 2.5}, 2.5 L 2.5, 2.5`
-  return `M2.5, 2.5 L${w.value - 2.5}, 2.5 L${w.value - 2.5}, ${h.value - 2.5} L2.5, ${h.value - 2.5} L2.5, 2.5`
+const pathD = computed(() => {
+  if (reverse.value)
+    return `M 2.5, 2.5 L 2.5, ${h.value - 2.5} L ${w.value - 2.5}, ${
+      h.value - 2.5
+    } L ${w.value - 2.5}, 2.5 L 2.5, 2.5`
+  return `M2.5, 2.5 L${w.value - 2.5}, 2.5 L${w.value - 2.5}, ${
+    h.value - 2.5
+  } L2.5, ${h.value - 2.5} L2.5, 2.5`
 })
-
 </script>
 
 <style lang="scss" scoped>
