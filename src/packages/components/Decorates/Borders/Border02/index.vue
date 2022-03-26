@@ -48,10 +48,7 @@ const props = defineProps({
 })
 
 const { w, h } = toRefs(props.chartConfig.attr)
-
-const colors = computed(() => {
-  return props.chartConfig.option.colors
-})
+const { colors } = toRefs(props.chartConfig.option)
 </script>
 
 <style lang="scss" scoped>

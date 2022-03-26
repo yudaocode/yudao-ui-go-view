@@ -1,12 +1,12 @@
-import image from '@/assets/images/chart/decorates/border_thirteenth.png'
+import image from '@/assets/images/chart/decorates/border04.png'
 import { ConfigType, PackagesCategoryEnum } from '@/packages/index.d'
 import { ChatCategoryEnum, ChatCategoryEnumName } from '../../index.d'
 
-export const BorderThirteenthConfig: ConfigType = {
-  key: 'BorderThirteenth',
-  chartKey: 'VBorderThirteenth',
-  conKey: 'VCBorderThirteenth',
-  title: '边框-13',
+export const Border04Config: ConfigType = {
+  key: 'Border04',
+  chartKey: 'VBorder04',
+  conKey: 'VCBorder04',
+  title: '边框-04',
   category: ChatCategoryEnum.BORDER,
   categoryName: ChatCategoryEnumName.BORDER,
   package: PackagesCategoryEnum.DECORATES,

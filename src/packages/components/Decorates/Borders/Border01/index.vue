@@ -72,14 +72,7 @@ const props = defineProps({
 const borders = ['left-top', 'right-top', 'left-bottom', 'right-bottom']
 
 const { w, h } = toRefs(props.chartConfig.attr)
-
-const colors = computed(() => {
-  return props.chartConfig.option.colors
-})
-
-const dur = computed(() => {
-  return props.chartConfig.option.dur
-})
+const { colors, dur } = toRefs(props.chartConfig.option)
 </script>
 
 <style lang="scss" scoped>

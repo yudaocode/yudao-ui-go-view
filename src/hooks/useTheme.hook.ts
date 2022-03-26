@@ -2,7 +2,7 @@ import { computed, toRefs } from 'vue'
 import { darkTheme, GlobalThemeOverrides } from 'naive-ui'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { borderRadius } from '@/settings/designSetting'
-import { toLight } from '@/utils'
+import { alpha, lighten } from '@/utils'
 
 /**
  * * 设置全局主题
@@ -16,8 +16,8 @@ export const useThemeOverridesHook = () => {
       const commonObj = {
         common: {
           primaryColor: getAppTheme.value,
-          primaryColorHover: toLight(getAppTheme.value, 6),
-          primaryColorPressed: toLight(getAppTheme.value, 6),
+          primaryColorHover: lighten(alpha(getAppTheme.value), 0.1),
+          primaryColorPressed: lighten(alpha(getAppTheme.value), 0.1),
           primaryColorSuppl: getAppTheme.value,
           borderRadius
         }

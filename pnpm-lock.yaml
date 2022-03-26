@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@types/color': ^3.0.3
   '@types/node': ^16.11.1
   '@typescript-eslint/eslint-plugin': ^5.6.0
   '@typescript-eslint/parser': ^5.6.0
@@ -12,6 +13,7 @@ specifiers:
   '@vueuse/core': ^7.3.0
   animate.css: ^4.1.1
   axios: 0.23.0
+  color: ^4.2.1
   crypto-ts: ^1.0.2
   default-passive-events: ^2.0.0
   echarts: ^5.3.0
@@ -45,8 +47,10 @@ specifiers:
   vue3-sketch-ruler: ^1.3.3
 
 dependencies:
+  '@types/color': registry.npmjs.org/@types/color/3.0.3
   animate.css: r2.cnpmjs.org/animate.css/4.1.1
   axios: rg.cnpmjs.org/axios/0.23.0
+  color: registry.npmjs.org/color/4.2.1
   crypto-ts: r2.cnpmjs.org/crypto-ts/1.0.2
   highlight.js: registry.npmjs.org/highlight.js/11.5.0
   naive-ui: registry.npmjs.org/naive-ui/2.25.2_vue@3.2.24
@@ -1764,6 +1768,28 @@ packages:
     version: 0.8.0
     dev: false
 
+  registry.npmjs.org/@types/color-convert/2.0.0:
+    resolution: {integrity: sha512-m7GG7IKKGuJUXvkZ1qqG3ChccdIM/qBBo913z+Xft0nKCX4hAU/IxKwZBU4cpRZ7GS5kV4vOblUkILtSShCPXQ==, registry: https://skimdb.npmjs.com/registry/, tarball: https://registry.npmjs.org/@types/color-convert/-/color-convert-2.0.0.tgz}
+    name: '@types/color-convert'
+    version: 2.0.0
+    dependencies:
+      '@types/color-name': registry.npmjs.org/@types/color-name/1.1.1
+    dev: false
+
+  registry.npmjs.org/@types/color-name/1.1.1:
+    resolution: {integrity: sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==, registry: https://skimdb.npmjs.com/registry/, tarball: https://registry.npmjs.org/@types/color-name/-/color-name-1.1.1.tgz}
+    name: '@types/color-name'
+    version: 1.1.1
+    dev: false
+
+  registry.npmjs.org/@types/color/3.0.3:
+    resolution: {integrity: sha512-X//qzJ3d3Zj82J9sC/C18ZY5f43utPbAJ6PhYt/M7uG6etcF6MRpKdN880KBy43B0BMzSfeT96MzrsNjFI3GbA==, registry: https://skimdb.npmjs.com/registry/, tarball: https://registry.npmjs.org/@types/color/-/color-3.0.3.tgz}
+    name: '@types/color'
+    version: 3.0.3
+    dependencies:
+      '@types/color-convert': registry.npmjs.org/@types/color-convert/2.0.0
+    dev: false
+
   registry.npmjs.org/@types/jest/27.4.0:
     resolution: {integrity: sha512-gHl8XuC1RZ8H2j5sHv/JqsaxXkDDM9iDOgu0Wp8sjs4u/snb2PVehyWXJPr+ORA0RPpgw231mnutWI1+0hgjIQ==, registry: https://skimdb.npmjs.com/registry/, tarball: https://registry.npmjs.org/@types/jest/-/jest-27.4.0.tgz}
     name: '@types/jest'
@@ -1869,6 +1895,25 @@ packages:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==, registry: https://skimdb.npmjs.com/registry/, tarball: https://registry.npmjs.org/color-name/-/color-name-1.1.4.tgz}
     name: color-name
     version: 1.1.4
+
+  registry.npmjs.org/color-string/1.9.0:
+    resolution: {integrity: sha512-9Mrz2AQLefkH1UvASKj6v6hj/7eWgjnT/cVsR8CumieLoT+g900exWeNogqtweI8dxloXN9BDQTYro1oWu/5CQ==, registry: https://skimdb.npmjs.com/registry/, tarball: https://registry.npmjs.org/color-string/-/color-string-1.9.0.tgz}
+    name: color-string
+    version: 1.9.0
+    dependencies:
+      color-name: registry.npmjs.org/color-name/1.1.4
+      simple-swizzle: registry.npmjs.org/simple-swizzle/0.2.2
+    dev: false
+
+  registry.npmjs.org/color/4.2.1:
+    resolution: {integrity: sha512-MFJr0uY4RvTQUKvPq7dh9grVOTYSFeXja2mBXioCGjnjJoXrAp9jJ1NQTDR73c9nwBSAQiNKloKl5zq9WB9UPw==, registry: https://skimdb.npmjs.com/registry/, tarball: https://registry.npmjs.org/color/-/color-4.2.1.tgz}
+    name: color
+    version: 4.2.1
+    engines: {node: '>=12.5.0'}
+    dependencies:
+      color-convert: registry.npmjs.org/color-convert/2.0.1
+      color-string: registry.npmjs.org/color-string/1.9.0
+    dev: false
 
   registry.npmjs.org/commander/9.1.0:
     resolution: {integrity: sha512-i0/MaqBtdbnJ4XQs4Pmyb+oFQl+q0lsAmokVUH92SlSw4fkeAcG3bVon+Qt7hmtF+u3Het6o4VgrcY3qAoEB6w==, registry: https://skimdb.npmjs.com/registry/, tarball: https://registry.npmjs.org/commander/-/commander-9.1.0.tgz}
@@ -2163,6 +2208,12 @@ packages:
     engines: {node: '>=12.0.0'}
     dev: false
 
+  registry.npmjs.org/is-arrayish/0.3.2:
+    resolution: {integrity: sha512-eVRqCvVlZbuw3GrM63ovNSNAeA1K16kaR/LRY/92w0zxQ5/1YzwblUX652i4Xs9RwAGjW9d9y6X88t8OaAJfWQ==, registry: https://skimdb.npmjs.com/registry/, tarball: https://registry.npmjs.org/is-arrayish/-/is-arrayish-0.3.2.tgz}
+    name: is-arrayish
+    version: 0.3.2
+    dev: false
+
   registry.npmjs.org/jest-diff/27.5.1:
     resolution: {integrity: sha512-m0NvkX55LDt9T4mctTEgnZk3fmEg3NRYutvMPWM/0iPnkFj2wIeF45O1718cMSOFO1vINkqmxqD8vE37uTEbqw==, registry: https://skimdb.npmjs.com/registry/, tarball: https://registry.npmjs.org/jest-diff/-/jest-diff-27.5.1.tgz}
     name: jest-diff
@@ -2282,6 +2333,14 @@ packages:
     version: 0.3.3
     dependencies:
       '@types/jest': registry.npmjs.org/@types/jest/27.4.0
+    dev: false
+
+  registry.npmjs.org/simple-swizzle/0.2.2:
+    resolution: {integrity: sha1-pNprY1/8zMoz9w0Xy5JZLeleVXo=, registry: https://skimdb.npmjs.com/registry/, tarball: https://registry.npmjs.org/simple-swizzle/-/simple-swizzle-0.2.2.tgz}
+    name: simple-swizzle
+    version: 0.2.2
+    dependencies:
+      is-arrayish: registry.npmjs.org/is-arrayish/0.3.2
     dev: false
 
   registry.npmjs.org/supports-color/5.5.0:
