@@ -20,7 +20,7 @@
       @mousedown="mousedownHandle(item)"
       @mouseenter="mouseenterHandle(item)"
       @mouseleave="mouseleaveHandle(item)"
-      @contextmenu="handleContextMenu($event)"
+      @contextmenu="handleContextMenu($event, item)"
     ></layers-list-item>
   </content-box>
 </template>

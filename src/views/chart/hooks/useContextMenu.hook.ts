@@ -126,8 +126,6 @@ const handleContextMenu = (
   hideOptionsList?: MenuEnum[],
   // 挑选选项列表
   pickOptionsList?: MenuEnum[],
-  // 自定义列表
-  selfOptions?: MenuOptionsItemType[]
 ) => {
   e.stopPropagation()
   e.preventDefault()
@@ -138,8 +136,8 @@ const handleContextMenu = (
   chartEditStore.setRightMenuShow(false)
 
   // * 设置默认选项
-  if(selfOptions) menuOptions.value = selfOptions || defaultOptions
- 
+  menuOptions.value = defaultOptions
+
   if (!item) {
     menuOptions.value = pickOption(menuOptions.value, defaultNoItemKeys)
   }
