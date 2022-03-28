@@ -127,7 +127,7 @@ const handleContextMenu = (
   // 挑选选项列表
   pickOptionsList?: MenuEnum[],
   // 自定义列表
-  defaultOptions?: MenuOptionsItemType[]
+  selfOptions?: MenuOptionsItemType[]
 ) => {
   e.stopPropagation()
   e.preventDefault()
@@ -138,7 +138,7 @@ const handleContextMenu = (
   chartEditStore.setRightMenuShow(false)
 
   // * 设置默认选项
-  if(defaultOptions) menuOptions.value = defaultOptions || defaultOptions
+  if(selfOptions) menuOptions.value = selfOptions || defaultOptions
  
   if (!item) {
     menuOptions.value = pickOption(menuOptions.value, defaultNoItemKeys)
@@ -164,8 +164,12 @@ const handleContextMenu = (
  * @returns
  */
 export const useContextMenu = () => {
+
+  // 设置默认项
+  menuOptions.value = defaultOptions
+
   // * 失焦
-  const onClickoutside = () => {
+  const onClickOutSide = () => {
     chartEditStore.setRightMenuShow(false)
   }
 
@@ -190,7 +194,7 @@ export const useContextMenu = () => {
   return {
     menuOptions,
     handleContextMenu,
-    onClickoutside,
+    onClickOutSide,
     handleMenuSelect,
     mousePosition: chartEditStore.getMousePosition,
   }

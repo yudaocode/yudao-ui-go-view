@@ -12,7 +12,7 @@ import { loadingStart, loadingFinish, loadingError } from '@/utils'
 import throttle from 'lodash/throttle'
 
 const chartEditStore = useChartEditStore()
-const { onClickoutside } = useContextMenu()
+const { onClickOutSide } = useContextMenu()
 
 // * 拖拽到编辑区域里
 export const handleDrag = async (e: DragEvent) => {
@@ -74,7 +74,7 @@ export const useMouseHandle = () => {
     e.preventDefault()
     e.stopPropagation()
 
-    onClickoutside()
+    onClickOutSide()
     chartEditStore.setTargetSelectChart(item.id)
     const scale = chartEditStore.getEditCanvas.scale
     const width = chartEditStore.getEditCanvasConfig.width

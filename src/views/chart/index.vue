@@ -29,7 +29,7 @@
     :y="mousePosition.y"
     :options="menuOptions"
     :show="chartEditStore.getRightMenuShow"
-    :on-clickoutside="onClickoutside"
+    :on-clickoutside="onClickOutSide"
     @select="handleMenuSelect"
   ></n-dropdown>
 </template>
@@ -67,7 +67,7 @@ const ContentConfigurations = loadAsyncComponent(() =>
 // 右键
 const {
   menuOptions,
-  onClickoutside,
+  onClickOutSide,
   mousePosition,
   handleMenuSelect
 } = useContextMenu()
