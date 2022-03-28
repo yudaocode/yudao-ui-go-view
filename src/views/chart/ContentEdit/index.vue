@@ -9,7 +9,7 @@
     @drop="handleDrag"
     @dragover="handleDragOver"
   >
-    <div id="go-chart-edit-content">
+    <div id="go-chart-edit-content" @contextmenu="handleContextMenu">
       <!-- 展示 -->
       <edit-range>
         <!-- 图表 -->

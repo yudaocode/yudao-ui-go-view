@@ -69,7 +69,6 @@ const {
   menuOptions,
   onClickoutside,
   mousePosition,
-  handleContextMenu,
   handleMenuSelect
 } = useContextMenu()
 </script>

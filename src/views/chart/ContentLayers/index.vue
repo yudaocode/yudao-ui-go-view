@@ -33,10 +33,8 @@ import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayo
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { CreateComponentType } from '@/packages/index.d'
 import cloneDeep from 'lodash/cloneDeep'
-import {
-  useContextMenu,
-  MenuEnum
-} from '@/views/chart/hooks/useContextMenu.hook'
+import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
+import { MenuEnum } from '@/views/chart/hooks/useContextMenu.hook.d'
 
 import { LayersListItem } from './components/LayersListItem/index'
 import { icon } from '@/plugins'
@@ -45,9 +43,7 @@ const { LayersIcon } = icon.ionicons5
 const chartLayoutStore = useChartLayoutStore()
 const chartEditStore = useChartEditStore()
 
-const { handleContextMenu } = useContextMenu({
-  hideOptionsList: [MenuEnum.CLEAR, MenuEnum.PARSE]
-})
+const { handleContextMenu } = useContextMenu()
 
 // 逆序输出
 const reverseList = computed(() => {

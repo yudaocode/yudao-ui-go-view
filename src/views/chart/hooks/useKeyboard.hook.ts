@@ -1,6 +1,6 @@
 import { isMac, addEventListener, removeEventListener } from '@/utils'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { MenuEnum } from '@/views/chart/hooks/useContextMenu.hook'
+import { MenuEnum } from '@/views/chart/hooks/useContextMenu.hook.d'
 
 const chartEditStore = useChartEditStore()
 

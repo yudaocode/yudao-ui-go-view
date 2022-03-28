@@ -1,8 +1,9 @@
-import { reactive, nextTick } from 'vue'
+import { ref, nextTick } from 'vue'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { CreateComponentType } from '@/packages/index.d'
 import { renderIcon, loadingError } from '@/utils'
 import { icon } from '@/plugins'
+import { MenuEnum, MenuOptionsItemType } from './useContextMenu.hook.d'
 
 const {
   CopyIcon,
@@ -10,33 +11,11 @@ const {
   ClipboardOutlineIcon,
   TrashIcon,
   ChevronDownIcon,
-  ChevronUpIcon
+  ChevronUpIcon,
 } = icon.ionicons5
 const { UpToTopIcon, DownToBottomIcon, PaintBrushIcon } = icon.carbon
 
 const chartEditStore = useChartEditStore()
-
-export enum MenuEnum {
-  DELETE = 'delete',
-  COPY = 'copy',
-  CUT = 'cut',
-  PARSE = 'parse',
-  TOP = 'top',
-  BOTTOM = 'bottom',
-  UP = 'up',
-  DOWN = 'down',
-  CLEAR = 'clear'
-}
-
-export interface MenuOptionsItemType {
-  type?: string
-  label?: string
-  key: MenuEnum | string
-  icon?: Function
-  fnHandle?: Function
-  disabled?: boolean
-  hidden?: boolean
-}
 
 // * 默认选项
 const defaultOptions: MenuOptionsItemType[] = [
@@ -60,7 +39,7 @@ const defaultOptions: MenuOptionsItemType[] = [
   },
   {
     type: 'divider',
-    key: 'd1'
+    key: 'd1',
   },
   {
     label: '置顶',
@@ -88,7 +67,7 @@ const defaultOptions: MenuOptionsItemType[] = [
   },
   {
     type: 'divider',
-    key: 'd2'
+    key: 'd2',
   },
   {
     label: '清空剪贴板',
@@ -101,19 +80,53 @@ const defaultOptions: MenuOptionsItemType[] = [
     key: MenuEnum.DELETE,
     icon: renderIcon(TrashIcon),
     fnHandle: chartEditStore.removeComponentList,
-  }
+  },
 ]
 
-// * 去除隐藏选项
-const clearHideOption = (options: MenuOptionsItemType[], hideList?: MenuEnum[]) => {
-  if(!hideList) return options
-  const a = options.filter((op: MenuOptionsItemType) => {
-    return hideList.findIndex((e: MenuEnum) => e !== op.key)
+// * 无数据传递拥有的选项
+const defaultNoItemKeys = [MenuEnum.PARSE, MenuEnum.CLEAR]
+
+/**
+ * * 挑选选项
+ * @param options
+ * @param pickList
+ * @returns
+ */
+const pickOption = (options: MenuOptionsItemType[], pickList?: MenuEnum[]) => {
+  if (!pickList) return options
+  return options.filter((op: MenuOptionsItemType) => {
+    return pickList.findIndex((e: MenuEnum) => e === op.key) !== -1
   })
 }
 
+/**
+ * * 去除选项
+ * @param options
+ * @param hideList
+ * @returns
+ */
+const hideOption = (options: MenuOptionsItemType[], hideList?: MenuEnum[]) => {
+  if (!hideList) return options
+  return options.filter((op: MenuOptionsItemType) => {
+    return hideList.findIndex((e: MenuEnum) => e !== op.key) !== -1
+  })
+}
+
+// * 右键内容
+const menuOptions = ref<MenuOptionsItemType[]>([])
+
 // * 右键处理
-const handleContextMenu = (e: MouseEvent, item?: CreateComponentType) => {
+const handleContextMenu = (
+  e: MouseEvent,
+  // 右键对象
+  item?: CreateComponentType,
+  // 判断函数
+  optionsHandle?: Function,
+  // 隐藏选项列表
+  hideOptionsList?: MenuEnum[],
+  // 挑选选项列表
+  pickOptionsList?: MenuEnum[]
+) => {
   e.stopPropagation()
   e.preventDefault()
   let target = e.target
@@ -121,6 +134,20 @@ const handleContextMenu = (e: MouseEvent, item?: CreateComponentType) => {
     target = target.parentNode
   }
   chartEditStore.setRightMenuShow(false)
+  // * 设置默认选项
+  menuOptions.value = defaultOptions
+  if (!item) {
+    menuOptions.value = pickOption(menuOptions.value, defaultNoItemKeys)
+  }
+  if (hideOptionsList) {
+    menuOptions.value = hideOption(menuOptions.value, hideOptionsList)
+  }
+  if (pickOptionsList) {
+    menuOptions.value = hideOption(menuOptions.value, pickOptionsList)
+  }
+  if (optionsHandle) {
+    menuOptions.value = optionsHandle(menuOptions.value)
+  }
   nextTick().then(() => {
     chartEditStore.setMousePosition(e.clientX, e.clientY)
     chartEditStore.setRightMenuShow(true)
@@ -132,21 +159,7 @@ const handleContextMenu = (e: MouseEvent, item?: CreateComponentType) => {
  * @param menuConfig
  * @returns
  */
-export const useContextMenu = (menuConfig?: {
-  // 自定义右键配置
-  selfOptions?: MenuOptionsItemType[]
-  // 前置处理函数
-  optionsHandle?: Function
-  // 隐藏列表
-  hideOptionsList?: MenuEnum[]
-}) => {
-  const selfOptions = menuConfig?.selfOptions
-  const optionsHandle = menuConfig?.optionsHandle
-  const hideOptionsList = menuConfig?.hideOptionsList
-
-  // * 右键选项
-  const menuOptions: MenuOptionsItemType[] = selfOptions || defaultOptions
-
+export const useContextMenu = () => {
   // * 失焦
   const onClickoutside = () => {
     chartEditStore.setRightMenuShow(false)
@@ -155,11 +168,11 @@ export const useContextMenu = (menuConfig?: {
   // * 事件处理
   const handleMenuSelect = (key: string) => {
     chartEditStore.setRightMenuShow(false)
-    const targetItem: MenuOptionsItemType[] = menuOptions.filter(
+    const targetItem: MenuOptionsItemType[] = menuOptions.value.filter(
       (e: MenuOptionsItemType) => e.key === key
     )
 
-    menuOptions.forEach((e: MenuOptionsItemType) => {
+    menuOptions.value.forEach((e: MenuOptionsItemType) => {
       if (e.key === key) {
         if (e.fnHandle) {
           e.fnHandle()
@@ -170,12 +183,10 @@ export const useContextMenu = (menuConfig?: {
     })
   }
   return {
-    // todo 每次右键都执行判断功能
-    // menuOptions: clearHideOption ? clearHideOption(menuOptions, hideOptionsList) : menuOptions,
-    menuOptions: menuOptions,
+    menuOptions,
     handleContextMenu,
     onClickoutside,
     handleMenuSelect,
-    mousePosition: chartEditStore.getMousePosition
+    mousePosition: chartEditStore.getMousePosition,
   }
 }
