@@ -125,7 +125,9 @@ const handleContextMenu = (
   // 隐藏选项列表
   hideOptionsList?: MenuEnum[],
   // 挑选选项列表
-  pickOptionsList?: MenuEnum[]
+  pickOptionsList?: MenuEnum[],
+  // 自定义列表
+  defaultOptions?: MenuOptionsItemType[]
 ) => {
   e.stopPropagation()
   e.preventDefault()
@@ -134,8 +136,10 @@ const handleContextMenu = (
     target = target.parentNode
   }
   chartEditStore.setRightMenuShow(false)
+
   // * 设置默认选项
-  menuOptions.value = defaultOptions
+  if(defaultOptions) menuOptions.value = defaultOptions || defaultOptions
+ 
   if (!item) {
     menuOptions.value = pickOption(menuOptions.value, defaultNoItemKeys)
   }
@@ -182,6 +186,7 @@ export const useContextMenu = () => {
       }
     })
   }
+  
   return {
     menuOptions,
     handleContextMenu,
