@@ -9,7 +9,7 @@ import { isPreview } from '@/utils'
 type ChartEditStoreType = typeof useChartEditStore
 
 /**
- * 图表的 setdata 数据监听与更改
+ * 图表针对 setdata 数据监听与更改
  * @param chartConfig
  */
 export const useChartDataFetch = (chartConfig: CreateComponentType, useChartEditStore: ChartEditStoreType) => {
