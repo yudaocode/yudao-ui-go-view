@@ -351,8 +351,8 @@ export const useChartEditStore = defineStore({
           // 生成新 id
           e.id = getUUID()
           // 偏移位置
-          e.attr.x = e.attr.x + 30
-          e.attr.y = e.attr.y + 30
+          e.attr.x = this.getMousePosition.x + 30
+          e.attr.y = this.getMousePosition.y + 30
           return e
         }
         const isCut = recordCharts.type === HistoryActionTypeEnum.CUT

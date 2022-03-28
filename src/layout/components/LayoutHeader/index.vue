@@ -1,15 +1,15 @@
 <template>
   <n-layout-header bordered class="go-header">
     <header class="go-header-box">
-      <div>
+      <div class="header-item left">
         <n-space>
           <slot name="left"></slot>
         </n-space>
       </div>
-      <div>
+      <div class="header-item center">
         <slot name="center"></slot>
       </div>
-      <div>
+      <div class="header-item right">
         <n-space>
           <slot name="ri-left"> </slot>
           <lang-select></lang-select>
@@ -31,11 +31,23 @@ import { ThemeColorSelect } from '@/components/ThemeColorSelect'
 <style lang="scss" scoped>
 @include go(header) {
   &-box {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 60px;
+    display: grid;
+    grid-template-columns: repeat(3, 33.33%);
+    .header-item {
+      display: flex;
+      align-items: center;
+      &.left {
+        justify-content: start;
+      }
+      &.center {
+        justify-content: center;
+      }
+      &.right {
+        justify-content: end;
+      }
+    }
     height: $--header-height;
+    padding: 0 60px;
   }
 }
 </style>

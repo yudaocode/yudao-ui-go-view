@@ -7,7 +7,7 @@ import {
   Trash as TrashIcon,
   Pencil as PencilIcon,
   HammerOutline as HammerIcon,
-DesktopOutline as DesktopOutlineIcon,
+  DesktopOutline as DesktopOutlineIcon,
   DownloadOutline as DownloadIcon,
   Open as OpenIcon,
   Send as SendIcon,
@@ -47,7 +47,9 @@ DesktopOutline as DesktopOutlineIcon,
   Square as SquareIcon,
   ColorPalette as ColorPaletteIcon,
   Leaf as LeafIcon,
-  ColorWand as ColorWandIcon
+  ColorWand as ColorWandIcon,
+  ArrowBack as ArrowBackIcon,
+  ArrowForward as ArrowForwardIcon
 } from '@vicons/ionicons5'
 
 import {
@@ -172,7 +174,11 @@ const ionicons5 = {
   // 气球
   LeafIcon,
   // 颜色
-  ColorWandIcon
+  ColorWandIcon,
+  // 撤回
+  ArrowBackIcon,
+  // 前进
+  ArrowForwardIcon
 }
 
 const carbon = {

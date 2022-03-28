@@ -20,7 +20,7 @@ const KeyboardHandle = (e: KeyboardEvent) => {
   if (isMacRes) return
   const key = e.key.toLowerCase()
 
-  // 删除
+  // 删除（单纯的delete会和其他位置冲突）
   // if (key === keyboardValue.delete) {
   //   chartEditStore.removeComponentList()
   //   return
