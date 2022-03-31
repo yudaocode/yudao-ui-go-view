@@ -1,29 +1,4 @@
 <template>
-  <CollapseItem name="文字" :expanded="true">
-    <SettingItemBox name="内容" :alone="true">
-      <SettingItem>
-        <n-input v-model:value="optionData.text" size="small"></n-input>
-      </SettingItem>
-    </SettingItemBox>
-
-    <SettingItemBox name="样式">
-      <SettingItem name="颜色">
-        <n-color-picker
-          size="small"
-          :modes="['hex']"
-          v-model:value="optionData.textColor"
-        ></n-color-picker>
-      </SettingItem>
-      <SettingItem name="大小">
-        <n-input-number
-          v-model:value="optionData.textSize"
-          size="small"
-          :min="12"
-        ></n-input-number>
-      </SettingItem>
-    </SettingItemBox>
-  </CollapseItem>
-
   <CollapseItem name="样式" :expanded="true">
     <SettingItemBox
       :name="`颜色-${index + 1}`"
@@ -44,6 +19,19 @@
         >
           恢复默认
         </n-button>
+      </SettingItem>
+    </SettingItemBox>
+  </CollapseItem>
+
+  <CollapseItem name="动画" :expanded="true">
+    <SettingItemBox name="速度(s)">
+      <SettingItem>
+        <n-input-number
+          v-model:value="optionData.dur"
+          size="small"
+          :step="1"
+          :min="2"
+        ></n-input-number>
       </SettingItem>
     </SettingItemBox>
   </CollapseItem>
