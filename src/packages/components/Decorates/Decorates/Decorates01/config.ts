@@ -4,8 +4,10 @@ import { Decorates01Config } from './index'
 import cloneDeep from 'lodash/cloneDeep'
 
 export const option = {
-  colors: ['#4fd2dd', '#235fa7'],
-  backgroundColor: '#00000000'
+  colors: ['#3faacb', '#fff'],
+  dur: 3,
+  lineHeight: 2,
+  endWidth: 5
 }
 
 export default class Config extends publicConfig implements CreateComponentType {
