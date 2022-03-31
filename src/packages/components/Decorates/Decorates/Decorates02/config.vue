@@ -22,19 +22,6 @@
       </SettingItem>
     </SettingItemBox>
   </CollapseItem>
-
-  <CollapseItem name="动画" :expanded="true">
-    <SettingItemBox name="速度">
-      <SettingItem>
-        <n-input-number
-          v-model:value="optionData.dur"
-          size="small"
-          :step="0.5"
-          :min="0.5"
-        ></n-input-number>
-      </SettingItem>
-    </SettingItemBox>
-  </CollapseItem>
 </template>
 
 <script setup lang="ts">
