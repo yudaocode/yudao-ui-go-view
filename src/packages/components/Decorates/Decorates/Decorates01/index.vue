@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, computed, toRefs, reactive } from 'vue'
+import { PropType, computed, toRefs } from 'vue'
 import { CreateComponentType } from '@/packages/index.d'
 
 const props = defineProps({
