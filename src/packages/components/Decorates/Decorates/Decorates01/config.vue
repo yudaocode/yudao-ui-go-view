@@ -38,7 +38,7 @@
   </CollapseItem>
 
   <CollapseItem name="动画" :expanded="true">
-    <SettingItemBox name="速度">
+    <SettingItemBox name="速度(s)">
       <SettingItem>
         <n-input-number
           v-model:value="optionData.dur"
