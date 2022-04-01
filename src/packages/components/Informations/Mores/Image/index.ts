@@ -9,6 +9,6 @@ export const ImageConfig: ConfigType = {
   title: '图片',
   category: ChatCategoryEnum.MORE,
   categoryName: ChatCategoryEnumName.MORE,
-  package: PackagesCategoryEnum.INFORMATION,
+  package: PackagesCategoryEnum.INFORMATIONS,
   image
 }

@@ -9,6 +9,6 @@ export const TitleCommonConfig: ConfigType = {
   title: '普通标题',
   category: ChatCategoryEnum.TITLE,
   categoryName: ChatCategoryEnumName.TITLE,
-  package: PackagesCategoryEnum.INFORMATION,
+  package: PackagesCategoryEnum.INFORMATIONS,
   image
 }

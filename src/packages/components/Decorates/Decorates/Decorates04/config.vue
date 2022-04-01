@@ -3,7 +3,7 @@
     <SettingItemBox name="方向">
       <SettingItem >
         <n-space>
-        <n-switch v-model:value="optionData.reverse" size="small" />
+          <n-switch v-model:value="optionData.reverse" size="small" />
           <n-text>开启反向</n-text>
         </n-space>
       </SettingItem>

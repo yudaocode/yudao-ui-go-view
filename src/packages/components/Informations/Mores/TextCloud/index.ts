@@ -10,6 +10,6 @@ export const TextCloudConfig: ConfigType = {
   title: '词云',
   category: ChatCategoryEnum.MORE,
   categoryName: ChatCategoryEnumName.MORE,
-  package: PackagesCategoryEnum.INFORMATION,
+  package: PackagesCategoryEnum.INFORMATIONS,
   image
 }

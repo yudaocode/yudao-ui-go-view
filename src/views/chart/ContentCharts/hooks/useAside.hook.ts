@@ -29,9 +29,9 @@ const packagesListObj = {
     icon: renderIcon(RoadmapIcon),
     label: renderLang(PackagesCategoryName.CHARTS),
   },
-  [PackagesCategoryEnum.INFORMATION]: {
+  [PackagesCategoryEnum.INFORMATIONS]: {
     icon: renderIcon(SpellCheckIcon),
-    label: renderLang(PackagesCategoryName.INFORMATION),
+    label: renderLang(PackagesCategoryName.INFORMATIONS),
   },
   [PackagesCategoryEnum.TABLES]: {
     icon: renderIcon(TableSplitIcon),

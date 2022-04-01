@@ -9,6 +9,6 @@ export const TextCommonConfig: ConfigType = {
   title: '文字',
   category: ChatCategoryEnum.TEXT,
   categoryName: ChatCategoryEnumName.TEXT,
-  package: PackagesCategoryEnum.INFORMATION,
+  package: PackagesCategoryEnum.INFORMATIONS,
   image
 }

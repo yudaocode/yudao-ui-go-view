@@ -1,11 +1,11 @@
 export enum ChatCategoryEnum {
   BORDER = 'Borders',
-  DECORATES = 'Decorates',
+  DECORATE = 'Decorates',
   MORE = 'Mores'
 }
 
 export enum ChatCategoryEnumName {
   BORDER = '边框',
-  DECORATES = '装饰',
+  DECORATE = '装饰',
   MORE = '更多'
 }

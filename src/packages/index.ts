@@ -16,7 +16,7 @@ const indexModules = import.meta.globEager("./components/**/index.vue")
 // * 所有图表
 export let packagesList: PackagesType = {
   [PackagesCategoryEnum.CHARTS]: ChartList,
-  [PackagesCategoryEnum.INFORMATION]: InformationList,
+  [PackagesCategoryEnum.INFORMATIONS]: InformationList,
   [PackagesCategoryEnum.TABLES]: TableList,
   [PackagesCategoryEnum.DECORATES]: DecorateList
 }

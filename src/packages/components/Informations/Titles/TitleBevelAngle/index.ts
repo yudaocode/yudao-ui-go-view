@@ -9,6 +9,6 @@ export const TitleBevelAngleConfig: ConfigType = {
   title: '斜角标题',
   category: ChatCategoryEnum.TITLE,
   categoryName: ChatCategoryEnumName.TITLE,
-  package: PackagesCategoryEnum.INFORMATION,
+  package: PackagesCategoryEnum.INFORMATIONS,
   image
 }

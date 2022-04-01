@@ -46,15 +46,15 @@ export type PickCreateComponentType<T extends keyof CreateComponentType> = Pick<
 export enum PackagesCategoryEnum {
   CHARTS = 'Charts',
   TABLES = 'Tables',
-  INFORMATION = 'Informations',
+  INFORMATIONS = 'Informations',
   DECORATES = 'Decorates'
 }
 
 // 包分类名称
 export enum PackagesCategoryName {
   CHARTS = '图表',
-  TABLES = '表格',
-  INFORMATION = '信息',
+  TABLES = '列表',
+  INFORMATIONS = '信息',
   DECORATES = '小组件'
 }
 
@@ -67,7 +67,7 @@ export enum FetchComFlagType {
 // 图表包类型
 export type PackagesType = {
   [PackagesCategoryEnum.CHARTS]: ConfigType[]
-  [PackagesCategoryEnum.INFORMATION]: ConfigType[]
+  [PackagesCategoryEnum.INFORMATIONS]: ConfigType[]
   [PackagesCategoryEnum.TABLES]: ConfigType[]
   [PackagesCategoryEnum.DECORATES]: ConfigType[]
 }

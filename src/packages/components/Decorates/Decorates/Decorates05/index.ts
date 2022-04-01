@@ -7,8 +7,8 @@ export const Decorates05Config: ConfigType = {
   chartKey: 'VDecorates05',
   conKey: 'VCDecorates05',
   title: '装饰-05',
-  category: ChatCategoryEnum.DECORATES,
-  categoryName: ChatCategoryEnumName.DECORATES,
+  category: ChatCategoryEnum.DECORATE,
+  categoryName: ChatCategoryEnumName.DECORATE,
   package: PackagesCategoryEnum.DECORATES,
   image
 }

@@ -9,6 +9,6 @@ export const TitleProConfig: ConfigType = {
   title: '中心标题',
   category: ChatCategoryEnum.TITLE,
   categoryName: ChatCategoryEnumName.TITLE,
-  package: PackagesCategoryEnum.INFORMATION,
+  package: PackagesCategoryEnum.INFORMATIONS,
   image
 }
