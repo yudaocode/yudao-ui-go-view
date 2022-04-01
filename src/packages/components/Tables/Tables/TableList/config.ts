@@ -1,6 +1,6 @@
 import { publicConfig } from '@/packages/public'
 import { CreateComponentType } from '@/packages/index.d'
-import { TableCommonConfig } from './index'
+import { TableListConfig } from './index'
 import cloneDeep from 'lodash/cloneDeep'
 import dataJson from './data.json'
 
@@ -32,7 +32,7 @@ export const option = {
 }
 
 export default class Config extends publicConfig implements CreateComponentType {
-  public key = TableCommonConfig.key
-  public chartConfig = cloneDeep(TableCommonConfig)
+  public key = TableListConfig.key
+  public chartConfig = cloneDeep(TableListConfig)
   public option = option
 }

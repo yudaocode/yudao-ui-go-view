@@ -1,4 +1,5 @@
+import { TableListConfig } from './TableList'
 import { TableCommonConfig } from './TableCommon'
 import { TableCategoryConfig } from './TableCategory'
 
-export default [TableCommonConfig, TableCategoryConfig]
+export default [TableListConfig, TableCommonConfig, TableCategoryConfig]
