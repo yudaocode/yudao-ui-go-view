@@ -3,7 +3,8 @@ import {
   hidePackageOneCategory,
   changeLangReload,
   asideAllCollapsed,
-  chartAlignRange
+  chartAlignRange,
+  chartMoveDistance
 } from '@/settings/systemSetting'
 import { asideCollapsedWidth } from '@/settings/designSetting'
 import { SettingStoreType } from './settingStore.d'
@@ -21,7 +22,8 @@ export const useSettingStore = defineStore({
       hidePackageOneCategory,
       changeLangReload,
       asideAllCollapsed,
-      chartAlignRange
+      chartMoveDistance,
+      chartAlignRange,
     },
   getters: {
     getHidePackageOneCategory(): boolean {
@@ -35,6 +37,9 @@ export const useSettingStore = defineStore({
     },
     getAsideCollapsedWidth(): number {
       return this.asideAllCollapsed ? 0 : asideCollapsedWidth
+    },
+    getChartMoveDistance(): number {
+      return this.chartMoveDistance
     },
     getChartAlignRange(): number {
       return this.chartAlignRange

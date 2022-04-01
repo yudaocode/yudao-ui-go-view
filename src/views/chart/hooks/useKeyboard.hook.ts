@@ -1,11 +1,14 @@
 import { isMac, addEventListener, removeEventListener } from '@/utils'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { MenuEnum } from '@/views/chart/hooks/useContextMenu.hook.d'
+import { MenuEnum } from '@/enums/editPageEnum'
 
 const chartEditStore = useChartEditStore()
 
-
 export const keyboardValue = {
+  [MenuEnum.ARROW_UP]: 'arrowup',
+  [MenuEnum.ARROW_RIGHT]: 'arrowright',
+  [MenuEnum.ARROW_DOWN]: 'arrowdown',
+  [MenuEnum.ARROW_LEFT]: 'arrowleft',
   [MenuEnum.COPY]: 'c',
   [MenuEnum.CUT]: 'x',
   [MenuEnum.PARSE]: 'v',
@@ -34,6 +37,18 @@ const KeyboardHandle = (e: KeyboardEvent) => {
 
   if (e.altKey) {
     switch (key) {
+      // ↑
+      case keyboardValue.up: chartEditStore.setMove(MenuEnum.ARROW_UP)
+        break;
+      // →
+      case keyboardValue.right: chartEditStore.setMove(MenuEnum.ARROW_RIGHT)
+        break;
+      // ↓
+      case keyboardValue.down: chartEditStore.setMove(MenuEnum.ARROW_DOWN)
+        break;
+      // ←
+      case keyboardValue.left: chartEditStore.setMove(MenuEnum.ARROW_LEFT)
+        break;
       // 删除
       case keyboardValue.delete: chartEditStore.removeComponentList()
         break;

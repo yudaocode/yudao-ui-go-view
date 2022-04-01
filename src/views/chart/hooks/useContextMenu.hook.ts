@@ -3,7 +3,8 @@ import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore
 import { CreateComponentType } from '@/packages/index.d'
 import { renderIcon, loadingError } from '@/utils'
 import { icon } from '@/plugins'
-import { MenuEnum, MenuOptionsItemType } from './useContextMenu.hook.d'
+import { MenuOptionsItemType } from './useContextMenu.hook.d'
+import { MenuEnum } from '@/enums/editPageEnum'
 
 const {
   CopyIcon,

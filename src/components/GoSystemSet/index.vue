@@ -74,7 +74,7 @@ const list = reactive<ListType[]>([
     value: settingStore.getAsideAllCollapsed,
     type: 'switch',
     name: '菜单折叠',
-    desc: '首页菜单折叠时隐藏全部'
+    desc: '首页菜单折叠时隐藏至界面外'
   },
   {
     key: SettingStoreEnums.HIDE_PACKAGE_ONE_CATEGORY,
@@ -89,7 +89,17 @@ const list = reactive<ListType[]>([
     type: 'switch',
     name: '切换语言',
     desc: '切换语言重新加载页面',
-    tip: '若遇到部分区域语言切换失败，则开启'
+    tip: '若遇到部分区域语言切换失败，则建议开启'
+  },
+  {
+    key: SettingStoreEnums.CHART_MOVE_DISTANCE,
+    value: settingStore.getChartMoveDistance,
+    type: 'number',
+    name: '移动距离',
+    min: 1,
+    step: 1,
+    suffix: 'px',
+    desc: '方向键控制图标移动的距离'
   },
   {
     key: SettingStoreEnums.CHART_ALIGN_RANGE,
@@ -97,10 +107,10 @@ const list = reactive<ListType[]>([
     type: 'number',
     name: '吸附距离',
     min: 10,
-    suffix: 'px',
     step: 2,
+    suffix: 'px',
     desc: '移动图表时的吸附距离'
-  }
+  },
 ])
 
 const closeHandle = () => {

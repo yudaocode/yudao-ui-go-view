@@ -5,9 +5,13 @@ import debounce from 'lodash/debounce'
 import cloneDeep from 'lodash/cloneDeep'
 import { defaultTheme, globalThemeJson } from '@/settings/chartThemes/index'
 import { requestInterval } from '@/settings/designSetting'
+import { chartMoveDistance } from '@/settings/systemSetting'
 // 记录记录
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
+// 全局设置
+import { useSettingStore } from '@/store/modules/settingStore/settingStore'
 import { HistoryActionTypeEnum, HistoryItemType, HistoryTargetTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
+import { MenuEnum } from '@/enums/editPageEnum'
 import {
   ChartEditStoreEnum,
   ChartEditStorage,
@@ -20,7 +24,8 @@ import {
   EditCanvasConfigType
 } from './chartEditStore.d'
 
-const chartHistoryStoreStore = useChartHistoryStore()
+const chartHistoryStore = useChartHistoryStore()
+const settingStore = useSettingStore()
 
 // 编辑区域内容
 export const useChartEditStore = defineStore({
@@ -158,7 +163,7 @@ export const useChartEditStore = defineStore({
       if (x) this.mousePosition.x = x
       if (y) this.mousePosition.y = y
     },
-    // * 找到目标 id 数据下标位置
+    // * 找到目标 id 数据下标位置（无则返回-1）
     fetchTargetIndex(): number {
       if(!this.getTargetChart.selectId) {
         loadingFinish()
@@ -179,7 +184,7 @@ export const useChartEditStore = defineStore({
      */
     addComponentList(chartConfig: CreateComponentType, isEnd = false, isHistory = false): void {
       if (isHistory) {
-        chartHistoryStoreStore.createAddHistory(chartConfig)
+        chartHistoryStore.createAddHistory(chartConfig)
       }
       if (isEnd) {
         this.componentList.unshift(chartConfig)
@@ -193,7 +198,7 @@ export const useChartEditStore = defineStore({
         loadingStart()
         const index  = this.fetchTargetIndex()
         if (index !== -1) {
-          isHistory ? chartHistoryStoreStore.createDeleteHistory(this.getComponentList[index]) : undefined
+          isHistory ? chartHistoryStore.createDeleteHistory(this.getComponentList[index]) : undefined
           this.componentList.splice(index, 1)
           loadingFinish()
           return
@@ -245,7 +250,7 @@ export const useChartEditStore = defineStore({
 
           // 历史记录
           if (isHistory) {
-            chartHistoryStoreStore.createLaryerHistory(
+            chartHistoryStore.createLaryerHistory(
               setIndex(targetData, index),
               isEnd ? HistoryActionTypeEnum.BOTTOM : HistoryActionTypeEnum.TOP
             )
@@ -293,7 +298,7 @@ export const useChartEditStore = defineStore({
 
           // 历史记录
           if (isHistory) {
-            chartHistoryStoreStore.createLaryerHistory(
+            chartHistoryStore.createLaryerHistory(
               targetItem,
               isDown ? HistoryActionTypeEnum.DOWN : HistoryActionTypeEnum.UP
             )
@@ -307,11 +312,11 @@ export const useChartEditStore = defineStore({
         loadingError()
       }
     },
-    // * 上移
+    // * 图层上移
     setUp(isHistory = true) {
       this.wrap(false, isHistory)
     },
-    // * 下移
+    // * 图层下移
     setDown(isHistory = true) {
       this.wrap(true, isHistory)
     },
@@ -438,7 +443,7 @@ export const useChartEditStore = defineStore({
     setBack() {
       try {
         loadingStart()
-        const targetData = chartHistoryStoreStore.backAction()
+        const targetData = chartHistoryStore.backAction()
         if (!targetData) {
           loadingFinish()
           return
@@ -461,7 +466,7 @@ export const useChartEditStore = defineStore({
     setForward() {
       try {
         loadingStart()
-        const targetData = chartHistoryStoreStore.forwardAction()
+        const targetData = chartHistoryStore.forwardAction()
         if (!targetData) {
           loadingFinish()
           return
@@ -480,6 +485,27 @@ export const useChartEditStore = defineStore({
         loadingError()
       }
     },
+    // * 移动位置
+    setMove(keyboardValue: MenuEnum) {
+      const index  = this.fetchTargetIndex()
+      if(index === -1) return
+      const attr = this.getComponentList[index].attr
+      const distance = settingStore.getChartMoveDistance
+      switch (keyboardValue) {
+        case MenuEnum.ARROW_UP:
+          attr.y -= distance
+          break;
+        case MenuEnum.ARROW_RIGHT:
+          attr.x += distance
+          break;
+        case MenuEnum.ARROW_DOWN:
+          attr.y += distance
+          break;
+        case MenuEnum.ARROW_LEFT:
+          attr.x -= distance
+          break;
+      }
+    }, 
     // ----------------
     // * 设置页面变换时候的 Class
     setPageSizeClass(): void {

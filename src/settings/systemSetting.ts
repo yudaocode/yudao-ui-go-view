@@ -9,5 +9,8 @@ export const hidePackageOneCategory = true
 // 切换语言是否进行路由刷新
 export const changeLangReload = false
 
+// 图表移动时按方向键移动的距离
+export const chartMoveDistance = 5
+
 // 图表拖拽时的吸附距离（px）
-export const chartAlignRange = '10'
+export const chartAlignRange = 10

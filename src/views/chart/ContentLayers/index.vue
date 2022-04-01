@@ -34,7 +34,7 @@ import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore
 import { CreateComponentType } from '@/packages/index.d'
 import cloneDeep from 'lodash/cloneDeep'
 import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
-import { MenuEnum } from '@/views/chart/hooks/useContextMenu.hook.d'
+import { MenuEnum } from '@/enums/editPageEnum'
 
 import { LayersListItem } from './components/LayersListItem/index'
 import { icon } from '@/plugins'

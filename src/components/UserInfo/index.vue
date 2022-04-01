@@ -19,7 +19,7 @@
   </n-dropdown>
 
   <!-- 系统设置 model -->
-  <system-set v-model:modelShow="modelShow"></system-set>
+  <go-system-set v-model:modelShow="modelShow"></go-system-set>
 </template>
 
 <script lang="ts" setup>
@@ -27,7 +27,7 @@ import { h, ref } from 'vue'
 import { NAvatar, NText } from 'naive-ui'
 import { renderIcon } from '@/utils'
 import { openDoc, logout, renderLang } from '@/utils'
-import { SystemSet } from '@/components/SystemSet/index'
+import { GoSystemSet } from '@/components/GoSystemSet/index'
 import Person from './person.png'
 
 import { icon } from '@/plugins'
