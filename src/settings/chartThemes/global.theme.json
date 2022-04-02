@@ -78,8 +78,5 @@
       "color": "#B9B8CE"
     }
   },
-  "dataset": {
-    "dimensions": [""],
-    "source": [{}]
-  }
+  "dataset": null
 }

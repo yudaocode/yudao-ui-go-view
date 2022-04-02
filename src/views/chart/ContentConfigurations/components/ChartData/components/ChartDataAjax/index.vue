@@ -20,13 +20,15 @@
               <help-outline-icon></help-outline-icon>
             </n-icon>
           </template>
-          <span>
-            开发环境使用 mock 数据，请输入【
-            <n-text type="info">
-              {{ mockDataUrl }}
-            </n-text>
-            】
-          </span>
+          <ul>
+            开发环境使用 mock 数据，请输入
+            <li>
+              <n-text type="info"> 【图表】{{ chartDataUrl }} </n-text>
+            </li>
+            <li>
+              <n-text type="info"> 【表格】{{ rankListUrl }} </n-text>
+            </li>
+          </ul>
         </n-tooltip>
       </template>
       <n-input
@@ -63,7 +65,7 @@ import { ref, toRefs } from 'vue'
 import { icon } from '@/plugins'
 import { SettingItemBox } from '@/components/ChartItemSetting/index'
 import { RequestHttpEnum } from '@/enums/httpEnum'
-import { mockDataUrl } from '@/api/mock'
+import { chartDataUrl, rankListUrl } from '@/api/mock'
 import { http } from '@/api/http'
 import { SelectHttpType } from '../../index.d'
 import { ChartDataMatchingAndShow } from '../ChartDataMatchingAndShow'
@@ -82,12 +84,12 @@ const showMatching = ref(false)
 const selectOptions: SelectHttpType[] = [
   {
     label: RequestHttpEnum.GET,
-    value: RequestHttpEnum.GET
+    value: RequestHttpEnum.GET,
   },
   {
     label: RequestHttpEnum.POST,
-    value: RequestHttpEnum.POST
-  }
+    value: RequestHttpEnum.POST,
+  },
 ]
 
 // 发送请求

@@ -15,11 +15,14 @@
               ? status.mergedConfig.valueFormatter(item)
               : item.value
           }}
-          {{unit}}
+          {{ unit }}
         </div>
       </div>
       <div class="ranking-column" :style="`border-color: ${borderColor}`">
-        <div class="inside-column" :style="`width: ${item.percent}%;background-color: ${color}`">
+        <div
+          class="inside-column"
+          :style="`width: ${item.percent}%;background-color: ${color}`"
+        >
           <div class="shine" />
         </div>
       </div>
@@ -32,6 +35,8 @@ import { PropType, onUnmounted, reactive, ref, toRefs, watch } from 'vue'
 import { CreateComponentType } from '@/packages/index.d'
 import cloneDeep from 'lodash/cloneDeep'
 import merge from 'lodash/merge'
+import { useChartDataFetch } from '@/hooks'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 
 const props = defineProps({
   chartConfig: {
@@ -39,9 +44,10 @@ const props = defineProps({
     required: true,
   },
 })
-
 const { w, h } = toRefs(props.chartConfig.attr)
-const { rowNum, unit, color, textColor, borderColor } = toRefs(props.chartConfig.option)
+const { rowNum, unit, color, textColor, borderColor } = toRefs(
+  props.chartConfig.option
+)
 
 const status = reactive({
   mergedConfig: props.chartConfig.option,
@@ -53,41 +59,15 @@ const status = reactive({
   updater: 0,
 })
 
-const onResize = () => {
-  if (!status.mergedConfig) return
-  stopAnimation()
-  calcHeights(true)
-  animation(true)
-}
-
-watch(
-  () => w.value,
-  () => {
-    onResize()
-  }
-)
-watch(
-  () => h.value,
-  () => {
-    onResize()
-  }
-)
-watch(
-  () => rowNum.value,
-  () => {
-    onResize()
-  }
-)
-
 const calcRowsData = () => {
-  let { data, rowNum, sort } = status.mergedConfig
+  let { dataset, rowNum, sort } = status.mergedConfig
   sort &&
-    data.sort(({ value: a }, { value: b }) => {
+    dataset.sort(({ value: a }, { value: b }) => {
       if (a > b) return -1
       if (a < b) return 1
       if (a === b) return 0
     })
-  const value = data.map(({ value }) => value)
+  const value = dataset.map(({ value }) => value)
   const min = Math.min(...value) || 0
   // abs of min
   const minAbs = Math.abs(min)
@@ -95,25 +75,25 @@ const calcRowsData = () => {
   // abs of max
   const maxAbs = Math.abs(max)
   const total = max + minAbs
-  data = data.map((row, i) => ({
+  dataset = dataset.map((row, i) => ({
     ...row,
     ranking: i + 1,
     percent: ((row.value + minAbs) / total) * 100,
   }))
-  const rowLength = data.length
+  const rowLength = dataset.length
   if (rowLength > rowNum && rowLength < 2 * rowNum) {
-    data = [...data, ...data]
+    dataset = [...dataset, ...dataset]
   }
-  data = data.map((d, i) => ({ ...d, scroll: i }))
-  status.rowsData = data
-  status.rows = data
+  dataset = dataset.map((d, i) => ({ ...d, scroll: i }))
+  status.rowsData = dataset
+  status.rows = dataset
 }
 
 const calcHeights = (onresize = false) => {
-  const { rowNum, data } = status.mergedConfig
+  const { rowNum, dataset } = status.mergedConfig
   const avgHeight = h.value / rowNum
   status.avgHeight = avgHeight
-  if (!onresize) status.heights = new Array(data.length).fill(avgHeight)
+  if (!onresize) status.heights = new Array(dataset.length).fill(avgHeight)
 }
 
 const animation = async (start = false) => {
@@ -147,13 +127,46 @@ const stopAnimation = () => {
   clearTimeout(status.animationHandler)
 }
 
-const init = () => {
+const onRestart = async () => {
+  if (!status.mergedConfig) return
+  stopAnimation()
   calcRowsData()
-  calcHeights()
+  calcHeights(true)
   animation(true)
 }
 
-init()
+onRestart()
+
+watch(
+  () => w.value,
+  () => {
+    onRestart()
+  }
+)
+
+watch(
+  () => h.value,
+  () => {
+    onRestart()
+  }
+)
+
+watch(
+  () => rowNum.value,
+  () => {
+    onRestart()
+  }
+)
+
+// 数据更新
+watch(
+  () => props.chartConfig.option.dataset,
+  () => {
+    onRestart()
+  }
+)
+
+useChartDataFetch(props.chartConfig, useChartEditStore)
 
 onUnmounted(() => {
   stopAnimation()

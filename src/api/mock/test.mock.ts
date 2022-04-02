@@ -1,42 +1,62 @@
 export default {
-  // 轮播图
-  featchMockData: {
+  // 图表
+  fetchMockData: {
     status: 200,
-    msg: "请求成功",
+    msg: '请求成功',
     data: {
-      dimensions: ["product", "dataOne", "dataTwo"],
+      dimensions: ['product', 'dataOne', 'dataTwo'],
       source: [
         {
-          'product': '@name',
+          product: '@name',
           'dataOne|100-900': 3,
           'dataTwo|100-900': 3,
         },
         {
-          'product': '@name',
+          product: '@name',
           'dataOne|100-900': 3,
           'dataTwo|100-900': 3,
         },
         {
-          'product': '@name',
+          product: '@name',
           'dataOne|100-900': 3,
           'dataTwo|100-900': 3,
         },
         {
-          'product': '@name',
+          product: '@name',
           'dataOne|100-900': 3,
           'dataTwo|100-900': 3,
         },
         {
-          'product': '@name',
+          product: '@name',
           'dataOne|100-900': 3,
           'dataTwo|100-900': 3,
         },
         {
-          'product': '@name',
+          product: '@name',
           'dataOne|100-900': 3,
           'dataTwo|100-900': 3,
         },
-      ]
-    }
-  }
+      ],
+    },
+  },
+  // 排名列表
+  fetchRankList: {
+    status: 200,
+    msg: '请求成功',
+    data: [
+      { name: '@name', 'value|100-900': 5 },
+      { name: '@name', 'value|100-900': 5 },
+      { name: '@name', 'value|100-900': 5 },
+      { name: '@name', 'value|100-900': 5 },
+      { name: '@name', 'value|100-900': 5 },
+      { name: '@name', 'value|100-900': 5 },
+      { name: '@name', 'value|100-900': 5 },
+      { name: '@name', 'value|100-900': 5 },
+      { name: '@name', 'value|100-900': 5 },
+      { name: '@name', 'value|100-900': 5 },
+      { name: '@name', 'value|100-900': 5 },
+      { name: '@name', 'value|100-900': 5 },
+      { name: '@name', 'value|100-900': 5 },
+    ],
+  },
 }

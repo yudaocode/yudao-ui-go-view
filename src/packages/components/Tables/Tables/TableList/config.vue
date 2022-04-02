@@ -24,12 +24,6 @@
           placeholder="数值单位"
         ></n-input>
       </SettingItem>
-      <SettingItem>
-        <n-space>
-          <n-switch v-model:value="optionData.sort" size="small" />
-          <n-text>自动排序</n-text>
-        </n-space>
-      </SettingItem>
     </SettingItemBox>
 
     <SettingItemBox name="样式">

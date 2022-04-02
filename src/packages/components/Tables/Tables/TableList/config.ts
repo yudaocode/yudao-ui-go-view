@@ -5,7 +5,8 @@ import cloneDeep from 'lodash/cloneDeep'
 import dataJson from './data.json'
 
 export const option = {
-  data: dataJson,
+  // 数据
+  dataset: dataJson,
   // 表行数
   rowNum: 5,
   // 轮播时间
@@ -15,7 +16,7 @@ export const option = {
   // 自动排序
   sort: true,
   color: '#1370fb',
-  textColor: '#ffffff',
+  textColor: '#CDD2F8FF',
   borderColor: '#1370fb80',
   carousel: 'single',
   // 格式化

@@ -1,6 +1,10 @@
 <template>
   <n-timeline class="go-chart-configurations-timeline">
-    <n-timeline-item type="info" :title="TimelineTitleEnum.MAPPING">
+    <n-timeline-item
+      v-if="isCharts"
+      type="info"
+      :title="TimelineTitleEnum.MAPPING"
+    >
       <n-table striped>
         <thead>
           <tr>
@@ -17,7 +21,10 @@
                 <n-text>无</n-text>
               </n-space>
               <n-space v-else>
-                <n-badge dot :type="item.result === 1 ? 'success' : 'error'"></n-badge>
+                <n-badge
+                  dot
+                  :type="item.result === 1 ? 'success' : 'error'"
+                ></n-badge>
                 <n-text>匹配{{ item.result === 1 ? '成功' : '失败' }}</n-text>
               </n-space>
             </td>
@@ -27,7 +34,7 @@
     </n-timeline-item>
     <n-timeline-item type="success" :title="TimelineTitleEnum.CONTENT">
       <n-space vertical>
-        <n-text depth="3">数据需要符合 ECharts-setdata 规范</n-text>
+        <n-text depth="3">ECharts 图表需符合 ECharts-setdata 数据规范</n-text>
         <n-space class="source-btn-box">
           <n-upload
             v-model:file-list="uploadFileListRef"
@@ -65,7 +72,7 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import { CreateComponentType } from '@/packages/index.d'
+import { CreateComponentType, PackagesCategoryEnum } from '@/packages/index.d'
 import { icon } from '@/plugins'
 import { DataResultEnum, TimelineTitleEnum } from '../../index.d'
 import { useFile } from '../../hooks/useFile.hooks'
@@ -88,6 +95,11 @@ const dimensions = ref()
 const dimensionsAndSource = ref()
 
 const { uploadFileListRef, customRequest, beforeUpload, download} = useFile(targetData)
+
+// 是图表类型
+const isCharts = computed(()=> {
+  return targetData.value.chartConfig.package === PackagesCategoryEnum.CHARTS
+})
 
 // 获取数据
 const getSource = computed(() => {
@@ -128,17 +140,20 @@ const dimensionsAndSourceHandle = () => {
 
 watch(() => targetData.value?.option?.dataset, (newData) => {
   if (newData) {
-    source.value = newData.source
-    dimensions.value = newData.dimensions
-    dimensionsAndSource.value = dimensionsAndSourceHandle()
+    // 只有 Echarts 数据才有对应的格式
+    source.value = isCharts.value ? newData.source : newData
+    if(isCharts.value) {
+      dimensions.value = newData.dimensions
+      dimensionsAndSource.value = dimensionsAndSourceHandle()
+    }
   }
-}, {
+},{
   immediate: true
 })
 </script>
 
 <style lang="scss" scoped>
-@include go("chart-configurations-timeline") {
+@include go('chart-configurations-timeline') {
   @include deep() {
     pre {
       white-space: pre-wrap;

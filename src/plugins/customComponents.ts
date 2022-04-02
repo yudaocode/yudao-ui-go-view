@@ -1,6 +1,6 @@
 import type { App } from 'vue'
 import { GoSkeleton } from '@/components/GoSkeleton'
-import { LoadingComponent } from '@/components/LoadingComponent'
+import { GoLoading } from '@/components/GoLoading'
 import { SketchRule } from 'vue3-sketch-ruler'
 
 /**
@@ -9,6 +9,6 @@ import { SketchRule } from 'vue3-sketch-ruler'
  */
 export function setupCustomComponents(app: App) {
   app.component('GoSkeleton', GoSkeleton)
-  app.component('LoadingComponent', LoadingComponent)
+  app.component('GoLoading', GoLoading)
   app.component('SketchRule', SketchRule)
 }
