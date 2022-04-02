@@ -20,16 +20,7 @@ export const option = {
   borderColor: '#1370fb80',
   carousel: 'single',
   // 格式化
-  valueFormatter({ value }) {
-    const reverseNumber = (value + '').split('').reverse()
-    let valueStr = ''
-    while (reverseNumber.length) {
-      const seg = reverseNumber.splice(0, 3).join('')
-      valueStr += seg
-      if (seg.length === 3) valueStr += ','
-    }
-    return valueStr.split('').reverse().join('')
-  }
+  valueFormatter(item: { value: any}) { return item.value}
 }
 
 export default class Config extends publicConfig implements CreateComponentType {

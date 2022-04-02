@@ -102,7 +102,7 @@ const animation = async (start = false) => {
   const rowLength = rowsData.length
   if (rowNum >= rowLength) return
   if (start) {
-    await new Promise(resolve => setTimeout(resolve, waitTime * 1000))
+    await new Promise(resolve => setTimeout(resolve, waitTime))
     if (updater !== status.updater) return
   }
   const animationNum = carousel === 'single' ? 1 : rowNum
