@@ -164,12 +164,13 @@ export const useChartEditStore = defineStore({
       if (y) this.mousePosition.y = y
     },
     // * 找到目标 id 数据下标位置（无则返回-1）
-    fetchTargetIndex(): number {
-      if(!this.getTargetChart.selectId) {
+    fetchTargetIndex(id?: string): number {
+      const targetId = id || this.getTargetChart.selectId
+      if(!targetId) {
         loadingFinish()
         return -1
       }
-      const index = this.componentList.findIndex(e => e.id === this.getTargetChart.selectId)
+      const index = this.componentList.findIndex(e => e.id === targetId)
       if (index === -1) {
         loadingError()
       }
@@ -178,15 +179,15 @@ export const useChartEditStore = defineStore({
     /**
      * * 新增组件列表
      * @param chartConfig 新图表实例
-     * @param isEnd 是否末端插入
+     * @param isHead 是否头部插入
      * @param isHistory 是否进行记录
      * @returns
      */
-    addComponentList(chartConfig: CreateComponentType, isEnd = false, isHistory = false): void {
+    addComponentList(chartConfig: CreateComponentType, isHead = false, isHistory = false): void {
       if (isHistory) {
         chartHistoryStore.createAddHistory(chartConfig)
       }
-      if (isEnd) {
+      if (isHead) {
         this.componentList.unshift(chartConfig)
         return
       }
@@ -274,7 +275,7 @@ export const useChartEditStore = defineStore({
     setBottom(isHistory = true): void {
       this.setBothEnds(true, isHistory)
     },
-    // * 互换图表位置
+    // * 上移/下移互换图表位置
     wrap(isDown = false, isHistory = true) {
       try {
         loadingStart()
