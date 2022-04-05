@@ -59,6 +59,7 @@ const minDistance = computed(()=>{
 
 // * 是否开始计算
 const isComputedLine = computed(() => {
+  // IS_DRAG 移动时为 true，Drag Hook里设置
   const isDrag = chartEditStore.getEditCanvas[EditCanvasTypeEnum.IS_DRAG]
   return isDrag
 })

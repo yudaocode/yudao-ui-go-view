@@ -136,6 +136,7 @@ export const useMouseHandle = () => {
   const mouseleaveHandle = (e: MouseEvent, item: CreateComponentType) => {
     e.preventDefault()
     e.stopPropagation()
+    chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_DRAG, false)
     chartEditStore.setTargetHoverChart(undefined)
   }
 
