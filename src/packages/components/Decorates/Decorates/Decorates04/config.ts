@@ -12,5 +12,5 @@ export const option = {
 export default class Config extends publicConfig implements CreateComponentType {
   public key = Decorates04Config.key
   public chartConfig = cloneDeep(Decorates04Config)
-  public option = option
+  public option = cloneDeep(option)
 }

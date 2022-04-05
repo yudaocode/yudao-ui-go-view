@@ -11,5 +11,5 @@ export const option = {
 export default class Config extends publicConfig implements CreateComponentType {
   public key = Border09Config.key
   public chartConfig = cloneDeep(Border09Config)
-  public option = option
+  public option = cloneDeep(option)
 }

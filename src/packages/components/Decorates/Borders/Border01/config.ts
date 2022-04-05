@@ -1,4 +1,4 @@
-import { publicConfig } from '@/packages/public'
+import {  publicConfig } from '@/packages/public'
 import { CreateComponentType } from '@/packages/index.d'
 import { Border01Config } from './index'
 import cloneDeep from 'lodash/cloneDeep'
@@ -12,5 +12,5 @@ export const option = {
 export default class Config extends publicConfig implements CreateComponentType {
   public key = Border01Config.key
   public chartConfig = cloneDeep(Border01Config)
-  public option = option
+  public option = cloneDeep(option)
 }

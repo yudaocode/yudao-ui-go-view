@@ -12,5 +12,5 @@ export default class Config extends publicConfig
   implements CreateComponentType {
   public key = Border02Config.key
   public chartConfig = cloneDeep(Border02Config)
-  public option = option
+  public option = cloneDeep(option)
 }
