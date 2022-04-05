@@ -15,7 +15,7 @@ import { renderIcon, fetchPathByName, routerTurnByPath, setSessionStorage, getLo
 import { PreviewEnum } from '@/enums/pageEnum'
 import { StorageEnum } from '@/enums/storageEnum'
 import { icon } from '@/plugins'
-import { canvasCut } from '@/utils'
+import { canvasCut, downloadTextFile } from '@/utils'
 import { useRoute } from 'vue-router'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
@@ -57,6 +57,10 @@ const previewHandle = () => {
 
 // 导出
 const exportHandle = () => {
+  // 导出数据
+  downloadTextFile(JSON.stringify(chartEditStore.getStorageInfo || []), undefined, 'json')
+
+  // 导出图片
   const ruler = document.getElementById('mb-ruler')
   const range = document.querySelector('.go-edit-range') as HTMLElement
 

@@ -94,7 +94,7 @@ onMounted(() => {
   @extend .go-point-bg;
   @include background-image('background-point');
   @include goId('chart-edit-content') {
-    border-radius: 5px;
+    border-radius: 10px;
     margin: 15px;
     overflow: hidden;
     @extend .go-transition;
