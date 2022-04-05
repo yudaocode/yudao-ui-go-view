@@ -54,12 +54,8 @@ const rangeStyle = computed(() => {
 <style lang="scss" scoped>
 @include go(edit-range) {
   position: relative;
-  border: 1px solid;
-  border-radius: 15px;
   transform-origin: left top;
-  @include fetch-theme('box-shadow');
   @include filter-border-color('hover-border-color');
-  @include fetch-theme-custom('border-color', 'background-color4');
   @include filter-bg-color('background-color2');
 }
 </style>

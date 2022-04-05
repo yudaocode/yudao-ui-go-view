@@ -1,7 +1,7 @@
 import { ref, toRef, nextTick } from 'vue'
 import { UploadCustomRequestOptions } from 'naive-ui'
 import { FileTypeEnum } from '@/enums/fileTypeEnum'
-import { readFile, downloadFile } from '@/utils'
+import { readFile, downloadTextFile } from '@/utils'
 
 export const useFile = (targetData: any) => {
   const uploadFileListRef = ref()
@@ -35,7 +35,7 @@ export const useFile = (targetData: any) => {
   const download = () => {
     try {
       window['$message'].success('下载中，请耐心等待...')
-      downloadFile(JSON.stringify(targetData.value.option.dataset), undefined, 'json')
+      downloadTextFile(JSON.stringify(targetData.value.option.dataset), undefined, 'json')
     } catch (error) {
       window['$message'].error('下载失败，数据错误！')
     }

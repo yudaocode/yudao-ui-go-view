@@ -8,7 +8,8 @@ import {
   Pencil as PencilIcon,
   HammerOutline as HammerIcon,
   DesktopOutline as DesktopOutlineIcon,
-  DownloadOutline as DownloadIcon,
+  Download as DownloadIcon,
+  DownloadOutline as DownloadOutlineIcon,
   Open as OpenIcon,
   Send as SendIcon,
   InformationCircleOutline as InformationCircleIcon,
@@ -122,6 +123,7 @@ const ionicons5 = {
   DesktopOutlineIcon,
   // 下载
   DownloadIcon,
+  DownloadOutlineIcon,
   // 导出
   OpenIcon,
   // 导出

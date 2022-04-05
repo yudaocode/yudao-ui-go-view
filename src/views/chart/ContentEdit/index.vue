@@ -87,20 +87,18 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@include goId(chart-edit-layout) {
+@include goId('chart-edit-layout') {
   position: relative;
   width: 100%;
   overflow: hidden;
-  @include background-image('background-point');
   @extend .go-point-bg;
-  @include goId(chart-edit-content) {
-    padding: 20px;
-    border: 1px solid rgba(0, 0, 0, 0);
+  @include background-image('background-point');
+  @include goId('chart-edit-content') {
+    border-radius: 5px;
+    margin: 15px;
+    overflow: hidden;
     @extend .go-transition;
-    &.content-resize {
-      border-radius: 15px;
-      @include hover-border-color('hover-border-color');
-    }
+    @include fetch-theme('box-shadow');
     .edit-content-chart {
       position: absolute;
     }

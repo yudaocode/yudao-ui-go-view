@@ -3,6 +3,8 @@ import { NIcon } from 'naive-ui'
 import screenfull from 'screenfull'
 import throttle from 'lodash/throttle'
 import Image_404 from '../assets/images/exception/image-404.png'
+import html2canvas from 'html2canvas'
+import { downloadByA } from './file'
 
 /**
  * * 判断是否是开发环境
@@ -146,7 +148,7 @@ export const addEventListener = <K extends keyof WindowEventMap>(
     type,
     throttle(listener, 300, {
       leading: true,
-      trailing: false
+      trailing: false,
     }),
     options
   )
@@ -162,4 +164,22 @@ export const removeEventListener = <K extends keyof WindowEventMap>(
 ) => {
   if (!target) return
   target.removeEventListener(type, listener)
+}
+
+/**
+ * * 截取画面为图片
+ * @param html 需要截取的 DOM
+ */
+export const canvasCut = (html: HTMLElement | null, callback?: Function) => {
+  if (!html) {
+    window['$message'].error('导出失败！')
+    if (callback) callback()
+    return
+  }
+
+  html2canvas(html).then((canvas: HTMLCanvasElement) => {
+    window['$message'].success('导出成功！')
+    downloadByA(canvas.toDataURL(), undefined, 'png')
+    if (callback) callback()
+  })
 }

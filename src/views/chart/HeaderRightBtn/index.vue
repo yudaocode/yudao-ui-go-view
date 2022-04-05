@@ -11,14 +11,16 @@
 
 <script setup lang="ts">
 import { shallowReactive } from 'vue'
-import { renderIcon, fetchPathByName, routerTurnByPath,setSessionStorage, getLocalStorage } from '@/utils'
+import { renderIcon, fetchPathByName, routerTurnByPath, setSessionStorage, getLocalStorage } from '@/utils'
 import { PreviewEnum } from '@/enums/pageEnum'
 import { StorageEnum } from '@/enums/storageEnum'
 import { icon } from '@/plugins'
+import { canvasCut } from '@/utils'
 import { useRoute } from 'vue-router'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 
-const { BrowsersOutlineIcon, SendIcon } = icon.ionicons5
+const { BrowsersOutlineIcon, SendIcon, DownloadIcon } = icon.ionicons5
 const chartEditStore = useChartEditStore()
 
 // TODO 我也不知道为什么不能实时获取，必须初始化获取
@@ -53,6 +55,34 @@ const previewHandle = () => {
   routerTurnByPath(path, [previewId], undefined, true)
 }
 
+// 导出
+const exportHandle = () => {
+  const ruler = document.getElementById('mb-ruler')
+  const range = document.querySelector('.go-edit-range') as HTMLElement
+
+  // 隐藏边距线
+  if (!ruler || !range) {
+    window['$message'].error('导出失败！')
+    return
+  }
+  // 记录缩放比例
+  const scaleTemp = chartEditStore.getEditCanvas.scale
+  // 去除标尺Dom
+  ruler.style.display = 'none'
+  // 百分百展示页面
+  chartEditStore.setScale(1, true)
+
+  window['$message'].warning('生成截图和数据中, 请耐心等待...')
+  setTimeout(() => {
+    canvasCut(range, () => {
+      // 放开边距线
+      if (ruler) ruler.style.display = 'block'
+      // 还原页面大小
+      chartEditStore.setScale(scaleTemp, true)
+    })
+  }, 600)
+}
+
 // 发布
 const sendHandle = () => {
   window['$message'].warning('该功能暂未实现（因为压根没有后台）')
@@ -60,11 +90,16 @@ const sendHandle = () => {
 
 const btnList = shallowReactive([
   {
-    key: '',
     select: true,
     title: '预览',
     icon: renderIcon(BrowsersOutlineIcon),
     event: previewHandle
+  },
+  {
+    select: true,
+    title: '下载',
+    icon: renderIcon(DownloadIcon),
+    event: exportHandle
   },
   {
     select: true,

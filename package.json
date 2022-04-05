@@ -15,6 +15,7 @@
     "crypto-ts": "^1.0.2",
     "echarts-liquidfill": "3",
     "highlight.js": "^11.5.0",
+    "html2canvas": "^1.4.1",
     "naive-ui": "^2.25.2",
     "pinia": "^2.0.6",
     "screenfull": "^6.0.0",

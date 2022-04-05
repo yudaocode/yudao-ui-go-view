@@ -508,16 +508,6 @@ export const useChartEditStore = defineStore({
       }
     }, 
     // ----------------
-    // * 设置页面变换时候的 Class
-    setPageSizeClass(): void {
-      const dom = this.getEditCanvas.editContentDom
-      if (dom) {
-        dom.classList.add('content-resize')
-        setTimeout(() => {
-          dom.classList.remove('content-resize')
-        }, 600)
-      }
-    },
     // * 设置页面大小
     setPageSize(scale: number): void {
       this.setPageStyle('height', `${this.editCanvasConfig.height * scale}px`)
@@ -572,15 +562,16 @@ export const useChartEditStore = defineStore({
       }
       return remove
     },
-    // * 设置缩放
-    setScale(scale: number, sys = true): void {
-      if (!this.getEditCanvas.lockScale) {
-        this.setPageSizeClass()
+    /**
+     * * 设置缩放
+     * @param scale 0~1 number 缩放比例;
+     * @param force boolean 强制缩放
+     */
+    setScale(scale: number, force = false): void {
+      if (!this.getEditCanvas.lockScale || force) {
         this.setPageSize(scale)
         this.getEditCanvas.userScale = scale
-        if (sys) {
-          this.getEditCanvas.scale = scale
-        }
+        this.getEditCanvas.scale = scale
       }
     }
   }

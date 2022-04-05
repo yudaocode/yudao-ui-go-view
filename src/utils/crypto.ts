@@ -1,5 +1,5 @@
 import * as CryptoJS from 'crypto-ts'
-
+// 加密
 const AES_KEY = 'mt'
 
 export const cryptoEncode = (data: string): string => {
