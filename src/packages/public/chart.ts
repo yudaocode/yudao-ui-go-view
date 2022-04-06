@@ -15,7 +15,7 @@ export const mergeTheme = <T, U>(
   themeSetting: U,
   includes: string[]
 ) => {
-  return merge({}, pick(themeSetting, includes), option)
+  return option = merge({}, pick(themeSetting, includes), option)
 }
 
 /**

@@ -26,6 +26,7 @@ export const langList = [
 const i18n = createI18n({
   locale: langStorage?.lang || lang,
   globalInjection: true,
+  legacy:false,
   messages: {
     [LangEnum.zh]: zh,
     [LangEnum.en]: en

@@ -45,7 +45,7 @@ export const useChartDataFetch = (
         fetchInterval = setInterval(async () => {
           const res:any = await http(requestHttpType.value)(completePath || '', {})
           if (res.data) {
-            // 是否是 Echarts
+            // 是否是 Echarts 组件
             const isECharts =
               targetComponent.chartConfig.package ===
               PackagesCategoryEnum.CHARTS
