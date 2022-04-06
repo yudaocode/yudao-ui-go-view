@@ -5,7 +5,8 @@ import cloneDeep from 'lodash/cloneDeep'
 
 export const option = {
   colors: ['#1089ff', '#0000ff'],
-  backgroundColor: '#00000000'
+  backgroundColor: '#00000000',
+  dataset: null
 }
 
 export default class Config extends publicConfig implements CreateComponentType {

@@ -4,7 +4,7 @@ import { Decorates03Config } from './index'
 import cloneDeep from 'lodash/cloneDeep'
 
 export const option = {
-  text: '装饰-03',
+  dataset: '装饰-03',
   textColor: '#fff',
   textSize: 24,
   colors: ['#1dc1f5', '#1dc1f5'],

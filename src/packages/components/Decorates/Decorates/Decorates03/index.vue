@@ -15,7 +15,7 @@
       />
     </svg>
     <span :style="`color: ${textColor};font-size: ${textSize}px`">
-      {{ text }}</span
+      {{ dataset }}</span
     >
     <svg :width="20" :height="20">
       <polyline
@@ -46,7 +46,7 @@ const props = defineProps({
 })
 
 const { w, h } = toRefs(props.chartConfig.attr)
-const { colors, text, textSize, textColor } = toRefs(props.chartConfig.option)
+const { colors, dataset, textSize, textColor } = toRefs(props.chartConfig.option)
 </script>
 
 <style lang="scss" scoped>

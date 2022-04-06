@@ -114,6 +114,7 @@ $wight: 170px;
   .not-layer-text {
     position: relative;
     top: 10px;
+    white-space: nowrap;
     opacity: .4;
   }
   &.scoped {

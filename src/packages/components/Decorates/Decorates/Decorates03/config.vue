@@ -2,7 +2,7 @@
   <CollapseItem name="文字" :expanded="true">
     <SettingItemBox name="内容" :alone="true">
       <SettingItem>
-        <n-input v-model:value="optionData.text" size="small"></n-input>
+        <n-input v-model:value="optionData.dataset" size="small"></n-input>
       </SettingItem>
     </SettingItemBox>
 

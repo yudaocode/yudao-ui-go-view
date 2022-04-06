@@ -7,7 +7,8 @@ export const option = {
   colors: ['#235fa7', '#4fd2dd'],
   dur: 3,
   reverse: false,
-  backgroundColor: '#00000000'
+  backgroundColor: '#00000000',
+  dataset: null
 }
 
 export default class Config extends publicConfig implements CreateComponentType {
