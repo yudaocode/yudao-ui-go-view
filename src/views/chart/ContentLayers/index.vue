@@ -12,6 +12,9 @@
       </n-icon>
     </template>
     <!-- 图层内容 -->
+    <n-space v-if="reverseList.length === 0" justify="center">
+      <n-text class="not-layer-text">暂无图层~</n-text>
+    </n-space>
     <!-- https://github.com/SortableJS/vue.draggable.next -->
     <draggable
       item-key="id"
@@ -108,6 +111,11 @@ $wight: 170px;
   flex-shrink: 0;
   overflow: hidden;
   @extend .go-transition;
+  .not-layer-text {
+    position: relative;
+    top: 10px;
+    opacity: .4;
+  }
   &.scoped {
     width: 0;
   }

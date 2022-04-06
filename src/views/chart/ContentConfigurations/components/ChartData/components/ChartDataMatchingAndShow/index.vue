@@ -1,10 +1,6 @@
 <template>
   <n-timeline class="go-chart-configurations-timeline">
-    <n-timeline-item
-      v-if="isCharts"
-      type="info"
-      :title="TimelineTitleEnum.MAPPING"
-    >
+    <n-timeline-item v-if="isCharts" type="info" :title="TimelineTitleEnum.MAPPING">
       <n-table striped>
         <thead>
           <tr>
@@ -21,10 +17,7 @@
                 <n-text>无</n-text>
               </n-space>
               <n-space v-else>
-                <n-badge
-                  dot
-                  :type="item.result === 1 ? 'success' : 'error'"
-                ></n-badge>
+                <n-badge dot :type="item.result === 1 ? 'success' : 'error'"></n-badge>
                 <n-text>匹配{{ item.result === 1 ? '成功' : '失败' }}</n-text>
               </n-space>
             </td>
@@ -94,10 +87,10 @@ const source = ref()
 const dimensions = ref()
 const dimensionsAndSource = ref()
 
-const { uploadFileListRef, customRequest, beforeUpload, download} = useFile(targetData)
+const { uploadFileListRef, customRequest, beforeUpload, download } = useFile(targetData)
 
 // 是图表类型
-const isCharts = computed(()=> {
+const isCharts = computed(() => {
   return targetData.value.chartConfig.package === PackagesCategoryEnum.CHARTS
 })
 
@@ -111,7 +104,7 @@ const matchingHandle = (mapping: string) => {
   let res = DataResultEnum.SUCCESS
   for (let i = 0; i < source.value.length; i++) {
     if (source.value[i][mapping] === undefined) {
-      res =  DataResultEnum.FAILURE
+      res = DataResultEnum.FAILURE
       return res
     }
   }
@@ -120,40 +113,44 @@ const matchingHandle = (mapping: string) => {
 
 // 处理映射列表
 const dimensionsAndSourceHandle = () => {
-  // 去除首项数据轴标识
-  return dimensions.value.map((dimensionsItem: string, index: number) => {
-    return index === 0 ?
-      {
-        // 字段
-        field: '通用标识',
-        // 映射
-        mapping: dimensionsItem,
-        // 结果
-        result: DataResultEnum.NULL
-      } : {
-        field: `数据项-${index}`,
-        mapping: dimensionsItem,
-        result: matchingHandle(dimensionsItem)
-      }
-  })
+  try {
+    // 去除首项数据轴标识
+    return dimensions.value.map((dimensionsItem: string, index: number) => {
+      return index === 0 ?
+        {
+          // 字段
+          field: '通用标识',
+          // 映射
+          mapping: dimensionsItem,
+          // 结果
+          result: DataResultEnum.NULL
+        } : {
+          field: `数据项-${index}`,
+          mapping: dimensionsItem,
+          result: matchingHandle(dimensionsItem)
+        }
+    })
+  } catch (error) {
+    return []
+  }
 }
 
 watch(() => targetData.value?.option?.dataset, (newData) => {
   if (newData) {
     // 只有 Echarts 数据才有对应的格式
     source.value = isCharts.value ? newData.source : newData
-    if(isCharts.value) {
+    if (isCharts.value) {
       dimensions.value = newData.dimensions
       dimensionsAndSource.value = dimensionsAndSourceHandle()
     }
   }
-},{
+}, {
   immediate: true
 })
 </script>
 
 <style lang="scss" scoped>
-@include go('chart-configurations-timeline') {
+@include go("chart-configurations-timeline") {
   @include deep() {
     pre {
       white-space: pre-wrap;
