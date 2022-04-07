@@ -4,7 +4,10 @@ import designColor from './designColor.json'
 // 默认语言
 export const lang = LangEnum.zh
 
+// 水印文字
+export const watermarkText = "GoView 低代码平台"
 
+// 主题配置
 export const theme = {
   // 默认是否开启深色主题
   darkTheme: true,

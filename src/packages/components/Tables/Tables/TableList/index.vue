@@ -52,21 +52,29 @@ const { rowNum, unit, color, textColor, borderColor } = toRefs(
 const status = reactive({
   mergedConfig: props.chartConfig.option,
   rowsData: [],
-  rows: [],
-  heights: [],
+  rows: [{
+    scroll: 0,
+    ranking: 1,
+    name: '',
+    value: '',
+    percent: 0
+  }],
+  heights: [0],
   animationIndex: 0,
-  animationHandler: '',
+  animationHandler: 0,
   updater: 0,
+  avgHeight: 0
 })
 
 const calcRowsData = () => {
   let { dataset, rowNum, sort } = status.mergedConfig
-  sort &&
-    dataset.sort(({ value: a }, { value: b }) => {
+  // @ts-ignore
+  sort && dataset.sort(({ value: a }, { value: b }) => {
       if (a > b) return -1
       if (a < b) return 1
       if (a === b) return 0
     })
+  // @ts-ignore
   const value = dataset.map(({ value }) => value)
   const min = Math.min(...value) || 0
   // abs of min
@@ -75,7 +83,7 @@ const calcRowsData = () => {
   // abs of max
   const maxAbs = Math.abs(max)
   const total = max + minAbs
-  dataset = dataset.map((row, i) => ({
+  dataset = dataset.map((row: any, i:number) => ({
     ...row,
     ranking: i + 1,
     percent: ((row.value + minAbs) / total) * 100,
@@ -84,7 +92,7 @@ const calcRowsData = () => {
   if (rowLength > rowNum && rowLength < 2 * rowNum) {
     dataset = [...dataset, ...dataset]
   }
-  dataset = dataset.map((d, i) => ({ ...d, scroll: i }))
+  dataset = dataset.map((d:any, i:number) => ({ ...d, scroll: i }))
   status.rowsData = dataset
   status.rows = dataset
 }
@@ -118,7 +126,7 @@ const animation = async (start = false) => {
   if (back >= 0) animationIndex = back
 
   status.animationIndex = animationIndex
-  status.animationHandler = setTimeout(animation, waitTime * 1000 - 300)
+  status.animationHandler = setTimeout(animation, waitTime * 1000 - 300) as any
 }
 
 const stopAnimation = () => {

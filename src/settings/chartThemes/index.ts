@@ -85,7 +85,7 @@ export const chartColorsSearch = {
 // 默认主题详细配置
 type ThemeJsonType = typeof themeJson
 export interface GlobalThemeJsonType extends Partial<ThemeJsonType> {
-  dataset: any,
+  dataset?: any,
   [T:string]: any
 }
-export const globalThemeJson = themeJson
+export const globalThemeJson = {...themeJson, dataset: null,}

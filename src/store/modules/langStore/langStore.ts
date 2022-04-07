@@ -1,3 +1,4 @@
+import type { WritableComputedRef } from 'vue'
 import { defineStore } from 'pinia'
 import { lang } from '@/settings/designSetting'
 import { LangStateType } from './langStore.d'
@@ -28,7 +29,7 @@ export const useLangStore = defineStore({
     changeLang(lang: LangEnum): void {
       if (this.lang === lang) return
       this.lang = lang
-      i18n.global.locale = lang
+      i18n.global.locale = (lang as unknown) as WritableComputedRef<LangEnum>
       setLocalStorage(GO_LANG_STORE, this.$state)
 
       if (settingStore.getChangeLangReload) {

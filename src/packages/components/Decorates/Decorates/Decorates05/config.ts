@@ -5,7 +5,7 @@ import cloneDeep from 'lodash/cloneDeep'
 
 export const option = {
   colors: ['#00c2ff', '#00c2ff4d'],
-  dur: 3,
+  dur: 3
 }
 
 export default class Config extends publicConfig implements CreateComponentType {

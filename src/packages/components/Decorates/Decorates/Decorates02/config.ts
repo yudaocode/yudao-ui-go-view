@@ -6,7 +6,7 @@ import cloneDeep from 'lodash/cloneDeep'
 export const option = {
   colors: ['#ffffff4d', '#ffffff4d'],
   dur: 3,
-  lineHeight: 3,
+  lineHeight: 3
 }
 
 export default class Config extends publicConfig implements CreateComponentType {

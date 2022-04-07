@@ -6,7 +6,7 @@
   >
     <n-watermark
       id="go-edit-watermark"
-      content="GoView 低代码平台"
+      :content="watermarkText"
       cross
       selectable
       :font-size="16"
@@ -33,6 +33,7 @@ import { mousedownHandleUnStop } from '../../hooks/useDrag.hook'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditAlignLine } from '../EditAlignLine'
 import { EditRule } from '../EditRule'
+import { watermarkText } from '@/settings/designSetting'
 
 const chartEditStore = useChartEditStore()
 
