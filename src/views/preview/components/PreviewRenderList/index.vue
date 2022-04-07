@@ -4,13 +4,14 @@
     :class="animationsClass(item.styles.animations)"
     v-for="(item, index) in localStorageInfo.componentList"
     :key="item.id"
-    :style="{ ...getComponentAttrStyle(item.attr, index), ...getSizeStyle(item.attr), ...getStyle(item.styles)}"
+    :style="{ ...getComponentAttrStyle(item.attr, index), ...getStyle(item.styles)}"
   >
     <component
       :is="item.chartConfig.chartKey"
       :chartConfig="item"
       :themeSetting="themeSetting"
       :themeColor="themeColor"
+      :style="{...getSizeStyle(item.attr)}"
     ></component>
   </div>
 </template>

@@ -20,7 +20,7 @@ export const option = {
   padding: 5,
   // 字间距
   letterSpacing: 5,
-  borderRadius: 0,
+  borderRadius: 5,
   writingMode: 'horizontal-tb',
   backgroundColor: '#00000000',
 }

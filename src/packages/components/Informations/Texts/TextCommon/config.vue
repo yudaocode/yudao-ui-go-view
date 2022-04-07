@@ -1,10 +1,13 @@
 <template>
-  <CollapseItem name="样式" :expanded="true">
-   <SettingItemBox name="内容" :alone="true">
+  <CollapseItem name="信息" :expanded="true">
+    <SettingItemBox name="文字" :alone="true">
       <SettingItem>
         <n-input v-model:value="optionData.dataset" size="small"></n-input>
       </SettingItem>
     </SettingItemBox>
+  </CollapseItem>
+
+  <CollapseItem name="样式" :expanded="true">
     <SettingItemBox name="文字">
       <SettingItem name="字体大小">
         <n-input-number v-model:value="optionData.fontSize" size="small" placeholder="字体大小"></n-input-number>
