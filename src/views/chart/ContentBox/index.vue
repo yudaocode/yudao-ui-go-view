@@ -41,7 +41,6 @@
     </aside>
 
     <div v-if="showBottom" class="bottom go-mt-0">
-      <span>123</span>
       <slot name="bottom"></slot>
     </div>
   </div>
