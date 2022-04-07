@@ -96,6 +96,7 @@ onMounted(() => {
   @include goId("chart-edit-content") {
     border-radius: 10px;
     margin: 15px;
+    overflow: hidden;
     @extend .go-transition;
     @include fetch-theme("box-shadow");
     .edit-content-chart {
