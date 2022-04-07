@@ -70,7 +70,7 @@ const KeyboardHandle = (e: KeyboardEvent) => {
 }
 
 export const useAddKeyboard = () => {
-  addEventListener(document, 'keyup', KeyboardHandle)
+  addEventListener(document, 'keyup', KeyboardHandle, 20)
 }
 
 export const useRemoveKeyboard = () => {

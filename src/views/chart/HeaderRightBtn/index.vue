@@ -54,6 +54,9 @@ const previewHandle = () => {
   routerTurnByPath(path, [previewId], undefined, true)
 }
 
+// 导入
+const importHandle = () => {}
+
 // 导出
 const exportHandle = () => {
   // 导出数据
@@ -115,6 +118,7 @@ const btnList = shallowReactive([
     event: sendHandle
   }
 ])
+
 </script>
 <style lang="scss" scoped>
 .align-center {

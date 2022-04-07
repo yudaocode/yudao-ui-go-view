@@ -141,12 +141,13 @@ export const addEventListener = <K extends keyof WindowEventMap>(
   target: HTMLElement | Document,
   type: K,
   listener: any,
+  delay?: number,
   options?: boolean | AddEventListenerOptions | undefined
 ) => {
   if (!target) return
   target.addEventListener(
     type,
-    throttle(listener, 300, {
+    throttle(listener, delay || 300, {
       leading: true,
       trailing: false,
     }),
@@ -167,7 +168,7 @@ export const removeEventListener = <K extends keyof WindowEventMap>(
 }
 
 /**
- * * 截取画面为图片
+ * * 截取画面为图片并下载
  * @param html 需要截取的 DOM
  */
 export const canvasCut = (html: HTMLElement | null, callback?: Function) => {
