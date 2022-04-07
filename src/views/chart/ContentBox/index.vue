@@ -18,7 +18,13 @@
       </n-space>
     </div>
 
-    <aside class="content" :class="{'content-height-show-top': showTop}">
+    <aside
+      class="content"
+      :class="{
+        'content-height-show-top-bottom': showBottom || showTop,
+        'content-height-show-both': showBottom && showTop
+      }"
+    >
       <template v-if="xScroll">
         <n-scrollbar x-scrollable>
           <n-scrollbar>
@@ -35,6 +41,7 @@
     </aside>
 
     <div v-if="showBottom" class="bottom go-mt-0">
+      <span>123</span>
       <slot name="bottom"></slot>
     </div>
   </div>
@@ -83,7 +90,7 @@ const backHandle = () => {
 </script>
 
 <style lang="scss" scoped>
-$topHeight: 40px;
+$topOrBottomHeight: 40px;
 @include go(content-box) {
   height: calc(100vh - #{$--header-height});
   margin: 1px;
@@ -125,7 +132,7 @@ $topHeight: 40px;
     justify-content: space-between;
     flex-wrap: nowrap;
     align-items: center;
-    height: $topHeight;
+    height: $topOrBottomHeight;
     padding: 0 10px;
     border-top: 1px solid;
     @include filter-border-color("hover-border-color");
@@ -140,9 +147,15 @@ $topHeight: 40px;
   .content {
     height: calc(100vh - #{$--header-height});
     overflow: hidden;
-    &.content-height-show-top {
-      height: calc(100vh - #{$--header-height} - #{$topHeight});
-    }
+  }
+
+  .content-height-show-top-bottom {
+    height: calc(100vh - #{$--header-height} - #{$topOrBottomHeight});
+  }
+  .content-height-show-both {
+    height: calc(
+      100vh - #{$--header-height} - #{$topOrBottomHeight} - #{$topOrBottomHeight}
+    );
   }
 }
 </style>

@@ -115,7 +115,7 @@ $wight: 170px;
     position: relative;
     top: 10px;
     white-space: nowrap;
-    opacity: .4;
+    opacity: 0.4;
   }
   &.scoped {
     width: 0;
