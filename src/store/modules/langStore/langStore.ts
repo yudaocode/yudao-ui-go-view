@@ -29,7 +29,7 @@ export const useLangStore = defineStore({
     changeLang(lang: LangEnum): void {
       if (this.lang === lang) return
       this.lang = lang
-      i18n.global.locale = (lang as unknown) as WritableComputedRef<LangEnum>
+      i18n.global.locale = lang
       setLocalStorage(GO_LANG_STORE, this.$state)
 
       if (settingStore.getChangeLangReload) {
