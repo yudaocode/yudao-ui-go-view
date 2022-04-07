@@ -10,7 +10,6 @@ import en from './en/index'
 
 const langStorage: LangStateType = getLocalStorage(StorageEnum.GO_LANG_STORE)
 
-
 // 语言数组
 export const langList = [
   {
@@ -26,7 +25,6 @@ export const langList = [
 const i18n = createI18n({
   locale: langStorage?.lang || lang,
   globalInjection: true,
-  legacy:false,
   messages: {
     [LangEnum.zh]: zh,
     [LangEnum.en]: en
