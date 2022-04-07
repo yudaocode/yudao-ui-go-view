@@ -16,7 +16,7 @@
     >
       <content-box
         class="go-content-layers go-boderbox"
-        :showTop="false"
+        :show-top="false"
         :depth="2"
       >
         <!-- 页面配置 -->
