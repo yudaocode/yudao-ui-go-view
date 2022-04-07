@@ -32,7 +32,7 @@
             :themeSetting="themeSetting"
             :themeColor="themeColor"
             :style="useSizeStyle(item.attr)"
-         ></component>
+          ></component>
         </edit-shape-box>
       </edit-range>
     </div>
@@ -87,17 +87,17 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@include goId('chart-edit-layout') {
+@include goId("chart-edit-layout") {
   position: relative;
   width: 100%;
   overflow: hidden;
   @extend .go-point-bg;
-  @include background-image('background-point');
-  @include goId('chart-edit-content') {
+  @include background-image("background-point");
+  @include goId("chart-edit-content") {
     border-radius: 10px;
     margin: 15px;
     @extend .go-transition;
-    @include fetch-theme('box-shadow');
+    @include fetch-theme("box-shadow");
     .edit-content-chart {
       position: absolute;
       overflow: hidden;

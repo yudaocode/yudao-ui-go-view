@@ -93,6 +93,7 @@ import {
   NCollapse,
   NCollapseItem,
   NColorPicker,
+  NWatermark,
   NCollapseTransition
 } from 'naive-ui';
 
@@ -190,6 +191,7 @@ const naive = create({
     NCollapse,
     NCollapseItem,
     NColorPicker,
+    NWatermark,
     NCollapseTransition
   ],
 });

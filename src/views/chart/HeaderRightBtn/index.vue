@@ -14,16 +14,15 @@ import { shallowReactive } from 'vue'
 import { renderIcon, fetchPathByName, routerTurnByPath, setSessionStorage, getLocalStorage } from '@/utils'
 import { PreviewEnum } from '@/enums/pageEnum'
 import { StorageEnum } from '@/enums/storageEnum'
-import { icon } from '@/plugins'
 import { canvasCut, downloadTextFile } from '@/utils'
 import { useRoute } from 'vue-router'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
+import { icon } from '@/plugins'
 
 const { BrowsersOutlineIcon, SendIcon, DownloadIcon } = icon.ionicons5
 const chartEditStore = useChartEditStore()
 
-// TODO 我也不知道为什么不能实时获取，必须初始化获取
 const routerParamsInfo = useRoute()
 
 // 预览
@@ -63,9 +62,9 @@ const exportHandle = () => {
   // 导出图片
   const ruler = document.getElementById('mb-ruler')
   const range = document.querySelector('.go-edit-range') as HTMLElement
-
+  const watermark = document.getElementById('go-edit-watermark')
   // 隐藏边距线
-  if (!ruler || !range) {
+  if (!ruler || !range || !watermark) {
     window['$message'].error('导出失败！')
     return
   }
@@ -75,10 +74,14 @@ const exportHandle = () => {
   ruler.style.display = 'none'
   // 百分百展示页面
   chartEditStore.setScale(1, true)
-
+  // 展示水印
+  watermark.style.display = 'block'
+  
   window['$message'].warning('生成截图和数据中, 请耐心等待...')
   setTimeout(() => {
     canvasCut(range, () => {
+      // 隐藏水印
+      if (watermark) watermark.style.display = 'none'
       // 放开边距线
       if (ruler) ruler.style.display = 'block'
       // 还原页面大小

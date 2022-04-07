@@ -4,8 +4,23 @@
     :style="rangeStyle"
     @mousedown="mousedownHandleUnStop($event, undefined)"
   >
-    <edit-rule></edit-rule>
+    <n-watermark
+      id="go-edit-watermark"
+      content="GoView 低代码平台"
+      cross
+      selectable
+      :font-size="16"
+      :line-height="16"
+      :width="500"
+      :height="150"
+      :x-offset="12"
+      :y-offset="80"
+      :rotate="-15"
+      style="display: none; width: 100%; height: 100%;"
+    ></n-watermark>
     <slot></slot>
+    <!-- 标尺 -->
+    <edit-rule></edit-rule>
     <!-- 拖拽时的辅助线 -->
     <edit-align-line></edit-align-line>
   </div>
@@ -55,7 +70,7 @@ const rangeStyle = computed(() => {
 @include go(edit-range) {
   position: relative;
   transform-origin: left top;
-  @include filter-border-color('hover-border-color');
-  @include filter-bg-color('background-color2');
+  @include filter-border-color("hover-border-color");
+  @include filter-bg-color("background-color2");
 }
 </style>
