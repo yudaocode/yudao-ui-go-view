@@ -10,7 +10,7 @@
     @mouseleave="toolsMouseoutHandle"
   >
     <n-tooltip
-      v-for="item in btnList"
+      v-for="(item, index) in btnList"
       :key="item.key"
       :disabled="!isAside"
       trigger="hover"
@@ -20,6 +20,7 @@
         <n-button
           v-show="!isMini"
           class="btn-item"
+          :class="[btnList.length - 1 === index && 'go-mb-0']"
           :circle="isAside"
           secondary
           @click="item.handle"
@@ -118,6 +119,7 @@ $asideBottom: 70px;
     .btn-item {
       margin-bottom: 10px;
       padding-bottom: 6px;
+      /* 没生效，用上面的 go-mb-0 代替 */
       &:last-child {
         margin-bottom: 0;
       }
