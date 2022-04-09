@@ -151,9 +151,14 @@ $topOrBottomHeight: 40px;
     border-bottom: 1px solid;
     @include filter-border-color('background-color1');
   }
+  
   .content {
     height: calc(100vh - #{$--header-height});
     overflow: hidden;
+  }
+
+  .aside {
+    position: relative;
   }
 
   .content-height-show-top-bottom {

@@ -10,7 +10,7 @@ import {
   DesktopOutline as DesktopOutlineIcon,
   Download as DownloadIcon,
   DownloadOutline as DownloadOutlineIcon,
-  Open as OpenIcon,
+  Share as ShareIcon,
   Send as SendIcon,
   InformationCircleOutline as InformationCircleIcon,
   Grid as GridIcon,
@@ -50,7 +50,8 @@ import {
   Leaf as LeafIcon,
   ColorWand as ColorWandIcon,
   ArrowBack as ArrowBackIcon,
-  ArrowForward as ArrowForwardIcon
+  ArrowForward as ArrowForwardIcon,
+  Planet as PawIcon
 } from '@vicons/ionicons5'
 
 import {
@@ -125,7 +126,7 @@ const ionicons5 = {
   DownloadIcon,
   DownloadOutlineIcon,
   // 导出
-  OpenIcon,
+  ShareIcon,
   // 导出
   SendIcon,
   // 信息
@@ -180,7 +181,9 @@ const ionicons5 = {
   // 撤回
   ArrowBackIcon,
   // 前进
-  ArrowForwardIcon
+  ArrowForwardIcon,
+  // 狗爪
+  PawIcon
 }
 
 const carbon = {

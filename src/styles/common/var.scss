@@ -25,7 +25,6 @@ $--color-light-bg-4: #e3e3e4;
 $--color-light-bg-4-shallow: lighten($--color-light-bg-4, $--light-shalow);
 $--color-light-bg-5: #bebebe;
 $--color-light-bg-5-shallow: lighten($--color-light-bg-5, $--light-shalow);
-$--color-light-border: #efeff5;
 
 // 变暗值
 $--dark-shalow: 2%;
@@ -42,7 +41,6 @@ $--color-dark-bg-4: #313132;
 $--color-dark-bg-4-shallow: darken($--color-dark-bg-4, $--dark-shalow);
 $--color-dark-bg-5: #373739;
 $--color-dark-bg-5-shallow: darken($--color-dark-bg-5, $--dark-shalow);
-$--color-dark-border: #333335;
 
 // 最大宽度
 $--max-width: 1920px;
