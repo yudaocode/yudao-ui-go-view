@@ -41,6 +41,7 @@
 
             <template v-else-if="item.type === 'select'">
               <n-select
+                class="select-min-width"
                 v-model:value="item.value"
                 size="small"
                 :options="item.options"
@@ -126,7 +127,7 @@ const list = reactive<ListType[]>([
         value: ToolsStatusEnum.ASIDE
       },
       {
-        label: '底部',
+        label: '底部 Dock',
         value: ToolsStatusEnum.DOCK
       }
     ]
@@ -180,6 +181,9 @@ const handleChange = (e: MouseEvent, item: ListType) => {
   }
   .input-num-width {
     width: 100px;
+  }
+  .select-min-width {
+    width: 110px;
   }
   @include deep() {
     .n-list-item:not(:last-child) {
