@@ -9,6 +9,7 @@
     @drop="handleDrag"
     @dragover="handleDragOver"
   >
+    <!-- 画布主体 -->
     <div id="go-chart-edit-content" @contextmenu="handleContextMenu">
       <!-- 展示 -->
       <edit-range>
@@ -36,6 +37,12 @@
         </edit-shape-box>
       </edit-range>
     </div>
+
+    <!-- 工具栏 -->
+    <template #aside>
+      <edit-tools></edit-tools>
+    </template>
+
     <!-- 底部控制 -->
     <template #bottom>
       <EditBottom></EditBottom>
@@ -49,10 +56,15 @@ import { ContentBox } from '../contentBox/index'
 import { EditRange } from './components/EditRange'
 import { EditBottom } from './components/EditBottom'
 import { EditShapeBox } from './components/EditShapeBox'
+import { EditTools } from './components/EditTools'
 
 import { useLayout } from './hooks/useLayout.hook'
 import { useAddKeyboard } from '../hooks/useKeyboard.hook'
-import { handleDrag, handleDragOver, useMouseHandle } from './hooks/useDrag.hook'
+import {
+  handleDrag,
+  handleDragOver,
+  useMouseHandle
+} from './hooks/useDrag.hook'
 import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { useComponentStyle, useSizeStyle } from './hooks/useStyle.hook'
@@ -83,22 +95,21 @@ const themeColor = computed(() => {
 onMounted(() => {
   useAddKeyboard()
 })
-
 </script>
 
 <style lang="scss" scoped>
-@include goId("chart-edit-layout") {
+@include goId('chart-edit-layout') {
   position: relative;
   width: 100%;
   overflow: hidden;
   @extend .go-point-bg;
-  @include background-image("background-point");
-  @include goId("chart-edit-content") {
+  @include background-image('background-point');
+  @include goId('chart-edit-content') {
     border-radius: 10px;
     margin: 15px;
     overflow: hidden;
     @extend .go-transition;
-    @include fetch-theme("box-shadow");
+    @include fetch-theme('box-shadow');
     .edit-content-chart {
       position: absolute;
       overflow: hidden;

@@ -4,7 +4,7 @@ export enum ChartLayoutStoreEnum {
   LAYERS = 'layers',
   CHARTS = 'charts',
   DETAILS = 'details',
-  ALIGNLINE = 'alignLine',
+  TOOLS = 'tools'
 }
 
 export interface ChartLayoutType {
@@ -14,6 +14,4 @@ export interface ChartLayoutType {
   [ChartLayoutStoreEnum.CHARTS]: boolean
   // 详情设置
   [ChartLayoutStoreEnum.DETAILS]: boolean
-  // 对齐线
-  [ChartLayoutStoreEnum.ALIGNLINE]: boolean
 }

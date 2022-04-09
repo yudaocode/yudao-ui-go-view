@@ -10,10 +10,15 @@
         </n-space>
       </template>
 
-      <n-list-item v-for="item in list" :key="item.name">
-        <n-space :size="40">
+      <n-list-item v-for="item in list" :key="item.key">
+        <!-- 分割线 -->
+        <n-divider v-if="item.type === 'divider'" style="margin: 0;" />
+        <n-space v-else :size="40">
           <n-space>
+            <!-- 左侧标题 -->
             <n-text class="item-left">{{ item.name }}</n-text>
+
+            <!-- 数据操作 -->
             <template v-if="item.type === 'switch'">
               <n-switch
                 v-model:value="item.value"
@@ -21,6 +26,7 @@
                 @update:value="handleChange($event, item)"
               ></n-switch>
             </template>
+
             <template v-else-if="item.type === 'number'">
               <n-input-number
                 v-model:value="item.value"
@@ -32,7 +38,13 @@
                 @update:value="handleChange($event, item)"
               ></n-input-number>
             </template>
+
+            <template v-else-if="item.type === 'select'">
+              <n-select v-model:value="item.value" size="small" :options="item.options" />
+            </template>
           </n-space>
+
+          <!-- 右侧描述 -->
           <n-space>
             <n-text class="item-right">{{ item.desc }}</n-text>
             <n-tooltip v-if="item.tip" trigger="hover">
@@ -46,7 +58,6 @@
           </n-space>
         </n-space>
       </n-list-item>
-      <n-list-item></n-list-item>
     </n-list>
   </n-modal>
 </template>
@@ -55,7 +66,7 @@
 import { reactive } from 'vue'
 import { ListType } from './index.d'
 import { useSettingStore } from '@/store/modules/settingStore/settingStore'
-import { SettingStoreEnums } from '@/store/modules/settingStore/settingStore.d'
+import { SettingStoreEnums, ToolsStatusEnum } from '@/store/modules/settingStore/settingStore.d'
 import { icon } from '@/plugins'
 
 const { HelpOutlineIcon, CloseIcon } = icon.ionicons5
@@ -92,6 +103,37 @@ const list = reactive<ListType[]>([
     tip: '若遇到部分区域语言切换失败，则建议开启'
   },
   {
+    key: 'divider1',
+    type: 'divider',
+    name: '',
+    desc: '',
+    value: ''
+  },
+  {
+    key: SettingStoreEnums.CHART_TOOLS_STATUS,
+    value: settingStore.getChartToolsStatus,
+    type: 'select',
+    name: '工具栏展示',
+    desc: '工作空间工具栏展示方式',
+    options: [
+      {
+        label: '侧边栏',
+        value: ToolsStatusEnum.ASIDE
+      },
+      {
+        label: '底部',
+        value: ToolsStatusEnum.DOCK
+      }
+    ]
+  },
+  {
+    key: 'divider0',
+    type: 'divider',
+    name: '',
+    desc: '',
+    value: ''
+  },
+  {
     key: SettingStoreEnums.CHART_MOVE_DISTANCE,
     value: settingStore.getChartMoveDistance,
     type: 'number',
@@ -99,7 +141,7 @@ const list = reactive<ListType[]>([
     min: 1,
     step: 1,
     suffix: 'px',
-    desc: '方向键控制图标移动的距离'
+    desc: '工作空间方向键控制移动距离'
   },
   {
     key: SettingStoreEnums.CHART_ALIGN_RANGE,
@@ -109,8 +151,8 @@ const list = reactive<ListType[]>([
     min: 10,
     step: 2,
     suffix: 'px',
-    desc: '移动图表时的吸附距离'
-  },
+    desc: '工作空间移动图表时的吸附距离'
+  }
 ])
 
 const closeHandle = () => {
@@ -127,11 +169,17 @@ const handleChange = (e: MouseEvent, item: ListType) => {
   @extend .go-background-filter;
   min-width: 100px;
   max-width: 60vw;
+  padding-bottom: 20px;
   .item-left {
     width: 200px;
   }
   .input-num-width {
     width: 100px;
+  }
+  @include deep() {
+    .n-list-item:not(:last-child) {
+      border-bottom: 0;
+    }
   }
 }
 </style>

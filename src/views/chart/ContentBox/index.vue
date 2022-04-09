@@ -12,13 +12,18 @@
       </n-space>
       <n-space>
         <slot name="top-right"></slot>
-        <n-icon v-show="backIcon" size="20" class="go-cursor-pointer" @click="backHandle">
+        <n-icon
+          v-show="backIcon"
+          size="20"
+          class="go-cursor-pointer"
+          @click="backHandle"
+        >
           <chevron-back-outline-icon></chevron-back-outline-icon>
         </n-icon>
       </n-space>
     </div>
 
-    <aside
+    <div
       class="content"
       :class="{
         'content-height-show-top-bottom': showBottom || showTop,
@@ -38,10 +43,13 @@
           <slot></slot>
         </n-scrollbar>
       </template>
-    </aside>
+    </div>
 
     <div v-if="showBottom" class="bottom go-mt-0">
       <slot name="bottom"></slot>
+    </div>
+    <div class="aside">
+      <slot name="aside"></slot>
     </div>
   </div>
 </template>
@@ -95,31 +103,31 @@ $topOrBottomHeight: 40px;
   margin: 1px;
   margin-bottom: 0;
   &.bg-depth0 {
-    @include filter-bg-color("background-color1");
+    @include filter-bg-color('background-color1');
     .bottom,
     .top {
-      @include filter-bg-color("background-color1");
+      @include filter-bg-color('background-color1');
     }
   }
   &.bg-depth1 {
-    @include filter-bg-color("background-color1");
+    @include filter-bg-color('background-color1');
     .bottom,
     .top {
-      @include filter-bg-color("background-color2");
+      @include filter-bg-color('background-color2');
     }
   }
   &.bg-depth2 {
-    @include filter-bg-color("background-color2");
+    @include filter-bg-color('background-color2');
     .bottom,
     .top {
-      @include filter-bg-color("background-color3");
+      @include filter-bg-color('background-color3');
     }
   }
   &.bg-depth3 {
-    @include filter-bg-color("background-color3");
+    @include filter-bg-color('background-color3');
     .bottom,
     .top {
-      @include filter-bg-color("background-color4");
+      @include filter-bg-color('background-color4');
     }
   }
   &.flex {
@@ -134,14 +142,14 @@ $topOrBottomHeight: 40px;
     height: $topOrBottomHeight;
     padding: 0 10px;
     border-top: 1px solid;
-    @include filter-border-color("hover-border-color");
+    @include filter-border-color('hover-border-color');
     .mt-1 {
       margin-top: 2px;
     }
   }
   .top {
     border-bottom: 1px solid;
-    @include filter-border-color("background-color1");
+    @include filter-border-color('background-color1');
   }
   .content {
     height: calc(100vh - #{$--header-height});

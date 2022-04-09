@@ -8,7 +8,7 @@ const chartEditStore = useChartEditStore()
 
 const { GO_CHART_LAYOUT_STORE } = StorageEnum
 
-const storageChartLayout: ChartLayoutType = getLocalStorage( GO_CHART_LAYOUT_STORE)
+const storageChartLayout: ChartLayoutType = getLocalStorage(GO_CHART_LAYOUT_STORE)
 
 // 编辑区域布局和静态设置
 export const useChartLayoutStore = defineStore({
@@ -20,9 +20,7 @@ export const useChartLayoutStore = defineStore({
       // 图表组件
       charts: true,
       // 详情设置
-      details: true,
-      // 对齐线
-      alignLine: true,
+      details: true
     },
   getters: {
     getLayers(): boolean {
@@ -33,9 +31,6 @@ export const useChartLayoutStore = defineStore({
     },
     getDetails(): boolean {
       return this.details
-    },
-    getAlignLine(): boolean {
-      return this.alignLine
     }
   },
   actions: {
