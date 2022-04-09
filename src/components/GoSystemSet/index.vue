@@ -40,7 +40,12 @@
             </template>
 
             <template v-else-if="item.type === 'select'">
-              <n-select v-model:value="item.value" size="small" :options="item.options" />
+              <n-select
+                v-model:value="item.value"
+                size="small"
+                :options="item.options"
+                @update:value="handleChange($event, item)"
+              />
             </template>
           </n-space>
 
