@@ -111,7 +111,7 @@ const toolsMouseoverHandle = () => {
   }, 200);
   setTimeout(() => {
     asideTootipDis.value = false
-  }, 200)
+  }, 400)
 }
 
 const toolsMouseoutHandle = () => {
