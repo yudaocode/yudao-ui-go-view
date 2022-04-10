@@ -31,7 +31,7 @@ export const loadingError = () => {
  * @param { Object} params 配置参数
  * @param { Function } dialogFn 函数
  * ```
- * // 最简易demo
+ * 最简易的 demo
  * goDialog({
  *    onPositiveCallback: () => {}
  * })
@@ -43,6 +43,14 @@ export const goDialog = (
     type?: DialogEnum
     // 提示
     message?: string
+    // 取消提示词
+    negativeText?: string
+    // 取消按钮的属性
+    negativeButtonProps?: object,
+    // 确定提示词
+    positiveText?: string
+    // 确定按钮的属性
+    positiveButtonProps?: object,
     // 点击遮罩是否关闭
     isMaskClosable?: boolean
     // 回调
@@ -58,41 +66,47 @@ export const goDialog = (
   const {
     type,
     message,
+    negativeText,
+    negativeButtonProps,
+    positiveText,
+    positiveButtonProps,
     isMaskClosable,
     onPositiveCallback,
     onNegativeCallback,
     promise,
     promiseResCallback,
-    promiseRejCallback,
+    promiseRejCallback
   } = params
 
   const typeObj = {
     // 自定义
     [DialogEnum.delete]: {
       fn: dialogFn || window['$dialog'].warning,
-      message: message || '是否删除此数据?',
+      message: message || '是否删除此数据?'
     },
     // 原有
     [DialogEnum.warning]: {
       fn: window['$dialog'].warning,
-      message: message || '是否执行此操作?',
+      message: message || '是否执行此操作?'
     },
     [DialogEnum.error]: {
       fn: window['$dialog'].error,
-      message: message || '是否执行此操作?',
+      message: message || '是否执行此操作?'
     },
     [DialogEnum.success]: {
       fn: window['$dialog'].success,
-      message: message || '是否执行此操作?',
-    },
+      message: message || '是否执行此操作?'
+    }
   }
 
   const d: DialogReactive = typeObj[type || DialogEnum.warning]['fn']({
     title: '提示',
     icon: renderIcon(InformationCircleIcon, { size: dialogIconSize }),
     content: typeObj[type || DialogEnum.warning]['message'],
-    positiveText: '确定',
-    negativeText: '取消',
+    positiveText: positiveText || '确定',
+    positiveButtonProps: positiveButtonProps,
+    negativeText: negativeText || '取消',
+    negativeButtonProps: negativeButtonProps,
     // 是否通过遮罩关闭
     maskClosable: isMaskClosable || maskClosable,
     onPositiveClick: async () => {
@@ -112,6 +126,6 @@ export const goDialog = (
     },
     onNegativeClick: async () => {
       onNegativeCallback && onNegativeCallback(d)
-    },
+    }
   })
 }
