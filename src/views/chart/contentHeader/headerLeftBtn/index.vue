@@ -35,7 +35,7 @@
 import { toRefs, Ref, reactive, computed } from 'vue'
 import { renderIcon, goDialog, goHome } from '@/utils'
 import { icon } from '@/plugins'
-import { useRemoveKeyboard } from '../hooks/useKeyboard.hook'
+import { useRemoveKeyboard } from '../../hooks/useKeyboard.hook'
 
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 

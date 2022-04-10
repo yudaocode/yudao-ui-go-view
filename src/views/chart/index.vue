@@ -47,22 +47,12 @@ const chartEditStore = useChartEditStore()
 // 记录初始化
 chartHistoryStoreStore.canvasInit(chartEditStore.getEditCanvas)
 
-const HeaderLeftBtn = loadAsyncComponent(() =>
-  import('./headerLeftBtn/index.vue')
-)
-const HeaderRightBtn = loadAsyncComponent(() =>
-  import('./headerRightBtn/index.vue')
-)
-const HeaderTitle = loadAsyncComponent(() => import('./headerTitle/index.vue'))
-const ContentLayers = loadAsyncComponent(() =>
-  import('./contentLayers/index.vue')
-)
-const ContentCharts = loadAsyncComponent(() =>
-  import('./contentCharts/index.vue')
-)
-const ContentConfigurations = loadAsyncComponent(() =>
-  import('./contentConfigurations/index.vue')
-)
+const HeaderLeftBtn = loadAsyncComponent(() => import('./contentHeader/headerLeftBtn/index.vue'))
+const HeaderRightBtn = loadAsyncComponent(() => import('./contentHeader/headerRightBtn/index.vue'))
+const HeaderTitle = loadAsyncComponent(() => import('./contentHeader/headerTitle/index.vue'))
+const ContentLayers = loadAsyncComponent(() => import('./contentLayers/index.vue'))
+const ContentCharts = loadAsyncComponent(() => import('./contentCharts/index.vue'))
+const ContentConfigurations = loadAsyncComponent(() => import('./contentConfigurations/index.vue'))
 
 // 右键
 const {
@@ -74,10 +64,10 @@ const {
 </script>
 
 <style lang="scss" scoped>
-@include go('chart') {
+@include go("chart") {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  @include background-image('background-image');
+  @include background-image("background-image");
 }
 </style>
