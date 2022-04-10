@@ -10,7 +10,6 @@ export const useComInstall = (localStorageInfo: ChartEditStorageType) => {
   const intervalTiming = setInterval(() => {
     if (window['$vue'].component) {
       clearInterval(intervalTiming)
-      show.value = true
       localStorageInfo.componentList.forEach(async (e: CreateComponentType) => {
         if (!window['$vue'].component(e.chartConfig.chartKey)) {
           window['$vue'].component(
@@ -19,6 +18,7 @@ export const useComInstall = (localStorageInfo: ChartEditStorageType) => {
           )
         }
       })
+      show.value = true
     }
   }, 200)
 

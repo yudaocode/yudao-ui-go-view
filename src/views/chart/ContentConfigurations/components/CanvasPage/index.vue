@@ -121,7 +121,7 @@ const ChartDataSetting = loadAsyncComponent(() =>
   import('./components/ChartDataSetting/index.vue')
 )
 
-// 页面设置
+// 展示颜色列表
 const swatchesColors = [
   '#232324',
   '#2a2a2b',

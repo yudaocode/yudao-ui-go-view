@@ -17,31 +17,44 @@
       placement="left"
     >
       <template #trigger>
-        <n-button
-          v-show="!isMini"
-          class="btn-item"
-          :class="[btnList.length - 1 === index && 'go-mb-0']"
-          :circle="isAside"
-          secondary
-          @click="item.handle"
-        >
-          <template #icon>
-            <n-icon size="22" v-if="isAside">
-              <component :is="item.icon"></component>
-            </n-icon>
-            <component v-else :is="item.icon"></component>
-          </template>
-          <n-text depth="3" v-show="!isAside">{{ item.name }}</n-text>
-        </n-button>
+        <div v-show="!isMini" class="btn-item" :class="[btnList.length - 1 === index && 'go-mb-0']">
+          <n-button v-if="item.type === TypeEnum.BOTTON" :circle="isAside" secondary @click="item.handle">
+            <template #icon>
+              <n-icon size="22" v-if="isAside">
+                <component :is="item.icon"></component>
+              </n-icon>
+              <component v-else :is="item.icon"></component>
+            </template>
+            <n-text depth="3" v-show="!isAside">{{ item.name }}</n-text>
+          </n-button>
+          <!-- 下载 -->
+          <n-upload
+            v-else-if="item.type === TypeEnum.IMPORTUPLOAD"
+            v-model:file-list="importUploadFileListRef"
+            :show-file-list="false"
+            :customRequest="importCustomRequest"
+            @before-upload="importBeforeUpload"
+          >
+            <n-button :circle="isAside" secondary>
+              <template #icon>
+                <n-icon size="22" v-if="isAside">
+                  <component :is="item.icon"></component>
+                </n-icon>
+                <component v-else :is="item.icon"></component>
+              </template>
+              <n-text depth="3" v-show="!isAside">{{ item.name }}</n-text>
+            </n-button>
+          </n-upload>
+        </div>
       </template>
       <!-- 提示 -->
       <span>{{ item.name }}</span>
     </n-tooltip>
     <!-- PawIcon -->
     <n-icon
+      v-if="isAside"
       v-show="settingStore.getChartToolsStatus === ToolsStatusEnum.ASIDE && isMini"
       size="22"
-      v-if="isAside"
     >
       <PawIcon></PawIcon>
     </n-icon>
@@ -49,10 +62,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, h } from 'vue';
+import { ref, computed } from 'vue';
 import { useSettingStore } from '@/store/modules/settingStore/settingStore'
 import { ToolsStatusEnum } from '@/store/modules/settingStore/settingStore.d'
-import { importHandle, exportHandle } from './utils'
+import { exportHandle } from './utils'
+import { useFile } from './hooks/useFile.hooks'
+import { BtnListType, TypeEnum } from './index.d'
 import { icon } from '@/plugins'
 
 const { DownloadIcon, ShareIcon, PawIcon } = icon.ionicons5
@@ -63,14 +78,17 @@ let mouseTime: any = null
 const isMini = ref<boolean>(true)
 // 是否是侧边栏
 const isAside = computed(() => settingStore.getChartToolsStatus === ToolsStatusEnum.ASIDE)
+// 文件上传
+const { importUploadFileListRef, importCustomRequest, importBeforeUpload } = useFile()
 
-const btnList = [{
+const btnList: BtnListType[] = [{
   key: 'import',
+  type: TypeEnum.IMPORTUPLOAD,
   name: '导入',
   icon: DownloadIcon,
-  handle: importHandle
 }, {
   key: 'export',
+  type: TypeEnum.BOTTON,
   name: '导出',
   icon: ShareIcon,
   handle: exportHandle
@@ -108,7 +126,7 @@ $asideBottom: 70px;
   border-radius: 25px;
   border: 1px solid;
   mix-blend-mode: luminosity;
-  transition: height ease-in 1s, padding 0.4s, bottom .4s;
+  transition: height ease-in 1s, padding 0.4s, bottom 0.4s;
   @include filter-border-color("hover-border-color-shallow");
   &.aside {
     flex-direction: column;
@@ -118,7 +136,6 @@ $asideBottom: 70px;
     bottom: $asideBottom;
     .btn-item {
       margin-bottom: 10px;
-      padding-bottom: 6px;
       /* 没生效，用上面的 go-mb-0 代替 */
       &:last-child {
         margin-bottom: 0;
@@ -126,6 +143,7 @@ $asideBottom: 70px;
       @include deep() {
         .n-button__icon {
           margin-right: 4px;
+          margin-bottom: 14px;
         }
       }
     }

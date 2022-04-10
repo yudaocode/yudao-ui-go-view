@@ -5,7 +5,6 @@ import debounce from 'lodash/debounce'
 import cloneDeep from 'lodash/cloneDeep'
 import { defaultTheme, globalThemeJson } from '@/settings/chartThemes/index'
 import { requestInterval } from '@/settings/designSetting'
-import { chartMoveDistance } from '@/settings/systemSetting'
 // 记录记录
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
 // 全局设置
@@ -63,6 +62,7 @@ export const useChartEditStore = defineStore({
     },
     // 记录临时数据（复制等）
     recordChart: undefined,
+    // -----------------------
     // 画布属性（需存储给后端）
     editCanvasConfig: {
       // 默认宽度

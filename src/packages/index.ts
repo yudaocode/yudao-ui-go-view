@@ -22,12 +22,12 @@ export let packagesList: PackagesType = {
 }
 
 /**
- * * 获取目标拖拽组件配置信息
- * @param dropData
+ * * 获取目标组件配置信息
+ * @param targetData
  */
- export const createComponent = async (dropData: ConfigType) => {
-  const { category, key } = dropData
-  const chart = await import(`./components/${dropData.package}/${category}/${key}/config.ts`)
+ export const createComponent = async (targetData: ConfigType) => {
+  const { category, key } = targetData
+  const chart = await import(`./components/${targetData.package}/${category}/${key}/config.ts`)
   return new chart.default()
 }
 

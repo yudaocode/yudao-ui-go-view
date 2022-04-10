@@ -100,6 +100,11 @@ export const useChartHistoryStore = defineStore({
     clearForwardStack() {
       this.forwardStack = []
     },
+    // * 清空后退栈(保留初始化)
+    clearBackStack() {
+      const canvasHistory = this.getBackStack[0]
+      this.backStack =  [canvasHistory]
+    },
     // * 撤回
     backAction() {
       try {
