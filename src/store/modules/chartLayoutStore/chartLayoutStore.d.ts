@@ -4,7 +4,6 @@ export enum ChartLayoutStoreEnum {
   LAYERS = 'layers',
   CHARTS = 'charts',
   DETAILS = 'details',
-  TOOLS = 'tools'
 }
 
 export interface ChartLayoutType {
