@@ -72,10 +72,10 @@ const isSorption = (selectValue: number, componentValue: number) => {
 
 // * 当前目标
 const selectId = computed(() => chartEditStore.getTargetChart.selectId)
-const selectTatget = computed(
+const selectTarget = computed(
   () => chartEditStore.getComponentList[chartEditStore.fetchTargetIndex()]
 )
-const selectAttr = computed(() => selectTatget.value?.attr || {})
+const selectAttr = computed(() => selectTarget.value?.attr || {})
 
 // * 画布坐标
 const canvasPositionList = computed(() => {
@@ -148,36 +148,36 @@ watch(
           // 顶部
           if (isSorption(selectTopY, componentTopY)) {
             line.select.set(lineItem, { y: componentTopY })
-            selectTatget.value.setPosition(selectLeftX, componentTopY)
+            selectTarget.value.setPosition(selectLeftX, componentTopY)
           }
           if (isSorption(selectTopY, componentHalfY)) {
             line.select.set(lineItem, { y: componentHalfY })
-            selectTatget.value.setPosition(selectLeftX, componentHalfY)
+            selectTarget.value.setPosition(selectLeftX, componentHalfY)
           }
           if (isSorption(selectTopY, componentBottomY)) {
             line.select.set(lineItem, { y: componentBottomY })
-            selectTatget.value.setPosition(selectLeftX, componentBottomY)
+            selectTarget.value.setPosition(selectLeftX, componentBottomY)
           }
         }
         if (lineItem.includes('rowc')) {
           // 顶部
           if (isSorption(selectHalfY, componentTopY)) {
             line.select.set(lineItem, { y: componentTopY })
-            selectTatget.value.setPosition(
+            selectTarget.value.setPosition(
               selectLeftX,
               componentTopY - selectH / 2
             )
           }
           if (isSorption(selectHalfY, componentHalfY)) {
             line.select.set(lineItem, { y: componentHalfY })
-            selectTatget.value.setPosition(
+            selectTarget.value.setPosition(
               selectLeftX,
               componentHalfY - selectH / 2
             )
           }
           if (isSorption(selectHalfY, componentBottomY)) {
             line.select.set(lineItem, { y: componentBottomY })
-            selectTatget.value.setPosition(
+            selectTarget.value.setPosition(
               selectLeftX,
               componentBottomY - selectH / 2
             )
@@ -187,18 +187,18 @@ watch(
           // 顶部
           if (isSorption(selectBottomY, componentTopY)) {
             line.select.set(lineItem, { y: componentTopY })
-            selectTatget.value.setPosition(selectLeftX, componentTopY - selectH)
+            selectTarget.value.setPosition(selectLeftX, componentTopY - selectH)
           }
           if (isSorption(selectBottomY, componentHalfY)) {
             line.select.set(lineItem, { y: componentHalfY })
-            selectTatget.value.setPosition(
+            selectTarget.value.setPosition(
               selectLeftX,
               componentHalfY - selectH
             )
           }
           if (isSorption(selectBottomY, componentBottomY)) {
             line.select.set(lineItem, { y: componentBottomY })
-            selectTatget.value.setPosition(
+            selectTarget.value.setPosition(
               selectLeftX,
               componentBottomY - selectH
             )
@@ -209,35 +209,35 @@ watch(
         if (lineItem.includes('coll')) {
           if (isSorption(selectLeftX, componentLeftX)) {
             line.select.set(lineItem, { x: componentLeftX })
-            selectTatget.value.setPosition(componentLeftX, selectTopY)
+            selectTarget.value.setPosition(componentLeftX, selectTopY)
           }
           if (isSorption(selectLeftX, componentHalfX)) {
             line.select.set(lineItem, { x: componentHalfX })
-            selectTatget.value.setPosition(componentHalfX, selectTopY)
+            selectTarget.value.setPosition(componentHalfX, selectTopY)
           }
           if (isSorption(selectLeftX, componentRightX)) {
             line.select.set(lineItem, { x: componentRightX })
-            selectTatget.value.setPosition(componentRightX, selectTopY)
+            selectTarget.value.setPosition(componentRightX, selectTopY)
           }
         }
         if (lineItem.includes('colc')) {
           if (isSorption(selectHalfX, componentLeftX)) {
             line.select.set(lineItem, { x: componentLeftX })
-            selectTatget.value.setPosition(
+            selectTarget.value.setPosition(
               componentLeftX - selectW / 2,
               selectTopY
             )
           }
           if (isSorption(selectHalfX, componentHalfX)) {
             line.select.set(lineItem, { x: componentHalfX })
-            selectTatget.value.setPosition(
+            selectTarget.value.setPosition(
               componentHalfX - selectW / 2,
               selectTopY
             )
           }
           if (isSorption(selectHalfX, componentRightX)) {
             line.select.set(lineItem, { x: componentRightX })
-            selectTatget.value.setPosition(
+            selectTarget.value.setPosition(
               componentRightX - selectW / 2,
               selectTopY
             )
@@ -246,15 +246,15 @@ watch(
         if (lineItem.includes('colr')) {
           if (isSorption(selectRightX, componentLeftX)) {
             line.select.set(lineItem, { x: componentLeftX })
-            selectTatget.value.setPosition(componentLeftX - selectW, selectTopY)
+            selectTarget.value.setPosition(componentLeftX - selectW, selectTopY)
           }
           if (isSorption(selectRightX, componentHalfX)) {
             line.select.set(lineItem, { x: componentHalfX })
-            selectTatget.value.setPosition(componentHalfX - selectW, selectTopY)
+            selectTarget.value.setPosition(componentHalfX - selectW, selectTopY)
           }
           if (isSorption(selectRightX, componentRightX)) {
             line.select.set(lineItem, { x: componentRightX })
-            selectTatget.value.setPosition( componentRightX - selectW, selectTopY )
+            selectTarget.value.setPosition( componentRightX - selectW, selectTopY )
           }
         }
 
