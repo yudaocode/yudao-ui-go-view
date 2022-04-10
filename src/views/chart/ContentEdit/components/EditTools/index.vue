@@ -9,15 +9,24 @@
     @mouseenter="toolsMouseoverHandle"
     @mouseleave="toolsMouseoutHandle"
   >
+    <!-- PawIcon -->
+    <n-icon
+      v-show="settingStore.getChartToolsStatus === ToolsStatusEnum.ASIDE"
+      class="asideLogo"
+      size="22"
+    >
+      <PawIcon></PawIcon>
+    </n-icon>
+
     <n-tooltip
       v-for="(item, index) in btnList"
       :key="item.key"
-      :disabled="!isAside"
+      :disabled="!isAside || asideTootipDis"
       trigger="hover"
       placement="left"
     >
       <template #trigger>
-        <div class="btn-item" :class="[btnList.length - 1 === index && 'go-mb-0']">
+        <div class="btn-item" :class="[btnList.length - 1 === index && 'go-111mt-0']">
           <n-button
             v-if="item.type === TypeEnum.BUTTON"
             :circle="isAside"
@@ -55,14 +64,6 @@
       <!-- 提示 -->
       <span>{{ item.name }}</span>
     </n-tooltip>
-    <!-- PawIcon -->
-    <n-icon
-      v-if="isAside"
-      v-show="settingStore.getChartToolsStatus === ToolsStatusEnum.ASIDE && isMini"
-      size="22"
-    >
-      <PawIcon></PawIcon>
-    </n-icon>
   </div>
 </template>
 
@@ -83,6 +84,8 @@ let mouseTime: any = null
 const isMini = ref<boolean>(true)
 // 是否是侧边栏
 const isAside = computed(() => settingStore.getChartToolsStatus === ToolsStatusEnum.ASIDE)
+// 控制 tootip 提示时机
+const asideTootipDis = ref(true)
 // 文件上传
 const { importUploadFileListRef, importCustomRequest, importBeforeUpload } = useFile()
 
@@ -103,8 +106,12 @@ const toolsMouseoverHandle = () => {
   mouseTime = setTimeout(() => {
     if (isMini.value) {
       isMini.value = false
+      asideTootipDis.value = true
     }
   }, 200);
+  setTimeout(() => {
+    asideTootipDis.value = false
+  }, 200)
 }
 
 const toolsMouseoutHandle = () => {
@@ -122,7 +129,7 @@ $dockBottom: 60px;
 $dockMiniWidth: 200px;
 $dockMiniBottom: 53px;
 
-$asideHeight: 78px;
+$asideHeight: 90px;
 $asideMiniHeight: 22px;
 $asideBottom: 70px;
 
@@ -137,18 +144,15 @@ $asideBottom: 70px;
   mix-blend-mode: luminosity;
   @include filter-border-color("hover-border-color-shallow");
   &.aside {
-    flex-direction: column;
+    flex-direction: column-reverse;
     height: auto;
     right: 20px;
     padding: 20px 8px;
     bottom: $asideBottom;
-    transition: height ease .4s;
+    overflow: hidden;
+    transition: height ease 0.4s;
     .btn-item {
       margin-bottom: 10px;
-      /* 没生效，用上面的 go-mb-0 代替 */
-      &:last-child {
-        margin-bottom: 0;
-      }
       @include deep() {
         .n-button__icon {
           margin-right: 4px;
@@ -172,15 +176,18 @@ $asideBottom: 70px;
         position: relative;
         display: block;
       }
+      .asideLogo {
+        opacity: 0.4;
+      }
     }
     &.isMini {
       cursor: pointer;
       padding: 13px 13px;
       background-color: var(--n-toggle-bar-color);
-      animation: aside-mini-in .4s ease forwards;
+      animation: aside-mini-in 0.4s ease forwards;
       @keyframes aside-mini-in {
         0% {
-          opacity: .5;
+          opacity: 0.5;
           height: $asideHeight;
         }
         100% {
@@ -191,6 +198,9 @@ $asideBottom: 70px;
       .btn-item {
         position: relative;
         display: none;
+      }
+      .asideLogo {
+        opacity: 1;
       }
     }
   }
