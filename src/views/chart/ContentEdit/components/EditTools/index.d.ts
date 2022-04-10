@@ -1,5 +1,5 @@
 export enum TypeEnum {
-  BOTTON = 'bottom',
+  BUTTON = 'button',
   IMPORTUPLOAD = 'importUpload'
 }
 

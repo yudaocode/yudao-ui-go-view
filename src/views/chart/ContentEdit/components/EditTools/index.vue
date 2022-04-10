@@ -3,7 +3,7 @@
     class="go-chart-edit-tools"
     :class="[
       settingStore.getChartToolsStatus,
-      isMini && 'isMini',
+      isMini ? 'isMini' : 'unMini',
     ]"
     @click="isMini && (isMini = false)"
     @mouseenter="toolsMouseoverHandle"
@@ -17,8 +17,13 @@
       placement="left"
     >
       <template #trigger>
-        <div v-show="!isMini" class="btn-item" :class="[btnList.length - 1 === index && 'go-mb-0']">
-          <n-button v-if="item.type === TypeEnum.BOTTON" :circle="isAside" secondary @click="item.handle">
+        <div class="btn-item" :class="[btnList.length - 1 === index && 'go-mb-0']">
+          <n-button
+            v-if="item.type === TypeEnum.BUTTON"
+            :circle="isAside"
+            secondary
+            @click="item.handle"
+          >
             <template #icon>
               <n-icon size="22" v-if="isAside">
                 <component :is="item.icon"></component>
@@ -62,7 +67,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, h } from 'vue';
 import { useSettingStore } from '@/store/modules/settingStore/settingStore'
 import { ToolsStatusEnum } from '@/store/modules/settingStore/settingStore.d'
 import { exportHandle } from './utils'
@@ -88,7 +93,7 @@ const btnList: BtnListType[] = [{
   icon: DownloadIcon,
 }, {
   key: 'export',
-  type: TypeEnum.BOTTON,
+  type: TypeEnum.BUTTON,
   name: '导出',
   icon: ShareIcon,
   handle: exportHandle
@@ -112,9 +117,13 @@ const toolsMouseoutHandle = () => {
 
 <style lang="scss" scoped>
 /* 底部区域的高度 */
+$dockHeight: 30px;
 $dockBottom: 60px;
 $dockMiniWidth: 200px;
 $dockMiniBottom: 53px;
+
+$asideHeight: 78px;
+$asideMiniHeight: 22px;
 $asideBottom: 70px;
 
 @include go("chart-edit-tools") {
@@ -126,7 +135,6 @@ $asideBottom: 70px;
   border-radius: 25px;
   border: 1px solid;
   mix-blend-mode: luminosity;
-  transition: height ease-in 1s, padding 0.4s, bottom 0.4s;
   @include filter-border-color("hover-border-color-shallow");
   &.aside {
     flex-direction: column;
@@ -134,6 +142,7 @@ $asideBottom: 70px;
     right: 20px;
     padding: 20px 8px;
     bottom: $asideBottom;
+    transition: height ease .4s;
     .btn-item {
       margin-bottom: 10px;
       /* 没生效，用上面的 go-mb-0 代替 */
@@ -147,44 +156,122 @@ $asideBottom: 70px;
         }
       }
     }
+    &.unMini {
+      animation: aside-in 0.4s ease forwards;
+      @keyframes aside-in {
+        0% {
+          opacity: 0.5;
+          height: $asideMiniHeight;
+        }
+        100% {
+          height: $asideHeight;
+          opacity: 1;
+        }
+      }
+      .btn-item {
+        position: relative;
+        display: block;
+      }
+    }
     &.isMini {
       cursor: pointer;
-      padding: 12px 8px;
+      padding: 13px 13px;
       background-color: var(--n-toggle-bar-color);
+      animation: aside-mini-in .4s ease forwards;
+      @keyframes aside-mini-in {
+        0% {
+          opacity: .5;
+          height: $asideHeight;
+        }
+        100% {
+          opacity: 1;
+          height: $asideMiniHeight;
+        }
+      }
+      .btn-item {
+        position: relative;
+        display: none;
+      }
     }
   }
 
   &.dock {
     width: auto;
     left: 50%;
-    padding: 8px 30px;
-    bottom: $dockBottom;
     transform: translateX(-50%);
-
     .btn-item {
       margin-right: 20px;
       &:last-child {
         margin-right: 0;
       }
     }
+    &.unMini {
+      animation: dock-in 0.4s ease forwards;
+      @keyframes dock-in {
+        0% {
+          opacity: 0;
+          height: 0;
+          padding: 5px;
+          bottom: $dockMiniBottom;
+          mix-blend-mode: screen;
+        }
+        100% {
+          height: $dockHeight;
+          padding: 8px 30px;
+          bottom: $dockBottom;
+          border-radius: 25px;
+          mix-blend-mode: none;
+        }
+      }
+    }
     /* 最小化 */
     &.isMini {
       height: 0;
-      padding: 5px;
       width: $dockMiniWidth;
       bottom: $dockMiniBottom;
+      padding: 5px;
       border-radius: 8px;
       cursor: pointer;
       border: 0px;
       mix-blend-mode: screen;
+      animation: dock-mini-in 1s ease forwards;
+      @keyframes dock-mini-in {
+        0% {
+          opacity: 1;
+          height: $dockHeight;
+          padding: 8px 30px;
+          bottom: $dockBottom;
+          border-radius: 25px;
+        }
+        20% {
+          height: 0;
+          border-radius: 8px;
+        }
+        50% {
+          opacity: 0;
+          bottom: calc(#{$dockMiniBottom} - 10px);
+        }
+        100% {
+          opacity: 1;
+          height: 0;
+          padding: 5px;
+          bottom: $dockMiniBottom;
+          mix-blend-mode: screen;
+        }
+      }
+      .btn-item {
+        position: relative;
+        bottom: -50px;
+        display: none;
+      }
     }
     &::after {
       content: "";
       position: absolute;
       left: 0;
       width: 100%;
-      height: 30px;
-      bottom: -25px;
+      height: 20px;
+      bottom: -20px;
       cursor: pointer;
     }
   }
