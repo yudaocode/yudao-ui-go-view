@@ -4,25 +4,15 @@
     :style="rangeStyle"
     @mousedown="mousedownHandleUnStop($event, undefined)"
   >
-    <n-watermark
-      id="go-edit-watermark"
-      :content="watermarkText"
-      cross
-      selectable
-      :font-size="16"
-      :line-height="16"
-      :width="500"
-      :height="150"
-      :x-offset="12"
-      :y-offset="80"
-      :rotate="-15"
-      style="display: none; width: 100%; height: 100%;"
-    ></n-watermark>
     <slot></slot>
+    <!-- 水印 -->
+    <edit-watermark></edit-watermark>
     <!-- 标尺 -->
     <edit-rule></edit-rule>
     <!-- 拖拽时的辅助线 -->
     <edit-align-line></edit-align-line>
+    <!-- 拖拽时的遮罩 -->
+    <div class="go-edit-range-model" :style="rangeModelStyle"></div>
   </div>
 </template>
 
@@ -32,8 +22,8 @@ import { useSizeStyle } from '../../hooks/useStyle.hook'
 import { mousedownHandleUnStop } from '../../hooks/useDrag.hook'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditAlignLine } from '../EditAlignLine'
+import { EditWatermark } from '../EditWatermark'
 import { EditRule } from '../EditRule'
-import { watermarkText } from '@/settings/designSetting'
 
 const chartEditStore = useChartEditStore()
 
@@ -65,13 +55,30 @@ const rangeStyle = computed(() => {
   return { ...useSizeStyle(size.value), ...computedBackground, ...scale }
 })
 
+// 模态层
+const rangeModelStyle = computed(() => {
+  const dragStyle = getEditCanvas.value.isCreate && { 'z-index': 99999 }
+  // @ts-ignore
+  return { ...useSizeStyle(size.value), ...dragStyle }
+})
 </script>
 
 <style lang="scss" scoped>
 @include go(edit-range) {
   position: relative;
   transform-origin: left top;
-  @include filter-border-color("hover-border-color");
-  @include filter-bg-color("background-color2");
+  @include filter-border-color('hover-border-color');
+  @include filter-bg-color('background-color2');
+
+  @include go(edit-range-model) {
+    z-index: -1;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 15px;
+    border: 1px solid rgba(0, 0, 0, 0);
+    background-color: greenyellow;
+    opacity: 1;
+  }
 }
 </style>
