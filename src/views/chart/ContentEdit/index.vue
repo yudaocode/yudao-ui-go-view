@@ -6,8 +6,9 @@
     :showBottom="true"
     :depth="1"
     :xScroll="true"
-    @drop="handleDrag"
-    @dragover="handleDragOver"
+    @drop="dragHandle"
+    @dragover="dragoverHandle"
+    @dragenter="dragoverHandle"
   >
     <!-- 画布主体 -->
     <div id="go-chart-edit-content" @contextmenu="handleContextMenu">
@@ -60,11 +61,7 @@ import { EditTools } from './components/EditTools'
 
 import { useLayout } from './hooks/useLayout.hook'
 import { useAddKeyboard } from '../hooks/useKeyboard.hook'
-import {
-  handleDrag,
-  handleDragOver,
-  useMouseHandle
-} from './hooks/useDrag.hook'
+import { dragHandle, dragoverHandle, useMouseHandle } from './hooks/useDrag.hook'
 import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { useComponentStyle, useSizeStyle } from './hooks/useStyle.hook'

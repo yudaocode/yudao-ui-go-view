@@ -43,6 +43,8 @@ export const useChartEditStore = defineStore({
       userScale: 1,
       // 锁定缩放
       lockScale: false,
+      // 初始化
+      isCreate: false,
       // 拖拽中
       isDrag: false
     },

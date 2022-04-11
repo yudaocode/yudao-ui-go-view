@@ -75,10 +75,6 @@ const rangeModelStyle = computed(() => {
     position: absolute;
     left: 0;
     top: 0;
-    border-radius: 15px;
-    border: 1px solid rgba(0, 0, 0, 0);
-    background-color: greenyellow;
-    opacity: 1;
   }
 }
 </style>

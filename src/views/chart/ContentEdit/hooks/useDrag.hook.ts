@@ -3,7 +3,7 @@ import { createComponent } from '@/packages'
 import { ConfigType } from '@/packages/index.d'
 import {
   CreateComponentType,
-  PickCreateComponentType
+  PickCreateComponentType,
 } from '@/packages/index.d'
 import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
@@ -15,11 +15,12 @@ const chartEditStore = useChartEditStore()
 const { onClickOutSide } = useContextMenu()
 
 // * 拖拽到编辑区域里
-export const handleDrag = async (e: DragEvent) => {
+export const dragHandle = async (e: DragEvent) => {
   e.preventDefault()
 
   try {
     loadingStart()
+
     // 获取拖拽数据
     const drayDataString = e!.dataTransfer!.getData(DragKeyEnum.DROG_KEY)
     if (!drayDataString) {
@@ -27,10 +28,10 @@ export const handleDrag = async (e: DragEvent) => {
       return
     }
 
-    const dropData: Exclude<ConfigType, ['image']> = JSON.parse(
-      drayDataString
-    )
-    
+    // 修改状态
+    chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_CREATE, false)
+    const dropData: Exclude<ConfigType, ['image']> = JSON.parse(drayDataString)
+
     // 创建新图表组件
     let newComponent: CreateComponentType = await createComponent(dropData)
 
@@ -47,8 +48,8 @@ export const handleDrag = async (e: DragEvent) => {
   }
 }
 
-// * 拖拽中
-export const handleDragOver = (e: DragEvent) => {
+// * 进入拖拽区域
+export const dragoverHandle = (e: DragEvent) => {
   e.preventDefault()
   e.stopPropagation()
 
@@ -179,8 +180,8 @@ export const useMousePointHandle = (
     const isLeft = /l/.test(point)
     const isRight = /r/.test(point)
 
-    const newHeight = itemAttrH + (isTop ? -currY : (isBottom ? currY : 0))
-    const newWidth = itemAttrW + (isLeft ? -currX : (isRight ? currX : 0))
+    const newHeight = itemAttrH + (isTop ? -currY : isBottom ? currY : 0)
+    const newWidth = itemAttrW + (isLeft ? -currX : isRight ? currX : 0)
 
     attr.h = newHeight > 0 ? newHeight : 0
     attr.w = newWidth > 0 ? newWidth : 0

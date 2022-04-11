@@ -6,7 +6,8 @@
       v-for="(item, index) in menuOptions"
       :key="index"
       draggable
-      @dragstart="handleDragStart($event, item)"
+      @dragstart="dragStartHandle($event, item)"
+      @dragend="dragendHandle"
     >
       <div class="list-header">
         <mac-os-control-btn :mini="true" :disabled="true"></mac-os-control-btn>
@@ -22,11 +23,14 @@
 <script setup lang="ts">
 import { PropType } from 'vue'
 import { MacOsControlBtn } from '@/components/MacOsControlBtn/index'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { componentInstall } from '@/utils'
 import { DragKeyEnum } from '@/enums/editPageEnum'
 import { ConfigType } from '@/packages/index.d'
 import { fetchConfigComponent, fetchChartComponent } from '@/packages/index'
 import omit from 'lodash/omit'
+const chartEditStore = useChartEditStore()
 
 defineProps({
   menuOptions: {
@@ -36,12 +40,19 @@ defineProps({
 })
 
 // 拖拽处理
-const handleDragStart = (e: DragEvent, item: ConfigType) => {
+const dragStartHandle = (e: DragEvent, item: ConfigType) => {
   // 动态注册图表组件
   componentInstall(item.chartKey, fetchChartComponent(item))
   componentInstall(item.conKey, fetchConfigComponent(item))
   // 将配置项绑定到拖拽属性上
   e!.dataTransfer!.setData(DragKeyEnum.DROG_KEY, JSON.stringify(omit(item, ['image'])))
+  // 修改状态
+  chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_CREATE, true)
+}
+
+// 拖拽结束
+const dragendHandle = () => {
+  chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_CREATE, false)
 }
 </script>
 
