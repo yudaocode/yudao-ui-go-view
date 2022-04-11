@@ -46,7 +46,8 @@ const updateComponent = async (fileData: any, isSplace = false) => {
         )
       }
     } else {
-      // 非组件
+      // 非组件(顺便排除脏数据)
+      if(key !== 'editCanvasConfig' && key !== 'requestGlobalConfig') return
       Object.assign((chartEditStore as any)[key], fileData[key])
     }
   }
@@ -54,7 +55,6 @@ const updateComponent = async (fileData: any, isSplace = false) => {
 
 export const useFile = () => {
   const importUploadFileListRef = ref()
-  const chartEditStore = useChartEditStore()
 
   // 上传-前置
   //@ts-ignore
