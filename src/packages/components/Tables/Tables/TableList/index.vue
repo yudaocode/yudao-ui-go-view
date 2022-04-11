@@ -31,10 +31,8 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, onUnmounted, reactive, ref, toRefs, watch } from 'vue'
+import { PropType, onUnmounted, reactive, toRefs, watch } from 'vue'
 import { CreateComponentType } from '@/packages/index.d'
-import cloneDeep from 'lodash/cloneDeep'
-import merge from 'lodash/merge'
 import { useChartDataFetch } from '@/hooks'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 
