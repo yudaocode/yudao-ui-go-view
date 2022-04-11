@@ -25,7 +25,7 @@
           <help-outline-icon></help-outline-icon>
         </n-icon>
       </template>
-      <span>最多只保留 20 条记录</span>
+      <span>最多只保留{{ editHistoryMax }}条记录</span>
     </n-tooltip>
   </div>
 </template>
@@ -37,6 +37,7 @@ import { renderIcon } from '@/utils'
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
 import { historyActionTypeName } from '@/store/modules/chartHistoryStore/chartHistoryDefine'
 import { CreateComponentType } from '@/packages/index.d'
+import { editHistoryMax } from '@/settings/designSetting'
 import {
   HistoryItemType,
   HistoryTargetTypeEnum,

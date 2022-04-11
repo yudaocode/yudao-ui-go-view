@@ -39,3 +39,6 @@ export const backgroundImageSize = 5
 
 // 数据请求间隔
 export const requestInterval = 30
+
+// 工作区域历史记录存储最大数量
+export const editHistoryMax = 100

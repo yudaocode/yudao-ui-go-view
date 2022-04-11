@@ -1,6 +1,6 @@
 import { SettingStoreEnums, ToolsStatusEnum } from '@/store/modules/settingStore/settingStore.d'
 
-// * 系统全局设置
+// * 用户配置项
 export const systemSetting = {
   // 侧边栏折叠是否隐藏全部
   [SettingStoreEnums.ASIDE_ALL_COLLAPSED]: true,

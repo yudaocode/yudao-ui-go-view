@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { CreateComponentType } from '@/packages/index.d'
 import { EditCanvasType } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { loadingStart, loadingFinish, loadingError } from '@/utils'
+import { editHistoryMax } from '@/settings/designSetting'
 import {
   HistoryStackItemEnum,
   HistoryActionTypeEnum,
@@ -61,7 +62,7 @@ export const useChartHistoryStore = defineStore({
     ): void {
       if (item instanceof Array) this.backStack = [...this.backStack, ...item]
       else this.backStack.push(item)
-      this.backStack.splice(0, this.backStack.length - 20)
+      this.backStack.splice(0, this.backStack.length - editHistoryMax)
       // 新动作需清空前进栈
       if (notClear) return
       this.clearForwardStack()
