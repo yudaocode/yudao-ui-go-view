@@ -1,78 +1,142 @@
-import { isMac, addEventListener, removeEventListener } from '@/utils'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { MenuEnum } from '@/enums/editPageEnum'
+import { WinKeyboard, MacKeyboard, MenuEnum } from '@/enums/editPageEnum'
+import throttle from 'lodash/throttle'
+import debounce from 'lodash/debounce'
+
+import keymaster from 'keymaster'
+// Keymaster可以支持识别以下组合键： ⇧，shift，option，⌥，alt，ctrl，control，command，和⌘
 
 const chartEditStore = useChartEditStore()
 
-export const keyboardValue = {
-  [MenuEnum.ARROW_UP]: 'arrowup',
-  [MenuEnum.ARROW_RIGHT]: 'arrowright',
-  [MenuEnum.ARROW_DOWN]: 'arrowdown',
-  [MenuEnum.ARROW_LEFT]: 'arrowleft',
-  [MenuEnum.COPY]: 'c',
-  [MenuEnum.CUT]: 'x',
-  [MenuEnum.PARSE]: 'v',
+const winCtrlMerge = (e: string) => `${WinKeyboard.CTRL}+${e}`
+const winShiftMerge = (e: string) => `${WinKeyboard.SHIFT}+${e}`
+const winAltMerge = (e: string) => `${WinKeyboard.ALT}+${e}`
+
+export const winKeyboardValue = {
+  [MenuEnum.ARROW_UP]: winCtrlMerge('arrowup'),
+  [MenuEnum.ARROW_RIGHT]: winCtrlMerge('arrowright'),
+  [MenuEnum.ARROW_DOWN]: winCtrlMerge('arrowdown'),
+  [MenuEnum.ARROW_LEFT]: winCtrlMerge('arrowleft'),
+  [MenuEnum.COPY]: winCtrlMerge('c'),
+  [MenuEnum.CUT]: winCtrlMerge('x'),
+  [MenuEnum.PARSE]: winCtrlMerge('v'),
   [MenuEnum.DELETE]: 'delete',
-  back: 'z',
+  [MenuEnum.BACK]: winCtrlMerge('z'),
+  [MenuEnum.FORWORD]: winCtrlMerge(winShiftMerge('z')),
 }
 
-const KeyboardHandle = (e: KeyboardEvent) => {
-  const isMacRes = isMac()
+const macCtrlMerge = (e: string) => `${MacKeyboard.CTRL}+${e}`
+const macShiftMerge = (e: string) => `${MacKeyboard.SHIFT}+${e}`
+const macAltMerge = (e: string) => `${MacKeyboard.ALT}+${e}`
 
-  // 暂不支持mac，因为我没有😤👻
-  if (isMacRes) return
-  const key = e.key.toLowerCase()
+// 没有测试 macOS 系统，因为我没有😤👻
+export const macKeyboardValue = {
+  [MenuEnum.ARROW_UP]: macCtrlMerge('arrowup'),
+  [MenuEnum.ARROW_RIGHT]: macCtrlMerge('arrowright'),
+  [MenuEnum.ARROW_DOWN]: macCtrlMerge('arrowdown'),
+  [MenuEnum.ARROW_LEFT]: macCtrlMerge('arrowleft'),
+  [MenuEnum.COPY]: macCtrlMerge('c'),
+  [MenuEnum.CUT]: macCtrlMerge('x'),
+  [MenuEnum.PARSE]: macCtrlMerge('v'),
+  [MenuEnum.DELETE]: 'delete',
+  [MenuEnum.BACK]: macCtrlMerge('z'),
+  [MenuEnum.FORWORD]: macCtrlMerge(macShiftMerge('z')),
+}
 
-  // 删除（单纯的delete会和其他位置冲突）
-  // if (key === keyboardValue.delete) {
-  //   chartEditStore.removeComponentList()
-  //   return
-  // }
-  
-  // 前进
-  if (e.altKey && e.shiftKey && key == keyboardValue.back) {
-    chartEditStore.setForward()
-    return
-  }
+// Win 快捷键列表
+const winKeyList: Array<string> = [
+  winKeyboardValue.up,
+  winKeyboardValue.right,
+  winKeyboardValue.down,
+  winKeyboardValue.left,
 
-  if (e.altKey) {
-    switch (key) {
+  winKeyboardValue.delete,
+  winKeyboardValue.copy,
+  winKeyboardValue.cut,
+  winKeyboardValue.parse,
+
+  winKeyboardValue.back,
+  winKeyboardValue.forward,
+]
+
+// Mac 快捷键列表
+const macKeyList: Array<string> = [
+  macKeyboardValue.up,
+  macKeyboardValue.right,
+  macKeyboardValue.down,
+  macKeyboardValue.left,
+
+  macKeyboardValue.delete,
+  macKeyboardValue.copy,
+  macKeyboardValue.cut,
+  macKeyboardValue.parse,
+
+  macKeyboardValue.back,
+  macKeyboardValue.forward,
+]
+
+// 初始化监听事件
+export const useAddKeyboard = () => {
+  const switchHande = (keyboardValue: typeof winKeyboardValue, e: string) => {
+    switch (e) {
       // ↑
-      case keyboardValue.up: chartEditStore.setMove(MenuEnum.ARROW_UP)
+      case keyboardValue.up:
+        keymaster(e, throttle(() => { chartEditStore.setMove(MenuEnum.ARROW_UP); return false }, 200))
         break;
       // →
-      case keyboardValue.right: chartEditStore.setMove(MenuEnum.ARROW_RIGHT)
+      case keyboardValue.right:
+        keymaster(e, throttle(() => { chartEditStore.setMove(MenuEnum.ARROW_RIGHT); return false }, 200))
         break;
       // ↓
-      case keyboardValue.down: chartEditStore.setMove(MenuEnum.ARROW_DOWN)
+      case keyboardValue.down:
+        keymaster(e, throttle(() => { chartEditStore.setMove(MenuEnum.ARROW_DOWN); return false }, 200))
         break;
       // ←
-      case keyboardValue.left: chartEditStore.setMove(MenuEnum.ARROW_LEFT)
+      case keyboardValue.left:
+        keymaster(e, throttle(() => { chartEditStore.setMove(MenuEnum.ARROW_LEFT); return false }, 200))
         break;
+
       // 删除
-      case keyboardValue.delete: chartEditStore.removeComponentList()
+      case keyboardValue.delete:
+        keymaster(e, debounce(() => { chartEditStore.removeComponentList(); return false }, 200))
         break;
       // 复制
-      case keyboardValue.copy: chartEditStore.setCopy()
+      case keyboardValue.copy:
+        keymaster(e, debounce(() => { chartEditStore.setCopy(); return false }, 200))
         break;
       // 剪切
-      case keyboardValue.cut: chartEditStore.setCut()
+      case keyboardValue.cut:
+        keymaster(e, debounce(() => { chartEditStore.setCut(); return false }, 200))
         break;
       // 粘贴
-      case keyboardValue.parse: chartEditStore.setParse()
+      case keyboardValue.parse:
+        keymaster(e, throttle(() => { chartEditStore.setParse(); return false }, 200))
         break;
+
       // 撤回
-      case keyboardValue.back: chartEditStore.setBack()
+      case keyboardValue.back:
+        keymaster(e, throttle(() => { chartEditStore.setBack(); return false }, 200))
+        break;
+      // 前进
+      case keyboardValue.forward:
+        keymaster(e, throttle(() => { chartEditStore.setForward(); return false }, 200))
         break;
     }
-    e.preventDefault()
   }
+  winKeyList.forEach((key: string) => {
+    switchHande(winKeyboardValue, key)
+  })
+  macKeyList.forEach((key: string) => {
+    switchHande(macKeyboardValue, key)
+  })
 }
 
-export const useAddKeyboard = () => {
-  addEventListener(document, 'keyup', KeyboardHandle, 20)
-}
-
+// 卸载监听事件
 export const useRemoveKeyboard = () => {
-  removeEventListener(document, 'keyup', KeyboardHandle)
+  winKeyList.forEach((key: string) => {
+    keymaster.unbind(key)
+  })
+  macKeyList.forEach((key: string) => {
+    keymaster.unbind(key)
+  })
 }

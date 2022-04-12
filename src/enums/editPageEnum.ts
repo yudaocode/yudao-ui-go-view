@@ -18,4 +18,20 @@ export enum MenuEnum {
   UP = 'up',
   DOWN = 'down',
   CLEAR = 'clear',
+  BACK = 'back',
+  FORWORD = 'forward'
+}
+
+// Win 键盘枚举
+export enum WinKeyboard {
+  CTRL = 'ctrl',
+  SHIFT = 'shift',
+  ALT = ' alt',
+}
+
+// Mac 键盘枚举
+export enum MacKeyboard {
+  CTRL = '^',
+  SHIFT = '⇧',
+  ALT = '⌥',
 }

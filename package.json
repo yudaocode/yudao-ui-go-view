@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@types/color": "^3.0.3",
+    "@types/keymaster": "^1.6.30",
     "animate.css": "^4.1.1",
     "axios": "0.23.0",
     "color": "^4.2.3",
@@ -16,6 +17,7 @@
     "echarts-liquidfill": "^3.1.0",
     "highlight.js": "^11.5.0",
     "html2canvas": "^1.4.1",
+    "keymaster": "^1.6.2",
     "naive-ui": "^2.27.0",
     "pinia": "^2.0.13",
     "screenfull": "^6.0.1",

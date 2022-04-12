@@ -2,6 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@types/color': ^3.0.3
+  '@types/keymaster': ^1.6.30
   '@types/node': ^16.11.26
   '@typescript-eslint/eslint-plugin': ^5.18.0
   '@typescript-eslint/parser': ^5.18.0
@@ -25,6 +26,7 @@ specifiers:
   eslint-plugin-vue: ^8.5.0
   highlight.js: ^11.5.0
   html2canvas: ^1.4.1
+  keymaster: ^1.6.2
   lodash: ~4.17.21
   mockjs: ^1.1.0
   naive-ui: ^2.27.0
@@ -51,6 +53,7 @@ specifiers:
 
 dependencies:
   '@types/color': 3.0.3
+  '@types/keymaster': 1.6.30
   animate.css: 4.1.1
   axios: 0.23.0
   color: 4.2.3
@@ -58,6 +61,7 @@ dependencies:
   echarts-liquidfill: 3.1.0_echarts@5.3.2
   highlight.js: 11.5.0
   html2canvas: 1.4.1
+  keymaster: 1.6.2
   naive-ui: 2.27.0_vue@3.2.31
   pinia: 2.0.13_typescript@4.6.3+vue@3.2.31
   screenfull: 6.0.1
@@ -649,6 +653,10 @@ packages:
   /@types/json5/0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: true
+
+  /@types/keymaster/1.6.30:
+    resolution: {integrity: sha512-mtL/NuDBX72zmyIa3cYHA1bQj1WAYlSC4eZcIQj+DHJkcRyTRF2XJXo7DBmkkY8TEq7XaAf7B8TGxs5PHhjRtw==}
+    dev: false
 
   /@types/liftoff/4.0.0:
     resolution: {integrity: sha512-Ny/PJkO6nxWAQnaet8q/oWz15lrfwvdvBpuY4treB0CSsBO1CG0fVuNLngR3m3bepQLd+E4c3Y3DlC2okpUvPw==}
@@ -2945,6 +2953,10 @@ packages:
       is-promise: 2.2.2
       promise: 7.3.1
     dev: true
+
+  /keymaster/1.6.2:
+    resolution: {integrity: sha512-OvA/AALN8IDKKkTk2Z+bDrzs/SQao4lo/QPbwSdDvm+frxfiYiYCSn1aHFUypJY3SruAO1y/c771agBmTXqUtg==}
+    dev: false
 
   /kind-of/6.0.3:
     resolution: {integrity: sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==}

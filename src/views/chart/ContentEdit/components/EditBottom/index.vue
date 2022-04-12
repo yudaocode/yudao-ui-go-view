@@ -139,40 +139,44 @@ const shortcutKeyOptions = [
     value: '1'
   },
   {
-    label: 'Alt + ↑ 向上移动',
+    label: 'Ctrl + ↑ 向上移动',
     value: '2'
   },
   {
-    label: 'Alt + → 向右移动',
+    label: 'Ctrl + → 向右移动',
     value: '3'
   },
   {
-    label: 'Alt + ↓ 向下移动',
+    label: 'Ctrl + ↓ 向下移动',
     value: '4'
   },
   {
-    label: 'Alt + ← 向左移动',
+    label: 'Ctrl + ← 向左移动',
     value: '5'
   },
   {
-    label: 'Alt + Delete 删除',
+    label: 'Ctrl + Delete 删除',
     value: '6'
   },
   {
-    label: 'Alt + C 复制',
+    label: 'Ctrl + C 复制',
     value: '7'
   },
   {
-    label: 'Alt + X 剪切',
+    label: 'Ctrl + X 剪切',
     value: '8'
   },
   {
-    label: 'Alt + Z 后退',
+    label: 'Ctrl + V 粘贴',
     value: '9'
   },
   {
-    label: 'Alt + Shift + Z 前进',
+    label: 'Ctrl + Z 后退',
     value: '10'
+  },
+  {
+    label: 'Ctrl + Shift + Z 前进',
+    value: '11'
   }
 ]
 
