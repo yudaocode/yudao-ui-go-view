@@ -1,11 +1,22 @@
 <template>
-  <n-modal v-model:show="modelShow" @afterLeave="closeHandle">
+  <n-modal
+    v-model:show="modelShow"
+    :mask-closable="true"
+    @afterLeave="closeHandle"
+  >
     <n-table class="model-content" :bordered="false" :single-line="false">
       <thead>
         <tr>
           <th>功能</th>
           <th>Win 快捷键</th>
-          <th>Mac 快捷键</th>
+          <th>
+            <n-space justify="space-between">
+              <span> Mac 快捷键 </span>
+              <n-icon size="20" class="go-cursor-pointer" @click="closeHandle">
+                <close-icon></close-icon>
+              </n-icon>
+            </n-space>
+          </th>
         </tr>
       </thead>
       <tbody>
