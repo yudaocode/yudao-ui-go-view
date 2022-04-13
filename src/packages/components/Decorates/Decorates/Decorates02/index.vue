@@ -1,7 +1,7 @@
 <template>
   <div
     class="go-decorates-2"
-    :style="`width:${w}px; animation-duration:${dur}s`"
+    :style="`width:${w}px; height: ${lineHeight}px animation-duration:${dur}s`"
   >
     <svg :width="w" :height="3">
       <polyline :stroke="colors[0]" :points="`0, 2.5 ${w}, 2.5`" />
@@ -28,28 +28,12 @@ const props = defineProps({
 })
 
 const { w, h } = toRefs(props.chartConfig.attr)
-const { colors, dur } = toRefs(props.chartConfig.option)
+const { colors, dur, lineHeight } = toRefs(props.chartConfig.option)
 </script>
 <style lang="scss" scoped>
 @include go('decorates-2') {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  animation: animationWidth ease-in-out infinite;
-}
-@keyframes animationWidth {
-  0% {
-    width: 0;
-    background-color: aliceblue;
-  }
-
-  70% {
-    width: 100%;
-  }
-
-  100% {
-    width: 100%;
-    background-color: red;
-  }
 }
 </style>
