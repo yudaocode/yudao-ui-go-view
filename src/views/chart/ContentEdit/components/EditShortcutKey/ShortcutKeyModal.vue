@@ -12,7 +12,12 @@
         <tr v-for="(item, index) in shortcutKeyOptions" :key="index">
           <td>{{ item.label }}</td>
           <td>{{ item.win }}</td>
-          <td><span class="fs">{{ item.mac.substr(0,1) }}</span>  + {{ item.mac.substr(3) }}</td>
+          <td>
+            <n-gradient-text :size="22">{{
+              item.mac.substr(0, 1)
+            }}</n-gradient-text>
+            + {{ item.mac.substr(3) }}
+          </td>
         </tr>
       </tbody>
     </n-table>
@@ -55,7 +60,7 @@ const shortcutKeyOptions = [
   },
   {
     label: '删除',
-    win: 'Delete',
+    win: 'Delete'.toUpperCase(),
     mac: `${MacKeyboard.CTRL.toUpperCase()} + Backspace `,
   },
   {
@@ -97,9 +102,6 @@ const closeHandle = () => {
   border-radius: 15px;
   td {
     padding: 5px 10px;
-  }
-  .fs {
-    font-size: 22px
   }
 }
 </style>
