@@ -1,29 +1,34 @@
-import * as CryptoJS from 'crypto-ts'
-// 加密
-const AES_KEY = 'mt'
+import CryptoJS from 'crypto-js'
+import { isString } from './type'
 
+const KEY = 'mt'
+
+/**
+ * * 加密
+ * @param data { string }
+ * @returns 
+ */
 export const cryptoEncode = (data: string): string => {
-  if (typeof data !== 'string') return ''
+  if (!isString(data)) return ''
   // 加密
-  const key = CryptoJS.enc.Utf8.parse(AES_KEY)
-  const str = JSON.stringify(data)
-  const encryptedData = CryptoJS.AES.encrypt(str, key, {
+  const encryptedData = CryptoJS.AES.encrypt(data, KEY, {
     mode: CryptoJS.mode.ECB,
-    padding: CryptoJS.pad.PKCS7,
-    iv: CryptoJS.enc.Utf8.parse(AES_KEY)
-  })
-  return encryptedData.toString()
+    padding: CryptoJS.pad.Pkcs7
+  }).toString()
+  return encryptedData
 }
-// 解密
+
+/**
+ * * 解密
+ * @param data { string }
+ * @returns 
+ */
 export const cryptoDecode = (data: string): string => {
-  if (typeof data !== 'string') return ''
-  const encryptedHexStr = CryptoJS.enc.Utf8.parse(data)
-  const encryptedBase64Str = CryptoJS.enc.Utf8.stringify(encryptedHexStr)
-  const key = CryptoJS.enc.Utf8.parse(AES_KEY)
-  const decryptedData = CryptoJS.AES.decrypt(encryptedBase64Str, key, {
+  if (!isString(data)) return ''
+  // 解密
+  const decryptedData = CryptoJS.AES.decrypt(data, KEY, {
     mode: CryptoJS.mode.ECB,
-    padding: CryptoJS.pad.PKCS7,
-    iv: CryptoJS.enc.Utf8.parse(AES_KEY)
+    padding: CryptoJS.pad.Pkcs7
   })
   return decryptedData.toString(CryptoJS.enc.Utf8)
 }

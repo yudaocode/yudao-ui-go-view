@@ -1,8 +1,11 @@
 import { useRoute } from 'vue-router'
 import { ResultEnum } from '@/enums/httpEnum'
 import { ErrorPageNameMap, PageEnum } from '@/enums/pageEnum'
-import router from '@/router'
 import { docPath, giteeSourceCodePath } from '@/settings/pathConst'
+import { cryptoDecode } from './crypto'
+import { StorageEnum } from '@/enums/storageEnum'
+import { clearLocalStorage, getLocalStorage } from './storage'
+import router from '@/router'
 
 /**
  * * 根据名字跳转路由
@@ -101,6 +104,7 @@ export const reloadRoutePage = () => {
  * * 退出
  */
 export const logout = () => {
+  clearLocalStorage(StorageEnum.GO_LOGIN_INFO_STORE)
   routerTurnByName(PageEnum.BASE_LOGIN_NAME)
 }
 
@@ -128,6 +132,10 @@ export const openGiteeSourceCode = () => {
   openNewWindow(giteeSourceCodePath)
 }
 
+/**
+ * * 判断是否是预览页
+ * @returns boolean
+ */
 export const isPreview = () => {
   return document.location.hash.includes('preview')
 }
@@ -152,3 +160,21 @@ export const fetchRouteParams = () => {
 export const goHome = () => {
   routerTurnByName(PageEnum.BASE_HOME_NAME)
 }
+
+/**
+ * * 判断是否登录（现阶段是有 login 数据即可）
+ * @return boolean
+ */
+export const loginCheck = () => {
+  try {
+    const info = getLocalStorage(StorageEnum.GO_LOGIN_INFO_STORE)
+    if (!info) return false
+    const decodeInfo = cryptoDecode(info)
+    if (decodeInfo) {
+      return true
+    }
+    return false
+  } catch (error) {
+    return false
+  }
+} 

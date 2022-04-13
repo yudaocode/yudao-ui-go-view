@@ -116,11 +116,6 @@
 
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
-import {
-  routerTurnByName,
-  cryptoEncode,
-  setLocalStorage
-} from '@/utils'
 import shuffle from 'lodash/shuffle'
 import { carouselInterval } from '@/settings/designSetting'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
@@ -131,7 +126,7 @@ import { LayoutFooter } from '@/layout/components/LayoutFooter'
 import { PageEnum } from '@/enums/pageEnum'
 import { icon } from '@/plugins'
 import { StorageEnum } from '@/enums/storageEnum'
-
+import { routerTurnByName, cryptoEncode, setLocalStorage } from '@/utils'
 const { GO_LOGIN_INFO_STORE } = StorageEnum
 
 const { PersonOutlineIcon, LockClosedOutlineIcon } = icon.ionicons5
@@ -161,20 +156,20 @@ onMounted(() => {
 
 const formInline = reactive({
   username: 'admin',
-  password: '123456'
+  password: '123456',
 })
 
 const rules = {
   username: {
     required: true,
     message: t('global.form_account'),
-    trigger: 'blur'
+    trigger: 'blur',
   },
   password: {
     required: true,
     message: t('global.form_password'),
-    trigger: 'blur'
-  }
+    trigger: 'blur',
+  },
 }
 
 // 定时器
@@ -193,7 +188,7 @@ const bgList = ref([
   'heatmap',
   'map',
   'pie',
-  'radar'
+  'radar',
 ])
 
 // 处理url获取
@@ -220,7 +215,7 @@ const handleSubmit = (e: Event) => {
         cryptoEncode(
           JSON.stringify({
             username,
-            password
+            password,
           })
         )
       )

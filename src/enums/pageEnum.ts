@@ -30,7 +30,7 @@ export enum PageEnum {
 
   // 我的项目
   BASE_HOME_ITEMS = '/project/items',
-  BASE_HOME_ITEMS_NAME = 'Project-Ttems',
+  BASE_HOME_ITEMS_NAME = 'Project-Items',
 
   // 我的模板
   BASE_HOME_TEMPLATE = '/project/my-template',

@@ -18,13 +18,21 @@
  * @param k 键名
  * @returns any
  */
-export const getLocalStorage = (k: string) => {
+ export const getLocalStorage = (k: string) => {
   const item = window.localStorage.getItem(k)
   try {
     return item ? JSON.parse(item) : item
   } catch (err) {
     return item
   }
+}
+
+/**
+ * * 清除本地会话数据
+ * @param name 
+ */
+ export const clearLocalStorage = (name: string) => {
+  window.localStorage.removeItem(name)
 }
 
 /**
@@ -52,4 +60,12 @@ export const getSessionStorage: (k: string) => any = (k: string) => {
   } catch (err) {
     return item
   }
+}
+
+/**
+ * * 清除本地会话数据
+ * @param name 
+ */
+export const clearSessioStorage = (name: string) => {
+  window.sessionStorage.removeItem(name)
 }

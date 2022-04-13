@@ -2,6 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@types/color': ^3.0.3
+  '@types/crypto-js': ^4.1.1
   '@types/keymaster': ^1.6.30
   '@types/node': ^16.11.26
   '@typescript-eslint/eslint-plugin': ^5.18.0
@@ -15,7 +16,7 @@ specifiers:
   animate.css: ^4.1.1
   axios: 0.23.0
   color: ^4.2.3
-  crypto-ts: ^1.0.2
+  crypto-js: ^4.1.1
   default-passive-events: ^2.0.0
   echarts: ^5.3.2
   echarts-liquidfill: ^3.1.0
@@ -53,11 +54,12 @@ specifiers:
 
 dependencies:
   '@types/color': 3.0.3
+  '@types/crypto-js': 4.1.1
   '@types/keymaster': 1.6.30
   animate.css: 4.1.1
   axios: 0.23.0
   color: 4.2.3
-  crypto-ts: 1.0.2
+  crypto-js: 4.1.1
   echarts-liquidfill: 3.1.0_echarts@5.3.2
   highlight.js: 11.5.0
   html2canvas: 1.4.1
@@ -622,6 +624,10 @@ packages:
     resolution: {integrity: sha512-X//qzJ3d3Zj82J9sC/C18ZY5f43utPbAJ6PhYt/M7uG6etcF6MRpKdN880KBy43B0BMzSfeT96MzrsNjFI3GbA==}
     dependencies:
       '@types/color-convert': 2.0.0
+    dev: false
+
+  /@types/crypto-js/4.1.1:
+    resolution: {integrity: sha512-BG7fQKZ689HIoc5h+6D2Dgq1fABRa0RbBWKBd9SP/MVRVXROflpm5fhwyATX5duFmbStzyzyycPB8qUYKDH3NA==}
     dev: false
 
   /@types/estree/0.0.39:
@@ -1491,13 +1497,8 @@ packages:
       which: 2.0.2
     dev: true
 
-  /crypto-ts/1.0.2:
-    resolution: {integrity: sha512-TcBWwF8ghYhVd/qPSwvY4nsbDZRN/PVxQ1Uc8ryRLiX4M4C5XSPyIhVgR4M5mIhrQEnWIktLcrv+FIqhKk2t3g==}
-    peerDependencies:
-      '@angular/common': '>= 5.0.0'
-      '@angular/core': '>= 5.0.0'
-    dependencies:
-      tslib: 1.14.1
+  /crypto-js/4.1.1:
+    resolution: {integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==}
     dev: false
 
   /css-line-break/2.1.0:
@@ -4016,6 +4017,7 @@ packages:
 
   /tslib/1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
+    dev: true
 
   /tslib/2.3.0:
     resolution: {integrity: sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==}
