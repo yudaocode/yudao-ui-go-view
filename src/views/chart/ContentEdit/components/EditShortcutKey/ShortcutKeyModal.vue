@@ -95,6 +95,9 @@ const closeHandle = () => {
   padding-bottom: 20px;
   overflow: hidden;
   border-radius: 15px;
+  td {
+    padding: 5px 10px;
+  }
   .fs {
     font-size: 22px
   }
