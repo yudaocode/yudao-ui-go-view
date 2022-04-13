@@ -4,14 +4,8 @@
 
     <n-space class="bottom-ri">
       <!-- 快捷键提示 -->
-      <n-popselect :options="shortcutKeyOptions" size="medium">
-        <n-button class="scale-btn" quaternary size="mini">
-          <n-icon class="lock-icon" size="18" :depth="2">
-            <DicomOverlayIcon></DicomOverlayIcon>
-          </n-icon>
-        </n-button>
-      </n-popselect>
-
+      <edit-shortcut-key />
+      
       <!-- 缩放比例 -->
       <n-select
         :disabled="lockScale"
@@ -61,13 +55,12 @@
 import { reactive, ref, toRefs, watchEffect } from 'vue'
 import { icon } from '@/plugins'
 import { EditHistory } from '../EditHistory/index'
+import EditShortcutKey from '../EditShortcutKey/index.vue'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 
 const { LockClosedOutlineIcon, LockOpenOutlineIcon } = icon.ionicons5
-const { DicomOverlayIcon } = icon.carbon
-
 
 // 全局颜色
 const designStore = useDesignStore()
@@ -132,54 +125,6 @@ const sliderMaks = reactive({
   100: ''
 })
 
-// 快捷键
-const shortcutKeyOptions = [
-  {
-    label: '键盘快捷键列表',
-    value: '1'
-  },
-  {
-    label: 'Ctrl + ↑ 向上移动',
-    value: '2'
-  },
-  {
-    label: 'Ctrl + → 向右移动',
-    value: '3'
-  },
-  {
-    label: 'Ctrl + ↓ 向下移动',
-    value: '4'
-  },
-  {
-    label: 'Ctrl + ← 向左移动',
-    value: '5'
-  },
-  {
-    label: 'Ctrl + Delete 删除',
-    value: '6'
-  },
-  {
-    label: 'Ctrl + C 复制',
-    value: '7'
-  },
-  {
-    label: 'Ctrl + X 剪切',
-    value: '8'
-  },
-  {
-    label: 'Ctrl + V 粘贴',
-    value: '9'
-  },
-  {
-    label: 'Ctrl + Z 后退',
-    value: '10'
-  },
-  {
-    label: 'Ctrl + Shift + Z 前进',
-    value: '11'
-  }
-]
-
 // 监听 scale 变化
 watchEffect(() => {
   const value = (scale.value * 100).toFixed(0)
@@ -189,7 +134,7 @@ watchEffect(() => {
 </script>
 
 <style lang="scss" scoped>
-@include go(edit-bottom) {
+@include go('edit-bottom') {
   width: 100%;
   padding: 0 10px;
   display: flex;

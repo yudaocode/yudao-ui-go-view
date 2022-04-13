@@ -31,7 +31,8 @@ export enum WinKeyboard {
 
 // Mac 键盘枚举
 export enum MacKeyboard {
-  CTRL = '^',
+  // 还是用 Command 吧
+  CTRL = '⌘',
   SHIFT = '⇧',
   ALT = '⌥',
 }
