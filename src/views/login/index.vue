@@ -18,8 +18,8 @@
     <layout-header>
       <template #left></template>
       <template #right>
-        <lang-select></lang-select>
-        <theme-select></theme-select>
+        <go-lang-select></go-lang-select>
+        <go-theme-select></go-theme-select>
       </template>
     </layout-header>
     <div class="go-login">
@@ -119,8 +119,8 @@ import { reactive, ref, onMounted } from 'vue'
 import shuffle from 'lodash/shuffle'
 import { carouselInterval } from '@/settings/designSetting'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
-import { ThemeSelect } from '@/components/ThemeSelect'
-import { LangSelect } from '@/components/LangSelect'
+import { GoThemeSelect } from '@/components/GoThemeSelect'
+import { GoLangSelect } from '@/components/GoLangSelect'
 import { LayoutHeader } from '@/layout/components/LayoutHeader'
 import { LayoutFooter } from '@/layout/components/LayoutFooter'
 import { PageEnum } from '@/enums/pageEnum'
@@ -315,7 +315,7 @@ $carousel-image-height: 60vh;
     align-items: center;
     width: 100vw;
     height: 100vh;
-    background: url('@/assets/images/login/login-bg.png') no-repeat 0 -120px;
+    background: url('../../assets/images/login/login-bg.png') no-repeat 0 -120px;
     .bg-slot {
       width: $carousel-width;
     }

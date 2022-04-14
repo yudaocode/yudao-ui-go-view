@@ -6,7 +6,7 @@
 <script setup lang="ts">
 import { PropType } from 'vue'
 import { GlobalThemeJsonType } from '@/settings/chartThemes/index'
-import { GlobalSetting } from '@/components/ChartItemSetting/index'
+import { GlobalSetting } from '@/components/Pages/ChartItemSetting'
 
 const props = defineProps({
   optionData: {

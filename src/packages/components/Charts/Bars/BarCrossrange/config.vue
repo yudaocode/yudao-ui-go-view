@@ -31,7 +31,7 @@
 
 <script setup lang="ts">
 import { PropType, computed } from 'vue'
-import { GlobalSetting, CollapseItem, SettingItemBox, SettingItem } from '@/components/ChartItemSetting/index'
+import { GlobalSetting, CollapseItem, SettingItemBox, SettingItem } from '@/components/Pages/ChartItemSetting'
 import { option } from './config'
 import { GlobalThemeJsonType } from '@/settings/chartThemes/index'
 

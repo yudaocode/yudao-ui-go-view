@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { SettingItemBox } from '@/components/ChartItemSetting/index'
+import { SettingItemBox } from '@/components/Pages/ChartItemSetting'
 import { useTargetData } from '../hooks/useTargetData.hook'
 import { ChartDataStatic } from './components/ChartDataStatic/index'
 import { ChartDataAjax } from './components/ChartDataAjax/index'

@@ -39,7 +39,7 @@
 <script setup lang="ts">
 import { PropType } from 'vue'
 import { PickCreateComponentType } from '@/packages/index.d'
-import { SettingItemBox } from '@/components/ChartItemSetting/index'
+import { SettingItemBox } from '@/components/Pages/ChartItemSetting'
 import { renderIcon } from '@/utils'
 import { icon } from '@/plugins/index'
 import { EditCanvasConfigType } from '@/store/modules/chartEditStore/chartEditStore.d'

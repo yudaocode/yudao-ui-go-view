@@ -32,7 +32,6 @@ import Person from './person.png'
 
 import { icon } from '@/plugins'
 const {
-  DocumentTextIcon,
   ChatboxEllipsesIcon,
   PersonIcon,
   LogOutOutlineIcon,
@@ -79,11 +78,6 @@ const options = ref([
     key: 'd1'
   },
   {
-    label: renderLang('global.doc'),
-    key: 'doc',
-    icon: renderIcon(DocumentTextIcon)
-  },
-  {
     label: renderLang('global.contact'),
     key: 'contact',
     icon: renderIcon(ChatboxEllipsesIcon)
@@ -116,9 +110,6 @@ const sysSetHandle = () => {
 
 const handleSelect = (key: string) => {
   switch (key) {
-    case 'doc':
-      openDoc()
-      break
     case 'contact':
       openDoc()
       break

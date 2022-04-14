@@ -85,7 +85,7 @@
 import { reactive, ref, PropType } from 'vue'
 import { renderIcon, renderLang,  requireErrorImg } from '@/utils'
 import { icon } from '@/plugins'
-import { MacOsControlBtn } from '@/components/MacOsControlBtn'
+import { MacOsControlBtn } from '@/components/Tips/MacOsControlBtn'
 import { Chartype } from '../../index.d'
 const {
   EllipsisHorizontalCircleSharpIcon,

@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 import { PropType } from 'vue'
-import { MacOsControlBtn } from '@/components/MacOsControlBtn/index'
+import { MacOsControlBtn } from '@/components/Tips/MacOsControlBtn/index'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { componentInstall } from '@/utils'

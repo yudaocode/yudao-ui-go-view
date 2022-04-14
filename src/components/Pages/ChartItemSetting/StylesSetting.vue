@@ -18,7 +18,7 @@ import { PickCreateComponentType } from '@/packages/index.d'
 import {
   SettingItemBox,
   CollapseItem
-} from '@/components/ChartItemSetting/index'
+} from '@/components/Pages/ChartItemSetting'
 
 const props = defineProps({
   chartStyles: {

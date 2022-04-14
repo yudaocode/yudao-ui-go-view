@@ -21,8 +21,8 @@ import {
   NLoadingBarProvider
 } from 'naive-ui'
 
-import { MessageContent } from '@/components/MessageContent'
-import { DialogContent } from '@/components/DialogContent'
-import { LoadingContent } from '@/components/LoadingContent'
+import { MessageContent } from '@/components/Plugins/MessageContent'
+import { DialogContent } from '@/components/Plugins/DialogContent'
+import { LoadingContent } from '@/components/Plugins/LoadingContent'
 
 </script>

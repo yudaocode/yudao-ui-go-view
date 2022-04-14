@@ -30,7 +30,7 @@ import {
   CollapseItem,
   SettingItemBox,
   SettingItem
-} from '@/components/ChartItemSetting/index'
+} from '@/components/Pages/ChartItemSetting'
 import { option } from './config'
 
 const props = defineProps({

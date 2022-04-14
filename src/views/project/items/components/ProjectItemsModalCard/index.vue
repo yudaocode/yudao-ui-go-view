@@ -78,7 +78,7 @@
 import { reactive } from 'vue'
 import { renderIcon, renderLang } from '@/utils'
 import { icon } from '@/plugins'
-import { MacOsControlBtn } from '@/components/MacOsControlBtn'
+import { MacOsControlBtn } from '@/components/Tips/MacOsControlBtn'
 
 const { HammerIcon } = icon.ionicons5
 

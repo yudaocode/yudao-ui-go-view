@@ -7,23 +7,23 @@
           <n-button secondary @click="handleDoc">
             <template #icon>
               <n-icon size="18">
-                <help-outline-icon></help-outline-icon>
+                <document-text-icon></document-text-icon>
               </n-icon>
             </template>
           </n-button>
         </template>
         <n-text>
-          {{ $t('global.help') }}
+          {{ $t('global.doc') }}
         </n-text>
       </n-tooltip>
 
       <n-button v-else secondary @click="handleDoc">
         <template #icon>
           <n-icon size="18">
-            <help-outline-icon></help-outline-icon>
+            <document-text-icon></document-text-icon>
           </n-icon>
         </template>
-        <n-text>{{ $t('global.help') }}</n-text>
+        <n-text>{{ $t('global.doc') }}</n-text>
       </n-button>
 
       <n-tooltip v-if="collapsed" placement="right" trigger="hover">
@@ -56,7 +56,7 @@
 import { openDoc, openGiteeSourceCode } from '@/utils'
 
 import { icon } from '@/plugins'
-const { HelpOutlineIcon, CodeSlashIcon } = icon.ionicons5
+const { DocumentTextIcon, CodeSlashIcon } = icon.ionicons5
 
 const props = defineProps({
   collapsed: Boolean

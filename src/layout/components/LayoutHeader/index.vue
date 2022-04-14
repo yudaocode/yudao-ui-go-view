@@ -12,9 +12,9 @@
       <div class="header-item right">
         <n-space>
           <slot name="ri-left"> </slot>
-          <lang-select></lang-select>
+          <go-lang-select></go-lang-select>
           <theme-color-select></theme-color-select>
-          <Theme-select></Theme-select>
+          <go-theme-select></go-theme-select>
           <slot name="ri-right"> </slot>
         </n-space>
       </div>
@@ -23,9 +23,9 @@
 </template>
 
 <script setup lang="ts">
-import { ThemeSelect } from '@/components/ThemeSelect'
-import { LangSelect } from '@/components/LangSelect'
-import { ThemeColorSelect } from '@/components/ThemeColorSelect'
+import { GoThemeSelect } from '@/components/GoThemeSelect'
+import { GoLangSelect } from '@/components/GoLangSelect'
+import { ThemeColorSelect } from '@/components/Pages/ThemeColorSelect'
 </script>
 
 <style lang="scss" scoped>

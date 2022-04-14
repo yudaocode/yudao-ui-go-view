@@ -6,16 +6,16 @@
     :date-locale="dateZhCN"
     :theme-overrides="overridesTheme"
   >
-    <app-provider>
+    <go-app-provider>
       <I18n></I18n>
       <router-view></router-view>
-    </app-provider>
+    </go-app-provider>
   </n-config-provider>
 </template>
 
 <script lang="ts" setup>
 import { zhCN, dateZhCN, NConfigProvider } from 'naive-ui'
-import { AppProvider } from '@/components/AppProvider'
+import { GoAppProvider } from '@/components/GoAppProvider'
 import { I18n } from '@/components/I18n'
 
 import { useDarkThemeHook, useThemeOverridesHook, useCode } from '@/hooks'

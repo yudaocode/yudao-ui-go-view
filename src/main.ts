@@ -4,7 +4,7 @@ import router, { setupRouter } from '@/router'
 import i18n from '@/i18n/index'
 import { setupStore } from '@/store'
 import { setupNaive, setupDirectives, setupCustomComponents } from '@/plugins'
-import { AppProvider } from '@/components/AppProvider/index'
+import { GoAppProvider } from '@/components/GoAppProvider/index'
 import { setHtmlTheme } from '@/utils'
 
 // 引入动画
@@ -13,7 +13,7 @@ import 'animate.css/animate.min.css'
 import 'vue3-sketch-ruler/lib/style.css'
 
 async function appInit() {
-  const appProvider = createApp(AppProvider)
+  const goAppProvider = createApp(GoAppProvider)
 
   const app = createApp(App)
 
@@ -30,7 +30,7 @@ async function appInit() {
   setupStore(app)
 
   // 解决路由守卫，Axios中可使用，Dialog，Message 等全局组件
-  appProvider.mount('#appProvider', true)
+  goAppProvider.mount('#appProvider', true)
 
   // 挂载路由
   setupRouter(app)

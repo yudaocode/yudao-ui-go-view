@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { SettingItemBox } from '@/components/ChartItemSetting/index'
+import { SettingItemBox } from '@/components/Pages/ChartItemSetting'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 
 const chartEditStore = useChartEditStore()

@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import { PropType } from 'vue'
-import { SettingItemBox } from '@/components/ChartItemSetting/index'
+import { SettingItemBox } from '@/components/Pages/ChartItemSetting'
 import { ConfigType } from '@/packages/index.d'
 
 const props = defineProps({
