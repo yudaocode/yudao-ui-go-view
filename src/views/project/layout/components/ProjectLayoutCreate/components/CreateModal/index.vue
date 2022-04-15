@@ -42,7 +42,7 @@ import { fetchPathByName, routerTurnByPath, renderLang, getUUID } from '@/utils'
 
 const { FishIcon, CloseIcon } = icon.ionicons5
 const { StoreIcon, ObjectStorageIcon } = icon.carbon
-const t = window['$t']
+const $t = window['$t']
 const emit = defineEmits(['close'])
 const props = defineProps({
   show: Boolean

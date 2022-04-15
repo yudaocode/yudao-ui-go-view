@@ -37,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, toRaw, ref, watch } from 'vue'
+import { computed, toRaw } from 'vue'
 import Draggable from 'vuedraggable'
 import cloneDeep from 'lodash/cloneDeep'
 

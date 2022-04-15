@@ -27,19 +27,19 @@ const menuOptions:{
 const packagesListObj = {
   [PackagesCategoryEnum.CHARTS]: {
     icon: renderIcon(RoadmapIcon),
-    label: renderLang(PackagesCategoryName.CHARTS),
+    label: PackagesCategoryName.CHARTS,
   },
   [PackagesCategoryEnum.INFORMATIONS]: {
     icon: renderIcon(SpellCheckIcon),
-    label: renderLang(PackagesCategoryName.INFORMATIONS),
+    label: PackagesCategoryName.INFORMATIONS,
   },
   [PackagesCategoryEnum.TABLES]: {
     icon: renderIcon(TableSplitIcon),
-    label: renderLang(PackagesCategoryName.TABLES),
+    label: PackagesCategoryName.TABLES,
   },
   [PackagesCategoryEnum.DECORATES]: {
     icon: renderIcon(GraphicalDataFlowIcon),
-    label: renderLang(PackagesCategoryName.DECORATES),
+    label: PackagesCategoryName.DECORATES,
   },
 }
 
