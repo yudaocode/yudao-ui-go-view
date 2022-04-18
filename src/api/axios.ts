@@ -11,7 +11,6 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     config.headers = {}
-    config.data = {}
     return config
   },
   (error: AxiosRequestConfig) => {
