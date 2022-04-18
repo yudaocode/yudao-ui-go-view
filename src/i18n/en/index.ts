@@ -3,7 +3,7 @@ import project from './project'
 
 const global = {
   doc_addr: 'Document',
-  code_addr: 'Code address',
+  code_addr: 'Code',
   form_account: 'Please enter your account or email',
   form_password: 'Please enter your password',
   // header
