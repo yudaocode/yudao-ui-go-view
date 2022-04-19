@@ -44,9 +44,12 @@ export const animationsClass = (animations: string[]) => {
   return ''
 }
 
+// 样式
 export const getStyle = (styles: StylesType) => {
+  const { opacity, saturate, contrast, hueRotate, brightness } = styles
   return {
     // 透明度
-    opacity: styles.opacity
+    opacity: opacity,
+    filter: `saturate(${saturate}) contrast(${contrast}) hue-rotate(${hueRotate}deg) brightness(${brightness})`
   }
 }

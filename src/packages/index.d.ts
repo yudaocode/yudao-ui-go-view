@@ -30,7 +30,20 @@ export interface PublicConfigType extends requestConfig {
   id: string
   rename?: string
   attr: { x: number; y: number; w: number; h: number; zIndex: number }
-  styles: { opacity: number; animations: string[] }
+  styles: {
+    // 透明度
+    opacity: number;
+    // 饱和度
+    saturate: number;
+    // 对比度
+    contrast: number;
+    // 色相
+    hueRotate: number;
+    // 亮度
+    brightness: number;
+    // 动画
+    animations: string[]
+  }
   setPosition: Function
 }
 export interface CreateComponentType extends PublicConfigType {

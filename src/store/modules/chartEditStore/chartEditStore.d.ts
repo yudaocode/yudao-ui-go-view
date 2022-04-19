@@ -54,20 +54,21 @@ export enum EditCanvasConfigEnum {
 }
 
 export interface EditCanvasConfigType {
+  // 滤镜-色相
+  [EditCanvasConfigEnum.HUE_ROTATE]: number
+  // 滤镜-饱和度
+  [EditCanvasConfigEnum.SATURATE]: number
+  // 滤镜-亮度
+  [EditCanvasConfigEnum.BRIGHTNESS]: number
+  // 滤镜-对比度
+  [EditCanvasConfigEnum.CONTRAST]: number
+  // 滤镜-不透明度
+  [EditCanvasConfigEnum.UN_OPACITY]: number
+  
   // 大屏宽度
   [EditCanvasConfigEnum.WIDTH]: number
   // 大屏高度
   [EditCanvasConfigEnum.HEIGHT]: number
-  // 色相
-  [EditCanvasConfigEnum.HUE_ROTATE]: number
-  // 饱和度
-  [EditCanvasConfigEnum.SATURATE]: number
-  // 亮度
-  [EditCanvasConfigEnum.BRIGHTNESS]: number
-  // 对比度
-  [EditCanvasConfigEnum.CONTRAST]: number
-  // 不透明度
-  [EditCanvasConfigEnum.UN_OPACITY]: number
   // 背景色
   [EditCanvasConfigEnum.BACKGROUND]?: string
   [EditCanvasConfigEnum.BACKGROUND_IAMGE]?: string | null
