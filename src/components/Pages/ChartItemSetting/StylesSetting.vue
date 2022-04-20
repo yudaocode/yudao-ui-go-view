@@ -1,5 +1,5 @@
 <template>
-  <collapse-item name="通用">
+  <collapse-item name="滤镜">
     <setting-item-box name="色相" :alone="true">
       <setting-item :name="`值：${chartStyles.hueRotate}deg`">
         <!-- 透明度 -->
