@@ -72,6 +72,14 @@
   background-size: 15px 15px, 15px 15px;
 }
 
+// 省略号
+.ellipsis-1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
+}
+
 // todo 使用 scss 循环写一套完整的
 // margin
 .go-mt-0 {

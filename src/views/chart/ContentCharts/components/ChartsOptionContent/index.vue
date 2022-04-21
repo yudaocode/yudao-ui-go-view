@@ -12,7 +12,7 @@
    ></n-menu>
     <div class="chart-content-list">
       <n-scrollbar>
-        <item-box :menuOptions="packages.selectOptions"></item-box>
+        <charts-item-box :menuOptions="packages.selectOptions"></charts-item-box>
       </n-scrollbar>
     </div>
   </div>
@@ -24,8 +24,8 @@ import { ConfigType } from '@/packages/index.d'
 import { useSettingStore } from '@/store/modules/settingStore/settingStore'
 import { loadAsyncComponent } from '@/utils'
 
-const ItemBox = loadAsyncComponent(() =>
-  import('../ItemBox/index.vue')
+const ChartsItemBox = loadAsyncComponent(() =>
+  import('../ChartsItemBox/index.vue')
 )
 
 const props = defineProps({

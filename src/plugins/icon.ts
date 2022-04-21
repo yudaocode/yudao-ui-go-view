@@ -51,7 +51,8 @@ import {
   ColorWand as ColorWandIcon,
   ArrowBack as ArrowBackIcon,
   ArrowForward as ArrowForwardIcon,
-  Planet as PawIcon
+  Planet as PawIcon,
+  Search as SearchIcon
 } from '@vicons/ionicons5'
 
 import {
@@ -183,7 +184,9 @@ const ionicons5 = {
   // 前进
   ArrowForwardIcon,
   // 狗爪
-  PawIcon
+  PawIcon,
+  // 搜索（放大镜）
+  SearchIcon
 }
 
 const carbon = {

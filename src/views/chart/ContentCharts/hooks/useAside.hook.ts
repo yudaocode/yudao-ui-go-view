@@ -15,14 +15,17 @@ const {
   GraphicalDataFlowIcon,
 } = icon.carbon
 
+
 // 图表
-const { getPackagesList } = usePackagesStore()
-const menuOptions:{
+export type MenuOptionsType = {
   key: string
   icon: ReturnType<typeof renderIcon>
   label: ReturnType<typeof renderLang>
   list: PackagesType
-}[] = []
+}
+
+const { getPackagesList } = usePackagesStore()
+const menuOptions: MenuOptionsType[] = []
 
 const packagesListObj = {
   [PackagesCategoryEnum.CHARTS]: {

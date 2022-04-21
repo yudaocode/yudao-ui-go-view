@@ -12,6 +12,10 @@
         <bar-chart-icon></bar-chart-icon>
       </n-icon>
     </template>
+
+    <template #top-right>
+      <charts-search v-show="getCharts" :menuOptions="menuOptions"></charts-search>
+    </template>
     <!-- 图表 -->
     <aside>
       <div class="menu-width-box">
@@ -22,20 +26,20 @@
           :icon-size="16"
           :indent="18"
           @update:value="clickItemHandle"
-       ></n-menu>
+        ></n-menu>
         <div class="menu-component-box">
           <go-skeleton
             :load="!selectOptions"
             round
             text
             :repeat="2"
-            style="width: 90%;"
-         ></go-skeleton>
-          <option-content
+            style="width: 90%"
+          ></go-skeleton>
+          <charts-option-content
             v-if="selectOptions"
             :selectOptions="selectOptions"
             :key="selectValue"
-         ></option-content>
+          ></charts-option-content>
         </div>
       </div>
     </aside>
@@ -44,7 +48,8 @@
 
 <script setup lang="ts">
 import { ContentBox } from '../contentBox/index'
-import { OptionContent } from './components/OptionContent'
+import { ChartsOptionContent } from './components/ChartsOptionContent'
+import { ChartsSearch } from './components/ChartsSearch'
 import {
   getCharts,
   BarChartIcon,
@@ -52,7 +57,7 @@ import {
   selectOptions,
   selectValue,
   clickItemHandle,
-  menuOptions
+  menuOptions,
 } from './hooks/useAside.hook'
 </script>
 
