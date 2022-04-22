@@ -38,7 +38,7 @@
             :title="item.title"
             @click="selectChartHandle(item)"
           >
-            <img class="list-item-img" :src="item.image" alt="展示图" />
+            <img class="list-item-img" v-lazy="item.image" alt="展示图" />
             <n-text depth="2">{{ item.title }}</n-text>
           </div>
         </n-scrollbar>

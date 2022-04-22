@@ -24,7 +24,7 @@ export const langList = [
 
 const i18n = createI18n({
   locale: langStorage?.lang || lang,
-  legacy: false,
+  fallbackLocale: langStorage?.lang || lang,
   messages: {
     [LangEnum.zh]: zh,
     [LangEnum.en]: en

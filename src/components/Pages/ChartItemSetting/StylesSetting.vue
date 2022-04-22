@@ -14,7 +14,7 @@
     </setting-item-box>
     <setting-item-box name="饱和度" :alone="true">
       <setting-item
-        :name="`值：${(parseFloat(chartStyles.saturate) * 100).toFixed(0)}%`"
+        :name="`值：${(parseFloat(String(chartStyles.saturate)) * 100).toFixed(0)}%`"
       >
         <!-- 透明度 -->
         <n-slider
@@ -28,7 +28,7 @@
     </setting-item-box>
     <setting-item-box name="对比度" :alone="true">
       <setting-item
-        :name="`值：${(parseFloat(chartStyles.contrast) * 100).toFixed(0)}%`"
+        :name="`值：${(parseFloat(String(chartStyles.contrast)) * 100).toFixed(0)}%`"
       >
         <!-- 透明度 -->
         <n-slider
@@ -42,7 +42,7 @@
     </setting-item-box>
     <setting-item-box name="亮度" :alone="true">
       <setting-item
-        :name="`值：${(parseFloat(chartStyles.brightness) * 100).toFixed(0)}%`"
+        :name="`值：${(parseFloat(String(chartStyles.brightness)) * 100).toFixed(0)}%`"
       >
         <!-- 透明度 -->
         <n-slider
@@ -56,7 +56,7 @@
     </setting-item-box>
     <setting-item-box name="透明度" :alone="true">
       <setting-item
-        :name="`值：${(parseFloat(chartStyles.opacity) * 100).toFixed(0)}%`"
+        :name="`值：${(parseFloat(String(chartStyles.opacity)) * 100).toFixed(0)}%`"
       >
         <!-- 透明度 -->
         <n-slider
