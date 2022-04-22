@@ -2,6 +2,7 @@ import { getUUID } from '@/utils'
 import { PublicConfigType } from '@/packages/index.d'
 import { RequestConfigType } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { RequestHttpEnum, RequestDataTypeEnum } from '@/enums/httpEnum'
+import { chartInitConfig } from '@/settings/designSetting'
 
 const requestConfig: RequestConfigType = {
   requestDataType: RequestDataTypeEnum.STATIC,
@@ -13,7 +14,7 @@ export class publicConfig implements PublicConfigType {
   // 重命名
   public rename = undefined
   // 基本信息
-  public attr = { x: 0, y: 0, w: 500, h: 300, zIndex: -1 }
+  public attr = { ...chartInitConfig, zIndex: -1 }
   // 基本样式
   public styles = {
     // 透明

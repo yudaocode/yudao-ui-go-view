@@ -14,12 +14,11 @@
             v-model:value.trim="search"
             size="small"
             :loading="loading"
-            clearable
             placeholder="请输入组件名称"
             @update:value="searchHandle"
           >
             <template #suffix>
-              <n-icon :component="SearchIcon" />
+              <n-icon v-show="!loading" :component="SearchIcon" />
             </template>
           </n-input>
         </n-input-group>
@@ -27,14 +26,20 @@
 
       <div class="search-list-box">
         <n-scrollbar style="max-height: 500px">
-          <n-text v-show="!searchRes.length">没有找到组件~</n-text>
+          <n-empty
+            v-show="!searchRes.length"
+            size="small"
+            description="没有找到组件~"
+          ></n-empty>
           <div
-            class="list-item ellipsis-1"
+            class="list-item go-flex-items-center go-ellipsis-1"
             v-for="item in searchRes"
             :key="item.key"
             :title="item.title"
+            @click="selectChartHandle(item)"
           >
-            {{ item.title }}
+            <img class="list-item-img" :src="item.image" alt="展示图" />
+            <n-text depth="2">{{ item.title }}</n-text>
           </div>
         </n-scrollbar>
         <div class="popover-modal"></div>
@@ -44,11 +49,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onUnmounted } from 'vue'
+import { ref, onUnmounted } from 'vue'
 import { icon } from '@/plugins'
 import { themeColor, MenuOptionsType } from '../../hooks/useAside.hook'
-import { ConfigType } from '@/packages/index.d'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { ConfigType, CreateComponentType } from '@/packages/index.d'
+import { createComponent } from '@/packages'
 import { isString, addEventListener, removeEventListener } from '@/utils'
+import { fetchConfigComponent, fetchChartComponent } from '@/packages/index'
+import {
+  componentInstall,
+  loadingStart,
+  loadingFinish,
+  loadingError,
+} from '@/utils'
 
 const props = defineProps({
   menuOptions: {
@@ -58,6 +72,7 @@ const props = defineProps({
 })
 
 const { SearchIcon } = icon.ionicons5
+const chartEditStore = useChartEditStore()
 const showPopover = ref<boolean>(false)
 const loading = ref<boolean | undefined>(undefined)
 const search = ref<string | null>(null)
@@ -75,53 +90,92 @@ const listFormatHandle = (options: any[]) => {
 // 组件列表
 const List = listFormatHandle(props.menuOptions as unknown as ConfigType[])
 
+// 关闭处理
+const closeHandle = () => {
+  loading.value = undefined
+  showPopover.value = false
+  search.value = null
+  searchRes.value = []
+}
+
 // 搜索处理
 const searchHandle = (key: string | null) => {
   if (!isString(key) || !key.length) {
-    showPopover.value = false
-    searchRes.value = []
+    closeHandle()
     return
   }
+  loading.value = true
   showPopover.value = true
   searchRes.value = List.filter(
     (e: ConfigType) => !key || e.title.toLowerCase().includes(key.toLowerCase())
   )
+  setTimeout(() => {
+    loading.value = undefined
+  }, 500)
 }
 
 // 关闭处理
-const closeHandle = (e: Event) => {
+const listenerCloseHandle = (e: Event) => {
   if (!showPopover.value) return
   if (!e.target) return
   if (!(e.target as any).closest('.go-chart-search')) {
-    showPopover.value = false
+    closeHandle()
+  }
+}
+
+// 选择处理
+const selectChartHandle = async (item: ConfigType) => {
+  try {
+    loadingStart()
+    // 动态注册图表组件
+    componentInstall(item.chartKey, fetchChartComponent(item))
+    componentInstall(item.conKey, fetchConfigComponent(item))
+    // 创建新图表组件
+    let newComponent: CreateComponentType = await createComponent(item)
+    // 添加
+    chartEditStore.addComponentList(newComponent, false, true)
+    // 选中
+    chartEditStore.setTargetSelectChart(newComponent.id)
+    // 清空搜索
+    closeHandle()
+    loadingFinish()
+  } catch (error) {
+    loadingError()
+    window['$message'].warning(`图表正在研发中, 敬请期待...`)
   }
 }
 
 addEventListener(document, 'click', (e: Event) => {
-  closeHandle(e)
+  listenerCloseHandle(e)
 })
 
 onUnmounted(() => {
-  removeEventListener(document, 'click', closeHandle)
+  removeEventListener(document, 'click', listenerCloseHandle)
 })
 </script>
 
 <style lang="scss" scoped>
-$width: 146px;
+$width: 178px;
 @include go('chart-search') {
   width: $width;
-  margin-right: -10px;
+  margin-right: -12px;
   .chart-search-popover {
     .search-list-box {
-      width: $width;
+      width: calc(#{$width} - 30px);
       .list-item {
         z-index: 2;
         position: relative;
         cursor: pointer;
-        padding: 2px 0 2px 10px;
+        padding: 2px;
         margin-bottom: 5px;
+        &-img {
+          height: 30px;
+          margin-right: 5px;
+          border-radius: 5px;
+        }
         &:hover {
           &::after {
+            z-index: -1;
             content: '';
             position: absolute;
             width: 100%;
@@ -134,6 +188,7 @@ $width: 146px;
           }
         }
       }
+    }
   }
 }
 </style>

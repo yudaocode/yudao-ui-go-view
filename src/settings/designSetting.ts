@@ -16,6 +16,14 @@ export const theme = {
   appThemeDetail: null,
 }
 
+// 图表初始配置(px)
+export const chartInitConfig = {
+  x: 50,
+  y: 50,
+  w: 500,
+  h: 300
+}
+
 // dialog 图标的大小
 export const dialogIconSize = '20'
 
