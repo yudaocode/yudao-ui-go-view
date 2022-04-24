@@ -16,17 +16,21 @@
       <SettingItem name="文本方向">
         <n-select v-model:value="optionData.writingMode" size="small" :options="verticalOptions" />
       </SettingItem>
+      
+      <SettingItem name="X轴内边距">
+        <n-input-number v-model:value="optionData.paddingX" size="small" placeholder="输入内边距"></n-input-number>
+      </SettingItem>
+      <SettingItem name="Y轴内边距">
+        <n-input-number v-model:value="optionData.paddingY" size="small" placeholder="输入内边距"></n-input-number>
+      </SettingItem>
       <SettingItem name="字间距">
         <n-input-number v-model:value="optionData.letterSpacing" size="small" placeholder="输入字间距"></n-input-number>
       </SettingItem>
-      <SettingItem name="内边距">
-        <n-input-number v-model:value="optionData.padding" size="small" placeholder="输入内边距"></n-input-number>
-      </SettingItem>
-
       <SettingItem name="颜色">
         <n-color-picker size="small" :modes="['hex']" v-model:value="optionData.fontColor"></n-color-picker>
       </SettingItem>
     </SettingItemBox>
+    
     <SettingItemBox name="背景">
       <SettingItem name="背景圆角">
         <n-input-number

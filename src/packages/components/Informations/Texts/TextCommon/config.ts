@@ -17,7 +17,8 @@ export const option = {
   dataset: '我是一个文本',
   fontSize: 20,
   fontColor: '#ffffffff',
-  padding: 5,
+  paddingX: 10,
+  paddingY: 10,
   // 字间距
   letterSpacing: 5,
   borderRadius: 5,

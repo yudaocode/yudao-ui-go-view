@@ -3,13 +3,15 @@
     <div
       :style="`
       color: ${fontColor};
-      padding: ${padding}px;
+      padding: ${paddingY}px ${paddingX}px;
       font-size: ${fontSize}px;
       letter-spacing: ${letterSpacing}px;
       border-radius: ${borderRadius}px;
       writing-mode: ${writingMode};
       background-color:${backgroundColor}`"
-    >{{ dataset }}</div>
+    >
+      {{ dataset }}
+    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -24,13 +26,21 @@ const props = defineProps({
 })
 
 const { w, h } = toRefs(props.chartConfig.attr)
-const { dataset, fontColor, fontSize, letterSpacing, padding, borderRadius, writingMode, backgroundColor } = toRefs(
-  props.chartConfig.option
-)
+const {
+  dataset,
+  fontColor,
+  fontSize,
+  letterSpacing,
+  paddingY,
+  paddingX,
+  borderRadius,
+  writingMode,
+  backgroundColor,
+} = toRefs(props.chartConfig.option)
 </script>
 
 <style lang="scss" scoped>
-@include go("text-box") {
+@include go('text-box') {
   display: flex;
   align-items: center;
   justify-content: center;
