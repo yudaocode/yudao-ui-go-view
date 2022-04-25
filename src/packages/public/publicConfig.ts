@@ -17,16 +17,16 @@ export class publicConfig implements PublicConfigType {
   public attr = { ...chartInitConfig, zIndex: -1 }
   // 基本样式
   public styles = {
-    // 透明
-    opacity: 1,
+    // 色相
+    hueRotate: 0,
     // 饱和度
     saturate: 1,
     // 对比度
     contrast: 1,
-    // 色相
-    hueRotate: 0,
     // 亮度
     brightness: 1,
+    // 透明
+    opacity: 1,
     // 动画
     animations: []
   }

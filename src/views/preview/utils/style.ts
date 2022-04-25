@@ -45,7 +45,7 @@ export const animationsClass = (animations: string[]) => {
 }
 
 // 样式
-export const getStyle = (styles: StylesType) => {
+export const getStyle = (styles: StylesType | EditCanvasConfigType) => {
   const { opacity, saturate, contrast, hueRotate, brightness } = styles
   return {
     // 透明度

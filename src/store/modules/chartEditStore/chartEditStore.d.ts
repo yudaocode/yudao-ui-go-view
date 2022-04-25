@@ -1,4 +1,4 @@
-import { CreateComponentType } from '@/packages/index.d'
+import { CreateComponentType, FilterEnum} from '@/packages/index.d'
 import { HistoryActionTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
 import { RequestHttpEnum, RequestDataTypeEnum } from '@/enums/httpEnum'
 import type {
@@ -41,11 +41,6 @@ export type EditCanvasType = {
 export enum EditCanvasConfigEnum {
   WIDTH = 'width',
   HEIGHT = 'height',
-  HUE_ROTATE = 'hueRotate',
-  SATURATE = 'saturate',
-  BRIGHTNESS = 'brightness',
-  CONTRAST = 'contrast',
-  UN_OPACITY = 'unOpacity',
   CHART_THEME_COLOR = 'chartThemeColor',
   CHART_THEME_SETTING = 'chartThemeSetting',
   BACKGROUND = 'background',
@@ -55,16 +50,15 @@ export enum EditCanvasConfigEnum {
 
 export interface EditCanvasConfigType {
   // 滤镜-色相
-  [EditCanvasConfigEnum.HUE_ROTATE]: number
+  [FilterEnum.HUE_ROTATE]: number
   // 滤镜-饱和度
-  [EditCanvasConfigEnum.SATURATE]: number
+  [FilterEnum.SATURATE]: number
   // 滤镜-亮度
-  [EditCanvasConfigEnum.BRIGHTNESS]: number
+  [FilterEnum.BRIGHTNESS]: number
   // 滤镜-对比度
-  [EditCanvasConfigEnum.CONTRAST]: number
+  [FilterEnum.CONTRAST]: number
   // 滤镜-不透明度
-  [EditCanvasConfigEnum.UN_OPACITY]: number
-  
+  [FilterEnum.OPACITY]: number
   // 大屏宽度
   [EditCanvasConfigEnum.WIDTH]: number
   // 大屏高度

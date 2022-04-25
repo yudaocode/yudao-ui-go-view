@@ -25,6 +25,16 @@ interface EchartsDataType {
   dimensions: string[],
   source: any[]
 }
+
+// 滤镜枚举
+export enum FilterEnum {
+  HUE_ROTATE = 'hueRotate',
+  SATURATE = 'saturate',
+  BRIGHTNESS = 'brightness',
+  CONTRAST = 'contrast',
+  OPACITY = 'opacity',
+}
+
 // 组件实例类
 export interface PublicConfigType extends requestConfig {
   id: string
@@ -32,20 +42,21 @@ export interface PublicConfigType extends requestConfig {
   attr: { x: number; y: number; w: number; h: number; zIndex: number }
   styles: {
     // 透明度
-    opacity: number;
+    [FilterEnum.OPACITY]: number;
     // 饱和度
-    saturate: number;
+    [FilterEnum.SATURATE]: number;
     // 对比度
-    contrast: number;
+    [FilterEnum.CONTRAST]: number;
     // 色相
-    hueRotate: number;
+    [FilterEnum.HUE_ROTATE]: number;
     // 亮度
-    brightness: number;
+    [FilterEnum.BRIGHTNESS]: number;
     // 动画
     animations: string[]
   }
   setPosition: Function
 }
+
 export interface CreateComponentType extends PublicConfigType {
   key: string
   chartConfig: ConfigType

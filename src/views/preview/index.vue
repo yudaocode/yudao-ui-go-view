@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { PreviewRenderList } from './components/PreviewRenderList'
-import { getEditCanvasConfigStyle, getSessionStorageInfo } from './utils'
+import { getEditCanvasConfigStyle, getStyle, getSessionStorageInfo } from './utils'
 import { useComInstall } from './hooks/useComInstall.hook'
 import { useScale } from './hooks/useScale.hook'
 import { useStore } from './hooks/useStore.hook'
@@ -25,7 +25,7 @@ import type { ChartEditStorageType } from './index.d'
 const localStorageInfo: ChartEditStorageType = getSessionStorageInfo() as ChartEditStorageType
 
 const previewRefStyle: any = computed(() => {
-  return getEditCanvasConfigStyle(localStorageInfo.editCanvasConfig)
+  return { ...getEditCanvasConfigStyle(localStorageInfo.editCanvasConfig), ...getStyle(localStorageInfo.editCanvasConfig) }
 })
 
 useStore(localStorageInfo)

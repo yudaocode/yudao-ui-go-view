@@ -74,13 +74,13 @@ export const useChartEditStore = defineStore({
       // 色相
       hueRotate: 0,
       // 饱和度
-      saturate: 0,
-      // 亮度
-      brightness: 100,
+      saturate: 1,
       // 对比度
-      contrast: 100,
-      // 不透明度
-      unOpacity: 100,
+      contrast: 1,
+      // 亮度
+      brightness: 1,
+      // 透明度
+      opacity: 1,
       // 默认背景色
       background: undefined,
       backgroundImage: undefined,

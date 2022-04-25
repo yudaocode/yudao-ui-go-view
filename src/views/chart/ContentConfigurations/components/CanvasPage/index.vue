@@ -72,6 +72,10 @@
       </n-space>
     </n-space>
 
+    <!-- 滤镜 -->
+    <styles-setting :chartStyles="canvasConfig"></styles-setting>
+    <n-divider style="margin: 10px 0;"></n-divider>
+
     <!-- 主题选择和全局配置 -->
     <n-tabs class="tabs-box" size="small" type="segment">
       <n-tab-pane
@@ -101,6 +105,7 @@ import { backgroundImageSize } from '@/settings/designSetting'
 import { FileTypeEnum } from '@/enums/fileTypeEnum'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasConfigEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
+import { StylesSetting } from '@/components/Pages/ChartItemSetting'
 import { UploadCustomRequestOptions } from 'naive-ui'
 import { fileToUrl, loadAsyncComponent } from '@/utils'
 import { icon } from '@/plugins'
@@ -121,7 +126,7 @@ const ChartDataSetting = loadAsyncComponent(() =>
   import('./components/ChartDataSetting/index.vue')
 )
 
-// 展示颜色列表
+// 北京默认展示颜色列表
 const swatchesColors = [
   '#232324',
   '#2a2a2b',
