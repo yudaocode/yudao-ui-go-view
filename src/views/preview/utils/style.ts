@@ -4,6 +4,7 @@ import { EditCanvasConfigType } from '@/store/modules/chartEditStore/chartEditSt
 type AttrType = PickCreateComponentType<'attr'>
 type StylesType = PickCreateComponentType<'styles'>
 
+// 设置位置
 export const getComponentAttrStyle = (attr: AttrType, index: number) => {
   const componentStyle = {
     zIndex: index + 1,
@@ -13,6 +14,7 @@ export const getComponentAttrStyle = (attr: AttrType, index: number) => {
   return componentStyle
 }
 
+// 设置大小
 export const getSizeStyle = (attr: AttrType, scale?: number) => {
   const sizeStyle = {
     width: `${scale ? scale * attr.w : attr.w}px`,
@@ -21,6 +23,7 @@ export const getSizeStyle = (attr: AttrType, scale?: number) => {
   return sizeStyle
 }
 
+// 全局样式
 export const getEditCanvasConfigStyle = (canvas: EditCanvasConfigType) => {
   // 背景
   const computedBackground = canvas.selectColor
@@ -44,7 +47,7 @@ export const animationsClass = (animations: string[]) => {
   return ''
 }
 
-// 样式
+// 滤镜
 export const getStyle = (styles: StylesType | EditCanvasConfigType) => {
   const { opacity, saturate, contrast, hueRotate, brightness } = styles
   return {

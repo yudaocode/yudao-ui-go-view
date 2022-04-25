@@ -24,7 +24,7 @@ import type { ChartEditStorageType } from './index.d'
 
 const localStorageInfo: ChartEditStorageType = getSessionStorageInfo() as ChartEditStorageType
 
-const previewRefStyle: any = computed(() => {
+const previewRefStyle = computed(() => {
   return { ...getEditCanvasConfigStyle(localStorageInfo.editCanvasConfig), ...getStyle(localStorageInfo.editCanvasConfig) }
 })
 
