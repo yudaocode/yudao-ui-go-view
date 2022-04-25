@@ -6,7 +6,7 @@
     <size-setting :chartAttr="targetData.attr"></size-setting>
     <!-- 位置 -->
     <position-setting :chartAttr="targetData.attr" :canvasConfig="chartEditStore.getEditCanvasConfig"/>
-    <!-- 样式 -->
+    <!-- 滤镜 -->
     <styles-setting :chartStyles="targetData.styles"></styles-setting>
     <!-- 自定义配置项 -->
     <component :is="targetData.chartConfig.conKey" :optionData="targetData.option"></component>
