@@ -277,7 +277,7 @@ $updloadHeight: 193px;
     padding-top: 2px;
   }
   .tabs-box {
-    margin-top: 30px;
+    margin-top: 20px;
   }
 }
 </style>
