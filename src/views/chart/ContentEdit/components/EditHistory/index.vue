@@ -1,23 +1,45 @@
 <template>
-  <div class="go-edit-history go-flex-items-center">
-    <n-dropdown
-      @select="handleSelect"
+  <div class="go-flex-items-center">
+    <n-popover
+      class="edit-history-popover"
       :show="showDropdownRef"
-      :options="options"
+      :show-arrow="false"
       size="small"
+      trigger="click"
       placement="top-start"
-      style="max-height: 100vh; overflow-y: auto;"
     >
-      <n-button
-        class="mr-10"
-        secondary
-        size="small"
-        :disabled="options.length === 0"
-        @click="handleClick"
-      >
-        <span class="btn-text">历史记录</span>
-      </n-button>
-    </n-dropdown>
+      <template #trigger>
+        <n-button
+          class="mr-10"
+          secondary
+          size="small"
+          :disabled="options.length === 0"
+          @click="handleClick"
+        >
+          <span class="btn-text">历史记录</span>
+        </n-button>
+      </template>
+
+      <div class="history-list-box">
+        <n-scrollbar style="max-height: 500px">
+          <div
+            class="list-item go-flex-items-center go-ellipsis-1"
+            v-for="item in options"
+            :key="item.key"
+            :title="item.label"
+          >
+            <n-icon
+              class="item-icon"
+              size="16"
+              :depth="2"
+              :component="item.icon"
+            />
+            <n-text depth="2">{{ item.label }}</n-text>
+          </div>
+        </n-scrollbar>
+        <div class="popover-modal"></div>
+      </div>
+    </n-popover>
 
     <n-tooltip trigger="hover">
       <template #trigger>
@@ -38,10 +60,11 @@ import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHis
 import { historyActionTypeName } from '@/store/modules/chartHistoryStore/chartHistoryDefine'
 import { CreateComponentType } from '@/packages/index.d'
 import { editHistoryMax } from '@/settings/designSetting'
+import reverse from 'lodash/reverse'
 import {
   HistoryItemType,
   HistoryTargetTypeEnum,
-  HistoryActionTypeEnum
+  HistoryActionTypeEnum,
 } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
 
 const {
@@ -51,7 +74,7 @@ const {
   CopyIcon,
   LayersIcon,
   DuplicateIcon,
-  HelpOutlineIcon
+  HelpOutlineIcon,
 } = icon.ionicons5
 const { StackedMoveIcon } = icon.carbon
 const showDropdownRef = ref(false)
@@ -62,29 +85,29 @@ const chartHistoryStoreStore = useChartHistoryStore()
 const iconHandle = (e: HistoryItemType) => {
   // 画布编辑
   if (e.targetType === HistoryTargetTypeEnum.CANVAS) {
-    return renderIcon(DesktopOutlineIcon)
+    return DesktopOutlineIcon
   }
   switch (e.actionType) {
     case HistoryActionTypeEnum.UPDATE:
-      return renderIcon(PencilIcon)
+      return PencilIcon
     case HistoryActionTypeEnum.DELETE:
-      return renderIcon(TrashIcon)
+      return TrashIcon
     case HistoryActionTypeEnum.PASTE:
-      return renderIcon(CopyIcon)
+      return CopyIcon
     case HistoryActionTypeEnum.TOP:
-        return renderIcon(LayersIcon)
+      return LayersIcon
     case HistoryActionTypeEnum.BOTTOM:
-      return renderIcon(LayersIcon)
+      return LayersIcon
     case HistoryActionTypeEnum.UP:
-      return renderIcon(LayersIcon)
+      return LayersIcon
     case HistoryActionTypeEnum.DOWN:
-      return renderIcon(LayersIcon)
+      return LayersIcon
     case HistoryActionTypeEnum.MOVE:
-      return renderIcon(StackedMoveIcon)
+      return StackedMoveIcon
     case HistoryActionTypeEnum.ADD:
-      return renderIcon(DuplicateIcon)
+      return DuplicateIcon
     default:
-      return renderIcon(PencilIcon)
+      return PencilIcon
   }
 }
 
@@ -105,27 +128,37 @@ const options = computed(() => {
     return {
       label: labelHandle(e),
       key: e.id,
-      icon: iconHandle(e)
+      icon: iconHandle(e),
     }
   })
-  return options
+  return reverse(options)
 })
 
 const handleClick = () => {
   showDropdownRef.value = !showDropdownRef.value
 }
-const handleSelect = (key: string) => {}
 </script>
 
 <style lang="scss" scoped>
-@include go(edit-history) {
-  max-height: 50vh;
-  .mr-10 {
-    margin-right: 10px;
-  }
+.mr-10 {
+  margin-right: 10px;
+}
+.edit-history-popover {
   .btn-text {
     font-size: 12px;
     margin-right: 3px;
+  }
+  .history-list-box {
+    width: 100%;
+    .list-item {
+      z-index: 2;
+      position: relative;
+      cursor: default;
+      padding: 2px;
+      .item-icon {
+        margin-right: 10px;
+      }
+    }
   }
 }
 </style>
