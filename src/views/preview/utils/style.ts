@@ -32,7 +32,7 @@ export const getEditCanvasConfigStyle = (canvas: EditCanvasConfigType) => {
         background: `url(${canvas.backgroundImage}) no-repeat center/100% !important`
       }
   return {
-    position: 'relative',
+    position: 'relative' as const,
     width: canvas.width ? `${canvas.width || 100}px` : '100%',
     height: canvas.height ? `${canvas.height}px` : '100%',
     ...computedBackground

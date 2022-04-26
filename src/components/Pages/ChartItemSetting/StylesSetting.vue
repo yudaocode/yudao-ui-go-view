@@ -82,7 +82,7 @@ import {
 
 const props = defineProps({
   chartStyles: {
-    type: Object as PropType<PickCreateComponentType<'styles'>>,
+    type: Object as PropType<Omit<PickCreateComponentType<'styles'>, 'animations'>>,
     required: true,
   },
 })
