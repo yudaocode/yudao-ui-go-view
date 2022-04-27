@@ -3,7 +3,6 @@ import { BarCommonConfig } from './index'
 import { CreateComponentType } from '@/packages/index.d'
 import cloneDeep from 'lodash/cloneDeep'
 import dataJson from './data.json'
-import { GlobalThemeJsonType } from '@/settings/chartThemes/index'
 
 export const includes = ['legend', 'xAxis', 'yAxis']
 

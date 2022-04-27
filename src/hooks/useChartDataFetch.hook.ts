@@ -59,7 +59,7 @@ export const useChartDataFetch = (
                 })
               } else {
                 // 若遵守规范使用 datase 作为数据 key，则省自动赋值数据
-                targetComponent.option.dataset = res.data
+                targetComponent.option.dataset && (targetComponent.option.dataset = res.data)
               }
               if (updateCallback) {
                 updateCallback(res.data)

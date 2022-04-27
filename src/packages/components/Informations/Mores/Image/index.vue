@@ -1,6 +1,6 @@
 <template>
   <div>
-    词云
+    图片
   </div>
 </template>
 
