@@ -1,4 +1,3 @@
-import type { WritableComputedRef } from 'vue'
 import { defineStore } from 'pinia'
 import { lang } from '@/settings/designSetting'
 import { LangStateType } from './langStore.d'
