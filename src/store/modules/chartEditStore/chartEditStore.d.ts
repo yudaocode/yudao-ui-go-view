@@ -133,7 +133,7 @@ export type RequestConfigType = {
   requestDataType: RequestDataTypeEnum
   // 请求方式 get/post/del/put/patch
   requestHttpType: RequestHttpEnum
-  // 去除源的 url
+  // 源后续的 url
   requestUrl?: string
 }
 
