@@ -6,8 +6,13 @@
       padding: ${paddingY}px ${paddingX}px;
       font-size: ${fontSize}px;
       letter-spacing: ${letterSpacing}px;
-      border-radius: ${borderRadius}px;
       writing-mode: ${writingMode};
+
+      border-style: solid;
+      border-width: ${borderWidth}px;
+      border-radius: ${borderRadius}px;
+      border-color: ${borderColor};
+
       background-color:${backgroundColor}`"
     >
       {{ dataset }}
@@ -33,6 +38,8 @@ const {
   letterSpacing,
   paddingY,
   paddingX,
+  borderWidth,
+  borderColor,
   borderRadius,
   writingMode,
   backgroundColor,

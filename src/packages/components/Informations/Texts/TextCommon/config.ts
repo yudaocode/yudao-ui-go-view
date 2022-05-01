@@ -14,14 +14,19 @@ export const WritingModeObject = {
 }
 
 export const option = {
-  dataset: '我是一个文本',
+  dataset: '我是文本',
   fontSize: 20,
-  fontColor: '#ffffffff',
+  fontColor: '#ffffff',
   paddingX: 10,
   paddingY: 10,
+
+  // 边框
+  borderWidth: 0,
+  borderColor: '#ffffff',
+  borderRadius: 5,
+
   // 字间距
   letterSpacing: 5,
-  borderRadius: 5,
   writingMode: 'horizontal-tb',
   backgroundColor: '#00000000',
 }

@@ -16,11 +16,10 @@ export const getComponentAttrStyle = (attr: AttrType, index: number) => {
 
 // 设置大小
 export const getSizeStyle = (attr: AttrType, scale?: number) => {
-  const sizeStyle = {
+  return ({
     width: `${scale ? scale * attr.w : attr.w}px`,
     height: `${scale ? scale * attr.h : attr.h}px`
-  }
-  return sizeStyle
+  })
 }
 
 // 全局样式
