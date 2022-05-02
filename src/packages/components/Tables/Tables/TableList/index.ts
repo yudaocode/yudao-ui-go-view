@@ -6,7 +6,7 @@ export const TableListConfig: ConfigType = {
   key: 'TableList',
   chartKey: 'VTableList',
   conKey: 'VCTableList',
-  title: '排名列表',
+  title: '滚动排名列表',
   category: ChatCategoryEnum.TABLE,
   categoryName: ChatCategoryEnumName.TABLE,
   package: PackagesCategoryEnum.TABLES,

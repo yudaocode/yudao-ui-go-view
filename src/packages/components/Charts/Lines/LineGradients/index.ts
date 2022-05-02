@@ -6,7 +6,7 @@ export const LineGradientsConfig: ConfigType = {
   key: 'LineGradients',
   chartKey: 'VLineGradients',
   conKey: 'VCLineGradients',
-  title: '折线面积图',
+  title: '单折线面积图',
   category: ChatCategoryEnum.LINE,
   categoryName: ChatCategoryEnumName.LINE,
   package: PackagesCategoryEnum.CHARTS,
