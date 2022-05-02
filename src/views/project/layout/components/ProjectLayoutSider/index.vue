@@ -73,7 +73,7 @@ $siderHeight: 100vh;
 
 @include go(project) {
   &-sider {
-    @include filter-bg-color('aside-background-color');
+    @include fetch-bg-color('aside-background-color');
     &-top {
       display: flex;
       align-items: center;

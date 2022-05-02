@@ -103,31 +103,31 @@ $topOrBottomHeight: 40px;
   margin: 1px;
   margin-bottom: 0;
   &.bg-depth0 {
-    @include filter-bg-color('background-color1');
+    @include fetch-bg-color('background-color1');
     .bottom,
     .top {
-      @include filter-bg-color('background-color1');
+      @include fetch-bg-color('background-color1');
     }
   }
   &.bg-depth1 {
-    @include filter-bg-color('background-color1');
+    @include fetch-bg-color('background-color1');
     .bottom,
     .top {
-      @include filter-bg-color('background-color2');
+      @include fetch-bg-color('background-color2');
     }
   }
   &.bg-depth2 {
-    @include filter-bg-color('background-color2');
+    @include fetch-bg-color('background-color2');
     .bottom,
     .top {
-      @include filter-bg-color('background-color3');
+      @include fetch-bg-color('background-color3');
     }
   }
   &.bg-depth3 {
-    @include filter-bg-color('background-color3');
+    @include fetch-bg-color('background-color3');
     .bottom,
     .top {
-      @include filter-bg-color('background-color4');
+      @include fetch-bg-color('background-color4');
     }
   }
   &.flex {
@@ -142,14 +142,14 @@ $topOrBottomHeight: 40px;
     height: $topOrBottomHeight;
     padding: 0 10px;
     border-top: 1px solid;
-    @include filter-border-color('hover-border-color');
+    @include fetch-border-color('hover-border-color');
     .mt-1 {
       margin-top: 2px;
     }
   }
   .top {
     border-bottom: 1px solid;
-    @include filter-border-color('background-color1');
+    @include fetch-border-color('background-color1');
   }
   
   .content {

@@ -67,7 +67,7 @@ $textSize: 10px;
   @extend .go-transition-quick;
   &.hover,
   &:hover {
-    @include filter-bg-color('background-color4');
+    @include fetch-bg-color('background-color4');
   }
   /* 选中 */
   &.select {

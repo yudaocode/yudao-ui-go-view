@@ -101,7 +101,6 @@ const {
 const emit = defineEmits(['delete', 'resize', 'edit'])
 
 const props = defineProps({
-  // todo 定义列表ITEN的 type
   cardData: Object as PropType<Chartype>
 })
 

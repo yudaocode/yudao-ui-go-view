@@ -70,7 +70,7 @@ const selectTheme = (theme: ChartColorsNameType) => {
     cursor: pointer;
     margin-top: 15px;
     padding: 0;
-    @include filter-bg-color('background-color4-shallow');
+    @include fetch-bg-color('background-color4-shallow');
     border-radius: 23px;
     overflow: hidden;
     @include deep() {

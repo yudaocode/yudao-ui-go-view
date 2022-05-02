@@ -38,7 +38,6 @@ const fetchProhectInfoById = () => {
   if (!routeParamsRes) return
   const { id } = routeParamsRes
   if (id.length) {
-    // todo 从后端获取项目信息并存储
     return id[0]
   }
   return ''

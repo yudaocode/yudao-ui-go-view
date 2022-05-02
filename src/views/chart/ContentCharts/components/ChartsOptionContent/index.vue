@@ -118,7 +118,7 @@ $menuWidth: 65px;
   .chart-menu-width {
     width: $menuWidth;
     flex-shrink: 0;
-    @include filter-bg-color('background-color2-shallow');
+    @include fetch-bg-color('background-color2-shallow');
   }
   .chart-content-list {
     flex: 1;

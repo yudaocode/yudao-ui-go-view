@@ -81,7 +81,7 @@ $topHeight: 40px;
     height: calc(100vh - #{$--header-height} - #{$topHeight});
     .menu-width {
       flex-shrink: 0;
-      @include filter-bg-color('background-color2');
+      @include fetch-bg-color('background-color2');
     }
     .menu-component-box {
       flex-shrink: 0;

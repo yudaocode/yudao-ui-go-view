@@ -1,4 +1,3 @@
-import { nextTick } from 'vue'
 import { icon } from '@/plugins'
 import { DialogEnum } from '@/enums/pluginEnum'
 import { dialogIconSize } from '@/settings/designSetting'

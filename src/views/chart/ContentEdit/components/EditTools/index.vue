@@ -142,7 +142,7 @@ $asideBottom: 70px;
   border-radius: 25px;
   border: 1px solid;
   mix-blend-mode: luminosity;
-  @include filter-border-color("hover-border-color-shallow");
+  @include fetch-border-color("hover-border-color-shallow");
   &.aside {
     flex-direction: column-reverse;
     height: auto;

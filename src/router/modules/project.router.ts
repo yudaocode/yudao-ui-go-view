@@ -18,7 +18,6 @@ const projectRoutes: RouteRecordRaw = {
     title: '项目',
     isRoot: true
   },
-  // todo 可采用循环动态插入
   children: [
     {
       path: PageEnum.BASE_HOME_ITEMS,

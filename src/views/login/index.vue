@@ -287,7 +287,7 @@ $carousel-image-height: 60vh;
 
       &-card {
         @extend .go-background-filter;
-        @include filter-bg-color('filter-color');
+        @include fetch-bg-color('filter-color');
         box-shadow: 0 0 20px 5px rgba(40, 40, 40, 0.5);
       }
 
