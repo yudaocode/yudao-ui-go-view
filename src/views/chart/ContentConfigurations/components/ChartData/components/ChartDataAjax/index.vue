@@ -28,6 +28,9 @@
             <li>
               <n-text type="info"> 【表格】{{ rankListUrl }} </n-text>
             </li>
+            <li>
+              <n-text type="info"> 【0~1数字】{{ numberUrl }} </n-text>
+            </li>
           </ul>
         </n-tooltip>
       </template>
@@ -65,7 +68,7 @@ import { ref, toRefs } from 'vue'
 import { icon } from '@/plugins'
 import { SettingItemBox } from '@/components/Pages/ChartItemSetting'
 import { RequestHttpEnum } from '@/enums/httpEnum'
-import { chartDataUrl, rankListUrl } from '@/api/mock'
+import { chartDataUrl, rankListUrl, numberUrl } from '@/api/mock'
 import { http } from '@/api/http'
 import { SelectHttpType } from '../../index.d'
 import { ChartDataMatchingAndShow } from '../ChartDataMatchingAndShow'

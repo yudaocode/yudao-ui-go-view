@@ -5,6 +5,7 @@ import { RequestHttpEnum } from '@/enums/httpEnum'
 // 单个X数据
 export const chartDataUrl = '/mock/chartData'
 export const rankListUrl = '/mock/RankList'
+export const numberUrl = '/mock/number'
 
 const mockObject: MockMethod[] = [
   {
@@ -18,6 +19,11 @@ const mockObject: MockMethod[] = [
     url: '/mock/rankList',
     method: RequestHttpEnum.GET,
     response: () => test.fetchRankList,
+  },
+  {
+    url: '/mock/number',
+    method: RequestHttpEnum.GET,
+    response: () => test.fetchNumber,
   },
 ]
 

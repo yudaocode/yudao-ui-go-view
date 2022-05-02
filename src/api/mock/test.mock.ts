@@ -59,4 +59,10 @@ export default {
       { name: '@name', 'value|100-900': 5 },
     ],
   },
+  // 获取数字
+  fetchNumber: {
+    status: 200,
+    msg: '请求成功',
+    data: '@float(0, 0.99)',
+  },
 }

@@ -50,11 +50,11 @@ export const option = {
         borderDistance: 10,
         itemStyle: {
           borderWidth: 2,
-          borderColor: '#112165',
-        },
-      },
-    },
-  ],
+          borderColor: '#112165'
+        }
+      }
+    }
+  ]
 }
 
 export default class Config extends publicConfig implements CreateComponentType

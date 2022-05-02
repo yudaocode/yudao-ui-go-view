@@ -68,22 +68,18 @@ watch(
   }
 )
 
-const updateDataset = (newData: number) => {
-  props.chartConfig.option.series[0].data = [newData]
+const updateDataset = (newData: string | number) => {
+  props.chartConfig.option.series[0].data = [parseFloat(`${newData}`).toFixed(2)]
   option.options = props.chartConfig.option
 }
 
-updateDataset(0.5)
-
 watch(
-  () => props.chartConfig.option.value,
+  () => props.chartConfig.option.dataset,
   newData => updateDataset(newData),
   {
-    deep: true,
+    immediate: true,
   }
 )
 
-const { vChartRef } = useChartDataFetch(props.chartConfig, useChartEditStore, (newData: number) => {
-  updateDataset(newData)
-})
+const { vChartRef } = useChartDataFetch(props.chartConfig, useChartEditStore)
 </script>
