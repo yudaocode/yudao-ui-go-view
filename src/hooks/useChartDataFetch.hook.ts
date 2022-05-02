@@ -51,7 +51,7 @@ export const useChartDataFetch = (
               PackagesCategoryEnum.CHARTS
 
             try {
-              if (isECharts) {
+              if (isECharts && vChartRef?.value?.setOption) {
                 nextTick(() => {
                   if (vChartRef.value) {
                     vChartRef.value.setOption({ dataset: res.data })

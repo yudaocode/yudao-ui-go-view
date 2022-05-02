@@ -1,6 +1,6 @@
 <template>
   <n-timeline class="go-chart-configurations-timeline">
-    <n-timeline-item v-if="isCharts" type="info" :title="TimelineTitleEnum.MAPPING">
+    <n-timeline-item v-if="isCharts && dimensionsAndSource" type="info" :title="TimelineTitleEnum.MAPPING">
       <n-table striped>
         <thead>
           <tr>
@@ -70,6 +70,7 @@ import { icon } from '@/plugins'
 import { DataResultEnum, TimelineTitleEnum } from '../../index.d'
 import { useFile } from '../../hooks/useFile.hooks'
 import { useTargetData } from '../../../hooks/useTargetData.hook'
+import isObject from 'lodash/isObject'
 const { targetData } = useTargetData()
 
 const props = defineProps({
@@ -135,14 +136,20 @@ const dimensionsAndSourceHandle = () => {
   }
 }
 
-watch(() => targetData.value?.option?.dataset, (newData) => {
-  if (newData) {
+watch(() => targetData.value?.option?.dataset, (newData: {
+  source: any,
+  dimensions: any
+} | null) => {
+  if (isObject(newData)) {
     // 只有 Echarts 数据才有对应的格式
     source.value = isCharts.value ? newData.source : newData
     if (isCharts.value) {
       dimensions.value = newData.dimensions
       dimensionsAndSource.value = dimensionsAndSourceHandle()
     }
+  } else {
+    dimensionsAndSource.value = null
+    source.value = newData
   }
 }, {
   immediate: true

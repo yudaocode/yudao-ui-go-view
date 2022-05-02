@@ -63,7 +63,7 @@ export const chartColorsshow = {
   shine: 'linear-gradient(to right, #c12e34 0%, #0098d9 100%)',
   roma: 'linear-gradient(to right, #e01f54 0%, #5e4ea5 100%)'
 }
-// 渐变主题色列表（阴影，渐变1，渐变2）
+// 渐变主题色列表（主色1、主色2、阴影、渐变1、渐变2）
 export const chartColorsSearch = {
   dark: ['#4992ff', '#7cffb2', 'rgba(68, 181, 226, 0.3)', 'rgba(73, 146, 255, 0.5)', 'rgba(124, 255, 178, 0.5)'],
   customed: ['#5470c6', '#91cc75', 'rgba(84, 112, 198, 0.5)', 'rgba(84, 112, 198, 0.5)', 'rgba(145, 204, 117, 0.5)'],

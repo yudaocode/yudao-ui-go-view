@@ -74,6 +74,9 @@ $textSize: 10px;
     border: 1px solid v-bind('themeColor');
     /* 需要设置最高级，覆盖 hover 的颜色 */
     background-color: rgba(0, 0, 0, 0);
+    .list-img {
+      border:1px solid v-bind('themeColor')!important;
+    }
   }
   .select-modal,
   .item-content {

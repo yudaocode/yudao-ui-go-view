@@ -6,11 +6,12 @@ import cloneDeep from 'lodash/cloneDeep'
 export const includes = []
 
 export const option = {
+  dataset: 0.5,
   series: [
     {
       type: 'liquidFill',
       radius: '90%',
-      data: [0.5],
+      data: [0],
       center: ['50%', '50%'],
       color: [
         {
@@ -34,7 +35,7 @@ export const option = {
       ],
       backgroundStyle: {
         borderWidth: 1,
-        color: 'RGBA(51, 66, 127, 0.7)',
+        color: 'rgba(51, 66, 127, 0.7)',
       },
       label: {
         normal: {
@@ -56,9 +57,7 @@ export const option = {
   ],
 }
 
-export default class Config
-  extends publicConfig
-  implements CreateComponentType
+export default class Config extends publicConfig implements CreateComponentType
 {
   public key = WaterPoloConfig.key
   public chartConfig = cloneDeep(WaterPoloConfig)
