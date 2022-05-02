@@ -27,7 +27,7 @@ export const loadingError = () => {
 
 /**
  * * render 对话框
- * @param { Object} params 配置参数
+ * @param { Object} params 配置参数, 详见 https://www.naiveui.com/zh-CN/light/components/dialog
  * @param { Function } dialogFn 函数
  * ```
  * 最简易的 demo
@@ -40,6 +40,8 @@ export const goDialog = (
   params: {
     // 基本
     type?: DialogEnum
+    // 标题
+    title?: string | (() => any)
     // 提示
     message?: string
     // 取消提示词
@@ -64,6 +66,7 @@ export const goDialog = (
 ) => {
   const {
     type,
+    title,
     message,
     negativeText,
     negativeButtonProps,
@@ -98,33 +101,33 @@ export const goDialog = (
     }
   }
 
-  const d: DialogReactive = typeObj[type || DialogEnum.warning]['fn']({
-    title: '提示',
+  const dialog: DialogReactive = typeObj[type || DialogEnum.warning]['fn']({
+    // 导入其余 NaiveUI 支持参数
+    ...params,
+    title: title || '提示',
     icon: renderIcon(InformationCircleIcon, { size: dialogIconSize }),
     content: typeObj[type || DialogEnum.warning]['message'],
     positiveText: positiveText || '确定',
-    positiveButtonProps: positiveButtonProps,
     negativeText: negativeText || '取消',
-    negativeButtonProps: negativeButtonProps,
     // 是否通过遮罩关闭
     maskClosable: isMaskClosable || maskClosable,
     onPositiveClick: async () => {
       // 执行异步
       if (promise && onPositiveCallback) {
-        d.loading = true
+        dialog.loading = true
         try {
           const res = await onPositiveCallback()
           promiseResCallback && promiseResCallback(res)
         } catch (err) {
           promiseRejCallback && promiseRejCallback(err)
         }
-        d.loading = false
+        dialog.loading = false
         return
       }
-      onPositiveCallback && onPositiveCallback(d)
+      onPositiveCallback && onPositiveCallback(dialog)
     },
     onNegativeClick: async () => {
-      onNegativeCallback && onNegativeCallback(d)
+      onNegativeCallback && onNegativeCallback(dialog)
     }
   })
 }
