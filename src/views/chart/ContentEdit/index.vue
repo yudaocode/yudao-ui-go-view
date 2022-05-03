@@ -14,28 +14,36 @@
     <div id="go-chart-edit-content" @contextmenu="handleContextMenu">
       <!-- 展示 -->
       <edit-range>
-        <!-- 图表 -->
-        <edit-shape-box
-          v-for="(item, index) in chartEditStore.getComponentList"
-          :key="item.id"
-          :data-id="item.id"
-          :index="index"
-          :style="useComponentStyle(item.attr, index)"
-          :item="item"
-          @mousedown="mousedownHandle($event, item)"
-          @mouseenter="mouseenterHandle($event, item)"
-          @mouseleave="mouseleaveHandle($event, item)"
-          @contextmenu="handleContextMenu($event, item)"
-        >
-          <component
-            class="edit-content-chart"
-            :is="item.chartConfig.chartKey"
-            :chartConfig="item"
-            :themeSetting="themeSetting"
-            :themeColor="themeColor"
-            :style="useSizeStyle(item.attr)"
-          ></component>
-        </edit-shape-box>
+        <!-- 滤镜预览 -->
+        <div :style="getFilterStyle(chartEditStore.getEditCanvasConfig)">
+          <!-- 图表 -->
+          <edit-shape-box
+            v-for="(item, index) in chartEditStore.getComponentList"
+            :key="item.id"
+            :data-id="item.id"
+            :index="index"
+            :style="useComponentStyle(item.attr, index)"
+            :item="item"
+            @mousedown="mousedownHandle($event, item)"
+            @mouseenter="mouseenterHandle($event, item)"
+            @mouseleave="mouseleaveHandle($event, item)"
+            @contextmenu="handleContextMenu($event, item)"
+          >
+            <component
+              class="edit-content-chart"
+              :class="animationsClass(item.styles.animations)"
+              :is="item.chartConfig.chartKey"
+              :chartConfig="item"
+              :themeSetting="themeSetting"
+              :themeColor="themeColor"
+              :style="{
+                ...useSizeStyle(item.attr),
+                ...getFilterStyle(item.styles),
+                ...getTranstormStyle(item.styles),
+              }"
+            ></component>
+          </edit-shape-box>
+        </div>
       </edit-range>
     </div>
 
@@ -53,19 +61,21 @@
 
 <script lang="ts" setup>
 import { onMounted, computed } from 'vue'
+import { chartColors } from '@/settings/chartThemes/index'
+import { animationsClass, getFilterStyle, getTranstormStyle } from '@/utils'
+import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
+
+import { useLayout } from './hooks/useLayout.hook'
+import { useAddKeyboard } from '../hooks/useKeyboard.hook'
+import { dragHandle, dragoverHandle, useMouseHandle } from './hooks/useDrag.hook'
+import { useComponentStyle, useSizeStyle } from './hooks/useStyle.hook'
+
 import { ContentBox } from '../contentBox/index'
 import { EditRange } from './components/EditRange'
 import { EditBottom } from './components/EditBottom'
 import { EditShapeBox } from './components/EditShapeBox'
 import { EditTools } from './components/EditTools'
-
-import { useLayout } from './hooks/useLayout.hook'
-import { useAddKeyboard } from '../hooks/useKeyboard.hook'
-import { dragHandle, dragoverHandle, useMouseHandle } from './hooks/useDrag.hook'
-import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
-import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { useComponentStyle, useSizeStyle } from './hooks/useStyle.hook'
-import { chartColors } from '@/settings/chartThemes/index'
 
 const chartEditStore = useChartEditStore()
 const { handleContextMenu } = useContextMenu()

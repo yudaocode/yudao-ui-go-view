@@ -18,7 +18,6 @@ export const animationsClass = (animations: string[]) => {
 export const getFilterStyle = (styles: StylesType | EditCanvasConfigType) => {
   const { opacity, saturate, contrast, hueRotate, brightness } = styles
   return {
-    // 透明度
     opacity: opacity,
     filter: `saturate(${saturate}) contrast(${contrast}) hue-rotate(${hueRotate}deg) brightness(${brightness})`,
   }
