@@ -1,5 +1,5 @@
 <template>
-  <collapse-item name="滤镜">
+  <collapse-item :name="isCanvas ? '滤镜' : '滤镜 / 变换'">
     <setting-item-box name="色相" :alone="true">
       <setting-item :name="`值：${chartStyles.hueRotate}deg`">
         <!-- 透明度 -->
@@ -68,6 +68,62 @@
         ></n-slider>
       </setting-item>
     </setting-item-box>
+    
+    <!-- 变换 -->
+    <setting-item-box v-if="!isCanvas" name="旋转°">
+      <setting-item name="Z轴(平面) - 旋转">
+        <!-- 透明度 -->
+        <n-input-number
+          v-model:value="chartStyles.rotateZ"
+          :min="0"
+          :max="360"
+          size="small"
+          placeholder="角度"
+        ></n-input-number>
+      </setting-item>
+      <setting-item name="X轴 - 旋转">
+        <!-- 透明度 -->
+        <n-input-number
+          v-model:value="chartStyles.rotateX"
+          :min="0"
+          :max="360"
+          size="small"
+          placeholder="角度"
+        ></n-input-number>
+      </setting-item>
+      <setting-item name="Y轴 - 旋转">
+        <!-- 透明度 -->
+        <n-input-number
+          v-model:value="chartStyles.rotateY"
+          :min="0"
+          :max="360"
+          size="small"
+          placeholder="角度"
+        ></n-input-number>
+      </setting-item>
+    </setting-item-box>
+
+    <!-- 倾斜 -->
+    <setting-item-box v-if="!isCanvas" name="倾斜°">
+      <setting-item name="X轴 - 倾斜">
+        <n-input-number
+          v-model:value="chartStyles.skewX"
+          :min="0"
+          :max="360"
+          size="small"
+          placeholder="角度"
+        ></n-input-number>
+      </setting-item>
+      <setting-item name="Y轴 - 倾斜">
+        <n-input-number
+          v-model:value="chartStyles.skewY"
+          :min="0"
+          :max="360"
+          size="small"
+          placeholder="角度"
+        ></n-input-number>
+      </setting-item>
+    </setting-item-box>
   </collapse-item>
 </template>
 
@@ -81,6 +137,10 @@ import {
 } from '@/components/Pages/ChartItemSetting'
 
 const props = defineProps({
+  isCanvas: {
+    type: Boolean,
+    default: false
+  },
   chartStyles: {
     type: Object as PropType<Omit<PickCreateComponentType<'styles'>, 'animations'>>,
     required: true,

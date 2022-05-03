@@ -47,11 +47,19 @@ export const animationsClass = (animations: string[]) => {
 }
 
 // 滤镜
-export const getStyle = (styles: StylesType | EditCanvasConfigType) => {
+export const getFilterStyle = (styles: StylesType | EditCanvasConfigType) => {
   const { opacity, saturate, contrast, hueRotate, brightness } = styles
   return {
     // 透明度
     opacity: opacity,
-    filter: `saturate(${saturate}) contrast(${contrast}) hue-rotate(${hueRotate}deg) brightness(${brightness})`
+    filter: `saturate(${saturate}) contrast(${contrast}) hue-rotate(${hueRotate}deg) brightness(${brightness})`,
+  }
+}
+
+// 变换
+export const getTranstormStyle = (styles: StylesType) => {
+  const { rotateZ, rotateX, rotateY, skewX, skewY } = styles
+  return {
+    transform: `rotateZ(${rotateZ || 0}deg) rotateX(${rotateX || 0}deg) rotateY(${rotateY || 0}deg) skewX(${skewX || 0}deg) skewY(${skewY || 0}deg)`,
   }
 }

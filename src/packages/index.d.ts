@@ -26,13 +26,27 @@ interface EchartsDataType {
   source: any[]
 }
 
-// 滤镜枚举
+// 滤镜/变换枚举
 export enum FilterEnum {
-  HUE_ROTATE = 'hueRotate',
-  SATURATE = 'saturate',
-  BRIGHTNESS = 'brightness',
-  CONTRAST = 'contrast',
+  // 透明度
   OPACITY = 'opacity',
+  // 饱和度
+  SATURATE = 'saturate',
+  // 对比度
+  CONTRAST = 'contrast',
+  // 色相
+  HUE_ROTATE = 'hueRotate',
+  // 亮度
+  BRIGHTNESS = 'brightness',
+
+  // 旋转
+  ROTATE_Z = 'rotateZ',
+  ROTATE_X = 'rotateX',
+  ROTATE_Y = 'rotateY',
+
+  // 倾斜
+  SKEW_X = 'skewX',
+  SKEW_Y = 'skewY',
 }
 
 // 组件实例类
@@ -41,16 +55,18 @@ export interface PublicConfigType extends requestConfig {
   rename?: string
   attr: { x: number; y: number; w: number; h: number; zIndex: number }
   styles: {
-    // 透明度
     [FilterEnum.OPACITY]: number;
-    // 饱和度
     [FilterEnum.SATURATE]: number;
-    // 对比度
     [FilterEnum.CONTRAST]: number;
-    // 色相
     [FilterEnum.HUE_ROTATE]: number;
-    // 亮度
     [FilterEnum.BRIGHTNESS]: number;
+
+    [FilterEnum.ROTATE_Z]: number;
+    [FilterEnum.ROTATE_X]: number;
+    [FilterEnum.ROTATE_Y]: number;
+
+    [FilterEnum.SKEW_X]: number;
+    [FilterEnum.SKEW_Y]: number;
     // 动画
     animations: string[]
   }

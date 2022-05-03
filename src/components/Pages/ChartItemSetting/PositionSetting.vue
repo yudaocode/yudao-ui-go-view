@@ -20,7 +20,7 @@
       placeholder="px"
     >
       <template #prefix>
-        <n-text depth="3">上边</n-text>
+        <n-text depth="3">上</n-text>
       </template>
     </n-input-number>
     <n-input-number

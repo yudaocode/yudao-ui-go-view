@@ -4,7 +4,11 @@
     :class="animationsClass(item.styles.animations)"
     v-for="(item, index) in localStorageInfo.componentList"
     :key="item.id"
-    :style="{ ...getComponentAttrStyle(item.attr, index), ...getStyle(item.styles)}"
+    :style="{ 
+      ...getComponentAttrStyle(item.attr, index),
+      ...getFilterStyle(item.styles),
+      ...getTranstormStyle(item.styles)
+    }"
   >
     <component
       :is="item.chartConfig.chartKey"
@@ -20,7 +24,8 @@
 import { PropType, computed } from 'vue'
 import { ChartEditStorageType } from '../../index.d'
 import { chartColors } from '@/settings/chartThemes/index'
-import { getSizeStyle, getStyle, getComponentAttrStyle, animationsClass } from '../../utils'
+import { getSizeStyle, getFilterStyle, getTranstormStyle, getComponentAttrStyle, animationsClass } from '../../utils'
+
 
 const props = defineProps({
   localStorageInfo: {
@@ -28,6 +33,8 @@ const props = defineProps({
     required: true
   }
 })
+
+console.log(getTranstormStyle(props.localStorageInfo.componentList[0].styles))
 
 // 主题色
 const themeSetting = computed(() => {

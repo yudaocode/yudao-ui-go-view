@@ -27,6 +27,16 @@ export class publicConfig implements PublicConfigType {
     brightness: 1,
     // 透明
     opacity: 1,
+
+    // 旋转
+    rotateZ: 0,
+    rotateX: 0,
+    rotateY: 0,
+
+    // 倾斜
+    skewX: 0,
+    skewY: 0,
+    
     // 动画
     animations: []
   }
