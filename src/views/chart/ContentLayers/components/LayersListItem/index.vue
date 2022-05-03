@@ -12,7 +12,7 @@
         :fallback-src="requireErrorImg()"
      ></n-image>
       <n-ellipsis>
-        <n-text class="list-text">
+        <n-text class="list-text" :depth="2">
           {{ props.componentData.chartConfig.title }}
         </n-text>
       </n-ellipsis>
@@ -107,7 +107,7 @@ $textSize: 10px;
     @include hover-border-color('hover-border-color');
   }
   .list-text {
-    padding-left: 10px;
+    padding-left: 6px;
     font-size: $textSize;
   }
 }

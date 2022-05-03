@@ -2,7 +2,7 @@
   <v-chart
     ref="vChartRef"
     :theme="themeColor"
-    :option="option.options"
+    :option="option.value"
     :manual-update="isPreview()"
     autoresize
   ></v-chart>
@@ -41,7 +41,7 @@ use([CanvasRenderer, GridComponent])
 const chartEditStore = useChartEditStore()
 
 const option = reactive({
-  options: {},
+  value: {},
 })
 
 // 渐变色处理
@@ -50,6 +50,9 @@ watch(
   (newColor: keyof typeof chartColorsSearch) => {
     if (!isPreview()) {
       const themeColor = chartColorsSearch[newColor] || chartColorsSearch[defaultTheme]
+      // 背景颜色
+      props.chartConfig.option.series[0].backgroundStyle.color = themeColor[2]
+      // 水球颜色
       props.chartConfig.option.series[0].color[0].colorStops = [  
         {
           offset: 0,
@@ -61,7 +64,7 @@ watch(
         },
       ]
     }
-    option.options = props.chartConfig.option
+    option.value = props.chartConfig.option
   },
   {
     immediate: true,
@@ -70,7 +73,7 @@ watch(
 
 const updateDataset = (newData: string | number) => {
   props.chartConfig.option.series[0].data = [parseFloat(`${newData}`).toFixed(2)]
-  option.options = props.chartConfig.option
+  option.value = props.chartConfig.option
 }
 
 watch(

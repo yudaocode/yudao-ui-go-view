@@ -36,13 +36,6 @@
           :options="lineConf.lineStyle.type"
        ></n-select>
       </SettingItem>
-      <SettingItem name="类型">
-        <n-select
-          v-model:value="item.lineStyle.type"
-          size="small"
-          :options="lineConf.lineStyle.type"
-       ></n-select>
-      </SettingItem>
     </SettingItemBox>
     <SettingItemBox name="阴影" :alone="true">
       <SettingItem name="颜色">
@@ -72,13 +65,13 @@
 <script setup lang="ts">
 import { PropType, computed } from 'vue'
 import { lineConf } from '@/packages/chartConfiguration/echarts/index'
+import { GlobalThemeJsonType } from '@/settings/chartThemes/index'
 import {
   GlobalSetting,
   CollapseItem,
   SettingItemBox,
   SettingItem
 } from '@/components/Pages/ChartItemSetting'
-import { GlobalThemeJsonType } from '@/settings/chartThemes/index'
 
 const props = defineProps({
   optionData: {

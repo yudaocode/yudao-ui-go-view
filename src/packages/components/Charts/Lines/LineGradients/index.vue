@@ -1,5 +1,5 @@
 <template>
-  <v-chart ref="vChartRef" :theme="themeColor" :option="option.options" :manual-update="isPreview()" autoresize></v-chart>
+  <v-chart ref="vChartRef" :theme="themeColor" :option="option.value" :manual-update="isPreview()" autoresize></v-chart>
 </template>
 
 <script setup lang="ts">
@@ -42,7 +42,7 @@ use([
 const chartEditStore = useChartEditStore()
 
 const option = reactive({
-  options: {}
+  value: {}
 })
 
 // 渐变色处理
@@ -62,15 +62,14 @@ watch(() => chartEditStore.getEditCanvasConfig.chartThemeColor, (newColor: keyof
       ])
     })
   }
-  option.options = mergeTheme(props.chartConfig.option, props.themeSetting, includes)
+  option.value = mergeTheme(props.chartConfig.option, props.themeSetting, includes)
+  props.chartConfig.option = option.value
 }, {
   immediate: true
 })
 
 watch(() => props.chartConfig.option.dataset, () => {
-  option.options = props.chartConfig.option
-}, {
-  deep: true
+  option.value = props.chartConfig.option
 })
 
 const { vChartRef } = useChartDataFetch(props.chartConfig, useChartEditStore)

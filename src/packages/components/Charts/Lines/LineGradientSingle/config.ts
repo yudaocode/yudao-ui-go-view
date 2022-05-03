@@ -8,15 +8,15 @@ import dataJson from './data.json'
 export const includes = ['legend', 'xAxis', 'yAxis']
 
 const options = {
-  legend: {
-    show: true
-  },
   tooltip: {
     show: true,
     trigger: 'axis',
     axisPointer: {
       type: 'line'
     }
+  },
+  legend: {
+    show: true
   },
   xAxis: {
     show: true,
@@ -32,9 +32,8 @@ const options = {
       type: 'line',
       smooth: false,
       lineStyle: {
-        normal: {
-          width: 3
-        }
+        type: 'solid',
+        width: 3
       },
       areaStyle: {
         opacity: 0.8,
@@ -48,7 +47,7 @@ const options = {
             color: 'rgba(0,0,0,0)'
           }
         ])
-      },
+      }
     }
   ]
 }

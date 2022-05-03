@@ -33,9 +33,8 @@ const option = {
       type: 'line',
       smooth: false,
       lineStyle: {
-        normal: {
-          width: 3
-        }
+        width: 3,
+        type: 'solid',
       },
       areaStyle: {
         opacity: 0.8,
