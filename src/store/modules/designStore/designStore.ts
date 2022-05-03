@@ -18,7 +18,7 @@ export const useDesignStore = defineStore({
       // 是否暗黑
       darkTheme,
       // 主题名称
-      themeName: (darkTheme && ThemeEnum.dark) || ThemeEnum.light,
+      themeName: (darkTheme && ThemeEnum.DARK) || ThemeEnum.LIGHT,
       // 颜色色号
       appTheme,
       appThemeDetail,
@@ -38,7 +38,7 @@ export const useDesignStore = defineStore({
     // 切换主题
     changeTheme(): void {
       this.darkTheme = !this.darkTheme
-      this.themeName = this.darkTheme ? ThemeEnum.dark : ThemeEnum.light
+      this.themeName = this.darkTheme ? ThemeEnum.DARK : ThemeEnum.LIGHT
       setLocalStorage(GO_DESIGN_STORE, this.$state)
     },
     // 设置颜色

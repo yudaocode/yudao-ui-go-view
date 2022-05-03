@@ -34,8 +34,6 @@ const props = defineProps({
   }
 })
 
-console.log(getTranstormStyle(props.localStorageInfo.componentList[0].styles))
-
 // 主题色
 const themeSetting = computed(() => {
   const chartThemeSetting = props.localStorageInfo.editCanvasConfig.chartThemeSetting

@@ -4,13 +4,14 @@ import { CreateComponentType } from '@/packages/index.d'
 import debounce from 'lodash/debounce'
 import cloneDeep from 'lodash/cloneDeep'
 import { defaultTheme, globalThemeJson } from '@/settings/chartThemes/index'
-import { requestInterval } from '@/settings/designSetting'
+import { requestInterval, previewScaleType } from '@/settings/designSetting'
 // 记录记录
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
 // 全局设置
 import { useSettingStore } from '@/store/modules/settingStore/settingStore'
 import { HistoryActionTypeEnum, HistoryItemType, HistoryTargetTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
 import { MenuEnum } from '@/enums/editPageEnum'
+import { PreviewScaleEnum } from '@/enums/styleEnum'
 import {
   ChartEditStoreEnum,
   ChartEditStorage,
@@ -89,7 +90,9 @@ export const useChartEditStore = defineStore({
       // chart 主题色
       chartThemeColor: defaultTheme || 'dark',
       // 全局配置
-      chartThemeSetting: globalThemeJson
+      chartThemeSetting: globalThemeJson,
+      // 预览方式
+      previewScaleType: previewScaleType
     },
     // 数据请求处理（需存储给后端）
     requestGlobalConfig: {

@@ -82,31 +82,31 @@ export const goDialog = (
 
   const typeObj = {
     // 自定义
-    [DialogEnum.delete]: {
+    [DialogEnum.DELETE]: {
       fn: dialogFn || window['$dialog'].warning,
       message: message || '是否删除此数据?'
     },
     // 原有
-    [DialogEnum.warning]: {
+    [DialogEnum.WARNING]: {
       fn: window['$dialog'].warning,
       message: message || '是否执行此操作?'
     },
-    [DialogEnum.error]: {
+    [DialogEnum.ERROR]: {
       fn: window['$dialog'].error,
       message: message || '是否执行此操作?'
     },
-    [DialogEnum.success]: {
+    [DialogEnum.SUCCESS]: {
       fn: window['$dialog'].success,
       message: message || '是否执行此操作?'
     }
   }
 
-  const dialog: DialogReactive = typeObj[type || DialogEnum.warning]['fn']({
+  const dialog: DialogReactive = typeObj[type || DialogEnum.WARNING]['fn']({
     // 导入其余 NaiveUI 支持参数
     ...params,
     title: title || '提示',
     icon: renderIcon(InformationCircleIcon, { size: dialogIconSize }),
-    content: typeObj[type || DialogEnum.warning]['message'],
+    content: typeObj[type || DialogEnum.WARNING]['message'],
     positiveText: positiveText || '确定',
     negativeText: negativeText || '取消',
     // 是否通过遮罩关闭

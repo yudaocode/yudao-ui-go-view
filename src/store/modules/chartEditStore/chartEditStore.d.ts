@@ -1,6 +1,7 @@
 import { CreateComponentType, FilterEnum} from '@/packages/index.d'
 import { HistoryActionTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
 import { RequestHttpEnum, RequestDataTypeEnum } from '@/enums/httpEnum'
+import { PreviewScaleEnum } from '@/enums/styleEnum'
 import type {
   ChartColorsNameType,
   GlobalThemeJsonType,
@@ -46,6 +47,7 @@ export enum EditCanvasConfigEnum {
   BACKGROUND = 'background',
   BACKGROUND_IAMGE = 'backgroundImage',
   SELECT_COLOR = 'selectColor',
+  PREVIEW_SCALE_TYPE = 'previewScaleType',
 }
 
 export interface EditCanvasConfigType {
@@ -72,6 +74,8 @@ export interface EditCanvasConfigType {
   [EditCanvasConfigEnum.CHART_THEME_SETTING]: GlobalThemeJsonType
   // 图表主题颜色
   [EditCanvasConfigEnum.SELECT_COLOR]: boolean
+  // 预览展示方式
+  [EditCanvasConfigEnum.PREVIEW_SCALE_TYPE]: PreviewScaleEnum
 }
 
 // 坐标轴信息

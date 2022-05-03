@@ -40,7 +40,7 @@ export const useDataListInit = () => {
   // 删除
   const deleteHandle = (cardData: object, index: number) => {
     goDialog({
-      type: DialogEnum.delete,
+      type: DialogEnum.DELETE,
       promise: true,
       onPositiveCallback: () =>
         new Promise(res => setTimeout(() => res(1), 1000)),

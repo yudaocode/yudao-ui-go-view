@@ -6,6 +6,7 @@
         <n-input-number
           size="small"
           v-model:value="canvasConfig.width"
+          :disabled="editCanvas.lockScale"
           :validator="validator"
           @update:value="changeSizeHandle"
         ></n-input-number>
@@ -14,6 +15,7 @@
         <n-input-number
           size="small"
           v-model:value="canvasConfig.height"
+          :disabled="editCanvas.lockScale"
           :validator="validator"
           @update:value="changeSizeHandle"
         ></n-input-number>
@@ -55,7 +57,7 @@
         ></n-color-picker>
       </n-space>
       <n-space>
-        <n-text>使用颜色</n-text>
+        <n-text>颜色应用</n-text>
         <n-switch
           size="small"
           v-model:value="canvasConfig.selectColor"
@@ -66,9 +68,30 @@
         ></n-switch>
       </n-space>
       <n-space>
-        <n-text>背景</n-text>
+        <n-text>背景控制</n-text>
         <n-button size="small" :disabled="!canvasConfig.backgroundImage" @click="clearImage">清除背景图</n-button>
         <n-button size="small" :disabled="!canvasConfig.background" @click="clearColor">清除颜色</n-button>
+      </n-space>
+      <n-space>
+        <n-text>预览方式</n-text>
+        <n-button-group>
+          <n-button 
+            ghost
+            v-for="item in previewTypeList"
+            :key="item.key"
+            :type="canvasConfig.previewScaleType === item.key ? 'primary' : 'tertiary'"
+            size="small"
+            @click="selectPreviewType(item.key)">
+            <n-tooltip :show-arrow="false" trigger="hover">
+              <template #trigger>
+                <n-icon size="18">
+                  <component :is="item.icon"></component>
+                </n-icon>
+              </template>
+              {{ item.desc }}
+            </n-tooltip>
+          </n-button>
+        </n-button-group>
       </n-space>
     </n-space>
 
@@ -108,13 +131,15 @@ import { EditCanvasConfigEnum } from '@/store/modules/chartEditStore/chartEditSt
 import { StylesSetting } from '@/components/Pages/ChartItemSetting'
 import { UploadCustomRequestOptions } from 'naive-ui'
 import { fileToUrl, loadAsyncComponent } from '@/utils'
+import { PreviewScaleEnum } from '@/enums/styleEnum'
 import { icon } from '@/plugins'
 
 const { ColorPaletteIcon } = icon.ionicons5
-const { ZAxisIcon } = icon.carbon
+const { ZAxisIcon, ScaleIcon, FitToScreenIcon, FitToHeightIcon, FitToWidthIcon } = icon.carbon
 
 const chartEditStore = useChartEditStore()
 const canvasConfig = chartEditStore.getEditCanvasConfig
+const editCanvas = chartEditStore.getEditCanvas
 
 const uploadFileListRef = ref()
 const switchSelectColorLoading = ref(false)
@@ -153,10 +178,42 @@ const globalTabList = [
   }
 ]
 
-// 规则
+const previewTypeList = [
+  {
+    key: PreviewScaleEnum.FIT,
+    title: '自适应',
+    icon: ScaleIcon,
+    desc: '自适应比例展示，页面会有留白'
+  },
+  {
+    key: PreviewScaleEnum.SCROLL_Y,
+    title: 'Y轴滚动',
+    icon: FitToWidthIcon,
+    desc: 'X轴铺满，Y轴自适应滚动'
+  },
+  {
+    key: PreviewScaleEnum.SCROLL_X,
+    title: 'X轴滚动',
+    icon: FitToHeightIcon,
+    desc: 'Y轴铺满，X轴自适应滚动'
+  },
+  {
+    key: PreviewScaleEnum.FULL,
+    title: '铺满',
+    icon: FitToScreenIcon,
+    desc: '强行拉伸画面，填充所有视图'
+  },
+]
+
+// 画布尺寸规则
 const validator = (x: number) => x > 50
 
-// 前置处理
+// 修改尺寸
+const changeSizeHandle = () => {
+  chartEditStore.computedScale()
+}
+
+// 上传图片前置处理
 //@ts-ignore
 const beforeUploadHandle = async ({ file }) => {
   uploadFileListRef.value = []
@@ -174,12 +231,6 @@ const beforeUploadHandle = async ({ file }) => {
     return false
   }
   return true
-}
-
-// 修改尺寸
-const changeSizeHandle = () => {
-  chartEditStore.computedScale
-  chartEditStore.setPageSize
 }
 
 // 清除背景
@@ -219,7 +270,6 @@ const switchSelectColorHandle = () => {
 // 自定义上传操作
 const customRequest = (options: UploadCustomRequestOptions) => {
   const { file } = options
-
   nextTick(() => {
     if (file.file) {
       const ImageUrl = fileToUrl(file.file)
@@ -235,6 +285,11 @@ const customRequest = (options: UploadCustomRequestOptions) => {
       window['$message'].error('添加图片失败，请稍后重试！')
     }
   })
+}
+
+// 选择预览方式
+const selectPreviewType = (key: PreviewScaleEnum) => {
+  chartEditStore.setEditCanvasConfig(EditCanvasConfigEnum.PREVIEW_SCALE_TYPE, key)
 }
 </script>
 

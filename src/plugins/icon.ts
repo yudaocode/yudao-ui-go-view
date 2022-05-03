@@ -77,6 +77,10 @@ import {
   AlignVerticalBottom as AlignVerticalBottomIcon,
   DocumentAdd as DocumentAddIcon,
   DocumentDownload as DocumentDownloadIcon,
+  Scale as ScaleIcon,
+  FitToScreen as FitToScreenIcon,
+  FitToHeight as FitToHeightIcon,
+  FitToWidth as FitToWidthIcon
 } from '@vicons/carbon'
 
 const ionicons5 = {
@@ -225,7 +229,12 @@ const carbon = {
   // 添加文件
   DocumentAddIcon,
   // 下载文件
-  DocumentDownloadIcon
+  DocumentDownloadIcon,
+  // 预览展示方式
+  ScaleIcon,
+  FitToScreenIcon,
+  FitToHeightIcon,
+  FitToWidthIcon
 }
 
 // https://www.xicons.org/#/ 还有很多

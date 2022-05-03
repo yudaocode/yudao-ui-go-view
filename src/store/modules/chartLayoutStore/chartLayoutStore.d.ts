@@ -1,5 +1,3 @@
-import { ThemeEnum } from '@/enums/styleEnum'
-
 export enum ChartLayoutStoreEnum {
   LAYERS = 'layers',
   CHARTS = 'charts',

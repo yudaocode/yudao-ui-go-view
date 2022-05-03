@@ -1,8 +1,8 @@
-import { LangEnum } from '@/enums/styleEnum'
+import { LangEnum, PreviewScaleEnum } from '@/enums/styleEnum'
 import designColor from './designColor.json'
 
 // 默认语言
-export const lang = LangEnum.zh
+export const lang = LangEnum.ZH
 
 // 水印文字
 export const watermarkText = "GoView 低代码平台"
@@ -44,6 +44,9 @@ export const carouselInterval = 4000
 
 // 工作台大屏背景图片大小限制（5M）
 export const backgroundImageSize = 5
+
+// 预览展示方式
+export const previewScaleType = PreviewScaleEnum.FIT
 
 // 数据请求间隔
 export const requestInterval = 30

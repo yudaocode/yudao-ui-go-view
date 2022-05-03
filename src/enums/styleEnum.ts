@@ -1,9 +1,19 @@
+// 主题
 export enum ThemeEnum {
-  dark = 'dark',
-  light = 'light'
+  DARK = 'dark',
+  LIGHT = 'light'
 }
 
+// 语言
 export enum LangEnum {
-  zh = 'zh',
-  en = 'en'
+  ZH = 'ZH',
+  EN = 'EN'
+}
+
+// 预览展示
+export enum PreviewScaleEnum {
+  FIT = 'fit',
+  SCROLL_Y = 'scrollY',
+  SCROLL_X = 'scrollX',
+  FULL = 'full'
 }

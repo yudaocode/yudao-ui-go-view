@@ -14,11 +14,11 @@ const langStorage: LangStateType = getLocalStorage(StorageEnum.GO_LANG_STORE)
 export const langList = [
   {
     label: '中文',
-    key: LangEnum.zh
+    key: LangEnum.ZH
   },
   {
     label: 'English',
-    key: LangEnum.en
+    key: LangEnum.EN
   }
 ]
 
@@ -26,8 +26,8 @@ const i18n = createI18n({
   locale: langStorage?.lang || lang,
   fallbackLocale: langStorage?.lang || lang,
   messages: {
-    [LangEnum.zh]: zh,
-    [LangEnum.en]: en
+    [LangEnum.ZH]: zh,
+    [LangEnum.EN]: en
   }
 })
 
