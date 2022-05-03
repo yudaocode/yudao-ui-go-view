@@ -1,5 +1,36 @@
-import { useDesignStore } from '@/store/modules/designStore/designStore'
 import Color from 'color'
+import { useDesignStore } from '@/store/modules/designStore/designStore'
+import { PickCreateComponentType } from '@/packages/index.d'
+import { EditCanvasConfigType } from '@/store/modules/chartEditStore/chartEditStore.d'
+
+type AttrType = PickCreateComponentType<'attr'>
+type StylesType = PickCreateComponentType<'styles'>
+
+// 动画
+export const animationsClass = (animations: string[]) => {
+  if (animations.length) {
+    return `animate__animated  animate__${animations[0]}`
+  }
+  return ''
+}
+
+// 滤镜
+export const getFilterStyle = (styles: StylesType | EditCanvasConfigType) => {
+  const { opacity, saturate, contrast, hueRotate, brightness } = styles
+  return {
+    // 透明度
+    opacity: opacity,
+    filter: `saturate(${saturate}) contrast(${contrast}) hue-rotate(${hueRotate}deg) brightness(${brightness})`,
+  }
+}
+
+// 变换
+export const getTranstormStyle = (styles: StylesType) => {
+  const { rotateZ, rotateX, rotateY, skewX, skewY } = styles
+  return {
+    transform: `rotateZ(${rotateZ || 0}deg) rotateX(${rotateX || 0}deg) rotateY(${rotateY || 0}deg) skewX(${skewX || 0}deg) skewY(${skewY || 0}deg)`,
+  }
+}
 
 /**
  * * hsla 转换 
