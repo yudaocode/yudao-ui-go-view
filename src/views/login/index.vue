@@ -235,7 +235,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 $width: 450px;
 $go-login-height: 100vh;
-$account-img-height: 270px;
+$account-img-height: 210px;
 $footer-height: 50px;
 $carousel-width: 30%;
 $carousel-image-height: 60vh;
@@ -288,7 +288,7 @@ $carousel-image-height: 60vh;
       &-card {
         @extend .go-background-filter;
         @include fetch-bg-color('filter-color');
-        box-shadow: 0 0 20px 5px rgba(40, 40, 40, 0.5);
+        box-shadow: 0 0 20px 5px rgba(40, 40, 40, 0.3);
       }
 
       &-top {

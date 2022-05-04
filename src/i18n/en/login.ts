@@ -1,5 +1,5 @@
 export default {
-  desc: "Log in to GoView",
+  desc: "Login",
   form_auto: "Sign in automatically",
   form_button: "Login",
   login_success: "Login success",
