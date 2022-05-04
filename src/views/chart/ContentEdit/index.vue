@@ -15,7 +15,10 @@
       <!-- 展示 -->
       <edit-range>
         <!-- 滤镜预览 -->
-        <div :style="getFilterStyle(chartEditStore.getEditCanvasConfig)">
+        <div :style="{
+            ...getFilterStyle(chartEditStore.getEditCanvasConfig),
+            ...rangeStyle
+          }">
           <!-- 图表 -->
           <edit-shape-box
             v-for="(item, index) in chartEditStore.getComponentList"
@@ -96,6 +99,26 @@ const themeSetting = computed(() => {
 const themeColor = computed(() => {
   const chartThemeColor = chartEditStore.getEditCanvasConfig.chartThemeColor
   return chartColors[chartThemeColor]
+})
+
+// 背景
+const rangeStyle = computed(() => {
+  // 设置背景色和图片背景
+  const background = chartEditStore.getEditCanvasConfig.background
+  const backgroundImage = chartEditStore.getEditCanvasConfig.backgroundImage
+  const selectColor = chartEditStore.getEditCanvasConfig.selectColor
+  const backgroundColor = background ? background : undefined
+
+  const computedBackground = selectColor
+    ? { background: backgroundColor }
+    : { background: `url(${backgroundImage}) no-repeat center/100% !important` }
+
+  // @ts-ignore
+  return {
+    ...computedBackground,
+    width: 'inherit',
+    height: 'inherit'
+  }
 })
 
 // 键盘事件

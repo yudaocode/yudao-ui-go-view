@@ -61,6 +61,12 @@ export interface EditCanvasConfigType {
   [FilterEnum.CONTRAST]: number
   // 滤镜-不透明度
   [FilterEnum.OPACITY]: number
+  // 变换（暂不使用）
+  [FilterEnum.ROTATE_Z]: number
+  [FilterEnum.ROTATE_X]: number
+  [FilterEnum.ROTATE_Y]: number
+  [FilterEnum.SKEW_X]: number
+  [FilterEnum.SKEW_Y]: number
   // 大屏宽度
   [EditCanvasConfigEnum.WIDTH]: number
   // 大屏高度

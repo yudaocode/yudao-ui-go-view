@@ -82,6 +82,12 @@ export const useChartEditStore = defineStore({
       brightness: 1,
       // 透明度
       opacity: 1,
+      // 变换（暂不更改）
+      rotateZ: 0,
+      rotateX: 0,
+      rotateY: 0,
+      skewX: 0,
+      skewY: 0,
       // 默认背景色
       background: undefined,
       backgroundImage: undefined,
