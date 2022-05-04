@@ -23,7 +23,7 @@ GoView 是一个高效的拖拽式低代码数据可视化开发平台，将图�
 
 
 项目截图：
-![项目截图](public/GoView%E6%88%AA%E5%9B%BE.png)
+![项目截图](public/goView-canvas.png)
 
 主要技术栈为：
 
