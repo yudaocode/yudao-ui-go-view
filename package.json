@@ -18,7 +18,7 @@
     "highlight.js": "^11.5.0",
     "html2canvas": "^1.4.1",
     "keymaster": "^1.6.2",
-    "naive-ui": "^2.27.0",
+    "naive-ui": "^2.28.2",
     "pinia": "^2.0.13",
     "screenfull": "^6.0.1",
     "vue": "^3.2.31",

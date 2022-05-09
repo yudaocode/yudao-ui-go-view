@@ -30,7 +30,7 @@ specifiers:
   keymaster: ^1.6.2
   lodash: ~4.17.21
   mockjs: ^1.1.0
-  naive-ui: ^2.27.0
+  naive-ui: ^2.28.2
   pinia: ^2.0.13
   plop: ^3.0.5
   prettier: ^2.6.2
@@ -63,7 +63,7 @@ dependencies:
   highlight.js: 11.5.0
   html2canvas: 1.4.1
   keymaster: 1.6.2
-  naive-ui: 2.27.0_vue@3.2.31
+  naive-ui: 2.28.2_vue@3.2.31
   pinia: 2.0.13_typescript@4.6.3+vue@3.2.31
   screenfull: 6.0.1
   vue: 3.2.31
@@ -553,6 +553,10 @@ packages:
       '@jridgewell/resolve-uri': 3.0.5
       '@jridgewell/sourcemap-codec': 1.4.11
     dev: true
+
+  /@juggle/resize-observer/3.3.1:
+    resolution: {integrity: sha512-zMM9Ds+SawiUkakS7y94Ymqx+S0ORzpG3frZirN3l+UlXUmSUR7hF4wxCVqW+ei94JzV5kt0uXBcoOEAuiydrw==}
+    dev: false
 
   /@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -3111,8 +3115,8 @@ packages:
     resolution: {integrity: sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA==}
     dev: true
 
-  /naive-ui/2.27.0_vue@3.2.31:
-    resolution: {integrity: sha512-g9A2uulbQKMuJpUjAyiAqBHQ4xrcbwRPdv+OS2FeNC5u/SrRWFiO64X10YDyMwQNudrwc3VVqKUrw3ZArxtFCg==}
+  /naive-ui/2.28.2_vue@3.2.31:
+    resolution: {integrity: sha512-7vRmTZ+2L8Bo62FAfQHLiQPm4HO1u/sPo/4qy2Iy48UrtCh5FhoxbnCxQO+pRqVNafmnY8TDB+qJ3WiGGYmg1A==}
     peerDependencies:
       vue: ^3.0.0
     dependencies:
@@ -3129,12 +3133,12 @@ packages:
       lodash: 4.17.21
       lodash-es: 4.17.21
       seemly: 0.3.3
-      treemate: 0.3.10
-      vdirs: 0.1.7_vue@3.2.31
+      treemate: 0.3.11
+      vdirs: 0.1.8_vue@3.2.31
       vfonts: 0.0.3
       vooks: 0.2.12_vue@3.2.31
       vue: 3.2.31
-      vueuc: 0.4.28_vue@3.2.31
+      vueuc: 0.4.32_vue@3.2.31
     dev: false
 
   /nanoid/3.3.2:
@@ -3649,10 +3653,6 @@ packages:
     resolution: {integrity: sha512-R/tCuvuOHQ8o2boRP6vgx8hXCCy87H1eY9V5imBYeVNyNVpuL9ciReSccLj2gDcax9+2weXy3bc8Vv+NRXeEvQ==}
     dev: true
 
-  /resize-observer-polyfill/1.5.1:
-    resolution: {integrity: sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==}
-    dev: false
-
   /resolve-dir/1.0.1:
     resolution: {integrity: sha512-R7uiTjECzvOsWSfdM0QKFNBVFcK27aHOUwdvK53BcW8zqnGdYp0Fbj82cy54+2A4P2tFM22J5kRfe1R+lM/1yg==}
     engines: {node: '>=0.10.0'}
@@ -3996,8 +3996,8 @@ packages:
     resolution: {integrity: sha512-VSsyNPPW74RpHwR8Fc21uubwHY7wMDeJLys2IX5zJNih+OnAnaifKHo+1LHT7DAdloQ7apeaaWg8l7qnf/TnEg==}
     dev: true
 
-  /treemate/0.3.10:
-    resolution: {integrity: sha512-uxN98H84/zXAkn02rEeip9SNnOR889QIBXfpZnwjaanp8JRElxjdmDaKmVULclrn54J8RcJVCqfeQZsdeMjwow==}
+  /treemate/0.3.11:
+    resolution: {integrity: sha512-M8RGFoKtZ8dF+iwJfAJTOH/SM4KluKOKRJpjCMhI8bG3qB74zrFoArKZ62ll0Fr3mqkMJiQOmWYkdYgDeITYQg==}
     dev: false
 
   /tsconfig-paths/3.14.1:
@@ -4133,8 +4133,8 @@ packages:
     engines: {node: '>= 10.13.0'}
     dev: true
 
-  /vdirs/0.1.7_vue@3.2.31:
-    resolution: {integrity: sha512-MEUaLhV1jJyUqA2Ar4DfvlQx8jWs+PpCZ2dbM0ILelpMWGOybzt8ddL456VxeIbY/tkuDGT/Wzb8GG4LCuLuHw==}
+  /vdirs/0.1.8_vue@3.2.31:
+    resolution: {integrity: sha512-H9V1zGRLQZg9b+GdMk8MXDN2Lva0zx72MPahDKc30v+DtwKjfyOSXWRIX4t2mhDubM1H09gPhWeth/BJWPHGUw==}
     peerDependencies:
       vue: ^3.0.11
     dependencies:
@@ -4477,17 +4477,17 @@ packages:
       vue: 3.2.31
     dev: false
 
-  /vueuc/0.4.28_vue@3.2.31:
-    resolution: {integrity: sha512-Udr1ROwJocHIThA5G+H5qN1QEFI4pskDvl+w/2Ul2XIjaAeIuQ6ygEOKHOXRJqKX5PxcTi1QQUpb7yQWsDw7ww==}
+  /vueuc/0.4.32_vue@3.2.31:
+    resolution: {integrity: sha512-Bmiuhn7g5O+dzW3eX2EghsG7CiocpLwRtgbX7aiILja9K0wjxVYrJqMOiYwCxB6pvO91JDywwINpFshMZru9/g==}
     peerDependencies:
       vue: ^3.0.11
     dependencies:
       '@css-render/vue3-ssr': 0.15.9_vue@3.2.31
+      '@juggle/resize-observer': 3.3.1
       css-render: 0.15.9
       evtd: 0.2.3
-      resize-observer-polyfill: 1.5.1
       seemly: 0.3.3
-      vdirs: 0.1.7_vue@3.2.31
+      vdirs: 0.1.8_vue@3.2.31
       vooks: 0.2.12_vue@3.2.31
       vue: 3.2.31
     dev: false
