@@ -60,8 +60,6 @@ interface ItemType<T> {
   icon: any
 }
 
-console.log(useChartLayoutStore())
-
 const btnList = reactive<ItemType<ChartLayoutStoreEnum>[]>([
   {
     key: ChartLayoutStoreEnum.CHARTS,
