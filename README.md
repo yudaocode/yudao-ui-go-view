@@ -57,18 +57,11 @@ GoView 是一个高效的拖拽式低代码数据可视化开发平台，将图�
 
 ## 安装
 
-本项目采用 pnpm 进行包管理，若要使用其它管理方式，请删除 `pnpm-lock.yaml` 并安装依赖
+本项目采用 pnpm 进行包管理
 
 ```shell
 #pnpm（建议使用nrm切换到淘宝源）
 pnpm install
-
-# npm
-npm install
-
-# yarn
-yarn install
-
 ```
 
 ## 启动
