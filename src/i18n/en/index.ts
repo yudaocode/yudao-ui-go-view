@@ -17,7 +17,7 @@ const global = {
   // right key
   r_edit: 'Edit',
   r_preview: 'Preview',
-  r_copy: 'Copy',
+  r_copy: 'Clone',
   r_rename: 'Rename',
   r_publish: 'Publish',
   r_unpublish: 'Unpublish',
