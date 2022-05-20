@@ -17,7 +17,7 @@ const global = {
   // 功能键
   r_edit: '编辑',
   r_preview: '预览',
-  r_copy: '复制',
+  r_copy: '克隆',
   r_rename: '重命名',
   r_publish: '发布',
   r_unpublish: '取消发布',
