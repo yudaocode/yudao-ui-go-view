@@ -2,7 +2,7 @@ import { useRoute } from 'vue-router'
 import { ResultEnum } from '@/enums/httpEnum'
 import { ErrorPageNameMap, PageEnum } from '@/enums/pageEnum'
 import { docPath, giteeSourceCodePath } from '@/settings/pathConst'
-import { cryptoDecode } from './crypto'
+import { SystemStoreEnum, SystemStoreUserInfoEnum } from '@/store/modules/systemStore/systemStore.d'
 import { StorageEnum } from '@/enums/storageEnum'
 import { clearLocalStorage, getLocalStorage } from './storage'
 import router from '@/router'
@@ -104,7 +104,7 @@ export const reloadRoutePage = () => {
  * * 退出
  */
 export const logout = () => {
-  clearLocalStorage(StorageEnum.GO_LOGIN_INFO_STORE)
+  clearLocalStorage(StorageEnum.GO_SYSTEM_STORE)
   routerTurnByName(PageEnum.BASE_LOGIN_NAME)
 }
 
@@ -167,10 +167,9 @@ export const goHome = () => {
  */
 export const loginCheck = () => {
   try {
-    const info = getLocalStorage(StorageEnum.GO_LOGIN_INFO_STORE)
+    const info = getLocalStorage(StorageEnum.GO_SYSTEM_STORE)
     if (!info) return false
-    const decodeInfo = cryptoDecode(info)
-    if (decodeInfo) {
+    if (info[SystemStoreEnum.USER_INFO][SystemStoreUserInfoEnum.USER_TOKEN]) {
       return true
     }
     return false

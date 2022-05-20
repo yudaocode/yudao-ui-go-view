@@ -2,9 +2,16 @@ import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
 import { ResultEnum } from "@/enums/httpEnum"
 import { ErrorPageNameMap } from "@/enums/pageEnum"
 import { redirectErrorPage } from '@/utils'
+import { axiosPre } from '@/settings/httpSetting'
+
+interface MyResponseType {
+  code: number;
+  msg: string;
+  data: any;
+}
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.DEV ? import.meta.env.VITE_DEV_PATH : import.meta.env.VITE_PRO_PATH,
+  baseURL: axiosPre,
   timeout: ResultEnum.TIMEOUT,
 })
 

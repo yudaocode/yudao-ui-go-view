@@ -1,6 +1,10 @@
-/**
- * @description: 请求结果集
- */
+// 模块 Path 前缀分类
+export enum ModuleTypeEnum {
+  SYSTEM = 'sys',
+  PROJECT = 'project',
+}
+
+// 请求结果集
 export enum ResultEnum {
   DATA_SUCCESS = 0,
   SUCCESS = 200,
@@ -18,9 +22,7 @@ export enum RequestDataTypeEnum {
   AJAX = 1,
 }
 
-/**
- * @description: 请求方法
- */
+// 请求方法
 export enum RequestHttpEnum {
   GET = 'get',
   POST = 'post',
@@ -29,9 +31,7 @@ export enum RequestHttpEnum {
   DELETE = 'delete',
 }
 
-/**
- * @description:  常用的contentTyp类型
- */
+// 常用的contentTyp类型
 export enum ContentTypeEnum {
   // json
   JSON = 'application/json;charset=UTF-8',

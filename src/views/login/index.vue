@@ -118,7 +118,8 @@
 import { reactive, ref, onMounted } from 'vue'
 import shuffle from 'lodash/shuffle'
 import { carouselInterval } from '@/settings/designSetting'
-import { useDesignStore } from '@/store/modules/designStore/designStore'
+import { useSystemStore } from '@/store/modules/systemStore/systemStore'
+import { SystemStoreEnum, SystemStoreUserInfoEnum } from '@/store/modules/systemStore/systemStore.d'
 import { GoThemeSelect } from '@/components/GoThemeSelect'
 import { GoLangSelect } from '@/components/GoLangSelect'
 import { LayoutHeader } from '@/layout/components/LayoutHeader'
@@ -126,22 +127,23 @@ import { LayoutFooter } from '@/layout/components/LayoutFooter'
 import { PageEnum } from '@/enums/pageEnum'
 import { icon } from '@/plugins'
 import { StorageEnum } from '@/enums/storageEnum'
-import { routerTurnByName, cryptoEncode, setLocalStorage } from '@/utils'
-const { GO_LOGIN_INFO_STORE } = StorageEnum
-
-const { PersonOutlineIcon, LockClosedOutlineIcon } = icon.ionicons5
+import { routerTurnByName } from '@/utils'
+import { loginRequest } from './api/index'
 
 interface FormState {
   username: string
   password: string
 }
 
+const { GO_SYSTEM_STORE } = StorageEnum
+const { PersonOutlineIcon, LockClosedOutlineIcon } = icon.ionicons5
+
 const formRef = ref()
 const loading = ref(false)
 const autoLogin = ref(true)
 const show = ref(false)
 const showBg = ref(false)
-const designStore = useDesignStore()
+const systemStore = useSystemStore()
 
 const t = window['$t']
 
@@ -156,7 +158,7 @@ onMounted(() => {
 
 const formInline = reactive({
   username: 'admin',
-  password: '123456',
+  password: 'admin',
 })
 
 const rules = {
@@ -203,24 +205,28 @@ const shuffleHandle = () => {
   }, carouselInterval)
 }
 
-// 点击事件
-const handleSubmit = (e: Event) => {
+// 登录
+const handleSubmit = async (e: Event) => {
   e.preventDefault()
   formRef.value.validate(async (errors: any) => {
     if (!errors) {
       const { username, password } = formInline
       loading.value = true
-      setLocalStorage(
-        GO_LOGIN_INFO_STORE,
-        cryptoEncode(
-          JSON.stringify({
-            username,
-            password,
-          })
-        )
-      )
-      window['$message'].success(`${t('login.login_success')}!`)
-      routerTurnByName(PageEnum.BASE_HOME_NAME, true)
+      // 提交请求
+      const res:any = await loginRequest({
+        username,
+        password
+      })
+      if(res.data) {
+        const { tokenValue, loginId } = res.data
+        systemStore.setItem(SystemStoreEnum.USER_INFO, {
+          userToken: tokenValue,
+          userId: loginId,
+          userName: username,
+        })
+        window['$message'].success(`${t('login.login_success')}!`)
+        routerTurnByName(PageEnum.BASE_HOME_NAME, true)
+      }
     } else {
       window['$message'].error(`${t('login.login_message')}!`)
     }
