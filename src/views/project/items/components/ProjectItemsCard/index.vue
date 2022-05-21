@@ -92,8 +92,8 @@ const {
   CopyIcon,
   TrashIcon,
   PencilIcon,
+  DownloadIcon,
   BrowsersOutlineIcon,
-  DownloadOutlineIcon,
   HammerIcon,
   SendIcon
 } = icon.ionicons5
@@ -152,7 +152,7 @@ const selectOptions = ref([
   {
     label: renderLang('global.r_download'),
     key: 'download',
-    icon: renderIcon(DownloadOutlineIcon)
+    icon: renderIcon(DownloadIcon)
   },
   {
     type: 'divider',
