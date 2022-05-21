@@ -152,7 +152,7 @@ watch(() => targetData.value?.option?.dataset, (newData: {
   source: any,
   dimensions: any
 } | null) => {
-  if (isObject(newData)) {
+  if (newData && isObject(newData)) {
     // 只有 Echarts 数据才有对应的格式
     source.value = isCharts.value ? newData.source : newData
     if (isCharts.value) {
