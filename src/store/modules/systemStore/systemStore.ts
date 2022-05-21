@@ -14,7 +14,8 @@ export const useSystemStore = defineStore({
     userInfo: {
       userId: undefined,
       userName: undefined,
-      userToken: undefined
+      userToken: undefined,
+      nickName: undefined
     }
   },
   getters: {},

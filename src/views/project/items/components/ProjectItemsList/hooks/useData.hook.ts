@@ -45,7 +45,7 @@ export const useDataListInit = () => {
       onPositiveCallback: () =>
         new Promise(res => setTimeout(() => res(1), 1000)),
       promiseResCallback: (e: any) => {
-        window.$message.success('删除成功')
+        window['$message'].success('删除成功')
         list.value.splice(index, 1)
       }
     })

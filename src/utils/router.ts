@@ -1,11 +1,12 @@
 import { useRoute } from 'vue-router'
-import { ResultEnum } from '@/enums/httpEnum'
+import { ResultEnum, RequestHttpHeaderEnum } from '@/enums/httpEnum'
 import { ErrorPageNameMap, PageEnum } from '@/enums/pageEnum'
 import { docPath, giteeSourceCodePath } from '@/settings/pathConst'
 import { SystemStoreEnum, SystemStoreUserInfoEnum } from '@/store/modules/systemStore/systemStore.d'
 import { StorageEnum } from '@/enums/storageEnum'
-import { clearLocalStorage, getLocalStorage } from './storage'
+import { clearLocalStorage, getLocalStorage, clearCookie } from './storage'
 import router from '@/router'
+import { logoutApi } from '@/api/path/system.api'
 
 /**
  * * 根据名字跳转路由
@@ -101,9 +102,14 @@ export const reloadRoutePage = () => {
 }
 
 /**
- * * 退出
+ * * 退出登录
  */
-export const logout = () => {
+export const logout = async () => {
+  const res:any = await logoutApi()
+  if(res.code === ResultEnum.SUCCESS) {
+    window['$message'].success((`${window.$t('global.logout_success')}!`))
+  }
+  clearCookie(RequestHttpHeaderEnum.COOKIE)
   clearLocalStorage(StorageEnum.GO_SYSTEM_STORE)
   routerTurnByName(PageEnum.BASE_LOGIN_NAME)
 }

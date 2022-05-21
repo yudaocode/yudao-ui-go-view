@@ -11,6 +11,7 @@ export enum ResultEnum {
   SERVER_ERROR = 500,
   SERVER_FORBIDDEN = 403,
   NOT_FOUND = 404,
+  TOKEN_OVERDUE = 886,
   TIMEOUT = 10042,
 }
 
@@ -20,6 +21,12 @@ export enum RequestDataTypeEnum {
   STATIC = 0,
   // 请求数据
   AJAX = 1,
+}
+
+// 头部
+export enum RequestHttpHeaderEnum {
+  TOKEN = 'Token',
+  COOKIE = 'Cookie'
 }
 
 // 请求方法

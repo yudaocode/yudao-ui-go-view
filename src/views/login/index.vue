@@ -128,7 +128,7 @@ import { PageEnum } from '@/enums/pageEnum'
 import { icon } from '@/plugins'
 import { StorageEnum } from '@/enums/storageEnum'
 import { routerTurnByName } from '@/utils'
-import { loginRequest } from './api/index'
+import { loginApi } from '@/api/path/system.api'
 
 interface FormState {
   username: string
@@ -213,17 +213,22 @@ const handleSubmit = async (e: Event) => {
       const { username, password } = formInline
       loading.value = true
       // 提交请求
-      const res:any = await loginRequest({
+      const res:any = await loginApi({
         username,
         password
       })
       if(res.data) {
-        const { tokenValue, loginId } = res.data
+        const { tokenValue } = res.data.token
+        const { nickname, username, id } = res.data.userinfo
+
+        // 存储到 pinia 
         systemStore.setItem(SystemStoreEnum.USER_INFO, {
           userToken: tokenValue,
-          userId: loginId,
+          userId: id,
           userName: username,
+          nickName: nickname,
         })
+        
         window['$message'].success(`${t('login.login_success')}!`)
         routerTurnByName(PageEnum.BASE_HOME_NAME, true)
       }

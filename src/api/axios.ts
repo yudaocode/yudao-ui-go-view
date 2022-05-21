@@ -1,8 +1,12 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
-import { ResultEnum } from "@/enums/httpEnum"
-import { ErrorPageNameMap } from "@/enums/pageEnum"
-import { redirectErrorPage } from '@/utils'
+import { ResultEnum, RequestHttpHeaderEnum } from "@/enums/httpEnum"
+import { PageEnum, ErrorPageNameMap } from "@/enums/pageEnum"
+import { StorageEnum } from '@/enums/storageEnum'
 import { axiosPre } from '@/settings/httpSetting'
+import { SystemStoreEnum, SystemStoreUserInfoEnum } from '@/store/modules/systemStore/systemStore.d'
+import { redirectErrorPage, getLocalStorage, routerTurnByName } from '@/utils'
+import { fetchAllowList } from './axios.config'
+import includes from 'lodash/includes'
 
 interface MyResponseType {
   code: number;
@@ -17,7 +21,15 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
-    config.headers = {}
+    // 白名单校验
+    if (includes(fetchAllowList, config.url)) return config
+    // 获取 token
+    const info = getLocalStorage(StorageEnum.GO_SYSTEM_STORE)
+    // 重新登录
+    if (!info) return routerTurnByName(PageEnum.BASE_LOGIN_NAME)
+    config.headers = {
+      [RequestHttpHeaderEnum.TOKEN]: info[SystemStoreEnum.USER_INFO][SystemStoreUserInfoEnum.USER_TOKEN] || ''
+    }
     return config
   },
   (error: AxiosRequestConfig) => {
@@ -29,9 +41,23 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (res: AxiosResponse) => {
     const { code } = res.data as { code: number }
-    if (code === ResultEnum.DATA_SUCCESS) return Promise.resolve(res.data)
+
+    // 成功
+    if (code === ResultEnum.DATA_SUCCESS) {
+      return Promise.resolve(res.data)
+    }
+
+    // 登录过期
+    if (code === ResultEnum.SERVER_FORBIDDEN) {
+      routerTurnByName(PageEnum.BASE_LOGIN_NAME)
+      return Promise.reject(res.data)
+    }
+
     // 重定向
-    if (ErrorPageNameMap.get(code)) redirectErrorPage(code)
+    if (ErrorPageNameMap.get(code)) {
+      redirectErrorPage(code)
+    }
+
     return Promise.resolve(res.data)
   },
   (err: AxiosResponse) => {
