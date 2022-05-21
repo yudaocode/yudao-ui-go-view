@@ -26,8 +26,14 @@ const global = {
   r_more: '更多',
 }
 
+const http = {
+  error_message: '接口异常，请检查！',
+  token_overdue_message: '登录过期，请重新登录！'
+}
+
 export default {
   global,
+  http,
   login,
   project
 }

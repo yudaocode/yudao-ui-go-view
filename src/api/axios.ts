@@ -43,27 +43,31 @@ axiosInstance.interceptors.response.use(
     const { code } = res.data as { code: number }
 
     // 成功
-    if (code === ResultEnum.DATA_SUCCESS) {
+    if (code === ResultEnum.SUCCESS) {
       return Promise.resolve(res.data)
     }
 
     // 登录过期
-    if (code === ResultEnum.SERVER_FORBIDDEN) {
+    if (code === ResultEnum.TOKEN_OVERDUE) {
+      window['$message'].error(window['$t']('http.token_overdue_message'))
       routerTurnByName(PageEnum.BASE_LOGIN_NAME)
-      return Promise.reject(res.data)
+      return
     }
 
-    // 重定向
+    // 固定错误码重定向
     if (ErrorPageNameMap.get(code)) {
       redirectErrorPage(code)
+      return
     }
-
+    
+    // 提示错误
+    window['$message'].error(window['$t']((res.data as any).msg))
     return Promise.resolve(res.data)
   },
   (err: AxiosResponse) => {
     const { code } = err.data as { code: number }
     if (ErrorPageNameMap.get(code)) redirectErrorPage(code)
-    window['$message'].error('接口异常，请检查！')
+    window['$message'].error(window['$t']('http.error_message'))
     Promise.reject(err)
   }
 )

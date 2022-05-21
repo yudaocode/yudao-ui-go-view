@@ -38,7 +38,9 @@
 import { watch } from 'vue'
 import { icon } from '@/plugins'
 import { PageEnum, ChartEnum } from '@/enums/pageEnum'
+import { ResultEnum } from '@/enums/httpEnum'
 import { fetchPathByName, routerTurnByPath, renderLang, getUUID } from '@/utils'
+import { createProjectApi } from '@/api/path/project'
 
 const { FishIcon, CloseIcon } = icon.ionicons5
 const { StoreIcon, ObjectStorageIcon } = icon.carbon
@@ -82,13 +84,30 @@ const closeHandle = () => {
 }
 
 // 处理按钮点击
-const btnHandle = (key: string) => {
+const btnHandle = async (key: string) => {
   switch (key) {
     case ChartEnum.CHART_HOME_NAME:
-      const id = getUUID()
-      const path = fetchPathByName(ChartEnum.CHART_HOME_NAME, 'href')
-      routerTurnByPath(path, [id], undefined, true)
-      closeHandle()
+      try {
+        // 新增项目
+        const res:any = await createProjectApi({
+          // 项目名称
+          projectName: getUUID(),
+          // remarks
+          remarks: null,
+          // 图片地址
+          indexImage: null,
+        })
+        if(res.code === ResultEnum.SUCCESS) {
+          window['$message'].success(window['$t']('project.create_success'))
+
+          const { id } = res
+          const path = fetchPathByName(ChartEnum.CHART_HOME_NAME, 'href')
+          routerTurnByPath(path, [id], undefined, true)
+          closeHandle()
+        }
+      } catch (error) {
+        window['$message'].error(window['$t']('project.create_failure'))
+      }
       break;
   }
 }

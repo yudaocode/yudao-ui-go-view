@@ -27,8 +27,14 @@ const global = {
   r_more: 'More',
 }
 
+const http = {
+  error_message: 'The interface is abnormal, please check the interface!',
+  token_overdue_message: 'Login expired, please log in again!'
+}
+
 export default {
   global,
+  http,
   login,
   project
 }
