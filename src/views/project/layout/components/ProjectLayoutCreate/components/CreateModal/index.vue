@@ -100,7 +100,7 @@ const btnHandle = async (key: string) => {
         if(res.code === ResultEnum.SUCCESS) {
           window['$message'].success(window['$t']('project.create_success'))
 
-          const { id } = res
+          const { id } = res.data
           const path = fetchPathByName(ChartEnum.CHART_HOME_NAME, 'href')
           routerTurnByPath(path, [id], undefined, true)
           closeHandle()
