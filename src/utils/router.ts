@@ -105,13 +105,17 @@ export const reloadRoutePage = () => {
  * * 退出登录
  */
 export const logout = async () => {
-  const res:any = await logoutApi()
-  if(res.code === ResultEnum.SUCCESS) {
-    window['$message'].success((`${window['$t']('global.logout_success')}!`))
+  try {
+    const res:any = await logoutApi()
+    if(res.code === ResultEnum.SUCCESS) {
+      window['$message'].success(window['$t']('global.logout_success'))
+      clearCookie(RequestHttpHeaderEnum.COOKIE)
+      clearLocalStorage(StorageEnum.GO_SYSTEM_STORE)
+      routerTurnByName(PageEnum.BASE_LOGIN_NAME)
+    }
+  } catch (error) {
+    window['$message'].success(window['$t']('global.logout_success'))
   }
-  clearCookie(RequestHttpHeaderEnum.COOKIE)
-  clearLocalStorage(StorageEnum.GO_SYSTEM_STORE)
-  routerTurnByName(PageEnum.BASE_LOGIN_NAME)
 }
 
 /**

@@ -229,11 +229,11 @@ const handleSubmit = async (e: Event) => {
           nickName: nickname,
         })
         
-        window['$message'].success(`${t('login.login_success')}`)
+        window['$message'].success(t('login.login_success'))
         routerTurnByName(PageEnum.BASE_HOME_NAME, true)
       }
     } else {
-      window['$message'].error(`${t('login.login_message')}`)
+      window['$message'].error(t('login.login_message'))
     }
   })
 }

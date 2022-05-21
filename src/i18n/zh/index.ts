@@ -11,6 +11,8 @@ const global = {
   help: '帮助中心',
   contact: '联系我们',
   logout: '退出登录',
+  logout_success: '退出成功！',
+  logout_failure: '退出失败！',
   // 系统设置
   sys_set: '系统设置',
   lang_set: '语言设置',

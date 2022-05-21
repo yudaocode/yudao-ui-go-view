@@ -11,7 +11,8 @@ const global = {
   help: 'Help',
   contact: 'Contact Us',
   logout: 'Logout',
-  logout_success: 'Logout success',
+  logout_success: 'Logout success！',
+  logout_failure: 'Logout Failed！',
   // system setting
   sys_set: 'System Setting',
   lang_set: 'Language Setting',
