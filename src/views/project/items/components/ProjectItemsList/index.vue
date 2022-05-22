@@ -10,7 +10,7 @@
         <project-items-card
           :cardData="item"
           @resize="resizeHandle"
-          @delete="deleteHandle($event, index)"
+          @delete="deleteHandle(item, index)"
           @edit="editHandle"
         ></project-items-card>
       </n-grid-item>

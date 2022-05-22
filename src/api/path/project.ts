@@ -21,3 +21,13 @@ export const createProjectApi = async (data: object) => {
     httpErrorHandle();
   }
 }
+
+// * 删除项目
+export const deleteProjectApi = async (data: object) => {
+  try { 
+    const res = await http(RequestHttpEnum.DELETE)(`${ModuleTypeEnum.PROJECT}/delete`, data);
+    return res;
+  } catch {
+    httpErrorHandle();
+  }
+}

@@ -1,8 +1,9 @@
 import { ref, reactive } from 'vue';
-import { goDialog } from '@/utils'
+import { goDialog, httpErrorHandle } from '@/utils'
 import { DialogEnum } from '@/enums/pluginEnum'
-import { projectListApi } from '@/api/path/project'
-import { ChartList } from '../../../index.d'
+import { projectListApi, deleteProjectApi } from '@/api/path/project'
+import { Chartype, ChartList } from '../../../index.d'
+import { ResultEnum } from '@/enums/httpEnum'
 
 // 数据初始化
 export const useDataListInit = () => {
@@ -20,28 +21,25 @@ export const useDataListInit = () => {
 
   // 数据请求
   const fetchList = async () => {
-    try {
-      const res: any = await projectListApi({
-        page: paginat.page,
-        limit: paginat.limit
+    const res: any = await projectListApi({
+      page: paginat.page,
+      limit: paginat.limit
+    })
+    if (res.data) {
+      const { count } = res
+      paginat.count = count
+      list.value = res.data.map((e: any) => {
+        const { id, projectName, state, createTime, createUserId } = e
+        return {
+          id: id,
+          title: projectName,
+          createId: createUserId,
+          time: createTime,
+          release: state !== -1
+        }
       })
-      if (res.data) {
-        const { count } = res
-        paginat.count = count
-        list.value = res.data.map((e:any) => {
-          const {id, projectName, state, createTime, createUserId} = e
-          return {
-            id: id,
-            title: projectName,
-            createId: createUserId,
-            time: createTime,
-            release: state !== -1
-          }
-        })
-      }
-    } catch (error) {
-      window['$message'].error(window['$t']('http.error_message'))
     }
+
   }
 
   // 修改页数
@@ -57,15 +55,22 @@ export const useDataListInit = () => {
   }
 
   // 删除
-  const deleteHandle = (cardData: object, index: number) => {
+  const deleteHandle = (cardData: Chartype, index: number) => {
     goDialog({
       type: DialogEnum.DELETE,
       promise: true,
-      onPositiveCallback: () =>
-        new Promise(res => setTimeout(() => res(1), 1000)),
-      promiseResCallback: (e: any) => {
-        window['$message'].success('删除成功')
-        list.value.splice(index, 1)
+      onPositiveCallback: () => new Promise(res => {
+        res(deleteProjectApi({
+          ids: cardData.id
+        }))
+      }),
+      promiseResCallback: (res: any) => {
+        if (res.code === ResultEnum.SUCCESS) {
+          window['$message'].success('删除成功')
+          fetchList()
+          return
+        }
+        httpErrorHandle()
       }
     })
   }

@@ -4,7 +4,7 @@ import { PageEnum, ErrorPageNameMap } from "@/enums/pageEnum"
 import { StorageEnum } from '@/enums/storageEnum'
 import { axiosPre } from '@/settings/httpSetting'
 import { SystemStoreEnum, SystemStoreUserInfoEnum } from '@/store/modules/systemStore/systemStore.d'
-import { redirectErrorPage, getLocalStorage, routerTurnByName } from '@/utils'
+import { redirectErrorPage, getLocalStorage, routerTurnByName, httpErrorHandle } from '@/utils'
 import { fetchAllowList } from './axios.config'
 import includes from 'lodash/includes'
 
@@ -67,7 +67,7 @@ axiosInstance.interceptors.response.use(
   (err: AxiosResponse) => {
     const { code } = err.data as { code: number }
     if (ErrorPageNameMap.get(code)) redirectErrorPage(code)
-    window['$message'].error(window['$t']('http.error_message'))
+    httpErrorHandle()
     Promise.reject(err)
   }
 )
