@@ -17,8 +17,12 @@
     </n-grid>
     <div class="list-pagination">
       <n-pagination
-        :item-count="10"
-        :page-sizes="[10, 20, 30, 40]"
+        :page="paginat.page"
+        :page-size="paginat.limit"
+        :item-count="paginat.count"
+        :page-sizes="[12, 24, 36, 48]"
+        @update:page="changePage"
+        @update:page-size="changeSize"
         show-size-picker
       />
     </div>
@@ -40,9 +44,8 @@ import { useModalDataInit } from './hooks/useModal.hook'
 import { useDataListInit } from './hooks/useData.hook'
 
 const { CopyIcon, EllipsisHorizontalCircleSharpIcon } = icon.ionicons5
-const { list, deleteHandle } = useDataListInit()
-const { modalData, modalShow, closeModal, resizeHandle, editHandle } =
-  useModalDataInit()
+const { modalData, modalShow, closeModal, resizeHandle, editHandle } = useModalDataInit()
+const { paginat, list, changeSize,changePage, fetchList, deleteHandle } = useDataListInit()
 </script>
 
 <style lang="scss" scoped>

@@ -114,7 +114,7 @@ export const logout = async () => {
       routerTurnByName(PageEnum.BASE_LOGIN_NAME)
     }
   } catch (error) {
-    window['$message'].success(window['$t']('global.logout_success'))
+    window['$message'].success(window['$t']('global.logout_failure'))
   }
 }
 
