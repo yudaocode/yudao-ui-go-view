@@ -1,4 +1,4 @@
-import { ref, Ref } from 'vue'
+import { ref } from 'vue'
 import { ChartEnum } from '@/enums/pageEnum'
 import { fetchPathByName, routerTurnByPath } from '@/utils'
 import { Chartype } from '../../../index.d'

@@ -1,15 +1,17 @@
 import { ref, reactive } from 'vue';
 import { goDialog, httpErrorHandle } from '@/utils'
 import { DialogEnum } from '@/enums/pluginEnum'
-import { projectListApi, deleteProjectApi } from '@/api/path/project'
+import { projectListApi, deleteProjectApi, changeProjectReleaseApi } from '@/api/path/project'
 import { Chartype, ChartList } from '../../../index.d'
 import { ResultEnum } from '@/enums/httpEnum'
 
 // 数据初始化
 export const useDataListInit = () => {
 
+  const loading = ref(true)
+
   const paginat = reactive({
-    // 当前页数
+    // 当前页数 
     page: 1,
     // 每页值
     limit: 12,
@@ -21,6 +23,7 @@ export const useDataListInit = () => {
 
   // 数据请求
   const fetchList = async () => {
+    loading.value = true
     const res: any = await projectListApi({
       page: paginat.page,
       limit: paginat.limit
@@ -38,7 +41,12 @@ export const useDataListInit = () => {
           release: state !== -1
         }
       })
+      setTimeout(() => {
+        loading.value = false
+      }, 500)
+      return
     }
+    httpErrorHandle()
   }
 
   // 修改页数
@@ -53,8 +61,8 @@ export const useDataListInit = () => {
     fetchList()
   }
 
-  // 删除
-  const deleteHandle = (cardData: Chartype, index: number) => {
+  // 删除处理
+  const deleteHandle = (cardData: Chartype) => {
     goDialog({
       type: DialogEnum.DELETE,
       promise: true,
@@ -65,7 +73,7 @@ export const useDataListInit = () => {
       }),
       promiseResCallback: (res: any) => {
         if (res.code === ResultEnum.SUCCESS) {
-          window['$message'].success('删除成功')
+          window['$message'].success(window['$t']('global.r_delete_success'))
           fetchList()
           return
         }
@@ -74,13 +82,40 @@ export const useDataListInit = () => {
     })
   }
 
+  // 发布处理
+  const releaseHandle = async (cardData: Chartype, index: number) => {
+    const { id, release } = cardData
+    const res: any = await changeProjectReleaseApi({
+      id: id,
+      // [-1未发布, 1发布]
+      state: !release ? 1 : -1
+    })
+    if (res.code === ResultEnum.SUCCESS) {
+      list.value = []
+      fetchList()
+      // 发布 -> 未发布
+      if (release) {
+        window['$message'].success(window['$t']('global.r_unpublish_success'))
+        return
+      }
+      // 未发布 -> 发布
+      window['$message'].success(window['$t']('global.r_publish_success'))
+      return
+    }
+    httpErrorHandle()
+  }
+
   // 立即请求
   fetchList()
 
   return {
+    loading,
     paginat,
     list,
-    fetchList, changeSize, changePage,
+    fetchList,
+    releaseHandle,
+    changeSize,
+    changePage,
     deleteHandle
   }
 }

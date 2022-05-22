@@ -20,11 +20,16 @@ const global = {
   r_edit: '编辑',
   r_preview: '预览',
   r_copy: '克隆',
+  r_copy_success: '克隆成功！',
   r_rename: '重命名',
+  r_rename_success: '重命名成功！',
   r_publish: '发布',
+  r_publish_success: '成功发布！',
   r_unpublish: '取消发布',
+  r_unpublish_success: '取消成功！',
   r_download: '下载',
   r_delete: '删除',
+  r_delete_success: '删除成功！',
   r_more: '更多',
 }
 

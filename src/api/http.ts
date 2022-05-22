@@ -20,6 +20,17 @@ export const post = (url: string, data?: object, headersType?: string) => {
   })
 }
 
+export const put = (url: string, data?: object, headersType?: string) => {
+  return axiosInstance({
+    url: url,
+    method: RequestHttpEnum.PUT,
+    data: data,
+    headers: {
+      'Content-Type': headersType || ContentTypeEnum.JSON
+    }
+  })
+}
+
 export const del = (url: string, params?: object) => {
   return axiosInstance({
     url: url,
@@ -30,11 +41,20 @@ export const del = (url: string, params?: object) => {
 
 // 获取请求函数，默认get
 export const http = (type?: RequestHttpEnum) => {
-  return type === RequestHttpEnum.GET
-    ? get
-    : type === RequestHttpEnum.POST
-    ? post
-    : type === RequestHttpEnum.DELETE
-    ? del
-    : get
+  switch (type) {
+    case RequestHttpEnum.GET:
+      return get
+
+    case RequestHttpEnum.POST:
+      return post
+
+    case RequestHttpEnum.PUT:
+      return put
+
+    case RequestHttpEnum.DELETE:
+      return del
+
+    default:
+      return get
+  }
 }

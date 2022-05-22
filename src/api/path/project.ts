@@ -31,3 +31,13 @@ export const deleteProjectApi = async (data: object) => {
     httpErrorHandle();
   }
 }
+
+// * 修改发布状态 [-1未发布,1发布]
+export const changeProjectReleaseApi = async (data: object) => {
+  try { 
+    const res = await http(RequestHttpEnum.PUT)(`${ModuleTypeEnum.PROJECT}/publish`, data);
+    return res;
+  } catch {
+    httpErrorHandle();
+  }
+}

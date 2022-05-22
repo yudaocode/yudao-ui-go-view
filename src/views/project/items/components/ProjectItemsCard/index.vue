@@ -98,7 +98,7 @@ const {
   SendIcon
 } = icon.ionicons5
 
-const emit = defineEmits(['delete', 'resize', 'edit'])
+const emit = defineEmits(['delete', 'resize', 'edit', 'release'])
 
 const props = defineProps({
   cardData: Object as PropType<Chartype>
@@ -146,7 +146,7 @@ const selectOptions = ref([
     label: props.cardData?.release
       ? renderLang('global.r_unpublish')
       : renderLang('global.r_publish'),
-    key: 'send',
+    key: 'release',
     icon: renderIcon(SendIcon)
   },
   {
@@ -170,6 +170,9 @@ const handleSelect = (key: string) => {
     case 'delete':
       deleteHanlde()
       break
+    case 'release':
+      releaseHandle()
+      break
     case 'edit':
       editHandle()
       break
@@ -184,6 +187,11 @@ const deleteHanlde = () => {
 // 编辑处理
 const editHandle = () => {
   emit('edit', props.cardData)
+}
+
+// 编辑处理
+const releaseHandle = () => {
+  emit('release', props.cardData)
 }
 
 // 放大处理
