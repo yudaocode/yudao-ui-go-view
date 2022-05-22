@@ -22,6 +22,17 @@ export const createProjectApi = async (data: object) => {
   }
 }
 
+// * 获取项目
+export const fetchProjectApi = async (data: object) => {
+  try { 
+    const res = await http(RequestHttpEnum.GET)(`${ModuleTypeEnum.PROJECT}/getData`, data);
+    return res;
+  } catch {
+    httpErrorHandle();
+  }
+}
+
+
 // * 删除项目
 export const deleteProjectApi = async (data: object) => {
   try { 
