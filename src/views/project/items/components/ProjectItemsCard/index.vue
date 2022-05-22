@@ -15,7 +15,7 @@
         <div class="list-content-img" @click="resizeHandle">
           <n-image
             object-fit="contain"
-            height="200"
+            height="180"
             preview-disabled
             :src="
               requireUrl('project/moke-20211219181327.png')
@@ -193,7 +193,7 @@ const resizeHandle = () => {
 </script>
 
 <style lang="scss" scoped>
-$contentHeight: 200px;
+$contentHeight: 180px;
 @include go('items-list-card') {
   position: relative;
   border-radius: $--border-radius-base;
