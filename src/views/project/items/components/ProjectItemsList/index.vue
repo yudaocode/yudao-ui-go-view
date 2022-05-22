@@ -45,7 +45,7 @@ import { useDataListInit } from './hooks/useData.hook'
 
 const { CopyIcon, EllipsisHorizontalCircleSharpIcon } = icon.ionicons5
 const { modalData, modalShow, closeModal, resizeHandle, editHandle } = useModalDataInit()
-const { paginat, list, changeSize,changePage, fetchList, deleteHandle } = useDataListInit()
+const { paginat, list, changeSize,changePage, deleteHandle } = useDataListInit()
 </script>
 
 <style lang="scss" scoped>
