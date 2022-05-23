@@ -32,6 +32,26 @@ export const fetchProjectApi = async (data: object) => {
   }
 }
 
+// * 保存项目
+export const saveProjectApi = async (data: object) => {
+  try { 
+    const res = await http(RequestHttpEnum.POST)(`${ModuleTypeEnum.PROJECT}/save/data`, data);
+    return res;
+  } catch {
+    httpErrorHandle();
+  }
+}
+
+// * 修改项目
+export const updateProjectApi = async (data: object) => {
+  try {
+    const res = await http(RequestHttpEnum.POST)(`${ModuleTypeEnum.PROJECT}/edit`, data);
+    return res;
+  } catch {
+    httpErrorHandle();
+  }
+}
+
 
 // * 删除项目
 export const deleteProjectApi = async (data: object) => {

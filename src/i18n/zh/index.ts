@@ -34,7 +34,7 @@ const global = {
 }
 
 const http = {
-  error_message: '接口异常，请检查！',
+  error_message: '获取数据失败，请稍后重试！',
   token_overdue_message: '登录过期，请重新登录！'
 }
 

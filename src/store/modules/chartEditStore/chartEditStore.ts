@@ -9,9 +9,11 @@ import { requestInterval, previewScaleType } from '@/settings/designSetting'
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
 // 全局设置
 import { useSettingStore } from '@/store/modules/settingStore/settingStore'
+// 历史类型
 import { HistoryActionTypeEnum, HistoryItemType, HistoryTargetTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
-import { MenuEnum } from '@/enums/editPageEnum'
-import { PreviewScaleEnum } from '@/enums/styleEnum'
+// 画布枚举
+import { MenuEnum, SyncEnum } from '@/enums/editPageEnum'
+
 import {
   ChartEditStoreEnum,
   ChartEditStorage,
@@ -47,7 +49,9 @@ export const useChartEditStore = defineStore({
       // 初始化
       isCreate: false,
       // 拖拽中
-      isDrag: false
+      isDrag: false,
+      // 同步中
+      saveStatus: SyncEnum.PENDING
     },
     // 右键菜单
     rightMenuShow: false,
@@ -517,8 +521,8 @@ export const useChartEditStore = defineStore({
           attr.x -= distance
           break;
       }
-    }, 
-    // ----------------
+    },
+    // * 页面缩放设置-----------------
     // * 设置页面大小
     setPageSize(scale: number): void {
       this.setPageStyle('height', `${this.editCanvasConfig.height * scale}px`)

@@ -1,6 +1,7 @@
 import { CreateComponentType, FilterEnum} from '@/packages/index.d'
 import { HistoryActionTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
 import { RequestHttpEnum, RequestDataTypeEnum } from '@/enums/httpEnum'
+import { SyncEnum } from '@/enums/editPageEnum'
 import { PreviewScaleEnum } from '@/enums/styleEnum'
 import type {
   ChartColorsNameType,
@@ -17,9 +18,10 @@ export enum EditCanvasTypeEnum {
   LOCK_SCALE = 'lockScale',
   IS_CREATE = 'isCreate',
   IS_DRAG = 'isDrag',
+  SAVE_STATUS = 'saveStatus'
 }
 
-// 编辑区域
+// 编辑区域（临时）
 export type EditCanvasType = {
   // 编辑区域 DOM
   [EditCanvasTypeEnum.EDIT_LAYOUT_DOM]: HTMLElement | null
@@ -36,6 +38,8 @@ export type EditCanvasType = {
   [EditCanvasTypeEnum.IS_CREATE]: boolean
   // 拖拽中
   [EditCanvasTypeEnum.IS_DRAG]: boolean
+  // 保存状态
+  [EditCanvasTypeEnum.SAVE_STATUS]: SyncEnum
 }
 
 // 滤镜/背景色/宽高主题等
@@ -50,6 +54,7 @@ export enum EditCanvasConfigEnum {
   PREVIEW_SCALE_TYPE = 'previewScaleType',
 }
 
+// 画布属性（需保存）
 export interface EditCanvasConfigType {
   // 滤镜-色相
   [FilterEnum.HUE_ROTATE]: number
@@ -137,6 +142,7 @@ export type RequestGlobalConfigType = {
   // 轮询时间
   requestInterval: number
 }
+
 // 单个图表请求配置
 export type RequestConfigType = {
   // 获取数据的方式
@@ -159,6 +165,7 @@ export interface ChartEditStoreType {
   [ChartEditStoreEnum.COMPONENT_LIST]: CreateComponentType[]
 }
 
+// 需要存储的数据内容
 export interface ChartEditStorage {
   [ChartEditStoreEnum.EDIT_CANVAS_CONFIG]: EditCanvasConfigType
   [ChartEditStoreEnum.REQUEST_GLOBAL_CONFIG]: RequestGlobalConfigType
