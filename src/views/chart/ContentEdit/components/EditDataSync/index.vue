@@ -1,10 +1,15 @@
 <template>
   <div class="go-edit-data-sync go-flex-items-center">
-    <n-text class="status-desc go-ml-2" :type="descType" depth="3">
-      {{ statusDesc }}
-    </n-text>
+    <n-tooltip trigger="hover">
+      <template #trigger>
+        <n-text class="status-desc go-ml-2" :type="descType" depth="3">
+          {{ statusDesc }}
+        </n-text>
+      </template>
+      <span>{{saveInterval}}s 更新一次</span>
+    </n-tooltip>
     <n-spin
-      v-show="saveStatus === SyncEnum.START"
+      v-show="statusDesc === statusDescObj[1]['text']"
       class="status-spin go-ml-2"
       size="small"
     >
@@ -18,44 +23,54 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, toRefs, watchEffect } from 'vue'
+import { ref, toRefs, watch } from 'vue'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { SyncEnum } from '@/enums/editPageEnum'
 import { icon } from '@/plugins'
+import { saveInterval } from '@/settings/designSetting'
 
 const { ReloadIcon } = icon.ionicons5
 const chartEditStore = useChartEditStore()
 const { saveStatus } = toRefs(chartEditStore.getEditCanvas)
 const statusDesc = ref('')
 const descType = ref('')
+let setTimeoutIns: NodeJS.Timeout = setTimeout(() => {})
 
-watchEffect(() => {
-  const statusDescObj = {
-    [SyncEnum.PENDING]: {
-      text: '待同步',
-      type: '',
-    },
-    [SyncEnum.START]: {
-      text: '同步中',
-      type: 'success',
-    },
-    [SyncEnum.SUCCESS]: {
-      text: '同步成功！',
-      type: 'success',
-    },
-    [SyncEnum.FAILURE]: {
-      text: '同步失败!',
-      type: 'error',
-    },
+const statusDescObj = {
+  [SyncEnum.PENDING]: {
+    text: '等待自动同步',
+    type: '',
+  },
+  [SyncEnum.START]: {
+    text: '正在同步中',
+    type: 'success',
+  },
+  [SyncEnum.SUCCESS]: {
+    text: '同步成功！',
+    type: 'success',
+  },
+  [SyncEnum.FAILURE]: {
+    text: '同步失败!',
+    type: 'error',
+  },
+}
+
+watch(
+  () => saveStatus.value,
+  newData => {
+    clearTimeout(setTimeoutIns)
+    statusDesc.value = statusDescObj[newData]['text']
+    descType.value = statusDescObj[newData]['type']
+    // 3秒重置展示
+    setTimeoutIns = setTimeout(() => {
+      statusDesc.value = statusDescObj[SyncEnum.PENDING]['text']
+      descType.value = statusDescObj[SyncEnum.PENDING]['type']
+    }, 3000)
+  },
+  {
+    immediate: true,
   }
-  statusDesc.value = statusDescObj[saveStatus.value]['text']
-  descType.value = statusDescObj[saveStatus.value]['type']
-  // 3秒重置展示
-  setTimeout(() => {
-    statusDesc.value = statusDescObj[SyncEnum.PENDING]['text']
-    descType.value = statusDescObj[SyncEnum.PENDING]['type']
-  }, 3000)
-})
+)
 </script>
 
 <style lang="scss" scoped>
@@ -67,9 +82,9 @@ watchEffect(() => {
     }
   }
   .status-desc {
+    cursor: default;
     font-size: 12px;
-    line-height: 40px;
-    opacity: .8;
+    opacity: 0.8;
   }
 }
 </style>

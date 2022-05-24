@@ -6,6 +6,7 @@ import { EditCanvasTypeEnum, ChartEditStoreEnum } from '@/store/modules/chartEdi
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
 import { fetchChartComponent, createComponent } from '@/packages/index'
 import { CreateComponentType } from '@/packages/index.d'
+import { saveInterval } from '@/settings/designSetting'
 // 接口状态
 import { ResultEnum } from '@/enums/httpEnum'
 // 接口
@@ -71,7 +72,7 @@ export const useSync = () => {
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.START)
     try {
       const { id } = routerParamsInfo.params
-      const res: any = await fetchProjectApi({ id: id[0] })
+      const res: any = await fetchProjectApi({ projectId: id[0] })
       if (res.code === ResultEnum.SUCCESS) {
         if (res.data) {
           const data = JSON.parse(res.data)
@@ -84,7 +85,6 @@ export const useSync = () => {
         return
       }
       chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.FAILURE)
-      httpErrorHandle()
     } catch (error) {
       chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.FAILURE)
       httpErrorHandle()
@@ -93,10 +93,11 @@ export const useSync = () => {
 
   // 数据保存
   const dataSyncUpdate = async () => {
+
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.START)
     // 获取id
     const { id } = routerParamsInfo.params
-    
+
     let params = new FormData()
     params.append('projectId', id[0])
     params.append('content', JSON.stringify(chartEditStore.getStorageInfo || {}))
@@ -113,17 +114,23 @@ export const useSync = () => {
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.FAILURE)
   }
 
-  const syncTiming = setInterval(() => {
-    dataSyncUpdate()
-  }, 15000)
+  // 定时处理
+  const intervalDataSyncUpdate = () => {
+    // 定时获取数据
+    const syncTiming = setInterval(() => {
+      dataSyncUpdate()
+    }, saveInterval * 1000)
 
-  onUnmounted(() => {
-    clearInterval(syncTiming)
-  })
+    // 销毁
+    onUnmounted(() => {
+      clearInterval(syncTiming)
+    })
+  }
 
   return {
     updateComponent,
     dataSyncFetch,
-    dataSyncUpdate
+    dataSyncUpdate,
+    intervalDataSyncUpdate
   }
 }

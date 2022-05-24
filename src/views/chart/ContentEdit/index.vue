@@ -83,7 +83,7 @@ import { EditTools } from './components/EditTools'
 
 const chartEditStore = useChartEditStore()
 const { handleContextMenu } = useContextMenu()
-const { dataSyncFetch } = useSync()
+const { dataSyncFetch, intervalDataSyncUpdate } = useSync()
 
 // 布局处理
 useLayout()
@@ -128,6 +128,8 @@ onMounted(() => {
   useAddKeyboard()
   // 获取数据
   dataSyncFetch()
+  // 定时更新数据
+  intervalDataSyncUpdate()
 })
 </script>
 
