@@ -96,10 +96,12 @@ export const useSync = () => {
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.START)
     // 获取id
     const { id } = routerParamsInfo.params
-    const res: any = await saveProjectApi({
-      projectId: id[0],
-      content: JSON.stringify(chartEditStore.getStorageInfo || {})
-    })
+    
+    let params = new FormData()
+    params.append('projectId', id[0])
+    params.append('content', JSON.stringify(chartEditStore.getStorageInfo || {}))
+    const res: any = await saveProjectApi(params)
+
     if (res.code === ResultEnum.SUCCESS) {
       // 成功状态
       setTimeout(() => {

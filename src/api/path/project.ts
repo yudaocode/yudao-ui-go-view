@@ -1,6 +1,6 @@
 import { http } from '@/api/http'
 import { httpErrorHandle } from '@/utils'
-import { RequestHttpEnum, ModuleTypeEnum } from '@/enums/httpEnum'
+import { ContentTypeEnum, RequestHttpEnum, ModuleTypeEnum } from '@/enums/httpEnum'
 
 // * 项目列表
 export const projectListApi = async (data: object) => {
@@ -35,7 +35,7 @@ export const fetchProjectApi = async (data: object) => {
 // * 保存项目
 export const saveProjectApi = async (data: object) => {
   try { 
-    const res = await http(RequestHttpEnum.POST)(`${ModuleTypeEnum.PROJECT}/save/data`, data);
+    const res = await http(RequestHttpEnum.POST)(`${ModuleTypeEnum.PROJECT}/save/data`, data, ContentTypeEnum.FORM_URLENCODED);
     return res;
   } catch {
     httpErrorHandle();
