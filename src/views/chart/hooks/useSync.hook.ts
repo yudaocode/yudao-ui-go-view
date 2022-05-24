@@ -1,6 +1,5 @@
 import { onUnmounted } from 'vue';
-import { useRoute } from 'vue-router'
-import { httpErrorHandle } from '@/utils'
+import { httpErrorHandle, fetchRouteParamsByhistory } from '@/utils'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasTypeEnum, ChartEditStoreEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
@@ -18,7 +17,6 @@ import { SyncEnum } from '@/enums/editPageEnum'
 export const useSync = () => {
   const chartEditStore = useChartEditStore()
   const chartHistoryStore = useChartHistoryStore()
-  const routerParamsInfo = useRoute()
 
   /**
    * * 组件动态注册
@@ -71,8 +69,7 @@ export const useSync = () => {
   const dataSyncFetch = async () => {
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.START)
     try {
-      const { id } = routerParamsInfo.params
-      const res: any = await fetchProjectApi({ projectId: id[0] })
+      const res: any = await fetchProjectApi({ projectId: fetchRouteParamsByhistory() })
       if (res.code === ResultEnum.SUCCESS) {
         if (res.data) {
           const data = JSON.parse(res.data)
@@ -93,13 +90,10 @@ export const useSync = () => {
 
   // 数据保存
   const dataSyncUpdate = async () => {
-
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.START)
-    // 获取id
-    const { id } = routerParamsInfo.params
-
+    
     let params = new FormData()
-    params.append('projectId', id[0])
+    params.append('projectId', fetchRouteParamsByhistory())
     params.append('content', JSON.stringify(chartEditStore.getStorageInfo || {}))
     const res: any = await saveProjectApi(params)
 

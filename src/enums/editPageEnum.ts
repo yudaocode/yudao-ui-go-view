@@ -19,7 +19,8 @@ export enum MenuEnum {
   DOWN = 'down',
   CLEAR = 'clear',
   BACK = 'back',
-  FORWORD = 'forward'
+  FORWORD = 'forward',
+  SAVE = 'save'
 }
 
 // Win 键盘枚举
