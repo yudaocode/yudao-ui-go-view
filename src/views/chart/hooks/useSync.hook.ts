@@ -1,5 +1,5 @@
 import { onUnmounted } from 'vue';
-import { httpErrorHandle, fetchRouteParamsByhistory } from '@/utils'
+import { getUUID, httpErrorHandle, fetchRouteParamsByhistory } from '@/utils'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasTypeEnum, ChartEditStoreEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
@@ -52,7 +52,7 @@ export const useSync = () => {
           )
           // 不保存到记录
           chartEditStore.addComponentList(
-            Object.assign(newComponent, comItem),
+            Object.assign(newComponent, {...comItem, id: getUUID()}),
             false,
             true
           )
