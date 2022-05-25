@@ -167,7 +167,7 @@ export const fetchRouteParams = () => {
  * * 通过硬解析获取当前路由下的参数
  * @returns object
  */
-export const fetchRouteParamsByhistory = () => {
+export const fetchRouteParamsLocation = () => {
   try {
     return document.location.hash.split('/').pop() || ''
   } catch (error) {

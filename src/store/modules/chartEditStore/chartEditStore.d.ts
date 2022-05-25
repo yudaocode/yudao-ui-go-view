@@ -42,8 +42,10 @@ export type EditCanvasType = {
   [EditCanvasTypeEnum.SAVE_STATUS]: SyncEnum
 }
 
-// 滤镜/背景色/宽高主题等
+// 画布数据/滤镜/背景色/宽高主题等
 export enum EditCanvasConfigEnum {
+  PROJECT_NAME = 'projectName',
+  REMARKS = 'remarks',
   WIDTH = 'width',
   HEIGHT = 'height',
   CHART_THEME_COLOR = 'chartThemeColor',
@@ -56,6 +58,10 @@ export enum EditCanvasConfigEnum {
 
 // 画布属性（需保存）
 export interface EditCanvasConfigType {
+  // 项目名称
+  [EditCanvasConfigEnum.PROJECT_NAME]: string,
+  // 项目描述
+  [EditCanvasConfigEnum.REMARKS]: string,
   // 滤镜-色相
   [FilterEnum.HUE_ROTATE]: number
   // 滤镜-饱和度

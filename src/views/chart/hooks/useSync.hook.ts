@@ -1,7 +1,7 @@
 import { onUnmounted } from 'vue';
-import { getUUID, httpErrorHandle, fetchRouteParamsByhistory } from '@/utils'
+import { getUUID, httpErrorHandle, fetchRouteParamsLocation } from '@/utils'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { EditCanvasTypeEnum, ChartEditStoreEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
+import { EditCanvasTypeEnum, ChartEditStoreEnum, EditCanvasConfigEnum, ChartEditStorage } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
 import { fetchChartComponent, createComponent } from '@/packages/index'
 import { CreateComponentType } from '@/packages/index.d'
@@ -24,7 +24,7 @@ export const useSync = () => {
    * @param isSplace 是否替换数据
    * @returns 
    */
-  const updateComponent = async (projectData: any, isSplace = false) => {
+  const updateComponent = async (projectData: ChartEditStorage, isSplace = false) => {
     if (isSplace) {
       // 清除列表
       chartEditStore.componentList = []
@@ -65,14 +65,27 @@ export const useSync = () => {
     }
   }
 
+  /**
+   * * 赋值全局数据
+   * @param projectData 项目数据
+   * @returns 
+   */
+  const updateStoreInfo = (projectData: ChartEditStorage) => {
+    const { projectName, remarks } = projectData.editCanvasConfig
+    chartEditStore.setEditCanvasConfig(EditCanvasConfigEnum.PROJECT_NAME, projectName)
+    chartEditStore.setEditCanvasConfig(EditCanvasConfigEnum.REMARKS, remarks)
+  }
+
   // 数据获取
   const dataSyncFetch = async () => {
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.START)
     try {
-      const res: any = await fetchProjectApi({ projectId: fetchRouteParamsByhistory() })
+      const res: any = await fetchProjectApi({ projectId: fetchRouteParamsLocation() })
       if (res.code === ResultEnum.SUCCESS) {
         if (res.data) {
           const data = JSON.parse(res.data)
+          updateStoreInfo(data)
+          // 更新全局数据
           await updateComponent(data)
           return
         }
@@ -93,7 +106,7 @@ export const useSync = () => {
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.START)
     
     let params = new FormData()
-    params.append('projectId', fetchRouteParamsByhistory())
+    params.append('projectId', fetchRouteParamsLocation())
     params.append('content', JSON.stringify(chartEditStore.getStorageInfo || {}))
     const res: any = await saveProjectApi(params)
 
@@ -123,6 +136,7 @@ export const useSync = () => {
 
   return {
     updateComponent,
+    updateStoreInfo,
     dataSyncFetch,
     dataSyncUpdate,
     intervalDataSyncUpdate

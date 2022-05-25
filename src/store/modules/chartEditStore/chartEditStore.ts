@@ -72,6 +72,10 @@ export const useChartEditStore = defineStore({
     // -----------------------
     // 画布属性（需存储给后端）
     editCanvasConfig: {
+      // 项目名称
+      projectName: '',
+      // 描述
+      remarks: '',
       // 默认宽度
       width: 1920,
       // 默认高度
