@@ -6,7 +6,7 @@ import { CreateComponentType } from '@/packages/index.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { ChartEditStoreEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
-import { readFile, goDialog } from '@/utils'
+import { getUUID, readFile, goDialog } from '@/utils'
 import { createComponent } from '@/packages'
 
 // 更新函数
@@ -40,14 +40,14 @@ const updateComponent = async (fileData: any, isSplace = false) => {
         )
         // 不保存到记录
         chartEditStore.addComponentList(
-          Object.assign(newComponent, comItem),
+          Object.assign(newComponent, { ...comItem, id: getUUID() }),
           false,
           true
         )
       }
     } else {
       // 非组件(顺便排除脏数据)
-      if(key !== 'editCanvasConfig' && key !== 'requestGlobalConfig') return
+      if (key !== 'editCanvasConfig' && key !== 'requestGlobalConfig') return
       Object.assign((chartEditStore as any)[key], fileData[key])
     }
   }
