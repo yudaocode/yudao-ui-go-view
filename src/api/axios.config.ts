@@ -2,7 +2,10 @@ import { ModuleTypeEnum } from '@/enums/httpEnum'
 
 // 接口白名单（免登录）
 export const fetchAllowList = [
-  `${ModuleTypeEnum.SYSTEM}/login`
+  // 登录
+  `${ModuleTypeEnum.SYSTEM}/login`,
+  // 预览获取数据
+  `${ModuleTypeEnum.PROJECT}/getData`,
 ]
 
 // 接口黑名单

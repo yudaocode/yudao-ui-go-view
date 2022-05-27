@@ -5,7 +5,7 @@ import { RequestHttpEnum, ModuleTypeEnum } from '@/enums/httpEnum'
 // * 登录
 export const loginApi = async (data: object) => {
   try {
-    const res = await http(RequestHttpEnum.POST)(`${ModuleTypeEnum.SYSTEM}/login`, data);
+    const res = await http(RequestHttpEnum.POST)(`/api/goview/${ModuleTypeEnum.SYSTEM}/login`, data);
     return res;
   } catch {
     httpErrorHandle();
@@ -15,7 +15,7 @@ export const loginApi = async (data: object) => {
 // * 登出
 export const logoutApi = async () => {
   try {
-    const res = await http(RequestHttpEnum.GET)(`${ModuleTypeEnum.SYSTEM}/logout`);
+    const res = await http(RequestHttpEnum.GET)(`/api/goview/${ModuleTypeEnum.SYSTEM}/logout`);
     return res;
   } catch(err) {
     httpErrorHandle();

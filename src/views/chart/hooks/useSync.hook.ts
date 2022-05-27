@@ -1,5 +1,6 @@
 import { onUnmounted } from 'vue';
-import { getUUID, httpErrorHandle, fetchRouteParamsLocation } from '@/utils'
+import html2canvas from 'html2canvas'
+import { getUUID, httpErrorHandle, fetchRouteParamsLocation, canvastoFile } from '@/utils'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasTypeEnum, ChartEditStoreEnum, ProjectInfoEnum, ChartEditStorage } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
@@ -9,7 +10,7 @@ import { saveInterval } from '@/settings/designSetting'
 // 接口状态
 import { ResultEnum } from '@/enums/httpEnum'
 // 接口
-import { saveProjectApi, fetchProjectApi } from '@/api/path/project'
+import { saveProjectApi, fetchProjectApi, uploadFile } from '@/api/path/project'
 // 画布枚举
 import { SyncEnum } from '@/enums/editPageEnum'
 
@@ -84,7 +85,7 @@ export const useSync = () => {
     chartEditStore.setProjectInfo(ProjectInfoEnum.THUMBNAIL, indexImage)
   }
 
-  // 数据获取
+  // * 数据获取
   const dataSyncFetch = async () => {
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.START)
     try {
@@ -108,11 +109,20 @@ export const useSync = () => {
     }
   }
 
-  // 数据保存
+  // * 数据保存
   const dataSyncUpdate = async () => {
     if(!fetchRouteParamsLocation()) return
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.START)
-    
+
+    // 获取缩略图片
+    const range = document.querySelector('.go-edit-range') as HTMLElement
+    const canvasImage: HTMLCanvasElement = await html2canvas(range)
+    const canvasFile = canvastoFile(canvasImage)
+    let uploadParams = new FormData()
+    uploadParams.append('object', canvasFile)
+    const uploadRes = await uploadFile(uploadParams)
+    console.log(uploadRes)
+
     let params = new FormData()
     params.append('projectId', fetchRouteParamsLocation())
     params.append('content', JSON.stringify(chartEditStore.getStorageInfo || {}))
@@ -129,7 +139,7 @@ export const useSync = () => {
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.FAILURE)
   }
 
-  // 定时处理
+  // * 定时处理
   const intervalDataSyncUpdate = () => {
     // 定时获取数据
     const syncTiming = setInterval(() => {
