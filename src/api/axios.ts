@@ -28,8 +28,6 @@ axiosInstance.interceptors.response.use(
     return Promise.resolve(res.data)
   },
   (err: AxiosResponse) => {
-    const { code } = err.data as { code: number }
-    if (ErrorPageNameMap.get(code)) redirectErrorPage(code)
     window['$message'].error('接口异常，请检查！')
     Promise.reject(err)
   }
