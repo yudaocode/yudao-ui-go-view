@@ -15,7 +15,7 @@ interface MyResponseType {
 }
 
 const axiosInstance = axios.create({
-  baseURL: axiosPre,
+  baseURL: `${import.meta.env.PROD ? import.meta.env.VITE_PRO_PATH : ''}${axiosPre}`,
   timeout: ResultEnum.TIMEOUT,
 })
 
@@ -26,14 +26,17 @@ axiosInstance.interceptors.request.use(
     // 获取 token
     const info = getLocalStorage(StorageEnum.GO_SYSTEM_STORE)
     // 重新登录
-    if (!info) return routerTurnByName(PageEnum.BASE_LOGIN_NAME)
+    if (!info) {
+      routerTurnByName(PageEnum.BASE_LOGIN_NAME)
+      return config
+    } 
     config.headers = {
       [RequestHttpHeaderEnum.TOKEN]: info[SystemStoreEnum.USER_INFO][SystemStoreUserInfoEnum.USER_TOKEN] || ''
     }
     return config
   },
-  (error: AxiosRequestConfig) => {
-    Promise.reject(error)
+  (err: AxiosRequestConfig) => {
+    Promise.reject(err)
   }
 )
 
@@ -51,13 +54,13 @@ axiosInstance.interceptors.response.use(
     if (code === ResultEnum.TOKEN_OVERDUE) {
       window['$message'].error(window['$t']('http.token_overdue_message'))
       routerTurnByName(PageEnum.BASE_LOGIN_NAME)
-      return
+      return Promise.resolve(res.data)
     }
 
     // 固定错误码重定向
     if (ErrorPageNameMap.get(code)) {
       redirectErrorPage(code)
-      return
+      return Promise.resolve(res.data)
     }
     
     // 提示错误
@@ -65,8 +68,6 @@ axiosInstance.interceptors.response.use(
     return Promise.resolve(res.data)
   },
   (err: AxiosResponse) => {
-    const { code } = err.data as { code: number }
-    if (ErrorPageNameMap.get(code)) redirectErrorPage(code)
     httpErrorHandle()
     Promise.reject(err)
   }

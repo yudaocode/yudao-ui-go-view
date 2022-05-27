@@ -7,7 +7,7 @@ export const loginApi = async (data: object) => {
   try {
     const res = await http(RequestHttpEnum.POST)(`/api/goview/${ModuleTypeEnum.SYSTEM}/login`, data);
     return res;
-  } catch {
+  } catch(err) {
     httpErrorHandle();
   }
 }
