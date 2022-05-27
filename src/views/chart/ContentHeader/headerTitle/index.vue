@@ -28,7 +28,7 @@ import { ref, nextTick, computed, watchEffect } from 'vue'
 import { ResultEnum } from '@/enums/httpEnum'
 import { fetchRouteParamsLocation, httpErrorHandle } from '@/utils'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { EditCanvasConfigEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
+import { ProjectInfoEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { updateProjectApi } from '@/api/path/project'
 import { useSync } from '../../hooks/useSync.hook'
 import { icon } from '@/plugins'
@@ -43,7 +43,7 @@ const inputInstRef = ref(null)
 const title = ref<string>(fetchRouteParamsLocation())
 
 watchEffect(() => {
-  title.value = chartEditStore.getEditCanvasConfig.projectName || ''
+  title.value = chartEditStore.getProjectInfo.projectName || ''
 })
 
 const comTitle = computed(() => {
@@ -60,13 +60,10 @@ const handleFocus = () => {
 
 const handleBlur = async () => {
   focus.value = false
-  chartEditStore.setEditCanvasConfig(EditCanvasConfigEnum.PROJECT_NAME, title.value || '')
-  const { remarks, backgroundImage, background } = chartEditStore.getEditCanvasConfig
+  chartEditStore.setProjectInfo(ProjectInfoEnum.PROJECT_NAME, title.value || '')
   const res:any = await updateProjectApi({
     id: fetchRouteParamsLocation(),
     projectName: title.value,
-    indexImage: backgroundImage || background,
-    remarks: remarks
   })
   if(res.code === ResultEnum.SUCCESS) {
     dataSyncUpdate()

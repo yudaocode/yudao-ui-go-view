@@ -8,6 +8,23 @@ import type {
   GlobalThemeJsonType,
 } from '@/settings/chartThemes/index'
 
+// 项目数据枚举
+export enum ProjectInfoEnum {
+  // 名称
+  PROJECT_NAME = 'projectName',
+  // 描述
+  REMARKS = 'remarks',
+  // 缩略图
+  THUMBNAIL= 'thumbnail'
+}
+
+// 项目数据
+export type ProjectInfoType = {
+  projectName: string,
+  remarks: string,
+  thumbnail: string
+}
+
 // 编辑画布属性
 export enum EditCanvasTypeEnum {
   EDIT_LAYOUT_DOM = 'editLayoutDom',
@@ -44,8 +61,6 @@ export type EditCanvasType = {
 
 // 画布数据/滤镜/背景色/宽高主题等
 export enum EditCanvasConfigEnum {
-  PROJECT_NAME = 'projectName',
-  REMARKS = 'remarks',
   WIDTH = 'width',
   HEIGHT = 'height',
   CHART_THEME_COLOR = 'chartThemeColor',
@@ -57,7 +72,7 @@ export enum EditCanvasConfigEnum {
 }
 
 // 画布属性（需保存）
-export interface EditCanvasConfigType {
+export type EditCanvasConfigType = {
   // 项目名称
   [EditCanvasConfigEnum.PROJECT_NAME]: string,
   // 项目描述
@@ -129,6 +144,7 @@ export type RecordChartType = {
 
 // Store 枚举
 export enum ChartEditStoreEnum {
+  PROJECT_INFO = 'projectInfo',
   EDIT_RANGE = 'editRange',
   EDIT_CANVAS = 'editCanvas',
   RIGHT_MENU_SHOW = 'rightMenuShow',
@@ -161,6 +177,7 @@ export type RequestConfigType = {
 
 // Store 类型
 export interface ChartEditStoreType {
+  [ChartEditStoreEnum.PROJECT_INFO]: ProjectInfoType
   [ChartEditStoreEnum.EDIT_CANVAS]: EditCanvasType
   [ChartEditStoreEnum.EDIT_CANVAS_CONFIG]: EditCanvasConfigType
   [ChartEditStoreEnum.RIGHT_MENU_SHOW]: boolean

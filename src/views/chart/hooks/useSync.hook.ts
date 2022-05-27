@@ -1,7 +1,7 @@
 import { onUnmounted } from 'vue';
 import { getUUID, httpErrorHandle, fetchRouteParamsLocation } from '@/utils'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { EditCanvasTypeEnum, ChartEditStoreEnum, EditCanvasConfigEnum, ChartEditStorage } from '@/store/modules/chartEditStore/chartEditStore.d'
+import { EditCanvasTypeEnum, ChartEditStoreEnum, ProjectInfoEnum, ChartEditStorage } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
 import { fetchChartComponent, createComponent } from '@/packages/index'
 import { CreateComponentType } from '@/packages/index.d'
@@ -50,7 +50,6 @@ export const useSync = () => {
           let newComponent: CreateComponentType = await createComponent(
             comItem.chartConfig
           )
-          // 不保存到记录
           chartEditStore.addComponentList(
             Object.assign(newComponent, {...comItem, id: getUUID()}),
             false,
@@ -70,10 +69,19 @@ export const useSync = () => {
    * @param projectData 项目数据
    * @returns 
    */
-  const updateStoreInfo = (projectData: ChartEditStorage) => {
-    const { projectName, remarks } = projectData.editCanvasConfig
-    chartEditStore.setEditCanvasConfig(EditCanvasConfigEnum.PROJECT_NAME, projectName)
-    chartEditStore.setEditCanvasConfig(EditCanvasConfigEnum.REMARKS, remarks)
+  const updateStoreInfo = (projectData: {
+    id: string,
+    projectName: string,
+    indexImage: string,
+    remarks: string,
+  }) => {
+    const { projectName, remarks, indexImage } = projectData
+    // 名称
+    chartEditStore.setProjectInfo(ProjectInfoEnum.PROJECT_NAME, projectName)
+    // 描述
+    chartEditStore.setProjectInfo(ProjectInfoEnum.REMARKS, remarks)
+    // 缩略图
+    chartEditStore.setProjectInfo(ProjectInfoEnum.THUMBNAIL, indexImage)
   }
 
   // 数据获取
@@ -83,10 +91,9 @@ export const useSync = () => {
       const res: any = await fetchProjectApi({ projectId: fetchRouteParamsLocation() })
       if (res.code === ResultEnum.SUCCESS) {
         if (res.data) {
-          const data = JSON.parse(res.data)
-          updateStoreInfo(data)
+          updateStoreInfo(res.data)
           // 更新全局数据
-          await updateComponent(data)
+          await updateComponent(JSON.parse(res.data.content))
           return
         }
         setTimeout(() => {
@@ -103,6 +110,7 @@ export const useSync = () => {
 
   // 数据保存
   const dataSyncUpdate = async () => {
+    if(!fetchRouteParamsLocation()) return
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.START)
     
     let params = new FormData()
