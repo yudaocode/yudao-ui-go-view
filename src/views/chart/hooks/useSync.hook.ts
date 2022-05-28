@@ -1,6 +1,6 @@
 import { onUnmounted } from 'vue';
 import html2canvas from 'html2canvas'
-import { getUUID, httpErrorHandle, fetchRouteParamsLocation, canvastoFile } from '@/utils'
+import { getUUID, httpErrorHandle, fetchRouteParamsLocation, base64toFile } from '@/utils'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasTypeEnum, ChartEditStoreEnum, ProjectInfoEnum, ChartEditStorage } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
@@ -117,19 +117,16 @@ export const useSync = () => {
     // 获取缩略图片
     const range = document.querySelector('.go-edit-range') as HTMLElement
     const canvasImage: HTMLCanvasElement = await html2canvas(range)
-    const canvasFile = canvastoFile(canvasImage, `${fetchRouteParamsLocation()}_index_preview`)
 
     // 上传预览图
     let uploadParams = new FormData()
-    uploadParams.append('object', canvasFile)
+    uploadParams.append('object', base64toFile(canvasImage.toDataURL(), `${fetchRouteParamsLocation()}_index_preview.png`))
     const uploadRes:any = await uploadFile(uploadParams)
-    console.log(uploadRes)
-
     // 保存预览图
-    if(uploadRes?.data === ResultEnum.SUCCESS) {
+    if(uploadRes.code === ResultEnum.SUCCESS) {
       await updateProjectApi({
         id: fetchRouteParamsLocation(),
-        updateProjectApi: uploadRes.url
+        indexImage: uploadRes.data.objectContent.httpRequest.uri
       })
     }
 

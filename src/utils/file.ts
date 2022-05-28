@@ -1,4 +1,20 @@
-import { Buffer } from "buffer"
+/**
+ * * base64转file
+ * @param dataurl 
+ * @param fileName 
+ * @returns 
+ */
+export const base64toFile = (dataurl: string, fileName: string) => {
+  let dataArr = dataurl.split(","),
+  mime = (dataArr as any[])[0].match(/:(.*?);/)[1],
+  bstr = atob(dataArr[1]),
+  n = bstr.length,
+  u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new File([u8arr], fileName, { type: mime });
+}
 
 /**
  * * file转url
@@ -16,7 +32,7 @@ import { Buffer } from "buffer"
   const dataArr = fileUrl.split(',')
   const mime = (dataArr as any[])[0].match(/:(.*);/)[1]
   const originStr = atob(dataArr[1])
-  return new File([originStr], `${fileName}.png`, { type: mime })
+  return new File([originStr], `${fileName}`, { type: mime })
 }
 
 /**
