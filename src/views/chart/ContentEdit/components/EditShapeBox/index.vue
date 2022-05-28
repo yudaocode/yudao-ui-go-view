@@ -65,8 +65,8 @@ const select = computed(() => {
   .shape-point {
     z-index: 1;
     position: absolute;
-    width: 10px;
-    height: 10px;
+    width: 7px;
+    height: 7px;
     border: 3px solid v-bind('themeColor');
     border-radius: 5px;
     background-color: #fff;
@@ -78,6 +78,12 @@ const select = computed(() => {
     &.l, 
     &.r {
       height: 30px;
+    }
+    &.r, 
+    &.rt, 
+    &.rb
+    {
+      transform: translate(-30%, -30%);
     }
   }
   /* 选中 */
