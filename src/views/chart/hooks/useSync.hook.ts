@@ -10,7 +10,7 @@ import { saveInterval } from '@/settings/designSetting'
 // 接口状态
 import { ResultEnum } from '@/enums/httpEnum'
 // 接口
-import { saveProjectApi, fetchProjectApi, uploadFile } from '@/api/path/project'
+import { saveProjectApi, fetchProjectApi, uploadFile, updateProjectApi } from '@/api/path/project'
 // 画布枚举
 import { SyncEnum } from '@/enums/editPageEnum'
 
@@ -117,12 +117,23 @@ export const useSync = () => {
     // 获取缩略图片
     const range = document.querySelector('.go-edit-range') as HTMLElement
     const canvasImage: HTMLCanvasElement = await html2canvas(range)
-    const canvasFile = canvastoFile(canvasImage)
+    const canvasFile = canvastoFile(canvasImage, `${fetchRouteParamsLocation()}_index_preview`)
+
+    // 上传预览图
     let uploadParams = new FormData()
     uploadParams.append('object', canvasFile)
-    const uploadRes = await uploadFile(uploadParams)
+    const uploadRes:any = await uploadFile(uploadParams)
     console.log(uploadRes)
 
+    // 保存预览图
+    if(uploadRes?.data === ResultEnum.SUCCESS) {
+      await updateProjectApi({
+        id: fetchRouteParamsLocation(),
+        updateProjectApi: uploadRes.url
+      })
+    }
+
+    // 保存数据
     let params = new FormData()
     params.append('projectId', fetchRouteParamsLocation())
     params.append('content', JSON.stringify(chartEditStore.getStorageInfo || {}))

@@ -12,11 +12,11 @@ import { Buffer } from "buffer"
 /**
  * * url转file
  */
- export const urlToFile = (fileUrl: string, fileName = new Date().getTime()): File => {
+ export const urlToFile = (fileUrl: string, fileName = `${new Date().getTime()}`): File => {
   const dataArr = fileUrl.split(',')
   const mime = (dataArr as any[])[0].match(/:(.*);/)[1]
   const originStr = atob(dataArr[1])
-  return new File([originStr], `${fileName}`, { type: mime })
+  return new File([originStr], `${fileName}.png`, { type: mime })
 }
 
 /**
@@ -39,9 +39,9 @@ export const fileTobase64 = (file: File, callback: Function) => {
  * * canvas转file
  * @param canvas 
  */
-export const canvastoFile = (canvas: HTMLCanvasElement) => {
+export const canvastoFile = (canvas: HTMLCanvasElement, name?: string) => {
   const dataurl = canvas.toDataURL('image/png')
-  return urlToFile(dataurl)
+  return urlToFile(dataurl, name)
 }
 
 /**
