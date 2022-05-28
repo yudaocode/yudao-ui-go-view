@@ -17,9 +17,7 @@
             object-fit="contain"
             height="180"
             preview-disabled
-            :src="
-              requireUrl('project/moke-20211219181327.png')
-            "
+            :src="cardData.image"
             :alt="cardData.title"
             :fallback-src="requireErrorImg()"
          ></n-image>
@@ -104,11 +102,6 @@ const props = defineProps({
   cardData: Object as PropType<Chartype>
 })
 
-// 处理url获取
-const requireUrl = (name: string) => {
-  return new URL(`../../../../../assets/images/${name}`, import.meta.url).href
-}
-
 const fnBtnList = reactive([
   {
     label: renderLang('global.r_edit'),
@@ -131,12 +124,14 @@ const selectOptions = ref([
   {
     label: renderLang('global.r_copy'),
     key: 'copy',
-    icon: renderIcon(CopyIcon)
+    icon: renderIcon(CopyIcon),
+    disabled: true
   },
   {
     label: renderLang('global.r_rename'),
     key: 'rename',
-    icon: renderIcon(PencilIcon)
+    icon: renderIcon(PencilIcon),
+    disabled: true
   },
   {
     type: 'divider',
@@ -152,7 +147,8 @@ const selectOptions = ref([
   {
     label: renderLang('global.r_download'),
     key: 'download',
-    icon: renderIcon(DownloadIcon)
+    icon: renderIcon(DownloadIcon),
+    disabled: true
   },
   {
     type: 'divider',

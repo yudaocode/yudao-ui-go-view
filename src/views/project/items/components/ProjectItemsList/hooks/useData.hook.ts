@@ -32,12 +32,13 @@ export const useDataListInit = () => {
       const { count } = res
       paginat.count = count
       list.value = res.data.map((e: any) => {
-        const { id, projectName, state, createTime, createUserId } = e
+        const { id, projectName, state, createTime, indexImage, createUserId } = e
         return {
           id: id,
           title: projectName,
           createId: createUserId,
           time: createTime,
+          image: indexImage,
           release: state !== -1
         }
       })
