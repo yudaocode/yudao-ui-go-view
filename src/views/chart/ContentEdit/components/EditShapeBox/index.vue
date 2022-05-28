@@ -3,7 +3,7 @@
     <slot></slot>
     <!-- 锚点 -->
     <div
-      class="shape-point"
+      :class="`shape-point ${point}`"
       v-for="(point, index) in (select? pointList : [])"
       :key="index"
       :style="usePointStyle(point, index, item.attr, cursorResize)"
@@ -65,12 +65,20 @@ const select = computed(() => {
   .shape-point {
     z-index: 1;
     position: absolute;
-    width: 7px;
-    height: 7px;
+    width: 10px;
+    height: 10px;
     border: 3px solid v-bind('themeColor');
     border-radius: 5px;
     background-color: #fff;
     transform: translate(-40%, -30%);
+    &.t, 
+    &.b {
+      width: 30px;
+    }
+    &.l, 
+    &.r {
+      height: 30px;
+    }
   }
   /* 选中 */
   .shape-modal {
