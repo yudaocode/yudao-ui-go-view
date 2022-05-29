@@ -9,6 +9,10 @@ GoView 是一个高效的拖拽式低代码数据可视化开发平台，将图�
 
 文档-源码地址：[https://gitee.com/MTrun/go-view-doc](https://gitee.com/MTrun/go-view-doc)
 
+纯前端分支：`master`
+
+携带后端请求分支: `master-fetch`
+
 技术点：
 
 - 框架：基于 `Vue3` 框架编写，使用 `hooks` 写法抽离部分逻辑，使代码结构更加清晰；
