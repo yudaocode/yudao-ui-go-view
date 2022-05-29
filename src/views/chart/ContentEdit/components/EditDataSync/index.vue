@@ -10,7 +10,7 @@
     </n-tooltip>
     <n-spin
       v-show="statusDesc === statusDescObj[1]['text']"
-      class="status-spin go-ml-2"
+      class="go-ml-2"
       size="small"
     >
       <template #icon>
@@ -25,13 +25,19 @@
 <script lang="ts" setup>
 import { ref, toRefs, watch } from 'vue'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { SyncEnum } from '@/enums/editPageEnum'
 import { icon } from '@/plugins'
 import { saveInterval } from '@/settings/designSetting'
 
 const { ReloadIcon } = icon.ionicons5
+
 const chartEditStore = useChartEditStore()
+const designStore = useDesignStore()
+
 const { saveStatus } = toRefs(chartEditStore.getEditCanvas)
+const themeColor = ref(designStore.getAppTheme)
+
 const statusDesc = ref('')
 const descType = ref('')
 let setTimeoutIns: NodeJS.Timeout = setTimeout(() => {})
@@ -83,6 +89,7 @@ watch(
   }
   .status-desc {
     cursor: default;
+    color: v-bind('themeColor');
     font-size: 12px;
     opacity: 0.8;
   }
