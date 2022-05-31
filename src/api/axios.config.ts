@@ -4,6 +4,8 @@ import { ModuleTypeEnum } from '@/enums/httpEnum'
 export const fetchAllowList = [
   // 登录
   `${ModuleTypeEnum.SYSTEM}/login`,
+  // 获取 OSS 接口
+  `${ModuleTypeEnum.SYSTEM}/getOssInfo`,
   // 预览获取数据
   `${ModuleTypeEnum.PROJECT}/getData`,
 ]

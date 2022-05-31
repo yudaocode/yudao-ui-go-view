@@ -20,7 +20,7 @@ export const post = (url: string, data?: object, headersType?: string) => {
   })
 }
 
-export const put = (url: string, data?: object, headersType?: string) => {
+export const put = (url: string, data?: object, headersType?: ContentTypeEnum) => {
   return axiosInstance({
     url: url,
     method: RequestHttpEnum.PUT,

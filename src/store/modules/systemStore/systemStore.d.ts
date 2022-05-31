@@ -12,10 +12,18 @@ export interface UserInfoType {
   [SystemStoreUserInfoEnum.NICK_NAME]?: string,
 }
 
+export interface FetchInfoType {
+  OSSUrl?: string,
+}
+
 export enum SystemStoreEnum {
-  USER_INFO = 'userInfo'
+  // 用户
+  USER_INFO = 'userInfo',
+  // 请求
+  FETCH_INFO = 'fetchInfo'
 }
 
 export interface SystemStoreType {
   [SystemStoreEnum.USER_INFO]: UserInfoType
+  [SystemStoreEnum.FETCH_INFO]: FetchInfoType
 }

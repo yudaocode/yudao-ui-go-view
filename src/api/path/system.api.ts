@@ -5,7 +5,7 @@ import { RequestHttpEnum, ModuleTypeEnum } from '@/enums/httpEnum'
 // * 登录
 export const loginApi = async (data: object) => {
   try {
-    const res = await http(RequestHttpEnum.POST)(`/api/goview/${ModuleTypeEnum.SYSTEM}/login`, data);
+    const res = await http(RequestHttpEnum.POST)(`${ModuleTypeEnum.SYSTEM}/login`, data);
     return res;
   } catch(err) {
     httpErrorHandle();
@@ -15,7 +15,17 @@ export const loginApi = async (data: object) => {
 // * 登出
 export const logoutApi = async () => {
   try {
-    const res = await http(RequestHttpEnum.GET)(`/api/goview/${ModuleTypeEnum.SYSTEM}/logout`);
+    const res = await http(RequestHttpEnum.GET)(`${ModuleTypeEnum.SYSTEM}/logout`);
+    return res;
+  } catch(err) {
+    httpErrorHandle();
+  }
+}
+
+// * 获取 oss 上传接口
+export const ossUrlApi = async (data: object) => {
+  try {
+    const res = await http(RequestHttpEnum.GET)(`${ModuleTypeEnum.SYSTEM}/getOssInfo`, data);
     return res;
   } catch(err) {
     httpErrorHandle();

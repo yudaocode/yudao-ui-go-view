@@ -4,13 +4,14 @@ import { getUUID, httpErrorHandle, fetchRouteParamsLocation, base64toFile } from
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasTypeEnum, ChartEditStoreEnum, ProjectInfoEnum, ChartEditStorage } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
+import { useSystemStore } from '@/store/modules/systemStore/systemStore'
 import { fetchChartComponent, createComponent } from '@/packages/index'
 import { CreateComponentType } from '@/packages/index.d'
 import { saveInterval } from '@/settings/designSetting'
 // 接口状态
 import { ResultEnum } from '@/enums/httpEnum'
 // 接口
-import { saveProjectApi, fetchProjectApi, uploadFile, updateProjectApi } from '@/api/path/project'
+import { saveProjectApi, fetchProjectApi, uploadFile, updateProjectApi } from '@/api/path'
 // 画布枚举
 import { SyncEnum } from '@/enums/editPageEnum'
 
@@ -18,6 +19,7 @@ import { SyncEnum } from '@/enums/editPageEnum'
 export const useSync = () => {
   const chartEditStore = useChartEditStore()
   const chartHistoryStore = useChartHistoryStore()
+  const systemStore = useSystemStore()
 
   /**
    * * 组件动态注册
@@ -112,6 +114,12 @@ export const useSync = () => {
   // * 数据保存
   const dataSyncUpdate = async () => {
     if(!fetchRouteParamsLocation()) return
+
+    if(!systemStore.getFetchInfo.OSSUrl) {
+      window['$message'].error('数据保存失败，请刷新页面重试！')
+      return
+    }
+
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.START)
 
     // 获取缩略图片
@@ -127,7 +135,7 @@ export const useSync = () => {
     // 上传预览图
     let uploadParams = new FormData()
     uploadParams.append('object', base64toFile(canvasImage.toDataURL(), `${fetchRouteParamsLocation()}_index_preview.png`))
-    const uploadRes:any = await uploadFile(uploadParams)
+    const uploadRes:any = await uploadFile(systemStore.getFetchInfo.OSSUrl, uploadParams)
     // 保存预览图
     if(uploadRes.code === ResultEnum.SUCCESS) {
       await updateProjectApi({

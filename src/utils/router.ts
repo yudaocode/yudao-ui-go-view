@@ -6,7 +6,7 @@ import { SystemStoreEnum, SystemStoreUserInfoEnum } from '@/store/modules/system
 import { StorageEnum } from '@/enums/storageEnum'
 import { clearLocalStorage, getLocalStorage, clearCookie } from './storage'
 import router from '@/router'
-import { logoutApi } from '@/api/path/system.api'
+import { logoutApi } from '@/api/path'
 
 /**
  * * 根据名字跳转路由

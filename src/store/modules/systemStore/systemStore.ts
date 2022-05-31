@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { SystemStoreType, SystemStoreEnum } from './systemStore.d'
+import { SystemStoreType, UserInfoType, FetchInfoType } from './systemStore.d'
 import { setLocalStorage, getLocalStorage } from '@/utils'
 import { StorageEnum } from '@/enums/storageEnum'
 
@@ -16,13 +16,23 @@ export const useSystemStore = defineStore({
       userName: undefined,
       userToken: undefined,
       nickName: undefined
+    },
+    fetchInfo: {
+      OSSUrl: undefined
     }
   },
-  getters: {},
+  getters: {
+    getUserInfo(): UserInfoType {
+      return this.userInfo
+    },
+    getFetchInfo(): FetchInfoType {
+      return this.fetchInfo
+    },
+  },
   actions: {
     setItem<T extends keyof SystemStoreType, K extends SystemStoreType[T]>(key: T, value: K): void {
       this.$patch(state => {
-        state[key]= value
+        state[key] = value
       });
       setLocalStorage(GO_SYSTEM_STORE, this.$state)
     }

@@ -119,16 +119,16 @@ import { reactive, ref, onMounted } from 'vue'
 import shuffle from 'lodash/shuffle'
 import { carouselInterval } from '@/settings/designSetting'
 import { useSystemStore } from '@/store/modules/systemStore/systemStore'
-import { SystemStoreEnum, SystemStoreUserInfoEnum } from '@/store/modules/systemStore/systemStore.d'
+import { SystemStoreEnum } from '@/store/modules/systemStore/systemStore.d'
 import { GoThemeSelect } from '@/components/GoThemeSelect'
 import { GoLangSelect } from '@/components/GoLangSelect'
 import { LayoutHeader } from '@/layout/components/LayoutHeader'
 import { LayoutFooter } from '@/layout/components/LayoutFooter'
 import { PageEnum } from '@/enums/pageEnum'
-import { icon } from '@/plugins'
 import { StorageEnum } from '@/enums/storageEnum'
+import { icon } from '@/plugins'
 import { routerTurnByName } from '@/utils'
-import { loginApi } from '@/api/path/system.api'
+import { loginApi } from '@/api/path'
 
 interface FormState {
   username: string
@@ -146,15 +146,6 @@ const showBg = ref(false)
 const systemStore = useSystemStore()
 
 const t = window['$t']
-
-onMounted(() => {
-  setTimeout(() => {
-    show.value = true
-  }, 300)
-  setTimeout(() => {
-    showBg.value = true
-  }, 100)
-})
 
 const formInline = reactive({
   username: 'admin',
@@ -198,7 +189,7 @@ const getImageUrl = (name: string, folder: string) => {
   return new URL(`../../assets/images/${folder}/${name}.png`, import.meta.url).href
 }
 
-// 打乱
+// 打乱图片顺序
 const shuffleHandle = () => {
   shuffleTimiing.value = setInterval(() => {
     bgList.value = shuffle(bgList.value)
@@ -239,6 +230,14 @@ const handleSubmit = async (e: Event) => {
 }
 
 onMounted(() => {
+  setTimeout(() => {
+    show.value = true
+  }, 300)
+
+  setTimeout(() => {
+    showBg.value = true
+  }, 100)
+
   shuffleHandle()
 })
 </script>
@@ -326,7 +325,7 @@ $carousel-image-height: 60vh;
     align-items: center;
     width: 100vw;
     height: 100vh;
-    background: url('../../assets/images/login/login-bg.png') no-repeat 0 -120px;
+    background: url('@/assets/images/login/login-bg.png') no-repeat 0 -120px;
     .bg-slot {
       width: $carousel-width;
     }

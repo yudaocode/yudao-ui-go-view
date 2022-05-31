@@ -1,7 +1,7 @@
 import { ref, reactive } from 'vue';
 import { goDialog, httpErrorHandle } from '@/utils'
 import { DialogEnum } from '@/enums/pluginEnum'
-import { projectListApi, deleteProjectApi, changeProjectReleaseApi } from '@/api/path/project'
+import { projectListApi, deleteProjectApi, changeProjectReleaseApi } from '@/api/path'
 import { Chartype, ChartList } from '../../../index.d'
 import { ResultEnum } from '@/enums/httpEnum'
 

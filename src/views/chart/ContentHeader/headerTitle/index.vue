@@ -29,7 +29,7 @@ import { ResultEnum } from '@/enums/httpEnum'
 import { fetchRouteParamsLocation, httpErrorHandle } from '@/utils'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { ProjectInfoEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
-import { updateProjectApi } from '@/api/path/project'
+import { updateProjectApi } from '@/api/path'
 import { useSync } from '../../hooks/useSync.hook'
 import { icon } from '@/plugins'
 
