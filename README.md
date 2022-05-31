@@ -3,7 +3,9 @@
 
 GoView 是一个高效的拖拽式低代码数据可视化开发平台，将图表或页面元素封装为基础组件，无需编写代码即可制作数据大屏，减少心智负担。当然低代码也不是 “银弹”，希望所有人员都能理智看待此技术。
 
-项目-Demo 地址：[https://www.mtruning.club](https://www.mtruning.club)
+项目纯前端-Demo 地址：[https://www.mtruning.club](https://www.mtruning.club)
+
+项目带后端-Demo 地址：[http://1.117.240.165:8080/goview/#/login](http://1.117.240.165:8080/goview/#/login)
 
 文档-在线地址：[http://www.mtruning.club:81/](http://www.mtruning.club:81/)
 
@@ -43,7 +45,7 @@ GoView 是一个高效的拖拽式低代码数据可视化开发平台，将图�
 | 名称 | 版本    | 名称    | 版本  |
 | ---- | ------- | ------- | ----- |
 | node | 16.14.x | npm     | 8.5.x |
-| pnpm | 6.32.x  | windows | 11    |
+| pnpm | 7.1.x  | windows | 11    |
 
 已完成图表：
 
