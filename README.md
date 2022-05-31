@@ -5,7 +5,7 @@ GoView 是一个高效的拖拽式低代码数据可视化开发平台，将图�
 
 项目纯前端-Demo 地址：[https://www.mtruning.club](https://www.mtruning.club)
 
-项目带后端-Demo 地址：[http://1.117.240.165:8080/goview/#/login](http://1.117.240.165:8080/goview/#/login)
+项目带后端-Demo 地址：[后端 Demo 地址](http://1.117.240.165:8080/goview/#/login)
 
 文档-在线地址：[http://www.mtruning.club:81/](http://www.mtruning.club:81/)
 
