@@ -129,7 +129,7 @@ $contentWidth: calc(82vw);
 @include go('modal-box') {
   width: $contentWidth;
   .list-content {
-    margin-top: 20px;
+    margin-top: 28px;
     border-radius: $--border-radius-base;
     overflow: hidden;
     @include background-image('background-point');
