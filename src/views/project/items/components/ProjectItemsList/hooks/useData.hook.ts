@@ -27,7 +27,7 @@ export const useDataListInit = () => {
     const res = await projectListApi({
       page: paginat.page,
       limit: paginat.limit
-    }) as unknown as MyResponseType
+    }) as any
     if (res.data) {
       const { count } = res
       paginat.count = count
