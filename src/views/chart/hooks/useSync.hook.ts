@@ -5,7 +5,7 @@ import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore
 import { EditCanvasTypeEnum, ChartEditStoreEnum, ProjectInfoEnum, ChartEditStorage } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
 import { useSystemStore } from '@/store/modules/systemStore/systemStore'
-import { fetchChartComponent, createComponent } from '@/packages/index'
+import { fetchChartComponent, fetchConfigComponent, createComponent } from '@/packages/index'
 import { CreateComponentType } from '@/packages/index.d'
 import { saveInterval } from '@/settings/designSetting'
 // 接口状态
@@ -41,6 +41,10 @@ export const useSync = () => {
         window['$vue'].component(
           e.chartConfig.chartKey,
           fetchChartComponent(e.chartConfig)
+        )
+        window['$vue'].component(
+          e.chartConfig.conKey,
+          fetchConfigComponent(e.chartConfig)
         )
       }
     })
