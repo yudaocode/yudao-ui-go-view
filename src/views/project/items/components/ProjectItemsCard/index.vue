@@ -24,56 +24,58 @@
         </div>
       </div>
       <template #action>
-        <n-space class="list-footer" justify="space-between">
-          <n-text>
+        <div class="go-flex-items-center list-footer" justify="space-between">
+          <n-text class="go-ellipsis-1">
             {{ cardData.title || '' }}
           </n-text>
           <!-- 工具 -->
-          <n-space>
-            <n-text>
-              <n-badge
-                class="animation-twinkle"
-                dot
-                :color="cardData.release ? '#34c749' : '#fcbc40'"
-             ></n-badge>
-              {{
-                cardData.release
-                  ? $t('project.release')
-                  : $t('project.unreleased')
-              }}
-            </n-text>
+          <div class="go-flex-items-center list-footer-ri">
+            <n-space>
+              <n-text>
+                <n-badge
+                  class="animation-twinkle"
+                  dot
+                  :color="cardData.release ? '#34c749' : '#fcbc40'"
+              ></n-badge>
+                {{
+                  cardData.release
+                    ? $t('project.release')
+                    : $t('project.unreleased')
+                }}
+              </n-text>
 
-            <template v-for="item in fnBtnList" :key="item.key">
-              <template v-if="item.key === 'select'">
-                <n-dropdown
-                  trigger="hover"
-                  placement="bottom"
-                  :options="selectOptions"
-                  :show-arrow="true"
-                  @select="handleSelect"
-                >
-                  <n-button size="small">
-                    <template #icon>
-                      <component :is="item.icon"></component>
-                    </template>
-                  </n-button>
-                </n-dropdown>
-              </template>
-
-              <n-tooltip v-else placement="bottom" trigger="hover">
-                <template #trigger>
-                  <n-button size="small" @click="handleSelect(item.key)">
-                    <template #icon>
-                      <component :is="item.icon"></component>
-                    </template>
-                  </n-button>
+              <template v-for="item in fnBtnList" :key="item.key">
+                <template v-if="item.key === 'select'">
+                  <n-dropdown
+                    trigger="hover"
+                    placement="bottom"
+                    :options="selectOptions"
+                    :show-arrow="true"
+                    @select="handleSelect"
+                  >
+                    <n-button size="small">
+                      <template #icon>
+                        <component :is="item.icon"></component>
+                      </template>
+                    </n-button>
+                  </n-dropdown>
                 </template>
-                <component :is="item.label"></component>
-              </n-tooltip>
-            </template>
-          </n-space>
+
+                <n-tooltip v-else placement="bottom" trigger="hover">
+                  <template #trigger>
+                    <n-button size="small" @click="handleSelect(item.key)">
+                      <template #icon>
+                        <component :is="item.icon"></component>
+                      </template>
+                    </n-button>
+                  </template>
+                  <component :is="item.label"></component>
+                </n-tooltip>
+              </template>
+            </n-space>
           <!-- end -->
-        </n-space>
+          </div>
+        </div>
       </template>
     </n-card>
   </div>
@@ -231,7 +233,13 @@ $contentHeight: 180px;
     }
   }
   .list-footer {
+    flex-wrap: nowrap;
+    justify-content: space-between;
     line-height: 30px;
+    &-ri {
+      justify-content: flex-end;
+      min-width: 160px;
+    }
   }
 }
 </style>
