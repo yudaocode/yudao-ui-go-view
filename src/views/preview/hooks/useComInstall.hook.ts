@@ -8,7 +8,7 @@ export const useComInstall = (localStorageInfo: ChartEditStorageType) => {
 
   // 注册组件(一开始无法获取window['$vue'])
   const intervalTiming = setInterval(() => {
-    if (window['$vue'].component) {
+    if (window['$vue']?.component) {
       clearInterval(intervalTiming)
       localStorageInfo.componentList.forEach(async (e: CreateComponentType) => {
         if (!window['$vue'].component(e.chartConfig.chartKey)) {
