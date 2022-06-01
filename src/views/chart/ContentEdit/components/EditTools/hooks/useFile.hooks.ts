@@ -1,7 +1,7 @@
 import { ref, nextTick } from 'vue'
 import { UploadCustomRequestOptions } from 'naive-ui'
 import { FileTypeEnum } from '@/enums/fileTypeEnum'
-import { fetchChartComponent } from '@/packages/index'
+import { fetchChartComponent, fetchConfigComponent } from '@/packages/index'
 import { CreateComponentType } from '@/packages/index.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { ChartEditStoreEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
@@ -26,6 +26,10 @@ const updateComponent = async (fileData: any, isSplace = false) => {
       window['$vue'].component(
         e.chartConfig.chartKey,
         fetchChartComponent(e.chartConfig)
+      )
+      window['$vue'].component(
+        e.chartConfig.conKey,
+        fetchConfigComponent(e.chartConfig)
       )
     }
   })
