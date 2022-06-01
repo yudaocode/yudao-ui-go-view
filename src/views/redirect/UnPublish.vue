@@ -1,26 +1,16 @@
 <template>
-  <div class="go-error">
+  <div class="go-redirect-un-publish">
     <div class="text-center">
-      <img src="~@/assets/images/exception/500.svg" alt="" />
+      <img src="~@/assets/images/exception/nodata.svg" alt="" />
     </div>
     <div class="text-center">
-      <h1>抱歉，服务器出错了</h1>
+      <h1>当前项目暂未发布</h1>
     </div>
-    <n-button type="primary" secondary @click="goHome">回到首页</n-button>
   </div>
 </template>
 
-<script lang="ts" setup>
-import { PageEnum } from '@/enums/pageEnum'
-import { routerTurnByName } from '@/utils'
-
-function goHome() {
-  routerTurnByName(PageEnum.BASE_HOME_NAME)
-}
-</script>
-
 <style lang="scss" scoped>
-@include go(error) {
+@include go(redirect-un-publish) {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;

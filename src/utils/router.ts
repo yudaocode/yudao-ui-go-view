@@ -185,7 +185,7 @@ export const goHome = () => {
 }
 
 /**
- * * 判断是否登录（现阶段是有 login 数据即可）
+ * * 判断是否登录
  * @return boolean
  */
 export const loginCheck = () => {
