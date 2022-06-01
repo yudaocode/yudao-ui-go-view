@@ -17,7 +17,7 @@
             object-fit="contain"
             height="180"
             preview-disabled
-            :src="cardData.image"
+            :src="`${cardData.image}?time=${new Date().getTime()}`"
             :alt="cardData.title"
             :fallback-src="requireErrorImg()"
          ></n-image>
