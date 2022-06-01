@@ -12,6 +12,15 @@ export const loginApi = async (data: object) => {
   }
 }
 
+// * 新接口
+export const newApi = async (data: object) => {
+  try {
+    const resonse = await http(RequestHttpEnum.POST)(`新接口的路劲/xxx/xxx`, data)
+  } catch (error) {
+    httpErrorHandle();
+  }
+}
+
 // * 登出
 export const logoutApi = async () => {
   try {

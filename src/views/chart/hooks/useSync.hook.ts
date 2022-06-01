@@ -129,12 +129,8 @@ export const useSync = () => {
     // 获取缩略图片
     const range = document.querySelector('.go-edit-range') as HTMLElement
     const ruler = document.getElementById('mb-ruler')
-    // 去除标尺Dom
-    if (ruler) ruler.style.display = 'none'
     // 生成图片
     const canvasImage: HTMLCanvasElement = await html2canvas(range)
-    // 还原标尺
-    if (ruler) ruler.style.display = 'block'
     
     // 上传预览图
     let uploadParams = new FormData()
