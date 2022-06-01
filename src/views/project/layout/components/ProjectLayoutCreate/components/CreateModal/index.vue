@@ -89,14 +89,14 @@ const btnHandle = async (key: string) => {
     case ChartEnum.CHART_HOME_NAME:
       try {
         // 新增项目
-        const res:any = await createProjectApi({
+        const res = await createProjectApi({
           // 项目名称
           projectName: getUUID(),
           // remarks
           remarks: null,
           // 图片地址
           indexImage: null,
-        })
+        }) as unknown as MyResponseType
         if(res.code === ResultEnum.SUCCESS) {
           window['$message'].success(window['$t']('project.create_success'))
 

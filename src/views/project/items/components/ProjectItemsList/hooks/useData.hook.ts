@@ -24,10 +24,10 @@ export const useDataListInit = () => {
   // 数据请求
   const fetchList = async () => {
     loading.value = true
-    const res: any = await projectListApi({
+    const res = await projectListApi({
       page: paginat.page,
       limit: paginat.limit
-    })
+    }) as unknown as MyResponseType
     if (res.data) {
       const { count } = res
       paginat.count = count
@@ -86,11 +86,11 @@ export const useDataListInit = () => {
   // 发布处理
   const releaseHandle = async (cardData: Chartype, index: number) => {
     const { id, release } = cardData
-    const res: any = await changeProjectReleaseApi({
+    const res = await changeProjectReleaseApi({
       id: id,
       // [-1未发布, 1发布]
       state: !release ? 1 : -1
-    })
+    }) as unknown as MyResponseType
     if (res.code === ResultEnum.SUCCESS) {
       list.value = []
       fetchList()

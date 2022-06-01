@@ -204,10 +204,10 @@ const handleSubmit = async (e: Event) => {
       const { username, password } = formInline
       loading.value = true
       // 提交请求
-      const res:any = await loginApi({
+      const res = await loginApi({
         username,
         password
-      })
+      }) as unknown as MyResponseType
       if(res.data) {
         const { tokenValue } = res.data.token
         const { nickname, username, id } = res.data.userinfo

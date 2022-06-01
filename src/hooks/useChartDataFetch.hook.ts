@@ -43,7 +43,7 @@ export const useChartDataFetch = (
         if (!completePath) return
 
         fetchInterval = setInterval(async () => {
-          const res:any = await http(requestHttpType.value)(completePath || '', {})
+          const res = await http(requestHttpType.value)(completePath || '', {}) as unknown as MyResponseType
           if (res.data) {
             // 是否是 Echarts 组件
             const isECharts =

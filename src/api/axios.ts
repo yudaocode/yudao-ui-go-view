@@ -8,12 +8,6 @@ import { redirectErrorPage, getLocalStorage, routerTurnByName, httpErrorHandle }
 import { fetchAllowList } from './axios.config'
 import includes from 'lodash/includes'
 
-interface MyResponseType {
-  code: number;
-  msg: string;
-  data: any;
-}
-
 const axiosInstance = axios.create({
   baseURL: `${import.meta.env.PROD ? import.meta.env.VITE_PRO_PATH : ''}${axiosPre}`,
   timeout: ResultEnum.TIMEOUT,

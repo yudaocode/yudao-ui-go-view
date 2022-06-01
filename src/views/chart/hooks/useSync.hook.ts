@@ -95,7 +95,7 @@ export const useSync = () => {
   const dataSyncFetch = async () => {
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.START)
     try {
-      const res: any = await fetchProjectApi({ projectId: fetchRouteParamsLocation() })
+      const res = await fetchProjectApi({ projectId: fetchRouteParamsLocation() }) as unknown as MyResponseType
       if (res.code === ResultEnum.SUCCESS) {
         if (res.data) {
           updateStoreInfo(res.data)
@@ -135,7 +135,7 @@ export const useSync = () => {
     // 上传预览图
     let uploadParams = new FormData()
     uploadParams.append('object', base64toFile(canvasImage.toDataURL(), `${fetchRouteParamsLocation()}_index_preview.png`))
-    const uploadRes:any = await uploadFile(systemStore.getFetchInfo.OSSUrl, uploadParams)
+    const uploadRes = await uploadFile(systemStore.getFetchInfo.OSSUrl, uploadParams) as unknown as MyResponseType
     // 保存预览图
     if(uploadRes.code === ResultEnum.SUCCESS) {
       await updateProjectApi({
@@ -148,7 +148,7 @@ export const useSync = () => {
     let params = new FormData()
     params.append('projectId', fetchRouteParamsLocation())
     params.append('content', JSON.stringify(chartEditStore.getStorageInfo || {}))
-    const res: any = await saveProjectApi(params)
+    const res= await saveProjectApi(params) as unknown as MyResponseType
 
     if (res.code === ResultEnum.SUCCESS) {
       // 成功状态

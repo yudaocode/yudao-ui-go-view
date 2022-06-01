@@ -106,7 +106,7 @@ export const reloadRoutePage = () => {
  */
 export const logout = async () => {
   try {
-    const res:any = await logoutApi()
+    const res = await logoutApi() as unknown as MyResponseType
     if(res.code === ResultEnum.SUCCESS) {
       window['$message'].success(window['$t']('global.logout_success'))
       clearCookie(RequestHttpHeaderEnum.COOKIE)

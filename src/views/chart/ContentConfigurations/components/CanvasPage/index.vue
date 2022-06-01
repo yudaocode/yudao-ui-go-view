@@ -288,7 +288,7 @@ const customRequest = (options: UploadCustomRequestOptions) => {
       )
       let uploadParams = new FormData()
       uploadParams.append('object', newNameFile)
-      const uploadRes:any = await uploadFile(systemStore.getFetchInfo.OSSUrl ,uploadParams)
+      const uploadRes = await uploadFile(systemStore.getFetchInfo.OSSUrl ,uploadParams) as unknown as MyResponseType
 
       if(uploadRes.code === ResultEnum.SUCCESS) {
         chartEditStore.setEditCanvasConfig(

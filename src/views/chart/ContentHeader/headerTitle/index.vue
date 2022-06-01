@@ -61,10 +61,10 @@ const handleFocus = () => {
 const handleBlur = async () => {
   focus.value = false
   chartEditStore.setProjectInfo(ProjectInfoEnum.PROJECT_NAME, title.value || '')
-  const res:any = await updateProjectApi({
+  const res = await updateProjectApi({
     id: fetchRouteParamsLocation(),
     projectName: title.value,
-  })
+  }) as unknown as MyResponseType
   if(res.code === ResultEnum.SUCCESS) {
     dataSyncUpdate()
   } else {

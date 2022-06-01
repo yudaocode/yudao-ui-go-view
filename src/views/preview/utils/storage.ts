@@ -18,7 +18,7 @@ export const getSessionStorageInfo = async () => {
   // 是否本地预览
   if (!storageList) {
     // 接口调用
-    const res: any = await fetchProjectApi({ projectId: id })
+    const res = await fetchProjectApi({ projectId: id }) as unknown as MyResponseType
     if (res.code === ResultEnum.SUCCESS) {
       const { content, state } = res.data
       if (state === -1) {
