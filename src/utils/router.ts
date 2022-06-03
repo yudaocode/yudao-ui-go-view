@@ -1,6 +1,6 @@
 import { useRoute } from 'vue-router'
 import { ResultEnum, RequestHttpHeaderEnum } from '@/enums/httpEnum'
-import { ErrorPageNameMap, PageEnum } from '@/enums/pageEnum'
+import { ErrorPageNameMap, PageEnum, PreviewEnum } from '@/enums/pageEnum'
 import { docPath, giteeSourceCodePath } from '@/settings/pathConst'
 import { SystemStoreEnum, SystemStoreUserInfoEnum } from '@/store/modules/systemStore/systemStore.d'
 import { StorageEnum } from '@/enums/storageEnum'
@@ -199,4 +199,15 @@ export const loginCheck = () => {
   } catch (error) {
     return false
   }
-} 
+}
+
+/**
+ * * 预览地址
+ * @returns 
+ */
+ export const previewPath = () => {
+  const { origin, pathname } = document.location
+  const path = fetchPathByName(PreviewEnum.CHART_PREVIEW_NAME, 'href')
+  const previewPath = `${origin}${pathname}${path}/${fetchRouteParamsLocation()}`
+  return previewPath
+}

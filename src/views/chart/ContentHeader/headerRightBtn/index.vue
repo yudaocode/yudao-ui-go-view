@@ -31,7 +31,7 @@
           <n-alert :show-icon="false" title="预览地址：" type="success">
             {{ previewPath() }}
           </n-alert>
-          <n-button tertiary type="primary" @click="copyPath()">
+          <n-button tertiary type="primary" @click="copyPreviewPath()">
             复制地址
           </n-button>
         </n-space>
@@ -52,6 +52,7 @@
 <script setup lang="ts">
 import { ref, shallowReactive, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
+import { useClipboard } from '@vueuse/core'
 import { PreviewEnum } from '@/enums/pageEnum'
 import { StorageEnum } from '@/enums/storageEnum'
 import { ResultEnum } from '@/enums/httpEnum'
@@ -59,7 +60,7 @@ import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore
 import { ProjectInfoEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { updateProjectApi } from '@/api/path'
 import {
-  goDialog,
+  previewPath,
   renderIcon,
   fetchPathByName,
   routerTurnByPath,
@@ -73,6 +74,9 @@ import { icon } from '@/plugins'
 const { BrowsersOutlineIcon, SendIcon, CloseIcon } = icon.ionicons5
 const chartEditStore = useChartEditStore()
 
+const previewPathRef = ref(previewPath())
+const { copy, isSupported } = useClipboard({ source: previewPathRef })
+
 const routerParamsInfo = useRoute()
 
 const modelShow = ref<boolean>(false)
@@ -85,14 +89,6 @@ watchEffect(() => {
 // 关闭弹窗
 const closeHandle = () => {
   modelShow.value = false
-}
-
-// 预览地址
-const previewPath = () => {
-  const { origin, pathname } = document.location
-  const path = fetchPathByName(PreviewEnum.CHART_PREVIEW_NAME, 'href')
-  const previewPath = `${origin}${pathname}${path}/${fetchRouteParamsLocation()}`
-  return previewPath
 }
 
 // 预览
@@ -139,15 +135,13 @@ const modelShowHandle = () => {
 }
 
 // 复制预览地址
-const copyPath = (successText?: string, failure?: string) => {
-  navigator.clipboard
-    .writeText(previewPath())
-    .then(() => {
-      window['$message'].success(successText || '复制成功！')
-    })
-    .catch(() => {
-      window['$message'].success(failure || '复制失败！')
-    })
+const copyPreviewPath = (successText?: string, failureText?: string) => {
+  if(isSupported) {
+    copy()
+    window['$message'].success(successText || '复制成功！')
+  } else {
+    window['$message'].success(failureText || '复制失败！')
+  }
 }
 
 // 发布
@@ -161,7 +155,7 @@ const sendHandle = async () => {
   if (res.code === ResultEnum.SUCCESS) {
     modelShowHandle()
     if (!release.value) {
-      copyPath('发布成功！已复制地址到剪贴板~')
+      copyPreviewPath('发布成功！已复制地址到剪贴板~', '发布成功！')
     } else {
       window['$message'].success(`已取消发布`)
     }
