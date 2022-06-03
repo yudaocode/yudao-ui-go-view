@@ -5,7 +5,11 @@
     </n-icon>
     <n-text @click="handleFocus">
       工作空间 -
-      <n-button v-show="!focus" secondary round size="tiny">{{ comTitle }}</n-button>
+      <n-button v-show="!focus" secondary round size="tiny">
+        <span class="title">
+          {{ comTitle }}
+        </span>
+      </n-button>
     </n-text>
 
     <n-input
@@ -41,7 +45,6 @@ const fetchProhectInfoById = () => {
     return id[0]
   }
   return ''
-
 }
 
 const title = ref<string>(fetchProhectInfoById() || '')
@@ -63,3 +66,8 @@ const handleBlur = () => {
   focus.value = false
 }
 </script>
+<style lang="scss" scoped>
+.title {
+  font-size: 15px;
+}
+</style>
