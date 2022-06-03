@@ -26,7 +26,7 @@
       <template #action>
         <div class="go-flex-items-center list-footer" justify="space-between">
           <n-text class="go-ellipsis-1">
-            {{ cardData.title || '' }}
+            {{ cardData.title || cardData.id || '未命名' }}
           </n-text>
           <!-- 工具 -->
           <div class="go-flex-items-center list-footer-ri">

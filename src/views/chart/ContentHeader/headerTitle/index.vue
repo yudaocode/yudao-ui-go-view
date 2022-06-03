@@ -5,7 +5,9 @@
     </n-icon>
     <n-text @click="handleFocus">
       工作空间 -
-      <n-button v-show="!focus" secondary round size="tiny">{{ comTitle }}</n-button>
+      <n-button v-show="!focus" secondary round size="tiny">
+        <span class="title">{{ comTitle }}</span>
+      </n-button>
     </n-text>
 
     <n-input
@@ -72,3 +74,8 @@ const handleBlur = async () => {
   }
 }
 </script>
+<style lang="scss" scoped>
+.title {
+  font-size: 15px;
+}
+</style>
