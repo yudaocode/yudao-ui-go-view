@@ -74,12 +74,18 @@ const select = computed(() => {
     &.t, 
     &.b {
       width: 30px;
+      transform: translate(-50%, -50%);
     }
     &.l, 
     &.r {
       height: 30px;
     }
-    &.r, 
+    &.r {
+      transform: translate(-20%, -50%);
+    }
+    &.l {
+      transform: translate(-45%, -50%);
+    }
     &.rt, 
     &.rb
     {
