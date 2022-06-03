@@ -33,7 +33,7 @@
             <n-space>
               <n-text>
                 <n-badge
-                  class="animation-twinkle"
+                  class="go-animation-twinkle"
                   dot
                   :color="cardData.release ? '#34c749' : '#fcbc40'"
               ></n-badge>

@@ -38,7 +38,8 @@ export const useChartEditStore = defineStore({
     projectInfo: {
       projectName: '',
       remarks: '',
-      thumbnail: ''
+      thumbnail: '',
+      release: false
     },
     // 画布属性
     editCanvas: {

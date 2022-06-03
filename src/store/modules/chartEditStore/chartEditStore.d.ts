@@ -15,14 +15,17 @@ export enum ProjectInfoEnum {
   // 描述
   REMARKS = 'remarks',
   // 缩略图
-  THUMBNAIL= 'thumbnail'
+  THUMBNAIL= 'thumbnail',
+  // 是否公开发布
+  RELEASE = 'release'
 }
 
 // 项目数据
 export type ProjectInfoType = {
-  projectName: string,
-  remarks: string,
-  thumbnail: string
+  [ProjectInfoEnum.PROJECT_NAME]: string,
+  [ProjectInfoEnum.REMARKS]: string,
+  [ProjectInfoEnum.THUMBNAIL]: string,
+  [ProjectInfoEnum.RELEASE]: boolean
 }
 
 // 编辑画布属性

@@ -81,14 +81,17 @@ export const useSync = () => {
     projectName: string,
     indexImage: string,
     remarks: string,
+    state: number
   }) => {
-    const { projectName, remarks, indexImage } = projectData
+    const { projectName, remarks, indexImage, state } = projectData
     // 名称
     chartEditStore.setProjectInfo(ProjectInfoEnum.PROJECT_NAME, projectName)
     // 描述
     chartEditStore.setProjectInfo(ProjectInfoEnum.REMARKS, remarks)
     // 缩略图
     chartEditStore.setProjectInfo(ProjectInfoEnum.THUMBNAIL, indexImage)
+    // 发布
+    chartEditStore.setProjectInfo(ProjectInfoEnum.RELEASE, state === 1)
   }
 
   // * 数据获取
