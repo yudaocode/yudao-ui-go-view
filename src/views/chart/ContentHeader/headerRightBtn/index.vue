@@ -140,7 +140,7 @@ const copyPreviewPath = (successText?: string, failureText?: string) => {
     copy()
     window['$message'].success(successText || '复制成功！')
   } else {
-    window['$message'].success(failureText || '复制失败！')
+    window['$message'].error(failureText || '复制失败！')
   }
 }
 
