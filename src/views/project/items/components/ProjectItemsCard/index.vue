@@ -27,7 +27,7 @@
       </div>
       <template #action>
         <div class="go-flex-items-center list-footer" justify="space-between">
-          <n-text class="go-ellipsis-1">
+          <n-text class="go-ellipsis-1" :title="cardData.title">
             {{ cardData.title || '' }}
           </n-text>
           <!-- 工具 -->
@@ -234,7 +234,7 @@ $contentHeight: 180px;
     line-height: 30px;
     &-ri {
       justify-content: flex-end;
-      min-width: 165px;
+      min-width: 180px;
     }
   }
 }
