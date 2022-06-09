@@ -178,7 +178,9 @@ export const canvasCut = (html: HTMLElement | null, callback?: Function) => {
     return
   }
 
-  html2canvas(html).then((canvas: HTMLCanvasElement) => {
+  html2canvas(html, {
+    backgroundColor: null
+  }).then((canvas: HTMLCanvasElement) => {
     window['$message'].success('导出成功！')
     downloadByA(canvas.toDataURL(), undefined, 'png')
     if (callback) callback()
