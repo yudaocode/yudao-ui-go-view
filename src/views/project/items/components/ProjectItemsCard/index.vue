@@ -238,7 +238,7 @@ $contentHeight: 180px;
     line-height: 30px;
     &-ri {
       justify-content: flex-end;
-      min-width: 160px;
+      min-width: 165px;
     }
   }
 }
