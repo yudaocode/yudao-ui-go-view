@@ -71,10 +71,13 @@ const select = computed(() => {
     border-radius: 5px;
     background-color: #fff;
     transform: translate(-40%, -30%);
-    &.t, 
-    &.b {
+    &.t {
       width: 30px;
       transform: translate(-50%, -50%);
+    }
+    &.b {
+      width: 30px;
+      transform: translate(-50%, -30%);
     }
     &.l, 
     &.r {
