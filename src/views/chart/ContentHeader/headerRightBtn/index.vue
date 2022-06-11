@@ -31,18 +31,20 @@
           <n-alert :show-icon="false" title="预览地址：" type="success">
             {{ previewPath() }}
           </n-alert>
-          <n-button tertiary type="primary" @click="copyPreviewPath()">
-            复制地址
-          </n-button>
+          <n-space vertical>
+            <n-button tertiary type="primary" @click="copyPreviewPath()">
+              复制地址
+            </n-button>
+            <n-button :type="release ? 'warning' : 'primary'" @click="sendHandle">
+              {{ release ? '取消发布' : '发布大屏' }}
+            </n-button>
+          </n-space>
         </n-space>
       </n-list-item>
 
       <n-list-item>
         <n-space :size="10">
-          <n-button @click="modelShowHandle">取消</n-button>
-          <n-button type="primary" @click="sendHandle">
-            {{ release ? '取消发布' : '发布' }}
-          </n-button>
+          <n-button @click="modelShowHandle">关闭弹窗</n-button>
         </n-space>
       </n-list-item>
     </n-list>
@@ -136,7 +138,7 @@ const modelShowHandle = () => {
 
 // 复制预览地址
 const copyPreviewPath = (successText?: string, failureText?: string) => {
-  if(isSupported) {
+  if (isSupported) {
     copy()
     window['$message'].success(successText || '复制成功！')
   } else {
