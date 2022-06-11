@@ -61,7 +61,7 @@
 import { ref, toRefs } from 'vue'
 import { icon } from '@/plugins'
 import { SettingItemBox } from '@/components/Pages/ChartItemSetting'
-import { RequestHttpEnum } from '@/enums/httpEnum'
+import { RequestHttpEnum, ResultEnum } from '@/enums/httpEnum'
 import { chartDataUrl, rankListUrl, numberUrl } from '@/api/mock'
 import { http } from '@/api/http'
 import { SelectHttpType } from '../../index.d'
@@ -113,7 +113,7 @@ const sendHandle = async () => {
   const res = await http(requestHttpType)(completePath || '', {})
   setTimeout(() => {
     loading.value = false
-    if (res.status === 200) {
+    if (res.status === ResultEnum.SUCCESS) {
       // @ts-ignore
       targetData.value.option.dataset = res.data
       showMatching.value = true

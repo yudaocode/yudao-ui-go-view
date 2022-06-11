@@ -6,7 +6,8 @@ import { chartInitConfig } from '@/settings/designSetting'
 
 const requestConfig: RequestConfigType = {
   requestDataType: RequestDataTypeEnum.STATIC,
-  requestHttpType: RequestHttpEnum.GET
+  requestHttpType: RequestHttpEnum.GET,
+  requestUrl: ''
 }
 
 export class publicConfig implements PublicConfigType {
