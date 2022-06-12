@@ -5,7 +5,7 @@
     <SettingItemBox name="内容">
       <SettingItem name="数值">
         <!-- 与 config.ts 里的 option 对应 --><!-- n-input-number 是 NaiveUI 的控件 -->
-        <n-input-number v-model:value="optionData.percentage" size="small" :min="0" :max="100" placeholder="进度值"></n-input-number>
+        <n-input-number v-model:value="optionData.dataset" size="small" :min="0"  placeholder="进度值"></n-input-number>
       </SettingItem>
       <!-- 颜色粗细等等... -->
     </SettingItemBox>
@@ -40,7 +40,6 @@ import {
 // 获取 option 的数据，便于使用 typeof 获取类型
 import { option } from './config'
 
-// eslint-disable-next-line no-unused-vars
 const props = defineProps({
   optionData: {
     type: Object as PropType<typeof option>,

@@ -1,5 +1,5 @@
 // 展示图片
-import image from '@/assets/images/chart/charts/circle.png'
+import image from '@/assets/images/chart/charts/process.png'
 // 公共类型声明
 import { ConfigType, PackagesCategoryEnum } from '@/packages/index.d'
 // 当前[信息模块]分类声明
@@ -13,7 +13,7 @@ export const ProcessConfig: ConfigType = {
   // 配置组件渲染 Components 格式: VC + key
   conKey: 'VCProcess',
   // 名称
-  title: '环形进度条',
+  title: '多类进度条',
   // 子分类目录
   category: ChatCategoryEnum.MORE,
   // 子分类目录
