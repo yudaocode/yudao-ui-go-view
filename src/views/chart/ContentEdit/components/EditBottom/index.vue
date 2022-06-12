@@ -158,6 +158,7 @@ $min-width: 500px;
       }
     }
     .scale-btn {
+      width: 90px;
       font-size: 12px;
       @include deep() {
         .n-base-selection-label {
