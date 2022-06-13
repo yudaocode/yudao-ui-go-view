@@ -17,35 +17,67 @@
           placeholder="请输入轮播时间"
         ></n-input-number>
       </SettingItem>
-      <SettingItem name="数值单位">
-        <n-input
-          v-model:value="optionData.unit"
+      <SettingItem name="表头高度">
+        <n-input-number
+          v-model:value="optionData.headerHeight"
+          :min="1"
           size="small"
-          placeholder="数值单位"
+          placeholder="请输入表头高度"
+        ></n-input-number>
+      </SettingItem>
+      <SettingItem name="显示行号">
+        <n-switch size="small" v-model:value="optionData.index" />
+      </SettingItem>
+      
+    </SettingItemBox>
+
+    <SettingItemBox name="配置" :alone="true">
+      <SettingItem name="表头数据">
+        <n-input
+          v-model:value="header"
+          :min="1"
+          size="small"
+          placeholder="表头数据(英文','分割)"
+        ></n-input>
+      </SettingItem>
+      <SettingItem name="列对齐方式">
+        <n-input
+          v-model:value="align"
+          :min="1"
+          size="small"
+          placeholder="对齐方式(英文','分割)"
+        ></n-input>
+      </SettingItem>
+      <SettingItem name="列宽度">
+        <n-input
+          v-model:value="columnWidth"
+          :min="1"
+          size="small"
+          placeholder="列宽度(英文','分割)"
         ></n-input>
       </SettingItem>
     </SettingItemBox>
 
     <SettingItemBox name="样式">
-      <SettingItem name="主体颜色">
+      <SettingItem name="表头背景色">
         <n-color-picker
           size="small"
           :modes="['hex']"
-          v-model:value="optionData.color"
+          v-model:value="optionData.headerBGC"
         ></n-color-picker>
       </SettingItem>
-      <SettingItem name="数据颜色">
+      <SettingItem name="奇数行背景色">
         <n-color-picker
           size="small"
           :modes="['hex']"
-          v-model:value="optionData.textColor"
+          v-model:value="optionData.oddRowBGC"
         ></n-color-picker>
       </SettingItem>
-      <SettingItem name="底部线条">
+      <SettingItem name="偶数行背景色">
         <n-color-picker
           size="small"
           :modes="['hex']"
-          v-model:value="optionData.borderColor"
+          v-model:value="optionData.evenRowBGC"
         ></n-color-picker>
       </SettingItem>
     </SettingItemBox>
@@ -53,7 +85,7 @@
 </template>
 
 <script setup lang="ts">
-import { PropType } from 'vue'
+import { PropType, ref, watch } from 'vue'
 import {
   CollapseItem,
   SettingItemBox,
@@ -67,4 +99,22 @@ const props = defineProps({
     required: true,
   },
 })
+
+const header = ref(props.optionData.header.toString())
+const align = ref(props.optionData.align.toString())
+const columnWidth = ref(props.optionData.columnWidth.toString())
+
+watch([header, align, columnWidth],([headerNew,alignNew,columnWidthNew],[headerOld,alignOld,columnWidthOld])=>{
+  if(headerNew !== headerOld){
+    props.optionData.header = headerNew.split(',')
+  }
+  if(alignNew !== alignOld){
+    props.optionData.align = alignNew.split(',')
+  }
+  if(columnWidthNew !== columnWidthOld){
+    props.optionData.columnWidth = columnWidthNew.split(',')
+  }
+})
+
+
 </script>

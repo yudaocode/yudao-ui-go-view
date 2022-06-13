@@ -10,7 +10,7 @@
     </div>
 
     <div v-if="status.mergedConfig" class="rows"
-      :style="`height: ${height - (status.header.length ? status.mergedConfig.headerHeight : 0)}px;`">
+      :style="`height: ${h - (status.header.length ? status.mergedConfig.headerHeight : 0)}px;`">
       <div class="row-item" v-for="(row, ri) in status.rows" :key="`${row.toString()}${row.scroll}`" :style="`
         height: ${status.heights[ri]}px;
         line-height: ${status.heights[ri]}px;
@@ -42,9 +42,7 @@ const props = defineProps({
 // 这里能拿到图表宽高等
 const { w, h } = toRefs(props.chartConfig.attr)
 // 这里能拿到上面 config.ts 里的 option 数据
-const { colors, dur, backgroundColor } = toRefs(props.chartConfig.option)
-
-const height = ref(h)
+// const { rowNum, headerHeight, index, backgroundColor } = toRefs(props.chartConfig.option)
 
 const status = reactive({
   defaultConfig: {
@@ -56,11 +54,11 @@ const status = reactive({
      */
     header: [],
     /**
-     * @description Board data
+     * @description Board dataset
      * @type {Array<Array>}
-     * @default data = []
+     * @default dataset = []
      */
-    data: [],
+    dataset: [],
     /**
      * @description Row num
      * @type {Number}
@@ -88,9 +86,9 @@ const status = reactive({
     /**
      * @description Scroll wait time
      * @type {Number}
-     * @default waitTime = 2000
+     * @default waitTime = 2
      */
-    waitTime: 2000,
+    waitTime: 2,
     /**
      * @description Header height
      * @type {Number}
@@ -151,13 +149,6 @@ const status = reactive({
   needCalc: false
 })
 
-watch(() => props.chartConfig.option, (newVal) => {
-  status.mergedConfig = newVal
-  stopAnimation()
-  status.animationIndex = 0
-  calcData()
-})
-
 const calcData = () => {
   mergeConfig()
   calcHeaderData()
@@ -188,49 +179,49 @@ const calcHeaderData = () => {
 }
 
 const calcRowsData = () => {
-  let { data, index, headerBGC, rowNum } = status.mergedConfig
+  let { dataset, index, headerBGC, rowNum } = status.mergedConfig
   if (index) {
-    data = data.map((row, i) => {
+    dataset = dataset.map((row, i) => {
       row = [...row]
       const indexTag = `<span class="index" style="background-color: ${headerBGC};border-radius: 3px;padding: 0px 3px;">${i + 1}</span>`
       row.unshift(indexTag)
       return row
     })
   }
-  data = data.map((ceils, i) => ({ ceils, rowIndex: i }))
-  const rowLength = data.length
+  dataset = dataset.map((ceils, i) => ({ ceils, rowIndex: i }))
+  const rowLength = dataset.length
   if (rowLength > rowNum && rowLength < 2 * rowNum) {
-    data = [...data, ...data]
+    dataset = [...dataset, ...dataset]
   }
-  data = data.map((d, i) => ({ ...d, scroll: i }))
+  dataset = dataset.map((d, i) => ({ ...d, scroll: i }))
 
-  status.rowsData = data
-  status.rows = data
+  status.rowsData = dataset
+  status.rows = dataset
 }
 
 const calcWidths = () => {
   const { mergedConfig, rowsData } = status
   const { columnWidth, header } = mergedConfig
-  const usedWidth = columnWidth.reduce((all, w) => all + w, 0)
+  const usedWidth = columnWidth.reduce((all, ws) => all + ws, 0)
   let columnNum = 0
   if (rowsData[0]) {
     columnNum = rowsData[0].ceils.length
   } else if (header.length) {
     columnNum = header.length
   }
-  const avgWidth = (w - usedWidth) / (columnNum - columnWidth.length)
+  const avgWidth = (w.value - usedWidth) / (columnNum - columnWidth.length)
   const widths = new Array(columnNum).fill(avgWidth)
   status.widths = merge(widths, columnWidth)
 }
 
 const calcHeights = (onresize = false) => {
   const { mergedConfig, header } = status
-  const { headerHeight, rowNum, data } = mergedConfig
-  let allHeight = h
+  const { headerHeight, rowNum, dataset } = mergedConfig
+  let allHeight = h.value
   if (header.length) allHeight -= headerHeight
   const avgHeight = allHeight / rowNum
   status.avgHeight = avgHeight
-  if (!onresize) status.heights = new Array(data.length).fill(avgHeight)
+  if (!onresize) status.heights = new Array(dataset.length).fill(avgHeight)
 }
 
 const calcAligns = () => {
@@ -253,13 +244,13 @@ const animation = async (start = false) => {
     calcHeights()
     status.needCalc = false
   }
-
   let { avgHeight, animationIndex, mergedConfig, rowsData, updater } = status
   const { waitTime, carousel, rowNum } = mergedConfig
+
   const rowLength = rowsData.length
   if (rowNum >= rowLength) return
   if (start) {
-    await new Promise(resolve => setTimeout(resolve, waitTime))
+    await new Promise(resolve => setTimeout(resolve, waitTime*1000))
     if (updater !== status.updater) return
   }
   const animationNum = carousel === 'single' ? 1 : rowNum
@@ -274,7 +265,7 @@ const animation = async (start = false) => {
   const back = animationIndex - rowLength
   if (back >= 0) animationIndex = back
   status.animationIndex = animationIndex
-  status.animationHandler = setTimeout(animation, waitTime - 300) as any
+  status.animationHandler = setTimeout(animation, waitTime*1000 - 300) as any
 }
 
 const stopAnimation = () => {
@@ -303,19 +294,13 @@ watch(
   }
 )
 
-// watch(
-//   () => rowNum.value,
-//   () => {
-//     onRestart()
-//   }
-// )
-
 // 数据更新
 watch(
-  () => props.chartConfig.option.dataset,
+  () => props.chartConfig.option,
   () => {
     onRestart()
-  }
+  },
+  {deep:true}
 )
 
 // 数据更新 (默认更新 dataset，若更新之后有其它操作，可添加回调函数)
@@ -348,8 +333,6 @@ onUnmounted(() => {
     font-size: 15px;
 
     .header-item {
-      .text {
-      }
       transition: all 0.3s;
     }
   }
@@ -361,15 +344,7 @@ onUnmounted(() => {
       display: flex;
       font-size: 14px;
       transition: all 0.3s;
-    }
-
-    .ceil {
-      // .text;
-    }
-
-    .index {
-      border-radius: 3px;
-      padding: 0px 10px;
+      overflow: hidden;
     }
   }
 }

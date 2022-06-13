@@ -1,4 +1,4 @@
-import image from '@/assets/images/chart/tables/tables_list.png'
+import image from '@/assets/images/chart/tables/table_scrollboard.png'
 import { ConfigType, PackagesCategoryEnum } from '@/packages/index.d'
 import { ChatCategoryEnum, ChatCategoryEnumName } from '../../index.d'
 
