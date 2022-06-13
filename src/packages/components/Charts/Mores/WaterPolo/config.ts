@@ -10,6 +10,7 @@ export const option = {
   series: [
     {
       type: 'liquidFill',
+      shape: 'circle',
       radius: '90%',
       data: [0],
       center: ['50%', '50%'],

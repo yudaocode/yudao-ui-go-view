@@ -15,19 +15,26 @@
           placeholder="水球数值"
         ></n-input-number>
       </SettingItem>
+      <SettingItem name="形状">
+        <n-select v-model:value="item.shape" :options="shapes" placeholder="选择形状" />
+      </SettingItem>
+      <SettingItem name="文字大小">
+        <n-input-number v-model:value="item.label.normal.textStyle.fontSize" :min="0" :step="1" size="small" placeholder="文字大小">
+        </n-input-number>
+      </SettingItem>
       <SettingItem name="颜色1">
         <n-color-picker
           size="small"
           :modes="['hex']"
           v-model:value="item.color[0].colorStops[0].color"
-       ></n-color-picker>
+      ></n-color-picker>
       </SettingItem>
       <SettingItem name="颜色2">
         <n-color-picker
           size="small"
           :modes="['hex']"
           v-model:value="item.color[0].colorStops[1].color"
-       ></n-color-picker>
+      ></n-color-picker>
       </SettingItem>
     </SettingItemBox>
     <SettingItemBox name="背景" :alone="true">
@@ -61,4 +68,35 @@ const props = defineProps({
 const seriesList = computed(() => {
   return props.optionData.series
 })
+
+const shapes = [
+  {
+    label: '圆形',
+    value: 'circle'
+  },
+  {
+    label: '正方形',
+    value: 'rect'
+  },
+  {
+    label: '带圆角的正方形',
+    value: 'roundRect'
+  },
+  {
+    label: '正三角形',
+    value: 'triangle'
+  },
+  {
+    label: '菱形',
+    value: 'diamond'
+  },
+  {
+    label: '水滴',
+    value: 'pin'
+  },
+  {
+    label: '箭头',
+    value: 'arrow'
+  },
+]
 </script>
