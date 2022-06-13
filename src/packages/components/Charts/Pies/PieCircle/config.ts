@@ -29,33 +29,27 @@ const option = {
       hoverAnimation: true,
       color: ["#00bcd44a", "transparent"],
       label: {
-        normal: {
-          show: false
-        }
+        show: false
       },
       data: [
         {
           value: [25],
           itemStyle: {
-            normal: {
-              color: "#03a9f4",
-              shadowBlur: 10,
-              shadowColor:"#97e2f5"
-            }
+            color: "#03a9f4",
+            shadowBlur: 10,
+            shadowColor:"#97e2f5"
           }
         },
         {
           value: [75],
           itemStyle: {
-            normal: {
-              color: "#00bcd44a",
-              shadowBlur: 0,
-              shadowColor:"#00bcd44a"
-            }
+            color: "#00bcd44a",
+            shadowBlur: 0,
+            shadowColor:"#00bcd44a"
           }
         }
       ]
-    }
+    },
   ]
 }
 
