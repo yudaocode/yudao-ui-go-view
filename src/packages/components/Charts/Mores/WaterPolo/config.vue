@@ -18,7 +18,7 @@
       <SettingItem name="形状">
         <n-select v-model:value="item.shape" :options="shapes" placeholder="选择形状" />
       </SettingItem>
-      <SettingItem name="文字大小">
+      <SettingItem name="文本">
         <n-input-number v-model:value="item.label.normal.textStyle.fontSize" :min="0" :step="1" size="small" placeholder="文字大小">
         </n-input-number>
       </SettingItem>
@@ -51,7 +51,7 @@
 
 <script setup lang="ts">
 import { PropType, computed } from 'vue'
-import { option } from './config'
+import { option, shapes } from './config'
 import {
   CollapseItem,
   SettingItemBox,
@@ -68,35 +68,4 @@ const props = defineProps({
 const seriesList = computed(() => {
   return props.optionData.series
 })
-
-const shapes = [
-  {
-    label: '圆形',
-    value: 'circle'
-  },
-  {
-    label: '正方形',
-    value: 'rect'
-  },
-  {
-    label: '带圆角的正方形',
-    value: 'roundRect'
-  },
-  {
-    label: '正三角形',
-    value: 'triangle'
-  },
-  {
-    label: '菱形',
-    value: 'diamond'
-  },
-  {
-    label: '水滴',
-    value: 'pin'
-  },
-  {
-    label: '箭头',
-    value: 'arrow'
-  },
-]
 </script>
