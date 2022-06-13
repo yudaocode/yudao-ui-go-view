@@ -1,4 +1,4 @@
-import image from '@/assets/images/chart/charts/circle.png'
+import image from '@/assets/images/chart/charts/pie-circle.png'
 import { ConfigType, PackagesCategoryEnum } from '@/packages/index.d'
 import { ChatCategoryEnum, ChatCategoryEnumName } from '../../index.d'
 
