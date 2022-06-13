@@ -7,6 +7,7 @@ export const option = {
   from: 50000,
   to: 100000,
   dur: 3,
+  precision: 0,
   showSeparator: true,
   numberSize: 24,
   numberColor: '#4a9ef8',
