@@ -4,9 +4,36 @@ import { ProcessConfig } from './index'
 import { chartInitConfig } from '@/settings/designSetting'
 import cloneDeep from 'lodash/cloneDeep'
 
+
+export const types = [
+  {
+    label: '线形',
+    value: 'line'
+  },
+  {
+    label: '圆形',
+    value: 'circle'
+  },
+  {
+    label: '仪表盘',
+    value: 'dashboard'
+  },
+]
+
+export const indicatorPlacements = [
+  {
+    label: '内部',
+    value: 'inside'
+  },
+  {
+    label: '外部',
+    value: 'outside'
+  }
+]
+
 export const option = {
   dataset: 36,
-  type: "circle",
+  type: types[2].value,
   color: '#4992FFFF',
   // 指标位置（线条时可用）
   indicatorPlacement: "outside"

@@ -38,7 +38,7 @@ import {
 } from '@/components/Pages/ChartItemSetting'
 
 // 获取 option 的数据，便于使用 typeof 获取类型
-import { option } from './config'
+import { option, types, indicatorPlacements} from './config'
 
 const props = defineProps({
   optionData: {
@@ -46,30 +46,4 @@ const props = defineProps({
     required: true
   }
 })
-
-const types = [
-  {
-    label: '线形',
-    value: 'line'
-  },
-  {
-    label: '圆形',
-    value: 'circle'
-  },
-  {
-    label: '仪表盘',
-    value: 'dashboard'
-  },
-]
-
-const indicatorPlacements = [
-  {
-    label: '里面',
-    value: 'inside'
-  },
-  {
-    label: '外边',
-    value: 'outside'
-  }
-]
 </script>

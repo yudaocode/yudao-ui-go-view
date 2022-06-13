@@ -11,6 +11,7 @@
         :to="to"
         :duration="dur * 1000"
         :show-separator="showSeparator"
+        :precision="precision"
       ></n-number-animation>
     </span>
     <template #suffix>
@@ -42,6 +43,7 @@ const {
   suffixColor,
   from,
   to,
+  precision,
   numberSize,
   numberColor,
 } = toRefs(props.chartConfig.option)

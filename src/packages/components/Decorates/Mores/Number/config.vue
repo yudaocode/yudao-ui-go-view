@@ -28,6 +28,13 @@
           <n-text>展示分割符</n-text>
         </n-space>
       </SettingItem>
+      <SettingItem name="精度">
+        <n-input-number
+          v-model:value="optionData.precision"
+          size="small"
+          :min="0"
+        ></n-input-number>
+      </SettingItem>
     </SettingItemBox>
 
     <SettingItemBox name="数值">
