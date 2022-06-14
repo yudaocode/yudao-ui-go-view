@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, onUnmounted, reactive, toRefs, watch, onMounted, ref } from 'vue'
+import { PropType, onUnmounted, reactive, toRefs, watch, onMounted } from 'vue'
 import { CreateComponentType } from '@/packages/index.d'
 import { useChartDataFetch } from '@/hooks'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
@@ -138,7 +138,11 @@ const status = reactive({
   mergedConfig: props.chartConfig.option,
   header: [],
   rowsData: [],
-  rows: [],
+  rows: [{
+    ceils: [],
+    rowIndex: 0,
+    scroll: 0
+  }],
   widths: [],
   heights: [0],
   avgHeight: 0,
@@ -181,19 +185,19 @@ const calcHeaderData = () => {
 const calcRowsData = () => {
   let { dataset, index, headerBGC, rowNum } = status.mergedConfig
   if (index) {
-    dataset = dataset.map((row, i) => {
+    dataset = dataset.map((row:any, i:number) => {
       row = [...row]
       const indexTag = `<span class="index" style="background-color: ${headerBGC};border-radius: 3px;padding: 0px 3px;">${i + 1}</span>`
       row.unshift(indexTag)
       return row
     })
   }
-  dataset = dataset.map((ceils, i) => ({ ceils, rowIndex: i }))
+  dataset = dataset.map((ceils:any, i:number) => ({ ceils, rowIndex: i }))
   const rowLength = dataset.length
   if (rowLength > rowNum && rowLength < 2 * rowNum) {
     dataset = [...dataset, ...dataset]
   }
-  dataset = dataset.map((d, i) => ({ ...d, scroll: i }))
+  dataset = dataset.map((d:any, i:number) => ({ ...d, scroll: i }))
 
   status.rowsData = dataset
   status.rows = dataset
@@ -202,10 +206,10 @@ const calcRowsData = () => {
 const calcWidths = () => {
   const { mergedConfig, rowsData } = status
   const { columnWidth, header } = mergedConfig
-  const usedWidth = columnWidth.reduce((all, ws) => all + ws, 0)
+  const usedWidth = columnWidth.reduce((all:any, ws:number) => all + ws, 0)
   let columnNum = 0
   if (rowsData[0]) {
-    columnNum = rowsData[0].ceils.length
+    columnNum = (rowsData[0] as any).ceils.length
   } else if (header.length) {
     columnNum = header.length
   }

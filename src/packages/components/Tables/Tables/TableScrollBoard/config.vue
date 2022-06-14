@@ -112,6 +112,7 @@ watch([header, align, columnWidth],([headerNew,alignNew,columnWidthNew],[headerO
     props.optionData.align = alignNew.split(',')
   }
   if(columnWidthNew !== columnWidthOld){
+    // @ts-ignore
     props.optionData.columnWidth = columnWidthNew.split(',')
   }
 })

@@ -2,7 +2,7 @@ import { publicConfig } from '@/packages/public'
 import { CreateComponentType } from '@/packages/index.d'
 import { TableScrollBoardConfig } from './index'
 import cloneDeep from 'lodash/cloneDeep'
-import dataJson from './data'
+import dataJson from './data.json'
 
 export const option = {
   header: ['列1', '列2', '列3'],
