@@ -1,4 +1,4 @@
-import image from '@/assets/images/chart/informations/text_static.png'
+import image from '@/assets/images/chart/informations/text_gradient.png'
 import { ConfigType, PackagesCategoryEnum } from '@/packages/index.d'
 import { ChatCategoryEnum,ChatCategoryEnumName } from '../../index.d'
 
