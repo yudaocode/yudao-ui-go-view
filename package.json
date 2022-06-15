@@ -22,6 +22,7 @@
     "pinia": "^2.0.13",
     "screenfull": "^6.0.1",
     "vue": "^3.2.31",
+    "vue-demi": "^0.13.1",
     "vue-i18n": "9.1.9",
     "vue-router": "4.0.12",
     "vue3-lazyload": "^0.2.5-beta",
