@@ -18,7 +18,6 @@
     <!-- https://github.com/SortableJS/vue.draggable.next -->
     <draggable
       item-key="id"
-      tag="transition-group"
       v-model="reverseList"
       ghostClass="ghost"
       @change="onMoveCallback"
