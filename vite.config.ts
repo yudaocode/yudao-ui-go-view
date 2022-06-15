@@ -10,7 +10,7 @@ function pathResolve(dir: string) {
 }
 
 export default defineConfig({
-  base: './',
+  base: '/',
   // 路径重定向
   resolve: {
     alias: [

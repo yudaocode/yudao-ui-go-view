@@ -315,7 +315,7 @@ $carousel-image-height: 60vh;
     align-items: center;
     width: 100vw;
     height: 100vh;
-    background: url('../../assets/images/login/login-bg.png') no-repeat 0 -120px;
+    background: url('@/assets/images/login/login-bg.png') no-repeat 0 -120px;
     .bg-slot {
       width: $carousel-width;
     }
