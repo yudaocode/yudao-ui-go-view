@@ -30,7 +30,7 @@ specifiers:
   keymaster: ^1.6.2
   lodash: ~4.17.21
   mockjs: ^1.1.0
-  naive-ui: 2.30.3
+  naive-ui: ^2.30.3
   pinia: ^2.0.13
   plop: ^3.0.5
   prettier: ^2.6.2
@@ -43,6 +43,7 @@ specifiers:
   vite-plugin-importer: ^0.2.5
   vite-plugin-mock: ^2.9.6
   vue: ^3.2.31
+  vue-demi: ^0.13.1
   vue-echarts: ^6.0.2
   vue-i18n: 9.1.10
   vue-router: 4.0.12
@@ -67,6 +68,7 @@ dependencies:
   pinia: 2.0.13_hhks2xcoho7x4jrwn5stbz36vy
   screenfull: 6.0.1
   vue: 3.2.31
+  vue-demi: 0.13.1_vue@3.2.31
   vue-i18n: 9.1.10_vue@3.2.31
   vue-router: 4.0.12_vue@3.2.31
   vue3-lazyload: 0.2.5-beta_j5zg3yborh7xiumw6is6xmn3z4
@@ -1025,7 +1027,7 @@ packages:
     dependencies:
       '@vueuse/shared': 7.7.1_vue@3.2.31
       vue: 3.2.31
-      vue-demi: 0.12.5_vue@3.2.31
+      vue-demi: 0.13.1_vue@3.2.31
     dev: true
 
   /@vueuse/shared/7.7.1_vue@3.2.31:
@@ -1040,7 +1042,7 @@ packages:
         optional: true
     dependencies:
       vue: 3.2.31
-      vue-demi: 0.12.5_vue@3.2.31
+      vue-demi: 0.13.1_vue@3.2.31
     dev: true
 
   /acorn-jsx/5.3.2_acorn@8.7.0:
@@ -3492,7 +3494,7 @@ packages:
       '@vue/devtools-api': 6.1.4
       typescript: 4.6.3
       vue: 3.2.31
-      vue-demi: 0.12.5_vue@3.2.31
+      vue-demi: 0.13.1_vue@3.2.31
     dev: false
 
   /plop/3.0.5:
@@ -4389,6 +4391,21 @@ packages:
 
   /vue-demi/0.12.5_vue@3.2.31:
     resolution: {integrity: sha512-BREuTgTYlUr0zw0EZn3hnhC3I6gPWv+Kwh4MCih6QcAeaTlaIX0DwOVN0wHej7hSvDPecz4jygy/idsgKfW58Q==}
+    engines: {node: '>=12'}
+    hasBin: true
+    requiresBuild: true
+    peerDependencies:
+      '@vue/composition-api': ^1.0.0-rc.1
+      vue: ^3.0.0-0 || ^2.6.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      vue: 3.2.31
+    dev: true
+
+  /vue-demi/0.13.1_vue@3.2.31:
+    resolution: {integrity: sha512-xmkJ56koG3ptpLnpgmIzk9/4nFf4CqduSJbUM0OdPoU87NwRuZ6x49OLhjSa/fC15fV+5CbEnrxU4oyE022svg==}
     engines: {node: '>=12'}
     hasBin: true
     requiresBuild: true
