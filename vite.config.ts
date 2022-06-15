@@ -11,7 +11,7 @@ function pathResolve(dir: string) {
 }
 
 export default ({ mode }) => defineConfig({
-  base: process.env.NODE_ENV === 'production' ? './' : '/',
+  base: process.env.NODE_ENV === 'production' ? '/' : '/',
   // 路径重定向
   resolve: {
     alias: [
