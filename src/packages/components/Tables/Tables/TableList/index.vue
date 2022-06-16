@@ -7,9 +7,9 @@
       :style="`height: ${status.heights[i]}px;`"
     >
       <div class="ranking-info">
-        <div class="rank" :style="`color: ${color}`">No.{{ item.ranking }}</div>
-        <div class="info-name" v-html="item.name" />
-        <div class="ranking-value" :style="`color: ${textColor}`">
+        <div class="rank" :style="`color: ${color};font-size: ${indexFontSize}px`">No.{{ item.ranking }}</div>
+        <div class="info-name" :style="`font-size: ${leftFontSize}px`" v-html="item.name" />
+        <div class="ranking-value" :style="`color: ${textColor};font-size: ${rightFontSize}px`">
           {{
             status.mergedConfig.valueFormatter
               ? status.mergedConfig.valueFormatter(item)
@@ -43,7 +43,7 @@ const props = defineProps({
   },
 })
 const { w, h } = toRefs(props.chartConfig.attr)
-const { rowNum, unit, color, textColor, borderColor } = toRefs(
+const { rowNum, unit, color, textColor, borderColor, indexFontSize, leftFontSize, rightFontSize } = toRefs(
   props.chartConfig.option
 )
 
@@ -166,10 +166,12 @@ watch(
 
 // 数据更新
 watch(
-  () => props.chartConfig.option.dataset,
+  () => props.chartConfig.option,
   () => {
+    console.log('数据更新', props.chartConfig.option)
     onRestart()
-  }
+  },
+  {deep:true}
 )
 
 useChartDataFetch(props.chartConfig, useChartEditStore)
@@ -197,9 +199,10 @@ onUnmounted(() => {
     display: flex;
     width: 100%;
     font-size: 13px;
+    align-items: center;
 
     .rank {
-      width: 40px;
+      margin-right: 5px;
     }
 
     .info-name {
