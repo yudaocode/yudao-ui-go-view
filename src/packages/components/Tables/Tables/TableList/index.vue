@@ -164,17 +164,19 @@ watch(
   }
 )
 
-// 数据更新
+// 数据更新（配置时触发）
 watch(
-  () => props.chartConfig.option,
+  () => props.chartConfig.option.dataset,
   () => {
-    console.log('数据更新', props.chartConfig.option)
     onRestart()
-  },
-  {deep:true}
+  }
 )
 
-useChartDataFetch(props.chartConfig, useChartEditStore)
+// 数据callback处理（预览时触发）
+useChartDataFetch(props.chartConfig, useChartEditStore, (resData: any[]) => {
+  props.chartConfig.option.dataset = resData
+  onRestart()
+})
 
 onUnmounted(() => {
   stopAnimation()
