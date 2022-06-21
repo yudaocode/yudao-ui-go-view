@@ -11,7 +11,6 @@ import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHis
 import { useSettingStore } from '@/store/modules/settingStore/settingStore'
 import { HistoryActionTypeEnum, HistoryItemType, HistoryTargetTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
 import { MenuEnum } from '@/enums/editPageEnum'
-import { PreviewScaleEnum } from '@/enums/styleEnum'
 import {
   ChartEditStoreEnum,
   ChartEditStorage,
@@ -367,7 +366,6 @@ export const useChartEditStore = defineStore({
           e = cloneDeep(e)
           // 生成新 id
           e.id = getUUID()
-          // 偏移位置
           e.attr.x = this.getMousePosition.x + 30
           e.attr.y = this.getMousePosition.y + 30
           return e
