@@ -45,7 +45,7 @@ export enum EditCanvasConfigEnum {
   CHART_THEME_COLOR = 'chartThemeColor',
   CHART_THEME_SETTING = 'chartThemeSetting',
   BACKGROUND = 'background',
-  BACKGROUND_IAMGE = 'backgroundImage',
+  BACKGROUND_IMAGE = 'backgroundImage',
   SELECT_COLOR = 'selectColor',
   PREVIEW_SCALE_TYPE = 'previewScaleType',
 }
@@ -73,7 +73,7 @@ export interface EditCanvasConfigType {
   [EditCanvasConfigEnum.HEIGHT]: number
   // 背景色
   [EditCanvasConfigEnum.BACKGROUND]?: string
-  [EditCanvasConfigEnum.BACKGROUND_IAMGE]?: string | null
+  [EditCanvasConfigEnum.BACKGROUND_IMAGE]?: string | null
   // 图表主题颜色
   [EditCanvasConfigEnum.CHART_THEME_COLOR]: ChartColorsNameType
   // 图表全局配置
