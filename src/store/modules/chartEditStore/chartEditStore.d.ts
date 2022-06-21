@@ -107,7 +107,7 @@ export type MousePositionType = {
 // 操作目标
 export type TargetChartType = {
   hoverId?: string
-  selectId?: string
+  selectId: string[]
 }
 
 // 数据记录

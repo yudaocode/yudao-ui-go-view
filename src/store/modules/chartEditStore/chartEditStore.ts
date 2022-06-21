@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { getUUID, loadingStart, loadingFinish, loadingError } from '@/utils'
 import { CreateComponentType } from '@/packages/index.d'
 import debounce from 'lodash/debounce'
 import cloneDeep from 'lodash/cloneDeep'
@@ -11,6 +10,14 @@ import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHis
 import { useSettingStore } from '@/store/modules/settingStore/settingStore'
 import { HistoryActionTypeEnum, HistoryItemType, HistoryTargetTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
 import { MenuEnum } from '@/enums/editPageEnum'
+import { 
+  getUUID,
+  loadingStart,
+  loadingFinish,
+  loadingError,
+  isString,
+  isArray
+} from '@/utils'
 import {
   ChartEditStoreEnum,
   ChartEditStorage,
@@ -60,7 +67,7 @@ export const useChartEditStore = defineStore({
     // 目标图表
     targetChart: {
       hoverId: undefined,
-      selectId: undefined
+      selectId: []
     },
     // 记录临时数据（复制等）
     recordChart: undefined,
@@ -159,8 +166,36 @@ export const useChartEditStore = defineStore({
       this.targetChart.hoverId = hoverId
     },
     // * 设置目标数据 select
-    setTargetSelectChart(selectId?:TargetChartType["selectId"]) {
-      this.targetChart.selectId = selectId
+    setTargetSelectChart(selectId?: string | string[], push: boolean = false) {
+      // 无 id 清空
+      if(!selectId) {
+        this.targetChart.selectId = []
+        return
+      }
+      // 新增
+      if(push) {
+        // 字符串
+        if(isString(selectId)) {
+          this.targetChart.selectId.push(selectId)
+          return
+        }
+        // 数组
+        if(isArray(selectId)) {
+          this.targetChart.selectId.push(...selectId)
+          return
+        }
+      } else {
+        // 字符串
+        if(isString(selectId)) {
+          this.targetChart.selectId = [selectId]
+          return
+        }
+        // 数组
+        if(isArray(selectId)) {
+          this.targetChart.selectId = selectId
+          return
+        }
+      }
     },
     // * 设置记录数据
     setRecordChart(item: RecordChartType | undefined) {
@@ -175,7 +210,7 @@ export const useChartEditStore = defineStore({
     },
     // * 找到目标 id 数据下标位置（无则返回-1）
     fetchTargetIndex(id?: string): number {
-      const targetId = id || this.getTargetChart.selectId
+      const targetId = id || this.getTargetChart.selectId.length && this.getTargetChart.selectId[0] || undefined
       if(!targetId) {
         loadingFinish()
         return -1

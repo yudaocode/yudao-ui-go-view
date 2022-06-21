@@ -4,12 +4,9 @@
       class="line"
       v-for="item in line.lineArr"
       :key="item"
-      :class="[
-        item.includes('row') ? 'row' : 'col',
-        line['select'].has(item) && 'visible'
-      ]"
+      :class="[item.includes('row') ? 'row' : 'col', line['select'].has(item) && 'visible']"
       :style="useComponentStyle(line['select'].get(item))"
-  ></div>
+    ></div>
   </div>
 </template>
 
@@ -21,7 +18,7 @@ import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStor
 import { useSettingStore } from '@/store/modules/settingStore/settingStore'
 import { CreateComponentType } from '@/packages/index.d'
 import throttle from 'lodash/throttle'
-import cloneDeep  from 'lodash/cloneDeep'
+import cloneDeep from 'lodash/cloneDeep'
 // 全局颜色
 const designStore = useDesignStore()
 const themeColor = ref(designStore.getAppTheme)
@@ -53,7 +50,7 @@ const useComponentStyle = (attr?: Partial<{ x: number; y: number }>) => {
 }
 
 // * 吸附距离
-const minDistance = computed(()=>{
+const minDistance = computed(() => {
   return settingStore.getChartAlignRange
 })
 
@@ -72,9 +69,7 @@ const isSorption = (selectValue: number, componentValue: number) => {
 
 // * 当前目标
 const selectId = computed(() => chartEditStore.getTargetChart.selectId)
-const selectTarget = computed(
-  () => chartEditStore.getComponentList[chartEditStore.fetchTargetIndex()]
-)
+const selectTarget = computed(() => chartEditStore.getComponentList[chartEditStore.fetchTargetIndex()])
 const selectAttr = computed(() => selectTarget.value?.attr || {})
 
 // * 画布坐标
@@ -95,7 +90,7 @@ const canvasPositionList = computed(() => {
 watch(
   () => chartEditStore.getMousePosition,
   throttle(() => {
-    if (!isComputedLine.value) return
+    if (!isComputedLine.value || selectId.value.length !== 1) return
     // 获取目标组件数据
 
     const selectW = selectAttr.value.w
@@ -111,12 +106,12 @@ watch(
     const selectTopY = selectAttr.value.y
     const selectHalfY = selectTopY + selectH / 2
     const selectBottomY = selectTopY + selectH
-    const seletY = [selectTopY, selectHalfY, selectBottomY]
+    const selectY = [selectTopY, selectHalfY, selectBottomY]
 
     line.select.clear()
     line.sorptioned.y = false
     // 循环查询所有组件数据
-    const componentList = chartEditStore.getComponentList.map((e:CreateComponentType) => {
+    const componentList = chartEditStore.getComponentList.map((e: CreateComponentType) => {
       return {
         id: e.id,
         attr: e.attr
@@ -127,7 +122,7 @@ watch(
     line.lineArr.forEach(lineItem => {
       componentList.forEach((component: typeof canvasPositionList.value) => {
         // 排除自身
-        if (selectId.value === component.id) return
+        if (selectId.value[0] === component.id) return
         const componentW = component.attr.w
         const componentH = component.attr.h
 
@@ -163,24 +158,15 @@ watch(
           // 顶部
           if (isSorption(selectHalfY, componentTopY)) {
             line.select.set(lineItem, { y: componentTopY })
-            selectTarget.value.setPosition(
-              selectLeftX,
-              componentTopY - selectH / 2
-            )
+            selectTarget.value.setPosition(selectLeftX, componentTopY - selectH / 2)
           }
           if (isSorption(selectHalfY, componentHalfY)) {
             line.select.set(lineItem, { y: componentHalfY })
-            selectTarget.value.setPosition(
-              selectLeftX,
-              componentHalfY - selectH / 2
-            )
+            selectTarget.value.setPosition(selectLeftX, componentHalfY - selectH / 2)
           }
           if (isSorption(selectHalfY, componentBottomY)) {
             line.select.set(lineItem, { y: componentBottomY })
-            selectTarget.value.setPosition(
-              selectLeftX,
-              componentBottomY - selectH / 2
-            )
+            selectTarget.value.setPosition(selectLeftX, componentBottomY - selectH / 2)
           }
         }
         if (lineItem.includes('rowb')) {
@@ -191,17 +177,11 @@ watch(
           }
           if (isSorption(selectBottomY, componentHalfY)) {
             line.select.set(lineItem, { y: componentHalfY })
-            selectTarget.value.setPosition(
-              selectLeftX,
-              componentHalfY - selectH
-            )
+            selectTarget.value.setPosition(selectLeftX, componentHalfY - selectH)
           }
           if (isSorption(selectBottomY, componentBottomY)) {
             line.select.set(lineItem, { y: componentBottomY })
-            selectTarget.value.setPosition(
-              selectLeftX,
-              componentBottomY - selectH
-            )
+            selectTarget.value.setPosition(selectLeftX, componentBottomY - selectH)
           }
         }
 
@@ -223,24 +203,15 @@ watch(
         if (lineItem.includes('colc')) {
           if (isSorption(selectHalfX, componentLeftX)) {
             line.select.set(lineItem, { x: componentLeftX })
-            selectTarget.value.setPosition(
-              componentLeftX - selectW / 2,
-              selectTopY
-            )
+            selectTarget.value.setPosition(componentLeftX - selectW / 2, selectTopY)
           }
           if (isSorption(selectHalfX, componentHalfX)) {
             line.select.set(lineItem, { x: componentHalfX })
-            selectTarget.value.setPosition(
-              componentHalfX - selectW / 2,
-              selectTopY
-            )
+            selectTarget.value.setPosition(componentHalfX - selectW / 2, selectTopY)
           }
           if (isSorption(selectHalfX, componentRightX)) {
             line.select.set(lineItem, { x: componentRightX })
-            selectTarget.value.setPosition(
-              componentRightX - selectW / 2,
-              selectTopY
-            )
+            selectTarget.value.setPosition(componentRightX - selectW / 2, selectTopY)
           }
         }
         if (lineItem.includes('colr')) {
@@ -254,14 +225,14 @@ watch(
           }
           if (isSorption(selectRightX, componentRightX)) {
             line.select.set(lineItem, { x: componentRightX })
-            selectTarget.value.setPosition( componentRightX - selectW, selectTopY )
+            selectTarget.value.setPosition(componentRightX - selectW, selectTopY)
           }
         }
 
         /*
           * 我也不知道为什么这个不行，还没时间调
           if(lineItem.includes('row')) {
-            seletY.forEach(sY => {
+            selectY.forEach(sY => {
               componentY.forEach(cY => {
                 if (isSorption(sY, cY)) {
                   line.select.set(lineItem, { y: cY })
