@@ -8,6 +8,7 @@ import { useSystemStore } from '@/store/modules/systemStore/systemStore'
 import { fetchChartComponent, fetchConfigComponent, createComponent } from '@/packages/index'
 import { CreateComponentType } from '@/packages/index.d'
 import { saveInterval } from '@/settings/designSetting'
+import throttle from 'lodash/throttle'
 // 接口状态
 import { ResultEnum } from '@/enums/httpEnum'
 // 接口
@@ -119,7 +120,7 @@ export const useSync = () => {
   }
 
   // * 数据保存
-  const dataSyncUpdate = async () => {
+  const dataSyncUpdate = throttle(async () => {
     if(!fetchRouteParamsLocation()) return
 
     if(!systemStore.getFetchInfo.OSSUrl) {
@@ -164,7 +165,7 @@ export const useSync = () => {
     }
     // 失败状态
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.FAILURE)
-  }
+  }, 3000)
 
   // * 定时处理
   const intervalDataSyncUpdate = () => {

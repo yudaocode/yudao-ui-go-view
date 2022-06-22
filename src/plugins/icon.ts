@@ -81,7 +81,8 @@ import {
   Scale as ScaleIcon,
   FitToScreen as FitToScreenIcon,
   FitToHeight as FitToHeightIcon,
-  FitToWidth as FitToWidthIcon
+  FitToWidth as FitToWidthIcon,
+  Save as SaveIcon
 } from '@vicons/carbon'
 
 const ionicons5 = {
@@ -237,7 +238,9 @@ const carbon = {
   ScaleIcon,
   FitToScreenIcon,
   FitToHeightIcon,
-  FitToWidthIcon
+  FitToWidthIcon,
+  // 保存
+  SaveIcon
 }
 
 // https://www.xicons.org/#/ 还有很多
