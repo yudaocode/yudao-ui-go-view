@@ -29,7 +29,7 @@ VITE_PRO_PATH = 'http://127.0.0.1:8080'
 
 ```shell
 // 请求前缀
-export const axiosPre = '/goview'
+export const axiosPre = '/api/goview'
 ```
 
 接口封装：`src\api\http.ts`
