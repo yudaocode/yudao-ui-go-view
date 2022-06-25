@@ -41,9 +41,3 @@ const selectOptions: SelectCreateDataType[] = [
   }
 ]
 </script>
-
-<style></style>
-<style lang="scss" scoped>
-@include go('chart-configurations-data') {
-}
-</style>

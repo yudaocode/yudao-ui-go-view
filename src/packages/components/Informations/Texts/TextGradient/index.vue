@@ -48,5 +48,8 @@ useChartDataFetch(props.chartConfig, useChartEditStore, callback)
   display: flex;
   align-items: center;
   justify-content: center;
+  .n-gradient-text {
+    white-space: initial;
+  }
 }
 </style>
