@@ -47,15 +47,16 @@ export const useChartDataFetch = (
         const res: any = await http(requestHttpType.value)(completePath || '', {})
         if (res.data) {
           try {
-            // echarts 组件更新方式
-            if (chartFrame === ChartFrameEnum.ECHARTS) {
-              if (vChartRef.value) {
-                vChartRef.value.setOption({ dataset: res.data })
-              }
-            }
             // 更新回调函数
             if (updateCallback) {
               updateCallback(res.data)
+            } else {
+              // eCharts 组件配合 vChart 库更新方式
+              if (chartFrame === ChartFrameEnum.ECHARTS) {
+                if (vChartRef.value) {
+                  vChartRef.value.setOption({ dataset: res.data })
+                }
+              }
             }
           } catch (error) {
             console.error(error)
