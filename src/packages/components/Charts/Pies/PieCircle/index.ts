@@ -1,5 +1,5 @@
 import image from '@/assets/images/chart/charts/pie-circle.png'
-import { ConfigType, PackagesCategoryEnum } from '@/packages/index.d'
+import { ConfigType, PackagesCategoryEnum, ChartFrameEnum } from '@/packages/index.d'
 import { ChatCategoryEnum, ChatCategoryEnumName } from '../../index.d'
 
 export const PieCircleConfig: ConfigType = {
@@ -10,5 +10,6 @@ export const PieCircleConfig: ConfigType = {
   category: ChatCategoryEnum.PIE,
   categoryName: ChatCategoryEnumName.PIE,
   package: PackagesCategoryEnum.CHARTS,
+  chartFrame: ChartFrameEnum.ECHARTS,
   image
 }
