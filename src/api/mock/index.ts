@@ -4,26 +4,38 @@ import { RequestHttpEnum } from '@/enums/httpEnum'
 
 // 单个X数据
 export const chartDataUrl = '/mock/chartData'
-export const rankListUrl = '/mock/RankList'
-export const numberUrl = '/mock/number'
+export const rankListUrl = '/mock/rankList'
+export const numberFloatUrl = '/mock/number/float'
+export const numberIntUrl = '/mock/number/int'
+export const textUrl = '/mock/text'
 
 const mockObject: MockMethod[] = [
   {
     // 正则
     // url: /\/mock\/mockData(|\?\S*)$/,
-    url: '/mock/chartData',
+    url: chartDataUrl,
     method: RequestHttpEnum.GET,
     response: () => test.fetchMockData,
   },
   {
-    url: '/mock/rankList',
+    url: rankListUrl,
     method: RequestHttpEnum.GET,
     response: () => test.fetchRankList,
   },
   {
-    url: '/mock/number',
+    url: numberFloatUrl,
     method: RequestHttpEnum.GET,
-    response: () => test.fetchNumber,
+    response: () => test.fetchNumberFloat,
+  },
+  {
+    url: numberIntUrl,
+    method: RequestHttpEnum.GET,
+    response: () => test.fetchNumberInt,
+  },
+  {
+    url: textUrl,
+    method: RequestHttpEnum.GET,
+    response: () => test.fetchText,
   },
 ]
 

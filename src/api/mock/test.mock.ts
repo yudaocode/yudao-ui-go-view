@@ -62,10 +62,22 @@ export default {
     ],
   },
   // 获取数字
-  fetchNumber: {
+  fetchNumberFloat: {
     code: 0,
     status: 200,
     msg: '请求成功',
-    data: '@float(0, 0.99)',
+    data: '@float(0, 0.99, 1, 2)',
+  },
+  fetchNumberInt: {
+    code: 0,
+    status: 200,
+    msg: '请求成功',
+    data: '@integer(0, 100)',
+  },
+  fetchText: {
+    code: 0,
+    status: 200,
+    msg: '请求成功',
+    data: '@paragraph(1, 10)',
   },
 }

@@ -62,7 +62,7 @@ import { ref, toRefs } from 'vue'
 import { icon } from '@/plugins'
 import { SettingItemBox } from '@/components/Pages/ChartItemSetting'
 import { RequestHttpEnum, ResultEnum } from '@/enums/httpEnum'
-import { chartDataUrl, rankListUrl, numberUrl } from '@/api/mock'
+import { chartDataUrl, rankListUrl, numberFloatUrl, numberIntUrl, textUrl } from '@/api/mock'
 import { http } from '@/api/http'
 import { SelectHttpType } from '../../index.d'
 import { ChartDataMatchingAndShow } from '../ChartDataMatchingAndShow'
@@ -85,7 +85,13 @@ const apiList = [
     value: `【表格】${ rankListUrl }`
   },
   {
-    value: `【0~1数字】${ numberUrl }`
+    value: `【文本】${ textUrl }`
+  },
+  {
+    value: `【0~100 整数】${ numberIntUrl }`
+  },
+  {
+    value: `【0~1小数】${ numberFloatUrl }`
   }
 ]
 
