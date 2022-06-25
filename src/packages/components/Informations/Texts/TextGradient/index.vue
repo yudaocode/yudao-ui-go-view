@@ -6,7 +6,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { PropType, toRefs, reactive, watch } from 'vue'
+import { PropType, toRefs, shallowReactive, watch } from 'vue'
 import { CreateComponentType } from '@/packages/index.d'
 import { useChartDataFetch } from '@/hooks'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
@@ -14,33 +14,30 @@ import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore
 const props = defineProps({
   chartConfig: {
     type: Object as PropType<CreateComponentType>,
-    required: true,
-  },
+    required: true
+  }
 })
 
-const option = reactive({
+const option = shallowReactive({
   dataset: ''
 })
 
 const { w, h } = toRefs(props.chartConfig.attr)
+const { size, gradient } = toRefs(props.chartConfig.option)
 
-const {
-  size,
-  gradient
-} = toRefs(props.chartConfig.option)
-
-const callback = (newData: string) => {
-  option.dataset = newData
-}
 
 watch(
   () => props.chartConfig.option.dataset,
-  () => {
-    option.dataset = props.chartConfig.option.dataset
-  }, { immediate: true }
+  (newData: any) => {
+    option.dataset = newData
+  }, {
+    immediate: true
+  }
 )
 
-useChartDataFetch(props.chartConfig, useChartEditStore, callback)
+useChartDataFetch(props.chartConfig, useChartEditStore, (newData: any) => {
+  option.dataset = newData
+})
 </script>
 
 <style lang="scss" scoped>

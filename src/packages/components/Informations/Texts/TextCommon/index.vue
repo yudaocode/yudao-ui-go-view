@@ -15,19 +15,21 @@
 
       background-color:${backgroundColor}`"
     >
-      {{ dataset }}
+      {{ option.dataset }}
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { PropType, toRefs } from 'vue'
+import { PropType, toRefs, shallowReactive, watch } from 'vue'
 import { CreateComponentType } from '@/packages/index.d'
+import { useChartDataFetch } from '@/hooks'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 
 const props = defineProps({
   chartConfig: {
     type: Object as PropType<CreateComponentType>,
-    required: true,
-  },
+    required: true
+  }
 })
 
 const { w, h } = toRefs(props.chartConfig.attr)
@@ -42,8 +44,27 @@ const {
   borderColor,
   borderRadius,
   writingMode,
-  backgroundColor,
+  backgroundColor
 } = toRefs(props.chartConfig.option)
+
+const option = shallowReactive({
+  dataset: ''
+})
+
+// 手动更新
+watch(
+  () => props.chartConfig.option.dataset,
+  (newData: any) => {
+    option.dataset = newData
+  }, {
+    immediate: true
+  }
+)
+
+// 预览更新
+useChartDataFetch(props.chartConfig, useChartEditStore, (newData: any) => {
+  option.dataset = newData
+})
 </script>
 
 <style lang="scss" scoped>
