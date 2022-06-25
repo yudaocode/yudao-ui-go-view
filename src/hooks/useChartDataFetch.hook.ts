@@ -52,9 +52,6 @@ export const useChartDataFetch = (
               if (vChartRef.value) {
                 vChartRef.value.setOption({ dataset: res.data })
               }
-            } else {
-              // 若遵守规范使用 dataset 作为数据 key，则会自动赋值数据
-              targetComponent.option.dataset && (targetComponent.option.dataset = res.data)
             }
             // 更新回调函数
             if (updateCallback) {
