@@ -8,6 +8,7 @@ export const rankListUrl = '/mock/rankList'
 export const numberFloatUrl = '/mock/number/float'
 export const numberIntUrl = '/mock/number/int'
 export const textUrl = '/mock/text'
+export const imageUrl = '/mock/image'
 
 const mockObject: MockMethod[] = [
   {
@@ -36,6 +37,11 @@ const mockObject: MockMethod[] = [
     url: textUrl,
     method: RequestHttpEnum.GET,
     response: () => test.fetchText,
+  },
+  {
+    url: imageUrl,
+    method: RequestHttpEnum.GET,
+    response: () => test.fetchImage,
   },
 ]
 
