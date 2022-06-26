@@ -41,7 +41,7 @@ const mockObject: MockMethod[] = [
   {
     url: imageUrl,
     method: RequestHttpEnum.GET,
-    response: () => test.fetchImage,
+    response: () => test.fetchImage(Math.round(Math.random()*10)),
   },
 ]
 

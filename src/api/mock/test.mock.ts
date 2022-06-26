@@ -80,10 +80,10 @@ export default {
     msg: '请求成功',
     data: '@paragraph(1, 10)',
   },
-  fetchImage: {
+  fetchImage: (num: number) => ({
     code: 0,
     status: 200,
     msg: '请求成功',
-    data: `https://robohash.org/${Math.round(Math.random()*10)}`,
-  },
+    data: `https://robohash.org/${num}`,
+  }),
 }
