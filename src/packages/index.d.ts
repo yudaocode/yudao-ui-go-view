@@ -1,6 +1,12 @@
 import type { GlobalThemeJsonType } from '@/settings/chartThemes/index'
 import type { RequestConfigType } from '@/store/modules/chartEditStore/chartEditStore.d'
 
+export enum ChartFrameEnum {
+  COMMON = 'common',
+  ECHARTS = 'echarts',
+  NAIVE_UI = 'naiveUI'
+}
+
 // 组件配置
 export type ConfigType = {
   key: string
@@ -10,6 +16,7 @@ export type ConfigType = {
   category: string
   categoryName: string
   package: string
+  chartFrame?: ChartFrameEnum
   image: string | (() => Promise<typeof import('*.png')>)
 }
 
@@ -80,7 +87,7 @@ export interface CreateComponentType extends PublicConfigType {
 }
 
 // 获取组件实例类中某个key对应value类型的方法
-export type PickCreateComponentType<T extends keyof CreateComponentType> = Pick<CreateComponentType,T>[T]
+export type PickCreateComponentType<T extends keyof CreateComponentType> = Pick<CreateComponentType, T>[T]
 
 // 包分类枚举
 export enum PackagesCategoryEnum {

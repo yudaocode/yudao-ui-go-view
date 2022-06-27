@@ -33,15 +33,29 @@ export const indicatorPlacements = [
 
 export const option = {
   dataset: 36,
+  // 默认类型
   type: types[2].value,
+  // 进行时效果
+  processing: true,
+  // 主颜色
   color: '#4992FFFF',
+  // 轨道颜色
+  railColor: '#3e3e3f', 
+  // 指标
+  unit: '%',
+  // 指标大小
+  indicatorTextSize: 34,
   // 指标位置（线条时可用）
-  indicatorPlacement: "outside"
+  indicatorPlacement: 'outside',
+  // 指标颜色
+  indicatorTextColor: '#FFFFFFFF',
+  // 偏移角度
+  offsetDegree: 0
 }
 
 export default class Config extends publicConfig implements CreateComponentType {
   public key = ProcessConfig.key
-  public attr = {...chartInitConfig, h: 500, zIndex: -1}
+  public attr = { ...chartInitConfig, h: 500, zIndex: -1 }
   public chartConfig = cloneDeep(ProcessConfig)
   public option = cloneDeep(option)
 }

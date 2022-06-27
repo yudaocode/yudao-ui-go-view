@@ -308,7 +308,10 @@ watch(
 )
 
 // 数据更新 (默认更新 dataset，若更新之后有其它操作，可添加回调函数)
-useChartDataFetch(props.chartConfig, useChartEditStore)
+useChartDataFetch(props.chartConfig, useChartEditStore, (resData: any[]) => {
+  props.chartConfig.option.dataset = resData
+  onRestart()
+})
 
 onUnmounted(() => {
   stopAnimation()

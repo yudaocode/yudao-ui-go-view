@@ -2,7 +2,8 @@ import { echartOptionProfixHandle, publicConfig } from '@/packages/public'
 import { PieCircleConfig } from './index'
 import { CreateComponentType } from '@/packages/index.d'
 
-export const includes = ['legend']
+export const includes = []
+
 const option = {
   tooltip: {
     show: true,

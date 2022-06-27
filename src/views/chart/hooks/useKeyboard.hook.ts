@@ -75,9 +75,21 @@ const macKeyList: Array<string> = [
   macKeyboardValue.forward,
 ]
 
+// 处理键盘记录
+const keyRecordHandle = () => {
+  document.onkeydown = throttle((e: KeyboardEvent) => {
+    if(window.$KeyboardActive) window.$KeyboardActive.add(e.key.toLocaleLowerCase())
+    else window.$KeyboardActive = new Set([e.key])
+  }, 200)
+
+  document.onkeyup = throttle((e: KeyboardEvent) => {
+    if(window.$KeyboardActive) window.$KeyboardActive.delete(e.key.toLocaleLowerCase())
+  }, 200)
+}
+
 // 初始化监听事件
 export const useAddKeyboard = () => {
-  const switchHande = (keyboardValue: typeof winKeyboardValue, e: string) => {
+  const switchHandle = (keyboardValue: typeof winKeyboardValue, e: string) => {
     switch (e) {
       // ct+↑
       case keyboardValue.up:
@@ -124,15 +136,20 @@ export const useAddKeyboard = () => {
     }
   }
   winKeyList.forEach((key: string) => {
-    switchHande(winKeyboardValue, key)
+    switchHandle(winKeyboardValue, key)
   })
   macKeyList.forEach((key: string) => {
-    switchHande(macKeyboardValue, key)
+    switchHandle(macKeyboardValue, key)
   })
+
+  keyRecordHandle()
 }
 
 // 卸载监听事件
 export const useRemoveKeyboard = () => {
+  document.onkeydown = () => {};
+  document.onkeyup = () => {};
+
   winKeyList.forEach((key: string) => {
     keymaster.unbind(key)
   })

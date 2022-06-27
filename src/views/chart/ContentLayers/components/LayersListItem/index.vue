@@ -43,7 +43,8 @@ const { image } = toRefs(props.componentData.chartConfig)
 
 // 计算当前选中目标
 const select = computed(() => {
-  return props.componentData.id === chartEditStore.getTargetChart.selectId
+  const id = props.componentData.id
+  return chartEditStore.getTargetChart.selectId.find((e: string) => e === id)
 })
 
 const hover = computed(() => {

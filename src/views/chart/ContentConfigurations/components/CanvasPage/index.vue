@@ -236,7 +236,7 @@ const beforeUploadHandle = async ({ file }) => {
 // 清除背景
 const clearImage = () => {
   chartEditStore.setEditCanvasConfig(
-    EditCanvasConfigEnum.BACKGROUND_IAMGE,
+    EditCanvasConfigEnum.BACKGROUND_IMAGE,
     undefined
   )
   chartEditStore.setEditCanvasConfig(
@@ -274,7 +274,7 @@ const customRequest = (options: UploadCustomRequestOptions) => {
     if (file.file) {
       const ImageUrl = fileToUrl(file.file)
       chartEditStore.setEditCanvasConfig(
-        EditCanvasConfigEnum.BACKGROUND_IAMGE,
+        EditCanvasConfigEnum.BACKGROUND_IMAGE,
         ImageUrl
       )
       chartEditStore.setEditCanvasConfig(
