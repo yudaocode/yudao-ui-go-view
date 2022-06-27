@@ -13,6 +13,15 @@ import { HistoryActionTypeEnum, HistoryItemType, HistoryTargetTypeEnum } from '@
 // 画布枚举
 import { MenuEnum, SyncEnum } from '@/enums/editPageEnum'
 
+import { 
+  getUUID,
+  loadingStart,
+  loadingFinish,
+  loadingError,
+  isString,
+  isArray
+} from '@/utils'
+
 import {
   ProjectInfoType,
   ChartEditStoreEnum,
