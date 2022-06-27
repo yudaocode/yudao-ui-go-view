@@ -48,9 +48,7 @@ const dataHandle = (newData: any) => {
 // 配置时
 watch(
   () => props.chartConfig.option.dataset,
-  newData => {
-    dataHandle(newData)
-  },
+  newData => dataHandle(newData),
   {
     immediate: true
   }

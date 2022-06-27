@@ -6,7 +6,7 @@
       </span>
     </template>
     <span :style="`color:${numberColor};font-size:${numberSize}px`">
-      <n-number-animation :from="option.from" :to="option.to" :duration="dur * 1000" :show-separator="showSeparator"
+      <n-number-animation :from="option.from" :to="option.dataset" :duration="dur * 1000" :show-separator="showSeparator"
         :precision="precision"></n-number-animation>
     </span>
     <template #suffix>
@@ -31,7 +31,7 @@ const props = defineProps({
 })
 const option = reactive({
   from: 0,
-  to: 0,
+  dataset: 0,
 })
 const { w, h } = toRefs(props.chartConfig.attr)
 let {
@@ -48,8 +48,8 @@ let {
 
 const updateNumber = (newData: number) => {
   // 原来的目标值作为新的数字动画的起始值
-  option.from = option.to
-  option.to = newData
+  option.from = option.dataset
+  option.dataset = newData
 }
 
 watch(
@@ -60,14 +60,15 @@ watch(
 )
 
 watch(
-  () => props.chartConfig.option.to,
+  () => props.chartConfig.option.dataset,
   () => {
-    option.to = props.chartConfig.option.to
+    option.dataset = props.chartConfig.option.dataset
   }, { immediate: true }
 )
 
 useChartDataFetch(props.chartConfig, useChartEditStore, updateNumber)
 </script>
+
 <style lang="scss" scoped>
 @include go('decorates-number') {
   display: flex;

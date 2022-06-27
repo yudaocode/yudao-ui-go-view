@@ -3,7 +3,7 @@
     :type="type"
     :height="h"
     :processing="processing"
-    :percentage="dataset"
+    :percentage="option.dataset"
     :indicator-placement="indicatorPlacement"
     :color="color"
     :rail-color="railColor"
@@ -15,16 +15,16 @@
         fontSize: `${indicatorTextSize}px`
       }"
     >
-      {{dataset}} {{unit}}
+      {{option.dataset}} {{unit}}
     </n-text>
   </n-progress>
 </template>
 
 <script setup lang="ts">
-import { PropType, toRefs, watch } from 'vue'
+import { PropType, toRefs, watch, shallowReactive } from 'vue'
 import { useChartDataFetch } from '@/hooks'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import config from './config'
+import config, { option as configOption  } from './config'
 
 const props = defineProps({
   chartConfig: {
@@ -49,5 +49,19 @@ const {
   dataset
 } = toRefs(props.chartConfig.option)
 
-useChartDataFetch(props.chartConfig, useChartEditStore)
+const option = shallowReactive({
+  dataset: configOption.dataset
+})
+
+// 手动更新
+watch(
+  () => props.chartConfig.option.dataset,
+  (newData: any) => {
+    option.dataset = newData
+  }
+)
+// 预览更新
+useChartDataFetch(props.chartConfig, useChartEditStore, (newData: number) => {
+  option.dataset = newData
+})
 </script>

@@ -10,6 +10,7 @@ import { PropType, toRefs, shallowReactive, watch } from 'vue'
 import { CreateComponentType } from '@/packages/index.d'
 import { useChartDataFetch } from '@/hooks'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { option as configOption  } from './config'
 
 const props = defineProps({
   chartConfig: {
@@ -19,7 +20,7 @@ const props = defineProps({
 })
 
 const option = shallowReactive({
-  dataset: ''
+  dataset: configOption.dataset
 })
 
 const { w, h } = toRefs(props.chartConfig.attr)
@@ -30,8 +31,6 @@ watch(
   () => props.chartConfig.option.dataset,
   (newData: any) => {
     option.dataset = newData
-  }, {
-    immediate: true
   }
 )
 
