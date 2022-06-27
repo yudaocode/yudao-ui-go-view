@@ -3,7 +3,7 @@
     <SettingItemBox name="数值">
       <SettingItem name="终点值">
         <n-input-number
-          v-model:value="optionData.to"
+          v-model:value="optionData.dataset"
           size="small"
           :min="1"
         ></n-input-number>
