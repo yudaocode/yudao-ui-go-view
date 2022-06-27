@@ -123,7 +123,8 @@ const expandHindle = () => {
 
 const selectTarget = computed(() => {
   const selectId = chartEditStore.getTargetChart.selectId
-  if (!selectId) return undefined
+  // 排除多个
+  if (selectId.length !== 1) return undefined
   return chartEditStore.componentList[chartEditStore.fetchTargetIndex()]
 })
 

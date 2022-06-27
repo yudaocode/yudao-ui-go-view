@@ -4,19 +4,16 @@
     <!-- 锚点 -->
     <div
       :class="`shape-point ${point}`"
-      v-for="(point, index) in (select? pointList : [])"
+      v-for="(point, index) in select ? pointList : []"
       :key="index"
       :style="usePointStyle(point, index, item.attr, cursorResize)"
       @mousedown="useMousePointHandle($event, point, item.attr)"
-   ></div>
+    ></div>
 
     <!-- 选中 -->
     <div class="shape-modal" :style="useSizeStyle(item.attr)">
       <div class="shape-modal-select" :class="{ active: select }"></div>
-      <div
-        class="shape-modal-change"
-        :class="{ selectActive: select, hoverActive: hover }"
-     ></div>
+      <div class="shape-modal-change" :class="{ selectActive: select, hoverActive: hover }"></div>
     </div>
   </div>
 </template>
@@ -52,8 +49,10 @@ const hover = computed(() => {
   return props.item.id === chartEditStore.getTargetChart.hoverId
 })
 
+// 兼容多值场景
 const select = computed(() => {
-  return props.item.id === chartEditStore.getTargetChart.selectId
+  const id = props.item.id
+  return chartEditStore.getTargetChart.selectId.find((e: string) => e === id)
 })
 </script>
 
@@ -79,7 +78,7 @@ const select = computed(() => {
       width: 30px;
       transform: translate(-50%, -30%);
     }
-    &.l, 
+    &.l,
     &.r {
       height: 30px;
     }
@@ -89,9 +88,8 @@ const select = computed(() => {
     &.l {
       transform: translate(-45%, -50%);
     }
-    &.rt, 
-    &.rb
-    {
+    &.rt,
+    &.rb {
       transform: translate(-30%, -30%);
     }
   }
