@@ -172,7 +172,7 @@ export const useChartEditStore = defineStore({
         this.targetChart.selectId = []
         return
       }
-      // 新增
+      // 多选
       if(push) {
         // 字符串
         if(isString(selectId)) {

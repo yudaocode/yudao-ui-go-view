@@ -80,7 +80,9 @@ import {
   Scale as ScaleIcon,
   FitToScreen as FitToScreenIcon,
   FitToHeight as FitToHeightIcon,
-  FitToWidth as FitToWidthIcon
+  FitToWidth as FitToWidthIcon,
+  Carbon3DCursor as Carbon3DCursorIcon,
+  Carbon3DSoftware as Carbon3DSoftwareIcon
 } from '@vicons/carbon'
 
 const ionicons5 = {
@@ -234,7 +236,11 @@ const carbon = {
   ScaleIcon,
   FitToScreenIcon,
   FitToHeightIcon,
-  FitToWidthIcon
+  FitToWidthIcon,
+  // 成组
+  Carbon3DCursorIcon,
+  // 解组
+  Carbon3DSoftwareIcon
 }
 
 // https://www.xicons.org/#/ 还有很多

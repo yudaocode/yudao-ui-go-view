@@ -1,10 +1,7 @@
-import { DragKeyEnum } from '@/enums/editPageEnum'
+import { DragKeyEnum, MouseEventButton, WinKeyboard, MacKeyboard } from '@/enums/editPageEnum'
 import { createComponent } from '@/packages'
 import { ConfigType } from '@/packages/index.d'
-import {
-  CreateComponentType,
-  PickCreateComponentType,
-} from '@/packages/index.d'
+import { CreateComponentType, PickCreateComponentType } from '@/packages/index.d'
 import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
@@ -35,10 +32,7 @@ export const dragHandle = async (e: DragEvent) => {
     // 创建新图表组件
     let newComponent: CreateComponentType = await createComponent(dropData)
 
-    newComponent.setPosition(
-      e.offsetX - newComponent.attr.w / 2,
-      e.offsetY - newComponent.attr.h / 2
-    )
+    newComponent.setPosition(e.offsetX - newComponent.attr.w / 2, e.offsetY - newComponent.attr.h / 2)
     chartEditStore.addComponentList(newComponent, false, true)
     chartEditStore.setTargetSelectChart(newComponent.id)
     loadingFinish()
@@ -57,10 +51,7 @@ export const dragoverHandle = (e: DragEvent) => {
 }
 
 // * 不拦截默认行为点击
-export const mousedownHandleUnStop = (
-  e: MouseEvent,
-  item?: CreateComponentType
-) => {
+export const mousedownHandleUnStop = (e: MouseEvent, item?: CreateComponentType) => {
   if (item) {
     chartEditStore.setTargetSelectChart(item.id)
     return
@@ -70,13 +61,42 @@ export const mousedownHandleUnStop = (
 
 // * 移动图表
 export const useMouseHandle = () => {
-  // 点击事件（包含移动事件）
+  // *  Click 事件, 松开鼠标触发
+  const mouseClickHandle = (e: MouseEvent, item: CreateComponentType) => {
+    e.preventDefault()
+    e.stopPropagation()
+    // 若此时按下了 CTRL, 表示多选
+    if (
+      window.$KeyboardActive?.has(WinKeyboard.CTRL_SOURCE_KEY) ||
+      window.$KeyboardActive?.has(MacKeyboard.CTRL_SOURCE_KEY)
+    ) {
+      chartEditStore.setTargetSelectChart(item.id, true)
+    }
+  }
+
+  // * 按下事件（包含移动事件）
   const mousedownHandle = (e: MouseEvent, item: CreateComponentType) => {
     e.preventDefault()
     e.stopPropagation()
-
     onClickOutSide()
+
+    // 按下左键 + CTRL
+    if (
+      e.buttons === MouseEventButton.LEFT &&
+      (window.$KeyboardActive?.has(WinKeyboard.CTRL_SOURCE_KEY) ||
+        window.$KeyboardActive?.has(MacKeyboard.CTRL_SOURCE_KEY))
+    )
+      return
+
+    // 按下右键 + 选中多个
+    if (e.buttons === MouseEventButton.RIGHT && chartEditStore.getTargetChart.selectId.length > 1) return
+
+    // 选中当前目标组件
     chartEditStore.setTargetSelectChart(item.id)
+
+    // 按下右键
+    if (e.buttons === MouseEventButton.RIGHT) return
+
     const scale = chartEditStore.getEditCanvas.scale
     const width = chartEditStore.getEditCanvasConfig.width
     const height = chartEditStore.getEditCanvasConfig.height
@@ -141,15 +161,11 @@ export const useMouseHandle = () => {
     chartEditStore.setTargetHoverChart(undefined)
   }
 
-  return { mousedownHandle, mouseenterHandle, mouseleaveHandle }
+  return { mouseClickHandle, mousedownHandle, mouseenterHandle, mouseleaveHandle }
 }
 
 // * 移动锚点
-export const useMousePointHandle = (
-  e: MouseEvent,
-  point: string,
-  attr: PickCreateComponentType<'attr'>
-) => {
+export const useMousePointHandle = (e: MouseEvent, point: string, attr: PickCreateComponentType<'attr'>) => {
   e.stopPropagation()
   e.preventDefault()
 

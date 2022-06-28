@@ -77,14 +77,14 @@ const macKeyList: Array<string> = [
 
 // 处理键盘记录
 const keyRecordHandle = () => {
-  document.onkeydown = throttle((e: KeyboardEvent) => {
+  document.onkeydown = (e: KeyboardEvent) => {
     if(window.$KeyboardActive) window.$KeyboardActive.add(e.key.toLocaleLowerCase())
-    else window.$KeyboardActive = new Set([e.key])
-  }, 200)
+    else window.$KeyboardActive = new Set([e.key.toLocaleLowerCase()])
+  }
 
-  document.onkeyup = throttle((e: KeyboardEvent) => {
+  document.onkeyup = (e: KeyboardEvent) => {
     if(window.$KeyboardActive) window.$KeyboardActive.delete(e.key.toLocaleLowerCase())
-  }, 200)
+  }
 }
 
 // 初始化监听事件

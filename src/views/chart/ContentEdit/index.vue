@@ -27,6 +27,7 @@
             :index="index"
             :style="useComponentStyle(item.attr, index)"
             :item="item"
+            @click="mouseClickHandle($event, item)"
             @mousedown="mousedownHandle($event, item)"
             @mouseenter="mouseenterHandle($event, item)"
             @mouseleave="mouseleaveHandle($event, item)"
@@ -87,7 +88,7 @@ const { handleContextMenu } = useContextMenu()
 useLayout()
 
 // 点击事件
-const { mouseenterHandle, mouseleaveHandle, mousedownHandle } = useMouseHandle()
+const { mouseenterHandle, mouseleaveHandle, mousedownHandle, mouseClickHandle } = useMouseHandle()
 
 // 主题色
 const themeSetting = computed(() => {
