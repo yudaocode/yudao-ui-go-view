@@ -2,9 +2,14 @@ import type { GlobalThemeJsonType } from '@/settings/chartThemes/index'
 import type { RequestConfigType } from '@/store/modules/chartEditStore/chartEditStore.d'
 
 export enum ChartFrameEnum {
-  COMMON = 'common',
+  // echarts 框架
   ECHARTS = 'echarts',
-  NAIVE_UI = 'naiveUI'
+  // UI 组件框架
+  NAIVE_UI = 'naiveUI',
+  // 自定义带数据组件
+  COMMON = 'common',
+  // 无数据变更
+  STATIC = 'static'
 }
 
 // 组件配置
@@ -77,6 +82,7 @@ export interface PublicConfigType extends requestConfig {
     // 动画
     animations: string[]
   }
+  filter?: string
   setPosition: Function
 }
 

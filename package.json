@@ -20,6 +20,7 @@
     "highlight.js": "^11.5.0",
     "html2canvas": "^1.4.1",
     "keymaster": "^1.6.2",
+    "monaco-editor": "^0.33.0",
     "naive-ui": "2.30.3",
     "pinia": "^2.0.13",
     "screenfull": "^6.0.1",

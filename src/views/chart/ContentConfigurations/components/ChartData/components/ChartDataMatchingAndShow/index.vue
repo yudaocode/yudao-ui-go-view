@@ -1,6 +1,6 @@
 <template>
   <n-timeline class="go-chart-configurations-timeline">
-    <n-timeline-item v-if="isCharts && dimensionsAndSource" type="info" :title="TimelineTitleEnum.MAPPING">
+    <n-timeline-item v-show="isCharts && dimensionsAndSource" type="info" :title="TimelineTitleEnum.MAPPING">
       <n-table striped>
         <thead>
           <tr>
@@ -24,6 +24,12 @@
           </tr>
         </tbody>
       </n-table>
+    </n-timeline-item>
+    <n-timeline-item v-show="filterShow" color="#97846c" :title="TimelineTitleEnum.FILTER">
+      <n-space vertical>
+        <n-text depth="3">点击{{ targetData.filter ? '「编辑」' : '「新增」' }}查看过滤规则</n-text>
+        <chart-data-monaco-editor></chart-data-monaco-editor>
+      </n-space>
     </n-timeline-item>
     <n-timeline-item type="success" :title="TimelineTitleEnum.CONTENT">
       <n-space vertical>
@@ -55,7 +61,7 @@
               </template>
               下载
             </n-button>
-           <n-tooltip trigger="hover">
+            <n-tooltip trigger="hover">
               <template #trigger>
                 <n-icon class="go-ml-1" size="21" :depth="3">
                   <help-outline-icon></help-outline-icon>
@@ -65,8 +71,8 @@
             </n-tooltip>
           </div>
         </n-space>
-        <n-card>
-          <n-code :code="getSource" language="json"></n-code>
+        <n-card size="small">
+          <n-code :code="filterRes(getSource)" language="json"></n-code>
         </n-card>
       </n-space>
     </n-timeline-item>
@@ -76,14 +82,21 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 import { CreateComponentType, PackagesCategoryEnum } from '@/packages/index.d'
+import { RequestDataTypeEnum } from '@/enums/httpEnum'
 import { icon } from '@/plugins'
 import { DataResultEnum, TimelineTitleEnum } from '../../index.d'
+import { ChartDataMonacoEditor } from '../ChartDataMonacoEditor'
 import { useFile } from '../../hooks/useFile.hooks'
 import { useTargetData } from '../../../hooks/useTargetData.hook'
 import isObject from 'lodash/isObject'
-const { targetData } = useTargetData()
+import cloneDeep from 'lodash/cloneDeep'
 
+const { targetData } = useTargetData()
 const props = defineProps({
+  show: {
+    type: Boolean,
+    required: false
+  },
   ajax: {
     type: Boolean,
     required: true
@@ -101,6 +114,16 @@ const dimensions = ref()
 const dimensionsAndSource = ref()
 
 const { uploadFileListRef, customRequest, beforeUpload, download } = useFile(targetData)
+
+// 是否展示过滤器
+const filterShow = computed(() => {
+  return targetData.value.data.requestDataType === RequestDataTypeEnum.AJAX
+})
+
+// 字符串处理
+const dataToString = (str: any) => {
+  return isObject(str) ? JSON.stringify(str) : str
+}
 
 // 是图表类型
 const isCharts = computed(() => {
@@ -129,47 +152,68 @@ const dimensionsAndSourceHandle = () => {
   try {
     // 去除首项数据轴标识
     return dimensions.value.map((dimensionsItem: string, index: number) => {
-      return index === 0 ?
-        {
-          // 字段
-          field: '通用标识',
-          // 映射
-          mapping: dimensionsItem,
-          // 结果
-          result: DataResultEnum.NULL
-        } : {
-          field: `数据项-${index}`,
-          mapping: dimensionsItem,
-          result: matchingHandle(dimensionsItem)
-        }
+      return index === 0
+        ? {
+            // 字段
+            field: '通用标识',
+            // 映射
+            mapping: dimensionsItem,
+            // 结果
+            result: DataResultEnum.NULL
+          }
+        : {
+            field: `数据项-${index}`,
+            mapping: dimensionsItem,
+            result: matchingHandle(dimensionsItem)
+          }
     })
   } catch (error) {
     return []
   }
 }
 
-watch(() => targetData.value?.option?.dataset, (newData: {
-  source: any,
-  dimensions: any
-} | null) => {
-  if (newData && isObject(newData)) {
-    // 只有 Echarts 数据才有对应的格式
-    source.value = isCharts.value ? newData.source : newData
-    if (isCharts.value) {
-      dimensions.value = newData.dimensions
-      dimensionsAndSource.value = dimensionsAndSourceHandle()
+// 过滤结果
+const filterRes = (data: any) => {
+  try {
+    if(targetData.value.filter) {
+      const fn = new Function('data', targetData.value.filter)
+      const res = fn(cloneDeep(data))
+      return dataToString(res)
     }
-  } else {
-    dimensionsAndSource.value = null
-    source.value = newData
+    return data
+  } catch (error) {
+    return '过滤函数错误'
   }
-}, {
-  immediate: true
-})
+}
+
+watch(
+  () => targetData.value?.option?.dataset,
+  (
+    newData: {
+      source: any
+      dimensions: any
+    } | null
+  ) => {
+    if (newData && isObject(newData)) {
+      // 只有 Echarts 数据才有对应的格式
+      source.value = newData
+      if (isCharts.value) {
+        dimensions.value = newData.dimensions
+        dimensionsAndSource.value = dimensionsAndSourceHandle()
+      }
+    } else {
+      dimensionsAndSource.value = null
+      source.value = newData
+    }
+  },
+  {
+    immediate: true
+  }
+)
 </script>
 
 <style lang="scss" scoped>
-@include go("chart-configurations-timeline") {
+@include go('chart-configurations-timeline') {
   @include deep() {
     pre {
       white-space: pre-wrap;

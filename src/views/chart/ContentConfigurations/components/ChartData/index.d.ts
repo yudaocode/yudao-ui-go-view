@@ -8,6 +8,7 @@ export enum DataResultEnum {
 }
 
 export enum TimelineTitleEnum {
+  FILTER = '数据过滤',
   MAPPING = '数据映射',
   CONTENT = '数据内容',
 }

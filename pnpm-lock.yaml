@@ -34,6 +34,7 @@ specifiers:
   keymaster: ^1.6.2
   lodash: ~4.17.21
   mockjs: ^1.1.0
+  monaco-editor: ^0.33.0
   naive-ui: 2.30.3
   pinia: ^2.0.13
   plop: ^3.0.5
@@ -68,6 +69,7 @@ dependencies:
   highlight.js: 11.5.1
   html2canvas: 1.4.1
   keymaster: 1.6.2
+  monaco-editor: 0.33.0
   naive-ui: 2.30.3_vue@3.2.37
   pinia: 2.0.14_vcmyupim4cga7k7f5hngmth5py
   screenfull: 6.0.1
@@ -3755,6 +3757,10 @@ packages:
     dependencies:
       commander: 9.3.0
     dev: true
+
+  /monaco-editor/0.33.0:
+    resolution: {integrity: sha512-VcRWPSLIUEgQJQIE0pVT8FcGBIgFoxz7jtqctE+IiCxWugD0DwgyQBcZBhdSrdMC84eumoqMZsGl2GTreOzwqw==}
+    dev: false
 
   /ms/2.0.0:
     resolution: {integrity: sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A==}

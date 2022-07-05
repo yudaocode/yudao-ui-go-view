@@ -45,6 +45,8 @@ export class publicConfig implements PublicConfigType {
   public data = { ...requestConfig }
   // 数据获取
   public requestData = []
+  // 数据过滤
+  public filter = undefined
 
   // 设置坐标
   public setPosition(x: number, y: number): void {

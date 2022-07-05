@@ -74,7 +74,6 @@ const dataHandle = (newData: number) => {
 watch(
   () => props.chartConfig.option.dataset,
   newData => {
-    console.log(dataHandle(newData))
     props.chartConfig.option.series[0].data = [dataHandle(newData)]
     option.value = props.chartConfig.option
   },
