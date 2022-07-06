@@ -1,5 +1,5 @@
 <template>
-  <div ref="el" class="editor-area" :style="{ width, height }"></div>
+  <div ref="el" class="go-editor-area" :style="{ width, height }"></div>
   <EditorWorker></EditorWorker>
 </template>
 
@@ -65,12 +65,28 @@ watch(
 </script>
 
 <style lang="scss" scoped>
-.editor-area {
+.go-editor-area {
   position: relative;
   border-radius: 4px;
   overflow: hidden;
   padding: 5px;
   padding-left: 0;
   box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0);
+  @include deep() {
+    .margin,
+    .monaco-editor,
+    .inputarea.ime-input {
+      background-color: rgba(0, 0, 0, 0);
+    }
+
+    .monaco-editor-background {
+      background-color: rgba(0, 0, 0, 0);
+      @include fetch-bg-color('filter-color-shallow');
+    }
+    .margin {
+      @include fetch-bg-color('filter-color-shallow');
+    }
+  }
 }
 </style>

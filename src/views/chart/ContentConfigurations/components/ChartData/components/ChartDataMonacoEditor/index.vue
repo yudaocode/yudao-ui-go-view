@@ -90,7 +90,7 @@
               </template>
               规则
             </n-tag>
-            <n-text class="go-ml-2" depth="3">过滤器将对接口返回值的「data」字段进行处理</n-text>
+            <n-text class="go-ml-2" depth="2">过滤器将对接口返回值的「data」字段进行处理</n-text>
           </div>
 
           <n-space>
