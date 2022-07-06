@@ -53,7 +53,8 @@ import {
   ArrowForward as ArrowForwardIcon,
   Planet as PawIcon,
   Search as SearchIcon,
-  Reload as ReloadIcon
+  Reload as ReloadIcon,
+  Filter as FilterIcon
 } from '@vicons/ionicons5'
 
 import {
@@ -194,7 +195,9 @@ const ionicons5 = {
   // 搜索（放大镜）
   SearchIcon,
   // 加载
-  ReloadIcon
+  ReloadIcon,
+  // 过滤
+  FilterIcon
 }
 
 const carbon = {
