@@ -1,6 +1,6 @@
 {
   "name": "go-view",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "scripts": {
     "dev": "vite --host",
     "build": "vue-tsc --noEmit && vite build",
@@ -20,7 +20,8 @@
     "highlight.js": "^11.5.0",
     "html2canvas": "^1.4.1",
     "keymaster": "^1.6.2",
-    "naive-ui": "^2.30.3",
+    "monaco-editor": "^0.33.0",
+    "naive-ui": "2.30.3",
     "pinia": "^2.0.13",
     "screenfull": "^6.0.1",
     "vue": "^3.2.31",
@@ -63,6 +64,7 @@
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-importer": "^0.2.5",
     "vite-plugin-mock": "^2.9.6",
+    "vite-plugin-monaco-editor": "^1.1.0",
     "vue-echarts": "^6.0.2",
     "vue-tsc": "^0.28.10"
   }

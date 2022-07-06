@@ -24,7 +24,7 @@ export const getFilterStyle = (styles: StylesType | EditCanvasConfigType) => {
 }
 
 // 变换
-export const getTranstormStyle = (styles: StylesType) => {
+export const getTransformStyle = (styles: StylesType) => {
   const { rotateZ, rotateX, rotateY, skewX, skewY } = styles
   return {
     transform: `rotateZ(${rotateZ || 0}deg) rotateX(${rotateX || 0}deg) rotateY(${rotateY || 0}deg) skewX(${skewX || 0}deg) skewY(${skewY || 0}deg)`,
