@@ -72,7 +72,7 @@
           </div>
         </n-space>
         <n-card size="small">
-          <n-code :code="filterRes(getSource)" language="json"></n-code>
+          <n-code :code="filterRes(source)" language="json"></n-code>
         </n-card>
       </n-space>
     </n-timeline-item>
@@ -126,11 +126,6 @@ const isCharts = computed(() => {
   return targetData.value.chartConfig.package === PackagesCategoryEnum.CHARTS
 })
 
-// 获取数据
-const getSource = computed(() => {
-  return JSON.stringify(source.value)
-})
-
 // 处理映射列表状态结果
 const matchingHandle = (mapping: string) => {
   let res = DataResultEnum.SUCCESS
@@ -176,7 +171,7 @@ const filterRes = (data: any) => {
       const res = fn(cloneDeep(data))
       return toString(res)
     }
-    return data
+    return toString(cloneDeep(data))
   } catch (error) {
     return '过滤函数错误'
   }

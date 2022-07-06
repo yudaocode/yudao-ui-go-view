@@ -68,13 +68,13 @@
               <div class="editor-data-show">
                 <n-space>
                   <n-text depth="3">目标数据：</n-text>
-                  <n-code :code="toString(sourceData)" language="typescript" :word-wrap="true"></n-code>
+                  <n-code :code="toString(sourceData)" language="json" :word-wrap="true"></n-code>
                 </n-space>
               </div>
               <div class="editor-data-show">
                 <n-space>
                   <n-text depth="3">过滤器结果：</n-text>
-                  <n-code :code="filterRes" language="typescript" :word-wrap="true"></n-code>
+                  <n-code :code="filterRes" language="json" :word-wrap="true"></n-code>
                 </n-space>
               </div>
             </n-space>
@@ -140,7 +140,6 @@ const fetchTargetData = async () => {
     const res = await http(requestHttpType)(completePath || '', {})
     if (res.status === ResultEnum.SUCCESS) {
       sourceData.value = res.data
-      console.log(sourceData.value)
       return
     }
   } catch (error) {
@@ -154,7 +153,7 @@ const filterRes = computed(() => {
     const fn = new Function('data', filter.value)
     const res = fn(cloneDeep(sourceData.value))
     errorFlag.value = false
-    return JSON.stringify(res)
+    return toString(res)
   } catch (error) {
     errorFlag.value = true
     return '过滤函数错误'

@@ -5,7 +5,7 @@ import throttle from 'lodash/throttle'
 import Image_404 from '../assets/images/exception/image-404.png'
 import html2canvas from 'html2canvas'
 import { downloadByA } from './file'
-import { isString } from './type'
+import { toString } from './type'
 import cloneDeep from 'lodash/cloneDeep';
 
 /**
@@ -196,7 +196,7 @@ export const canvasCut = (html: HTMLElement | null, callback?: Function) => {
 export const newFunctionHandle = (
   data: any,
   funcStr?: string,
-  toString?: boolean,
+  isToString?: boolean,
   errorCallBack?: Function,
   successCallBack?: Function
 ) => {
@@ -204,7 +204,7 @@ export const newFunctionHandle = (
     if (!funcStr) return data
     const fn = new Function('data', funcStr)
     const fnRes = fn( cloneDeep(data))
-    const resHandle = toString && isString(fnRes) ? fnRes : JSON.stringify(fnRes) 
+    const resHandle = isToString ? toString(fnRes) : fnRes
     // 成功回调
     successCallBack && successCallBack(resHandle)
     return resHandle
