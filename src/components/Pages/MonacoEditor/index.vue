@@ -1,10 +1,12 @@
 <template>
   <div ref="el" class="editor-area" :style="{ width, height }"></div>
+  <EditorWorker></EditorWorker>
 </template>
 
 <script lang="ts" setup>
 import { onMounted, watch, PropType } from 'vue'
 import { useMonacoEditor } from './index.hook'
+import { EditorWorker } from './index'
 
 const props = defineProps({
   width: {
@@ -17,7 +19,7 @@ const props = defineProps({
   },
   language: {
     type: String as PropType<string>,
-    default: 'javascript'
+    default: 'typescript'
   },
   preComment: {
     type: String as PropType<string>,
