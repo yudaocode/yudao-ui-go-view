@@ -52,7 +52,8 @@ import {
   ArrowBack as ArrowBackIcon,
   ArrowForward as ArrowForwardIcon,
   Planet as PawIcon,
-  Search as SearchIcon
+  Search as SearchIcon,
+  Filter as FilterIcon
 } from '@vicons/ionicons5'
 
 import {
@@ -190,7 +191,9 @@ const ionicons5 = {
   // 狗爪
   PawIcon,
   // 搜索（放大镜）
-  SearchIcon
+  SearchIcon,
+  // 过滤器
+  FilterIcon
 }
 
 const carbon = {

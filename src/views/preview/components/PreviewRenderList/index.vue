@@ -7,7 +7,7 @@
     :style="{ 
       ...getComponentAttrStyle(item.attr, index),
       ...getFilterStyle(item.styles),
-      ...getTranstormStyle(item.styles)
+      ...getTransformStyle(item.styles)
     }"
   >
     <component
@@ -24,7 +24,7 @@
 import { PropType, computed } from 'vue'
 import { ChartEditStorageType } from '../../index.d'
 import { chartColors } from '@/settings/chartThemes/index'
-import { animationsClass, getFilterStyle, getTranstormStyle } from '@/utils'
+import { animationsClass, getFilterStyle, getTransformStyle } from '@/utils'
 import { getSizeStyle, getComponentAttrStyle } from '../../utils'
 
 const props = defineProps({
