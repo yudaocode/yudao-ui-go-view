@@ -56,9 +56,11 @@
           <div>
             <n-space vertical>
               <n-text depth="3">// 数据参数 => data </n-text>
-              <p><span class="func-keyword">function</span>&nbsp;&nbsp;filter(data)&nbsp;&nbsp;{</p>
-              <monaco-editor width="460px" height="380px" v-model:modelValue="filter" language="json" />
-              <p>}</p>
+              <n-tag type="info">
+                <span class="func-keyword">function</span>&nbsp;&nbsp;filter(data)&nbsp;&nbsp;{
+              </n-tag>
+              <monaco-editor v-model:modelValue="filter" width="460px" height="380px" language="javascript" />
+              <n-tag type="info">}</n-tag>
             </n-space>
           </div>
           <n-divider vertical style="height: 480px" />
@@ -171,9 +173,6 @@ const saveFilter = () => {
   targetData.value.filter = filter.value
   closeFilter()
 }
-
-// 执行过滤处理
-const filterData = (data: any) => {}
 </script>
 
 <style lang="scss" scoped>

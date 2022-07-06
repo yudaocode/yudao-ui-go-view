@@ -1,75 +1,65 @@
 <template>
-  <div class="editor-area" :style="{ width, height }">
-  </div>
+  <div ref="el" class="editor-area" :style="{ width, height }"></div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, ref } from 'vue'
+<script lang="ts" setup>
+import { onMounted, watch, PropType } from 'vue'
 import { useMonacoEditor } from './index.hook'
 
-export default defineComponent({
-  props: {
-    width: {
-      type: String,
-      default: '100%'
-    },
-    height: {
-      type: String,
-      default: '90vh'
-    },
-    language: {
-      type: String,
-      default: 'json'
-    },
-    preComment: {
-      type: String,
-      default: ''
-    },
-    modelValue: {
-      type: String,
-      default: ''
-    },
-    editorOptions: {
-      type: Object,
-      default: () => ({})
-    },
+const props = defineProps({
+  width: {
+    type: String as PropType<string>,
+    default: '100%'
   },
-  watch: {
-    modelValue(val) {
-      val !== this.getEditor()?.getValue() && this.updateMonacoVal(val)
-    }
+  height: {
+    type: String as PropType<string>,
+    default: '90vh'
   },
-  setup(props) {
-    const { updateVal, getEditor, createEditor, onFormatDoc } = useMonacoEditor(props.language)
-    const isFull = ref(false)
-    return {
-      isFull,
-      updateVal,
-      getEditor,
-      createEditor,
-      onFormatDoc
-    }
+  language: {
+    type: String as PropType<string>,
+    default: 'javascript'
   },
-  methods: {
-    updateMonacoVal(_val?: string) {
-      const { modelValue, preComment } = this.$props
-      const val = preComment ? `${preComment}\n${_val || modelValue}` : (_val || modelValue)
-      this.updateVal(val)
-    }
+  preComment: {
+    type: String as PropType<string>,
+    default: ''
   },
-  mounted() {
-    if (this.$el) {
-      const monacoEditor = this.createEditor(this.$el, this.$props.editorOptions)
-      this.updateMonacoVal()
-      monacoEditor!.onDidChangeModelContent(() => {
-        this.$emit('update:modelValue', monacoEditor!.getValue())
-      })
-      monacoEditor!.onDidBlurEditorText(() => {
-        this.$emit('blur')
-      })
-    }
+  modelValue: {
+    type: String as PropType<string>,
+    default: ''
+  },
+  editorOptions: {
+    type: Object as PropType<object>,
+    default: () => ({})
   }
 })
+
+const emits = defineEmits(['blur', 'update:modelValue'])
+
+const { el, updateVal, getEditor, createEditor } = useMonacoEditor(props.language)
+
+const updateMonacoVal = (_val?: string) => {
+  const { modelValue, preComment } = props
+  const val = preComment ? `${preComment}\n${_val || modelValue}` : _val || modelValue
+  updateVal(val)
+}
+
+onMounted(() => {
+  const monacoEditor = createEditor(props.editorOptions)
+  monacoEditor!.onDidChangeModelContent(() => {
+    emits('update:modelValue', monacoEditor!.getValue())
+  })
+  monacoEditor!.onDidBlurEditorText(() => {
+    emits('blur')
+  })
+  updateMonacoVal()
+})
+
+watch(
+  () => props.modelValue,
+  (val: string) => {
+    val !== getEditor()?.getValue() && updateMonacoVal(val)
+  }
+)
 </script>
 
 <style lang="scss" scoped>
