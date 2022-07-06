@@ -40,7 +40,6 @@ const {
   type,
   unit,
   color,
-  fontSize,
   processing,
   railColor,
   indicatorTextColor,
