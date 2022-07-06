@@ -204,7 +204,7 @@ export const newFunctionHandle = (
     if (!funcStr) return data
     const fn = new Function('data', funcStr)
     const fnRes = fn( cloneDeep(data))
-    const resHandle = toString && isString(fnRes) ? JSON.stringify(fnRes) : fnRes
+    const resHandle = toString && isString(fnRes) ? fnRes : JSON.stringify(fnRes) 
     // 成功回调
     successCallBack && successCallBack(resHandle)
     return resHandle

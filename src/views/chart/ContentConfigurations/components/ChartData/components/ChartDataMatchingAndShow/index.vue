@@ -90,6 +90,7 @@ import { useFile } from '../../hooks/useFile.hooks'
 import { useTargetData } from '../../../hooks/useTargetData.hook'
 import isObject from 'lodash/isObject'
 import cloneDeep from 'lodash/cloneDeep'
+import { toString } from '@/utils'
 
 const { targetData } = useTargetData()
 const props = defineProps({
@@ -119,11 +120,6 @@ const { uploadFileListRef, customRequest, beforeUpload, download } = useFile(tar
 const filterShow = computed(() => {
   return targetData.value.data.requestDataType === RequestDataTypeEnum.AJAX
 })
-
-// 字符串处理
-const dataToString = (str: any) => {
-  return isObject(str) ? JSON.stringify(str) : str
-}
 
 // 是图表类型
 const isCharts = computed(() => {
@@ -178,7 +174,7 @@ const filterRes = (data: any) => {
     if(targetData.value.filter) {
       const fn = new Function('data', targetData.value.filter)
       const res = fn(cloneDeep(data))
-      return dataToString(res)
+      return toString(res)
     }
     return data
   } catch (error) {

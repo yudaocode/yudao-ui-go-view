@@ -55,7 +55,6 @@
         <n-space justify="space-between">
           <div>
             <n-space vertical>
-              <n-text depth="3">// 数据参数 => data </n-text>
               <n-tag type="info">
                 <span class="func-keyword">function</span>&nbsp;&nbsp;filter(data)&nbsp;&nbsp;{
               </n-tag>
@@ -69,11 +68,7 @@
               <div class="editor-data-show">
                 <n-space>
                   <n-text depth="3">目标数据：</n-text>
-                  <n-code
-                    :code="dataToString(targetData.option.dataset)"
-                    language="typescript"
-                    :word-wrap="true"
-                  ></n-code>
+                  <n-code :code="toString(sourceData)" language="typescript" :word-wrap="true"></n-code>
                 </n-space>
               </div>
               <div class="editor-data-show">
@@ -109,15 +104,19 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch, toRefs } from 'vue'
 import { MonacoEditor } from '@/components/Pages/MonacoEditor'
 import { useTargetData } from '../../../hooks/useTargetData.hook'
+import { RequestHttpEnum, RequestDataTypeEnum, ResultEnum } from '@/enums/httpEnum'
 import { icon } from '@/plugins'
-import { goDialog, isString } from '@/utils'
+import { goDialog, toString } from '@/utils'
+import { http } from '@/api/http'
 import cloneDeep from 'lodash/cloneDeep'
 
 const { PencilIcon, TrashIcon, FilterIcon, DocumentTextIcon } = icon.ionicons5
 const { targetData, chartEditStore } = useTargetData()
+const { requestDataType } = toRefs(targetData.value.data)
+const { requestOriginUrl } = toRefs(chartEditStore.getRequestGlobalConfig)
 
 // 受控弹窗
 const showModal = ref(false)
@@ -125,17 +124,35 @@ const showModal = ref(false)
 const filter = ref(targetData.value.filter || `return data`)
 // 过滤错误标识
 const errorFlag = ref(false)
+// 目标静态/接口数据
+const sourceData = ref<any>('')
 
-// 字符串处理
-const dataToString = (str: any) => {
-  return isString(str) ? str : JSON.stringify(str)
+// 动态获取数据
+const fetchTargetData = async () => {
+  try {
+    const { requestUrl, requestHttpType } = targetData.value.data
+    if (!requestUrl) {
+      window['$message'].warning('请求参数不正确，请检查！')
+      sourceData.value = '请求参数不正确，请检查！'
+      return
+    }
+    const completePath = requestOriginUrl && requestOriginUrl.value + requestUrl
+    const res = await http(requestHttpType)(completePath || '', {})
+    if (res.status === ResultEnum.SUCCESS) {
+      sourceData.value = res.data
+      console.log(sourceData.value)
+      return
+    }
+  } catch (error) {
+    window['$message'].warning('数据异常，请检查接口数据！')
+  }
 }
 
 // 过滤结果
 const filterRes = computed(() => {
   try {
     const fn = new Function('data', filter.value)
-    const res = fn(cloneDeep(targetData.value.option.dataset))
+    const res = fn(cloneDeep(sourceData.value))
     errorFlag.value = false
     return JSON.stringify(res)
   } catch (error) {
@@ -173,6 +190,13 @@ const saveFilter = () => {
   targetData.value.filter = filter.value
   closeFilter()
 }
+
+watch(
+  () => showModal.value,
+  (newData: boolean) => {
+    if (newData) fetchTargetData()
+  }
+)
 </script>
 
 <style lang="scss" scoped>

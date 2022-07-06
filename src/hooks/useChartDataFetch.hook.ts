@@ -45,14 +45,15 @@ export const useChartDataFetch = (
         const res: any = await http(requestHttpType.value)(completePath || '', {})
         if (res.data) {
           try {
+            const filter = targetComponent.filter
             // 更新回调函数
             if (updateCallback) {
-              updateCallback(res.data)
+              updateCallback(newFunctionHandle(res.data, filter))
             } else {
               // eCharts 组件配合 vChart 库更新方式
               if (chartFrame === ChartFrameEnum.ECHARTS) {
                 if (vChartRef.value) {
-                  const filter = targetComponent.filter
+                  
                   vChartRef.value.setOption({ dataset: newFunctionHandle(res.data, filter) })
                 }
               }

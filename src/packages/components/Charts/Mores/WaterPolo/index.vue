@@ -10,7 +10,7 @@ import 'echarts-liquidfill/src/liquidFill.js'
 import { CanvasRenderer } from 'echarts/renderers'
 import { GridComponent } from 'echarts/components'
 import config from './config'
-import { isPreview } from '@/utils'
+import { isPreview, isString } from '@/utils'
 import { chartColorsSearch, defaultTheme } from '@/settings/chartThemes/index'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { useChartDataFetch } from '@/hooks'
@@ -66,7 +66,8 @@ watch(
 )
 
 // 数据处理
-const dataHandle = (newData: number) => {
+const dataHandle = (newData: number | string) => {
+  newData = isString(newData) ? parseFloat(newData) : newData
   return parseFloat(newData.toFixed(2))
 }
 
