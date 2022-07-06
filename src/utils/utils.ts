@@ -5,6 +5,8 @@ import throttle from 'lodash/throttle'
 import Image_404 from '../assets/images/exception/image-404.png'
 import html2canvas from 'html2canvas'
 import { downloadByA } from './file'
+import { toString } from './type'
+import cloneDeep from 'lodash/cloneDeep';
 
 /**
  * * 判断是否是开发环境
@@ -19,9 +21,7 @@ export const isDev = () => {
  * @param { Number } randomLength
  */
 export const getUUID = (randomLength = 10) => {
-  return Number(
-    Math.random().toString().substr(2, randomLength) + Date.now()
-  ).toString(36)
+  return Number(Math.random().toString().substr(2, randomLength) + Date.now()).toString(36)
 }
 
 /**
@@ -90,10 +90,7 @@ export const screenfullFn = (isFullscreen?: boolean, isEnabled?: boolean) => {
  * @param key 键名
  * @param value 键值
  */
-export const setDomAttribute = <
-  K extends keyof CSSStyleDeclaration,
-  V extends CSSStyleDeclaration[K]
->(
+export const setDomAttribute = <K extends keyof CSSStyleDeclaration, V extends CSSStyleDeclaration[K]>(
   HTMLElement: HTMLElement,
   key: K,
   value: V
@@ -149,7 +146,7 @@ export const addEventListener = <K extends keyof WindowEventMap>(
     type,
     throttle(listener, delay || 300, {
       leading: true,
-      trailing: false,
+      trailing: false
     }),
     options
   )
@@ -185,4 +182,35 @@ export const canvasCut = (html: HTMLElement | null, callback?: Function) => {
     downloadByA(canvas.toDataURL(), undefined, 'png')
     if (callback) callback()
   })
+}
+
+/**
+ * * 函数过滤器
+ * @param data 数据值
+ * @param funcStr 函数字符串
+ * @param toString 转为字符串
+ * @param errorCallBack 错误回调函数
+ * @param successCallBack 成功回调函数
+ * @returns
+ */
+export const newFunctionHandle = (
+  data: any,
+  funcStr?: string,
+  isToString?: boolean,
+  errorCallBack?: Function,
+  successCallBack?: Function
+) => {
+  try {
+    if (!funcStr) return data
+    const fn = new Function('data', funcStr)
+    const fnRes = fn( cloneDeep(data))
+    const resHandle = isToString ? toString(fnRes) : fnRes
+    // 成功回调
+    successCallBack && successCallBack(resHandle)
+    return resHandle
+  } catch (error) {
+    // 失败回调
+    errorCallBack && errorCallBack(error)
+    return '函数执行错误'
+  }
 }

@@ -167,6 +167,9 @@ export const useChartEditStore = defineStore({
     },
     // * 设置目标数据 select
     setTargetSelectChart(selectId?: string | string[], push: boolean = false) {
+      // 重复选中
+      if(this.targetChart.selectId.find((e: string) => e === selectId)) return
+
       // 无 id 清空
       if(!selectId) {
         this.targetChart.selectId = []

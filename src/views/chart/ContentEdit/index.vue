@@ -43,7 +43,7 @@
               :style="{
                 ...useSizeStyle(item.attr),
                 ...getFilterStyle(item.styles),
-                ...getTranstormStyle(item.styles),
+                ...getTransformStyle(item.styles),
               }"
             ></component>
           </edit-shape-box>
@@ -66,7 +66,7 @@
 <script lang="ts" setup>
 import { onMounted, computed } from 'vue'
 import { chartColors } from '@/settings/chartThemes/index'
-import { animationsClass, getFilterStyle, getTranstormStyle } from '@/utils'
+import { animationsClass, getFilterStyle, getTransformStyle } from '@/utils'
 import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 
