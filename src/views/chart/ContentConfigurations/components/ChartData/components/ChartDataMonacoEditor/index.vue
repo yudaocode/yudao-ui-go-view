@@ -30,16 +30,14 @@
     </n-card>
   </template>
   <template v-else>
-    <n-space justify="space-around">
-      <n-button @click="addFilter">
-        <template #icon>
-          <n-icon>
-            <filter-icon />
-          </n-icon>
-        </template>
-        新增过滤器
-      </n-button>
-    </n-space>
+    <n-button @click="addFilter">
+      <template #icon>
+        <n-icon>
+          <filter-icon />
+        </n-icon>
+      </template>
+      新增过滤器
+    </n-button>
   </template>
 
   <!-- 弹窗 -->
