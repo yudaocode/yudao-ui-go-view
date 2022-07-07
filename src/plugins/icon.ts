@@ -53,7 +53,6 @@ import {
   ArrowForward as ArrowForwardIcon,
   Planet as PawIcon,
   Search as SearchIcon,
-  Filter as FilterIcon
 } from '@vicons/ionicons5'
 
 import {
@@ -83,7 +82,9 @@ import {
   FitToHeight as FitToHeightIcon,
   FitToWidth as FitToWidthIcon,
   Carbon3DCursor as Carbon3DCursorIcon,
-  Carbon3DSoftware as Carbon3DSoftwareIcon
+  Carbon3DSoftware as Carbon3DSoftwareIcon,
+  Filter as FilterIcon,
+  FilterEdit as FilterEditIcon
 } from '@vicons/carbon'
 
 const ionicons5 = {
@@ -243,7 +244,10 @@ const carbon = {
   // 成组
   Carbon3DCursorIcon,
   // 解组
-  Carbon3DSoftwareIcon
+  Carbon3DSoftwareIcon,
+  // 过滤器
+  FilterIcon,
+  FilterEditIcon
 }
 
 // https://www.xicons.org/#/ 还有很多
