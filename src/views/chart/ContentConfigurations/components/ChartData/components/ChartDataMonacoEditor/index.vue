@@ -9,21 +9,16 @@
       <p>}</p>
       <template #footer>
         <n-space justify="end">
-          <n-button tertiary size="small" @click="delFilter">
+          <n-button type="primary" tertiary size="small" @click="addFilter">
             <template #icon>
               <n-icon>
-                <trash-icon />
-              </n-icon>
-            </template>
-            删除
-          </n-button>
-          <n-button type="info" tertiary size="small" @click="addFilter">
-            <template #icon>
-              <n-icon>
-                <pencil-icon />
+                <filter-edit-icon />
               </n-icon>
             </template>
             编辑
+          </n-button>
+          <n-button tertiary size="small" @click="delFilter">
+            删除
           </n-button>
         </n-space>
       </template>
@@ -82,13 +77,13 @@
       <template #action>
         <n-space justify="space-between">
           <div class="go-flex-items-center">
-            <n-tag :bordered="false" type="success">
+            <n-tag :bordered="false" type="primary">
               <template #icon>
                 <n-icon :component="DocumentTextIcon" />
               </template>
               规则
             </n-tag>
-            <n-text class="go-ml-2" depth="2">过滤器将对接口返回值的「data」字段进行处理</n-text>
+            <n-text class="go-ml-2" depth="2">过滤器将处理接口返回值的「data」字段</n-text>
           </div>
 
           <n-space>
@@ -111,7 +106,8 @@ import { goDialog, toString } from '@/utils'
 import { http } from '@/api/http'
 import cloneDeep from 'lodash/cloneDeep'
 
-const { PencilIcon, TrashIcon, FilterIcon, DocumentTextIcon } = icon.ionicons5
+const { DocumentTextIcon } = icon.ionicons5
+const { FilterIcon, FilterEditIcon } = icon.carbon
 const { targetData, chartEditStore } = useTargetData()
 const { requestDataType } = toRefs(targetData.value.data)
 const { requestOriginUrl } = toRefs(chartEditStore.getRequestGlobalConfig)

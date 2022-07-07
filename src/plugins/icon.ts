@@ -53,8 +53,7 @@ import {
   ArrowForward as ArrowForwardIcon,
   Planet as PawIcon,
   Search as SearchIcon,
-  Reload as ReloadIcon,
-  Filter as FilterIcon
+  Reload as ReloadIcon
 } from '@vicons/ionicons5'
 
 import {
@@ -83,7 +82,9 @@ import {
   FitToScreen as FitToScreenIcon,
   FitToHeight as FitToHeightIcon,
   FitToWidth as FitToWidthIcon,
-  Save as SaveIcon
+  Save as SaveIcon,
+  Filter as FilterIcon,
+  FilterEdit as FilterEditIcon
 } from '@vicons/carbon'
 
 const ionicons5 = {
@@ -195,9 +196,7 @@ const ionicons5 = {
   // 搜索（放大镜）
   SearchIcon,
   // 加载
-  ReloadIcon,
-  // 过滤
-  FilterIcon
+  ReloadIcon
 }
 
 const carbon = {
@@ -243,7 +242,10 @@ const carbon = {
   FitToHeightIcon,
   FitToWidthIcon,
   // 保存
-  SaveIcon
+  SaveIcon,
+  // 过滤器
+  FilterIcon,
+  FilterEditIcon
 }
 
 // https://www.xicons.org/#/ 还有很多
