@@ -8,7 +8,7 @@ const requestConfig: RequestConfigType = {
   requestDataType: RequestDataTypeEnum.STATIC,
   requestHttpType: RequestHttpEnum.GET,
   requestUrl: '',
-  requestInterval: 0
+  requestInterval: undefined
 }
 
 export class publicConfig implements PublicConfigType {

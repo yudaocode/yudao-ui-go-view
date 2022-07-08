@@ -1,7 +1,19 @@
 <template>
   <div class="go-chart-configurations-data-ajax">
-    <setting-item-box name="类型" :alone="true">
-      <n-select v-model:value="targetData.request.requestHttpType" :options="selectOptions" />
+    <setting-item-box name="配置">
+      <setting-item name="类型">
+        <n-select v-model:value="targetData.request.requestHttpType" :options="selectOptions" />
+      </setting-item>
+      <setting-item name="默认使用全局间隔">
+        <n-input-number
+          v-model:value.trim="targetData.request.requestInterval"
+          min="5"
+          :show-button="false"
+          placeholder="可以为空"
+        >
+          <template #suffix> 秒 </template>
+        </n-input-number>
+      </setting-item>
     </setting-item-box>
 
     <setting-item-box name="源地址:" :alone="true">
@@ -27,7 +39,6 @@
       </template>
       <n-input v-model:value.trim="targetData.request.requestUrl" :min="1" placeholder="请输入地址（去除源）" />
     </setting-item-box>
-
     <setting-item-box :alone="true">
       <template #name>
         测试
@@ -60,7 +71,7 @@
 <script setup lang="ts">
 import { ref, toRefs, onBeforeUnmount, watchEffect } from 'vue'
 import { icon } from '@/plugins'
-import { SettingItemBox } from '@/components/Pages/ChartItemSetting'
+import { SettingItemBox, SettingItem } from '@/components/Pages/ChartItemSetting'
 import { RequestHttpEnum, ResultEnum } from '@/enums/httpEnum'
 import { chartDataUrl, rankListUrl, scrollBoardUrl, numberFloatUrl, numberIntUrl, textUrl, imageUrl } from '@/api/mock'
 import { http } from '@/api/http'
@@ -116,7 +127,7 @@ const selectOptions: SelectHttpType[] = [
 // 发送请求
 const sendHandle = async () => {
   loading.value = true
-  if(!targetData.value) return
+  if (!targetData.value) return
   const { requestUrl, requestHttpType } = targetData.value.request
   if (!requestUrl) {
     window['$message'].warning('请求参数不正确，请检查！')

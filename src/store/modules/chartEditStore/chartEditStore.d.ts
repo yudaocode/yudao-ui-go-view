@@ -147,7 +147,7 @@ export type RequestConfigType = {
   // 源后续的 url
   requestUrl?: string
   // 组件定制轮询时间
-  requestInterval: number
+  requestInterval?: number
 }
 
 // Store 类型
