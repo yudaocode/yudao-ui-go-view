@@ -6,12 +6,12 @@
         placeholder="源地址如: http://127.0.0.1"
       ></n-input>
     </setting-item-box>
-    <setting-item-box name="更新间隔">
+    <setting-item-box name="更新间隔" :alone="true">
       <n-input-number
         v-model:value.trim="chartEditStore.getRequestGlobalConfig.requestInterval"
         min="5"
         :show-button="false"
-        placeholder="为 0 不更新"
+        placeholder="将应用全局组件"
       >
         <template #suffix>
           秒

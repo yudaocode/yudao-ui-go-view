@@ -164,7 +164,7 @@ export enum ChartEditStoreEnum {
 export type RequestGlobalConfigType = {
   // 请求源地址
   requestOriginUrl?: string
-  // 轮询时间
+  // 全局默认轮询时间
   requestInterval: number
 }
 
@@ -176,6 +176,8 @@ export type RequestConfigType = {
   requestHttpType: RequestHttpEnum
   // 源后续的 url
   requestUrl?: string
+  // 组件定制轮询时间
+  requestInterval?: number
 }
 
 // Store 类型

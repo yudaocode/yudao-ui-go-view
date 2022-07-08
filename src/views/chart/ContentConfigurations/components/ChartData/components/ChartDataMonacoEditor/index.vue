@@ -109,7 +109,7 @@ import cloneDeep from 'lodash/cloneDeep'
 const { DocumentTextIcon } = icon.ionicons5
 const { FilterIcon, FilterEditIcon } = icon.carbon
 const { targetData, chartEditStore } = useTargetData()
-const { requestDataType } = toRefs(targetData.value.data)
+const { requestDataType } = toRefs(targetData.value.request)
 const { requestOriginUrl } = toRefs(chartEditStore.getRequestGlobalConfig)
 
 // 受控弹窗
@@ -124,7 +124,7 @@ const sourceData = ref<any>('')
 // 动态获取数据
 const fetchTargetData = async () => {
   try {
-    const { requestUrl, requestHttpType } = targetData.value.data
+    const { requestUrl, requestHttpType } = targetData.value.request
     if (!requestUrl) {
       window['$message'].warning('请求参数不正确，请检查！')
       sourceData.value = '请求参数不正确，请检查！'

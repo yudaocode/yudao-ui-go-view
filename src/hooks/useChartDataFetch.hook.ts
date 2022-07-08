@@ -9,7 +9,6 @@ import { isPreview, newFunctionHandle } from '@/utils'
 // 获取类型
 type ChartEditStoreType = typeof useChartEditStore
 
-
 /**
  * setdata 数据监听与更改
  * @param targetComponent
@@ -30,7 +29,12 @@ export const useChartDataFetch = (
     // 组件类型
     const { chartFrame } = targetComponent.chartConfig
     // 请求配置
-    const { requestDataType, requestHttpType, requestUrl } = toRefs(targetComponent.data)
+    const {
+      requestDataType,
+      requestHttpType,
+      requestUrl,
+      requestInterval: targetInterval
+    } = toRefs(targetComponent.request)
     // 非请求类型
     if (requestDataType.value !== RequestDataTypeEnum.AJAX) return
     // 处理地址
@@ -65,12 +69,13 @@ export const useChartDataFetch = (
 
       // 立即调用
       fetchFn()
+
       // 开启定时
-      fetchInterval = setInterval(fetchFn, requestInterval.value * 1000)
+      const time = targetInterval && targetInterval.value ? targetInterval.value : requestInterval.value
+      fetchInterval = setInterval(fetchFn, time * 1000)
     }
   }
 
   isPreview() && requestIntervalFn()
-
   return { vChartRef }
 }
