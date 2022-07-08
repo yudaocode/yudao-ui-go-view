@@ -30,7 +30,7 @@ export const useChartDataFetch = (
     // 组件类型
     const { chartFrame } = targetComponent.chartConfig
     // 请求配置
-    const { requestDataType, requestHttpType, requestUrl } = toRefs(targetComponent.data)
+    const { requestDataType, requestHttpType, requestUrl } = toRefs(targetComponent.request)
     // 非请求类型
     if (requestDataType.value !== RequestDataTypeEnum.AJAX) return
     // 处理地址

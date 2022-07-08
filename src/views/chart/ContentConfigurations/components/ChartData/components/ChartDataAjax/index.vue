@@ -1,7 +1,7 @@
 <template>
   <div class="go-chart-configurations-data-ajax">
     <setting-item-box name="类型" :alone="true">
-      <n-select v-model:value="targetData.data.requestHttpType" :options="selectOptions" />
+      <n-select v-model:value="targetData.request.requestHttpType" :options="selectOptions" />
     </setting-item-box>
 
     <setting-item-box name="源地址:" :alone="true">
@@ -25,7 +25,7 @@
           </ul>
         </n-tooltip>
       </template>
-      <n-input v-model:value.trim="targetData.data.requestUrl" :min="1" placeholder="请输入地址（去除源）" />
+      <n-input v-model:value.trim="targetData.request.requestUrl" :min="1" placeholder="请输入地址（去除源）" />
     </setting-item-box>
 
     <setting-item-box :alone="true">
@@ -117,7 +117,7 @@ const selectOptions: SelectHttpType[] = [
 const sendHandle = async () => {
   loading.value = true
   if(!targetData.value) return
-  const { requestUrl, requestHttpType } = targetData.value.data
+  const { requestUrl, requestHttpType } = targetData.value.request
   if (!requestUrl) {
     window['$message'].warning('请求参数不正确，请检查！')
     return

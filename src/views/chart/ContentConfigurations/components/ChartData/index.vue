@@ -2,7 +2,7 @@
   <div class="go-chart-configurations-data" v-if="targetData">
     <setting-item-box name="请求方式" :alone="true">
       <n-select
-        v-model:value="targetData.data.requestDataType"
+        v-model:value="targetData.request.requestDataType"
         :options="selectOptions"
       />
     </setting-item-box>
@@ -11,7 +11,7 @@
 
     <!-- 静态 -->
     <chart-data-static
-      v-if="targetData.data.requestDataType === RequestDataTypeEnum.STATIC"
+      v-if="targetData.request.requestDataType === RequestDataTypeEnum.STATIC"
     ></chart-data-static>
 
     <!-- 动态 -->

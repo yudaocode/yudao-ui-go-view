@@ -41,10 +41,8 @@ export class publicConfig implements PublicConfigType {
     // 动画
     animations: []
   }
-  // 数据
-  public data = { ...requestConfig }
-  // 数据获取
-  public requestData = []
+  // 请求
+  public request = { ...requestConfig }
   // 数据过滤
   public filter = undefined
 
