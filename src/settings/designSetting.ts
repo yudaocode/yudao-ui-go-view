@@ -1,4 +1,5 @@
 import { LangEnum, PreviewScaleEnum } from '@/enums/styleEnum'
+import { RequestHttpIntervalEnum } from '@/enums/httpEnum'
 import designColor from './designColor.json'
 
 // 默认语言
@@ -50,6 +51,9 @@ export const previewScaleType = PreviewScaleEnum.FIT
 
 // 数据请求间隔
 export const requestInterval = 30
+
+// 数据请求间隔单位
+export const requestIntervalUnit = RequestHttpIntervalEnum.SECOND
 
 // 工作区域历史记录存储最大数量
 export const editHistoryMax = 100

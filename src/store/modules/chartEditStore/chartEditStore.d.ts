@@ -1,11 +1,14 @@
-import { CreateComponentType, FilterEnum} from '@/packages/index.d'
+import { CreateComponentType, FilterEnum } from '@/packages/index.d'
 import { HistoryActionTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
-import { RequestHttpEnum, RequestDataTypeEnum } from '@/enums/httpEnum'
-import { PreviewScaleEnum } from '@/enums/styleEnum'
-import type {
-  ChartColorsNameType,
-  GlobalThemeJsonType,
-} from '@/settings/chartThemes/index'
+import {
+  RequestHttpEnum,
+  RequestContentTypeEnum,
+  RequestDataTypeEnum,
+  RequestHttpIntervalEnum,
+  RequestParams
+} from '@/enums/httpEnum'
+import { PreviewScaleEnum, RequestBodyEnum } from '@/enums/styleEnum'
+import type { ChartColorsNameType, GlobalThemeJsonType } from '@/settings/chartThemes/index'
 
 // 编辑画布属性
 export enum EditCanvasTypeEnum {
@@ -16,7 +19,7 @@ export enum EditCanvasTypeEnum {
   USER_SCALE = 'userScale',
   LOCK_SCALE = 'lockScale',
   IS_CREATE = 'isCreate',
-  IS_DRAG = 'isDrag',
+  IS_DRAG = 'isDrag'
 }
 
 // 编辑区域
@@ -47,7 +50,7 @@ export enum EditCanvasConfigEnum {
   BACKGROUND = 'background',
   BACKGROUND_IMAGE = 'backgroundImage',
   SELECT_COLOR = 'selectColor',
-  PREVIEW_SCALE_TYPE = 'previewScaleType',
+  PREVIEW_SCALE_TYPE = 'previewScaleType'
 }
 
 export interface EditCanvasConfigType {
@@ -89,7 +92,7 @@ export enum EditCanvasTypeEnum {
   START_X = 'startX',
   START_Y = 'startY',
   X = 'x',
-  Y = 'y',
+  Y = 'y'
 }
 
 // 鼠标位置
@@ -127,27 +130,35 @@ export enum ChartEditStoreEnum {
   // 以下需要存储
   EDIT_CANVAS_CONFIG = 'editCanvasConfig',
   REQUEST_GLOBAL_CONFIG = 'requestGlobalConfig',
-  COMPONENT_LIST = 'componentList',
+  COMPONENT_LIST = 'componentList'
+}
+
+// 请求公共类型
+type RequestPublicConfigType = {
+  // 组件定制轮询时间
+  requestInterval?: number
+  // 时间单位（时分秒）
+  requestIntervalUnit: RequestHttpIntervalEnum
+  // 请求内容
+  requestParams: RequestParams
 }
 
 // 全局的图表请求配置
-export type RequestGlobalConfigType = {
+export interface RequestGlobalConfigType extends RequestPublicConfigType {
   // 请求源地址
   requestOriginUrl?: string
-  // 全局默认轮询时间
-  requestInterval: number
 }
 
 // 单个图表请求配置
-export type RequestConfigType = {
+export interface RequestConfigType extends RequestPublicConfigType {
   // 获取数据的方式
   requestDataType: RequestDataTypeEnum
   // 请求方式 get/post/del/put/patch
   requestHttpType: RequestHttpEnum
   // 源后续的 url
   requestUrl?: string
-  // 组件定制轮询时间
-  requestInterval?: number
+  // 请求内容主体方式 普通/sql
+  requestContentType: RequestContentTypeEnum
 }
 
 // Store 类型

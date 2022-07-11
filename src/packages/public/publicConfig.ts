@@ -1,14 +1,16 @@
 import { getUUID } from '@/utils'
 import { PublicConfigType } from '@/packages/index.d'
 import { RequestConfigType } from '@/store/modules/chartEditStore/chartEditStore.d'
-import { RequestHttpEnum, RequestDataTypeEnum } from '@/enums/httpEnum'
+import { RequestHttpEnum, RequestDataTypeEnum, RequestHttpIntervalEnum, RequestContentTypeEnum } from '@/enums/httpEnum'
 import { chartInitConfig } from '@/settings/designSetting'
 
 const requestConfig: RequestConfigType = {
   requestDataType: RequestDataTypeEnum.STATIC,
   requestHttpType: RequestHttpEnum.GET,
   requestUrl: '',
-  requestInterval: undefined
+  requestInterval: undefined,
+  requestIntervalUnit: RequestHttpIntervalEnum.SECOND,
+  requestContentType: RequestContentTypeEnum.DEFAULT
 }
 
 export class publicConfig implements PublicConfigType {

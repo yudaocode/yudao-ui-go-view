@@ -3,7 +3,7 @@ import { CreateComponentType } from '@/packages/index.d'
 import debounce from 'lodash/debounce'
 import cloneDeep from 'lodash/cloneDeep'
 import { defaultTheme, globalThemeJson } from '@/settings/chartThemes/index'
-import { requestInterval, previewScaleType } from '@/settings/designSetting'
+import { requestInterval, previewScaleType, requestIntervalUnit } from '@/settings/designSetting'
 // 记录记录
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
 // 全局设置
@@ -109,7 +109,19 @@ export const useChartEditStore = defineStore({
     // 数据请求处理（需存储给后端）
     requestGlobalConfig: {
       requestOriginUrl: '',
-      requestInterval: requestInterval 
+      requestInterval: requestInterval,
+      requestIntervalUnit: requestIntervalUnit,
+      requestParams: {
+        Body: {
+          "form-data": {},
+          "x-www-form-urlencoded": {},
+          json: {},
+          xml: ''
+        },
+        Cookie: {},
+        Header: {},
+        Params: {}
+      }
     },
     // 图表数组（需存储给后端）
     componentList: []
