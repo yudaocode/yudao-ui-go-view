@@ -5,9 +5,11 @@ import {
   RequestContentTypeEnum,
   RequestDataTypeEnum,
   RequestHttpIntervalEnum,
-  RequestParams
+  RequestParams,
+  RequestBodyEnum,
+  RequestParamsObjType
 } from '@/enums/httpEnum'
-import { PreviewScaleEnum, RequestBodyEnum } from '@/enums/styleEnum'
+import { PreviewScaleEnum } from '@/enums/styleEnum'
 import type { ChartColorsNameType, GlobalThemeJsonType } from '@/settings/chartThemes/index'
 
 // 编辑画布属性
@@ -141,6 +143,8 @@ type RequestPublicConfigType = {
   requestIntervalUnit: RequestHttpIntervalEnum
   // 请求内容
   requestParams: RequestParams
+  // 请求体类型
+  requestParamsBodyType: RequestBodyEnum
 }
 
 // 全局的图表请求配置
@@ -159,6 +163,10 @@ export interface RequestConfigType extends RequestPublicConfigType {
   requestUrl?: string
   // 请求内容主体方式 普通/sql
   requestContentType: RequestContentTypeEnum
+  // SQL 请求对象
+  requestSQLContent: {
+    sql: string
+  }
 }
 
 // Store 类型

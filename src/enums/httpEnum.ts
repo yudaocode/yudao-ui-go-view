@@ -65,11 +65,23 @@ export const SelectHttpTimeNameObj = {
  * @description: 请求头部类型
  */
 export enum RequestBodyEnum {
+  NONE = 'none',
   FORM_DATA = 'form-data',
   X_WWW_FORM_URLENCODED = 'x-www-form-urlencoded',
   JSON = 'json',
   XML = 'xml'
 }
+
+/**
+ * @description: 请求头部类型数组
+ */
+export const RequestBodyEnumList = [
+  RequestBodyEnum.NONE,
+  RequestBodyEnum.FORM_DATA,
+  RequestBodyEnum.X_WWW_FORM_URLENCODED,
+  RequestBodyEnum.JSON,
+  RequestBodyEnum.XML
+]
 
 /**
  * @description: 请求参数类型
@@ -84,15 +96,18 @@ export enum RequestParamsTypeEnum {
 /**
  * @description: 请求参数主体
  */
+export type RequestParamsObjType = {
+  [T: string]: string
+}
 export type RequestParams = {
-  [RequestParamsTypeEnum.PARAMS]: object,
-  [RequestParamsTypeEnum.COOKIE]: object,
-  [RequestParamsTypeEnum.HEADER]: object,
+  [RequestParamsTypeEnum.PARAMS]: RequestParamsObjType
+  [RequestParamsTypeEnum.COOKIE]: RequestParamsObjType
+  [RequestParamsTypeEnum.HEADER]: RequestParamsObjType
   [RequestParamsTypeEnum.BODY]: {
-    [RequestBodyEnum.FORM_DATA]: object,
-    [RequestBodyEnum.X_WWW_FORM_URLENCODED]: object,
-    [RequestBodyEnum.JSON]: object,
-    [RequestBodyEnum.XML]: string,
+    [RequestBodyEnum.FORM_DATA]: RequestParamsObjType
+    [RequestBodyEnum.X_WWW_FORM_URLENCODED]: RequestParamsObjType
+    [RequestBodyEnum.JSON]: string
+    [RequestBodyEnum.XML]: string
   }
 }
 

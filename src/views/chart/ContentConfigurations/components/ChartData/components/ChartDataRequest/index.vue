@@ -11,7 +11,7 @@
       <template #action>
         <n-space justify="space-between">
           <div>
-            <n-text>「 柱状图 」</n-text>
+            <n-text>「 {{chartConfig.categoryName ||rename}} 」</n-text>
             <n-text>—— </n-text>
             <n-tag type="primary" :bordered="false"> {{requestContentTypeObj[requestContentType]}} </n-tag>
           </div>
@@ -31,8 +31,9 @@ import { RequestTargetConfig } from './components/RequestTargetConfig'
 
 const emit = defineEmits(['update:modelShow'])
 
-const { targetData, chartEditStore } = useTargetData()
+const { targetData } = useTargetData()
 // 解构基础配置
+const { chartConfig, rename } = toRefs(targetData.value)
 const { requestContentType } = toRefs(targetData.value.request)
 
 const requestContentTypeObj = {

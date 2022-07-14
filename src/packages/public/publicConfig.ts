@@ -1,7 +1,13 @@
 import { getUUID } from '@/utils'
 import { PublicConfigType } from '@/packages/index.d'
 import { RequestConfigType } from '@/store/modules/chartEditStore/chartEditStore.d'
-import { RequestHttpEnum, RequestDataTypeEnum, RequestHttpIntervalEnum, RequestContentTypeEnum } from '@/enums/httpEnum'
+import {
+  RequestHttpEnum,
+  RequestDataTypeEnum,
+  RequestHttpIntervalEnum,
+  RequestContentTypeEnum,
+  RequestBodyEnum
+} from '@/enums/httpEnum'
 import { chartInitConfig } from '@/settings/designSetting'
 
 const requestConfig: RequestConfigType = {
@@ -10,7 +16,22 @@ const requestConfig: RequestConfigType = {
   requestUrl: '',
   requestInterval: undefined,
   requestIntervalUnit: RequestHttpIntervalEnum.SECOND,
-  requestContentType: RequestContentTypeEnum.DEFAULT
+  requestContentType: RequestContentTypeEnum.DEFAULT,
+  requestParamsBodyType: RequestBodyEnum.NONE,
+  requestSQLContent: {
+    sql: 'select * from  where'
+  },
+  requestParams: {
+    Body: {
+      'form-data': {},
+      'x-www-form-urlencoded': {},
+      json: '',
+      xml: ''
+    },
+    Cookie: {},
+    Header: {},
+    Params: {}
+  }
 }
 
 export class publicConfig implements PublicConfigType {
@@ -40,7 +61,7 @@ export class publicConfig implements PublicConfigType {
     // 倾斜
     skewX: 0,
     skewY: 0,
-    
+
     // 动画
     animations: []
   }

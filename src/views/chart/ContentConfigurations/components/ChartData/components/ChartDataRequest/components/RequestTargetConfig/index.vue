@@ -7,7 +7,7 @@
       gridTemplateColumns: '5fr 2fr 1fr'
     }"
   >
-    <setting-item name="请求 URL">
+    <setting-item name="请求方式 & URL 地址">
       <n-input-group>
         <n-select class="select-type-options" v-model:value="requestHttpType" :options="selectTypeOptions" />
         <n-input v-model:value.trim="requestUrl" :min="1" placeholder="请输入地址（去除源）">
@@ -55,11 +55,10 @@ import { selectTypeOptions, selectTimeOptions } from '@/views/chart/ContentConfi
 import { RequestHeader } from '../RequestHeader'
 import { icon } from '@/plugins'
 
-const { PencilIcon, FlashIcon } = icon.ionicons5
+const { FlashIcon } = icon.ionicons5
 const { targetData, chartEditStore } = useTargetData()
 const { requestOriginUrl } = toRefs(chartEditStore.getRequestGlobalConfig)
 const { requestInterval, requestIntervalUnit, requestHttpType, requestUrl } = toRefs(targetData.value.request)
-const disabled = ref(true)
 </script>
 
 <style lang="scss" scoped>

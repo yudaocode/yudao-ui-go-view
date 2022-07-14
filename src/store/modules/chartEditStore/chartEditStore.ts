@@ -4,6 +4,7 @@ import debounce from 'lodash/debounce'
 import cloneDeep from 'lodash/cloneDeep'
 import { defaultTheme, globalThemeJson } from '@/settings/chartThemes/index'
 import { requestInterval, previewScaleType, requestIntervalUnit } from '@/settings/designSetting'
+import { RequestBodyEnum } from '@/enums/httpEnum'
 // 记录记录
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
 // 全局设置
@@ -111,11 +112,12 @@ export const useChartEditStore = defineStore({
       requestOriginUrl: '',
       requestInterval: requestInterval,
       requestIntervalUnit: requestIntervalUnit,
+      requestParamsBodyType: RequestBodyEnum.NONE,
       requestParams: {
         Body: {
           "form-data": {},
           "x-www-form-urlencoded": {},
-          json: {},
+          json: '',
           xml: ''
         },
         Cookie: {},
