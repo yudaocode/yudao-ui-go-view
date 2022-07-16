@@ -29,7 +29,9 @@
         </n-input>
       </setting-item-box>
 
-      <n-text depth="3">更新内容请点击配置</n-text>
+      <n-space justify="end">
+        <n-text depth="3" style="font-size: 12px">更新内容请点击展示区域</n-text>
+      </n-space>
 
       <div class="edit-text" @click="requestModelHandle">
         <div class="go-absolute-center">
@@ -139,13 +141,18 @@ onBeforeUnmount(() => {
   .n-card-shallow {
     &.n-card {
       @extend .go-background-filter;
+      @include deep() {
+        .n-card__content {
+          padding: 10px;
+        }
+      }
     }
     .edit-text {
       position: absolute;
       top: 0px;
       left: 0px;
       width: 325px;
-      height: 254px;
+      height: 235px;
       cursor: pointer;
       opacity: 0;
       transition: all 0.3s;

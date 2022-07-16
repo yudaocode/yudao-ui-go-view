@@ -48,17 +48,9 @@
         <n-select class="select-time-options" v-model:value="requestIntervalUnit" :options="selectTimeOptions" />
       </n-input-group>
     </setting-item>
-    <n-button ghost type="primary">
-      <template #icon>
-        <n-icon>
-          <flash-icon />
-        </n-icon>
-      </template>
-      发送请求
-    </n-button>
   </setting-item-box>
   <setting-item-box name="选择方式" class="go-mt-0">
-    <request-header></request-header> 
+    <request-header></request-header>
   </setting-item-box>
 </template>
 
@@ -72,7 +64,7 @@ import { isDev } from '@/utils'
 import { icon } from '@/plugins'
 import { chartDataUrl, rankListUrl, scrollBoardUrl, numberFloatUrl, numberIntUrl, textUrl, imageUrl } from '@/api/mock'
 
-const { HelpOutlineIcon, FlashIcon } = icon.ionicons5
+const { HelpOutlineIcon } = icon.ionicons5
 const { targetData, chartEditStore } = useTargetData()
 const { requestOriginUrl } = toRefs(chartEditStore.getRequestGlobalConfig)
 const { requestInterval, requestIntervalUnit, requestHttpType, requestUrl } = toRefs(targetData.value.request)
