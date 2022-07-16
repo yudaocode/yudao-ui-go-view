@@ -10,7 +10,7 @@
     >
       <!-- 源地址 -->
       <setting-item name="前置 URL">
-        <n-input v-model:value.trim="requestOriginUrl" :disabled="editDisabled" placeholder="http://127.0.0.1/"></n-input>
+        <n-input v-model:value.trim="requestOriginUrl" :disabled="editDisabled" placeholder="例：http://127.0.0.1/"></n-input>
       </setting-item>
       <setting-item name="更新间隔（为 0 表示不更新）">
         <n-input-group>
@@ -32,7 +32,7 @@
           />
         </n-input-group>
       </setting-item>
-      <n-button v-show="editDisabled" type="primary" secondary @click="editDisabled = false">
+      <n-button v-show="editDisabled" type="primary" ghost @click="editDisabled = false">
         <template #icon>
           <n-icon>
             <pencil-icon />

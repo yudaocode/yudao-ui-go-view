@@ -7,8 +7,6 @@
       />
     </setting-item-box>
 
-    <n-divider style="margin: 10px 0;"></n-divider>
-
     <!-- 静态 -->
     <chart-data-static
       v-if="targetData.request.requestDataType === RequestDataTypeEnum.STATIC"

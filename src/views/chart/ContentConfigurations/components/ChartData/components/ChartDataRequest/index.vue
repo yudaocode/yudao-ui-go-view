@@ -19,7 +19,7 @@
             <n-text>—— </n-text>
             <n-tag type="primary" :bordered="false"> {{ requestContentTypeObj[requestContentType] }} </n-tag>
           </div>
-          <n-button type="primary" ghost @click="closeHandle">确认</n-button>
+          <n-button type="primary" @click="closeHandle">确认</n-button>
         </n-space>
       </template>
     </n-card>
@@ -66,6 +66,9 @@ const closeHandle = () => {
   @include deep() {
     & > .n-card__content {
       padding-right: 0;
+    }
+    .n-card__content {
+      padding-bottom: 5px;
     }
   }
 }

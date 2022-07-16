@@ -37,8 +37,15 @@ export const useChartDataFetch = (
     } = toRefs(targetComponent.request)
 
     // 非请求类型
-    if (requestDataType.value !== RequestDataTypeEnum.AJAX || !requestInterval) return
-    
+    if (
+      requestDataType.value !== RequestDataTypeEnum.AJAX ||
+      !requestInterval ||
+      !requestInterval.value ||
+      !targetInterval ||
+      !targetInterval.value
+    )
+      return
+
     try {
       // 处理地址
       // @ts-ignore

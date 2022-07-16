@@ -25,7 +25,7 @@
     </n-card>
   </template>
   <template v-else>
-    <n-button @click="addFilter">
+    <n-button class="go-ml-3"  @click="addFilter">
       <template #icon>
         <n-icon>
           <filter-icon />
@@ -88,7 +88,7 @@
 
           <n-space>
             <n-button size="medium" @click="closeFilter">取消</n-button>
-            <n-button size="medium" type="primary" ghost @click="saveFilter">保存</n-button>
+            <n-button size="medium" type="primary" @click="saveFilter">保存</n-button>
           </n-space>
         </n-space>
       </template>

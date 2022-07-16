@@ -54,7 +54,8 @@ import {
   Planet as PawIcon,
   Search as SearchIcon,
   ChevronUpOutline as ChevronUpOutlineIcon,
-  ChevronDownOutline as ChevronDownOutlineIcon
+  ChevronDownOutline as ChevronDownOutlineIcon,
+  Pulse as PulseIcon
 } from '@vicons/ionicons5'
 
 import {
@@ -200,7 +201,9 @@ const ionicons5 = {
   // 向上
   ChevronUpOutlineIcon,
   // 向下
-  ChevronDownOutlineIcon
+  ChevronDownOutlineIcon,
+  // 脉搏
+  PulseIcon
 }
 
 const carbon = {
