@@ -81,7 +81,7 @@ const editDisabled = ref(true)
 const designStore = useDesignStore()
 const themeColor = ref(designStore.getAppTheme)
 
-const showTable = ref(true)
+const showTable = ref(false)
 </script>
 
 <style lang="scss" scoped>
