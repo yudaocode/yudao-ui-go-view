@@ -112,7 +112,6 @@ export const useChartEditStore = defineStore({
       requestOriginUrl: '',
       requestInterval: requestInterval,
       requestIntervalUnit: requestIntervalUnit,
-      requestParamsBodyType: RequestBodyEnum.NONE,
       requestParams: {
         Body: {
           "form-data": {},

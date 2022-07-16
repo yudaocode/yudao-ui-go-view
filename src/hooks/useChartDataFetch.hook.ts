@@ -4,7 +4,7 @@ import { http } from '@/api/http'
 import { CreateComponentType, ChartFrameEnum } from '@/packages/index.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { RequestDataTypeEnum } from '@/enums/httpEnum'
-import { isPreview, newFunctionHandle } from '@/utils'
+import { isPreview, newFunctionHandle, intervalUnitHandle } from '@/utils'
 
 // 获取类型
 type ChartEditStoreType = typeof useChartEditStore
@@ -25,7 +25,7 @@ export const useChartDataFetch = (
 
   const requestIntervalFn = () => {
     const chartEditStore = useChartEditStore()
-    const { requestOriginUrl, requestInterval } = toRefs(chartEditStore.getRequestGlobalConfig)
+    const { requestOriginUrl, requestInterval, requestIntervalUnit } = toRefs(chartEditStore.getRequestGlobalConfig)
     // 组件类型
     const { chartFrame } = targetComponent.chartConfig
     // 请求配置
@@ -35,45 +35,52 @@ export const useChartDataFetch = (
       requestUrl,
       requestInterval: targetInterval
     } = toRefs(targetComponent.request)
+
     // 非请求类型
-    if (requestDataType.value !== RequestDataTypeEnum.AJAX) return
-    // 处理地址
-    if (requestUrl?.value && requestInterval.value > 0) {
-      // requestOriginUrl 允许为空
-      const completePath = requestOriginUrl && requestOriginUrl.value + requestUrl.value
-      if (!completePath) return
+    if (requestDataType.value !== RequestDataTypeEnum.AJAX || !requestInterval) return
+    
+    try {
+      // 处理地址
+      // @ts-ignore
+      if (requestUrl?.value && requestInterval && requestInterval.value > 0) {
+        // requestOriginUrl 允许为空
+        const completePath = requestOriginUrl && requestOriginUrl.value + requestUrl.value
+        if (!completePath) return
 
-      clearInterval(fetchInterval)
+        clearInterval(fetchInterval)
 
-      const fetchFn = async () => {
-        const res: any = await http(requestHttpType.value)(completePath || '', {})
-        if (res.data) {
-          try {
-            const filter = targetComponent.filter
-            // 更新回调函数
-            if (updateCallback) {
-              updateCallback(newFunctionHandle(res.data, filter))
-            } else {
-              // eCharts 组件配合 vChart 库更新方式
-              if (chartFrame === ChartFrameEnum.ECHARTS) {
-                if (vChartRef.value) {
-                  vChartRef.value.setOption({ dataset: newFunctionHandle(res.data, filter) })
+        const fetchFn = async () => {
+          const res: any = await http(requestHttpType.value)(completePath || '', {})
+          if (res.data) {
+            try {
+              const filter = targetComponent.filter
+              // 更新回调函数
+              if (updateCallback) {
+                updateCallback(newFunctionHandle(res.data, filter))
+              } else {
+                // eCharts 组件配合 vChart 库更新方式
+                if (chartFrame === ChartFrameEnum.ECHARTS) {
+                  if (vChartRef.value) {
+                    vChartRef.value.setOption({ dataset: newFunctionHandle(res.data, filter) })
+                  }
                 }
               }
+            } catch (error) {
+              console.error(error)
             }
-          } catch (error) {
-            console.error(error)
           }
         }
+
+        // 立即调用
+        fetchFn()
+
+        // 开启定时
+        const time = targetInterval && targetInterval.value ? targetInterval.value : requestInterval.value
+
+        // 处理单位时间
+        fetchInterval = setInterval(fetchFn, intervalUnitHandle(time, requestIntervalUnit.value))
       }
-
-      // 立即调用
-      fetchFn()
-
-      // 开启定时
-      const time = targetInterval && targetInterval.value ? targetInterval.value : requestInterval.value
-      fetchInterval = setInterval(fetchFn, time * 1000)
-    }
+    } catch (error) {}
   }
 
   isPreview() && requestIntervalFn()

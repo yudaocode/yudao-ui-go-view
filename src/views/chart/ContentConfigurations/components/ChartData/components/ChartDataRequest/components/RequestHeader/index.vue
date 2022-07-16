@@ -12,7 +12,7 @@
       </n-tabs>
 
       <!-- 各个页面 -->
-      <div class="tabs-content go-mt-3">
+      <div class="go-mt-3">
         <div v-if="tabValue !== RequestParamsTypeEnum.BODY">
           <request-header-table :target="requestParams[tabValue]" @update="updateRequestParams"></request-header-table>
         </div>
@@ -80,7 +80,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, toRefs } from 'vue'
+import { ref, toRefs } from 'vue'
 
 import { MonacoEditor } from '@/components/Pages/MonacoEditor'
 import { SettingItemBox, SettingItem } from '@/components/Pages/ChartItemSetting'

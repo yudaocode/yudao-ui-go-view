@@ -126,7 +126,6 @@ const fetchTargetData = async () => {
   try {
     const { requestUrl, requestHttpType } = targetData.value.request
     if (!requestUrl) {
-      window['$message'].warning('请求参数不正确，请检查！')
       sourceData.value = '请求参数不正确，请检查！'
       return
     }

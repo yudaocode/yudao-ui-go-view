@@ -1,55 +1,54 @@
 <template>
-  <n-scrollbar style="max-height: 250px">
-    <n-table class="go-request-header-table-box" :single-line="false" size="small">
-      <thead>
-        <tr>
-          <th></th>
-          <th>Key</th>
-          <th>Value</th>
-          <th>操作</th>
-          <th>结果</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item, index) in tableArray.content" :key="index">
-          <td>
-            {{ index + 1 }}
-          </td>
-          <td>
-            <n-input v-model:value="item.key" type="text" size="small" @blur="blur" />
-          </td>
-          <td>
-            <n-input v-model:value="item.value" type="text" size="small" @blur="blur" />
-          </td>
-          <td>
-            <div style="width: 80px">
-              <n-button class="go-ml-2" type="primary" size="small" ghost @click="add(index)">+</n-button>
-              <n-button
-                class="go-ml-2"
-                type="warning"
-                size="small"
-                ghost
-                :disabled="index === 0"
-                @click="remove(index)"
-              >
-                -
-              </n-button>
-            </div>
-          </td>
-          <td>
-            <n-button v-if="item.error" class="go-ml-2" text type="error"> 格式错误 </n-button>
-            <n-button v-else class="go-ml-2" text type="success"> 格式通过 </n-button>
-          </td>
-        </tr>
-      </tbody>
-    </n-table>
-  </n-scrollbar>
+  <n-table class="go-request-header-table-box" :single-line="false" size="small">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Key</th>
+        <th>Value</th>
+        <th>操作</th>
+        <th>结果</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="(item, index) in tableArray.content" :key="index">
+        <td>
+          {{ index + 1 }}
+        </td>
+        <td>
+          <n-input v-model:value="item.key" :disabled="editDisabled" type="text" size="small" @blur="blur" />
+        </td>
+        <td>
+          <n-input v-model:value="item.value" :disabled="editDisabled" type="text" size="small" @blur="blur" />
+        </td>
+        <td>
+          <div style="width: 80px">
+            <n-button class="go-ml-2" type="primary" size="small" ghost :disabled="editDisabled" @click="add(index)"
+              >+</n-button
+            >
+            <n-button
+              class="go-ml-2"
+              type="warning"
+              size="small"
+              ghost
+              :disabled="index === 0 && editDisabled"
+              @click="remove(index)"
+            >
+              -
+            </n-button>
+          </div>
+        </td>
+        <td>
+          <n-button v-if="item.error" class="go-ml-2" text type="error"> 格式错误 </n-button>
+          <n-button v-else class="go-ml-2" text type="primary"> 格式通过 </n-button>
+        </td>
+      </tr>
+    </tbody>
+  </n-table>
 </template>
 
 <script setup lang="ts">
 import { PropType, reactive, ref, toRefs, watch } from 'vue'
-import { RequestBodyEnum, RequestParamsObjType } from '@/enums/httpEnum'
-import { useTargetData } from '@/views/chart/ContentConfigurations/components/hooks/useTargetData.hook'
+import { RequestParamsObjType } from '@/enums/httpEnum'
 
 const emits = defineEmits(['update'])
 
@@ -58,11 +57,13 @@ const props = defineProps({
     type: Object as PropType<RequestParamsObjType>,
     required: true,
     default: () => {}
+  },
+  editDisabled: {
+    type: Boolean,
+    required: false,
+    default: false
   }
 })
-
-const { targetData } = useTargetData()
-const { requestParams } = toRefs(targetData.value.request)
 
 // 错误标识
 const error = ref(false)

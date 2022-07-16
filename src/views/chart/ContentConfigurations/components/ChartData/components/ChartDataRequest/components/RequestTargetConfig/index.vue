@@ -24,7 +24,7 @@
         <n-input-number
           v-model:value.trim="requestInterval"
           class="select-time-number"
-          min="5"
+          min="1"
           :show-button="false"
           placeholder="可以为空"
         >

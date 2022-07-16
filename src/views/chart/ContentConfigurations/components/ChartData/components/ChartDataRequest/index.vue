@@ -3,19 +3,23 @@
     <n-card :bordered="false" role="dialog" size="small" aria-modal="true" style="width: 1000px; height: 800px">
       <template #header></template>
       <template #header-extra> </template>
-      <n-space vertical>
-        <request-global-config></request-global-config>
-        <request-target-config></request-target-config>
-      </n-space>
+      <n-scrollbar style="max-height: 718px">
+        <div class="go-pr-3">
+          <n-space vertical>
+            <request-global-config></request-global-config>
+            <request-target-config></request-target-config>
+          </n-space>
+        </div>
+      </n-scrollbar>
       <!-- 底部 -->
       <template #action>
         <n-space justify="space-between">
           <div>
-            <n-text>「 {{chartConfig.categoryName ||rename}} 」</n-text>
+            <n-text>「 {{ chartConfig.categoryName || rename }} 」</n-text>
             <n-text>—— </n-text>
-            <n-tag type="primary" :bordered="false"> {{requestContentTypeObj[requestContentType]}} </n-tag>
+            <n-tag type="primary" :bordered="false"> {{ requestContentTypeObj[requestContentType] }} </n-tag>
           </div>
-          <n-button type="primary" ghost @click="closeHandle">关闭</n-button>
+          <n-button type="primary" ghost @click="closeHandle">确认</n-button>
         </n-space>
       </template>
     </n-card>
@@ -38,7 +42,7 @@ const { requestContentType } = toRefs(targetData.value.request)
 
 const requestContentTypeObj = {
   [RequestContentTypeEnum.DEFAULT]: '普通请求',
-  [RequestContentTypeEnum.SQL]: 'SQL 请求',
+  [RequestContentTypeEnum.SQL]: 'SQL 请求'
 }
 
 defineProps({
@@ -58,6 +62,11 @@ const closeHandle = () => {
   }
   .n-card-shallow {
     background-color: rgba(0, 0, 0, 0) !important;
+  }
+  @include deep() {
+    & > .n-card__content {
+      padding-right: 0;
+    }
   }
 }
 </style>
