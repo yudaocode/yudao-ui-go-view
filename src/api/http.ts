@@ -1,5 +1,6 @@
 import axiosInstance from './axios'
 import { RequestHttpEnum, ContentTypeEnum } from '@/enums/httpEnum'
+import type { RequestGlobalConfigType, RequestConfigType } from '@/store/modules/chartEditStore/chartEditStore.d'
 
 export const get = (url: string, params?: object) => {
   return axiosInstance({
@@ -13,6 +14,17 @@ export const post = (url: string, data?: object, headersType?: string) => {
   return axiosInstance({
     url: url,
     method: RequestHttpEnum.POST,
+    data: data,
+    headers: {
+      'Content-Type': headersType || ContentTypeEnum.JSON
+    }
+  })
+}
+
+export const patch = (url: string, data?: object, headersType?: string) => {
+  return axiosInstance({
+    url: url,
+    method: RequestHttpEnum.PATCH,
     data: data,
     headers: {
       'Content-Type': headersType || ContentTypeEnum.JSON
@@ -48,6 +60,9 @@ export const http = (type?: RequestHttpEnum) => {
     case RequestHttpEnum.POST:
       return post
 
+    case RequestHttpEnum.PATCH:
+      return patch
+
     case RequestHttpEnum.PUT:
       return put
 
@@ -57,4 +72,9 @@ export const http = (type?: RequestHttpEnum) => {
     default:
       return get
   }
+}
+
+// 自定义请求
+export const customizeHttp = (comParams: RequestConfigType, globalParams: RequestGlobalConfigType) => {
+  
 }
