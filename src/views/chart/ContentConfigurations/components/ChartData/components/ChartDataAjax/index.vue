@@ -114,6 +114,8 @@ const themeColor = ref(designStore.getAppTheme)
 const loading = ref(false)
 const requestShow = ref(false)
 const showMatching = ref(false)
+
+let firstFocus = 0
 let lastFilter: any = undefined
 
 // 请求配置 model
@@ -141,10 +143,11 @@ const sendHandle = async () => {
 
 watchEffect(() => {
   const filter = targetData.value?.filter
-  if (lastFilter !== filter) {
+  if (lastFilter !== filter && firstFocus) {
     lastFilter = filter
     sendHandle()
   }
+  firstFocus ++
 })
 
 onBeforeUnmount(() => {
