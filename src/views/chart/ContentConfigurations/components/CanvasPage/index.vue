@@ -135,7 +135,7 @@ import { PreviewScaleEnum } from '@/enums/styleEnum'
 import { icon } from '@/plugins'
 
 const { ColorPaletteIcon } = icon.ionicons5
-const { ZAxisIcon, ScaleIcon, FitToScreenIcon, FitToHeightIcon, FitToWidthIcon } = icon.carbon
+const { ScaleIcon, FitToScreenIcon, FitToHeightIcon, FitToWidthIcon } = icon.carbon
 
 const chartEditStore = useChartEditStore()
 const canvasConfig = chartEditStore.getEditCanvasConfig
