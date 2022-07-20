@@ -34,7 +34,7 @@
       </n-input-group>
       <!-- 组件url -->
     </setting-item>
-    <setting-item name="更新间隔，为 0 则不请求">
+    <setting-item name="更新间隔，为 0 只会初始化">
       <n-input-group>
         <n-input-number
           v-model:value.trim="requestInterval"
