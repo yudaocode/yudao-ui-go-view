@@ -25,7 +25,7 @@
     <setting-item name="请求方式 & URL 地址">
       <n-input-group>
         <n-select class="select-type-options" v-model:value="requestHttpType" :options="selectTypeOptions" />
-        <n-input v-model:value.trim="requestUrl" :min="1" placeholder="请输入地址（去除源）">
+        <n-input v-model:value.trim="requestUrl" :min="1" placeholder="请输入地址（去除前置URL）">
           <template #prefix>
             <n-text>{{ requestOriginUrl }}</n-text>
             <n-divider vertical />
