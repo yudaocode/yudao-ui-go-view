@@ -166,7 +166,7 @@ const dimensionsAndSourceHandle = () => {
 // 过滤结果
 const filterRes = (data: any) => {
   try {
-    if(targetData.value.filter) {
+    if (targetData.value.filter) {
       const fn = new Function('data', targetData.value.filter)
       const res = fn(cloneDeep(data))
       return toString(res)

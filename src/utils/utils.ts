@@ -6,7 +6,8 @@ import Image_404 from '../assets/images/exception/image-404.png'
 import html2canvas from 'html2canvas'
 import { downloadByA } from './file'
 import { toString } from './type'
-import cloneDeep from 'lodash/cloneDeep';
+import cloneDeep from 'lodash/cloneDeep'
+import { RequestHttpIntervalEnum, RequestParamsObjType } from '@/enums/httpEnum'
 
 /**
  * * 判断是否是开发环境
@@ -203,7 +204,7 @@ export const newFunctionHandle = (
   try {
     if (!funcStr) return data
     const fn = new Function('data', funcStr)
-    const fnRes = fn( cloneDeep(data))
+    const fnRes = fn(cloneDeep(data))
     const resHandle = isToString ? toString(fnRes) : fnRes
     // 成功回调
     successCallBack && successCallBack(resHandle)
@@ -213,4 +214,44 @@ export const newFunctionHandle = (
     errorCallBack && errorCallBack(error)
     return '函数执行错误'
   }
+}
+
+/**
+ * * 处理请求事件单位
+ * @param num 时间间隔
+ * @param unit RequestHttpIntervalEnum
+ * @return number 秒数
+ */
+export const intervalUnitHandle = (num: number, unit: RequestHttpIntervalEnum) => {
+  switch (unit) {
+    // 秒
+    case RequestHttpIntervalEnum.SECOND:
+      return num * 1000
+    // 分
+    case RequestHttpIntervalEnum.MINUTE:
+      return num * 1000 * 60
+    // 时
+    case RequestHttpIntervalEnum.HOUR:
+      return num * 1000 * 60 * 60
+    // 天
+    case RequestHttpIntervalEnum.DAY:
+      return num * 1000 * 60 * 60 * 24
+    default:
+      return num * 1000
+  }
+}
+
+/**
+ * * 对象转换 cookie 格式
+ * @param obj 
+ * @returns string
+ */
+export const objToCookie = (obj: RequestParamsObjType) => {
+  if(!obj) return ''
+  
+  let str = ''
+  for (const key in obj) {
+    str += key + '=' + obj[key] + ';'
+  }
+  return str.substr(0, str.length - 1)
 }

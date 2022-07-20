@@ -38,7 +38,7 @@ export const downloadByA = (url: string, filename = new Date().getTime(), fileSu
 }
 
 /**
- * 下载数据
+ * * 下载数据
  * @param { string } content 数据内容
  * @param { ?string } filename 文件名称（默认随机字符）
  * @param { ?string } fileSuffix 文件名称（默认随机字符）
