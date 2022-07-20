@@ -25,7 +25,11 @@ export const useChartDataFetch = (
 
   const requestIntervalFn = () => {
     const chartEditStore = useChartEditStore()
-    const { requestOriginUrl, requestInterval, requestIntervalUnit } = toRefs(chartEditStore.getRequestGlobalConfig)
+    const {
+      requestOriginUrl,
+      requestIntervalUnit: globalUnit,
+      requestInterval: globalRequestInterval
+    } = toRefs(chartEditStore.getRequestGlobalConfig)
     // 组件类型
     const { chartFrame } = targetComponent.chartConfig
     // 请求配置
@@ -33,23 +37,17 @@ export const useChartDataFetch = (
       requestDataType,
       requestHttpType,
       requestUrl,
+      requestIntervalUnit: targetUnit,
       requestInterval: targetInterval
     } = toRefs(targetComponent.request)
 
     // 非请求类型
-    if (
-      requestDataType.value !== RequestDataTypeEnum.AJAX ||
-      !requestInterval ||
-      !requestInterval.value ||
-      !targetInterval ||
-      !targetInterval.value
-    )
-      return
+    if (requestDataType.value !== RequestDataTypeEnum.AJAX) return
 
     try {
       // 处理地址
       // @ts-ignore
-      if (requestUrl?.value && requestInterval && requestInterval.value > 0) {
+      if (requestUrl?.value) {
         // requestOriginUrl 允许为空
         const completePath = requestOriginUrl && requestOriginUrl.value + requestUrl.value
         if (!completePath) return
@@ -81,11 +79,12 @@ export const useChartDataFetch = (
         // 立即调用
         fetchFn()
 
-        // 开启定时
-        const time = targetInterval && targetInterval.value ? targetInterval.value : requestInterval.value
-
-        // 处理单位时间
-        fetchInterval = setInterval(fetchFn, intervalUnitHandle(time, requestIntervalUnit.value))
+        // 定时时间
+        const time = targetInterval && targetInterval.value ? targetInterval.value : globalRequestInterval.value
+        // 单位
+        const unit = targetInterval && targetInterval.value ? targetUnit.value : globalUnit.value
+        // 开启轮询
+        if (time) fetchInterval = setInterval(fetchFn, intervalUnitHandle(time, unit))
       }
     } catch (error) {}
   }

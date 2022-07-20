@@ -13,13 +13,13 @@
         </setting-item>
 
         <setting-item name="组件间隔（高级）">
-          <n-input size="small" :placeholder="`${requestInterval}` || '暂无'" :disabled="true">
+          <n-input size="small" :placeholder="`${requestInterval || '暂无'}`" :disabled="true">
             <template #suffix> {{ SelectHttpTimeNameObj[requestIntervalUnit] }} </template>
           </n-input>
         </setting-item>
 
         <setting-item name="全局间隔（默认）">
-          <n-input size="small" :placeholder="`${GlobalRequestInterval}` || '暂无'" :disabled="true">
+          <n-input size="small" :placeholder="`${GlobalRequestInterval || '暂无'} `" :disabled="true">
             <template #suffix> {{ SelectHttpTimeNameObj[GlobalRequestIntervalUnit] }} </template>
           </n-input>
         </setting-item>
