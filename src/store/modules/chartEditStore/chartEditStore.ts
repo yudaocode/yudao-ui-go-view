@@ -392,7 +392,7 @@ export const useChartEditStore = defineStore({
            type: isCut ? HistoryActionTypeEnum.CUT : HistoryActionTypeEnum.COPY
           }
           this.setRecordChart(copyData)
-          window['$message'].success(isCut ? '剪切成功' : '复制成功！')
+          window['$message'].success(isCut ? '剪切图表成功' : '复制图表成功！')
           loadingFinish()
         }
       } catch(value) {
