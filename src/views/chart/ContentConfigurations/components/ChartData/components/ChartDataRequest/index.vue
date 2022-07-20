@@ -17,7 +17,7 @@
           <div>
             <n-text>「 {{ chartConfig.categoryName || rename }} 」</n-text>
             <n-text>—— </n-text>
-            <n-tag type="primary" :bordered="false"> {{ requestContentTypeObj[requestContentType] }} </n-tag>
+            <n-tag type="primary" :bordered="false" style="border-radius: 5px"> {{ requestContentTypeObj[requestContentType] }} </n-tag>
           </div>
           <n-button type="primary" @click="closeHandle">确认</n-button>
         </n-space>

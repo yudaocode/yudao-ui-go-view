@@ -3,7 +3,7 @@
     <n-card class="n-card-shallow">
       <setting-item-box name="请求配置">
         <setting-item name="类型">
-          <n-tag :bordered="false" type="primary">
+          <n-tag :bordered="false" type="primary" style="border-radius: 5px">
             {{ requestContentType === RequestContentTypeEnum.DEFAULT ? '普通请求' : 'SQL请求' }}
           </n-tag>
         </setting-item>
