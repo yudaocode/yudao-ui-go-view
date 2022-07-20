@@ -72,7 +72,7 @@
           </div>
         </n-space>
         <n-card size="small">
-          <n-code :code="filterRes(source)" language="json"></n-code>
+          <n-code :code="toString(source)" language="json"></n-code>
         </n-card>
       </n-space>
     </n-timeline-item>
@@ -81,7 +81,7 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import { CreateComponentType, PackagesCategoryEnum } from '@/packages/index.d'
+import { PackagesCategoryEnum } from '@/packages/index.d'
 import { RequestDataTypeEnum } from '@/enums/httpEnum'
 import { icon } from '@/plugins'
 import { DataResultEnum, TimelineTitleEnum } from '../../index.d'
@@ -89,7 +89,6 @@ import { ChartDataMonacoEditor } from '../ChartDataMonacoEditor'
 import { useFile } from '../../hooks/useFile.hooks'
 import { useTargetData } from '../../../hooks/useTargetData.hook'
 import isObject from 'lodash/isObject'
-import cloneDeep from 'lodash/cloneDeep'
 import { toString } from '@/utils'
 
 const { targetData } = useTargetData()
@@ -160,20 +159,6 @@ const dimensionsAndSourceHandle = () => {
     })
   } catch (error) {
     return []
-  }
-}
-
-// 过滤结果
-const filterRes = (data: any) => {
-  try {
-    if (targetData.value.filter) {
-      const fn = new Function('data', targetData.value.filter)
-      const res = fn(cloneDeep(data))
-      return toString(res)
-    }
-    return toString(cloneDeep(data))
-  } catch (error) {
-    return '过滤函数错误'
   }
 }
 
