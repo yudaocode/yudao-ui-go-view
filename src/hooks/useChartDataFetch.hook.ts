@@ -1,6 +1,6 @@
-import { ref, toRefs } from 'vue'
+import { ref, toRefs, toRaw } from 'vue'
 import type VChart from 'vue-echarts'
-import { http } from '@/api/http'
+import { customizeHttp } from '@/api/http'
 import { CreateComponentType, ChartFrameEnum } from '@/packages/index.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { RequestDataTypeEnum } from '@/enums/httpEnum'
@@ -25,21 +25,24 @@ export const useChartDataFetch = (
 
   const requestIntervalFn = () => {
     const chartEditStore = useChartEditStore()
+    
+    // 全局数据
     const {
       requestOriginUrl,
       requestIntervalUnit: globalUnit,
       requestInterval: globalRequestInterval
     } = toRefs(chartEditStore.getRequestGlobalConfig)
-    // 组件类型
-    const { chartFrame } = targetComponent.chartConfig
-    // 请求配置
+
+    // 目标组件
     const {
       requestDataType,
-      requestHttpType,
       requestUrl,
       requestIntervalUnit: targetUnit,
       requestInterval: targetInterval
     } = toRefs(targetComponent.request)
+
+    // 组件类型
+    const { chartFrame } = targetComponent.chartConfig
 
     // 非请求类型
     if (requestDataType.value !== RequestDataTypeEnum.AJAX) return
@@ -55,8 +58,8 @@ export const useChartDataFetch = (
         clearInterval(fetchInterval)
 
         const fetchFn = async () => {
-          const res: any = await http(requestHttpType.value)(completePath || '', {})
-          if (res.data) {
+          const res = await customizeHttp(toRaw(targetComponent.request), toRaw(chartEditStore.requestGlobalConfig))
+          if (res && res.data) {
             try {
               const filter = targetComponent.filter
               // 更新回调函数
