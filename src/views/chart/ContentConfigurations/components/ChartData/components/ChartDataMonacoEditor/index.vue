@@ -17,15 +17,13 @@
             </template>
             编辑
           </n-button>
-          <n-button tertiary size="small" @click="delFilter">
-            删除
-          </n-button>
+          <n-button tertiary size="small" @click="delFilter"> 删除 </n-button>
         </n-space>
       </template>
     </n-card>
   </template>
   <template v-else>
-    <n-button class="go-ml-3"  @click="addFilter">
+    <n-button class="go-ml-3" @click="addFilter">
       <template #icon>
         <n-icon>
           <filter-icon />
@@ -125,7 +123,7 @@ const sourceData = ref<any>('')
 const fetchTargetData = async () => {
   try {
     const res = await customizeHttp(toRaw(targetData.value.request), toRaw(chartEditStore.requestGlobalConfig))
-    if (res && res.status === ResultEnum.SUCCESS) {
+    if (res && res.data) {
       sourceData.value = res.data
       return
     }

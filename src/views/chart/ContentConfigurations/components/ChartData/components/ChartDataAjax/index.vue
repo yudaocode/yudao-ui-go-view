@@ -127,7 +127,7 @@ const sendHandle = async () => {
   try {
     const res = await customizeHttp(toRaw(targetData.value.request), toRaw(chartEditStore.requestGlobalConfig))
     loading.value = false
-    if (res && res.status === ResultEnum.SUCCESS) {
+    if (res && res.data) {
       targetData.value.option.dataset = newFunctionHandle(res.data, targetData.value.filter)
       showMatching.value = true
       return
