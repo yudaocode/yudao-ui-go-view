@@ -90,7 +90,6 @@ export enum RequestParamsTypeEnum {
   PARAMS = 'Params',
   BODY = 'Body',
   HEADER = 'Header',
-  COOKIE = 'Cookie'
 }
 
 /**
@@ -101,7 +100,6 @@ export type RequestParamsObjType = {
 }
 export type RequestParams = {
   [RequestParamsTypeEnum.PARAMS]: RequestParamsObjType
-  [RequestParamsTypeEnum.COOKIE]: RequestParamsObjType
   [RequestParamsTypeEnum.HEADER]: RequestParamsObjType
   [RequestParamsTypeEnum.BODY]: {
     [RequestBodyEnum.FORM_DATA]: RequestParamsObjType
@@ -117,9 +115,11 @@ export type RequestParams = {
 export enum ContentTypeEnum {
   // json
   JSON = 'application/json;charset=UTF-8',
-  // json
+  // text
   TEXT = 'text/plain;charset=UTF-8',
-  // form-data 一般配合qs
+  // xml
+  XML = 'application/xml;charset=UTF-8',
+  // application/x-www-form-urlencoded 一般配合qs
   FORM_URLENCODED = 'application/x-www-form-urlencoded;charset=UTF-8',
   // form-data  上传
   FORM_DATA = 'multipart/form-data;charset=UTF-8'

@@ -119,7 +119,6 @@ export const useChartEditStore = defineStore({
           json: '',
           xml: ''
         },
-        Cookie: {},
         Header: {},
         Params: {}
       }

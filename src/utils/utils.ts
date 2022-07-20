@@ -7,7 +7,7 @@ import html2canvas from 'html2canvas'
 import { downloadByA } from './file'
 import { toString } from './type'
 import cloneDeep from 'lodash/cloneDeep'
-import { RequestHttpIntervalEnum } from '@/enums/httpEnum'
+import { RequestHttpIntervalEnum, RequestParamsObjType } from '@/enums/httpEnum'
 
 /**
  * * 判断是否是开发环境
@@ -239,4 +239,19 @@ export const intervalUnitHandle = (num: number, unit: RequestHttpIntervalEnum) =
     default:
       return num * 1000
   }
+}
+
+/**
+ * * 对象转换 cookie 格式
+ * @param obj 
+ * @returns string
+ */
+export const objToCookie = (obj: RequestParamsObjType) => {
+  if(!obj) return ''
+  
+  let str = ''
+  for (const key in obj) {
+    str += key + '=' + obj[key] + ';'
+  }
+  return str.substr(0, str.length - 1)
 }

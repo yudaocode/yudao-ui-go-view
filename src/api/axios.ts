@@ -10,7 +10,6 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
-    config.headers = {}
     return config
   },
   (error: AxiosRequestConfig) => {

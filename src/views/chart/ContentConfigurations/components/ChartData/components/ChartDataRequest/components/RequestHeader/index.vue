@@ -28,7 +28,7 @@
           </n-radio-group>
 
           <!-- 为 none 时 -->
-          <n-card class="go-mt-3" v-if="requestParamsBodyType === RequestBodyEnum['NONE']">
+          <n-card class="go-mt-3 go-pb-3" v-if="requestParamsBodyType === RequestBodyEnum['NONE']">
             <n-text depth="3">该请求没有 Body 体</n-text>
           </n-card>
 
@@ -69,12 +69,17 @@
       </div>
     </div>
     <div v-show="requestContentType === RequestContentTypeEnum.SQL">
-      <setting-item-box name="键名">
-        <n-tag type="primary" :bordered="false" style="width: 40px; font-size: 16px"> sql </n-tag>
-      </setting-item-box>
-      <setting-item-box name="键值">
-        <monaco-editor v-model:modelValue="requestSQLContent['sql']" width="600px" height="200px" language="sql" />
-      </setting-item-box>
+      <template v-if="requestHttpType === RequestHttpEnum.GET">
+        <n-text>SQL 类型不支持 Get 请求，请使用其它方式</n-text>
+      </template>
+      <template v-else>
+        <setting-item-box name="键名">
+          <n-tag type="primary" :bordered="false" style="width: 40px; font-size: 16px"> sql </n-tag>
+        </setting-item-box>
+        <setting-item-box name="键值">
+          <monaco-editor v-model:modelValue="requestSQLContent['sql']" width="600px" height="200px" language="sql" />
+        </setting-item-box>
+      </template>
     </div>
   </n-space>
 </template>
@@ -92,12 +97,13 @@ import {
   RequestContentTypeEnum,
   RequestParamsObjType,
   RequestBodyEnumList,
-  RequestBodyEnum
+  RequestBodyEnum,
+  RequestHttpEnum
 } from '@/enums/httpEnum'
 
 const { targetData } = useTargetData()
 
-const { requestContentType, requestSQLContent, requestParams, requestParamsBodyType } = toRefs(targetData.value.request)
+const { requestHttpType, requestContentType, requestSQLContent, requestParams, requestParamsBodyType } = toRefs(targetData.value.request)
 
 const tabValue = ref<RequestParamsTypeEnum>(RequestParamsTypeEnum.PARAMS)
 

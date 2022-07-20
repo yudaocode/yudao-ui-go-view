@@ -97,13 +97,13 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, watch, toRefs } from 'vue'
+import { ref, computed, watch, toRefs, toRaw } from 'vue'
 import { MonacoEditor } from '@/components/Pages/MonacoEditor'
 import { useTargetData } from '../../../hooks/useTargetData.hook'
 import { RequestHttpEnum, RequestDataTypeEnum, ResultEnum } from '@/enums/httpEnum'
 import { icon } from '@/plugins'
 import { goDialog, toString } from '@/utils'
-import { http } from '@/api/http'
+import { http, customizeHttp } from '@/api/http'
 import cloneDeep from 'lodash/cloneDeep'
 
 const { DocumentTextIcon } = icon.ionicons5
@@ -124,19 +124,14 @@ const sourceData = ref<any>('')
 // 动态获取数据
 const fetchTargetData = async () => {
   try {
-    const { requestUrl, requestHttpType } = targetData.value.request
-    if (!requestUrl) {
-      sourceData.value = '请求参数不正确，请检查！'
-      return
-    }
-    const completePath = requestOriginUrl && requestOriginUrl.value + requestUrl
-    const res = await http(requestHttpType)(completePath || '', {})
-    if (res.status === ResultEnum.SUCCESS) {
+    const res = await customizeHttp(toRaw(targetData.value.request), toRaw(chartEditStore.requestGlobalConfig))
+    if (res && res.status === ResultEnum.SUCCESS) {
       sourceData.value = res.data
       return
     }
+    window['$message'].warning('数据异常，请检查参数！')
   } catch (error) {
-    window['$message'].warning('数据异常，请检查接口数据！')
+    window['$message'].warning('数据异常，请检查参数！')
   }
 }
 

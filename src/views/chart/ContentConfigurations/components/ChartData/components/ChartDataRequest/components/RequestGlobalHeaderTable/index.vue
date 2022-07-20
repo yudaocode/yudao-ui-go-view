@@ -19,11 +19,11 @@ const { chartEditStore } = useTargetData()
 const { requestParams } = toRefs(chartEditStore.getRequestGlobalConfig)
 
 const tabValue = ref<RequestParamsTypeEnum>(RequestParamsTypeEnum.HEADER)
-const tabs = [RequestParamsTypeEnum.HEADER, RequestParamsTypeEnum.COOKIE]
+const tabs = [RequestParamsTypeEnum.HEADER]
 
 // 更新表格参数
 const updateRequestParams = (paramsObj: RequestParamsObjType) => {
-  if (tabValue.value === RequestParamsTypeEnum.HEADER || tabValue.value === RequestParamsTypeEnum.COOKIE) {
+  if (tabValue.value === RequestParamsTypeEnum.HEADER) {
     requestParams.value[tabValue.value] = paramsObj
   }
 }

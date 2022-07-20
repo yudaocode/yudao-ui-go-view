@@ -28,7 +28,6 @@ const requestConfig: RequestConfigType = {
       json: '',
       xml: ''
     },
-    Cookie: {},
     Header: {},
     Params: {}
   }
