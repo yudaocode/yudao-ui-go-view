@@ -311,7 +311,7 @@ export const useChartEditStore = defineStore({
 
           // 历史记录
           if (isHistory) {
-            chartHistoryStore.createLaryerHistory(
+            chartHistoryStore.createLayerHistory(
               setIndex(targetData, index),
               isEnd ? HistoryActionTypeEnum.BOTTOM : HistoryActionTypeEnum.TOP
             )
@@ -359,7 +359,7 @@ export const useChartEditStore = defineStore({
 
           // 历史记录
           if (isHistory) {
-            chartHistoryStore.createLaryerHistory(
+            chartHistoryStore.createLayerHistory(
               targetItem,
               isDown ? HistoryActionTypeEnum.DOWN : HistoryActionTypeEnum.UP
             )
