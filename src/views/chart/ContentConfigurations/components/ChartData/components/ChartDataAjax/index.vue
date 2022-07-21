@@ -125,6 +125,7 @@ const requestModelHandle = () => {
 
 // 发送请求
 const sendHandle = async () => {
+  if(!targetData.value?.request) return
   loading.value = true
   try {
     const res = await customizeHttp(toRaw(targetData.value.request), toRaw(chartEditStore.requestGlobalConfig))
