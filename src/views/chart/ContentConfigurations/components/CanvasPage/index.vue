@@ -138,7 +138,7 @@ import { icon } from '@/plugins'
 import { uploadFile} from '@/api/path'
 
 const { ColorPaletteIcon } = icon.ionicons5
-const { ZAxisIcon, ScaleIcon, FitToScreenIcon, FitToHeightIcon, FitToWidthIcon } = icon.carbon
+const { ScaleIcon, FitToScreenIcon, FitToHeightIcon, FitToWidthIcon } = icon.carbon
 
 const chartEditStore = useChartEditStore()
 const systemStore = useSystemStore()
@@ -150,9 +150,6 @@ const switchSelectColorLoading = ref(false)
 
 const ChartThemeColor = loadAsyncComponent(() =>
   import('./components/ChartThemeColor/index.vue')
-)
-const ChartDataSetting = loadAsyncComponent(() =>
-  import('./components/ChartDataSetting/index.vue')
 )
 
 // 北京默认展示颜色列表
@@ -173,12 +170,6 @@ const globalTabList = [
     title: '主题颜色',
     icon: ColorPaletteIcon,
     render: ChartThemeColor
-  },
-  {
-    key: 'ChartSysSetting',
-    title: '数据配置',
-    icon: ZAxisIcon,
-    render: ChartDataSetting
   }
 ]
 

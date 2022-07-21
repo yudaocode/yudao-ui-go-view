@@ -1,12 +1,17 @@
-import { CreateComponentType, FilterEnum} from '@/packages/index.d'
+import { CreateComponentType, FilterEnum } from '@/packages/index.d'
 import { HistoryActionTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
-import { RequestHttpEnum, RequestDataTypeEnum } from '@/enums/httpEnum'
 import { SyncEnum } from '@/enums/editPageEnum'
+import {
+  RequestHttpEnum,
+  RequestContentTypeEnum,
+  RequestDataTypeEnum,
+  RequestHttpIntervalEnum,
+  RequestParams,
+  RequestBodyEnum,
+  RequestParamsObjType
+} from '@/enums/httpEnum'
 import { PreviewScaleEnum } from '@/enums/styleEnum'
-import type {
-  ChartColorsNameType,
-  GlobalThemeJsonType,
-} from '@/settings/chartThemes/index'
+import type { ChartColorsNameType, GlobalThemeJsonType } from '@/settings/chartThemes/index'
 
 // 项目数据枚举
 export enum ProjectInfoEnum {
@@ -71,7 +76,7 @@ export enum EditCanvasConfigEnum {
   BACKGROUND = 'background',
   BACKGROUND_IMAGE = 'backgroundImage',
   SELECT_COLOR = 'selectColor',
-  PREVIEW_SCALE_TYPE = 'previewScaleType',
+  PREVIEW_SCALE_TYPE = 'previewScaleType'
 }
 
 // 画布属性（需保存）
@@ -118,7 +123,7 @@ export enum EditCanvasTypeEnum {
   START_X = 'startX',
   START_Y = 'startY',
   X = 'x',
-  Y = 'y',
+  Y = 'y'
 }
 
 // 鼠标位置
@@ -157,27 +162,43 @@ export enum ChartEditStoreEnum {
   // 以下需要存储
   EDIT_CANVAS_CONFIG = 'editCanvasConfig',
   REQUEST_GLOBAL_CONFIG = 'requestGlobalConfig',
-  COMPONENT_LIST = 'componentList',
+  COMPONENT_LIST = 'componentList'
+}
+
+// 请求公共类型
+type RequestPublicConfigType = {
+  // 时间单位（时分秒）
+  requestIntervalUnit: RequestHttpIntervalEnum
+  // 请求内容
+  requestParams: RequestParams
 }
 
 // 全局的图表请求配置
-export type RequestGlobalConfigType = {
+export interface RequestGlobalConfigType extends RequestPublicConfigType {
+  // 组件定制轮询时间
+  requestInterval: number
   // 请求源地址
   requestOriginUrl?: string
-  // 全局默认轮询时间
-  requestInterval: number
 }
 
 // 单个图表请求配置
-export type RequestConfigType = {
+export interface RequestConfigType extends RequestPublicConfigType {
+  // 组件定制轮询时间
+  requestInterval?: number
   // 获取数据的方式
   requestDataType: RequestDataTypeEnum
   // 请求方式 get/post/del/put/patch
   requestHttpType: RequestHttpEnum
   // 源后续的 url
   requestUrl?: string
-  // 组件定制轮询时间
-  requestInterval?: number
+  // 请求内容主体方式 普通/sql
+  requestContentType: RequestContentTypeEnum
+  // 请求体类型
+  requestParamsBodyType: RequestBodyEnum
+  // SQL 请求对象
+  requestSQLContent: {
+    sql: string
+  }
 }
 
 // Store 类型

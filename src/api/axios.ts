@@ -25,6 +25,7 @@ axiosInstance.interceptors.request.use(
       return config
     } 
     config.headers = {
+      ...config.headers,
       [RequestHttpHeaderEnum.TOKEN]: info[SystemStoreEnum.USER_INFO][SystemStoreUserInfoEnum.USER_TOKEN] || ''
     }
     return config

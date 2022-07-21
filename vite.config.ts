@@ -54,7 +54,7 @@ export default ({ mode }) => defineConfig({
   plugins: [
     vue(),
     monacoEditorPlugin({
-      languageWorkers: ['editorWorkerService', 'typescript', 'json']
+      languageWorkers: ['editorWorkerService', 'typescript', 'json', 'html']
     }),
     viteMockServe({
       mockPath: '/src/api/mock',
