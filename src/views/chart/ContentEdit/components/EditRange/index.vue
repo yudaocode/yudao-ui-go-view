@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="go-edit-range go-transition"
-    :style="rangeStyle"
-    @mousedown="mousedownHandleUnStop($event, undefined)"
-  >
+  <div class="go-edit-range go-transition" :style="rangeStyle" @mousedown="mousedownHandleUnStop($event, undefined)">
     <slot></slot>
     <!-- 水印 -->
     <edit-watermark></edit-watermark>
@@ -41,18 +37,8 @@ const rangeStyle = computed(() => {
   const scale = {
     transform: `scale(${getEditCanvas.value.scale})`
   }
-  // 设置背景色和图片背景
-  const background = getEditCanvasConfig.value.background
-  const backgroundImage = getEditCanvasConfig.value.backgroundImage
-  const selectColor = getEditCanvasConfig.value.selectColor
-  const backgroundColor = background ? background : undefined
-
-  const computedBackground = selectColor
-    ? { background: backgroundColor }
-    : { background: `url(${backgroundImage}) no-repeat center/100% !important` }
-
   // @ts-ignore
-  return { ...useSizeStyle(size.value), ...computedBackground, ...scale }
+  return { ...useSizeStyle(size.value), ...scale }
 })
 
 // 模态层

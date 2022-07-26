@@ -180,7 +180,7 @@ export const useChartHistoryStore = defineStore({
       )
     },
     // * 改变层级组件记录
-    createLaryerHistory(
+    createLayerHistory(
       item: CreateComponentType,
       type:
         | HistoryActionTypeEnum.TOP
