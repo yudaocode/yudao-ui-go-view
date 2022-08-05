@@ -1,10 +1,10 @@
-import { ref, toRefs } from 'vue'
+import { ref, toRefs, toRaw } from 'vue'
 import type VChart from 'vue-echarts'
-import { http } from '@/api/http'
+import { customizeHttp } from '@/api/http'
 import { CreateComponentType, ChartFrameEnum } from '@/packages/index.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { RequestDataTypeEnum } from '@/enums/httpEnum'
-import { isPreview, newFunctionHandle } from '@/utils'
+import { isPreview, newFunctionHandle, intervalUnitHandle } from '@/utils'
 
 // 获取类型
 type ChartEditStoreType = typeof useChartEditStore
@@ -25,55 +25,71 @@ export const useChartDataFetch = (
 
   const requestIntervalFn = () => {
     const chartEditStore = useChartEditStore()
-    const { requestOriginUrl, requestInterval } = toRefs(chartEditStore.getRequestGlobalConfig)
-    // 组件类型
-    const { chartFrame } = targetComponent.chartConfig
-    // 请求配置
+    
+    // 全局数据
+    const {
+      requestOriginUrl,
+      requestIntervalUnit: globalUnit,
+      requestInterval: globalRequestInterval
+    } = toRefs(chartEditStore.getRequestGlobalConfig)
+
+    // 目标组件
     const {
       requestDataType,
-      requestHttpType,
       requestUrl,
+      requestIntervalUnit: targetUnit,
       requestInterval: targetInterval
     } = toRefs(targetComponent.request)
+
+    // 组件类型
+    const { chartFrame } = targetComponent.chartConfig
+
     // 非请求类型
     if (requestDataType.value !== RequestDataTypeEnum.AJAX) return
-    // 处理地址
-    if (requestUrl?.value && requestInterval.value > 0) {
-      // requestOriginUrl 允许为空
-      const completePath = requestOriginUrl && requestOriginUrl.value + requestUrl.value
-      if (!completePath) return
 
-      clearInterval(fetchInterval)
+    try {
+      // 处理地址
+      // @ts-ignore
+      if (requestUrl?.value) {
+        // requestOriginUrl 允许为空
+        const completePath = requestOriginUrl && requestOriginUrl.value + requestUrl.value
+        if (!completePath) return
 
-      const fetchFn = async () => {
-        const res: any = await http(requestHttpType.value)(completePath || '', {})
-        if (res.data) {
-          try {
-            const filter = targetComponent.filter
-            // 更新回调函数
-            if (updateCallback) {
-              updateCallback(newFunctionHandle(res.data, filter))
-            } else {
-              // eCharts 组件配合 vChart 库更新方式
-              if (chartFrame === ChartFrameEnum.ECHARTS) {
-                if (vChartRef.value) {
-                  vChartRef.value.setOption({ dataset: newFunctionHandle(res.data, filter) })
+        clearInterval(fetchInterval)
+
+        const fetchFn = async () => {
+          const res = await customizeHttp(toRaw(targetComponent.request), toRaw(chartEditStore.requestGlobalConfig))
+          if (res && res.data) {
+            try {
+              const filter = targetComponent.filter
+              // 更新回调函数
+              if (updateCallback) {
+                updateCallback(newFunctionHandle(res.data, filter))
+              } else {
+                // eCharts 组件配合 vChart 库更新方式
+                if (chartFrame === ChartFrameEnum.ECHARTS) {
+                  if (vChartRef.value) {
+                    vChartRef.value.setOption({ dataset: newFunctionHandle(res.data, filter) })
+                  }
                 }
               }
+            } catch (error) {
+              console.error(error)
             }
-          } catch (error) {
-            console.error(error)
           }
         }
+
+        // 立即调用
+        fetchFn()
+
+        // 定时时间
+        const time = targetInterval && targetInterval.value ? targetInterval.value : globalRequestInterval.value
+        // 单位
+        const unit = targetInterval && targetInterval.value ? targetUnit.value : globalUnit.value
+        // 开启轮询
+        if (time) fetchInterval = setInterval(fetchFn, intervalUnitHandle(time, unit))
       }
-
-      // 立即调用
-      fetchFn()
-
-      // 开启定时
-      const time = targetInterval && targetInterval.value ? targetInterval.value : requestInterval.value
-      fetchInterval = setInterval(fetchFn, time * 1000)
-    }
+    } catch (error) {}
   }
 
   isPreview() && requestIntervalFn()

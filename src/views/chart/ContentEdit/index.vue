@@ -112,7 +112,7 @@ const rangeStyle = computed(() => {
 
   const computedBackground = selectColor
     ? { background: backgroundColor }
-    : { background: `url(${backgroundImage}) no-repeat center/100% !important` }
+    : { background: `url(${backgroundImage}) no-repeat center center / cover !important` }
 
   // @ts-ignore
   return {

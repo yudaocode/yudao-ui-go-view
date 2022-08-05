@@ -44,7 +44,7 @@
         <n-color-picker
           size="small"
           :modes="['hex']"
-          v-model:value="optionData.suffixColor"
+          v-model:value="optionData.prefixColor"
         ></n-color-picker>
       </SettingItem>
       <SettingItem name="后缀">

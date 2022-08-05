@@ -3,7 +3,8 @@ import { CreateComponentType } from '@/packages/index.d'
 import debounce from 'lodash/debounce'
 import cloneDeep from 'lodash/cloneDeep'
 import { defaultTheme, globalThemeJson } from '@/settings/chartThemes/index'
-import { requestInterval, previewScaleType } from '@/settings/designSetting'
+import { requestInterval, previewScaleType, requestIntervalUnit } from '@/settings/designSetting'
+import { RequestBodyEnum } from '@/enums/httpEnum'
 // 记录记录
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
 // 全局设置
@@ -109,7 +110,18 @@ export const useChartEditStore = defineStore({
     // 数据请求处理（需存储给后端）
     requestGlobalConfig: {
       requestOriginUrl: '',
-      requestInterval: requestInterval 
+      requestInterval: requestInterval,
+      requestIntervalUnit: requestIntervalUnit,
+      requestParams: {
+        Body: {
+          "form-data": {},
+          "x-www-form-urlencoded": {},
+          json: '',
+          xml: ''
+        },
+        Header: {},
+        Params: {}
+      }
     },
     // 图表数组（需存储给后端）
     componentList: []
@@ -299,7 +311,7 @@ export const useChartEditStore = defineStore({
 
           // 历史记录
           if (isHistory) {
-            chartHistoryStore.createLaryerHistory(
+            chartHistoryStore.createLayerHistory(
               setIndex(targetData, index),
               isEnd ? HistoryActionTypeEnum.BOTTOM : HistoryActionTypeEnum.TOP
             )
@@ -347,7 +359,7 @@ export const useChartEditStore = defineStore({
 
           // 历史记录
           if (isHistory) {
-            chartHistoryStore.createLaryerHistory(
+            chartHistoryStore.createLayerHistory(
               targetItem,
               isDown ? HistoryActionTypeEnum.DOWN : HistoryActionTypeEnum.UP
             )
@@ -380,7 +392,7 @@ export const useChartEditStore = defineStore({
            type: isCut ? HistoryActionTypeEnum.CUT : HistoryActionTypeEnum.COPY
           }
           this.setRecordChart(copyData)
-          window['$message'].success(isCut ? '剪切成功' : '复制成功！')
+          window['$message'].success(isCut ? '剪切图表成功' : '复制图表成功！')
           loadingFinish()
         }
       } catch(value) {
