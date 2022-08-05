@@ -88,8 +88,9 @@ export const useMouseHandle = () => {
     )
       return
 
-    // 按下右键 + 选中多个
-    if (e.buttons === MouseEventButton.RIGHT && chartEditStore.getTargetChart.selectId.length > 1) return
+    // 按下右键 + 选中多个 + 目标元素是多选子元素
+    const selectId = chartEditStore.getTargetChart.selectId
+    if (e.buttons === MouseEventButton.RIGHT && selectId.length > 1 && selectId.includes(item.id)) return
 
     // 选中当前目标组件
     chartEditStore.setTargetSelectChart(item.id)
