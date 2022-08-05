@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { CreateComponentType } from '@/packages/index.d'
+import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 import { EditCanvasType } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { loadingStart, loadingFinish, loadingError } from '@/utils'
 import { editHistoryMax } from '@/settings/designSetting'
@@ -35,7 +35,7 @@ export const useChartHistoryStore = defineStore({
      * @param targetType 对象类型（默认图表）
      */
     createStackItem(
-      item: CreateComponentType | EditCanvasType,
+      item: CreateComponentType | CreateComponentGroupType | EditCanvasType,
       actionType: HistoryActionTypeEnum,
       targetType: HistoryTargetTypeEnum = HistoryTargetTypeEnum.CHART
     ) {
@@ -148,7 +148,7 @@ export const useChartHistoryStore = defineStore({
       }
     },
     // * 新增组件记录
-    createAddHistory(item: CreateComponentType) {
+    createAddHistory(item: CreateComponentType | CreateComponentGroupType) {
       this.createStackItem(
         item,
         HistoryActionTypeEnum.ADD,
@@ -156,7 +156,7 @@ export const useChartHistoryStore = defineStore({
       )
     },
     // * 更新属性记录（大小、图表属性）
-    createUpdateHistory(item: CreateComponentType) {
+    createUpdateHistory(item: CreateComponentType | CreateComponentGroupType) {
       this.createStackItem(
         item,
         HistoryActionTypeEnum.UPDATE,
@@ -164,7 +164,7 @@ export const useChartHistoryStore = defineStore({
       )
     },
     // * 删除组件记录
-    createDeleteHistory(item: CreateComponentType) {
+    createDeleteHistory(item: CreateComponentType | CreateComponentGroupType) {
       this.createStackItem(
         item,
         HistoryActionTypeEnum.DELETE,
@@ -172,7 +172,7 @@ export const useChartHistoryStore = defineStore({
       )
     },
     // * 移动组件记录
-    createMoveHistory(item: CreateComponentType) {
+    createMoveHistory(item: CreateComponentType | CreateComponentGroupType) {
       this.createStackItem(
         item,
         HistoryActionTypeEnum.MOVE,
@@ -181,7 +181,7 @@ export const useChartHistoryStore = defineStore({
     },
     // * 改变层级组件记录
     createLayerHistory(
-      item: CreateComponentType,
+      item: CreateComponentType | CreateComponentGroupType,
       type:
         | HistoryActionTypeEnum.TOP
         | HistoryActionTypeEnum.DOWN
@@ -195,7 +195,7 @@ export const useChartHistoryStore = defineStore({
       )
     },
     // * 剪切组件记录
-    createPasteHistory(item: CreateComponentType) {
+    createPasteHistory(item: CreateComponentType | CreateComponentGroupType) {
       this.createStackItem(
         item,
         HistoryActionTypeEnum.CUT,

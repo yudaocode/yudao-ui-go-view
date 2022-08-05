@@ -1,4 +1,4 @@
-import { CreateComponentType } from '@/packages/index.d'
+import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 import { EditCanvasType } from '@/store/modules/chartEditStore/chartEditStore.d'
 
 // 操作类型枚举
@@ -55,7 +55,7 @@ export interface HistoryItemType {
   [HistoryStackItemEnum.ID]: string | string[]
   [HistoryStackItemEnum.TARGET_TYPE]: HistoryTargetTypeEnum
   [HistoryStackItemEnum.ACTION_TYPE]: HistoryActionTypeEnum
-  [HistoryStackItemEnum.HISTORY_DATA]: CreateComponentType | EditCanvasType
+  [HistoryStackItemEnum.HISTORY_DATA]: CreateComponentType | CreateComponentGroupType | EditCanvasType
 }
 
 // 历史 Store 类型

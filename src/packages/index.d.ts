@@ -60,9 +60,8 @@ export enum FilterEnum {
 }
 
 // 组件实例类
-export interface PublicConfigType extends requestConfig {
+export interface PublicConfigType {
   id: string
-  rename?: string
   attr: { x: number; y: number; w: number; h: number; zIndex: number }
   styles: {
     [FilterEnum.OPACITY]: number;
@@ -84,10 +83,18 @@ export interface PublicConfigType extends requestConfig {
   setPosition: Function
 }
 
-export interface CreateComponentType extends PublicConfigType {
+export interface CreateComponentType extends PublicConfigType, requestConfig {
   key: string
   chartConfig: ConfigType
   option: GlobalThemeJsonType
+}
+
+// 组件成组实例类 (部分属性用不到设置为 any)
+export interface CreateComponentGroupType extends PublicConfigType {
+  chartConfig: {
+    categoryName: string
+  }
+  groupList: Array<CreateComponentType>
 }
 
 // 获取组件实例类中某个key对应value类型的方法

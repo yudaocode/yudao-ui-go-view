@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
-import { CreateComponentType } from '@/packages/index.d'
+import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
+import { PublicGroupConfigClass } from '@/packages/public/publicConfig'
 import debounce from 'lodash/debounce'
 import cloneDeep from 'lodash/cloneDeep'
 import { defaultTheme, globalThemeJson } from '@/settings/chartThemes/index'
 import { requestInterval, previewScaleType, requestIntervalUnit } from '@/settings/designSetting'
-import { RequestBodyEnum } from '@/enums/httpEnum'
 // 记录记录
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
 // 全局设置
@@ -148,7 +148,7 @@ export const useChartEditStore = defineStore({
     getRequestGlobalConfig(): RequestGlobalConfigType {
       return this.requestGlobalConfig
     },
-    getComponentList(): CreateComponentType[] {
+    getComponentList(): Array<CreateComponentType | CreateComponentGroupType> {
       return this.componentList
     },
     // 获取需要存储的数据项
@@ -243,7 +243,7 @@ export const useChartEditStore = defineStore({
      * @param isHistory 是否进行记录
      * @returns
      */
-    addComponentList(chartConfig: CreateComponentType, isHead = false, isHistory = false): void {
+    addComponentList(chartConfig: CreateComponentType | CreateComponentGroupType, isHead = false, isHistory = false): void {
       if (isHistory) {
         chartHistoryStore.createAddHistory(chartConfig)
       }
@@ -253,7 +253,7 @@ export const useChartEditStore = defineStore({
       }
       this.componentList.push(chartConfig)
     },
-    // * 删除组件列表
+    // * 删除单个组件
     removeComponentList(isHistory = true): void {
       try {
         loadingStart()
@@ -269,7 +269,7 @@ export const useChartEditStore = defineStore({
       }
     },
     // * 更新组件列表某一项的值
-    updateComponentList(index: number, newData: CreateComponentType) {
+    updateComponentList(index: number, newData: CreateComponentType | CreateComponentGroupType) {
       if (index < 1 && index > this.getComponentList.length) return
       this.componentList[index] = newData
     },
@@ -303,7 +303,7 @@ export const useChartEditStore = defineStore({
           }
 
           // 记录原有位置
-          const setIndex = (t:CreateComponentType, i:number) => {
+          const setIndex = (t:CreateComponentType | CreateComponentGroupType, i:number) => {
             const temp = cloneDeep(t)
             temp.attr.zIndex = i
             return temp
@@ -412,7 +412,7 @@ export const useChartEditStore = defineStore({
           loadingFinish()
           return
         }
-        const parseHandle = (e: CreateComponentType) => {
+        const parseHandle = (e: CreateComponentType | CreateComponentGroupType) => {
           e = cloneDeep(e)
           // 生成新 id
           e.id = getUUID()
@@ -566,6 +566,22 @@ export const useChartEditStore = defineStore({
           break;
       }
     }, 
+    // * 创建分组
+    setGroup() {
+      const groupClass = new PublicGroupConfigClass()
+      this.getTargetChart.selectId.forEach((id: string) => {
+        // 获取目标数据并从 list 中移除 (成组后不可再次成组, 断言处理)
+        const item = this.componentList.splice(this.fetchTargetIndex(id), 1)[0] as CreateComponentType
+        groupClass.groupList.push(item)
+      })
+      this.addComponentList(groupClass)
+      // todo 输出
+      console.log(this.getComponentList)
+    },
+    // * 解除分组
+    setUnGroup() {
+
+    },
     // ----------------
     // * 设置页面大小
     setPageSize(scale: number): void {

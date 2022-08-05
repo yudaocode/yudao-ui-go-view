@@ -78,12 +78,12 @@ const defaultOptions: MenuOptionsItemType[] = [
 ]
 
 // * 默认多选组件选项
-const defaultMultiSelectionOptions: MenuOptionsItemType[] = [
+const defaultMultiSelectOptions: MenuOptionsItemType[] = [
   {
-    label: '成组',
+    label: '创建分组',
     key: MenuEnum.COPY,
     icon: renderIcon(Carbon3DSoftwareIcon),
-    fnHandle: chartEditStore.setCopy
+    fnHandle: chartEditStore.setGroup
   }
 ]
 
@@ -141,7 +141,7 @@ const handleContextMenu = (
 
   // * 多选默认选项
   if (chartEditStore.getTargetChart.selectId.length > 1) {
-    menuOptions.value = defaultMultiSelectionOptions
+    menuOptions.value = defaultMultiSelectOptions
   } else {
     // * 单选默认选项
     menuOptions.value = defaultOptions

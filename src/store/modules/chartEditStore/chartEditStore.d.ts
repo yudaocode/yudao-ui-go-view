@@ -1,4 +1,4 @@
-import { CreateComponentType, FilterEnum } from '@/packages/index.d'
+import { CreateComponentType, CreateComponentGroupType, FilterEnum } from '@/packages/index.d'
 import { HistoryActionTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
 import {
   RequestHttpEnum,
@@ -117,7 +117,7 @@ export type TargetChartType = {
 
 // 数据记录
 export type RecordChartType = {
-  charts: CreateComponentType | CreateComponentType[]
+  charts: CreateComponentType | CreateComponentType[] | CreateComponentGroupType
   type: HistoryActionTypeEnum.CUT | HistoryActionTypeEnum.COPY
 }
 
@@ -180,11 +180,12 @@ export interface ChartEditStoreType {
   [ChartEditStoreEnum.TARGET_CHART]: TargetChartType
   [ChartEditStoreEnum.RECORD_CHART]?: RecordChartType
   [ChartEditStoreEnum.REQUEST_GLOBAL_CONFIG]: RequestGlobalConfigType
-  [ChartEditStoreEnum.COMPONENT_LIST]: CreateComponentType[]
+  [ChartEditStoreEnum.COMPONENT_LIST]: Array<CreateComponentType | CreateComponentGroupType>
 }
 
+// 存储数据类型
 export interface ChartEditStorage {
   [ChartEditStoreEnum.EDIT_CANVAS_CONFIG]: EditCanvasConfigType
   [ChartEditStoreEnum.REQUEST_GLOBAL_CONFIG]: RequestGlobalConfigType
-  [ChartEditStoreEnum.COMPONENT_LIST]: CreateComponentType[]
+  [ChartEditStoreEnum.COMPONENT_LIST]: Array<CreateComponentType | CreateComponentGroupType>
 }
