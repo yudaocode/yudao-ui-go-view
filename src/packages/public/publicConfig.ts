@@ -37,6 +37,7 @@ const requestConfig: RequestConfigType = {
 // 单实例类
 export class publicConfig implements PublicConfigType {
   public id = getUUID()
+  public isGroup = false
   // 基本信息
   public attr = { ...chartInitConfig, zIndex: -1 }
   // 基本样式
@@ -78,10 +79,17 @@ export class publicConfig implements PublicConfigType {
 
 // 成组类 (部分属性不需要, 不继承 publicConfig)
 export class PublicGroupConfigClass implements CreateComponentGroupType {
-  public id = getUUID()
-  chartConfig = {
-    categoryName: '分组'
+  // 成组
+  public isGroup = true
+  // 名称
+  public chartConfig = {
+    title: '分组'
   }
+  // 组成员列表
+  public groupList: Array<CreateComponentType> = []
+  // ---- 原有 ---
+  // 标识
+  public id = getUUID()
   // 基本信息
   public attr = { ...chartInitConfig, zIndex: -1 }
   // 基本样式
@@ -109,8 +117,6 @@ export class PublicGroupConfigClass implements CreateComponentGroupType {
     // 动画
     animations: []
   }
-  // 组成员列表
-  public groupList: Array<CreateComponentType> = []
   // 设置坐标
   public setPosition(x: number, y: number): void {
     this.attr.x = x

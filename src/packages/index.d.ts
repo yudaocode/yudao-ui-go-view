@@ -27,12 +27,12 @@ export type ConfigType = {
 
 // 数据请求
 interface requestConfig {
-  request: RequestConfigType,
+  request: RequestConfigType
 }
 
 // Echarts 数据类型
 interface EchartsDataType {
-  dimensions: string[],
+  dimensions: string[]
   source: any[]
 }
 
@@ -56,26 +56,27 @@ export enum FilterEnum {
 
   // 倾斜
   SKEW_X = 'skewX',
-  SKEW_Y = 'skewY',
+  SKEW_Y = 'skewY'
 }
 
 // 组件实例类
 export interface PublicConfigType {
   id: string
+  isGroup: boolean
   attr: { x: number; y: number; w: number; h: number; zIndex: number }
   styles: {
-    [FilterEnum.OPACITY]: number;
-    [FilterEnum.SATURATE]: number;
-    [FilterEnum.CONTRAST]: number;
-    [FilterEnum.HUE_ROTATE]: number;
-    [FilterEnum.BRIGHTNESS]: number;
+    [FilterEnum.OPACITY]: number
+    [FilterEnum.SATURATE]: number
+    [FilterEnum.CONTRAST]: number
+    [FilterEnum.HUE_ROTATE]: number
+    [FilterEnum.BRIGHTNESS]: number
 
-    [FilterEnum.ROTATE_Z]: number;
-    [FilterEnum.ROTATE_X]: number;
-    [FilterEnum.ROTATE_Y]: number;
+    [FilterEnum.ROTATE_Z]: number
+    [FilterEnum.ROTATE_X]: number
+    [FilterEnum.ROTATE_Y]: number
 
-    [FilterEnum.SKEW_X]: number;
-    [FilterEnum.SKEW_Y]: number;
+    [FilterEnum.SKEW_X]: number
+    [FilterEnum.SKEW_Y]: number
     // 动画
     animations: string[]
   }
@@ -91,8 +92,9 @@ export interface CreateComponentType extends PublicConfigType, requestConfig {
 
 // 组件成组实例类 (部分属性用不到设置为 any)
 export interface CreateComponentGroupType extends PublicConfigType {
+  // 保持结构一致, 设置组件名称
   chartConfig: {
-    categoryName: string
+    title: ConfigType.title
   }
   groupList: Array<CreateComponentType>
 }
