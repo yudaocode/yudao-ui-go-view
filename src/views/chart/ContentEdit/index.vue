@@ -31,7 +31,7 @@
             @mousedown="mousedownHandle($event, item)"
             @mouseenter="mouseenterHandle($event, item)"
             @mouseleave="mouseleaveHandle($event, item)"
-            @contextmenu="handleContextMenu($event, item)"
+            @contextmenu="handleContextMenu($event, item, optionsHandle)"
           >
             <component
               class="edit-content-chart"
@@ -66,8 +66,11 @@
 <script lang="ts" setup>
 import { onMounted, computed } from 'vue'
 import { chartColors } from '@/settings/chartThemes/index'
+import { MenuEnum } from '@/enums/editPageEnum'
+import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 import { animationsClass, getFilterStyle, getTransformStyle } from '@/utils'
 import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
+import { MenuOptionsItemType } from '@/views/chart/hooks/useContextMenu.hook.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 
 import { useLayout } from './hooks/useLayout.hook'
@@ -89,6 +92,20 @@ useLayout()
 
 // 点击事件
 const { mouseenterHandle, mouseleaveHandle, mousedownHandle, mouseClickHandle } = useMouseHandle()
+
+// 右键事件
+const optionsHandle = (targetList: MenuOptionsItemType[], allList: MenuOptionsItemType[], item: CreateComponentType | CreateComponentGroupType) => {
+  // 多选处理
+  if(chartEditStore.getTargetChart.selectId.length > 1) {
+    targetList.forEach(item => {
+      if(item.key !== MenuEnum.GROUP) {
+        item.disabled = true
+      }
+    })
+    return targetList
+  }
+  return targetList
+}
 
 // 主题色
 const themeSetting = computed(() => {

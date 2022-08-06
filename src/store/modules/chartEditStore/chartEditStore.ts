@@ -236,6 +236,32 @@ export const useChartEditStore = defineStore({
       }
       return index
     },
+    // * 找到组数据的下标位置，id可为父级或子集数组（无则返回-1）
+    fetchTargetGroupIndex(id?: string): number {
+      const targetId = id || this.getTargetChart.selectId.length && this.getTargetChart.selectId[0] || undefined
+      if(!targetId) {
+        loadingFinish()
+        return -1
+      }
+      const targetIndex = this.fetchTargetIndex(targetId)
+
+      // 当前
+      if(targetIndex !== -1) {
+        return targetIndex
+      } else {
+        const length = this.getComponentList.length
+        for(let i = 0; i < length; i++) {
+          if(this.getComponentList[i].isGroup) {
+            for(const cItem of (this.getComponentList[i] as CreateComponentGroupType).groupList) { 
+              if(cItem.id === targetId) {
+                return i
+              }
+            }
+          }
+        }
+      }
+      return -1
+    },
     /**
      * * 新增组件列表
      * @param chartConfig 新图表实例
@@ -575,12 +601,33 @@ export const useChartEditStore = defineStore({
         groupClass.groupList.push(item)
       })
       this.addComponentList(groupClass)
-      // todo 输出
-      console.log(this.getComponentList)
     },
     // * 解除分组
     setUnGroup() {
+      const selectGroupIdArr = this.getTargetChart.selectId
+      if(selectGroupIdArr.length > 1) {
+        window['$message'].error('解除分组失败，请联系管理员！')
+        return
+      }
+      
+      // 解组
+      const unGroup = (targetIndex: number) => {
+        const targetGroup = this.getComponentList[targetIndex] as CreateComponentGroupType
+        targetGroup.groupList.forEach(item => {
+          this.addComponentList(item)
+        })
+        this.setTargetSelectChart(targetGroup.id)
+        // 删除分组
+        this.removeComponentList(false)
+      }
 
+      const targetIndex = this.fetchTargetGroupIndex(selectGroupIdArr[0])
+      // 判断目标是否为分组父级
+      if(targetIndex !== -1) {
+        unGroup(targetIndex)
+      } else {
+        window['$message'].error('解除分组失败，请联系管理员！')
+      }
     },
     // ----------------
     // * 设置页面大小

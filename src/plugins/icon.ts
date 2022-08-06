@@ -55,7 +55,9 @@ import {
   Search as SearchIcon,
   ChevronUpOutline as ChevronUpOutlineIcon,
   ChevronDownOutline as ChevronDownOutlineIcon,
-  Pulse as PulseIcon
+  Pulse as PulseIcon,
+  Folder as FolderIcon,
+  FolderOpen as FolderOpenIcon
 } from '@vicons/ionicons5'
 
 import {
@@ -205,7 +207,11 @@ const ionicons5 = {
   // 向下
   ChevronDownOutlineIcon,
   // 脉搏
-  PulseIcon
+  PulseIcon,
+  // 文件夹
+  FolderIcon,
+  // 文件夹打开
+  FolderOpenIcon
 }
 
 const carbon = {

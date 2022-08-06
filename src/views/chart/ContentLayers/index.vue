@@ -16,20 +16,21 @@
       <n-text class="not-layer-text">暂无图层~</n-text>
     </n-space>
     <!-- https://github.com/SortableJS/vue.draggable.next -->
-    <draggable
-      item-key="id"
-      v-model="reverseList"
-      ghostClass="ghost"
-      @change="onMoveCallback"
-    >
+    <draggable item-key="id" v-model="reverseList" ghostClass="ghost" @change="onMoveCallback">
       <template #item="{ element }">
-        <layers-list-item
-          :componentData="element"
-          @mousedown="mousedownHandle(element)"
-          @mouseenter="mouseenterHandle(element)"
-          @mouseleave="mouseleaveHandle(element)"
-          @contextmenu="handleContextMenu($event, element)"
-        ></layers-list-item>
+        <div>
+          <!-- 组合 -->
+          <LayersGroupListItem v-if="element.isGroup" :componentGroupData="element"></LayersGroupListItem>
+          <!-- 单组件 -->
+          <LayersListItem
+            v-else
+            :componentData="element"
+            @mousedown="mousedownHandle(element)"
+            @mouseenter="mouseenterHandle(element)"
+            @mouseleave="mouseleaveHandle(element)"
+            @contextmenu="handleContextMenu($event, element)"
+          ></LayersListItem>
+        </div>
       </template>
     </draggable>
   </content-box>
@@ -44,22 +45,24 @@ import { ContentBox } from '../ContentBox/index'
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
 import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { CreateComponentType } from '@/packages/index.d'
+import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
 import { MenuEnum } from '@/enums/editPageEnum'
 
 import { LayersListItem } from './components/LayersListItem/index'
+import { LayersGroupListItem } from './components/LayersGroupListItem/index'
+
 import { icon } from '@/plugins'
 
 const { LayersIcon } = icon.ionicons5
 const chartLayoutStore = useChartLayoutStore()
 const chartEditStore = useChartEditStore()
 
-const { handleContextMenu } = useContextMenu()
+const { handleContextMenu, onClickOutSide } = useContextMenu()
 
 // 逆序展示
 const reverseList = computed(() => {
-  const list: CreateComponentType[] = cloneDeep(chartEditStore.getComponentList)
+  const list: Array<CreateComponentType | CreateComponentGroupType> = cloneDeep(chartEditStore.getComponentList)
   return list.reverse()
 })
 
@@ -89,6 +92,7 @@ const onMoveCallback = (val: any) => {
 
 // 点击事件
 const mousedownHandle = (item: CreateComponentType) => {
+  onClickOutSide()
   chartEditStore.setTargetSelectChart(item.id)
 }
 

@@ -1,7 +1,7 @@
 // 鼠标点击左右键
 export enum MouseEventButton {
   LEFT = 1,
-  RIGHT = 2
+  RIGHT = 2,
 }
 
 // 页面拖拽键名
@@ -24,6 +24,9 @@ export enum MenuEnum {
   UP = 'up',
   DOWN = 'down',
   CLEAR = 'clear',
+  GROUP = 'group',
+  UN_GROUP = 'unGroup',
+
   BACK = 'back',
   FORWORD = 'forward'
 }

@@ -1,10 +1,11 @@
-import { ref, nextTick } from 'vue'
+import { ref, nextTick, toRaw } from 'vue';
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { CreateComponentType } from '@/packages/index.d'
+import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 import { renderIcon, loadingError } from '@/utils'
 import { icon } from '@/plugins'
 import { MenuOptionsItemType } from './useContextMenu.hook.d'
 import { MenuEnum } from '@/enums/editPageEnum'
+import cloneDeep from 'lodash/cloneDeep'
 
 const { CopyIcon, CutIcon, ClipboardOutlineIcon, TrashIcon, ChevronDownIcon, ChevronUpIcon } = icon.ionicons5
 const { UpToTopIcon, DownToBottomIcon, PaintBrushIcon, Carbon3DSoftwareIcon, Carbon3DCursorIcon } = icon.carbon
@@ -81,10 +82,16 @@ const defaultOptions: MenuOptionsItemType[] = [
 const defaultMultiSelectOptions: MenuOptionsItemType[] = [
   {
     label: '创建分组',
-    key: MenuEnum.COPY,
+    key: MenuEnum.GROUP,
     icon: renderIcon(Carbon3DSoftwareIcon),
     fnHandle: chartEditStore.setGroup
-  }
+  },
+  {
+    label: '解除分组',
+    key: MenuEnum.UN_GROUP,
+    icon: renderIcon(Carbon3DCursorIcon),
+    fnHandle: chartEditStore.setUnGroup
+  },
 ]
 
 // * 无数据传递拥有的选项
@@ -123,7 +130,7 @@ const menuOptions = ref<MenuOptionsItemType[]>([])
 const handleContextMenu = (
   e: MouseEvent,
   // 右键对象
-  item?: CreateComponentType,
+  item?: CreateComponentType | CreateComponentGroupType,
   // 判断函数
   optionsHandle?: Function,
   // 隐藏选项列表
@@ -133,10 +140,13 @@ const handleContextMenu = (
 ) => {
   e.stopPropagation()
   e.preventDefault()
+
   let target = e.target
   while (target instanceof SVGElement) {
     target = target.parentNode
   }
+
+  // 展示列表
   chartEditStore.setRightMenuShow(false)
 
   // * 多选默认选项
@@ -148,16 +158,17 @@ const handleContextMenu = (
   }
 
   if (!item) {
-    menuOptions.value = pickOption(menuOptions.value, defaultNoItemKeys)
+    menuOptions.value = pickOption(toRaw(menuOptions.value), defaultNoItemKeys)
   }
   if (hideOptionsList) {
-    menuOptions.value = hideOption(menuOptions.value, hideOptionsList)
+    menuOptions.value = hideOption([...defaultMultiSelectOptions, ...defaultOptions], hideOptionsList)
   }
   if (pickOptionsList) {
-    menuOptions.value = hideOption(menuOptions.value, pickOptionsList)
+    menuOptions.value = pickOption([...defaultMultiSelectOptions, ...defaultOptions], pickOptionsList)
   }
   if (optionsHandle) {
-    menuOptions.value = optionsHandle(menuOptions.value)
+    // 自定义函数能够拿到当前选项和所有选项
+    menuOptions.value = optionsHandle(cloneDeep(toRaw(menuOptions.value)), [...defaultMultiSelectOptions, ...defaultOptions], item)
   }
   nextTick().then(() => {
     chartEditStore.setMousePosition(e.clientX, e.clientY)
@@ -197,6 +208,8 @@ export const useContextMenu = () => {
 
   return {
     menuOptions,
+    defaultOptions,
+    defaultMultiSelectOptions,
     handleContextMenu,
     onClickOutSide,
     handleMenuSelect,

@@ -1,6 +1,7 @@
 import { getUUID } from '@/utils'
 import { PublicConfigType, CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 import { RequestConfigType } from '@/store/modules/chartEditStore/chartEditStore.d'
+import { groupTitle } from '@/settings/designSetting'
 import {
   RequestHttpEnum,
   RequestDataTypeEnum,
@@ -83,7 +84,7 @@ export class PublicGroupConfigClass implements CreateComponentGroupType {
   public isGroup = true
   // 名称
   public chartConfig = {
-    title: '分组'
+    title: groupTitle
   }
   // 组成员列表
   public groupList: Array<CreateComponentType> = []
