@@ -15,38 +15,43 @@
       <!-- 展示 -->
       <edit-range>
         <!-- 滤镜预览 -->
-        <div :style="{
+        <div
+          :style="{
             ...getFilterStyle(chartEditStore.getEditCanvasConfig),
             ...rangeStyle
-          }">
+          }"
+        >
           <!-- 图表 -->
-          <edit-shape-box
-            v-for="(item, index) in chartEditStore.getComponentList"
-            :key="item.id"
-            :data-id="item.id"
-            :index="index"
-            :style="useComponentStyle(item.attr, index)"
-            :item="item"
-            @click="mouseClickHandle($event, item)"
-            @mousedown="mousedownHandle($event, item)"
-            @mouseenter="mouseenterHandle($event, item)"
-            @mouseleave="mouseleaveHandle($event, item)"
-            @contextmenu="handleContextMenu($event, item, optionsHandle)"
-          >
-            <component
-              class="edit-content-chart"
-              :class="animationsClass(item.styles.animations)"
-              :is="item.chartConfig.chartKey"
-              :chartConfig="item"
-              :themeSetting="themeSetting"
-              :themeColor="themeColor"
-              :style="{
-                ...useSizeStyle(item.attr),
-                ...getFilterStyle(item.styles),
-                ...getTransformStyle(item.styles),
-              }"
-            ></component>
-          </edit-shape-box>
+          <div v-for="(item, index) in chartEditStore.getComponentList" :key="item.id">
+            <EditGroup v-if="item.isGroup" :groupData="item" :groupIndex="index"> </EditGroup>
+            <!-- 单组件 -->
+            <edit-shape-box
+              v-else
+              :data-id="item.id"
+              :index="index"
+              :style="useComponentStyle(item.attr, index)"
+              :item="item"
+              @click="mouseClickHandle($event, item)"
+              @mousedown="mousedownHandle($event, item)"
+              @mouseenter="mouseenterHandle($event, item)"
+              @mouseleave="mouseleaveHandle($event, item)"
+              @contextmenu="handleContextMenu($event, item, optionsHandle)"
+            >
+              <component
+                class="edit-content-chart"
+                :class="animationsClass(item.styles.animations)"
+                :is="item.chartConfig.chartKey"
+                :chartConfig="item"
+                :themeSetting="themeSetting"
+                :themeColor="themeColor"
+                :style="{
+                  ...useSizeStyle(item.attr),
+                  ...getFilterStyle(item.styles),
+                  ...getTransformStyle(item.styles)
+                }"
+              ></component>
+            </edit-shape-box>
+          </div>
         </div>
       </edit-range>
     </div>
@@ -79,6 +84,7 @@ import { dragHandle, dragoverHandle, useMouseHandle } from './hooks/useDrag.hook
 import { useComponentStyle, useSizeStyle } from './hooks/useStyle.hook'
 
 import { ContentBox } from '../ContentBox/index'
+import { EditGroup } from './components/EditGroup'
 import { EditRange } from './components/EditRange'
 import { EditBottom } from './components/EditBottom'
 import { EditShapeBox } from './components/EditShapeBox'
@@ -94,15 +100,21 @@ useLayout()
 const { mouseenterHandle, mouseleaveHandle, mousedownHandle, mouseClickHandle } = useMouseHandle()
 
 // 右键事件
-const optionsHandle = (targetList: MenuOptionsItemType[], allList: MenuOptionsItemType[], item: CreateComponentType | CreateComponentGroupType) => {
+const optionsHandle = (
+  targetList: MenuOptionsItemType[],
+  allList: MenuOptionsItemType[],
+  item: CreateComponentType
+) => {
   // 多选处理
-  if(chartEditStore.getTargetChart.selectId.length > 1) {
+  if (chartEditStore.getTargetChart.selectId.length > 1) {
+    const list: MenuOptionsItemType[] = []
     targetList.forEach(item => {
-      if(item.key !== MenuEnum.GROUP) {
-        item.disabled = true
+      // 成组
+      if (item.key === MenuEnum.GROUP) {
+        list.push(item)
       }
     })
-    return targetList
+    return list
   }
   return targetList
 }

@@ -20,16 +20,16 @@
       <template #item="{ element }">
         <div>
           <!-- 组合 -->
-          <LayersGroupListItem v-if="element.isGroup" :componentGroupData="element"></LayersGroupListItem>
+          <layers-group-list-item v-if="element.isGroup" :componentGroupData="element"></layers-group-list-item>
           <!-- 单组件 -->
-          <LayersListItem
+          <layers-list-item
             v-else
             :componentData="element"
             @mousedown="mousedownHandle(element)"
             @mouseenter="mouseenterHandle(element)"
             @mouseleave="mouseleaveHandle(element)"
             @contextmenu="handleContextMenu($event, element)"
-          ></LayersListItem>
+          ></layers-list-item>
         </div>
       </template>
     </draggable>

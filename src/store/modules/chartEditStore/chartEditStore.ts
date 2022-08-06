@@ -605,10 +605,6 @@ export const useChartEditStore = defineStore({
     // * 解除分组
     setUnGroup() {
       const selectGroupIdArr = this.getTargetChart.selectId
-      if(selectGroupIdArr.length > 1) {
-        window['$message'].error('解除分组失败，请联系管理员！')
-        return
-      }
       
       // 解组
       const unGroup = (targetIndex: number) => {

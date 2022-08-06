@@ -1,0 +1,78 @@
+<template>
+  <div class="go-edit-group-box">
+    <!-- 组合组件 -->
+    <edit-shape-box
+      v-for="item in groupData.groupList"
+      :key="item.id"
+      :data-id="item.id"
+      :index="groupIndex"
+      :style="useComponentStyle(item.attr, groupIndex)"
+      :item="item"
+      @click="mouseClickHandle($event, item)"
+      @mousedown="mousedownHandle($event, item)"
+      @mouseenter="mouseenterHandle($event, item)"
+      @mouseleave="mouseleaveHandle($event, item)"
+      @contextmenu="handleContextMenu($event, item, undefined, undefined, pickOptionsList)"
+    >
+      <component
+        class="edit-content-chart"
+        :class="animationsClass(item.styles.animations)"
+        :is="item.chartConfig.chartKey"
+        :chartConfig="item"
+        :themeSetting="themeSetting"
+        :themeColor="themeColor"
+        :style="{
+          ...useSizeStyle(item.attr),
+          ...getFilterStyle(item.styles),
+          ...getTransformStyle(item.styles)
+        }"
+      ></component>
+    </edit-shape-box>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { computed, PropType } from 'vue'
+import { MenuEnum } from '@/enums/editPageEnum'
+import { chartColors } from '@/settings/chartThemes/index'
+import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
+import { animationsClass, getFilterStyle, getTransformStyle } from '@/utils'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
+import { useMouseHandle } from '../../hooks/useDrag.hook'
+import { useComponentStyle, useSizeStyle } from '../../hooks/useStyle.hook'
+import { EditShapeBox } from '../../components/EditShapeBox'
+
+
+const props = defineProps({
+  groupData: {
+    type: Object as PropType<CreateComponentGroupType>,
+    required: true
+  },
+  groupIndex: {
+    type: Number,
+    required: true
+  }
+})
+
+const chartEditStore = useChartEditStore()
+const { handleContextMenu } = useContextMenu()
+
+// 右键
+const pickOptionsList = [MenuEnum.UN_GROUP]
+
+// 点击事件
+const { mouseenterHandle, mouseleaveHandle, mousedownHandle, mouseClickHandle } = useMouseHandle()
+
+// 配置项
+const themeColor = computed(() => {
+  const chartThemeColor = chartEditStore.getEditCanvasConfig.chartThemeColor
+  return chartColors[chartThemeColor]
+})
+
+// 主题色
+const themeSetting = computed(() => {
+  const chartThemeSetting = chartEditStore.getEditCanvasConfig.chartThemeSetting
+  return chartThemeSetting
+})
+</script>
