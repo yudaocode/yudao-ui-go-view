@@ -594,35 +594,48 @@ export const useChartEditStore = defineStore({
     }, 
     // * 创建分组
     setGroup() {
-      const groupClass = new PublicGroupConfigClass()
-      this.getTargetChart.selectId.forEach((id: string) => {
-        // 获取目标数据并从 list 中移除 (成组后不可再次成组, 断言处理)
-        const item = this.componentList.splice(this.fetchTargetIndex(id), 1)[0] as CreateComponentType
-        groupClass.groupList.push(item)
-      })
-      this.addComponentList(groupClass)
+      try {
+        loadingStart()
+        const groupClass = new PublicGroupConfigClass()
+        this.getTargetChart.selectId.forEach((id: string) => {
+          // 获取目标数据并从 list 中移除 (成组后不可再次成组, 断言处理)
+          const item = this.componentList.splice(this.fetchTargetIndex(id), 1)[0] as CreateComponentType
+          groupClass.groupList.push(item)
+        })
+        this.addComponentList(groupClass)
+        loadingFinish()
+      } catch (error) {
+        window['$message'].error('创建分组失败，请联系管理员！')
+        loadingFinish()
+      }
     },
     // * 解除分组
     setUnGroup() {
-      const selectGroupIdArr = this.getTargetChart.selectId
-      
-      // 解组
-      const unGroup = (targetIndex: number) => {
-        const targetGroup = this.getComponentList[targetIndex] as CreateComponentGroupType
-        targetGroup.groupList.forEach(item => {
-          this.addComponentList(item)
-        })
-        this.setTargetSelectChart(targetGroup.id)
-        // 删除分组
-        this.removeComponentList(false)
-      }
+      try {
+        loadingStart()
+        const selectGroupIdArr = this.getTargetChart.selectId
+        // 解组
+        const unGroup = (targetIndex: number) => {
+          const targetGroup = this.getComponentList[targetIndex] as CreateComponentGroupType
+          targetGroup.groupList.forEach(item => {
+            this.addComponentList(item)
+          })
+          this.setTargetSelectChart(targetGroup.id)
+          // 删除分组
+          this.removeComponentList(false)
+        }
 
-      const targetIndex = this.fetchTargetGroupIndex(selectGroupIdArr[0])
-      // 判断目标是否为分组父级
-      if(targetIndex !== -1) {
-        unGroup(targetIndex)
-      } else {
+        const targetIndex = this.fetchTargetGroupIndex(selectGroupIdArr[0])
+        // 判断目标是否为分组父级
+        if(targetIndex !== -1) {
+          unGroup(targetIndex)
+        } else {
+          window['$message'].error('解除分组失败，请联系管理员！')
+        }
+        loadingFinish()
+      } catch (error) {
         window['$message'].error('解除分组失败，请联系管理员！')
+        loadingFinish()
       }
     },
     // ----------------
