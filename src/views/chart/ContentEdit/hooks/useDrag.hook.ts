@@ -1,7 +1,7 @@
 import { DragKeyEnum, MouseEventButton, WinKeyboard, MacKeyboard } from '@/enums/editPageEnum'
 import { createComponent } from '@/packages'
 import { ConfigType } from '@/packages/index.d'
-import { CreateComponentType, PickCreateComponentType } from '@/packages/index.d'
+import { CreateComponentType, CreateComponentGroupType, PickCreateComponentType } from '@/packages/index.d'
 import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
@@ -51,7 +51,7 @@ export const dragoverHandle = (e: DragEvent) => {
 }
 
 // * 不拦截默认行为点击
-export const mousedownHandleUnStop = (e: MouseEvent, item?: CreateComponentType) => {
+export const mousedownHandleUnStop = (e: MouseEvent, item?: CreateComponentType | CreateComponentGroupType) => {
   if (item) {
     chartEditStore.setTargetSelectChart(item.id)
     return
@@ -62,7 +62,7 @@ export const mousedownHandleUnStop = (e: MouseEvent, item?: CreateComponentType)
 // * 移动图表
 export const useMouseHandle = () => {
   // *  Click 事件, 松开鼠标触发
-  const mouseClickHandle = (e: MouseEvent, item: CreateComponentType) => {
+  const mouseClickHandle = (e: MouseEvent, item: CreateComponentType | CreateComponentGroupType) => {
     e.preventDefault()
     e.stopPropagation()
     // 若此时按下了 CTRL, 表示多选
@@ -75,7 +75,7 @@ export const useMouseHandle = () => {
   }
 
   // * 按下事件（包含移动事件）
-  const mousedownHandle = (e: MouseEvent, item: CreateComponentType) => {
+  const mousedownHandle = (e: MouseEvent, item: CreateComponentType | CreateComponentGroupType) => {
     e.preventDefault()
     e.stopPropagation()
     onClickOutSide()
@@ -148,14 +148,14 @@ export const useMouseHandle = () => {
   }
 
   // * 进入事件
-  const mouseenterHandle = (e: MouseEvent, item: CreateComponentType) => {
+  const mouseenterHandle = (e: MouseEvent, item: CreateComponentType | CreateComponentGroupType) => {
     e.preventDefault()
     e.stopPropagation()
     chartEditStore.setTargetHoverChart(item.id)
   }
 
   // * 移出事件
-  const mouseleaveHandle = (e: MouseEvent, item: CreateComponentType) => {
+  const mouseleaveHandle = (e: MouseEvent, item: CreateComponentType | CreateComponentGroupType) => {
     e.preventDefault()
     e.stopPropagation()
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_DRAG, false)

@@ -1,32 +1,47 @@
 <template>
   <div class="go-edit-group-box">
-    <!-- 组合组件 -->
     <edit-shape-box
-      v-for="item in groupData.groupList"
-      :key="item.id"
-      :data-id="item.id"
+      :key="groupData.id"
+      :data-id="groupData.id"
       :index="groupIndex"
-      :style="useComponentStyle(item.attr, groupIndex)"
-      :item="item"
-      @click="mouseClickHandle($event, item)"
-      @mousedown="mousedownHandle($event, item)"
-      @mouseenter="mouseenterHandle($event, item)"
-      @mouseleave="mouseleaveHandle($event, item)"
-      @contextmenu="handleContextMenu($event, item, undefined, undefined, pickOptionsList)"
+      :item="groupData"
+      :style="{
+        ...useComponentStyle(groupData.attr, groupIndex),
+        ...useSizeStyle(groupData.attr),
+        ...getFilterStyle(groupData.styles),
+        ...getTransformStyle(groupData.styles)
+      }"
+      @click="mouseClickHandle($event, groupData)"
+      @mousedown="mousedownHandle($event, groupData)"
+      @mouseenter="mouseenterHandle($event, groupData)"
+      @mouseleave="mouseleaveHandle($event, groupData)"
+      @contextmenu="handleContextMenu($event, groupData, undefined, undefined, pickOptionsList)"
     >
-      <component
-        class="edit-content-chart"
-        :class="animationsClass(item.styles.animations)"
-        :is="item.chartConfig.chartKey"
-        :chartConfig="item"
-        :themeSetting="themeSetting"
-        :themeColor="themeColor"
+      <!-- 组合组件 -->
+      <edit-shape-box
+        v-for="item in groupData.groupList"
+        :key="item.id"
+        :data-id="item.id"
+        :index="groupIndex"
+        :item="item"
         :style="{
-          ...useSizeStyle(item.attr),
-          ...getFilterStyle(item.styles),
-          ...getTransformStyle(item.styles)
+          ...useComponentStyle(item.attr, groupIndex)
         }"
-      ></component>
+      >
+        <component
+          class="edit-content-chart"
+          :class="animationsClass(item.styles.animations)"
+          :is="item.chartConfig.chartKey"
+          :chartConfig="item"
+          :themeSetting="themeSetting"
+          :themeColor="themeColor"
+          :style="{
+            ...useSizeStyle(item.attr),
+            ...getFilterStyle(item.styles),
+            ...getTransformStyle(item.styles)
+          }"
+        ></component>
+      </edit-shape-box>
     </edit-shape-box>
   </div>
 </template>
@@ -42,7 +57,6 @@ import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
 import { useMouseHandle } from '../../hooks/useDrag.hook'
 import { useComponentStyle, useSizeStyle } from '../../hooks/useStyle.hook'
 import { EditShapeBox } from '../../components/EditShapeBox'
-
 
 const props = defineProps({
   groupData: {

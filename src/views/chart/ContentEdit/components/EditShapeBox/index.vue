@@ -22,13 +22,13 @@
 import { ref, computed, PropType, toRefs } from 'vue'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
-import { CreateComponentType } from '@/packages/index.d'
+import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 import { useSizeStyle, usePointStyle } from '../../hooks/useStyle.hook'
 import { useMousePointHandle } from '../../hooks/useDrag.hook'
 
 const props = defineProps({
   item: {
-    type: Object as PropType<CreateComponentType>,
+    type: Object as PropType<CreateComponentType | CreateComponentGroupType>,
     required: true
   }
 })

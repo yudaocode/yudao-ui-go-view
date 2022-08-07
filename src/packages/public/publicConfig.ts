@@ -92,7 +92,7 @@ export class PublicGroupConfigClass implements CreateComponentGroupType {
   // 标识
   public id = getUUID()
   // 基本信息
-  public attr = { ...chartInitConfig, zIndex: -1 }
+  public attr = { w: 0, h: 0, x: 0, y: 0, zIndex: -1 }
   // 基本样式
   public styles = {
     // 色相

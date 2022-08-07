@@ -26,7 +26,7 @@
             <EditGroup v-if="item.isGroup" :groupData="item" :groupIndex="index"> </EditGroup>
             <!-- 单组件 -->
             <edit-shape-box
-              v-else
+              v-if="!item.isGroup"
               :data-id="item.id"
               :index="index"
               :style="useComponentStyle(item.attr, index)"

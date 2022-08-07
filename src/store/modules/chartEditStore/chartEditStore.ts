@@ -597,11 +597,44 @@ export const useChartEditStore = defineStore({
       try {
         loadingStart()
         const groupClass = new PublicGroupConfigClass()
+        // 记录整体坐标
+        const groupAttr = {
+          l: this.getEditCanvasConfig.width,
+          t: this.getEditCanvasConfig.height,
+          r: 0,
+          b: 0
+        }
+        const targetList: CreateComponentType[] = []
         this.getTargetChart.selectId.forEach((id: string) => {
           // 获取目标数据并从 list 中移除 (成组后不可再次成组, 断言处理)
           const item = this.componentList.splice(this.fetchTargetIndex(id), 1)[0] as CreateComponentType
+          const { x, y, w, h } = item.attr
+          const { l, t, r, b } = groupAttr
+          // 左
+          groupAttr.l = l > x ? x : l
+          // 上
+          groupAttr.t = t > y ? y : t
+          // 宽
+          groupAttr.r = r < x + w ? x + w : r
+          // 高
+          groupAttr.b = b < y + h ? y + h  : b
+
+          targetList.push(item)
+        })
+
+        // 设置子组件的位置
+        targetList.forEach((item: CreateComponentType) => {
+          item.attr.x = item.attr.x - groupAttr.l
+          item.attr.y = item.attr.y - groupAttr.t
           groupClass.groupList.push(item)
         })
+
+        // 设置 group 属性
+        groupClass.attr.x = groupAttr.l
+        groupClass.attr.y = groupAttr.t
+        groupClass.attr.w = groupAttr.r - groupAttr.l
+        groupClass.attr.h = groupAttr.b - groupAttr.t
+
         this.addComponentList(groupClass)
         loadingFinish()
       } catch (error) {
