@@ -2,13 +2,15 @@
   <div class="go-shape-box">
     <slot></slot>
     <!-- 锚点 -->
-    <div
-      :class="`shape-point ${point}`"
-      v-for="(point, index) in select ? pointList : []"
-      :key="index"
-      :style="usePointStyle(point, index, item.attr, cursorResize)"
-      @mousedown="useMousePointHandle($event, point, item.attr)"
-    ></div>
+    <template v-if="!hiddenPoint">
+      <div
+        :class="`shape-point ${point}`"
+        v-for="(point, index) in select ? pointList : []"
+        :key="index"
+        :style="usePointStyle(point, index, item.attr, cursorResize)"
+        @mousedown="useMousePointHandle($event, point, item.attr)"
+      ></div>
+    </template>
 
     <!-- 选中 -->
     <div class="shape-modal" :style="useSizeStyle(item.attr)">
@@ -30,6 +32,10 @@ const props = defineProps({
   item: {
     type: Object as PropType<CreateComponentType | CreateComponentGroupType>,
     required: true
+  },
+  hiddenPoint: {
+    type: Boolean,
+    required: false
   }
 })
 

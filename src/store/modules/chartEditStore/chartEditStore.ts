@@ -650,7 +650,11 @@ export const useChartEditStore = defineStore({
         // 解组
         const unGroup = (targetIndex: number) => {
           const targetGroup = this.getComponentList[targetIndex] as CreateComponentGroupType
+
+          // 分离组件并还原位置属性
           targetGroup.groupList.forEach(item => {
+            item.attr.x = item.attr.x + targetGroup.attr.x
+            item.attr.y = item.attr.y + targetGroup.attr.y
             this.addComponentList(item)
           })
           this.setTargetSelectChart(targetGroup.id)

@@ -5,6 +5,7 @@
       :data-id="groupData.id"
       :index="groupIndex"
       :item="groupData"
+      :hiddenPoint="true"
       :style="{
         ...useComponentStyle(groupData.attr, groupIndex),
         ...useSizeStyle(groupData.attr),
@@ -24,6 +25,7 @@
         :data-id="item.id"
         :index="groupIndex"
         :item="item"
+        :hiddenPoint="true"
         :style="{
           ...useComponentStyle(item.attr, groupIndex)
         }"
