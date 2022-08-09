@@ -11,21 +11,12 @@
       :collapsed="collapsed"
       :native-scrollbar="false"
       show-trigger="bar"
-      @collapse="collapsedHindle"
-      @expand="expandHindle"
+      @collapse="collapsedHandle"
+      @expand="expandHandle"
     >
-      <content-box
-        class="go-content-layers go-boderbox"
-        :show-top="false"
-        :depth="2"
-      >
+      <content-box class="go-content-layers go-boderbox" :show-top="false" :depth="2">
         <!-- 页面配置 -->
-        <n-tabs
-          v-show="!selectTarget"
-          class="tabs-box"
-          size="small"
-          type="segment"
-        >
+        <n-tabs v-if="!selectTarget" class="tabs-box" size="small" type="segment">
           <n-tab-pane
             v-for="item in globalTabList"
             :key="item.key"
@@ -46,14 +37,9 @@
         </n-tabs>
 
         <!-- 编辑 -->
-        <n-tabs
-          v-show="selectTarget"
-          class="tabs-box"
-          size="small"
-          type="segment"
-        >
+        <n-tabs v-if="selectTarget" class="tabs-box" size="small" type="segment">
           <n-tab-pane
-            v-for="(item) in canvasTabList"
+            v-for="item in selectTarget.isGroup ? chartsDefaultTabList : chartsTabList"
             :key="item.key"
             :name="item.key"
             size="small"
@@ -88,35 +74,22 @@ const { getDetails } = toRefs(useChartLayoutStore())
 const { setItem } = useChartLayoutStore()
 const chartEditStore = useChartEditStore()
 
-const {
-  ConstructIcon,
-  FlashIcon,
-  DesktopOutlineIcon,
-  LeafIcon
-} = icon.ionicons5
+const { ConstructIcon, FlashIcon, DesktopOutlineIcon, LeafIcon } = icon.ionicons5
 
 const ContentEdit = loadAsyncComponent(() => import('../ContentEdit/index.vue'))
-const CanvasPage = loadAsyncComponent(() =>
-  import('./components/CanvasPage/index.vue')
-)
-const ChartSetting = loadAsyncComponent(() =>
-  import('./components/ChartSetting/index.vue')
-)
-const ChartData = loadAsyncComponent(() =>
-  import('./components/ChartData/index.vue')
-)
-const ChartAnimation = loadAsyncComponent(() =>
-  import('./components/ChartAnimation/index.vue')
-)
+const CanvasPage = loadAsyncComponent(() => import('./components/CanvasPage/index.vue'))
+const ChartSetting = loadAsyncComponent(() => import('./components/ChartSetting/index.vue'))
+const ChartData = loadAsyncComponent(() => import('./components/ChartData/index.vue'))
+const ChartAnimation = loadAsyncComponent(() => import('./components/ChartAnimation/index.vue'))
 
 const collapsed = ref<boolean>(getDetails.value)
 
-const collapsedHindle = () => {
+const collapsedHandle = () => {
   collapsed.value = true
   setItem(ChartLayoutStoreEnum.DETAILS, true)
 }
 
-const expandHindle = () => {
+const expandHandle = () => {
   collapsed.value = false
   setItem(ChartLayoutStoreEnum.DETAILS, false)
 }
@@ -125,14 +98,15 @@ const selectTarget = computed(() => {
   const selectId = chartEditStore.getTargetChart.selectId
   // 排除多个
   if (selectId.length !== 1) return undefined
-  return chartEditStore.componentList[chartEditStore.fetchTargetIndex()]
+  const target = chartEditStore.componentList[chartEditStore.fetchTargetIndex()]
+  return target
 })
 
 watch(getDetails, newData => {
   if (newData) {
-    collapsedHindle()
+    collapsedHandle()
   } else {
-    expandHindle()
+    expandHandle()
   }
 })
 
@@ -146,7 +120,7 @@ const globalTabList = [
   }
 ]
 
-const canvasTabList = [
+const chartsDefaultTabList = [
   {
     key: 'ChartSetting',
     title: '定制',
@@ -158,7 +132,11 @@ const canvasTabList = [
     title: '动画',
     icon: LeafIcon,
     render: ChartAnimation
-  },
+  }
+]
+
+const chartsTabList = [
+  ...chartsDefaultTabList,
   {
     key: 'ChartData',
     title: '数据',

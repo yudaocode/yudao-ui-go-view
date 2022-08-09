@@ -12,6 +12,14 @@ const { UpToTopIcon, DownToBottomIcon, PaintBrushIcon, Carbon3DSoftwareIcon, Car
 
 const chartEditStore = useChartEditStore()
 
+// * 分割线
+const divider = [
+  {
+    type: 'divider',
+    key: 'd3'
+  }
+]
+
 // * 默认单组件选项
 export const defaultOptions: MenuOptionsItemType[] = [
   {
@@ -163,10 +171,10 @@ const handleContextMenu = (
     menuOptions.value = pickOption(toRaw(menuOptions.value), defaultNoItemKeys)
   }
   if (hideOptionsList) {
-    menuOptions.value = hideOption([...defaultMultiSelectOptions, ...defaultOptions], hideOptionsList)
+    menuOptions.value = hideOption([...defaultMultiSelectOptions, ...divider, ...defaultOptions], hideOptionsList)
   }
   if (pickOptionsList) {
-    menuOptions.value = pickOption([...defaultMultiSelectOptions, ...defaultOptions], pickOptionsList)
+    menuOptions.value = pickOption([...defaultMultiSelectOptions, ...divider, ...defaultOptions], pickOptionsList)
   }
   if (optionsHandle) {
     // 自定义函数能够拿到当前选项和所有选项

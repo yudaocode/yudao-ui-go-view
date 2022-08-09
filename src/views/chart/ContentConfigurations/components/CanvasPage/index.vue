@@ -96,7 +96,7 @@
     </n-space>
 
     <!-- 滤镜 -->
-    <styles-setting :is-canvas="true" :chartStyles="canvasConfig"></styles-setting>
+    <styles-setting :isCanvas="true" :chartStyles="canvasConfig"></styles-setting>
     <n-divider style="margin: 10px 0;"></n-divider>
 
     <!-- 主题选择和全局配置 -->
