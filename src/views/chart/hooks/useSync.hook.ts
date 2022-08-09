@@ -3,7 +3,7 @@ import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore
 import { ChartEditStoreEnum, ChartEditStorage } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
 import { fetchChartComponent, fetchConfigComponent, createComponent } from '@/packages/index'
-import { CreateComponentType } from '@/packages/index.d'
+import { CreateComponentType, CreateComponentGroupType, ConfigType } from '@/packages/index.d'
 
 // 请求处理
 export const useSync = () => {
@@ -25,15 +25,18 @@ export const useSync = () => {
       chartHistoryStore.clearForwardStack()
     }
     // 列表组件注册
-    projectData.componentList.forEach(async (e: CreateComponentType) => {
-      if (!window['$vue'].component(e.chartConfig.chartKey)) {
+    projectData.componentList.forEach(async (e: CreateComponentType | CreateComponentGroupType) => {
+      // 排除分组
+      if (e.isGroup) return
+      const target = e as CreateComponentType
+      if (!window['$vue'].component(target.chartConfig.chartKey)) {
         window['$vue'].component(
-          e.chartConfig.chartKey,
-          fetchChartComponent(e.chartConfig)
+          target.chartConfig.chartKey,
+          fetchChartComponent(target.chartConfig)
         )
         window['$vue'].component(
-          e.chartConfig.conKey,
-          fetchConfigComponent(e.chartConfig)
+          target.chartConfig.conKey,
+          fetchConfigComponent(target.chartConfig)
         )
       }
     })
@@ -44,7 +47,7 @@ export const useSync = () => {
         for (const comItem of projectData[key]) {
           // 补充 class 上的方法
           let newComponent: CreateComponentType = await createComponent(
-            comItem.chartConfig
+            comItem.chartConfig as ConfigType
           )
           chartEditStore.addComponentList(
             Object.assign(newComponent, {...comItem, id: getUUID()}),
