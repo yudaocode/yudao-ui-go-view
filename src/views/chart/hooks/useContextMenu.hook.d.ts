@@ -9,6 +9,8 @@ export enum MenuEnum {
   UP = 'up',
   DOWN = 'down',
   CLEAR = 'clear',
+  GROUP = 'group',
+  UN_GROUP = 'unGroup'
 }
 
 export interface MenuOptionsItemType {

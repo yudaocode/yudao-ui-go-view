@@ -1,4 +1,4 @@
-import { ref, nextTick, toRaw } from 'vue';
+import { ref, nextTick, toRaw } from 'vue'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 import { renderIcon, loadingError } from '@/utils'
@@ -13,7 +13,7 @@ const { UpToTopIcon, DownToBottomIcon, PaintBrushIcon, Carbon3DSoftwareIcon, Car
 const chartEditStore = useChartEditStore()
 
 // * 默认单组件选项
-const defaultOptions: MenuOptionsItemType[] = [
+export const defaultOptions: MenuOptionsItemType[] = [
   {
     label: '复制',
     key: MenuEnum.COPY,
@@ -79,7 +79,7 @@ const defaultOptions: MenuOptionsItemType[] = [
 ]
 
 // * 默认多选组件选项
-const defaultMultiSelectOptions: MenuOptionsItemType[] = [
+export const defaultMultiSelectOptions: MenuOptionsItemType[] = [
   {
     label: '创建分组',
     key: MenuEnum.GROUP,
@@ -91,7 +91,7 @@ const defaultMultiSelectOptions: MenuOptionsItemType[] = [
     key: MenuEnum.UN_GROUP,
     icon: renderIcon(Carbon3DCursorIcon),
     fnHandle: chartEditStore.setUnGroup
-  },
+  }
 ]
 
 // * 无数据传递拥有的选项
@@ -105,9 +105,11 @@ const defaultNoItemKeys = [MenuEnum.PARSE, MenuEnum.CLEAR]
  */
 const pickOption = (options: MenuOptionsItemType[], pickList?: MenuEnum[]) => {
   if (!pickList) return options
-  return options.filter((op: MenuOptionsItemType) => {
-    return pickList.findIndex((e: MenuEnum) => e === op.key) !== -1
+  const list: MenuOptionsItemType[] = []
+  pickList.forEach(e => {
+    list.push(...options.filter(op => op.key === e))
   })
+  return list
 }
 
 /**
@@ -168,7 +170,11 @@ const handleContextMenu = (
   }
   if (optionsHandle) {
     // 自定义函数能够拿到当前选项和所有选项
-    menuOptions.value = optionsHandle(cloneDeep(toRaw(menuOptions.value)), [...defaultMultiSelectOptions, ...defaultOptions], item)
+    menuOptions.value = optionsHandle(
+      cloneDeep(toRaw(menuOptions.value)),
+      [...defaultMultiSelectOptions, ...defaultOptions],
+      item
+    )
   }
   nextTick().then(() => {
     chartEditStore.setMousePosition(e.clientX, e.clientY)

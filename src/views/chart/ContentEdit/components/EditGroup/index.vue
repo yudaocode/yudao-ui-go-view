@@ -16,7 +16,7 @@
       @mousedown="mousedownHandle($event, groupData)"
       @mouseenter="mouseenterHandle($event, groupData)"
       @mouseleave="mouseleaveHandle($event, groupData)"
-      @contextmenu="handleContextMenu($event, groupData, undefined, undefined, pickOptionsList)"
+      @contextmenu="handleContextMenu($event, groupData, undefined, undefined)"
     >
       <!-- 组合组件 -->
       <edit-shape-box
@@ -73,9 +73,6 @@ const props = defineProps({
 
 const chartEditStore = useChartEditStore()
 const { handleContextMenu } = useContextMenu()
-
-// 右键
-const pickOptionsList = [MenuEnum.UN_GROUP]
 
 // 点击事件
 const { mouseenterHandle, mouseleaveHandle, mousedownHandle, mouseClickHandle } = useMouseHandle()
