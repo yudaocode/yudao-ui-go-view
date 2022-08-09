@@ -104,6 +104,16 @@ const shortcutKeyOptions = [
     win: `${WinKeyboard.CTRL.toUpperCase()} + 🖱️ `,
     mac: `${MacKeyboard.CTRL_SOURCE_KEY.toUpperCase()} + 🖱️ `,
   },
+  {
+    label: '创建分组',
+    win: `${WinKeyboard.CTRL.toUpperCase()} + G `,
+    mac: `${MacKeyboard.CTRL_SOURCE_KEY.toUpperCase()} + G `,
+  },
+  {
+    label: '解除分组',
+    win: `${WinKeyboard.CTRL.toUpperCase()} + ${WinKeyboard.SHIFT.toUpperCase()} + G `,
+    mac: `${MacKeyboard.CTRL_SOURCE_KEY.toUpperCase()} + ${WinKeyboard.SHIFT.toUpperCase()} + G `,
+  },
 ]
 const closeHandle = () => {
   emit('update:modelShow', false)

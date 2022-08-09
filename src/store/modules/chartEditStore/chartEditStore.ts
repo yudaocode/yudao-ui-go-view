@@ -595,6 +595,8 @@ export const useChartEditStore = defineStore({
     // * 创建分组
     setGroup() {
       try {
+        if(this.getTargetChart.selectId.length < 2) return 
+
         loadingStart()
         const groupClass = new PublicGroupConfigClass()
         // 记录整体坐标
@@ -636,6 +638,8 @@ export const useChartEditStore = defineStore({
         groupClass.attr.h = groupAttr.b - groupAttr.t
 
         this.addComponentList(groupClass)
+        this.setTargetSelectChart(groupClass.id)
+
         loadingFinish()
       } catch (error) {
         window['$message'].error('创建分组失败，请联系管理员！')
@@ -645,12 +649,15 @@ export const useChartEditStore = defineStore({
     // * 解除分组
     setUnGroup() {
       try {
-        loadingStart()
         const selectGroupIdArr = this.getTargetChart.selectId
+        if(selectGroupIdArr.length !== 1) return
+        loadingStart()
+
         // 解组
         const unGroup = (targetIndex: number) => {
           const targetGroup = this.getComponentList[targetIndex] as CreateComponentGroupType
-
+          if(!targetGroup.isGroup) return
+          
           // 分离组件并还原位置属性
           targetGroup.groupList.forEach(item => {
             item.attr.x = item.attr.x + targetGroup.attr.x
@@ -666,11 +673,11 @@ export const useChartEditStore = defineStore({
         // 判断目标是否为分组父级
         if(targetIndex !== -1) {
           unGroup(targetIndex)
-        } else {
-          window['$message'].error('解除分组失败，请联系管理员！')
         }
+
         loadingFinish()
       } catch (error) {
+        console.log(error)
         window['$message'].error('解除分组失败，请联系管理员！')
         loadingFinish()
       }
