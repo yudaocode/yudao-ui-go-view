@@ -6,6 +6,7 @@
       :index="groupIndex"
       :item="groupData"
       :hiddenPoint="true"
+      :class="animationsClass(groupData.styles.animations)"
       :style="{
         ...useComponentStyle(groupData.attr, groupIndex),
         ...useSizeStyle(groupData.attr),
