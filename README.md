@@ -36,8 +36,17 @@ GoView 是一个高效的拖拽式低代码数据可视化开发平台，将图�
 
 - 封装：项目进行了详细的工具类封装如：路由、存储、加/解密、文件处理、主题、NaiveUI 全局方法、组件等
 
-项目截图：
-![项目截图](readme/goView-canvas.png)
+工作台：
+![项目截图](readme/go-view-canvas.png)
+
+请求配置：
+![项目截图](readme/go-view-fetch.png)
+
+数据过滤：
+![项目截图](readme/go-view-filter.png)
+
+主题色：
+![项目截图](readme/go-view-color.png)
 
 主要技术栈为：
 
@@ -137,6 +146,6 @@ make dist
 
 QQ 群：1030129384
 
-![QQ群](readme/goView-QQ.png)
+![QQ群](readme/go-view-qq.png)
 
 ![渲染海报](readme/logo-poster.png)
