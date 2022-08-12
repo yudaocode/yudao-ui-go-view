@@ -23,7 +23,9 @@
         >
           <!-- 图表 -->
           <div v-for="(item, index) in chartEditStore.getComponentList" :key="item.id">
-            <EditGroup v-if="item.isGroup" :groupData="item" :groupIndex="index"> </EditGroup>
+            <!-- 分组 -->
+            <edit-group v-if="item.isGroup" :groupData="item" :groupIndex="index"></edit-group>
+            
             <!-- 单组件 -->
             <edit-shape-box
               v-if="!item.isGroup"

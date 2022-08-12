@@ -1,21 +1,31 @@
 <template>
   <div
     class="chart-item"
-    :class="animationsClass(item.styles.animations)"
     v-for="(item, index) in localStorageInfo.componentList"
+    :class="animationsClass(item.styles.animations)"
     :key="item.id"
-    :style="{ 
+    :style="{
       ...getComponentAttrStyle(item.attr, index),
       ...getFilterStyle(item.styles),
       ...getTransformStyle(item.styles)
     }"
   >
+    <!-- 分组 -->
+    <preview-render-group
+      v-if="item.isGroup"
+      :groupData="item"
+      :groupIndex="index"
+      :themeSetting="themeSetting"
+      :themeColor="themeColor"
+    ></preview-render-group>
+
+    <!-- 单组件 -->
     <component
       :is="item.chartConfig.chartKey"
       :chartConfig="item"
       :themeSetting="themeSetting"
       :themeColor="themeColor"
-      :style="{...getSizeStyle(item.attr)}"
+      :style="{ ...getSizeStyle(item.attr) }"
     ></component>
   </div>
 </template>
@@ -23,6 +33,7 @@
 <script setup lang="ts">
 import { PropType, computed } from 'vue'
 import { ChartEditStorageType } from '../../index.d'
+import { PreviewRenderGroup } from '../PreviewRenderGroup/index'
 import { chartColors } from '@/settings/chartThemes/index'
 import { animationsClass, getFilterStyle, getTransformStyle } from '@/utils'
 import { getSizeStyle, getComponentAttrStyle } from '../../utils'
@@ -45,7 +56,6 @@ const themeColor = computed(() => {
   const chartThemeColor = props.localStorageInfo.editCanvasConfig.chartThemeColor
   return chartColors[chartThemeColor]
 })
-
 </script>
 
 <style lang="scss" scoped>
