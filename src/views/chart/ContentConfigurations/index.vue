@@ -37,7 +37,7 @@
         </n-tabs>
 
         <!-- 编辑 -->
-        <n-tabs v-if="selectTarget" class="tabs-box" size="small" type="segment">
+        <n-tabs v-if="selectTarget" v-model:value="tabsSelect" class="tabs-box" size="small" type="segment">
           <n-tab-pane
             v-for="item in selectTarget.isGroup ? chartsDefaultTabList : chartsTabList"
             :key="item.key"
@@ -66,6 +66,7 @@ import { ref, toRefs, watch, computed } from 'vue'
 import { icon } from '@/plugins'
 import { loadAsyncComponent } from '@/utils'
 import { ContentBox } from '../ContentBox/index'
+import { TabsEnum } from './index.d'
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
 import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
@@ -83,6 +84,7 @@ const ChartData = loadAsyncComponent(() => import('./components/ChartData/index.
 const ChartAnimation = loadAsyncComponent(() => import('./components/ChartAnimation/index.vue'))
 
 const collapsed = ref<boolean>(getDetails.value)
+const tabsSelect = ref<TabsEnum>(TabsEnum.CHART_SETTING)
 
 const collapsedHandle = () => {
   collapsed.value = true
@@ -99,6 +101,9 @@ const selectTarget = computed(() => {
   // 排除多个
   if (selectId.length !== 1) return undefined
   const target = chartEditStore.componentList[chartEditStore.fetchTargetIndex()]
+  if (target?.isGroup) {
+    tabsSelect.value = TabsEnum.CHART_SETTING
+  }
   return target
 })
 
@@ -113,7 +118,7 @@ watch(getDetails, newData => {
 // 页面设置
 const globalTabList = [
   {
-    key: 'pageSetting',
+    key: TabsEnum.PAGE_SETTING,
     title: '页面配置',
     icon: DesktopOutlineIcon,
     render: CanvasPage
@@ -122,13 +127,13 @@ const globalTabList = [
 
 const chartsDefaultTabList = [
   {
-    key: 'ChartSetting',
+    key: TabsEnum.CHART_SETTING,
     title: '定制',
     icon: ConstructIcon,
     render: ChartSetting
   },
   {
-    key: 'ChartAnimation',
+    key: TabsEnum.CHART_ANIMATION,
     title: '动画',
     icon: LeafIcon,
     render: ChartAnimation
@@ -138,7 +143,7 @@ const chartsDefaultTabList = [
 const chartsTabList = [
   ...chartsDefaultTabList,
   {
-    key: 'ChartData',
+    key: TabsEnum.CHART_DATA,
     title: '数据',
     icon: FlashIcon,
     render: ChartData
