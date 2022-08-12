@@ -180,33 +180,33 @@ export const useChartEditStore = defineStore({
     // * 设置目标数据 select
     setTargetSelectChart(selectId?: string | string[], push: boolean = false) {
       // 重复选中
-      if(this.targetChart.selectId.find((e: string) => e === selectId)) return
+      if (this.targetChart.selectId.find((e: string) => e === selectId)) return
 
       // 无 id 清空
-      if(!selectId) {
+      if (!selectId) {
         this.targetChart.selectId = []
         return
       }
       // 多选
-      if(push) {
+      if (push) {
         // 字符串
-        if(isString(selectId)) {
+        if (isString(selectId)) {
           this.targetChart.selectId.push(selectId)
           return
         }
         // 数组
-        if(isArray(selectId)) {
+        if (isArray(selectId)) {
           this.targetChart.selectId.push(...selectId)
           return
         }
       } else {
         // 字符串
-        if(isString(selectId)) {
+        if (isString(selectId)) {
           this.targetChart.selectId = [selectId]
           return
         }
         // 数组
-        if(isArray(selectId)) {
+        if (isArray(selectId)) {
           this.targetChart.selectId = selectId
           return
         }
@@ -223,37 +223,24 @@ export const useChartEditStore = defineStore({
       if (x) this.mousePosition.x = x
       if (y) this.mousePosition.y = y
     },
-    // * 找到目标 id 数据下标位置（无则返回-1）
+    // * 找到目标 id 数据的下标位置，id可为父级或子集数组（无则返回-1）
     fetchTargetIndex(id?: string): number {
       const targetId = id || this.getTargetChart.selectId.length && this.getTargetChart.selectId[0] || undefined
-      if(!targetId) {
+      if (!targetId) {
         loadingFinish()
         return -1
       }
-      const index = this.componentList.findIndex(e => e.id === targetId)
-      if (index === -1) {
-        loadingError()
-      }
-      return index
-    },
-    // * 找到组数据的下标位置，id可为父级或子集数组（无则返回-1）
-    fetchTargetGroupIndex(id?: string): number {
-      const targetId = id || this.getTargetChart.selectId.length && this.getTargetChart.selectId[0] || undefined
-      if(!targetId) {
-        loadingFinish()
-        return -1
-      }
-      const targetIndex = this.fetchTargetIndex(targetId)
+      const targetIndex = this.componentList.findIndex(e => e.id === targetId)
 
       // 当前
-      if(targetIndex !== -1) {
+      if (targetIndex !== -1) {
         return targetIndex
       } else {
         const length = this.getComponentList.length
         for(let i = 0; i < length; i++) {
-          if(this.getComponentList[i].isGroup) {
+          if (this.getComponentList[i].isGroup) {
             for(const cItem of (this.getComponentList[i] as CreateComponentGroupType).groupList) { 
-              if(cItem.id === targetId) {
+              if (cItem.id === targetId) {
                 return i
               }
             }
@@ -280,10 +267,10 @@ export const useChartEditStore = defineStore({
       this.componentList.push(chartConfig)
     },
     // * 删除单个组件
-    removeComponentList(isHistory = true): void {
+    removeComponentList(id?:string, isHistory = true): void {
       try {
         loadingStart()
-        const index  = this.fetchTargetIndex()
+        const index  = this.fetchTargetIndex(id)
         if (index !== -1) {
           isHistory ? chartHistoryStore.createDeleteHistory(this.getComponentList[index]) : undefined
           this.componentList.splice(index, 1)
@@ -454,7 +441,7 @@ export const useChartEditStore = defineStore({
             // 剪切需删除原数据
             if (isCut) {
               this.setTargetSelectChart(e.id)
-              this.removeComponentList(true)
+              this.removeComponentList(undefined, true)
             }
           })
           if (isCut) this.setRecordChart(undefined)
@@ -492,7 +479,7 @@ export const useChartEditStore = defineStore({
           this.addComponentList(historyData)
           return  
         }
-        this.removeComponentList(false)
+        this.removeComponentList(undefined, false)
         return
       }
 
@@ -574,7 +561,7 @@ export const useChartEditStore = defineStore({
     // * 移动位置
     setMove(keyboardValue: MenuEnum) {
       const index  = this.fetchTargetIndex()
-      if(index === -1) return
+      if (index === -1) return
       const attr = this.getComponentList[index].attr
       const distance = settingStore.getChartMoveDistance
       switch (keyboardValue) {
@@ -595,7 +582,8 @@ export const useChartEditStore = defineStore({
     // * 创建分组
     setGroup() {
       try {
-        if(this.getTargetChart.selectId.length < 2) return 
+        const selectIds = this.getTargetChart.selectId
+        if (selectIds.length < 2) return 
 
         loadingStart()
         const groupClass = new PublicGroupConfigClass()
@@ -607,7 +595,23 @@ export const useChartEditStore = defineStore({
           b: 0
         }
         const targetList: CreateComponentType[] = []
-        this.getTargetChart.selectId.forEach((id: string) => {
+
+        // 若目标中有数组则先解组
+        const newSelectIds: string[] = []
+        selectIds.forEach((id: string) => {
+          const targetIndex = this.fetchTargetIndex(id)
+          if (targetIndex !== -1 && this.getComponentList[targetIndex].isGroup) {
+            this.setUnGroup([id], (e: CreateComponentType[]) => {
+              e.forEach(e => {
+                this.addComponentList(e)
+                newSelectIds.push(e.id)
+              })
+            }, false)
+          } else {
+            newSelectIds.push(id)
+          }
+        })
+        newSelectIds.forEach((id: string) => {
           // 获取目标数据并从 list 中移除 (成组后不可再次成组, 断言处理)
           const item = this.componentList.splice(this.fetchTargetIndex(id), 1)[0] as CreateComponentType
           const { x, y, w, h } = item.attr
@@ -642,36 +646,43 @@ export const useChartEditStore = defineStore({
 
         loadingFinish()
       } catch (error) {
+        console.log(error)
         window['$message'].error('创建分组失败，请联系管理员！')
         loadingFinish()
       }
     },
     // * 解除分组
-    setUnGroup() {
+    setUnGroup(ids?:string[] , callBack?:(e: CreateComponentType[]) => void, isHistory = true) {
       try {
-        const selectGroupIdArr = this.getTargetChart.selectId
-        if(selectGroupIdArr.length !== 1) return
+        const selectGroupIdArr = ids || this.getTargetChart.selectId
+        if (selectGroupIdArr.length !== 1) return
         loadingStart()
 
         // 解组
         const unGroup = (targetIndex: number) => {
           const targetGroup = this.getComponentList[targetIndex] as CreateComponentGroupType
-          if(!targetGroup.isGroup) return
+          if (!targetGroup.isGroup) return
           
           // 分离组件并还原位置属性
           targetGroup.groupList.forEach(item => {
             item.attr.x = item.attr.x + targetGroup.attr.x
             item.attr.y = item.attr.y + targetGroup.attr.y
-            this.addComponentList(item)
+            if (!callBack) {
+              this.addComponentList(item)
+            }
           })
           this.setTargetSelectChart(targetGroup.id)
           // 删除分组
-          this.removeComponentList(false)
+          this.removeComponentList(targetGroup.id, false)
+
+          if (callBack) {
+            callBack(targetGroup.groupList) 
+          }
         }
 
-        const targetIndex = this.fetchTargetGroupIndex(selectGroupIdArr[0])
+        const targetIndex = this.fetchTargetIndex(selectGroupIdArr[0])
         // 判断目标是否为分组父级
-        if(targetIndex !== -1) {
+        if (targetIndex !== -1) {
           unGroup(targetIndex)
         }
 
