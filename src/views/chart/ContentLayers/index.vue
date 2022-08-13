@@ -65,7 +65,7 @@ const { handleContextMenu, onClickOutSide } = useContextMenu()
 const optionsHandle = (
   targetList: MenuOptionsItemType[],
   allList: MenuOptionsItemType[],
-  item: CreateComponentType
+  targetInstance: CreateComponentType
 ) => {
   // 多选处理
   if (chartEditStore.getTargetChart.selectId.length > 1) {

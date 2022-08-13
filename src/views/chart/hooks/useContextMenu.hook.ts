@@ -12,13 +12,17 @@ const { UpToTopIcon, DownToBottomIcon, PaintBrushIcon, Carbon3DSoftwareIcon, Car
 
 const chartEditStore = useChartEditStore()
 
-// * 分割线
-const divider = [
-  {
+/**
+ * 分割线
+ * @param {number} n > 2
+ * @returns
+ */
+export const divider = (n:number = 3) => {
+  return {
     type: 'divider',
-    key: 'd3'
+    key: `d${n}`
   }
-]
+}
 
 // * 默认单组件选项
 export const defaultOptions: MenuOptionsItemType[] = [
@@ -140,7 +144,7 @@ const menuOptions = ref<MenuOptionsItemType[]>([])
 const handleContextMenu = (
   e: MouseEvent,
   // 右键对象
-  item?: CreateComponentType | CreateComponentGroupType,
+  targetInstance?: CreateComponentType | CreateComponentGroupType,
   // 判断函数
   optionsHandle?: Function,
   // 隐藏选项列表
@@ -167,21 +171,21 @@ const handleContextMenu = (
     menuOptions.value = defaultOptions
   }
 
-  if (!item) {
+  if (!targetInstance) {
     menuOptions.value = pickOption(toRaw(menuOptions.value), defaultNoItemKeys)
   }
   if (hideOptionsList) {
-    menuOptions.value = hideOption([...defaultMultiSelectOptions, ...divider, ...defaultOptions], hideOptionsList)
+    menuOptions.value = hideOption([...defaultMultiSelectOptions, divider(), ...defaultOptions], hideOptionsList)
   }
   if (pickOptionsList) {
-    menuOptions.value = pickOption([...defaultMultiSelectOptions, ...divider, ...defaultOptions], pickOptionsList)
+    menuOptions.value = pickOption([...defaultMultiSelectOptions, divider(), ...defaultOptions], pickOptionsList)
   }
   if (optionsHandle) {
     // 自定义函数能够拿到当前选项和所有选项
     menuOptions.value = optionsHandle(
       cloneDeep(toRaw(menuOptions.value)),
       [...defaultMultiSelectOptions, ...defaultOptions],
-      item
+      targetInstance
     )
   }
   nextTick().then(() => {

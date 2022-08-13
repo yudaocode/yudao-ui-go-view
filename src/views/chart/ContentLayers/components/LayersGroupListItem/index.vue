@@ -7,7 +7,7 @@
       @mousedown="groupMousedownHandle()"
       @mouseenter="mouseenterHandle(componentGroupData)"
       @mouseleave="mouseleaveHandle(componentGroupData)"
-      @contextmenu="handleContextMenu($event, componentGroupData, undefined, undefined, pickOptionsList)"
+      @contextmenu="handleContextMenu($event, componentGroupData, optionsHandle)"
     >
       <div class="go-flex-items-center item-content">
         <n-icon size="20" class="go-ml-1">
@@ -46,7 +46,8 @@ import { MouseEventButton } from '@/enums/editPageEnum'
 import { MenuEnum } from '@/enums/editPageEnum'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
+import { useContextMenu, divider } from '@/views/chart/hooks/useContextMenu.hook'
+import { MenuOptionsItemType } from '@/views/chart/hooks/useContextMenu.hook.d'
 import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 import { LayersListItem } from '../LayersListItem'
 import throttle from 'lodash/throttle'
@@ -71,6 +72,30 @@ const { handleContextMenu, onClickOutSide } = useContextMenu()
 
 const themeColor = ref(designStore.getAppTheme)
 const expend = ref(false)
+
+// 右键
+const optionsHandle = (
+  targetList: MenuOptionsItemType[],
+  allList: MenuOptionsItemType[],
+  targetInstance: CreateComponentType
+) => {
+  const filter = (menulist: MenuEnum[]) => {
+    const list: MenuOptionsItemType[] = []
+    allList.forEach(item => {
+      if (menulist.includes(item.key as MenuEnum)) {
+        list.push(item)
+      }
+    })
+    return list
+  }
+
+  // 多选处理
+  if (chartEditStore.getTargetChart.selectId.length > 1) {
+    return filter([MenuEnum.GROUP])
+  } else {
+    return [...filter([MenuEnum.UN_GROUP]), divider(), ...targetList]
+  }
+}
 
 // 点击
 const clickHandle = (e: MouseEvent) => {
