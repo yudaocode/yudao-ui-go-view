@@ -87,6 +87,9 @@ const macKeyList: Array<string> = [
 
 // 处理键盘记录
 const keyRecordHandle = () => {
+  // 初始化清空
+  if(window.$KeyboardActive) window.$KeyboardActive = new Set([])
+
   document.onkeydown = (e: KeyboardEvent) => {
     if(window.$KeyboardActive) window.$KeyboardActive.add(e.key.toLocaleLowerCase())
     else window.$KeyboardActive = new Set([e.key.toLocaleLowerCase()])

@@ -4,7 +4,7 @@
       class="root-item-content"
       :class="{ hover: hover, select: select }"
       @click="clickHandle($event)"
-      @mousedown="groupMousedownHandle()"
+      @mousedown="groupMousedownHandle($event)"
       @mouseenter="mouseenterHandle(componentGroupData)"
       @mouseleave="mouseleaveHandle(componentGroupData)"
       @contextmenu="handleContextMenu($event, componentGroupData, optionsHandle)"
@@ -31,7 +31,7 @@
         v-for="element in componentGroupData.groupList"
         :key="element.id"
         :componentData="element"
-        @mousedown="mousedownHandle(element)"
+        @mousedown="mousedownHandle($event, element, componentGroupData.id)"
         @mouseenter="mouseenterHandle(element)"
         @mouseleave="mouseleaveHandle(element)"
         @contextmenu="handleContextMenu($event, componentGroupData, undefined, undefined, pickOptionsList)"
@@ -42,7 +42,7 @@
 
 <script setup lang="ts">
 import { ref, computed, PropType } from 'vue'
-import { MouseEventButton } from '@/enums/editPageEnum'
+import { MouseEventButton, WinKeyboard, MacKeyboard } from '@/enums/editPageEnum'
 import { MenuEnum } from '@/enums/editPageEnum'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
@@ -99,9 +99,15 @@ const optionsHandle = (
 
 // 点击
 const clickHandle = (e: MouseEvent) => {
+  // 按下左键 + CTRL
+  if (
+    window.$KeyboardActive?.has(WinKeyboard.CTRL_SOURCE_KEY) ||
+    window.$KeyboardActive?.has(MacKeyboard.CTRL_SOURCE_KEY)
+  )
+    return
   // 判断左右键
   expend.value = !expend.value
-  mousedownHandle(props.componentGroupData)
+  mousedownHandle(e, props.componentGroupData)
 }
 
 // 计算当前选中目标
@@ -116,15 +122,36 @@ const hover = computed(() => {
 })
 
 // 组点击事件
-const groupMousedownHandle = () => {
+const groupMousedownHandle = (e: MouseEvent) => {
+  e.preventDefault()
+  e.stopPropagation()
   onClickOutSide()
-  chartEditStore.setTargetSelectChart(props.componentGroupData.id)
+  // 若此时按下了 CTRL, 表示多选
+  const id = props.componentGroupData.id
+  if (
+    e.buttons === MouseEventButton.LEFT &&
+    (window.$KeyboardActive?.has(WinKeyboard.CTRL_SOURCE_KEY) ||
+      window.$KeyboardActive?.has(MacKeyboard.CTRL_SOURCE_KEY))
+  ) {
+    // 若已选中，则去除
+    if (chartEditStore.targetChart.selectId.includes(id)) {
+      const exList = chartEditStore.targetChart.selectId.filter(e => e !== id)
+      chartEditStore.setTargetSelectChart(exList)
+    } else {
+      chartEditStore.setTargetSelectChart(id, true)
+    }
+    return
+  }
+  chartEditStore.setTargetSelectChart(id)
 }
 
 // 公共点击事件
-const mousedownHandle = (item: CreateComponentType | CreateComponentGroupType) => {
+const mousedownHandle = (e: MouseEvent, item: CreateComponentType | CreateComponentGroupType, id?: string) => {
+  e.preventDefault()
+  e.stopPropagation()
+
   onClickOutSide()
-  chartEditStore.setTargetSelectChart(item.id)
+  chartEditStore.setTargetSelectChart(id || item.id)
 }
 
 // 公共进入事件

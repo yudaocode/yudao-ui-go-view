@@ -59,7 +59,7 @@ export const mousedownHandleUnStop = (e: MouseEvent, item?: CreateComponentType 
   chartEditStore.setTargetSelectChart(undefined)
 }
 
-// * 移动图表
+// * 鼠标事件
 export const useMouseHandle = () => {
   // *  Click 事件, 松开鼠标触发
   const mouseClickHandle = (e: MouseEvent, item: CreateComponentType | CreateComponentGroupType) => {
@@ -70,7 +70,13 @@ export const useMouseHandle = () => {
       window.$KeyboardActive?.has(WinKeyboard.CTRL_SOURCE_KEY) ||
       window.$KeyboardActive?.has(MacKeyboard.CTRL_SOURCE_KEY)
     ) {
-      chartEditStore.setTargetSelectChart(item.id, true)
+      // 若已选中，则去除
+      if(chartEditStore.targetChart.selectId.includes(item.id)) {
+        const exList = chartEditStore.targetChart.selectId.filter(e => e !== item.id)
+        chartEditStore.setTargetSelectChart(exList)
+      } else {
+        chartEditStore.setTargetSelectChart(item.id, true)
+      }
     }
   }
 
