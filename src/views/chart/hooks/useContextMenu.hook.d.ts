@@ -1,17 +1,4 @@
-// 右键枚举
-export enum MenuEnum {
-  DELETE = 'delete',
-  COPY = 'copy',
-  CUT = 'cut',
-  PARSE = 'parse',
-  TOP = 'top',
-  BOTTOM = 'bottom',
-  UP = 'up',
-  DOWN = 'down',
-  CLEAR = 'clear',
-  GROUP = 'group',
-  UN_GROUP = 'unGroup'
-}
+import { MenuEnum } from '@/enums/editPageEnum'
 
 export interface MenuOptionsItemType {
   type?: string

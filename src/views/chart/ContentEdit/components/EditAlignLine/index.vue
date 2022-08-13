@@ -16,7 +16,7 @@ import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { useSettingStore } from '@/store/modules/settingStore/settingStore'
-import { CreateComponentType } from '@/packages/index.d'
+import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 import throttle from 'lodash/throttle'
 import cloneDeep from 'lodash/cloneDeep'
 // 全局颜色
@@ -111,7 +111,7 @@ watch(
     line.select.clear()
     line.sorptioned.y = false
     // 循环查询所有组件数据
-    const componentList = chartEditStore.getComponentList.map((e: CreateComponentType) => {
+    const componentList = chartEditStore.getComponentList.map((e: CreateComponentType | CreateComponentGroupType) => {
       return {
         id: e.id,
         attr: e.attr

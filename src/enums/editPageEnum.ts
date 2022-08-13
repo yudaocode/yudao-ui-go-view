@@ -9,7 +9,7 @@ export enum DragKeyEnum {
   DROG_KEY = 'ChartData'
 }
 
-// 右键枚举
+// 操作枚举
 export enum MenuEnum {
   ARROW_UP = 'up',
   ARROW_RIGHT = 'right',
