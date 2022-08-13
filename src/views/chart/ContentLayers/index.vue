@@ -26,9 +26,9 @@
             v-else
             :componentData="element"
             @mousedown="mousedownHandle(element)"
-            @mouseenter="mouseenterHandle(element)"
+            @mouseenter="mouseenterHandle(element)" 
             @mouseleave="mouseleaveHandle(element)"
-            @contextmenu="handleContextMenu($event, element)"
+            @contextmenu="handleContextMenu($event, element, optionsHandle)"
           ></layers-list-item>
         </div>
       </template>
@@ -46,6 +46,7 @@ import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayou
 import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
+import { MenuOptionsItemType } from '@/views/chart/hooks/useContextMenu.hook.d'
 import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
 import { MenuEnum } from '@/enums/editPageEnum'
 
@@ -60,6 +61,26 @@ const chartEditStore = useChartEditStore()
 
 const { handleContextMenu, onClickOutSide } = useContextMenu()
 
+// 右键事件
+const optionsHandle = (
+  targetList: MenuOptionsItemType[],
+  allList: MenuOptionsItemType[],
+  item: CreateComponentType
+) => {
+  // 多选处理
+  if (chartEditStore.getTargetChart.selectId.length > 1) {
+    const list: MenuOptionsItemType[] = []
+    targetList.forEach(item => {
+      // 成组
+      if (item.key === MenuEnum.GROUP) {
+        list.push(item)
+      }
+    })
+    return list
+  }
+  return targetList
+}
+ 
 // 逆序展示
 const reverseList = computed(() => {
   const list: Array<CreateComponentType | CreateComponentGroupType> = cloneDeep(chartEditStore.getComponentList)
