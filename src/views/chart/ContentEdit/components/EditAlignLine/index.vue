@@ -228,30 +228,6 @@ watch(
             selectTarget.value.setPosition(componentRightX - selectW, selectTopY)
           }
         }
-
-        /*
-          * 我也不知道为什么这个不行，还没时间调
-          if(lineItem.includes('row')) {
-            selectY.forEach(sY => {
-              componentY.forEach(cY => {
-                if (isSorption(sY, cY)) {
-                  line.select.set(lineItem, { y: cY })
-                }
-              })
-            })
-            return
-          }
-          if(lineItem.includes('col')) {
-            seletX.forEach(sX => {
-              componentX.forEach(cX => {
-                if (isSorption(sX, cX)) {
-                  line.select.set(lineItem, { x: sX })
-                }
-              })
-            })
-            return
-          }
-        */
       })
     })
   }, 200),
@@ -267,7 +243,6 @@ watch(
     if (!val) {
       line.select.clear()
       line.sorptioned.y = false
-      chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_DRAG, true)
     }
   }
 )
