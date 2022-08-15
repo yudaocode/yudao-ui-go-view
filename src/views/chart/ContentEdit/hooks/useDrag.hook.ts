@@ -1,3 +1,4 @@
+import { toRaw } from 'vue'
 import { DragKeyEnum, MouseEventButton, WinKeyboard, MacKeyboard } from '@/enums/editPageEnum'
 import { createComponent } from '@/packages'
 import { ConfigType } from '@/packages/index.d'
@@ -71,7 +72,7 @@ export const useMouseHandle = () => {
       window.$KeyboardActive?.has(MacKeyboard.CTRL_SOURCE_KEY)
     ) {
       // 若已选中，则去除
-      if(chartEditStore.targetChart.selectId.includes(item.id)) {
+      if (chartEditStore.targetChart.selectId.includes(item.id)) {
         const exList = chartEditStore.targetChart.selectId.filter(e => e !== item.id)
         chartEditStore.setTargetSelectChart(exList)
       } else {
@@ -105,41 +106,61 @@ export const useMouseHandle = () => {
     if (e.buttons === MouseEventButton.RIGHT) return
 
     const scale = chartEditStore.getEditCanvas.scale
-    const width = chartEditStore.getEditCanvasConfig.width
-    const height = chartEditStore.getEditCanvasConfig.height
+    const canvasWidth = chartEditStore.getEditCanvasConfig.width
+    const canvasHeight = chartEditStore.getEditCanvasConfig.height
 
     // 记录图表初始位置和大小
-    const itemAttrX = item.attr.x
-    const itemAttrY = item.attr.y
-    const itemAttrW = item.attr.w
-    const itemAttrH = item.attr.h
+    const targetMap = new Map()
+    chartEditStore.getTargetChart.selectId.forEach(id => {
+      const index = chartEditStore.fetchTargetIndex(id)
+      if (index !== -1) {
+        const { x, y, w, h } = toRaw(chartEditStore.getComponentList[index]).attr
+        targetMap.set(id, { x, y, w, h })
+      }
+    })
 
     // 记录点击初始位置
     const startX = e.screenX
     const startY = e.screenY
+
     // 记录初始位置
     chartEditStore.setMousePosition(startX, startY)
 
-    // 计算偏移量（处理 scale 比例问题）
+    // 移动-计算偏移量
     const mousemove = throttle((moveEvent: MouseEvent) => {
       chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_DRAG, true)
       chartEditStore.setMousePosition(moveEvent.screenX, moveEvent.screenY)
 
-      let currX = Math.round(itemAttrX + (moveEvent.screenX - startX) / scale)
-      let currY = Math.round(itemAttrY + (moveEvent.screenY - startY) / scale)
+      // 当前偏移量，处理 scale 比例问题
+      let offsetX = (moveEvent.screenX - startX) / scale
+      let offsetY = (moveEvent.screenY - startY) / scale
 
-      // 要预留的距离
-      const distance = 50
-      // 基于左上角位置检测
-      currX = currX < -itemAttrW + distance ? -itemAttrW + distance : currX
-      currY = currY < -itemAttrH + distance ? -itemAttrH + distance : currY
+      chartEditStore.getTargetChart.selectId.forEach(id => {
+        const index = chartEditStore.fetchTargetIndex(id)
+        // 拿到初始位置数据
+        const { x, y, w, h } = targetMap.get(id)
+        const componentInstance = chartEditStore.getComponentList[index]
 
-      // 基于右下角位置检测
-      currX = currX > width - distance ? width - distance : currX
-      currY = currY > height - distance ? height - distance : currY
+        let currX = Math.round(x + offsetX)
+        let currY = Math.round(y + offsetY)
 
-      item.attr.x = currX
-      item.attr.y = currY
+        // 要预留的距离
+        const distance = 50
+
+        // 基于左上角位置检测
+        currX = currX < -w + distance ? -w + distance : currX
+        currY = currY < -h + distance ? -h + distance : currY
+
+        // 基于右下角位置检测
+        currX = currX > canvasWidth - distance ? canvasWidth - distance : currX
+        currY = currY > canvasHeight - distance ? canvasHeight - distance : currY
+
+        componentInstance.attr = Object.assign(componentInstance.attr, {
+          x: currX,
+          y: currY
+        })
+      })
+      return
     }, 30)
 
     const mouseup = () => {
