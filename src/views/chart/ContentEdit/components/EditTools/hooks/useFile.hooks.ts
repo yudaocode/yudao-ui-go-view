@@ -32,15 +32,15 @@ export const useFile = () => {
             negativeText: '覆盖（不可撤回）',
             negativeButtonProps: { type: 'info', ghost: false },
             // 新增
-            onNegativeCallback: async () => {
-              fileData = JSON.parse(fileData)
-              await updateComponent(fileData, true)
-              window['$message'].success('导入成功！')
-            },
-            // 覆盖
             onPositiveCallback: async () => {
               fileData = JSON.parse(fileData)
               await updateComponent(fileData)
+              window['$message'].success('导入成功！')
+            },
+            // 覆盖
+            onNegativeCallback: async () => {
+              fileData = JSON.parse(fileData)
+              await updateComponent(fileData, true)
               window['$message'].success('导入成功！')
             }
           })
