@@ -107,18 +107,24 @@ const optionsHandle = (
   allList: MenuOptionsItemType[],
   targetInstance: CreateComponentType
 ) => {
+  // 多选
+  const moreMenuEnums = [MenuEnum.GROUP, MenuEnum.DELETE]
+  // 单选
+  const singleMenuEnums = targetList
+
   // 多选处理
   if (chartEditStore.getTargetChart.selectId.length > 1) {
     const list: MenuOptionsItemType[] = []
-    targetList.forEach(item => {
+    
+    allList.forEach(item => {
       // 成组
-      if (item.key === MenuEnum.GROUP) {
+      if (moreMenuEnums.includes(item.key as MenuEnum)) {
         list.push(item)
       }
     })
     return list
   }
-  return targetList
+  return singleMenuEnums
 }
 
 // 主题色

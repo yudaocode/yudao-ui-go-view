@@ -88,6 +88,12 @@ const optionsHandle = (
   allList: MenuOptionsItemType[],
   targetInstance: CreateComponentType
 ) => {
+
+  // 多选
+  const moreMenuEnums = [MenuEnum.GROUP, MenuEnum.DELETE]
+  // 单选
+  const singleMenuEnums = [MenuEnum.UN_GROUP]
+
   const filter = (menulist: MenuEnum[]) => {
     const list: MenuOptionsItemType[] = []
     allList.forEach(item => {
@@ -100,9 +106,9 @@ const optionsHandle = (
 
   // 多选处理
   if (chartEditStore.getTargetChart.selectId.length > 1) {
-    return filter([MenuEnum.GROUP])
+    return filter(moreMenuEnums)
   } else {
-    return [...filter([MenuEnum.UN_GROUP]), divider(), ...targetList]
+    return [...filter(singleMenuEnums), divider(), ...targetList]
   }
 }
 

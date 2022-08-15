@@ -139,7 +139,7 @@ export const useChartEditStore = defineStore({
     getEditCanvasConfig(): EditCanvasConfigType {
       return this.editCanvasConfig
     },
-    getTargetChart():TargetChartType {
+    getTargetChart(): TargetChartType {
       return this.targetChart
     },
     getRecordChart(): RecordChartType | undefined {
@@ -249,6 +249,14 @@ export const useChartEditStore = defineStore({
       }
       return -1
     },
+    // * 统一格式化处理入参 id
+    idPreFormat(id?: string | string[]) {
+      const idArr = []
+      if (!id) idArr.push(...this.getTargetChart.selectId)
+      if (isString(id)) idArr.push(id)
+      if (isArray(id)) idArr.push(...id)
+      return idArr
+    },
     /**
      * * 新增组件列表
      * @param chartConfig 新图表实例
@@ -266,17 +274,21 @@ export const useChartEditStore = defineStore({
       }
       this.componentList.push(chartConfig)
     },
-    // * 删除单个组件
-    removeComponentList(id?:string, isHistory = true): void {
+    // * 删除组件
+    removeComponentList(id?:string | string[], isHistory = true): void {
       try {
         loadingStart()
-        const index  = this.fetchTargetIndex(id)
-        if (index !== -1) {
-          isHistory ? chartHistoryStore.createDeleteHistory(this.getComponentList[index]) : undefined
-          this.componentList.splice(index, 1)
-          loadingFinish()
-          return
-        }
+        const idArr = this.idPreFormat(id)
+        // 遍历所有对象
+        idArr.forEach(ids => {
+          const index  = this.fetchTargetIndex(ids)
+          if (index !== -1) {
+            isHistory ? chartHistoryStore.createDeleteHistory(this.getComponentList[index]) : undefined
+            this.componentList.splice(index, 1)
+          }
+        })
+        loadingFinish()
+        return
       } catch(value) {
         loadingError()
       }
@@ -299,6 +311,9 @@ export const useChartEditStore = defineStore({
     // * 移动组件列表层级位置到两端
     setBothEnds(isEnd = false, isHistory = true): void {
       try {
+        // 暂不支持多选
+        if (this.getTargetChart.selectId.length > 1) return
+
         loadingStart()
         const length = this.getComponentList.length
         if (length < 2) {
@@ -351,6 +366,9 @@ export const useChartEditStore = defineStore({
     // * 上移/下移互换图表位置
     wrap(isDown = false, isHistory = true) {
       try {
+        // 暂不支持多选
+        if (this.getTargetChart.selectId.length > 1) return
+
         loadingStart()
         const length = this.getComponentList.length
         if (length < 2) {
@@ -397,6 +415,9 @@ export const useChartEditStore = defineStore({
     // * 复制
     setCopy(isCut = false) {
       try {
+        // 暂不支持多选
+        if (this.getTargetChart.selectId.length > 1) return
+
         loadingStart()
         const index:number  = this.fetchTargetIndex()
         if (index !== -1) {
