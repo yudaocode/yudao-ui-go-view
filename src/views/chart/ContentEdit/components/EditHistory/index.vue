@@ -1,21 +1,8 @@
 <template>
   <div class="go-flex-items-center">
-    <n-popover
-      class="edit-history-popover"
-      :show="showDropdownRef"
-      :show-arrow="false"
-      size="small"
-      trigger="click"
-      placement="top-start"
-    >
+    <n-popover class="edit-history-popover" :show-arrow="false" size="small" trigger="click" placement="top-start">
       <template #trigger>
-        <n-button
-          class="mr-10"
-          secondary
-          size="small"
-          :disabled="options.length === 0"
-          @click="handleClick"
-        >
+        <n-button class="mr-10" secondary size="small" :disabled="options.length === 0">
           <span class="btn-text">历史记录</span>
         </n-button>
       </template>
@@ -28,12 +15,7 @@
             :key="index"
             :title="item.label"
           >
-            <n-icon
-              class="item-icon"
-              size="16"
-              :depth="2"
-              :component="item.icon"
-            />
+            <n-icon class="item-icon" size="16" :depth="2" :component="item.icon" />
             <n-text depth="2">{{ item.label }}</n-text>
           </div>
         </n-scrollbar>
@@ -55,7 +37,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { icon } from '@/plugins'
-import { renderIcon } from '@/utils'
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
 import { historyActionTypeName } from '@/store/modules/chartHistoryStore/chartHistoryDefine'
 import { CreateComponentType } from '@/packages/index.d'
@@ -64,21 +45,12 @@ import reverse from 'lodash/reverse'
 import {
   HistoryItemType,
   HistoryTargetTypeEnum,
-  HistoryActionTypeEnum,
+  HistoryActionTypeEnum
 } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
-import { isArray } from 'node_modules/_@types_lodash@4.14.182@@types/lodash'
 
-const {
-  DesktopOutlineIcon,
-  PencilIcon,
-  TrashIcon,
-  CopyIcon,
-  LayersIcon,
-  DuplicateIcon,
-  HelpOutlineIcon,
-} = icon.ionicons5
-const { StackedMoveIcon } = icon.carbon
-const showDropdownRef = ref(false)
+const { DesktopOutlineIcon, PencilIcon, TrashIcon, CopyIcon, LayersIcon, DuplicateIcon, HelpOutlineIcon } =
+  icon.ionicons5
+const { StackedMoveIcon, Carbon3DCursorIcon, Carbon3DSoftwareIcon } = icon.carbon
 
 const chartHistoryStoreStore = useChartHistoryStore()
 
@@ -107,6 +79,10 @@ const iconHandle = (e: HistoryItemType) => {
       return StackedMoveIcon
     case HistoryActionTypeEnum.ADD:
       return DuplicateIcon
+    case HistoryActionTypeEnum.GROUP:
+      return Carbon3DCursorIcon
+    case HistoryActionTypeEnum.UN_GROUP:
+      return Carbon3DSoftwareIcon
     default:
       return PencilIcon
   }
@@ -117,10 +93,11 @@ const labelHandle = (e: HistoryItemType) => {
   // 画布编辑
   if (e.targetType === HistoryTargetTypeEnum.CANVAS) {
     return historyActionTypeName[HistoryTargetTypeEnum.CANVAS]
+  } else if (e.actionType === HistoryActionTypeEnum.GROUP) {
+    return `${historyActionTypeName[e.actionType]}`
+  } else {
+    return `${historyActionTypeName[e.actionType]} - ${(e.historyData as CreateComponentType).chartConfig.title}`
   }
-  return `${historyActionTypeName[e.actionType]} - ${
-    (e.historyData as CreateComponentType).chartConfig.title
-  }`
 }
 
 const options = computed(() => {
@@ -128,15 +105,11 @@ const options = computed(() => {
   const options = backStack.map((e: HistoryItemType) => {
     return {
       label: labelHandle(e),
-      icon: iconHandle(e),
+      icon: iconHandle(e)
     }
   })
   return reverse(options)
 })
-
-const handleClick = () => {
-  showDropdownRef.value = !showDropdownRef.value
-}
 </script>
 
 <style lang="scss" scoped>
