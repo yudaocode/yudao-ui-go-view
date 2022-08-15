@@ -19,7 +19,7 @@
     <!-- https://github.com/SortableJS/vue.draggable.next -->
     <draggable item-key="id" v-model="reverseList" ghostClass="ghost" @change="onMoveCallback">
       <template #item="{ element }">
-        <div>
+        <div class="go-content-layer-box">
           <!-- 组合 -->
           <layers-group-list-item v-if="element.isGroup" :componentGroupData="element"></layers-group-list-item>
           <!-- 单组件 -->
@@ -112,13 +112,14 @@ const onMoveCallback = (val: any) => {
 }
 
 const boxMousedownHandle = (e: MouseEvent) => {
-  chartEditStore.setTargetSelectChart()
+  const box = document.querySelector('.go-content-layer-box')
+  if ((e.target as any).contains(box)) {
+    chartEditStore.setTargetSelectChart()
+  }
 }
 
 // 点击事件
 const mousedownHandle = (e: MouseEvent, item: CreateComponentType) => {
-  e.preventDefault()
-  e.stopPropagation()
   onClickOutSide()
   // 若此时按下了 CTRL, 表示多选
   const id = item.id

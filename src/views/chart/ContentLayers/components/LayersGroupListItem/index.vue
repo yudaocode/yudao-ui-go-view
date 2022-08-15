@@ -123,8 +123,6 @@ const hover = computed(() => {
 
 // 组点击事件
 const groupMousedownHandle = (e: MouseEvent) => {
-  e.preventDefault()
-  e.stopPropagation()
   onClickOutSide()
   // 若此时按下了 CTRL, 表示多选
   const id = props.componentGroupData.id
