@@ -51,7 +51,7 @@ export const useSync = () => {
           // 重新创建是为了处理类种方法消失的问题
           const create = async (e: CreateComponentType, callBack?: (e: CreateComponentType) => void) => {
             // 补充 class 上的方法
-            let newComponent: CreateComponentType = await createComponent(e.chartConfig as ConfigType)
+            let newComponent: CreateComponentType = await createComponent(e.chartConfig)
             if (callBack) {
               callBack(Object.assign(newComponent, { ...e, id: getUUID() }))
             } else {
@@ -82,7 +82,7 @@ export const useSync = () => {
       } else {
         // 非组件(顺便排除脏数据)
         if (key !== 'editCanvasConfig' && key !== 'requestGlobalConfig') return
-        Object.assign((chartEditStore as any)[key], projectData[key])
+        Object.assign(chartEditStore[key], projectData[key])
       }
     }
   }

@@ -44,8 +44,6 @@ const props = defineProps({
     required: true
   }
 })
-
-console.log(props.groupData)
 </script>
 
 <style lang="scss" scoped>

@@ -13,7 +13,7 @@
     <!-- 分组 -->
     <preview-render-group
       v-if="item.isGroup"
-      :groupData="item"
+      :groupData="(item as CreateComponentGroupType)"
       :groupIndex="index"
       :themeSetting="themeSetting"
       :themeColor="themeColor"
@@ -21,6 +21,7 @@
 
     <!-- 单组件 -->
     <component
+      v-else
       :is="item.chartConfig.chartKey"
       :chartConfig="item"
       :themeSetting="themeSetting"
@@ -34,6 +35,7 @@
 import { PropType, computed } from 'vue'
 import { ChartEditStorageType } from '../../index.d'
 import { PreviewRenderGroup } from '../PreviewRenderGroup/index'
+import { CreateComponentGroupType } from '@/packages/index.d'
 import { chartColors } from '@/settings/chartThemes/index'
 import { animationsClass, getFilterStyle, getTransformStyle } from '@/utils'
 import { getSizeStyle, getComponentAttrStyle } from '../../utils'

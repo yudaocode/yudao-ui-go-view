@@ -24,11 +24,11 @@
           <!-- 图表 -->
           <div v-for="(item, index) in chartEditStore.getComponentList" :key="item.id">
             <!-- 分组 -->
-            <edit-group v-if="item.isGroup" :groupData="item" :groupIndex="index"></edit-group>
+            <edit-group v-if="item.isGroup" :groupData="(item as CreateComponentGroupType)" :groupIndex="index"></edit-group>
             
             <!-- 单组件 -->
             <edit-shape-box
-              v-if="!item.isGroup"
+              v-else
               :data-id="item.id"
               :index="index"
               :style="useComponentStyle(item.attr, index)"

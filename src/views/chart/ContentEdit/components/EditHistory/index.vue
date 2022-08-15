@@ -24,8 +24,8 @@
         <n-scrollbar style="max-height: 500px">
           <div
             class="list-item go-flex-items-center go-ellipsis-1"
-            v-for="item in options"
-            :key="item.key"
+            v-for="(item, index) in options"
+            :key="index"
             :title="item.label"
           >
             <n-icon
@@ -66,6 +66,7 @@ import {
   HistoryTargetTypeEnum,
   HistoryActionTypeEnum,
 } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
+import { isArray } from 'node_modules/_@types_lodash@4.14.182@@types/lodash'
 
 const {
   DesktopOutlineIcon,
@@ -127,7 +128,6 @@ const options = computed(() => {
   const options = backStack.map((e: HistoryItemType) => {
     return {
       label: labelHandle(e),
-      key: e.id,
       icon: iconHandle(e),
     }
   })

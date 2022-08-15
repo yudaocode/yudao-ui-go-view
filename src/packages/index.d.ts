@@ -90,12 +90,8 @@ export interface CreateComponentType extends PublicConfigType, requestConfig {
   option: GlobalThemeJsonType
 }
 
-// 组件成组实例类 (部分属性用不到设置为 any)
-export interface CreateComponentGroupType extends PublicConfigType {
-  // 保持结构一致, 设置组件名称
-  chartConfig: {
-    title: ConfigType.title
-  }
+// 组件成组实例类
+export interface CreateComponentGroupType extends CreateComponentType {
   groupList: Array<CreateComponentType>
 }
 
