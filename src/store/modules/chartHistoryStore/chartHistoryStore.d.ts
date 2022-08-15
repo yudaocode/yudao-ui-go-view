@@ -25,6 +25,10 @@ export enum HistoryActionTypeEnum {
   UP = 'up',
   // 下移
   DOWN = 'down',
+  // 成组
+  GROUP = 'group',
+  // 解组
+  UN_GROUP = 'unGroup',
   // 选择历史记录
   SELECT_HISTORY = 'selectHistory'
 }
