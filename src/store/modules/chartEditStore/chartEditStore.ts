@@ -252,41 +252,60 @@ export const useChartEditStore = defineStore({
     // * 统一格式化处理入参 id
     idPreFormat(id?: string | string[]) {
       const idArr = []
-      if (!id) idArr.push(...this.getTargetChart.selectId)
+      if (!id) {
+        idArr.push(...this.getTargetChart.selectId)
+        return idArr
+    }
       if (isString(id)) idArr.push(id)
       if (isArray(id)) idArr.push(...id)
       return idArr
     },
     /**
      * * 新增组件列表
-     * @param chartConfig 新图表实例
+     * @param componentInstance 新图表实例
      * @param isHead 是否头部插入
      * @param isHistory 是否进行记录
      * @returns
      */
-    addComponentList(chartConfig: CreateComponentType | CreateComponentGroupType, isHead = false, isHistory = false): void {
-      if (isHistory) {
-        chartHistoryStore.createAddHistory(chartConfig)
-      }
-      if (isHead) {
-        this.componentList.unshift(chartConfig)
+     addComponentList(
+      componentInstance:
+        | CreateComponentType
+        | CreateComponentGroupType
+        | CreateComponentType[]
+        | CreateComponentGroupType[],
+      isHead = false,
+      isHistory = false
+    ): void {
+      if(componentInstance instanceof Array) {
+        componentInstance.forEach(item => {
+          this.addComponentList(item, isHead, isHistory)
+        })
         return
       }
-      this.componentList.push(chartConfig)
+      if (isHistory) {
+        chartHistoryStore.createAddHistory([componentInstance])
+      }
+      if (isHead) {
+        this.componentList.unshift(componentInstance)
+        return
+      }
+      this.componentList.push(componentInstance)
     },
     // * 删除组件
     removeComponentList(id?:string | string[], isHistory = true): void {
       try {
         loadingStart()
         const idArr = this.idPreFormat(id)
+        const history: Array<CreateComponentType | CreateComponentGroupType> = []
         // 遍历所有对象
         idArr.forEach(ids => {
           const index  = this.fetchTargetIndex(ids)
           if (index !== -1) {
-            isHistory ? chartHistoryStore.createDeleteHistory(this.getComponentList[index]) : undefined
+            history.push(this.getComponentList[index])
             this.componentList.splice(index, 1)
           }
         })
+        isHistory && chartHistoryStore.createDeleteHistory(history)
         loadingFinish()
         return
       } catch(value) {
@@ -331,8 +350,8 @@ export const useChartEditStore = defineStore({
           }
 
           // 记录原有位置
-          const setIndex = (t:CreateComponentType | CreateComponentGroupType, i:number) => {
-            const temp = cloneDeep(t)
+          const setIndex = (componentInstance:CreateComponentType | CreateComponentGroupType, i:number) => {
+            const temp = cloneDeep(componentInstance)
             temp.attr.zIndex = i
             return temp
           }
@@ -340,7 +359,7 @@ export const useChartEditStore = defineStore({
           // 历史记录
           if (isHistory) {
             chartHistoryStore.createLayerHistory(
-              setIndex(targetData, index),
+              [setIndex(targetData, index)],
               isEnd ? HistoryActionTypeEnum.BOTTOM : HistoryActionTypeEnum.TOP
             )
           }
@@ -391,7 +410,7 @@ export const useChartEditStore = defineStore({
           // 历史记录
           if (isHistory) {
             chartHistoryStore.createLayerHistory(
-              targetItem,
+              [targetItem],
               isDown ? HistoryActionTypeEnum.DOWN : HistoryActionTypeEnum.UP
             )
           }
@@ -482,45 +501,54 @@ export const useChartEditStore = defineStore({
       }
     },
     // * 撤回/前进 目标处理
-    setBackAndSetForwardHandle(item: HistoryItemType, isForward = false) {
+    setBackAndSetForwardHandle(HistoryItem: HistoryItemType, isForward = false) {
       // 处理画布
-      if (item.targetType === HistoryTargetTypeEnum.CANVAS) {
-        this.editCanvas = item.historyData as EditCanvasType
+      if (HistoryItem.targetType === HistoryTargetTypeEnum.CANVAS) {
+        this.editCanvas = HistoryItem.historyData[0] as EditCanvasType
         return
       }
 
-      const historyData = item.historyData as CreateComponentType
+      let historyData = HistoryItem.historyData as Array<CreateComponentType | CreateComponentGroupType>
+      if(isArray(historyData)) {
+        // 选中目标元素，支持多个
+        historyData.forEach((item: CreateComponentType | CreateComponentGroupType) => {
+          this.setTargetSelectChart(item.id, true)
+        })
+      }
 
       // 处理新增类型
-      const isAdd = item.actionType === HistoryActionTypeEnum.ADD
-      const isDel = item.actionType === HistoryActionTypeEnum.DELETE
-      this.setTargetSelectChart(historyData.id)
+      const isAdd = HistoryItem.actionType === HistoryActionTypeEnum.ADD
+      const isDel = HistoryItem.actionType === HistoryActionTypeEnum.DELETE
       if (isAdd || isDel) {
         if ((isAdd && isForward) || (isDel && !isForward)) {
-          this.addComponentList(historyData)
-          return  
+          historyData.forEach(item => {
+            this.addComponentList(item)
+          })
+          return
         }
-        this.removeComponentList(undefined, false)
+        historyData.forEach(item => {
+          this.removeComponentList(item.id, false)
+        })
         return
       }
 
       // 处理层级
-      const isTop = item.actionType === HistoryActionTypeEnum.TOP
-      const isBottom = item.actionType === HistoryActionTypeEnum.BOTTOM
+      const isTop = HistoryItem.actionType === HistoryActionTypeEnum.TOP
+      const isBottom = HistoryItem.actionType === HistoryActionTypeEnum.BOTTOM
       if (isTop || isBottom) {
         if (!isForward) {
           // 插入到原有位置
           if (isTop) this.getComponentList.pop()
           if (isBottom) this.getComponentList.shift()
-          this.getComponentList.splice(historyData.attr.zIndex, 0, historyData)
+          this.getComponentList.splice(historyData[0].attr.zIndex, 0, historyData[0])
           return
         }
         if (isTop) this.setTop(false)
         if (isBottom) this.setBottom(false)
       }
 
-      const isUp = item.actionType === HistoryActionTypeEnum.UP
-      const isDown = item.actionType === HistoryActionTypeEnum.DOWN
+      const isUp = HistoryItem.actionType === HistoryActionTypeEnum.UP
+      const isDown = HistoryItem.actionType === HistoryActionTypeEnum.DOWN
       if (isUp || isDown) {
         if ((isUp && isForward) || (isDown && !isForward)) {
           this.setUp(false)
@@ -530,8 +558,17 @@ export const useChartEditStore = defineStore({
         return
       }
 
-      // 处理内容修改
-      this.getComponentList[this.fetchTargetIndex()] = item.historyData as CreateComponentType
+      // 处理分组
+      const isGroup = HistoryItem.actionType === HistoryActionTypeEnum.GROUP
+      const isUnGroup = HistoryItem.actionType === HistoryActionTypeEnum.UN_GROUP
+      if (isGroup || isUnGroup) {
+        if ((isGroup && isForward) || (isUnGroup && !isForward)) {
+          this.setGroup(false)
+          return
+        }
+        this.setUnGroup([historyData[0].id], undefined, false)
+        return
+      }
     },
     // * 撤回
     setBack() {
@@ -539,13 +576,6 @@ export const useChartEditStore = defineStore({
         loadingStart()
         const targetData = chartHistoryStore.backAction()
         if (!targetData) {
-          loadingFinish()
-          return
-        }
-        if (Array.isArray(targetData)) {
-          targetData.forEach((e: HistoryItemType) => {
-            this.setBackAndSetForwardHandle(e)
-          })
           loadingFinish()
           return
         }
@@ -562,13 +592,6 @@ export const useChartEditStore = defineStore({
         loadingStart()
         const targetData = chartHistoryStore.forwardAction()
         if (!targetData) {
-          loadingFinish()
-          return
-        }
-        if (Array.isArray(targetData)) {
-          targetData.forEach((e: HistoryItemType) => {
-            this.setBackAndSetForwardHandle(e, true)
-          })
           loadingFinish()
           return
         }
@@ -599,9 +622,9 @@ export const useChartEditStore = defineStore({
           attr.x -= distance
           break;
       }
-    }, 
+    },
     // * 创建分组
-    setGroup() {
+    setGroup(isHistory = true) {
       try {
         const selectIds = this.getTargetChart.selectId
         if (selectIds.length < 2) return 
@@ -628,7 +651,7 @@ export const useChartEditStore = defineStore({
                 newSelectIds.push(e.id)
               })
             }, false)
-          } else {
+          } else if (targetIndex !== -1) {
             newSelectIds.push(id)
           }
         })
@@ -648,6 +671,9 @@ export const useChartEditStore = defineStore({
 
           targetList.push(item)
         })
+
+        // 修改原数据之前，先记录
+        if(isHistory) chartHistoryStore.createGroupHistory(targetList)
 
         // 设置子组件的位置
         targetList.forEach((item: CreateComponentType) => {

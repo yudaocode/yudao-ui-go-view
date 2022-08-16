@@ -96,7 +96,7 @@ const labelHandle = (e: HistoryItemType) => {
   } else if (e.actionType === HistoryActionTypeEnum.GROUP) {
     return `${historyActionTypeName[e.actionType]}`
   } else {
-    return `${historyActionTypeName[e.actionType]} - ${(e.historyData as CreateComponentType).chartConfig.title}`
+    return `${historyActionTypeName[e.actionType]} - ${(e.historyData[0] as CreateComponentType).chartConfig.title}`
   }
 }
 

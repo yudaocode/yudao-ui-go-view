@@ -56,10 +56,10 @@ export enum HistoryStackItemEnum {
 // 历史记录项类型
 export interface HistoryItemType {
   // 会有同时操作多个组件场景
-  [HistoryStackItemEnum.ID]: string | string[]
+  [HistoryStackItemEnum.ID]: string
   [HistoryStackItemEnum.TARGET_TYPE]: HistoryTargetTypeEnum
   [HistoryStackItemEnum.ACTION_TYPE]: HistoryActionTypeEnum
-  [HistoryStackItemEnum.HISTORY_DATA]: CreateComponentType | CreateComponentGroupType | EditCanvasType
+  [HistoryStackItemEnum.HISTORY_DATA]: CreateComponentType[] | CreateComponentGroupType[] | EditCanvasType[]
 }
 
 // 历史 Store 类型

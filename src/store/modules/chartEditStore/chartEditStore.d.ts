@@ -117,7 +117,7 @@ export type TargetChartType = {
 
 // 数据记录
 export type RecordChartType = {
-  charts: CreateComponentType | CreateComponentType[] | CreateComponentGroupType
+  charts: CreateComponentType | CreateComponentGroupType | Array<CreateComponentType | CreateComponentGroupType>
   type: HistoryActionTypeEnum.CUT | HistoryActionTypeEnum.COPY
 }
 

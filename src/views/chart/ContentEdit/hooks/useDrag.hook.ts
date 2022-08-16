@@ -136,6 +136,8 @@ export const useMouseHandle = () => {
       let offsetY = (moveEvent.screenY - startY) / scale
 
       chartEditStore.getTargetChart.selectId.forEach(id => {
+        if(!targetMap.has(id)) return
+        
         const index = chartEditStore.fetchTargetIndex(id)
         // 拿到初始位置数据
         const { x, y, w, h } = targetMap.get(id)
