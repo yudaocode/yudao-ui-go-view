@@ -95,7 +95,7 @@ const labelHandle = (e: HistoryItemType) => {
     return historyActionTypeName[HistoryTargetTypeEnum.CANVAS]
   } else if (e.actionType === HistoryActionTypeEnum.GROUP) {
     return `${historyActionTypeName[e.actionType]}`
-  } else {
+  } else if (e.historyData.length) {
     return `${historyActionTypeName[e.actionType]} - ${(e.historyData[0] as CreateComponentType).chartConfig.title}`
   }
 }
@@ -108,7 +108,10 @@ const options = computed(() => {
       icon: iconHandle(e)
     }
   })
-  return reverse(options)
+
+  return reverse(options.filter(item => {
+    return item.label
+  }))
 })
 </script>
 

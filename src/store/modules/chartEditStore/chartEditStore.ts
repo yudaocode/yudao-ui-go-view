@@ -1,3 +1,4 @@
+import { toRaw } from 'vue'
 import { defineStore } from 'pinia'
 import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 import { PublicGroupConfigClass } from '@/packages/public/publicConfig'
@@ -294,10 +295,12 @@ export const useChartEditStore = defineStore({
     // * 删除组件
     removeComponentList(id?:string | string[], isHistory = true): void {
       try {
-        loadingStart()
         const idArr = this.idPreFormat(id)
         const history: Array<CreateComponentType | CreateComponentGroupType> = []
         // 遍历所有对象
+        if (!idArr.length) return
+        
+        loadingStart()
         idArr.forEach(ids => {
           const index  = this.fetchTargetIndex(ids)
           if (index !== -1) {
@@ -639,6 +642,7 @@ export const useChartEditStore = defineStore({
           b: 0
         }
         const targetList: CreateComponentType[] = []
+        const historyList: CreateComponentType[] = []
 
         // 若目标中有数组则先解组
         const newSelectIds: string[] = []
@@ -670,10 +674,12 @@ export const useChartEditStore = defineStore({
           groupAttr.b = b < y + h ? y + h  : b
 
           targetList.push(item)
+          historyList.push(toRaw(item))
         })
 
         // 修改原数据之前，先记录
-        if(isHistory) chartHistoryStore.createGroupHistory(targetList)
+        console.log(historyList)
+        if(isHistory) chartHistoryStore.createGroupHistory(historyList)
 
         // 设置子组件的位置
         targetList.forEach((item: CreateComponentType) => {
@@ -709,6 +715,9 @@ export const useChartEditStore = defineStore({
         const unGroup = (targetIndex: number) => {
           const targetGroup = this.getComponentList[targetIndex] as CreateComponentGroupType
           if (!targetGroup.isGroup) return
+
+          // 记录数据
+          if(isHistory) chartHistoryStore.createUnGroupHistory([targetGroup])
           
           // 分离组件并还原位置属性
           targetGroup.groupList.forEach(item => {
