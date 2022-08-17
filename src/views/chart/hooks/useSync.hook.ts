@@ -14,11 +14,11 @@ export const useSync = () => {
   /**
    * * 组件动态注册
    * @param projectData 项目数据
-   * @param isSplace 是否替换数据
+   * @param isReplace 是否替换数据
    * @returns
    */
-  const updateComponent = async (projectData: ChartEditStorage, isSplace = false) => {
-    if (isSplace) {
+  const updateComponent = async (projectData: ChartEditStorage, isReplace = false, changeId = false) => {
+    if (isReplace) {
       // 清除列表
       chartEditStore.componentList = []
       // 清除历史记录
@@ -47,22 +47,40 @@ export const useSync = () => {
       // 组件
       if (key === ChartEditStoreEnum.COMPONENT_LIST) {
         for (const comItem of projectData[key]) {
-
           // 重新创建是为了处理类种方法消失的问题
-          const create = async (e: CreateComponentType, callBack?: (e: CreateComponentType) => void) => {
+          const create = async (
+            _componentInstance: CreateComponentType,
+            callBack?: (componentInstance: CreateComponentType) => void
+          ) => {
             // 补充 class 上的方法
-            let newComponent: CreateComponentType = await createComponent(e.chartConfig)
+            let newComponent: CreateComponentType = await createComponent(_componentInstance.chartConfig)
             if (callBack) {
-              callBack(Object.assign(newComponent, { ...e, id: getUUID() }))
+              if (changeId) {
+                callBack(Object.assign(newComponent, { ..._componentInstance, id: getUUID() }))
+              } else {
+                callBack(Object.assign(newComponent))
+              }
             } else {
-              chartEditStore.addComponentList(Object.assign(newComponent, { ...e, id: getUUID() }), false, true)
+              if (changeId) {
+                chartEditStore.addComponentList(
+                  Object.assign(newComponent, { ..._componentInstance, id: getUUID() }),
+                  false,
+                  true
+                )
+              } else {
+                chartEditStore.addComponentList(Object.assign(newComponent), false, true)
+              }
             }
           }
 
           if (comItem.isGroup) {
             // 创建分组
             let groupClass = new PublicGroupConfigClass()
-            groupClass = Object.assign(groupClass, comItem)
+            if (changeId) {
+              groupClass = Object.assign(groupClass, { ...comItem, id: getUUID() })
+            } else {
+              groupClass = Object.assign(groupClass, { ...comItem })
+            }
 
             // 注册子应用
             const targetList: CreateComponentType[] = []
@@ -72,7 +90,7 @@ export const useSync = () => {
               })
             })
             groupClass.groupList = targetList
-            
+
             // 分组插入到列表
             chartEditStore.addComponentList(groupClass, false, true)
           } else {

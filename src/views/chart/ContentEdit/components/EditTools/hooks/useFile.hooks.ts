@@ -34,13 +34,13 @@ export const useFile = () => {
             // 新增
             onPositiveCallback: async () => {
               fileData = JSON.parse(fileData)
-              await updateComponent(fileData)
+              await updateComponent(fileData, false, true)
               window['$message'].success('导入成功！')
             },
             // 覆盖
             onNegativeCallback: async () => {
               fileData = JSON.parse(fileData)
-              await updateComponent(fileData, true)
+              await updateComponent(fileData, true, true)
               window['$message'].success('导入成功！')
             }
           })
