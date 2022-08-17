@@ -15,37 +15,45 @@
       <!-- 展示 -->
       <edit-range>
         <!-- 滤镜预览 -->
-        <div :style="{
+        <div
+          :style="{
             ...getFilterStyle(chartEditStore.getEditCanvasConfig),
             ...rangeStyle
-          }">
+          }"
+        >
           <!-- 图表 -->
-          <edit-shape-box
-            v-for="(item, index) in chartEditStore.getComponentList"
-            :key="item.id"
-            :data-id="item.id"
-            :index="index"
-            :style="useComponentStyle(item.attr, index)"
-            :item="item"
-            @mousedown="mousedownHandle($event, item)"
-            @mouseenter="mouseenterHandle($event, item)"
-            @mouseleave="mouseleaveHandle($event, item)"
-            @contextmenu="handleContextMenu($event, item)"
-          >
-            <component
-              class="edit-content-chart"
-              :class="animationsClass(item.styles.animations)"
-              :is="item.chartConfig.chartKey"
-              :chartConfig="item"
-              :themeSetting="themeSetting"
-              :themeColor="themeColor"
-              :style="{
-                ...useSizeStyle(item.attr),
-                ...getFilterStyle(item.styles),
-                ...getTransformStyle(item.styles),
-              }"
-            ></component>
-          </edit-shape-box>
+          <div v-for="(item, index) in chartEditStore.getComponentList" :key="item.id">
+            <!-- 分组 -->
+            <edit-group v-if="item.isGroup" :groupData="(item as CreateComponentGroupType)" :groupIndex="index"></edit-group>
+            
+            <!-- 单组件 -->
+            <edit-shape-box
+              v-else
+              :data-id="item.id"
+              :index="index"
+              :style="useComponentStyle(item.attr, index)"
+              :item="item"
+              @click="mouseClickHandle($event, item)"
+              @mousedown="mousedownHandle($event, item)"
+              @mouseenter="mouseenterHandle($event, item)"
+              @mouseleave="mouseleaveHandle($event, item)"
+              @contextmenu="handleContextMenu($event, item, optionsHandle)"
+            >
+              <component
+                class="edit-content-chart"
+                :class="animationsClass(item.styles.animations)"
+                :is="item.chartConfig.chartKey"
+                :chartConfig="item"
+                :themeSetting="themeSetting"
+                :themeColor="themeColor"
+                :style="{
+                  ...useSizeStyle(item.attr),
+                  ...getFilterStyle(item.styles),
+                  ...getTransformStyle(item.styles)
+                }"
+              ></component>
+            </edit-shape-box>
+          </div>
         </div>
       </edit-range>
     </div>
@@ -65,8 +73,11 @@
 <script lang="ts" setup>
 import { onMounted, computed } from 'vue'
 import { chartColors } from '@/settings/chartThemes/index'
+import { MenuEnum } from '@/enums/editPageEnum'
+import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 import { animationsClass, getFilterStyle, getTransformStyle } from '@/utils'
 import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
+import { MenuOptionsItemType } from '@/views/chart/hooks/useContextMenu.hook.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 
 import { useLayout } from './hooks/useLayout.hook'
@@ -75,6 +86,7 @@ import { dragHandle, dragoverHandle, useMouseHandle } from './hooks/useDrag.hook
 import { useComponentStyle, useSizeStyle } from './hooks/useStyle.hook'
 
 import { ContentBox } from '../ContentBox/index'
+import { EditGroup } from './components/EditGroup'
 import { EditRange } from './components/EditRange'
 import { EditBottom } from './components/EditBottom'
 import { EditShapeBox } from './components/EditShapeBox'
@@ -87,7 +99,33 @@ const { handleContextMenu } = useContextMenu()
 useLayout()
 
 // 点击事件
-const { mouseenterHandle, mouseleaveHandle, mousedownHandle } = useMouseHandle()
+const { mouseenterHandle, mouseleaveHandle, mousedownHandle, mouseClickHandle } = useMouseHandle()
+
+// 右键事件
+const optionsHandle = (
+  targetList: MenuOptionsItemType[],
+  allList: MenuOptionsItemType[],
+  targetInstance: CreateComponentType
+) => {
+  // 多选
+  const moreMenuEnums = [MenuEnum.GROUP, MenuEnum.DELETE]
+  // 单选
+  const singleMenuEnums = targetList
+
+  // 多选处理
+  if (chartEditStore.getTargetChart.selectId.length > 1) {
+    const list: MenuOptionsItemType[] = []
+    
+    allList.forEach(item => {
+      // 成组
+      if (moreMenuEnums.includes(item.key as MenuEnum)) {
+        list.push(item)
+      }
+    })
+    return list
+  }
+  return singleMenuEnums
+}
 
 // 主题色
 const themeSetting = computed(() => {

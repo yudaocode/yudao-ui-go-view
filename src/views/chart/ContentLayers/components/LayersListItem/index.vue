@@ -60,7 +60,7 @@ $textSize: 10px;
   position: relative;
   height: $centerHeight;
   width: 90%;
-  margin: 10px 5%;
+  margin: 5px 5%;
   margin-bottom: 5px;
   border-radius: 5px;
   cursor: pointer;

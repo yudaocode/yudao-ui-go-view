@@ -8,6 +8,9 @@ export const lang = LangEnum.ZH
 // 水印文字
 export const watermarkText = "GoView 低代码平台"
 
+// 分组名称
+export const groupTitle = "分组"
+
 // 主题配置
 export const theme = {
   // 默认是否开启深色主题
@@ -37,7 +40,7 @@ export const asideCollapsedWidth = 60
 // 弹窗是否可以通过点击遮罩关闭
 export const maskClosable = false
 
-// 修改边框圆角
+// 全局边框圆角
 export const borderRadius = '6px'
 
 // 轮播间隔
