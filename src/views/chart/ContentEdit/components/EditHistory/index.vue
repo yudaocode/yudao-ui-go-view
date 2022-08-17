@@ -93,7 +93,7 @@ const labelHandle = (e: HistoryItemType) => {
   // 画布编辑
   if (e.targetType === HistoryTargetTypeEnum.CANVAS) {
     return historyActionTypeName[HistoryTargetTypeEnum.CANVAS]
-  } else if (e.actionType === HistoryActionTypeEnum.GROUP) {
+  } else if (e.actionType === HistoryActionTypeEnum.GROUP || e.actionType === HistoryActionTypeEnum.UN_GROUP) {
     return `${historyActionTypeName[e.actionType]}`
   } else if (e.historyData.length) {
     return `${historyActionTypeName[e.actionType]} - ${(e.historyData[0] as CreateComponentType).chartConfig.title}`

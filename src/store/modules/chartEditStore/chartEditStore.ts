@@ -10,16 +10,13 @@ import { requestInterval, previewScaleType, requestIntervalUnit } from '@/settin
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
 // 全局设置
 import { useSettingStore } from '@/store/modules/settingStore/settingStore'
-import { HistoryActionTypeEnum, HistoryItemType, HistoryTargetTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
+import {
+  HistoryActionTypeEnum,
+  HistoryItemType,
+  HistoryTargetTypeEnum
+} from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
 import { MenuEnum } from '@/enums/editPageEnum'
-import { 
-  getUUID,
-  loadingStart,
-  loadingFinish,
-  loadingError,
-  isString,
-  isArray
-} from '@/utils'
+import { getUUID, loadingStart, loadingFinish, loadingError, isString, isArray } from '@/utils'
 import {
   ChartEditStoreEnum,
   ChartEditStorage,
@@ -115,8 +112,8 @@ export const useChartEditStore = defineStore({
       requestIntervalUnit: requestIntervalUnit,
       requestParams: {
         Body: {
-          "form-data": {},
-          "x-www-form-urlencoded": {},
+          'form-data': {},
+          'x-www-form-urlencoded': {},
           json: '',
           xml: ''
         },
@@ -163,11 +160,11 @@ export const useChartEditStore = defineStore({
   },
   actions: {
     // * 设置 editCanvas 数据项
-    setEditCanvas<T extends keyof EditCanvasType,  K extends EditCanvasType[T]>(key: T, value: K) {
+    setEditCanvas<T extends keyof EditCanvasType, K extends EditCanvasType[T]>(key: T, value: K) {
       this.editCanvas[key] = value
     },
     // * 设置 editCanvasConfig（需保存后端） 数据项
-    setEditCanvasConfig<T extends keyof EditCanvasConfigType,  K extends EditCanvasConfigType[T]>(key: T, value: K) {
+    setEditCanvasConfig<T extends keyof EditCanvasConfigType, K extends EditCanvasConfigType[T]>(key: T, value: K) {
       this.editCanvasConfig[key] = value
     },
     // * 设置右键菜单
@@ -175,7 +172,7 @@ export const useChartEditStore = defineStore({
       this.rightMenuShow = value
     },
     // * 设置目标数据 hover
-    setTargetHoverChart(hoverId?:TargetChartType["hoverId"]) {
+    setTargetHoverChart(hoverId?: TargetChartType['hoverId']) {
       this.targetChart.hoverId = hoverId
     },
     // * 设置目标数据 select
@@ -226,7 +223,7 @@ export const useChartEditStore = defineStore({
     },
     // * 找到目标 id 数据的下标位置，id可为父级或子集数组（无则返回-1）
     fetchTargetIndex(id?: string): number {
-      const targetId = id || this.getTargetChart.selectId.length && this.getTargetChart.selectId[0] || undefined
+      const targetId = id || (this.getTargetChart.selectId.length && this.getTargetChart.selectId[0]) || undefined
       if (!targetId) {
         loadingFinish()
         return -1
@@ -238,9 +235,9 @@ export const useChartEditStore = defineStore({
         return targetIndex
       } else {
         const length = this.getComponentList.length
-        for(let i = 0; i < length; i++) {
+        for (let i = 0; i < length; i++) {
           if (this.getComponentList[i].isGroup) {
-            for(const cItem of (this.getComponentList[i] as CreateComponentGroupType).groupList) { 
+            for (const cItem of (this.getComponentList[i] as CreateComponentGroupType).groupList) {
               if (cItem.id === targetId) {
                 return i
               }
@@ -256,7 +253,7 @@ export const useChartEditStore = defineStore({
       if (!id) {
         idArr.push(...this.getTargetChart.selectId)
         return idArr
-    }
+      }
       if (isString(id)) idArr.push(id)
       if (isArray(id)) idArr.push(...id)
       return idArr
@@ -268,16 +265,15 @@ export const useChartEditStore = defineStore({
      * @param isHistory 是否进行记录
      * @returns
      */
-     addComponentList(
+    addComponentList(
       componentInstance:
         | CreateComponentType
         | CreateComponentGroupType
-        | CreateComponentType[]
-        | CreateComponentGroupType[],
+        | Array<CreateComponentType | CreateComponentGroupType>,
       isHead = false,
       isHistory = false
     ): void {
-      if(componentInstance instanceof Array) {
+      if (componentInstance instanceof Array) {
         componentInstance.forEach(item => {
           this.addComponentList(item, isHead, isHistory)
         })
@@ -293,16 +289,16 @@ export const useChartEditStore = defineStore({
       this.componentList.push(componentInstance)
     },
     // * 删除组件
-    removeComponentList(id?:string | string[], isHistory = true): void {
+    removeComponentList(id?: string | string[], isHistory = true): void {
       try {
         const idArr = this.idPreFormat(id)
         const history: Array<CreateComponentType | CreateComponentGroupType> = []
         // 遍历所有对象
         if (!idArr.length) return
-        
+
         loadingStart()
         idArr.forEach(ids => {
-          const index  = this.fetchTargetIndex(ids)
+          const index = this.fetchTargetIndex(ids)
           if (index !== -1) {
             history.push(this.getComponentList[index])
             this.componentList.splice(index, 1)
@@ -311,7 +307,7 @@ export const useChartEditStore = defineStore({
         isHistory && chartHistoryStore.createDeleteHistory(history)
         loadingFinish()
         return
-      } catch(value) {
+      } catch (value) {
         loadingError()
       }
     },
@@ -321,10 +317,7 @@ export const useChartEditStore = defineStore({
       this.componentList[index] = newData
     },
     // * 设置页面样式属性
-    setPageStyle<T extends keyof CSSStyleDeclaration>(
-      key: T,
-      value: any
-    ): void {
+    setPageStyle<T extends keyof CSSStyleDeclaration>(key: T, value: any): void {
       const dom = this.getEditCanvas.editContentDom
       if (dom) {
         dom.style[key] = value
@@ -343,17 +336,17 @@ export const useChartEditStore = defineStore({
           return
         }
 
-        const index  = this.fetchTargetIndex()
+        const index = this.fetchTargetIndex()
         const targetData = this.getComponentList[index]
         if (index !== -1) {
           // 置底排除最底层, 置顶排除最顶层
-          if ((isEnd && index === 0) || (!isEnd && index === length - 1 )) {
+          if ((isEnd && index === 0) || (!isEnd && index === length - 1)) {
             loadingFinish()
             return
           }
 
           // 记录原有位置
-          const setIndex = (componentInstance:CreateComponentType | CreateComponentGroupType, i:number) => {
+          const setIndex = (componentInstance: CreateComponentType | CreateComponentGroupType, i: number) => {
             const temp = cloneDeep(componentInstance)
             temp.attr.zIndex = i
             return temp
@@ -369,11 +362,11 @@ export const useChartEditStore = defineStore({
 
           // 插入两端
           this.addComponentList(targetData, isEnd)
-          this.getComponentList.splice(isEnd ? index + 1: index, 1)
+          this.getComponentList.splice(isEnd ? index + 1 : index, 1)
           loadingFinish()
           return
         }
-      } catch(value) {
+      } catch (value) {
         loadingError()
       }
     },
@@ -398,7 +391,7 @@ export const useChartEditStore = defineStore({
           return
         }
 
-        const index:number  = this.fetchTargetIndex()
+        const index: number = this.fetchTargetIndex()
         if (index !== -1) {
           // 下移排除最底层, 上移排除最顶层
           if ((isDown && index === 0) || (!isDown && index === length - 1)) {
@@ -422,7 +415,7 @@ export const useChartEditStore = defineStore({
           loadingFinish()
           return
         }
-      } catch(value) {
+      } catch (value) {
         loadingError()
       }
     },
@@ -441,17 +434,17 @@ export const useChartEditStore = defineStore({
         if (this.getTargetChart.selectId.length > 1) return
 
         loadingStart()
-        const index:number  = this.fetchTargetIndex()
+        const index: number = this.fetchTargetIndex()
         if (index !== -1) {
-          const copyData:RecordChartType = {
-           charts :this.getComponentList[index],
-           type: isCut ? HistoryActionTypeEnum.CUT : HistoryActionTypeEnum.COPY
+          const copyData: RecordChartType = {
+            charts: this.getComponentList[index],
+            type: isCut ? HistoryActionTypeEnum.CUT : HistoryActionTypeEnum.COPY
           }
           this.setRecordChart(copyData)
           window['$message'].success(isCut ? '剪切图表成功' : '复制图表成功！')
           loadingFinish()
         }
-      } catch(value) {
+      } catch (value) {
         loadingError()
       }
     },
@@ -499,7 +492,7 @@ export const useChartEditStore = defineStore({
           this.setRecordChart(undefined)
         }
         loadingFinish()
-      } catch(value) {
+      } catch (value) {
         loadingError()
       }
     },
@@ -512,7 +505,7 @@ export const useChartEditStore = defineStore({
       }
 
       let historyData = HistoryItem.historyData as Array<CreateComponentType | CreateComponentGroupType>
-      if(isArray(historyData)) {
+      if (isArray(historyData)) {
         // 选中目标元素，支持多个
         historyData.forEach((item: CreateComponentType | CreateComponentGroupType) => {
           this.setTargetSelectChart(item.id, true)
@@ -566,10 +559,25 @@ export const useChartEditStore = defineStore({
       const isUnGroup = HistoryItem.actionType === HistoryActionTypeEnum.UN_GROUP
       if (isGroup || isUnGroup) {
         if ((isGroup && isForward) || (isUnGroup && !isForward)) {
-          this.setGroup(false)
+          const ids: string[] = []
+          if(historyData.length > 1) {
+            historyData.forEach(item => {
+              ids.push(item.id)
+            })
+          } else {
+            (historyData[0] as CreateComponentGroupType).groupList.forEach(item => {
+              ids.push(item.id)
+            })
+          }
+          this.setGroup(ids, false)
           return
         }
-        this.setUnGroup([historyData[0].id], undefined, false)
+        // 都需使用子组件的id去解组
+        if(historyData.length > 1) {
+          this.setUnGroup([(historyData[0] as CreateComponentType).id], undefined, false)
+        } else {
+          this.setUnGroup([(historyData[0] as CreateComponentGroupType).groupList[0].id], undefined, false)
+        }
         return
       }
     },
@@ -584,8 +592,7 @@ export const useChartEditStore = defineStore({
         }
         this.setBackAndSetForwardHandle(targetData)
         loadingFinish()
-
-      } catch(value) {
+      } catch (value) {
         loadingError()
       }
     },
@@ -600,37 +607,36 @@ export const useChartEditStore = defineStore({
         }
         this.setBackAndSetForwardHandle(targetData, true)
         loadingFinish()
-
-      } catch(value) {
+      } catch (value) {
         loadingError()
       }
     },
     // * 移动位置
     setMove(keyboardValue: MenuEnum) {
-      const index  = this.fetchTargetIndex()
+      const index = this.fetchTargetIndex()
       if (index === -1) return
       const attr = this.getComponentList[index].attr
       const distance = settingStore.getChartMoveDistance
       switch (keyboardValue) {
         case MenuEnum.ARROW_UP:
           attr.y -= distance
-          break;
+          break
         case MenuEnum.ARROW_RIGHT:
           attr.x += distance
-          break;
+          break
         case MenuEnum.ARROW_DOWN:
           attr.y += distance
-          break;
+          break
         case MenuEnum.ARROW_LEFT:
           attr.x -= distance
-          break;
+          break
       }
     },
     // * 创建分组
-    setGroup(isHistory = true) {
+    setGroup(id?: string | string[], isHistory = true) {
       try {
-        const selectIds = this.getTargetChart.selectId
-        if (selectIds.length < 2) return 
+        const selectIds = this.idPreFormat(id) || this.getTargetChart.selectId
+        if (selectIds.length < 2) return
 
         loadingStart()
         const groupClass = new PublicGroupConfigClass()
@@ -649,12 +655,16 @@ export const useChartEditStore = defineStore({
         selectIds.forEach((id: string) => {
           const targetIndex = this.fetchTargetIndex(id)
           if (targetIndex !== -1 && this.getComponentList[targetIndex].isGroup) {
-            this.setUnGroup([id], (e: CreateComponentType[]) => {
-              e.forEach(e => {
-                this.addComponentList(e)
-                newSelectIds.push(e.id)
-              })
-            }, false)
+            this.setUnGroup(
+              [id],
+              (e: CreateComponentType[]) => {
+                e.forEach(e => {
+                  this.addComponentList(e)
+                  newSelectIds.push(e.id)
+                })
+              },
+              false
+            )
           } else if (targetIndex !== -1) {
             newSelectIds.push(id)
           }
@@ -671,15 +681,14 @@ export const useChartEditStore = defineStore({
           // 宽
           groupAttr.r = r < x + w ? x + w : r
           // 高
-          groupAttr.b = b < y + h ? y + h  : b
+          groupAttr.b = b < y + h ? y + h : b
 
           targetList.push(item)
           historyList.push(toRaw(item))
         })
 
         // 修改原数据之前，先记录
-        console.log(historyList)
-        if(isHistory) chartHistoryStore.createGroupHistory(historyList)
+        if (isHistory) chartHistoryStore.createGroupHistory(historyList)
 
         // 设置子组件的位置
         targetList.forEach((item: CreateComponentType) => {
@@ -705,7 +714,7 @@ export const useChartEditStore = defineStore({
       }
     },
     // * 解除分组
-    setUnGroup(ids?:string[] , callBack?:(e: CreateComponentType[]) => void, isHistory = true) {
+    setUnGroup(ids?: string[], callBack?: (e: CreateComponentType[]) => void, isHistory = true) {
       try {
         const selectGroupIdArr = ids || this.getTargetChart.selectId
         if (selectGroupIdArr.length !== 1) return
@@ -717,8 +726,8 @@ export const useChartEditStore = defineStore({
           if (!targetGroup.isGroup) return
 
           // 记录数据
-          if(isHistory) chartHistoryStore.createUnGroupHistory([targetGroup])
-          
+          if (isHistory) chartHistoryStore.createUnGroupHistory(cloneDeep([targetGroup]))
+
           // 分离组件并还原位置属性
           targetGroup.groupList.forEach(item => {
             item.attr.x = item.attr.x + targetGroup.attr.x
@@ -732,7 +741,7 @@ export const useChartEditStore = defineStore({
           this.removeComponentList(targetGroup.id, false)
 
           if (callBack) {
-            callBack(targetGroup.groupList) 
+            callBack(targetGroup.groupList)
           }
         }
 
@@ -759,32 +768,24 @@ export const useChartEditStore = defineStore({
     computedScale() {
       if (this.getEditCanvas.editLayoutDom) {
         // 现有展示区域
-        const width =
-          this.getEditCanvas.editLayoutDom.clientWidth - this.getEditCanvas.offset * 2 - 5
-        const height =
-          this.getEditCanvas.editLayoutDom.clientHeight - this.getEditCanvas.offset * 4
+        const width = this.getEditCanvas.editLayoutDom.clientWidth - this.getEditCanvas.offset * 2 - 5
+        const height = this.getEditCanvas.editLayoutDom.clientHeight - this.getEditCanvas.offset * 4
 
         // 用户设定大小
         const editCanvasWidth = this.editCanvasConfig.width
         const editCanvasHeight = this.editCanvasConfig.height
 
         // 需保持的比例
-        const baseProportion = parseFloat(
-          (editCanvasWidth / editCanvasHeight).toFixed(5)
-        )
+        const baseProportion = parseFloat((editCanvasWidth / editCanvasHeight).toFixed(5))
         const currentRate = parseFloat((width / height).toFixed(5))
 
         if (currentRate > baseProportion) {
           // 表示更宽
-          const scaleWidth = parseFloat(
-            ((height * baseProportion) / editCanvasWidth).toFixed(5)
-          )
-          this.setScale( scaleWidth > 1 ? 1 : scaleWidth)
+          const scaleWidth = parseFloat(((height * baseProportion) / editCanvasWidth).toFixed(5))
+          this.setScale(scaleWidth > 1 ? 1 : scaleWidth)
         } else {
           // 表示更高
-          const scaleHeight = parseFloat(
-            (width / baseProportion / editCanvasHeight).toFixed(5)
-          )
+          const scaleHeight = parseFloat((width / baseProportion / editCanvasHeight).toFixed(5))
           this.setScale(scaleHeight > 1 ? 1 : scaleHeight)
         }
       } else {

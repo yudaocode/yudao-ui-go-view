@@ -166,7 +166,7 @@ export const useChartHistoryStore = defineStore({
     },
     // * 解除分组
     createUnGroupHistory(item: Array<CreateComponentType | CreateComponentGroupType>) {
-      this.createStackItem(item, HistoryActionTypeEnum.GROUP, HistoryTargetTypeEnum.CHART)
+      this.createStackItem(item, HistoryActionTypeEnum.UN_GROUP, HistoryTargetTypeEnum.CHART)
     }
   }
 })
