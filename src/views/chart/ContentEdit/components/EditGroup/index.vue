@@ -76,9 +76,6 @@ const props = defineProps({
 const chartEditStore = useChartEditStore()
 const { handleContextMenu } = useContextMenu()
 
-// 去除创建分组按钮
-const hideOptionsList = [MenuEnum.GROUP]
-
 // 点击事件
 const { mouseenterHandle, mouseleaveHandle, mousedownHandle, mouseClickHandle } = useMouseHandle()
 
@@ -88,7 +85,6 @@ const optionsHandle = (
   allList: MenuOptionsItemType[],
   targetInstance: CreateComponentType
 ) => {
-
   // 多选
   const moreMenuEnums = [MenuEnum.GROUP, MenuEnum.DELETE]
   // 单选

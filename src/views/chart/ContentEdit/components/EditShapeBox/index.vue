@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, PropType, toRefs } from 'vue'
+import { ref, computed, PropType } from 'vue'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
