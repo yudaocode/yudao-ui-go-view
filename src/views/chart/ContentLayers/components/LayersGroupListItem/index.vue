@@ -34,7 +34,7 @@
         @mousedown="mousedownHandle($event, element, componentGroupData.id)"
         @mouseenter="mouseenterHandle(element)"
         @mouseleave="mouseleaveHandle(element)"
-        @contextmenu="handleContextMenu($event, componentGroupData, undefined, undefined, pickOptionsList)"
+        @contextmenu="handleContextMenu($event, componentGroupData, optionsHandle)"
       ></LayersListItem>
     </n-collapse-transition>
   </div>
@@ -144,21 +144,21 @@ const groupMousedownHandle = (e: MouseEvent) => {
 }
 
 // 公共点击事件
-const mousedownHandle = (e: MouseEvent, item: CreateComponentType | CreateComponentGroupType, id?: string) => {
+const mousedownHandle = (e: MouseEvent, componentInstance: CreateComponentType | CreateComponentGroupType, id?: string) => {
   e.preventDefault()
   e.stopPropagation()
 
   onClickOutSide()
-  chartEditStore.setTargetSelectChart(id || item.id)
+  chartEditStore.setTargetSelectChart(id || componentInstance.id)
 }
 
 // 公共进入事件
-const mouseenterHandle = (item: CreateComponentType | CreateComponentGroupType) => {
-  chartEditStore.setTargetHoverChart(item.id)
+const mouseenterHandle = (componentInstance: CreateComponentType | CreateComponentGroupType) => {
+  chartEditStore.setTargetHoverChart(componentInstance.id)
 }
 
 // 公共移出事件
-const mouseleaveHandle = (item: CreateComponentType | CreateComponentGroupType) => {
+const mouseleaveHandle = (componentInstance: CreateComponentType | CreateComponentGroupType) => {
   chartEditStore.setTargetHoverChart(undefined)
 }
 </script>
