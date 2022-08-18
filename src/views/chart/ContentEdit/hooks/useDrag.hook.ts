@@ -147,7 +147,7 @@ export const mousedownBoxSelect = (e: MouseEvent, item?: CreateComponentType | C
         }
       }
     })
-  }, 50)
+  }, 20)
 
   // 鼠标抬起
   const mouseup = () => {
@@ -262,7 +262,7 @@ export const useMouseHandle = () => {
         })
       })
       return
-    }, 30)
+    }, 20)
 
     const mouseup = () => {
       chartEditStore.setMousePosition(0, 0, 0, 0)
