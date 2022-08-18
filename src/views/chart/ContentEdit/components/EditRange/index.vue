@@ -10,7 +10,7 @@
     <!-- 框选时的样式框 -->
     <edit-select></edit-select>
     <!-- 拖拽时的遮罩 -->
-    <div v-if="showModel" class="go-edit-range-model" :style="rangeModelStyle"></div>
+    <div class="go-edit-range-model" :style="rangeModelStyle"></div>
   </div>
 </template>
 
@@ -45,15 +45,11 @@ const rangeStyle = computed(() => {
   return { ...useSizeStyle(size.value), ...scale }
 })
 
-// 是否展示模态层
-const showModel = computed(() => {
-  return getEditCanvas.value.isCreate || getEditCanvas.value.isDrag
-})
-
 // 模态层
 const rangeModelStyle = computed(() => {
+  const dragStyle = getEditCanvas.value.isCreate && { 'z-index': 99999 }
   // @ts-ignore
-  return { ...useSizeStyle(size.value), 'z-index': canvasModelIndex }
+  return { ...useSizeStyle(size.value), ...dragStyle }
 })
 </script>
 
