@@ -70,15 +70,83 @@ export const mousedownBoxSelect = (e: MouseEvent, item?: CreateComponentType | C
   const startScreenX = e.screenX
   const startScreenY = e.screenY
 
+  // 记录缩放
+  const scale = chartEditStore.getEditCanvas.scale
+
   chartEditStore.setMousePosition(undefined, undefined, startOffsetX, startOffsetY)
 
   // 移动框选
   const mousemove = throttle((moveEvent: MouseEvent) => {
+    // 取消当前选中
+    chartEditStore.setTargetSelectChart()
+    chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_SELECT, true)
+
+    // 这里先把相对值算好，不然组件无法获取 startScreenX 和 startScreenY 的值
     const currX = startOffsetX + moveEvent.screenX - startScreenX
     const currY = startOffsetY + moveEvent.screenY - startScreenY
-
-    chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_SELECT, true)
     chartEditStore.setMousePosition(currX, currY)
+
+    // 计算框选的左上角和右下角
+    const selectAttr = {
+      // 左上角
+      x1: 0,
+      y1: 0,
+      // 右下角
+      x2: 0,
+      y2: 0
+    }
+    if (currX > startOffsetX && currY > startOffsetY) {
+      // 右下方向
+      selectAttr.x1 = startOffsetX
+      selectAttr.y1 = startOffsetY
+      selectAttr.x2 = Math.round(startOffsetX + (moveEvent.screenX - startScreenX) / scale)
+      selectAttr.y2 = Math.round(startOffsetY + (moveEvent.screenY - startScreenY) / scale)
+    } else if (currX > startOffsetX && currY < startOffsetY) {
+      // 右上方向
+      selectAttr.x1 = startOffsetX
+      selectAttr.y1 = Math.round(startOffsetY - (startScreenY - moveEvent.screenY) / scale)
+      selectAttr.x2 = Math.round(startOffsetX + (moveEvent.screenX - startScreenX) / scale)
+      selectAttr.y2 = startOffsetY
+    } else if (currX < startOffsetX && currY > startOffsetY) {
+      selectAttr.x1 = Math.round(startOffsetX - (startScreenX - moveEvent.screenX) / scale)
+      selectAttr.y1 = startOffsetY
+      selectAttr.x2 = startOffsetX
+      selectAttr.y2 = Math.round(startOffsetY + (moveEvent.screenY - startScreenY ) / scale)
+      // 左下方向
+    } else {
+      // 左上方向
+      selectAttr.x1 = Math.round(startOffsetX - (startScreenX - moveEvent.screenX) / scale)
+      selectAttr.y1 = Math.round(startOffsetY - (startScreenY - moveEvent.screenY) / scale)
+      selectAttr.x2 = startOffsetX
+      selectAttr.y2 = startOffsetY
+    }
+
+    // 遍历组件
+    chartEditStore.getComponentList.forEach(item => {
+      if (!chartEditStore.getTargetChart.selectId.includes(item.id)) {
+        // 处理左上角
+        let isSelect = false
+        const { x, y, w, h } = item.attr
+        const targetAttr = {
+          // 左上角
+          x1: x,
+          y1: y,
+          // 右下角
+          x2: x + w,
+          y2: y + h
+        }
+        // 全包含则选中
+        if (
+          targetAttr.x1 - selectAttr.x1 >= 0 &&
+          targetAttr.y1 - selectAttr.y1 >= 0 &&
+          targetAttr.x2 - selectAttr.x2 <= 0 &&
+          targetAttr.y2 - selectAttr.y2 <= 0
+        ) {
+          isSelect = true
+          chartEditStore.setTargetSelectChart(item.id, true)
+        }
+      }
+    })
   }, 50)
 
   // 鼠标抬起
@@ -159,6 +227,7 @@ export const useMouseHandle = () => {
 
     // 移动-计算偏移量
     const mousemove = throttle((moveEvent: MouseEvent) => {
+      chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_DRAG, true)
       chartEditStore.setMousePosition(moveEvent.screenX, moveEvent.screenY)
 
       // 当前偏移量，处理 scale 比例问题
@@ -197,6 +266,7 @@ export const useMouseHandle = () => {
 
     const mouseup = () => {
       chartEditStore.setMousePosition(0, 0, 0, 0)
+      chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_DRAG, false)
       document.removeEventListener('mousemove', mousemove)
       document.removeEventListener('mouseup', mouseup)
     }
@@ -209,7 +279,9 @@ export const useMouseHandle = () => {
   const mouseenterHandle = (e: MouseEvent, item: CreateComponentType | CreateComponentGroupType) => {
     e.preventDefault()
     e.stopPropagation()
-    chartEditStore.setTargetHoverChart(item.id)
+    if (!chartEditStore.getEditCanvas.isSelect) {
+      chartEditStore.setTargetHoverChart(item.id)
+    }
   }
 
   // * 移出事件
