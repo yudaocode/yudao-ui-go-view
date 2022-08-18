@@ -6,7 +6,7 @@ export enum MouseEventButton {
 
 // 页面拖拽键名
 export enum DragKeyEnum {
-  DROG_KEY = 'ChartData'
+  DRAG_KEY = 'ChartData'
 }
 
 // 操作枚举

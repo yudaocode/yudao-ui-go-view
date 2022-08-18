@@ -52,7 +52,9 @@ export const useChartEditStore = defineStore({
       // 初始化
       isCreate: false,
       // 拖拽中
-      isDrag: false
+      isDrag: false,
+      // 框选中
+      isSelect: false
     },
     // 右键菜单
     rightMenuShow: false,
@@ -216,10 +218,10 @@ export const useChartEditStore = defineStore({
     },
     // * 设置鼠标位置
     setMousePosition(x?: number, y?: number, startX?: number, startY?: number): void {
-      if (startX) this.mousePosition.startX = startX
-      if (startY) this.mousePosition.startY = startY
       if (x) this.mousePosition.x = x
       if (y) this.mousePosition.y = y
+      if (startX) this.mousePosition.startX = startX
+      if (startY) this.mousePosition.startY = startY
     },
     // * 找到目标 id 数据的下标位置，id可为父级或子集数组（无则返回-1）
     fetchTargetIndex(id?: string): number {

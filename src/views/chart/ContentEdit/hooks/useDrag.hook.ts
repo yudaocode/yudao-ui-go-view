@@ -20,7 +20,7 @@ export const dragHandle = async (e: DragEvent) => {
     loadingStart()
 
     // 获取拖拽数据
-    const drayDataString = e!.dataTransfer!.getData(DragKeyEnum.DROG_KEY)
+    const drayDataString = e!.dataTransfer!.getData(DragKeyEnum.DRAG_KEY)
     if (!drayDataString) {
       loadingFinish()
       return
@@ -60,6 +60,38 @@ export const mousedownHandleUnStop = (e: MouseEvent, item?: CreateComponentType 
   chartEditStore.setTargetSelectChart(undefined)
 }
 
+// * 框选
+export const mousedownBoxSelect = (e: MouseEvent, item?: CreateComponentType | CreateComponentGroupType) => {
+  mousedownHandleUnStop(e)
+
+  // 记录点击初始位置
+  const startOffsetX = e.offsetX
+  const startOffsetY = e.offsetY
+  const startScreenX = e.screenX
+  const startScreenY = e.screenY
+
+  chartEditStore.setMousePosition(undefined, undefined, startOffsetX, startOffsetY)
+
+  // 移动框选
+  const mousemove = throttle((moveEvent: MouseEvent) => {
+    const currX = startOffsetX + moveEvent.screenX - startScreenX
+    const currY = startOffsetY + moveEvent.screenY - startScreenY
+
+    chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_SELECT, true)
+    chartEditStore.setMousePosition(currX, currY)
+  }, 50)
+
+  // 鼠标抬起
+  const mouseup = () => {
+    chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_SELECT, false)
+    chartEditStore.setMousePosition(0, 0, 0, 0)
+    document.removeEventListener('mousemove', mousemove)
+    document.removeEventListener('mouseup', mouseup)
+  }
+  document.addEventListener('mousemove', mousemove)
+  document.addEventListener('mouseup', mouseup)
+}
+
 // * 鼠标事件
 export const useMouseHandle = () => {
   // *  Click 事件, 松开鼠标触发
@@ -86,7 +118,6 @@ export const useMouseHandle = () => {
     e.preventDefault()
     e.stopPropagation()
     onClickOutSide()
-
     // 按下左键 + CTRL
     if (
       e.buttons === MouseEventButton.LEFT &&
@@ -124,11 +155,10 @@ export const useMouseHandle = () => {
     const startY = e.screenY
 
     // 记录初始位置
-    chartEditStore.setMousePosition(startX, startY)
+    chartEditStore.setMousePosition(undefined, undefined, startX, startY)
 
     // 移动-计算偏移量
     const mousemove = throttle((moveEvent: MouseEvent) => {
-      chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_DRAG, true)
       chartEditStore.setMousePosition(moveEvent.screenX, moveEvent.screenY)
 
       // 当前偏移量，处理 scale 比例问题
@@ -136,8 +166,8 @@ export const useMouseHandle = () => {
       let offsetY = (moveEvent.screenY - startY) / scale
 
       chartEditStore.getTargetChart.selectId.forEach(id => {
-        if(!targetMap.has(id)) return
-        
+        if (!targetMap.has(id)) return
+
         const index = chartEditStore.fetchTargetIndex(id)
         // 拿到初始位置数据
         const { x, y, w, h } = targetMap.get(id)
@@ -166,8 +196,7 @@ export const useMouseHandle = () => {
     }, 30)
 
     const mouseup = () => {
-      chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_DRAG, false)
-      chartEditStore.setMousePosition(0, 0)
+      chartEditStore.setMousePosition(0, 0, 0, 0)
       document.removeEventListener('mousemove', mousemove)
       document.removeEventListener('mouseup', mouseup)
     }
@@ -237,7 +266,7 @@ export const useMousePointHandle = (e: MouseEvent, point: string, attr: PickCrea
 
   const mouseup = () => {
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_DRAG, false)
-    chartEditStore.setMousePosition(0, 0)
+    chartEditStore.setMousePosition(0, 0, 0, 0)
     document.removeEventListener('mousemove', mousemove)
     document.removeEventListener('mouseup', mouseup)
   }

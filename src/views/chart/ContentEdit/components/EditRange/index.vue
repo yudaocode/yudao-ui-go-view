@@ -1,5 +1,5 @@
 <template>
-  <div class="go-edit-range go-transition" :style="rangeStyle" @mousedown="mousedownHandleUnStop($event, undefined)">
+  <div class="go-edit-range go-transition" :style="rangeStyle" @mousedown="mousedownBoxSelect($event, undefined)">
     <slot></slot>
     <!-- 水印 -->
     <edit-watermark></edit-watermark>
@@ -7,19 +7,23 @@
     <edit-rule></edit-rule>
     <!-- 拖拽时的辅助线 -->
     <edit-align-line></edit-align-line>
+    <!-- 框选时的样式框 -->
+    <edit-select></edit-select>
     <!-- 拖拽时的遮罩 -->
-    <div class="go-edit-range-model" :style="rangeModelStyle"></div>
+    <div v-if="showModel" class="go-edit-range-model" :style="rangeModelStyle"></div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { toRefs, computed } from 'vue'
 import { useSizeStyle } from '../../hooks/useStyle.hook'
-import { mousedownHandleUnStop } from '../../hooks/useDrag.hook'
+import { canvasModelIndex } from '@/settings/designSetting'
+import { mousedownBoxSelect } from '../../hooks/useDrag.hook'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditAlignLine } from '../EditAlignLine'
 import { EditWatermark } from '../EditWatermark'
 import { EditRule } from '../EditRule'
+import { EditSelect } from '../EditSelect'
 
 const chartEditStore = useChartEditStore()
 
@@ -41,11 +45,15 @@ const rangeStyle = computed(() => {
   return { ...useSizeStyle(size.value), ...scale }
 })
 
+// 是否展示模态层
+const showModel = computed(() => {
+  return getEditCanvas.value.isCreate || getEditCanvas.value.isDrag
+})
+
 // 模态层
 const rangeModelStyle = computed(() => {
-  const dragStyle = getEditCanvas.value.isCreate && { 'z-index': 99999 }
   // @ts-ignore
-  return { ...useSizeStyle(size.value), ...dragStyle }
+  return { ...useSizeStyle(size.value), 'z-index': canvasModelIndex }
 })
 </script>
 
