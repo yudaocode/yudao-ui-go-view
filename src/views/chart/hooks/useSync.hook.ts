@@ -70,7 +70,7 @@ export const useSync = () => {
               if (changeId) {
                 callBack(Object.assign(newComponent, { ..._componentInstance, id: getUUID() }))
               } else {
-                callBack(Object.assign(newComponent))
+                callBack(Object.assign(newComponent, _componentInstance))
               }
             } else {
               if (changeId) {
@@ -80,7 +80,7 @@ export const useSync = () => {
                   true
                 )
               } else {
-                chartEditStore.addComponentList(Object.assign(newComponent), false, true)
+                chartEditStore.addComponentList(Object.assign(newComponent, _componentInstance), false, true)
               }
             }
           }
@@ -91,7 +91,7 @@ export const useSync = () => {
             if (changeId) {
               groupClass = Object.assign(groupClass, { ...comItem, id: getUUID() })
             } else {
-              groupClass = Object.assign(groupClass, { ...comItem })
+              groupClass = Object.assign(groupClass, comItem)
             }
 
             // 注册子应用
