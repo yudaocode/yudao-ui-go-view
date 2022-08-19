@@ -15,7 +15,7 @@
       <template #action>
         <n-space justify="space-between">
           <div>
-            <n-text>「 {{ chartConfig.categoryName || rename }} 」</n-text>
+            <n-text>「 {{ chartConfig.categoryName }} 」</n-text>
             <n-text>—— </n-text>
             <n-tag type="primary" :bordered="false" style="border-radius: 5px"> {{ requestContentTypeObj[requestContentType] }} </n-tag>
           </div>
@@ -37,9 +37,8 @@ const emit = defineEmits(['update:modelShow'])
 
 const { targetData } = useTargetData()
 // 解构基础配置
-const { chartConfig, rename } = toRefs(targetData.value)
+const { chartConfig } = toRefs(targetData.value)
 const { requestContentType } = toRefs(targetData.value.request)
-
 const requestContentTypeObj = {
   [RequestContentTypeEnum.DEFAULT]: '普通请求',
   [RequestContentTypeEnum.SQL]: 'SQL 请求'

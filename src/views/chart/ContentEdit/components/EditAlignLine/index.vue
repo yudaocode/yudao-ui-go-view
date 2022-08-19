@@ -11,17 +11,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, watch } from 'vue'
+import { reactive, computed, watch } from 'vue'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { useSettingStore } from '@/store/modules/settingStore/settingStore'
-import { CreateComponentType } from '@/packages/index.d'
+import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 import throttle from 'lodash/throttle'
 import cloneDeep from 'lodash/cloneDeep'
 // 全局颜色
 const designStore = useDesignStore()
-const themeColor = ref(designStore.getAppTheme)
 
 const chartEditStore = useChartEditStore()
 const settingStore = useSettingStore()
@@ -48,6 +47,11 @@ const useComponentStyle = (attr?: Partial<{ x: number; y: number }>) => {
   }
   return componentStyle
 }
+
+// 颜色
+const themeColor = computed(() => {
+  return designStore.getAppTheme
+})
 
 // * 吸附距离
 const minDistance = computed(() => {
@@ -111,7 +115,7 @@ watch(
     line.select.clear()
     line.sorptioned.y = false
     // 循环查询所有组件数据
-    const componentList = chartEditStore.getComponentList.map((e: CreateComponentType) => {
+    const componentList = chartEditStore.getComponentList.map((e: CreateComponentType | CreateComponentGroupType) => {
       return {
         id: e.id,
         attr: e.attr
@@ -228,30 +232,6 @@ watch(
             selectTarget.value.setPosition(componentRightX - selectW, selectTopY)
           }
         }
-
-        /*
-          * 我也不知道为什么这个不行，还没时间调
-          if(lineItem.includes('row')) {
-            selectY.forEach(sY => {
-              componentY.forEach(cY => {
-                if (isSorption(sY, cY)) {
-                  line.select.set(lineItem, { y: cY })
-                }
-              })
-            })
-            return
-          }
-          if(lineItem.includes('col')) {
-            seletX.forEach(sX => {
-              componentX.forEach(cX => {
-                if (isSorption(sX, cX)) {
-                  line.select.set(lineItem, { x: sX })
-                }
-              })
-            })
-            return
-          }
-        */
       })
     })
   }, 200),
@@ -267,7 +247,6 @@ watch(
     if (!val) {
       line.select.clear()
       line.sorptioned.y = false
-      chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_DRAG, true)
     }
   }
 )

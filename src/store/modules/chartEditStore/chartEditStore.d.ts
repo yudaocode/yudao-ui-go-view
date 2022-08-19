@@ -1,4 +1,4 @@
-import { CreateComponentType, FilterEnum } from '@/packages/index.d'
+import { CreateComponentType, CreateComponentGroupType, FilterEnum } from '@/packages/index.d'
 import { HistoryActionTypeEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
 import { SyncEnum } from '@/enums/editPageEnum'
 import {
@@ -41,9 +41,10 @@ export enum EditCanvasTypeEnum {
   SCALE = 'scale',
   USER_SCALE = 'userScale',
   LOCK_SCALE = 'lockScale',
+  SAVE_STATUS = 'saveStatus',
   IS_CREATE = 'isCreate',
   IS_DRAG = 'isDrag',
-  SAVE_STATUS = 'saveStatus'
+  IS_SELECT = 'isSelect'
 }
 
 // 编辑区域（临时）
@@ -65,6 +66,8 @@ export type EditCanvasType = {
   [EditCanvasTypeEnum.IS_DRAG]: boolean
   // 保存状态
   [EditCanvasTypeEnum.SAVE_STATUS]: SyncEnum
+  // 框选中
+  [EditCanvasTypeEnum.IS_SELECT]: boolean
 }
 
 // 画布数据/滤镜/背景色/宽高主题等
@@ -146,7 +149,7 @@ export type TargetChartType = {
 
 // 数据记录
 export type RecordChartType = {
-  charts: CreateComponentType | CreateComponentType[]
+  charts: CreateComponentType | CreateComponentGroupType | Array<CreateComponentType | CreateComponentGroupType>
   type: HistoryActionTypeEnum.CUT | HistoryActionTypeEnum.COPY
 }
 
@@ -211,12 +214,12 @@ export interface ChartEditStoreType {
   [ChartEditStoreEnum.TARGET_CHART]: TargetChartType
   [ChartEditStoreEnum.RECORD_CHART]?: RecordChartType
   [ChartEditStoreEnum.REQUEST_GLOBAL_CONFIG]: RequestGlobalConfigType
-  [ChartEditStoreEnum.COMPONENT_LIST]: CreateComponentType[]
+  [ChartEditStoreEnum.COMPONENT_LIST]: Array<CreateComponentType | CreateComponentGroupType>
 }
 
-// 需要存储的数据内容
+// 存储数据类型
 export interface ChartEditStorage {
   [ChartEditStoreEnum.EDIT_CANVAS_CONFIG]: EditCanvasConfigType
   [ChartEditStoreEnum.REQUEST_GLOBAL_CONFIG]: RequestGlobalConfigType
-  [ChartEditStoreEnum.COMPONENT_LIST]: CreateComponentType[]
+  [ChartEditStoreEnum.COMPONENT_LIST]: Array<CreateComponentType | CreateComponentGroupType>
 }

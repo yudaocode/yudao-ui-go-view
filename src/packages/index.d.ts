@@ -27,12 +27,12 @@ export type ConfigType = {
 
 // 数据请求
 interface requestConfig {
-  request: RequestConfigType,
+  request: RequestConfigType
 }
 
 // Echarts 数据类型
 interface EchartsDataType {
-  dimensions: string[],
+  dimensions: string[]
   source: any[]
 }
 
@@ -56,27 +56,27 @@ export enum FilterEnum {
 
   // 倾斜
   SKEW_X = 'skewX',
-  SKEW_Y = 'skewY',
+  SKEW_Y = 'skewY'
 }
 
 // 组件实例类
-export interface PublicConfigType extends requestConfig {
+export interface PublicConfigType {
   id: string
-  rename?: string
+  isGroup: boolean
   attr: { x: number; y: number; w: number; h: number; zIndex: number }
   styles: {
-    [FilterEnum.OPACITY]: number;
-    [FilterEnum.SATURATE]: number;
-    [FilterEnum.CONTRAST]: number;
-    [FilterEnum.HUE_ROTATE]: number;
-    [FilterEnum.BRIGHTNESS]: number;
+    [FilterEnum.OPACITY]: number
+    [FilterEnum.SATURATE]: number
+    [FilterEnum.CONTRAST]: number
+    [FilterEnum.HUE_ROTATE]: number
+    [FilterEnum.BRIGHTNESS]: number
 
-    [FilterEnum.ROTATE_Z]: number;
-    [FilterEnum.ROTATE_X]: number;
-    [FilterEnum.ROTATE_Y]: number;
+    [FilterEnum.ROTATE_Z]: number
+    [FilterEnum.ROTATE_X]: number
+    [FilterEnum.ROTATE_Y]: number
 
-    [FilterEnum.SKEW_X]: number;
-    [FilterEnum.SKEW_Y]: number;
+    [FilterEnum.SKEW_X]: number
+    [FilterEnum.SKEW_Y]: number
     // 动画
     animations: string[]
   }
@@ -84,10 +84,15 @@ export interface PublicConfigType extends requestConfig {
   setPosition: Function
 }
 
-export interface CreateComponentType extends PublicConfigType {
+export interface CreateComponentType extends PublicConfigType, requestConfig {
   key: string
   chartConfig: ConfigType
   option: GlobalThemeJsonType
+}
+
+// 组件成组实例类
+export interface CreateComponentGroupType extends CreateComponentType {
+  groupList: Array<CreateComponentType>
 }
 
 // 获取组件实例类中某个key对应value类型的方法

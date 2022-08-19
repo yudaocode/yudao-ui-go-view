@@ -122,6 +122,6 @@ export const http = (type?: RequestHttpEnum) => {
 
 QQ 群：1030129384
 
-![QQ群](readme/goView-QQ.png)
+![QQ群](readme/go-view-qq.png)
 
 ![渲染海报](readme/logo-poster.png)

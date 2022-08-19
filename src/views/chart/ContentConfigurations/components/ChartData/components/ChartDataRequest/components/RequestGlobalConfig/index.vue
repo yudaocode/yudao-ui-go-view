@@ -65,7 +65,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs } from 'vue'
+import { ref, toRefs, computed } from 'vue'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { SettingItemBox, SettingItem } from '@/components/Pages/ChartItemSetting'
 import { useTargetData } from '@/views/chart/ContentConfigurations/components/hooks/useTargetData.hook'
@@ -79,9 +79,12 @@ const { requestOriginUrl, requestInterval, requestIntervalUnit } = toRefs(chartE
 const editDisabled = ref(true)
 
 const designStore = useDesignStore()
-const themeColor = ref(designStore.getAppTheme)
 
 const showTable = ref(false)
+// 颜色
+const themeColor = computed(() => {
+  return designStore.getAppTheme
+})
 </script>
 
 <style lang="scss" scoped>

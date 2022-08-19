@@ -84,7 +84,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs, onBeforeUnmount, watchEffect, toRaw } from 'vue'
+import { ref, toRefs, computed, onBeforeUnmount, watchEffect, toRaw } from 'vue'
 import { icon } from '@/plugins'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { SettingItemBox, SettingItem } from '@/components/Pages/ChartItemSetting'
@@ -108,7 +108,6 @@ const {
   requestIntervalUnit: GlobalRequestIntervalUnit
 } = toRefs(chartEditStore.getRequestGlobalConfig)
 const designStore = useDesignStore()
-const themeColor = ref(designStore.getAppTheme)
 
 // 是否展示数据分析
 const loading = ref(false)
@@ -141,6 +140,11 @@ const sendHandle = async () => {
     window['$message'].warning('数据异常，请检查参数！')
   }
 }
+
+// 颜色
+const themeColor = computed(() => {
+  return designStore.getAppTheme
+})
 
 watchEffect(() => {
   const filter = targetData.value?.filter
