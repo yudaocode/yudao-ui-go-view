@@ -60,6 +60,9 @@ export enum MacKeyboard {
   CTRL = '⌘',
   SHIFT = '⇧',
   ALT = '⌥',
+  CTRL_SOURCE_KEY = "⌘",
+  SHIFT_SOURCE_KEY = "⇧",
+  ALT_SOURCE_KEY = "⌥"
 }
 
 // 同步状态枚举
