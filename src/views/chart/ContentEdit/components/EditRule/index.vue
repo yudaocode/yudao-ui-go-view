@@ -11,13 +11,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs } from 'vue'
+import { toRefs, computed } from 'vue'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 
 const chartEditStore = useChartEditStore()
 const designStore = useDesignStore()
-const themeColor = ref(designStore.getAppTheme)
 
 const { width, height } = toRefs(chartEditStore.getEditCanvasConfig)
 
@@ -34,6 +33,12 @@ const lines = {
   h: [],
   v: []
 }
+
+// 颜色
+const themeColor = computed(() => {
+  return designStore.getAppTheme
+})
+
 </script>
 
 <style>

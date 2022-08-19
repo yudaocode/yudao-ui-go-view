@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, PropType } from 'vue'
+import { computed, PropType } from 'vue'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
@@ -39,9 +39,7 @@ const props = defineProps({
   }
 })
 
-// 全局颜色
 const designStore = useDesignStore()
-const themeColor = ref(designStore.getAppTheme)
 const chartEditStore = useChartEditStore()
 
 // 锚点
@@ -49,6 +47,11 @@ const pointList = ['t', 'r', 'b', 'l', 'lt', 'rt', 'lb', 'rb']
 
 // 光标朝向
 const cursorResize = ['n', 'e', 's', 'w', 'nw', 'ne', 'sw', 'se']
+
+// 颜色
+const themeColor = computed(() => {
+  return designStore.getAppTheme
+})
 
 // 计算当前选中目标
 const hover = computed(() => {

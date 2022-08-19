@@ -70,8 +70,12 @@ const { FolderIcon, FolderOpenIcon } = icon.ionicons5
 const chartEditStore = useChartEditStore()
 const { handleContextMenu, onClickOutSide } = useContextMenu()
 
-const themeColor = ref(designStore.getAppTheme)
 const expend = ref(false)
+
+// 颜色
+const themeColor = computed(() => {
+  return designStore.getAppTheme
+})
 
 // 右键
 const optionsHandle = (

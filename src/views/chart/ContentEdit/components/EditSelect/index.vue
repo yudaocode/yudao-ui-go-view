@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs, watch } from 'vue'
+import { ref, toRefs, watch, computed } from 'vue'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { useSizeStyle, useComponentStyle } from '../../hooks/useStyle.hook'
@@ -14,9 +14,12 @@ import { selectBoxIndex } from '@/settings/designSetting'
 
 // 全局颜色
 const designStore = useDesignStore()
-const themeColor = ref(designStore.getAppTheme)
 const chartEditStore = useChartEditStore()
 const { isSelect, scale } = toRefs(chartEditStore.getEditCanvas)
+
+const themeColor = computed(() => {
+  return designStore.getAppTheme
+})
 
 // 位置
 const positionStyle = ref()

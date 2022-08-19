@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, watch } from 'vue'
+import { reactive, computed, watch } from 'vue'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
@@ -21,7 +21,6 @@ import throttle from 'lodash/throttle'
 import cloneDeep from 'lodash/cloneDeep'
 // 全局颜色
 const designStore = useDesignStore()
-const themeColor = ref(designStore.getAppTheme)
 
 const chartEditStore = useChartEditStore()
 const settingStore = useSettingStore()
@@ -48,6 +47,11 @@ const useComponentStyle = (attr?: Partial<{ x: number; y: number }>) => {
   }
   return componentStyle
 }
+
+// 颜色
+const themeColor = computed(() => {
+  return designStore.getAppTheme
+})
 
 // * 吸附距离
 const minDistance = computed(() => {
