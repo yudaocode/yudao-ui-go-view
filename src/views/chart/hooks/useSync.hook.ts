@@ -177,7 +177,6 @@ export const useSync = () => {
 
     // 获取缩略图片
     const range = document.querySelector('.go-edit-range') as HTMLElement
-    const ruler = document.getElementById('mb-ruler')
     // 生成图片
     const canvasImage: HTMLCanvasElement = await html2canvas(range, {
       backgroundColor: null
