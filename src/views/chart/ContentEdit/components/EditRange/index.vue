@@ -3,8 +3,6 @@
     <slot></slot>
     <!-- 水印 -->
     <edit-watermark></edit-watermark>
-    <!-- 标尺 -->
-    <edit-rule></edit-rule>
     <!-- 拖拽时的辅助线 -->
     <edit-align-line></edit-align-line>
     <!-- 框选时的样式框 -->
@@ -22,7 +20,6 @@ import { mousedownBoxSelect } from '../../hooks/useDrag.hook'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditAlignLine } from '../EditAlignLine'
 import { EditWatermark } from '../EditWatermark'
-import { EditRule } from '../EditRule'
 import { EditSelect } from '../EditSelect'
 
 const chartEditStore = useChartEditStore()
