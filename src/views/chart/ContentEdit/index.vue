@@ -1,4 +1,5 @@
 <template>
+  <edit-rule></edit-rule>
   <content-box
     id="go-chart-edit-layout"
     :flex="true"
@@ -24,8 +25,12 @@
           <!-- 图表 -->
           <div v-for="(item, index) in chartEditStore.getComponentList" :key="item.id">
             <!-- 分组 -->
-            <edit-group v-if="item.isGroup" :groupData="(item as CreateComponentGroupType)" :groupIndex="index"></edit-group>
-            
+            <edit-group
+              v-if="item.isGroup"
+              :groupData="(item as CreateComponentGroupType)"
+              :groupIndex="index"
+            ></edit-group>
+
             <!-- 单组件 -->
             <edit-shape-box
               v-else
@@ -89,6 +94,7 @@ import { useComponentStyle, useSizeStyle } from './hooks/useStyle.hook'
 import { ContentBox } from '../ContentBox/index'
 import { EditGroup } from './components/EditGroup'
 import { EditRange } from './components/EditRange'
+import { EditRule } from './components/EditRule'
 import { EditBottom } from './components/EditBottom'
 import { EditShapeBox } from './components/EditShapeBox'
 import { EditTools } from './components/EditTools'
@@ -117,7 +123,7 @@ const optionsHandle = (
   // 多选处理
   if (chartEditStore.getTargetChart.selectId.length > 1) {
     const list: MenuOptionsItemType[] = []
-    
+
     allList.forEach(item => {
       // 成组
       if (moreMenuEnums.includes(item.key as MenuEnum)) {
@@ -180,7 +186,7 @@ onMounted(() => {
   @include background-image('background-point');
   @include goId('chart-edit-content') {
     border-radius: 10px;
-    margin: 15px;
+    margin: 25px;
     overflow: hidden;
     @extend .go-transition;
     @include fetch-theme('box-shadow');
