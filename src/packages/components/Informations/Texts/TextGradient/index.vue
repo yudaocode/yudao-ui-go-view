@@ -31,7 +31,8 @@ watch(
   () => props.chartConfig.option.dataset,
   (newData: any) => {
     option.dataset = newData
-  }
+  },
+  {immediate: true}
 )
 
 useChartDataFetch(props.chartConfig, useChartEditStore, (newData: any) => {
