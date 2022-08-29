@@ -154,7 +154,9 @@ export const canvasCut = (html: HTMLElement | null, callback?: Function) => {
   }
 
   html2canvas(html, {
-    backgroundColor: null
+    backgroundColor: null,
+    allowTaint: true,
+    useCORS: true
   }).then((canvas: HTMLCanvasElement) => {
     window['$message'].success('导出成功！')
     downloadByA(canvas.toDataURL(), undefined, 'png')

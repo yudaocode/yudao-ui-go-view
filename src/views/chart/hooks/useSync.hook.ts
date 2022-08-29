@@ -179,7 +179,9 @@ export const useSync = () => {
     const range = document.querySelector('.go-edit-range') as HTMLElement
     // 生成图片
     const canvasImage: HTMLCanvasElement = await html2canvas(range, {
-      backgroundColor: null
+      backgroundColor: null,
+      allowTaint: true,
+      useCORS: true
     })
     
     // 上传预览图
