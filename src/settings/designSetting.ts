@@ -25,7 +25,10 @@ export const chartInitConfig = {
   x: 50,
   y: 50,
   w: 500,
-  h: 300
+  h: 300,
+  // 不建议动 offset
+  offsetX: 0,
+  offsetY: 0,
 }
 
 // dialog 图标的大小

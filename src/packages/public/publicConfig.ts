@@ -104,5 +104,5 @@ export class PublicGroupConfigClass extends publicConfig implements CreateCompon
   // 标识
   public id = getUUID()
   // 基本信息
-  public attr = { w: 0, h: 0, x: 0, y: 0, zIndex: -1 }
+  public attr = { w: 0, h: 0, x: 0, y: 0, offsetX: 0, offsetY: 0, zIndex: -1 }
 }

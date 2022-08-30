@@ -313,6 +313,28 @@ export const useChartEditStore = defineStore({
         loadingError()
       }
     },
+    // * 重置组件位置
+    resetComponentPosition(item: CreateComponentType | CreateComponentGroupType, isForward: boolean): void {
+      const index = this.fetchTargetIndex(item.id)
+      if (index > -1) {
+        const componentInstance = this.getComponentList[index]
+        if (isForward) {
+          componentInstance.attr = Object.assign(componentInstance.attr, {
+            x: item.attr.x + item.attr.offsetX,
+            y: item.attr.y + item.attr.offsetY
+          })
+        } else {
+          componentInstance.attr = Object.assign(componentInstance.attr, {
+            x: item.attr.x,
+            y: item.attr.y
+          })
+        }
+      }
+    },
+    // * 移动组件
+    moveComponentList(item: Array<CreateComponentType | CreateComponentGroupType>) {
+      chartHistoryStore.createMoveHistory(item)
+    },
     // * 更新组件列表某一项的值
     updateComponentList(index: number, newData: CreateComponentType | CreateComponentGroupType) {
       if (index < 1 && index > this.getComponentList.length) return
@@ -530,6 +552,15 @@ export const useChartEditStore = defineStore({
         return
       }
 
+      // 处理移动
+      const isMove = HistoryItem.actionType === HistoryActionTypeEnum.MOVE
+      if (isMove) {
+        historyData.forEach(item => {
+          this.resetComponentPosition(item, isForward)
+        })
+        return
+      }
+
       // 处理层级
       const isTop = HistoryItem.actionType === HistoryActionTypeEnum.TOP
       const isBottom = HistoryItem.actionType === HistoryActionTypeEnum.BOTTOM
@@ -562,12 +593,12 @@ export const useChartEditStore = defineStore({
       if (isGroup || isUnGroup) {
         if ((isGroup && isForward) || (isUnGroup && !isForward)) {
           const ids: string[] = []
-          if(historyData.length > 1) {
+          if (historyData.length > 1) {
             historyData.forEach(item => {
               ids.push(item.id)
             })
           } else {
-            (historyData[0] as CreateComponentGroupType).groupList.forEach(item => {
+            ;(historyData[0] as CreateComponentGroupType).groupList.forEach(item => {
               ids.push(item.id)
             })
           }
@@ -575,7 +606,7 @@ export const useChartEditStore = defineStore({
           return
         }
         // 都需使用子组件的id去解组
-        if(historyData.length > 1) {
+        if (historyData.length > 1) {
           this.setUnGroup([(historyData[0] as CreateComponentType).id], undefined, false)
         } else {
           this.setUnGroup([(historyData[0] as CreateComponentGroupType).groupList[0].id], undefined, false)
