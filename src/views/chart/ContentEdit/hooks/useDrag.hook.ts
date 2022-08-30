@@ -111,7 +111,7 @@ export const mousedownBoxSelect = (e: MouseEvent, item?: CreateComponentType | C
       selectAttr.x1 = Math.round(startOffsetX - (startScreenX - moveEvent.screenX) / scale)
       selectAttr.y1 = startOffsetY
       selectAttr.x2 = startOffsetX
-      selectAttr.y2 = Math.round(startOffsetY + (moveEvent.screenY - startScreenY ) / scale)
+      selectAttr.y2 = Math.round(startOffsetY + (moveEvent.screenY - startScreenY) / scale)
       // 左下方向
     } else {
       // 左上方向
@@ -223,7 +223,7 @@ export const useMouseHandle = () => {
     const startY = e.screenY
 
     // 记录历史位置
-    let prevComponentInstance:CreateComponentType | CreateComponentGroupType
+    let prevComponentInstance: CreateComponentType | CreateComponentGroupType
     chartEditStore.getTargetChart.selectId.forEach(id => {
       if (!targetMap.has(id)) return
 
@@ -278,7 +278,7 @@ export const useMouseHandle = () => {
       chartEditStore.setMousePosition(0, 0, 0, 0)
       chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_DRAG, false)
       // 加入历史栈
-      if(prevComponentInstance){
+      if (prevComponentInstance) {
         chartEditStore.getTargetChart.selectId.forEach(id => {
           if (!targetMap.has(id)) return
           const index = chartEditStore.fetchTargetIndex(id)
