@@ -9,7 +9,7 @@ const global = {
   // header
   doc: 'Document',
   help: 'Help',
-  contact: 'Contact Us',
+  contact: 'About Software',
   logout: 'Logout',
   // system setting
   sys_set: 'System Setting',
