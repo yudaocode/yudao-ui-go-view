@@ -9,7 +9,7 @@ const global = {
   // header
   doc: 'Document',
   help: 'Help',
-  contact: 'Contact Us',
+  contact: 'About Software',
   logout: 'Logout',
   logout_success: 'Logout success！',
   logout_failure: 'Logout Failed！',
