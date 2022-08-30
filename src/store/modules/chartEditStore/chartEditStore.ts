@@ -332,8 +332,8 @@ export const useChartEditStore = defineStore({
       }
     },
     // * 移动组件
-    moveComponentList(item: CreateComponentType | CreateComponentGroupType) {
-      chartHistoryStore.createMoveHistory([item])
+    moveComponentList(item: Array<CreateComponentType | CreateComponentGroupType>) {
+      chartHistoryStore.createMoveHistory(item)
     },
     // * 更新组件列表某一项的值
     updateComponentList(index: number, newData: CreateComponentType | CreateComponentGroupType) {

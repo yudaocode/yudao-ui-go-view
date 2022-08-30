@@ -223,13 +223,13 @@ export const useMouseHandle = () => {
     const startY = e.screenY
 
     // 记录历史位置
-    let prevComponentInstance: CreateComponentType | CreateComponentGroupType
+    let prevComponentInstance: Array<CreateComponentType | CreateComponentGroupType> = []
     chartEditStore.getTargetChart.selectId.forEach(id => {
       if (!targetMap.has(id)) return
 
       const index = chartEditStore.fetchTargetIndex(id)
       // 拿到初始位置数据
-      prevComponentInstance = cloneDeep(chartEditStore.getComponentList[index])
+      prevComponentInstance.push(cloneDeep(chartEditStore.getComponentList[index]))
     })
 
     // 记录初始位置
@@ -278,14 +278,19 @@ export const useMouseHandle = () => {
       chartEditStore.setMousePosition(0, 0, 0, 0)
       chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_DRAG, false)
       // 加入历史栈
-      if (prevComponentInstance) {
+      if (prevComponentInstance.length) {
         chartEditStore.getTargetChart.selectId.forEach(id => {
           if (!targetMap.has(id)) return
           const index = chartEditStore.fetchTargetIndex(id)
           const curComponentInstance = chartEditStore.getComponentList[index]
-          prevComponentInstance.attr = Object.assign(prevComponentInstance.attr, {
-            offsetX: curComponentInstance.attr.x - prevComponentInstance.attr.x,
-            offsetY: curComponentInstance.attr.y - prevComponentInstance.attr.y
+          // 找到记录的所选组件
+          prevComponentInstance.forEach(preItem => {
+            if (preItem.id === id) {
+              preItem.attr = Object.assign(preItem.attr, {
+                offsetX: curComponentInstance.attr.x - preItem.attr.x,
+                offsetY: curComponentInstance.attr.y - preItem.attr.y
+              })
+            }
           })
         })
         chartEditStore.moveComponentList(prevComponentInstance)
