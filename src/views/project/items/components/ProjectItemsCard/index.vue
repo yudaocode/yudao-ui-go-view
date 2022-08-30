@@ -7,7 +7,7 @@
           <mac-os-control-btn
             class="top-btn"
             :hidden="['remove']"
-            @close="deleteHanlde"
+            @close="deleteHandle"
             @resize="resizeHandle"
          ></mac-os-control-btn>
         </div>
@@ -98,7 +98,7 @@ const {
   SendIcon
 } = icon.ionicons5
 
-const emit = defineEmits(['delete', 'resize', 'edit', 'release'])
+const emit = defineEmits(['preview', 'delete', 'resize', 'edit', 'release'])
 
 const props = defineProps({
   cardData: Object as PropType<Chartype>
@@ -165,8 +165,11 @@ const selectOptions = ref([
 
 const handleSelect = (key: string) => {
   switch (key) {
+    case 'preview':
+      previewHandle()
+      break
     case 'delete':
-      deleteHanlde()
+      deleteHandle()
       break
     case 'release':
       releaseHandle()
@@ -177,8 +180,13 @@ const handleSelect = (key: string) => {
   }
 }
 
+// 预览处理
+const previewHandle = () => {
+  emit('preview', props.cardData)
+}
+
 // 删除处理
-const deleteHanlde = () => {
+const deleteHandle = () => {
   emit('delete', props.cardData)
 }
 

@@ -6,15 +6,11 @@
     </div>
     <!-- 列表 -->
     <div v-show="!loading">
-      <n-grid
-        :x-gap="20"
-        :y-gap="20"
-        cols="2 s:2 m:3 l:4 xl:4 xxl:4"
-        responsive="screen"
-      >
+      <n-grid :x-gap="20" :y-gap="20" cols="2 s:2 m:3 l:4 xl:4 xxl:4" responsive="screen">
         <n-grid-item v-for="(item, index) in list" :key="item.id">
           <project-items-card
             :cardData="item"
+            @preview="previewHandle"
             @resize="resizeHandle"
             @delete="deleteHandle(item)"
             @release="releaseHandle(item, index)"
@@ -56,17 +52,8 @@ import { useModalDataInit } from './hooks/useModal.hook'
 import { useDataListInit } from './hooks/useData.hook'
 
 const { CopyIcon, EllipsisHorizontalCircleSharpIcon } = icon.ionicons5
-const { modalData, modalShow, closeModal, resizeHandle, editHandle } =
-  useModalDataInit()
-const {
-  loading,
-  paginat,
-  list,
-  changeSize,
-  changePage,
-  releaseHandle,
-  deleteHandle,
-} = useDataListInit()
+const { modalData, modalShow, closeModal, previewHandle, resizeHandle, editHandle } = useModalDataInit()
+const { loading, paginat, list, changeSize, changePage, releaseHandle, deleteHandle } = useDataListInit()
 </script>
 
 <style lang="scss" scoped>

@@ -205,9 +205,9 @@ export const loginCheck = () => {
  * * 预览地址
  * @returns 
  */
- export const previewPath = () => {
+ export const previewPath = (id?: string | number) => {
   const { origin, pathname } = document.location
   const path = fetchPathByName(PreviewEnum.CHART_PREVIEW_NAME, 'href')
-  const previewPath = `${origin}${pathname}${path}/${fetchRouteParamsLocation()}`
+  const previewPath = `${origin}${pathname}${path}/${id || fetchRouteParamsLocation()}`
   return previewPath
 }
