@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 import { EditCanvasType } from '@/store/modules/chartEditStore/chartEditStore.d'
-import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { loadingStart, loadingFinish, loadingError } from '@/utils'
 import { editHistoryMax } from '@/settings/designSetting'
 import {
@@ -11,7 +10,6 @@ import {
   HistoryItemType,
   ChartHistoryStoreType
 } from './chartHistoryStore.d'
-import { cloneDeep } from 'lodash'
 
 export const useChartHistoryStore = defineStore({
   id: 'useChartHistoryStore',
@@ -97,33 +95,12 @@ export const useChartHistoryStore = defineStore({
         // 排除画布初始化
         if (this.getBackStack.length > 1) {
           const targetData = this.popBackStackItem()
-          // 移动时逻辑单独处理
-          const isMove  = targetData?.actionType === HistoryActionTypeEnum.MOVE
-          if(isMove){
-            const chartEditStore = useChartEditStore()
-            // 将当前状态存入前进栈
-            const curTargetData:HistoryItemType = cloneDeep(targetData)
-            curTargetData.historyData.forEach(item  => {
-              if(item.id){
-                const index = chartEditStore.fetchTargetIndex(item.id)
-                if(index > -1){
-                  const componentInstance = chartEditStore.getComponentList[index]
-                  item.attr = Object.assign(item.attr, {
-                    x: componentInstance.attr.x,
-                    y: componentInstance.attr.y
-                  })
-                }
-              }
-            })
-            this.pushForwardStack(curTargetData)
-          }else{
-            if (!targetData) {
-              loadingFinish()
-              return
-            }
-            // 移除记录到前进栈
-            this.pushForwardStack(targetData)
+          if (!targetData) {
+            loadingFinish()
+            return
           }
+          // 移除记录到前进堆
+          this.pushForwardStack(targetData)
           loadingFinish()
           return targetData
         }
@@ -138,34 +115,12 @@ export const useChartHistoryStore = defineStore({
         loadingStart()
         if (this.getForwardStack.length) {
           const targetData = this.popForwardStack()
-          // 移动时逻辑单独处理
-          const isMove  = targetData?.actionType === HistoryActionTypeEnum.MOVE
-          if(isMove){
-            const chartEditStore = useChartEditStore()
-            // 将当前状态存入后退栈
-            const curTargetData:HistoryItemType = cloneDeep(targetData)
-            curTargetData.historyData.forEach(item  => {
-              if(item.id){
-                const index = chartEditStore.fetchTargetIndex(item.id)
-                if(index > -1){
-                  const componentInstance = chartEditStore.getComponentList[index]
-                  item.attr = Object.assign(item.attr, {
-                    x: componentInstance.attr.x,
-                    y: componentInstance.attr.y
-                  })
-                }
-              }
-            })
-            this.pushBackStackItem(curTargetData, true)
-          }else{
-            if (!targetData) {
-              loadingFinish()
-              return
-            }
-            // 放入后退栈
-            this.pushBackStackItem(targetData, true)
+          if (!targetData) {
+            loadingFinish()
+            return
           }
-          
+          // 放入后退栈
+          this.pushBackStackItem(targetData, true)
           loadingFinish()
           return targetData
         }

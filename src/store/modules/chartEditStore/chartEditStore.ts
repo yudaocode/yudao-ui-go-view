@@ -314,14 +314,21 @@ export const useChartEditStore = defineStore({
       }
     },
     // * 重置组件位置
-    resetComponentPostion(item: CreateComponentType | CreateComponentGroupType):void{
+    resetComponentPostion(item: CreateComponentType | CreateComponentGroupType, isForward: boolean):void{
       const index = this.fetchTargetIndex(item.id)
       if(index > -1){
         const componentInstance = this.getComponentList[index]
-        componentInstance.attr = Object.assign(componentInstance.attr, {
-          x: item.attr.x,
-          y: item.attr.y
-        })
+        if(isForward){
+          componentInstance.attr = Object.assign(componentInstance.attr, {
+            x: item.attr.x + item.attr.offsetX,
+            y: item.attr.y + item.attr.offsetY
+          })
+        }else{
+          componentInstance.attr = Object.assign(componentInstance.attr, {
+            x: item.attr.x,
+            y: item.attr.y
+          })
+        }
       }
     },
     // * 移动组件
@@ -549,7 +556,7 @@ export const useChartEditStore = defineStore({
       const isMove = HistoryItem.actionType === HistoryActionTypeEnum.MOVE
       if(isMove){
         historyData.forEach(item => {
-          this.resetComponentPostion(item)
+          this.resetComponentPostion(item, isForward)
         })
         return
       }

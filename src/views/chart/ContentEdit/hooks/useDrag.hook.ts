@@ -279,6 +279,15 @@ export const useMouseHandle = () => {
       chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_DRAG, false)
       // 加入历史栈
       if(prevComponentInstance){
+        chartEditStore.getTargetChart.selectId.forEach(id => {
+          if (!targetMap.has(id)) return
+          const index = chartEditStore.fetchTargetIndex(id)
+          const curComponentInstance = chartEditStore.getComponentList[index]
+          prevComponentInstance.attr = Object.assign(prevComponentInstance.attr, {
+            offsetX: curComponentInstance.attr.x - prevComponentInstance.attr.x,
+            offsetY: curComponentInstance.attr.y - prevComponentInstance.attr.y
+          })
+        })
         chartEditStore.moveComponentList(prevComponentInstance)
       }
       document.removeEventListener('mousemove', mousemove)
