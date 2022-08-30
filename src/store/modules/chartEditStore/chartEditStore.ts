@@ -313,6 +313,28 @@ export const useChartEditStore = defineStore({
         loadingError()
       }
     },
+    // * 重置组件位置
+    resetComponentPostion(item: CreateComponentType | CreateComponentGroupType, isForward: boolean):void{
+      const index = this.fetchTargetIndex(item.id)
+      if(index > -1){
+        const componentInstance = this.getComponentList[index]
+        if(isForward){
+          componentInstance.attr = Object.assign(componentInstance.attr, {
+            x: item.attr.x + item.attr.offsetX,
+            y: item.attr.y + item.attr.offsetY
+          })
+        }else{
+          componentInstance.attr = Object.assign(componentInstance.attr, {
+            x: item.attr.x,
+            y: item.attr.y
+          })
+        }
+      }
+    },
+    // * 移动组件
+    moveComponentList(item: CreateComponentType | CreateComponentGroupType){
+      chartHistoryStore.createMoveHistory([item])
+    },
     // * 更新组件列表某一项的值
     updateComponentList(index: number, newData: CreateComponentType | CreateComponentGroupType) {
       if (index < 1 && index > this.getComponentList.length) return
@@ -526,6 +548,15 @@ export const useChartEditStore = defineStore({
         }
         historyData.forEach(item => {
           this.removeComponentList(item.id, false)
+        })
+        return
+      }
+
+      // 处理移动
+      const isMove = HistoryItem.actionType === HistoryActionTypeEnum.MOVE
+      if(isMove){
+        historyData.forEach(item => {
+          this.resetComponentPostion(item, isForward)
         })
         return
       }
