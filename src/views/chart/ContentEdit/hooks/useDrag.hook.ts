@@ -7,7 +7,7 @@ import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { loadingStart, loadingFinish, loadingError } from '@/utils'
-import throttle from 'lodash/throttle'
+import { throttle, cloneDeep } from 'lodash'
 
 const chartEditStore = useChartEditStore()
 const { onClickOutSide } = useContextMenu()
@@ -111,7 +111,7 @@ export const mousedownBoxSelect = (e: MouseEvent, item?: CreateComponentType | C
       selectAttr.x1 = Math.round(startOffsetX - (startScreenX - moveEvent.screenX) / scale)
       selectAttr.y1 = startOffsetY
       selectAttr.x2 = startOffsetX
-      selectAttr.y2 = Math.round(startOffsetY + (moveEvent.screenY - startScreenY ) / scale)
+      selectAttr.y2 = Math.round(startOffsetY + (moveEvent.screenY - startScreenY) / scale)
       // 左下方向
     } else {
       // 左上方向
@@ -222,6 +222,16 @@ export const useMouseHandle = () => {
     const startX = e.screenX
     const startY = e.screenY
 
+    // 记录历史位置
+    let prevComponentInstance: Array<CreateComponentType | CreateComponentGroupType> = []
+    chartEditStore.getTargetChart.selectId.forEach(id => {
+      if (!targetMap.has(id)) return
+
+      const index = chartEditStore.fetchTargetIndex(id)
+      // 拿到初始位置数据
+      prevComponentInstance.push(cloneDeep(chartEditStore.getComponentList[index]))
+    })
+
     // 记录初始位置
     chartEditStore.setMousePosition(undefined, undefined, startX, startY)
 
@@ -267,6 +277,24 @@ export const useMouseHandle = () => {
     const mouseup = () => {
       chartEditStore.setMousePosition(0, 0, 0, 0)
       chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_DRAG, false)
+      // 加入历史栈
+      if (prevComponentInstance.length) {
+        chartEditStore.getTargetChart.selectId.forEach(id => {
+          if (!targetMap.has(id)) return
+          const index = chartEditStore.fetchTargetIndex(id)
+          const curComponentInstance = chartEditStore.getComponentList[index]
+          // 找到记录的所选组件
+          prevComponentInstance.forEach(preItem => {
+            if (preItem.id === id) {
+              preItem.attr = Object.assign(preItem.attr, {
+                offsetX: curComponentInstance.attr.x - preItem.attr.x,
+                offsetY: curComponentInstance.attr.y - preItem.attr.y
+              })
+            }
+          })
+        })
+        chartEditStore.moveComponentList(prevComponentInstance)
+      }
       document.removeEventListener('mousemove', mousemove)
       document.removeEventListener('mouseup', mouseup)
     }

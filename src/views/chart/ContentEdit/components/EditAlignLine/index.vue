@@ -85,6 +85,8 @@ const canvasPositionList = computed(() => {
       h: cloneDeep(chartEditStore.getEditCanvasConfig.height),
       x: 0,
       y: 0,
+      offsetX: 0,
+      offsetY: 0,
       zIndex: 0
     }
   }

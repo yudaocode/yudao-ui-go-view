@@ -63,7 +63,7 @@ export enum FilterEnum {
 export interface PublicConfigType {
   id: string
   isGroup: boolean
-  attr: { x: number; y: number; w: number; h: number; zIndex: number }
+  attr: { x: number; y: number; w: number; h: number; zIndex: number; offsetX: number; offsetY: number; }
   styles: {
     [FilterEnum.OPACITY]: number
     [FilterEnum.SATURATE]: number
