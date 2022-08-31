@@ -22,6 +22,7 @@
       round
       placeholder="请输入项目名称"
       v-model:value.trim="title"
+      @keyup.enter="handleBlur"
       @blur="handleBlur"
    ></n-input>
   </n-space>
