@@ -19,7 +19,7 @@ import { CanvasRenderer } from "echarts/renderers";
 import { useChartDataFetch } from "@/hooks";
 import { mergeTheme } from "@/packages/public/chart";
 import { useChartEditStore } from "@/store/modules/chartEditStore/chartEditStore";
-import dataJson from "./data";
+import dataJson from "./data.json";
 import {
   DatasetComponent,
   GridComponent,
@@ -52,7 +52,7 @@ use([
   EffectScatterChart,
 ]);
 
-registerMap("china", { geoJSON: dataJson });
+registerMap("china", { geoJSON: (dataJson as unknown) as any, specialAreas: {} });
 
 const option = reactive({
   value: mergeTheme(props.chartConfig.option, props.themeSetting, includes),
