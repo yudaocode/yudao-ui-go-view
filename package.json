@@ -6,7 +6,9 @@
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "new": "plop --plopfile ./plop/plopfile.js",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "lint": "eslint --ext .vue,.js,.jsx,.ts,.tsx ./ --max-warnings 0",
+    "lint:fix": "eslint --ext .vue,.js,jsx,.ts,.tsx ./ --fix"
   },
   "dependencies": {
     "@types/color": "^3.0.3",
