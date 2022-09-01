@@ -2,10 +2,11 @@ import { echartOptionProfixHandle, publicConfig } from '@/packages/public'
 import { MapChineConfig } from './index'
 import { CreateComponentType } from '@/packages/index.d'
 import { defaultTheme, chartColorsSearch } from '@/settings/chartThemes/index'
-
+import dataJson from './points.json'
 export const includes = ['geo']
 
 export const option = {
+  dataset: dataJson,
   geo: {
     show: true,
     type: 'map',
@@ -80,6 +81,33 @@ export const option = {
       type: 'effectScatter',
       coordinateSystem: 'geo',
       symbolSize: 12,
+      // data: [
+      //   {
+      //     // 数据映射
+      //     name: '苏尼特左旗', // 对应地图中的name
+      //     value: [113.653412, 43.854108, 4500] // value值,前面两个是X轴,Y轴坐标, 后面的数据自定义,可以设置多个
+      //   },
+      //   {
+      //     name: '二连浩特市',
+      //     value: [111.97981, 43.652895, 3560]
+      //   },
+      //   {
+      //     name: '阿巴嘎旗',
+      //     value: [114.970618, 44.022728, 3300]
+      //   },
+      //   {
+      //     name: '苏尼特右旗',
+      //     value: [112.65539, 42.746662, 2800]
+      //   },
+      //   {
+      //     name: '正镶白旗',
+      //     value: [115.031423, 42.286807, 2100]
+      //   },
+      //   {
+      //     name: '太仆寺旗',
+      //     value: [115.28728, 41.895199, 1900]
+      //   }
+      // ],
       label: {
         normal: {
           show: false

@@ -2,7 +2,7 @@
   <v-chart
     ref="vChartRef"
     :theme="themeColor"
-    :option="option"
+    :option="option.value"
     :manual-update="isPreview()"
     autoresize
   >
@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, computed, reactive } from "vue";
+import { PropType, computed, reactive, watch } from "vue";
 import config, { includes } from "./config";
 import VChart from "vue-echarts";
 import { use, registerMap } from "echarts/core";
@@ -53,10 +53,22 @@ use([
 ]);
 
 registerMap("china", { geoJSON: dataJson });
-//
-const option = computed(() => {
-  return mergeTheme(props.chartConfig.option, props.themeSetting, includes);
+
+const option = reactive({
+  value: mergeTheme(props.chartConfig.option, props.themeSetting, includes),
 });
+
+watch(
+  () => props.chartConfig.option.dataset,
+  (newData) => {
+    props.chartConfig.option.series[0].data = newData.data;
+    option.value = props.chartConfig.option;
+  },
+  {
+    immediate: true,
+  }
+);
+
 const { vChartRef } = useChartDataFetch(props.chartConfig, useChartEditStore);
 </script>
 

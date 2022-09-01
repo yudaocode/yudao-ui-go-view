@@ -2,11 +2,16 @@
   <!-- Echarts 全局设置 -->
   <div>
     <global-setting :optionData="optionData" :in-chart="true"></global-setting>
-    <CollapseItem name="标记样式" :expanded="false">
+    <CollapseItem
+      name="标记样式"
+      :expanded="false"
+      v-for="(item, index) in seriesList"
+      :key="index"
+    >
       <SettingItemBox name="标记">
         <SettingItem name="标记大小">
           <n-input-number
-            v-model:value="series.symbolSize"
+            v-model:value="item.symbolSize"
             size="small"
             :min="1"
           ></n-input-number>
@@ -15,7 +20,7 @@
           <n-color-picker
             size="small"
             :modes="['hex']"
-            v-model:value="series.itemStyle.color"
+            v-model:value="item.itemStyle.normal.color"
           ></n-color-picker>
         </SettingItem>
       </SettingItemBox>
@@ -32,7 +37,7 @@ import {
 } from "@/components/Pages/ChartItemSetting";
 import { lineConf } from "@/packages/chartConfiguration/echarts/index";
 import { GlobalThemeJsonType } from "@/settings/chartThemes/index";
-import { GlobalSetting } from '@/components/Pages/ChartItemSetting'
+import { GlobalSetting } from "@/components/Pages/ChartItemSetting";
 
 const props = defineProps({
   optionData: {
@@ -40,8 +45,7 @@ const props = defineProps({
     required: true,
   },
 });
-console.log('optionData',props.optionData)
-const series = computed(() => {
-  return props.optionData.series[0];
+const seriesList = computed(() => {
+  return props.optionData.series;
 });
 </script>
