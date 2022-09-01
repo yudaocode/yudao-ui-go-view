@@ -6,7 +6,7 @@ export const MapChineConfig: ConfigType = {
   key: 'MapChine',
   chartKey: 'VMapChine',
   conKey: 'VCMapChine',
-  title: '北京地图',
+  title: '地图',
   category: ChatCategoryEnum.MAP,
   categoryName: ChatCategoryEnumName.MAP,
   package: PackagesCategoryEnum.CHARTS,
