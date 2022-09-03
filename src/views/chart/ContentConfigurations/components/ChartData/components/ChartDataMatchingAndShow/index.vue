@@ -80,7 +80,7 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import { PackagesCategoryEnum } from '@/packages/index.d'
+import { ChartFrameEnum } from '@/packages/index.d'
 import { RequestDataTypeEnum } from '@/enums/httpEnum'
 import { icon } from '@/plugins'
 import { DataResultEnum, TimelineTitleEnum } from '../../index.d'
@@ -119,9 +119,9 @@ const filterShow = computed(() => {
   return targetData.value.request.requestDataType === RequestDataTypeEnum.AJAX
 })
 
-// 是图表类型
+// 是支持 dataset 的图表类型
 const isCharts = computed(() => {
-  return targetData.value.chartConfig.package === PackagesCategoryEnum.CHARTS
+  return targetData.value.chartConfig.chartFrame === ChartFrameEnum.ECHARTS
 })
 
 // 处理映射列表状态结果

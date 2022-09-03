@@ -2,7 +2,7 @@ import type { GlobalThemeJsonType } from '@/settings/chartThemes/index'
 import type { RequestConfigType } from '@/store/modules/chartEditStore/chartEditStore.d'
 
 export enum ChartFrameEnum {
-  // echarts 框架
+  // 支持 dataset 的 echarts 框架
   ECHARTS = 'echarts',
   // UI 组件框架
   NAIVE_UI = 'naiveUI',
