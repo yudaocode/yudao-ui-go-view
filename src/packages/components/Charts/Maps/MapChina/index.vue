@@ -50,14 +50,18 @@ const option = reactive({
   value: mergeTheme(props.chartConfig.option, props.themeSetting, includes)
 })
 
+const dataSetHandle = (dataset: any) => {
+  props.chartConfig.option.series.forEach((item: any) => {
+    if (item.type === 'effectScatter' && dataset.point) item.data = dataset.point
+    else if (item.type === 'map' && dataset.point) item.data = dataset.map
+    option.value = props.chartConfig.option
+  })
+}
+
 watch(
   () => props.chartConfig.option.dataset,
   newData => {
-    props.chartConfig.option.series.forEach((item: any) => {
-      if (item.type === 'effectScatter') item.data = newData.point
-      else if (item.type === 'map') item.data = newData.map
-      option.value = props.chartConfig.option
-    })
+    dataSetHandle(newData)
   },
   {
     immediate: true
@@ -66,6 +70,6 @@ watch(
 
 // 预览
 useChartDataFetch(props.chartConfig, useChartEditStore, (newData: any) => {
-  option.value.series[0].data = [newData]
+  dataSetHandle(newData)
 })
 </script>
