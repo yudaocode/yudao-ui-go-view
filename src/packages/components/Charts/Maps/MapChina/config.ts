@@ -36,7 +36,7 @@ export const option = {
     {
       name: '地图',
       type: 'map',
-      map: 'china',
+      map: 'chinaWithoutHainanIsLands',
       zoom: 1, //缩放
       itemStyle: {
         // 背景色
@@ -49,7 +49,8 @@ export const option = {
         },
         color: '#ffffff',
         borderColor: '#75ecaa',
-        borderWidth: 1
+        borderWidth: 1,
+        showHainanIsLands: true // 是否显示海南群岛
       },
       label: {
         show: true,

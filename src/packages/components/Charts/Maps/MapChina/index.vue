@@ -14,8 +14,8 @@ import { useChartDataFetch } from '@/hooks'
 import { mergeTheme } from '@/packages/public/chart'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { isPreview } from '@/utils'
-import dataJson from './data.json'
 import mapJson from './map.json'
+import mapJsonWithoutHainanIsLands from './mapWithoutHainanIsLands.json'
 import { DatasetComponent, GridComponent, TooltipComponent, LegendComponent, GeoComponent } from 'echarts/components'
 
 const props = defineProps({
@@ -45,6 +45,7 @@ use([
 ])
 
 registerMap('china', { geoJSON: mapJson as any, specialAreas: {} })
+registerMap('chinaWithoutHainanIsLands', { geoJSON: mapJsonWithoutHainanIsLands as any, specialAreas: {} })
 
 const option = reactive({
   value: mergeTheme(props.chartConfig.option, props.themeSetting, includes)
@@ -57,6 +58,27 @@ const dataSetHandle = (dataset: any) => {
     option.value = props.chartConfig.option
   })
 }
+
+const mapTypeHandle = (config: boolean) => {
+  // props.chartConfig.option.series.forEach((item: any) => {
+  //   if (item.type === 'effectScatter' && dataset.point) item.data = dataset.point
+  //   else if (item.type === 'map' && dataset.point) item.data = dataset.map
+  //   option.value = props.chartConfig.option
+  // })
+  props.chartConfig.option.series[1].map = config ? 'china' : 'chinaWithoutHainanIsLands'
+  option.value = props.chartConfig.option
+}
+
+watch(
+  () => props.chartConfig.option.series[1].itemStyle.showHainanIsLands,
+  newData => {
+    mapTypeHandle(newData)
+  },
+  {
+    deep: true,
+    immediate: true
+  }
+)
 
 watch(
   () => props.chartConfig.option.dataset,
