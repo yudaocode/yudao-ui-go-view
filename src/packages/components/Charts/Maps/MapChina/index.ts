@@ -1,14 +1,15 @@
 import image from '@/assets/images/chart/charts/map.png'
-import { ConfigType, PackagesCategoryEnum } from '@/packages/index.d'
+import { ConfigType, PackagesCategoryEnum, ChartFrameEnum } from '@/packages/index.d'
 import { ChatCategoryEnum, ChatCategoryEnumName } from '../../index.d'
 
-export const MapChineConfig: ConfigType = {
-  key: 'MapChine',
-  chartKey: 'VMapChine',
-  conKey: 'VCMapChine',
-  title: '北京地图',
+export const MapChinaConfig: ConfigType = {
+  key: 'MapChina',
+  chartKey: 'VMapChina',
+  conKey: 'VCMapChina',
+  title: '地图',
   category: ChatCategoryEnum.MAP,
   categoryName: ChatCategoryEnumName.MAP,
   package: PackagesCategoryEnum.CHARTS,
+  chartFrame: ChartFrameEnum.COMMON,
   image
 }
