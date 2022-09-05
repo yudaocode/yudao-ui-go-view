@@ -35,7 +35,7 @@ export const useSync = () => {
       }
 
       if (e.isGroup) {
-        (e as CreateComponentGroupType).groupList.forEach(groupItem => {
+        ;(e as CreateComponentGroupType).groupList.forEach(groupItem => {
           intComponent(groupItem)
         })
       } else {
