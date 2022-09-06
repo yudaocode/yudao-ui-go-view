@@ -45,7 +45,6 @@ use([
 ])
 
 registerMap('china', { geoJSON: mapJson as any, specialAreas: {} })
-registerMap('chinaWithoutHainanIsLands', { geoJSON: mapJsonWithoutHainanIsLands as any, specialAreas: {} })
 
 const option = reactive({
   value: mergeTheme(props.chartConfig.option, props.themeSetting, includes)
@@ -59,13 +58,10 @@ const dataSetHandle = (dataset: any) => {
   })
 }
 
-const mapTypeHandle = (config: boolean) => {
-  // props.chartConfig.option.series.forEach((item: any) => {
-  //   if (item.type === 'effectScatter' && dataset.point) item.data = dataset.point
-  //   else if (item.type === 'map' && dataset.point) item.data = dataset.map
-  //   option.value = props.chartConfig.option
-  // })
-  props.chartConfig.option.series[1].map = config ? 'china' : 'chinaWithoutHainanIsLands'
+const mapTypeHandle = (show: boolean) => {
+  show
+    ? registerMap('china', { geoJSON: mapJson as any, specialAreas: {} })
+    : registerMap('china', { geoJSON: mapJsonWithoutHainanIsLands as any, specialAreas: {} })
   option.value = props.chartConfig.option
 }
 

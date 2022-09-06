@@ -45,7 +45,7 @@
       </SettingItemBox>
       <SettingItemBox name="其他">
         <SettingItem>
-          <n-checkbox v-model:checked="seriesList[1].itemStyle.showHainanIsLands" size="small">显示海南群岛</n-checkbox>
+          <n-checkbox v-model:checked="seriesList[1].itemStyle.showHainanIsLands" size="small">显示南海群岛</n-checkbox>
         </SettingItem>
       </SettingItemBox>
     </CollapseItem>
