@@ -49,7 +49,8 @@ export const option = {
         },
         color: '#ffffff',
         borderColor: '#75ecaa',
-        borderWidth: 1
+        borderWidth: 1,
+        showHainanIsLands: true // 是否显示南海群岛
       },
       label: {
         show: true,
