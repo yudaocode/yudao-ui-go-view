@@ -6,25 +6,37 @@ import dataJson from './data.json'
 
 export const includes = ['legend']
 
+// 雷达形状
+export const RadarShapeEnumList = [
+  { label: '多边形', value: 'polygon' },
+  { label: '圆形', value: 'circle' }
+]
+
 export const option = {
   tooltip: {
     show: true
   },
   legend: {
-    show: true
-  },
-  radar: {
-    indicator: dataJson.radarIndicator
+    data: dataJson.seriesData.map(i => i.name)
   },
   dataset: { ...dataJson },
+  radar: {
+    shape: 'polygon',
+    splitArea: { show: true },
+    splitLine: { show: true },
+    axisName: { show: true, color: '#eee', fontSize: 12 },
+    axisLine: { show: true },
+    axisTick: { show: true },
+    indicator: dataJson.radarIndicator
+  },
   series: [
     {
+      name: 'Budget vs spending',
       type: 'radar',
-      barWidth: null,
-      itemStyle: {
-        color: null,
-        borderRadius: 0
-      }
+      areaStyle: {
+        opacity: 0.1
+      },
+      data: dataJson.seriesData
     }
   ]
 }

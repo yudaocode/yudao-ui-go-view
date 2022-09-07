@@ -1,5 +1,4 @@
 {
-  "legendData": ["Allocated Budget", "Actual Spending"],
   "radarIndicator": [
     { "name": "Sales", "max": 6500 },
     { "name": "Administration", "max": 16000 },
