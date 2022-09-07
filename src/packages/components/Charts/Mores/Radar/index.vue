@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, PropType } from 'vue'
+import { computed, PropType, watch } from 'vue'
 import VChart from 'vue-echarts'
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
@@ -37,5 +37,23 @@ const option = computed(() => {
   return mergeTheme(props.chartConfig.option, props.themeSetting, includes)
 })
 
-const { vChartRef } = useChartDataFetch(props.chartConfig, useChartEditStore)
+const dataSetHandle = (dataset: any) => {
+  props.chartConfig.option.legend.data = dataset.seriesData.map(i => i.name)
+  props.chartConfig.option.radar.indicator = dataset.radarIndicator
+  props.chartConfig.option.series[0].data = dataset.seriesData
+}
+
+watch(
+  () => props.chartConfig.option.dataset,
+  newData => {
+    dataSetHandle(newData)
+  },
+  {
+    immediate: true
+  }
+)
+
+const { vChartRef } = useChartDataFetch(props.chartConfig, useChartEditStore, (newData: any) => {
+  dataSetHandle(newData)
+})
 </script>
