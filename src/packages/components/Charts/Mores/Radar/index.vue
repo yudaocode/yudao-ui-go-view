@@ -1,13 +1,59 @@
 <template>
-  <div>
-    水波
-  </div>
+  <v-chart ref="vChartRef" :theme="themeColor" :option="option" :manual-update="isPreview()" autoresize></v-chart>
 </template>
 
 <script setup lang="ts">
+import { computed, PropType, watch } from 'vue'
+import VChart from 'vue-echarts'
+import { use } from 'echarts/core'
+import { CanvasRenderer } from 'echarts/renderers'
+import { RadarChart } from 'echarts/charts'
+import { includes } from './config'
+import { mergeTheme } from '@/packages/public/chart'
+import { useChartDataFetch } from '@/hooks'
+import { CreateComponentType } from '@/packages/index.d'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { isPreview } from '@/utils'
+import { DatasetComponent, GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
 
+const props = defineProps({
+  themeSetting: {
+    type: Object,
+    required: true
+  },
+  themeColor: {
+    type: Object,
+    required: true
+  },
+  chartConfig: {
+    type: Object as PropType<CreateComponentType>,
+    required: true
+  }
+})
+
+use([DatasetComponent, CanvasRenderer, RadarChart, GridComponent, TooltipComponent, LegendComponent])
+
+const option = computed(() => {
+  return mergeTheme(props.chartConfig.option, props.themeSetting, includes)
+})
+
+const dataSetHandle = (dataset: any) => {
+  props.chartConfig.option.legend.data = dataset.seriesData.map(i => i.name)
+  props.chartConfig.option.radar.indicator = dataset.radarIndicator
+  props.chartConfig.option.series[0].data = dataset.seriesData
+}
+
+watch(
+  () => props.chartConfig.option.dataset,
+  newData => {
+    dataSetHandle(newData)
+  },
+  {
+    immediate: true
+  }
+)
+
+const { vChartRef } = useChartDataFetch(props.chartConfig, useChartEditStore, (newData: any) => {
+  dataSetHandle(newData)
+})
 </script>
-
-<style lang="scss" scoped>
-
-</style>
