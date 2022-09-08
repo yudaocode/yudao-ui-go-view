@@ -10,6 +10,7 @@ export const textUrl = '/mock/text'
 export const imageUrl = '/mock/image'
 export const rankListUrl = '/mock/rankList'
 export const scrollBoardUrl = '/mock/scrollBoard'
+export const radarUrl = '/mock/radarData'
 
 const mockObject: MockMethod[] = [
   {
@@ -48,7 +49,12 @@ const mockObject: MockMethod[] = [
     url: scrollBoardUrl,
     method: RequestHttpEnum.GET,
     response: () => test.fetchScrollBoard
-  }
+  },
+  {
+    url: radarUrl,
+    method: RequestHttpEnum.GET,
+    response: () => test.fetchRadar
+  },
 ]
 
 export default mockObject

@@ -62,7 +62,16 @@ import { selectTypeOptions, selectTimeOptions } from '@/views/chart/ContentConfi
 import { RequestHeader } from '../RequestHeader'
 import { isDev } from '@/utils'
 import { icon } from '@/plugins'
-import { chartDataUrl, rankListUrl, scrollBoardUrl, numberFloatUrl, numberIntUrl, textUrl, imageUrl } from '@/api/mock'
+import {
+  chartDataUrl,
+  rankListUrl,
+  scrollBoardUrl,
+  numberFloatUrl,
+  numberIntUrl,
+  textUrl,
+  imageUrl,
+  radarUrl
+} from '@/api/mock'
 
 const { HelpOutlineIcon } = icon.ionicons5
 const { targetData, chartEditStore } = useTargetData()
@@ -90,6 +99,9 @@ const apiList = [
   },
   {
     value: `【滚动表格】${scrollBoardUrl}`
+  },
+  {
+    value: `【雷达】${radarUrl}`
   }
 ]
 </script>
