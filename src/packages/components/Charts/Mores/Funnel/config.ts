@@ -19,7 +19,7 @@ export const FunnelLabelPositionEnumList = [
   { label: '内部右侧', value: 'insideRight' }
 ]
 
-const option = {
+export const option = {
   tooltip: {},
   legend: {},
   dataset: { ...dataJson },

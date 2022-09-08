@@ -8,6 +8,7 @@
         <n-select v-model:value="item.sort" :options="FunnelOrderEnumList" size="small" />
       </setting-item>
     </setting-item-box>
+
     <setting-item-box name="区块">
       <setting-item name="边框大小">
         <n-input-number v-model:value="item.itemStyle.borderWidth" :min="0" :max="10" size="small" />
@@ -19,6 +20,7 @@
         <n-input-number v-model:value="item.gap" :min="0" :max="20" size="small" />
       </setting-item>
     </setting-item-box>
+
     <setting-item-box name="标签">
       <setting-item name="是否显示">
         <n-checkbox v-model:checked="item.label.show" size="small">标签</n-checkbox>
@@ -40,11 +42,11 @@
 import { PropType, computed } from 'vue'
 import { GlobalSetting, CollapseItem, SettingItemBox, SettingItem } from '@/components/Pages/ChartItemSetting'
 import { GlobalThemeJsonType } from '@/settings/chartThemes/index'
-import { FunnelOrderEnumList, FunnelLabelPositionEnumList } from './config'
+import { option, FunnelOrderEnumList, FunnelLabelPositionEnumList } from './config'
 
 const props = defineProps({
   optionData: {
-    type: Object as PropType<GlobalThemeJsonType>,
+    type: Object as PropType<typeof option>,
     required: true
   }
 })
