@@ -1,10 +1,10 @@
 {
-  "dimensions": ["product", "category"],
+  "dimensions": ["product", "dataOne"],
   "source": [
-    { "product": "data1", "category": 20 },
-    { "product": "data2", "category": 40 },
-    { "product": "data3", "category": 60 },
-    { "product": "data4", "category": 80 },
-    { "product": "data5", "category": 100 }
+    { "product": "data1", "dataOne": 20 },
+    { "product": "data2", "dataOne": 40 },
+    { "product": "data3", "dataOne": 60 },
+    { "product": "data4", "dataOne": 80 },
+    { "product": "data5", "dataOne": 100 }
   ]
 }

@@ -64,6 +64,7 @@ import { isDev } from '@/utils'
 import { icon } from '@/plugins'
 import {
   chartDataUrl,
+  chartSingleDataUrl,
   rankListUrl,
   scrollBoardUrl,
   numberFloatUrl,
@@ -81,6 +82,9 @@ const { requestInterval, requestIntervalUnit, requestHttpType, requestUrl } = to
 const apiList = [
   {
     value: `【图表】${chartDataUrl}`
+  },
+  {
+    value: `【单数据图表】${chartSingleDataUrl}`
   },
   {
     value: `【文本】${textUrl}`

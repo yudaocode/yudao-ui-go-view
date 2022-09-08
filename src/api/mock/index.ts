@@ -4,6 +4,7 @@ import { RequestHttpEnum } from '@/enums/httpEnum'
 
 // 单个X数据
 export const chartDataUrl = '/mock/chartData'
+export const chartSingleDataUrl = '/mock/chartSingleData'
 export const numberFloatUrl = '/mock/number/float'
 export const numberIntUrl = '/mock/number/int'
 export const textUrl = '/mock/text'
@@ -19,6 +20,11 @@ const mockObject: MockMethod[] = [
     url: chartDataUrl,
     method: RequestHttpEnum.GET,
     response: () => test.fetchMockData
+  },
+  {
+    url: chartSingleDataUrl,
+    method: RequestHttpEnum.GET,
+    response: () => test.fetchMockSingleData
   },
   {
     url: numberFloatUrl,

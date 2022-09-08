@@ -1,4 +1,39 @@
 export default {
+  // 单图表
+  fetchMockSingleData: {
+    code: 0,
+    status: 200,
+    msg: '请求成功',
+    data: {
+      dimensions: ['product', 'dataOne'],
+      source: [
+        {
+          product: '@name',
+          'dataOne|0-900': 3,
+        },
+        {
+          product: '@name',
+          'dataOne|0-900': 3,
+        },
+        {
+          product: '@name',
+          'dataOne|0-900': 3,
+        },
+        {
+          product: '@name',
+          'dataOne|0-900': 3,
+        },
+        {
+          product: '@name',
+          'dataOne|0-900': 3,
+        },
+        {
+          product: '@name',
+          'dataOne|0-900': 3,
+        }
+      ]
+    }
+  },
   // 图表
   fetchMockData: {
     code: 0,
