@@ -102,10 +102,11 @@
 import { PropType, computed, reactive } from 'vue'
 import { GlobalSetting, CollapseItem, SettingItemBox, SettingItem } from '@/components/Pages/ChartItemSetting'
 import { option, RadarShapeEnumList } from './config'
+import { GlobalThemeJsonType } from '@/settings/chartThemes/index'
 
 const props = defineProps({
   optionData: {
-    type: Object as PropType<typeof option>,
+    type: Object as PropType<typeof option & GlobalThemeJsonType>,
     required: true
   }
 })

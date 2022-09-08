@@ -46,7 +46,7 @@ import { option, FunnelOrderEnumList, FunnelLabelPositionEnumList } from './conf
 
 const props = defineProps({
   optionData: {
-    type: Object as PropType<typeof option>,
+    type: Object as PropType<typeof option & GlobalThemeJsonType>,
     required: true
   }
 })
