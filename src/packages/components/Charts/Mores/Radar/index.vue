@@ -1,9 +1,9 @@
 <template>
-  <v-chart ref="vChartRef" :theme="themeColor" :option="option" :manual-update="isPreview()" autoresize></v-chart>
+  <v-chart :theme="themeColor" :option="option.value" autoresize></v-chart>
 </template>
 
 <script setup lang="ts">
-import { computed, PropType, watch } from 'vue'
+import { reactive, PropType, watch } from 'vue'
 import VChart from 'vue-echarts'
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
@@ -33,21 +33,20 @@ const props = defineProps({
 
 use([DatasetComponent, CanvasRenderer, RadarChart, GridComponent, TooltipComponent, LegendComponent])
 
-const option = computed(() => {
-  return mergeTheme(props.chartConfig.option, props.themeSetting, includes)
+const option = reactive({
+  value: {}
 })
 
 const dataSetHandle = (dataset: any) => {
   if (dataset.seriesData) {
+    props.chartConfig.option.series[0].data = dataset.seriesData
     // @ts-ignore
     props.chartConfig.option.legend.data = dataset.seriesData.map((i: { name: string }) => i.name)
   }
   if (dataset.radarIndicator) {
     props.chartConfig.option.radar.indicator = dataset.radarIndicator
   }
-  if (dataset.seriesData) {
-    props.chartConfig.option.series[0].data = dataset.seriesData
-  }
+  option.value = mergeTheme(props.chartConfig.option, props.themeSetting, includes)
 }
 
 watch(
@@ -60,7 +59,7 @@ watch(
   }
 )
 
-const { vChartRef } = useChartDataFetch(props.chartConfig, useChartEditStore, (newData: any) => {
+useChartDataFetch(props.chartConfig, useChartEditStore, (newData: any) => {
   dataSetHandle(newData)
 })
 </script>
