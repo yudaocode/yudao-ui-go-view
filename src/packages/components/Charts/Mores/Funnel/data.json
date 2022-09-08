@@ -1,0 +1,10 @@
+{
+  "dimensions": ["product", "2015"],
+  "source": [
+    { "product": "Matcha Latte", "2015": 20 },
+    { "product": "Milk Tea", "2015": 40 },
+    { "product": "Cheese Cocoa", "2015": 60 },
+    { "product": "Walnut Brownie", "2015": 80 },
+    { "product": "Walnut", "2015": 100 }
+  ]
+}
