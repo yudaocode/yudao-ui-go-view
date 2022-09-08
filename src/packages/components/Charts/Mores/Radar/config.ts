@@ -22,6 +22,8 @@ export const option = {
   dataset: { ...dataJson },
   radar: {
     shape: 'polygon',
+    radius: ['0%', '60%'],
+    center: ['50%', '55%'],
     splitArea: { show: true },
     splitLine: { show: true },
     axisName: { show: true, color: '#eee', fontSize: 12 },
@@ -31,7 +33,7 @@ export const option = {
   },
   series: [
     {
-      name: 'Budget vs spending',
+      name: 'radar',
       type: 'radar',
       areaStyle: {
         opacity: 0.1

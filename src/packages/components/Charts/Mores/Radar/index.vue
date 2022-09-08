@@ -38,9 +38,15 @@ const option = computed(() => {
 })
 
 const dataSetHandle = (dataset: any) => {
-  props.chartConfig.option.legend.data = dataset.seriesData.map(i => i.name)
-  props.chartConfig.option.radar.indicator = dataset.radarIndicator
-  props.chartConfig.option.series[0].data = dataset.seriesData
+  if (props.chartConfig.option.legend && dataset.seriesData) {
+    props.chartConfig.option.legend.data = dataset.seriesData.map((i: { name: string }) => i.name)
+  }
+  if (dataset.radarIndicator) {
+    props.chartConfig.option.radar.indicator = dataset.radarIndicator
+  }
+  if (dataset.seriesData) {
+    props.chartConfig.option.series[0].data = dataset.seriesData
+  }
 }
 
 watch(
