@@ -6,7 +6,7 @@ export const RadarConfig: ConfigType = {
   key: 'Radar',
   chartKey: 'VRadar',
   conKey: 'VCRadar',
-  title: '雷达',
+  title: '雷达图',
   category: ChatCategoryEnum.MORE,
   categoryName: ChatCategoryEnumName.MORE,
   package: PackagesCategoryEnum.CHARTS,

@@ -27,7 +27,6 @@
 
       <SettingItemBox name="范围">
         <setting-item :name="`最小值：${radarProp.radius[0]}%`">
-          <!-- 透明度 -->
           <n-slider
             v-model:value="radarProp.radius[0]"
             :min="0"
@@ -37,7 +36,6 @@
           ></n-slider>
         </setting-item>
         <setting-item :name="`最大值：${radarProp.radius[1]}%`">
-          <!-- 透明度 -->
           <n-slider
             v-model:value="radarProp.radius[1]"
             :min="0"
@@ -50,7 +48,6 @@
       
       <SettingItemBox name="偏移">
         <setting-item :name="`X 轴值：${radarProp.center[0]}%`">
-          <!-- 透明度 -->
           <n-slider
             v-model:value="radarProp.center[0]"
             :min="0"
@@ -60,7 +57,6 @@
           ></n-slider>
         </setting-item>
         <setting-item :name="`Y 轴值：${radarProp.center[1]}%`">
-          <!-- 透明度 -->
           <n-slider
             v-model:value="radarProp.center[1]"
             :min="0"

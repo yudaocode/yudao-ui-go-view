@@ -27,9 +27,9 @@ export const option = {
     {
       name: 'Funnel',
       type: 'funnel',
+      top: '70',
       left: '10%',
       width: '80%',
-      bottom: 10,
       min: 0,
       minSize: '0%',
       maxSize: '100%',

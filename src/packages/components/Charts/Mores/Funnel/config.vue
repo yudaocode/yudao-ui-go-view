@@ -2,12 +2,18 @@
   <!-- Echarts 全局设置 -->
   <global-setting :optionData="optionData" :in-chart="true"> </global-setting>
   <!-- 漏斗图 -->
-  <collapse-item v-for="(item, index) in seriesList" :key="index" :name="`漏斗图-${index + 1}`" expanded>
+  <collapse-item v-for="(item, index) in seriesList" :key="index" :name="`漏斗图`" expanded>
     <setting-item-box name="排序" alone>
       <setting-item>
         <n-select v-model:value="item.sort" :options="FunnelOrderEnumList" size="small" />
       </setting-item>
     </setting-item-box>
+
+    <SettingItemBox name="范围" :alone="true">
+      <setting-item :name="`顶部距离：${item.top}px`">
+        <n-slider v-model:value="item.top" :min="0" :max="300" :format-tooltip="sliderFormatTooltip"></n-slider>
+      </setting-item>
+    </SettingItemBox>
 
     <setting-item-box name="区块">
       <setting-item name="边框大小">
@@ -54,4 +60,8 @@ const props = defineProps({
 const seriesList = computed(() => {
   return props.optionData.series
 })
+
+const sliderFormatTooltip = (v: number) => {
+  return `${v}px`
+}
 </script>
