@@ -1,9 +1,9 @@
 <template>
-  <v-chart :theme="themeColor" :option="option.value" autoresize></v-chart>
+  <v-chart ref="vChartRef" :theme="themeColor" :option="option" :manual-update="isPreview()" autoresize></v-chart>
 </template>
 
 <script setup lang="ts">
-import { reactive, PropType, watch } from 'vue'
+import { ref, computed, PropType, watch } from 'vue'
 import VChart from 'vue-echarts'
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
@@ -33,8 +33,10 @@ const props = defineProps({
 
 use([DatasetComponent, CanvasRenderer, RadarChart, GridComponent, TooltipComponent, LegendComponent])
 
-const option = reactive({
-  value: {}
+const vChartRef = ref<typeof VChart>()
+
+const option = computed(() => {
+  return mergeTheme(props.chartConfig.option, props.themeSetting, includes)
 })
 
 const dataSetHandle = (dataset: any) => {
@@ -46,7 +48,9 @@ const dataSetHandle = (dataset: any) => {
   if (dataset.radarIndicator) {
     props.chartConfig.option.radar.indicator = dataset.radarIndicator
   }
-  option.value = mergeTheme(props.chartConfig.option, props.themeSetting, includes)
+  if (vChartRef.value && isPreview()) {
+    vChartRef.value.setOption(props.chartConfig.option)
+  }
 }
 
 watch(
