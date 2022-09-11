@@ -1,4 +1,4 @@
-import { echartOptionProfixHandle, publicConfig } from '@/packages/public'
+import { echartOptionProfixHandle, PublicConfigClass } from '@/packages/public'
 import { LineCommonConfig } from './index'
 import { CreateComponentType } from '@/packages/index.d'
 import { defaultTheme, chartColorsSearch } from '@/settings/chartThemes/index'
@@ -41,7 +41,7 @@ export const option = {
   series: [seriesItem, seriesItem]
 }
 
-export default class Config extends publicConfig implements CreateComponentType {
+export default class Config extends PublicConfigClass implements CreateComponentType {
   public key: string = LineCommonConfig.key
   public chartConfig = LineCommonConfig
   // 图表配置项

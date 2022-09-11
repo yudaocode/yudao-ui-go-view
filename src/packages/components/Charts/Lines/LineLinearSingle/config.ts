@@ -1,4 +1,4 @@
-import { echartOptionProfixHandle, publicConfig } from '@/packages/public'
+import { echartOptionProfixHandle, PublicConfigClass } from '@/packages/public'
 import { LineLinearSingleConfig } from './index'
 import { CreateComponentType } from '@/packages/index.d'
 import { defaultTheme, chartColorsSearch } from '@/settings/chartThemes/index'
@@ -19,7 +19,7 @@ export const option = {
   },
   xAxis: {
     show: true,
-    type: 'category',
+    type: 'category'
   },
   yAxis: {
     show: true,
@@ -49,13 +49,12 @@ export const option = {
         shadowColor: chartColorsSearch[defaultTheme][2],
         shadowBlur: 10,
         shadowOffsetY: 20
-      },
+      }
     }
   ]
 }
 
-export default class Config extends publicConfig
-  implements CreateComponentType {
+export default class Config extends PublicConfigClass implements CreateComponentType {
   public key: string = LineLinearSingleConfig.key
   public chartConfig = LineLinearSingleConfig
   // 图表配置项

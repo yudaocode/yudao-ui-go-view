@@ -1,4 +1,4 @@
-import { publicConfig } from '@/packages/public'
+import { PublicConfigClass } from '@/packages/public'
 import { CreateComponentType } from '@/packages/index.d'
 import { TimeCommonConfig } from './index'
 import cloneDeep from 'lodash/cloneDeep'
@@ -30,7 +30,7 @@ export const option = {
   colorShadow: '#0075ff'
 }
 
-export default class Config extends publicConfig implements CreateComponentType {
+export default class Config extends PublicConfigClass implements CreateComponentType {
   public key = TimeCommonConfig.key
   public attr = { ...chartInitConfig, w: 300, h: 50, zIndex: -1 }
   public chartConfig = cloneDeep(TimeCommonConfig)

@@ -1,4 +1,4 @@
-import { echartOptionProfixHandle, publicConfig } from '@/packages/public'
+import { echartOptionProfixHandle, PublicConfigClass } from '@/packages/public'
 import { BarCommonConfig } from './index'
 import { CreateComponentType } from '@/packages/index.d'
 import cloneDeep from 'lodash/cloneDeep'
@@ -39,7 +39,7 @@ export const option = {
   series: [seriesItem, seriesItem]
 }
 
-export default class Config extends publicConfig implements CreateComponentType {
+export default class Config extends PublicConfigClass implements CreateComponentType {
   public key = BarCommonConfig.key
   public chartConfig = cloneDeep(BarCommonConfig)
   // 图表配置项

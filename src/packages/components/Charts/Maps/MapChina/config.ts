@@ -1,4 +1,4 @@
-import { echartOptionProfixHandle, publicConfig } from '@/packages/public'
+import { echartOptionProfixHandle, PublicConfigClass } from '@/packages/public'
 import { MapChinaConfig } from './index'
 import { chartInitConfig } from '@/settings/designSetting'
 import { CreateComponentType } from '@/packages/index.d'
@@ -60,7 +60,7 @@ export const option = {
     }
   ]
 }
-export default class Config extends publicConfig implements CreateComponentType {
+export default class Config extends PublicConfigClass implements CreateComponentType {
   public key: string = MapChinaConfig.key
   public attr = { ...chartInitConfig, w: 750, h: 800, zIndex: -1 }
   public chartConfig = MapChinaConfig
