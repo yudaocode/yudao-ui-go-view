@@ -6,6 +6,15 @@ import dataJson from './data.json'
 
 export const includes = ['legend', 'xAxis', 'yAxis']
 
+export const seriesItem = {
+  type: 'bar',
+  barWidth: null,
+  itemStyle: {
+    color: null,
+    borderRadius: 0
+  }
+}
+
 export const option = {
   tooltip: {
     show: true,
@@ -27,24 +36,7 @@ export const option = {
     type: 'value'
   },
   dataset: { ...dataJson },
-  series: [
-    {
-      type: 'bar',
-      barWidth: null,
-      itemStyle: {
-        color: null,
-        borderRadius: 0
-      }
-    },
-    {
-      type: 'bar',
-      barWidth: null,
-      itemStyle: {
-        color: null,
-        borderRadius: 0
-      }
-    }
-  ]
+  series: [seriesItem, seriesItem]
 }
 
 export default class Config extends publicConfig implements CreateComponentType {

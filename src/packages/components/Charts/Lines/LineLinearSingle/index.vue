@@ -4,9 +4,9 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, watch, PropType } from 'vue'
+import { PropType, watch, reactive } from 'vue'
 import VChart from 'vue-echarts'
-import { use, graphic } from 'echarts/core'
+import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { LineChart } from 'echarts/charts'
 import config, { includes } from './config'
@@ -33,29 +33,23 @@ const props = defineProps({
 })
 
 use([DatasetComponent, CanvasRenderer, LineChart, GridComponent, TooltipComponent, LegendComponent])
-const chartEditStore = useChartEditStore()
 
+const chartEditStore = useChartEditStore()
 const option = reactive({
   value: {}
 })
 
-// 渐变色处理
+// 初始化与渐变色处理
 watch(
   () => chartEditStore.getEditCanvasConfig.chartThemeColor,
   (newColor: keyof typeof chartColorsSearch) => {
     if (!isPreview()) {
       const themeColor = chartColorsSearch[newColor] || chartColorsSearch[defaultTheme]
-      props.chartConfig.option.series.forEach((value: any, index: number) => {
-        value.areaStyle.color = new graphic.LinearGradient(0, 0, 0, 1, [
-          {
-            offset: 0,
-            color: themeColor[3]
-          },
-          {
-            offset: 1,
-            color: 'rgba(0,0,0, 0)'
-          }
-        ])
+      props.chartConfig.option.series.forEach((value: any) => {
+        value.lineStyle.shadowColor = themeColor[2]
+        value.lineStyle.color.colorStops.forEach((v: { color: string }, i: number) => {
+          v.color = themeColor[i]
+        })
       })
     }
     option.value = mergeTheme(props.chartConfig.option, props.themeSetting, includes)

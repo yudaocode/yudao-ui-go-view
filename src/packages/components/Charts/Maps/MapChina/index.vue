@@ -82,7 +82,8 @@ watch(
     dataSetHandle(newData)
   },
   {
-    immediate: true
+    immediate: true,
+    deep: false
   }
 )
 
