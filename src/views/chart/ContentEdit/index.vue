@@ -7,6 +7,7 @@
     :showBottom="true"
     :depth="1"
     :xScroll="true"
+    @mousedown="mousedownHandleUnStop"
     @drop="dragHandle"
     @dragover="dragoverHandle"
     @dragenter="dragoverHandle"
@@ -88,7 +89,7 @@ import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore
 import { useLayout } from './hooks/useLayout.hook'
 import { useAddKeyboard } from '../hooks/useKeyboard.hook'
 import { useSync } from '../hooks/useSync.hook'
-import { dragHandle, dragoverHandle, useMouseHandle } from './hooks/useDrag.hook'
+import { dragHandle, dragoverHandle, mousedownHandleUnStop, useMouseHandle } from './hooks/useDrag.hook'
 import { useComponentStyle, useSizeStyle } from './hooks/useStyle.hook'
 
 import { ContentBox } from '../ContentBox/index'
