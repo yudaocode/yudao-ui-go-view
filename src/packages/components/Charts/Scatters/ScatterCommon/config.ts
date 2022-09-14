@@ -7,11 +7,9 @@ import dataJson from './data.json'
 export const includes = ['legend', 'xAxis', 'yAxis']
 
 export const seriesItem = {
-  type: 'bar',
-  barWidth: null,
-  itemStyle: {
-    color: null,
-    borderRadius: 0
+  type: 'scatter',
+  emphasis: {
+    focus: 'series'
   }
 }
 
@@ -56,48 +54,56 @@ export const option = {
     {
       type: 'value',
       scale: true,
-      axisLabel: {
-        formatter: '{value} cm'
-      },
+      // axisLabel: {
+      //   formatter: '{value} cm'
+      // },
       splitLine: {
         show: false
       }
     }
   ],
+
   yAxis: [
     {
       type: 'value',
       scale: true,
-      axisLabel: {
-        formatter: '{value} kg'
-      },
+      // axisLabel: {
+      //   formatter: '{value} kg'
+      // },
       splitLine: {
         show: false
       }
     }
   ],
-  series: [
-    {
-      name: 'Data1',
-      type: 'scatter',
-      emphasis: {
-        focus: 'series'
-      },
-      // symbolSize: 12,
-      symbolSize: (item: number[]) => (item[1] / item[0]) * 30,
-      datasetIndex: 0
-    },
-    {
-      name: 'Data2',
-      type: 'scatter',
-      emphasis: {
-        focus: 'series'
-      },
-      // symbolSize: 12,
-      symbolSize: (item: number[]) => (item[1] / item[0]) * 30,
-      datasetIndex: 1
-    }
-  ]
+
+  // series: [
+  //   {
+  //     name: 'Data1',
+  //     type: 'scatter',
+  //     emphasis: {
+  //       focus: 'series'
+  //     },
+  //     // symbolSize: 12,
+  //     symbolSize: (item: number[]) => (item[1] / item[0]) * 30,
+  //     datasetIndex: 0
+  //   },
+  //   {
+  //     name: 'Data2',
+  //     type: 'scatter',
+  //     emphasis: {
+  //       focus: 'series'
+  //     },
+  //     // symbolSize: 12,
+  //     symbolSize: (item: number[]) => (item[1] / item[0]) * 30,
+  //     datasetIndex: 1
+  //   }
+  // ]
+
+  series: dataJson.map((item, index) => ({
+    ...seriesItem,
+    name: item.dimensions[0],
+    datasetIndex: index
+  }))
 }
 
 export default class Config extends PublicConfigClass implements CreateComponentType {
