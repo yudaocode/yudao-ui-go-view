@@ -6,7 +6,7 @@ export const PointConfig: ConfigType = {
   key: 'Point',
   chartKey: 'VPoint',
   conKey: 'VCPoint',
-  title: '热力图',
+  title: '点状图',
   category: ChatCategoryEnum.MORE,
   categoryName: ChatCategoryEnumName.MORE,
   package: PackagesCategoryEnum.CHARTS,
