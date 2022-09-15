@@ -10,10 +10,12 @@ export const option = {
   tooltip: {},
   legend: {},
   xAxis: {
+    show:false,
     type: 'category',
     data: dataJson.xAxis
   },
   yAxis: {
+    show:false,
     type: 'category',
     data: dataJson.yAxis
   },
