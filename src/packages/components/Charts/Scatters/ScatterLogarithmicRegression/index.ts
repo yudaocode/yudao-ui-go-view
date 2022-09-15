@@ -1,12 +1,12 @@
-import image from '@/assets/images/chart/charts/Point.png'
+import image from '@/assets/images/chart/charts/point.png'
 import { ConfigType, PackagesCategoryEnum, ChartFrameEnum } from '@/packages/index.d'
 import { ChatCategoryEnum, ChatCategoryEnumName } from '../../index.d'
 
-export const ScatterCommonConfig: ConfigType = {
-  key: 'ScatterCommon',
-  chartKey: 'VScatterCommon',
-  conKey: 'VCScatterCommon',
-  title: '散点图',
+export const SScatterLogarithmicRegressionConfig: ConfigType = {
+  key: 'ScatterLogarithmicRegression',
+  chartKey: 'VScatterLogarithmicRegression',
+  conKey: 'VCScatterLogarithmicRegression',
+  title: '对数回归散点图',
   category: ChatCategoryEnum.SCATTER,
   categoryName: ChatCategoryEnumName.SCATTER,
   package: PackagesCategoryEnum.CHARTS,
