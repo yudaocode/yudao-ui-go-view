@@ -15,13 +15,21 @@ import { PropType, computed, watch, ref, nextTick } from 'vue'
 import VChart from 'vue-echarts'
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
-import { ScatterChart } from 'echarts/charts'
+import { ScatterChart, EffectScatterChart } from 'echarts/charts'
 import config, { includes, seriesItem } from './config'
 import { mergeTheme } from '@/packages/public/chart'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { useChartDataFetch } from '@/hooks'
 import { isPreview } from '@/utils'
-import { DatasetComponent, GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
+import {
+  DatasetComponent,
+  GridComponent,
+  TooltipComponent,
+  LegendComponent,
+  MarkLineComponent,
+  MarkAreaComponent,
+  MarkPointComponent
+} from 'echarts/components'
 
 const props = defineProps({
   themeSetting: {
@@ -38,7 +46,18 @@ const props = defineProps({
   }
 })
 
-use([DatasetComponent, CanvasRenderer, ScatterChart, GridComponent, TooltipComponent, LegendComponent])
+use([
+  DatasetComponent,
+  CanvasRenderer,
+  ScatterChart,
+  EffectScatterChart,
+  GridComponent,
+  TooltipComponent,
+  LegendComponent,
+  MarkLineComponent,
+  MarkAreaComponent,
+  MarkPointComponent
+])
 
 const replaceMergeArr = ref<string[]>()
 
@@ -55,7 +74,6 @@ watch(
       // eslint-disable-next-line vue/no-mutating-props
       props.chartConfig.option.series = newData.map((item: { dimensions: any[] }, index: number) => ({
         ...seriesItem,
-        name: item.dimensions[0],
         datasetIndex: index
       }))
       nextTick(() => {

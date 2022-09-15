@@ -24,7 +24,7 @@ export const option = {
   legend: {
     data: dataJson
       .filter(i => i?.transform?.type === 'filter' && i?.transform?.config?.eq)
-      .map(i => i.transform?.config?.eq)
+      .map(i => i.transform?.config?.eq?.toString())
   },
 
   xAxis: {

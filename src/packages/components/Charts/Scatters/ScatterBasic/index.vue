@@ -1,21 +1,13 @@
 <template>
-  <v-chart
-    ref="vChartRef"
-    :theme="themeColor"
-    :option="option"
-    :manual-update="isPreview()"
-    :update-options="{ replaceMerge: replaceMergeArr }"
-    autoresize
-  >
-  </v-chart>
+  <v-chart ref="vChartRef" :theme="themeColor" :option="option" :manual-update="isPreview()" autoresize> </v-chart>
 </template>
 
 <script setup lang="ts">
-import { PropType, computed, watch, ref, nextTick } from 'vue'
+import { PropType, computed } from 'vue'
 import VChart from 'vue-echarts'
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
-import { ScatterChart } from 'echarts/charts'
+import { ScatterChart, EffectScatterChart } from 'echarts/charts'
 import config, { includes } from './config'
 import { mergeTheme } from '@/packages/public/chart'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
@@ -38,29 +30,19 @@ const props = defineProps({
   }
 })
 
-use([DatasetComponent, CanvasRenderer, ScatterChart, GridComponent, TooltipComponent, LegendComponent])
-
-const replaceMergeArr = ref<string[]>()
+use([
+  DatasetComponent,
+  CanvasRenderer,
+  ScatterChart,
+  EffectScatterChart,
+  GridComponent,
+  TooltipComponent,
+  LegendComponent
+])
 
 const option = computed(() => {
   return mergeTheme(props.chartConfig.option, props.themeSetting, includes)
 })
-
-// dataset 无法变更条数的补丁
-watch(
-  () => props.chartConfig.option.dataset,
-  (newData, oldData) => {
-    if (newData?.length !== oldData?.length) {
-      replaceMergeArr.value = ['series']
-      nextTick(() => {
-        replaceMergeArr.value = []
-      })
-    }
-  },
-  {
-    deep: false
-  }
-)
 
 const { vChartRef } = useChartDataFetch(props.chartConfig, useChartEditStore)
 </script>

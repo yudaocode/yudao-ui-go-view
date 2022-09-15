@@ -9,7 +9,6 @@ export const includes = ['legend', 'xAxis', 'yAxis']
 export const option = {
   dataset: dataJson,
   tooltip: {
-    // trigger: 'axis',
     showDelay: 0,
     axisPointer: {
       show: true,

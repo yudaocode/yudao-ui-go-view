@@ -10,6 +10,37 @@ export const seriesItem = {
   type: 'scatter',
   emphasis: {
     focus: 'series'
+  },
+  symbolSize: 12,
+
+  markArea: {
+    silent: true,
+    itemStyle: {
+      color: 'transparent',
+      borderWidth: 1,
+      borderType: 'dashed'
+    },
+    data: [
+      [
+        {
+          xAxis: 'min',
+          yAxis: 'min'
+        },
+        {
+          xAxis: 'max',
+          yAxis: 'max'
+        }
+      ]
+    ]
+  },
+
+  markPoint: {
+    symbol: 'pin',
+    symbolSize: 50,
+    data: [
+      { type: 'max', name: 'Max' },
+      { type: 'min', name: 'Min' }
+    ]
   }
 }
 
@@ -26,28 +57,12 @@ export const option = {
       }
     }
   },
-  legend: {},
 
-  // visualMap: {
-  //   min: 0,
-  //   max: 360,
-  //   dimension: 1,
-  //   orient: 'vertical',
-  //   right: 10,
-  //   top: 'center',
-  //   text: ['高', '低'],
-  //   calculable: true,
-  //   inRange: {
-  //     color: ['#f2c31a', '#24b7f2']
-  //   }
-  // },
+  legend: {},
 
   xAxis: {
     type: 'value',
     scale: true,
-    // axisLabel: {
-    //   formatter: '{value} cm'
-    // },
     splitLine: {
       show: false
     }
@@ -56,22 +71,13 @@ export const option = {
   yAxis: {
     type: 'value',
     scale: true,
-    // axisLabel: {
-    //   formatter: '{value} kg'
-    // },
     splitLine: {
       show: false
     }
   },
 
-  // series: [
-  //   { ...seriesItem, datasetIndex: 0 },
-  //   { ...seriesItem, datasetIndex: 1 }
-  // ],
-
   series: dataJson.map((item, index) => ({
     ...seriesItem,
-    // name: (item.dimensions && item.dimensions[0]) || `data${index}`,
     datasetIndex: index
   }))
 }
