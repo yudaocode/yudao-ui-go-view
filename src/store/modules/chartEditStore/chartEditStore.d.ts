@@ -93,6 +93,7 @@ export interface EditCanvasConfigType {
 }
 
 // 坐标轴信息
+// eslint-disable-next-line no-redeclare
 export enum EditCanvasTypeEnum {
   START_X = 'startX',
   START_Y = 'startY',

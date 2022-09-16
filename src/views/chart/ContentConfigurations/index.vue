@@ -102,6 +102,7 @@ const selectTarget = computed(() => {
   if (selectId.length !== 1) return undefined
   const target = chartEditStore.componentList[chartEditStore.fetchTargetIndex()]
   if (target?.isGroup) {
+    // eslint-disable-next-line vue/no-side-effects-in-computed-properties
     tabsSelect.value = TabsEnum.CHART_SETTING
   }
   return target
