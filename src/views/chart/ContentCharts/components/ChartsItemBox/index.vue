@@ -8,6 +8,7 @@
       draggable
       @dragstart="dragStartHandle($event, item)"
       @dragend="dragendHandle"
+      @dblclick="dblclickHandle(item)"
     >
       <div class="list-header">
         <mac-os-control-btn :mini="true" :disabled="true"></mac-os-control-btn>
@@ -25,9 +26,10 @@ import { PropType } from 'vue'
 import { MacOsControlBtn } from '@/components/Tips/MacOsControlBtn/index'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
-import { componentInstall } from '@/utils'
+import { componentInstall, loadingStart, loadingFinish, loadingError } from '@/utils'
 import { DragKeyEnum } from '@/enums/editPageEnum'
-import { ConfigType } from '@/packages/index.d'
+import { createComponent } from '@/packages'
+import { ConfigType, CreateComponentType } from '@/packages/index.d'
 import { fetchConfigComponent, fetchChartComponent } from '@/packages/index'
 import omit from 'lodash/omit'
 const chartEditStore = useChartEditStore()
@@ -53,6 +55,26 @@ const dragStartHandle = (e: DragEvent, item: ConfigType) => {
 // 拖拽结束
 const dragendHandle = () => {
   chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_CREATE, false)
+}
+
+// 双击添加
+const dblclickHandle = async (item: ConfigType) => {
+  try {
+    loadingStart()
+    // 动态注册图表组件
+    componentInstall(item.chartKey, fetchChartComponent(item))
+    componentInstall(item.conKey, fetchConfigComponent(item))
+    // 创建新图表组件
+    let newComponent: CreateComponentType = await createComponent(item)
+    // 添加
+    chartEditStore.addComponentList(newComponent, false, true)
+    // 选中
+    chartEditStore.setTargetSelectChart(newComponent.id)
+    loadingFinish()
+  } catch (error) {
+    loadingError()
+    window['$message'].warning(`图表正在研发中, 敬请期待...`)
+  }
 }
 </script>
 
