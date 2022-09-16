@@ -61,7 +61,7 @@ use([
   LabelLayout
 ])
 
-registerTransform(ecStat.transform.regression)
+registerTransform((ecStat as any).transform.regression)
 
 const replaceMergeArr = ref<string[]>()
 
