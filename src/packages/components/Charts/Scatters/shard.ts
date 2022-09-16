@@ -9,7 +9,7 @@ export const SymbolEnumList = [
   { label: '圆角正方形', value: 'roundRect' },
   { label: '三角形', value: 'triangle' },
   { label: '菱形', value: 'diamond' },
-  { label: '坐标', value: 'pin' },
+  { label: '水滴', value: 'pin' },
   { label: '箭头', value: 'arrow' },
   { label: '无', value: 'none' }
 ]

@@ -27,7 +27,7 @@
     </SettingItemBox>
 
     <SettingItemBox name="标点">
-      <SettingItem name="类型">
+      <SettingItem name="形状">
         <n-select v-model:value="item.markPoint.symbol" size="small" :options="SymbolEnumList" placeholder="选择" />
       </SettingItem>
       <SettingItem name="大小">
