@@ -1,5 +1,5 @@
 import { echartOptionProfixHandle, PublicConfigClass } from '@/packages/public'
-import { SScatterLogarithmicRegressionConfig } from './index'
+import { ScatterLogarithmicRegressionConfig } from './index'
 import { CreateComponentType } from '@/packages/index.d'
 import cloneDeep from 'lodash/cloneDeep'
 import dataJson from './data.json'
@@ -86,8 +86,8 @@ export const option = {
 }
 
 export default class Config extends PublicConfigClass implements CreateComponentType {
-  public key = SScatterLogarithmicRegressionConfig.key
-  public chartConfig = cloneDeep(SScatterLogarithmicRegressionConfig)
+  public key = ScatterLogarithmicRegressionConfig.key
+  public chartConfig = cloneDeep(ScatterLogarithmicRegressionConfig)
   // 图表配置项
   public option = echartOptionProfixHandle(option, includes)
 }

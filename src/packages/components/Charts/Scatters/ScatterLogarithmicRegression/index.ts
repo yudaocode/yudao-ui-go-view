@@ -1,8 +1,8 @@
-import image from '@/assets/images/chart/charts/point.png'
+import image from '@/assets/images/chart/charts/scatter-logarithmic-regression.png'
 import { ConfigType, PackagesCategoryEnum, ChartFrameEnum } from '@/packages/index.d'
 import { ChatCategoryEnum, ChatCategoryEnumName } from '../../index.d'
 
-export const SScatterLogarithmicRegressionConfig: ConfigType = {
+export const ScatterLogarithmicRegressionConfig: ConfigType = {
   key: 'ScatterLogarithmicRegression',
   chartKey: 'VScatterLogarithmicRegression',
   conKey: 'VCScatterLogarithmicRegression',

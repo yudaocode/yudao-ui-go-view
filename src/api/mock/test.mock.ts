@@ -1,4 +1,5 @@
 import heatmapJson from './heatMapData.json'
+import scatterJson from './scatter.json'
 
 export default {
   // 单图表
@@ -11,27 +12,27 @@ export default {
       source: [
         {
           product: '@name',
-          'dataOne|0-900': 3,
+          'dataOne|0-900': 3
         },
         {
           product: '@name',
-          'dataOne|0-900': 3,
+          'dataOne|0-900': 3
         },
         {
           product: '@name',
-          'dataOne|0-900': 3,
+          'dataOne|0-900': 3
         },
         {
           product: '@name',
-          'dataOne|0-900': 3,
+          'dataOne|0-900': 3
         },
         {
           product: '@name',
-          'dataOne|0-900': 3,
+          'dataOne|0-900': 3
         },
         {
           product: '@name',
-          'dataOne|0-900': 3,
+          'dataOne|0-900': 3
         }
       ]
     }
@@ -190,5 +191,12 @@ export default {
     status: 200,
     msg: '请求成功',
     data: heatmapJson
+  },
+  // 散点图
+  fetchScatterBasic: {
+    code: 0,
+    status: 200,
+    msg: '请求成功',
+    data: scatterJson
   }
 }
