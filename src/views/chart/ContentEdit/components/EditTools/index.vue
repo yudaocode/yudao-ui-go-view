@@ -7,7 +7,7 @@
     @mouseleave="toolsMouseoutHandle"
   >
     <!-- PawIcon -->
-    <n-icon v-show="isHide && settingStore.getChartToolsStatus === ToolsStatusEnum.ASIDE" class="asideLogo" size="22">
+    <n-icon v-show="settingStore.getChartToolsStatus === ToolsStatusEnum.ASIDE && isMiniComputed " class="asideLogo" size="22">
       <PawIcon></PawIcon>
     </n-icon>
 
