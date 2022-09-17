@@ -12,6 +12,7 @@ export const imageUrl = '/mock/image'
 export const rankListUrl = '/mock/rankList'
 export const scrollBoardUrl = '/mock/scrollBoard'
 export const radarUrl = '/mock/radarData'
+export const heatMapUrl = '/mock/heatMapData'
 
 const mockObject: MockMethod[] = [
   {
@@ -61,6 +62,11 @@ const mockObject: MockMethod[] = [
     method: RequestHttpEnum.GET,
     response: () => test.fetchRadar
   },
+  {
+    url: heatMapUrl,
+    method: RequestHttpEnum.GET,
+    response: () => test.fetchHeatmap
+  }
 ]
 
 export default mockObject

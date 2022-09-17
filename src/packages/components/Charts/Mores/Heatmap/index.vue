@@ -3,8 +3,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, PropType } from 'vue'
+import { ref, watch, computed, PropType } from 'vue'
 import VChart from 'vue-echarts'
+import dataJson from './data.json'
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { HeatmapChart } from 'echarts/charts'
@@ -14,7 +15,13 @@ import { useChartDataFetch } from '@/hooks'
 import { CreateComponentType } from '@/packages/index.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { isPreview } from '@/utils'
-import { DatasetComponent, GridComponent, TooltipComponent, LegendComponent, VisualMapComponent } from 'echarts/components'
+import {
+  DatasetComponent,
+  GridComponent,
+  TooltipComponent,
+  LegendComponent,
+  VisualMapComponent
+} from 'echarts/components'
 
 const props = defineProps({
   themeSetting: {
@@ -31,12 +38,51 @@ const props = defineProps({
   }
 })
 
-use([DatasetComponent, CanvasRenderer, HeatmapChart, GridComponent, TooltipComponent, LegendComponent, VisualMapComponent])
+use([
+  DatasetComponent,
+  CanvasRenderer,
+  HeatmapChart,
+  GridComponent,
+  TooltipComponent,
+  LegendComponent,
+  VisualMapComponent
+])
 
 const option = computed(() => {
   return mergeTheme(props.chartConfig.option, props.themeSetting, includes)
 })
 
-const { vChartRef } = useChartDataFetch(props.chartConfig, useChartEditStore)
+const vChartRef = ref<typeof VChart>()
 
+const dataSetHandle = (dataset: typeof dataJson) => {
+  const { seriesData, xAxis, yAxis } = dataset
+  if (xAxis) {
+    // @ts-ignore
+    props.chartConfig.option.xAxis.data = xAxis
+  }
+  if (yAxis) {
+    // @ts-ignore
+    props.chartConfig.option.yAxis.data = yAxis
+  }
+  if (seriesData) {
+    props.chartConfig.option.series[0].data = seriesData
+  }
+  if (vChartRef.value && isPreview()) {
+    vChartRef.value.setOption(props.chartConfig.option)
+  }
+}
+
+watch(
+  () => props.chartConfig.option.dataset,
+  newData => {
+    dataSetHandle(newData)
+  },
+  {
+    deep: false
+  }
+)
+
+useChartDataFetch(props.chartConfig, useChartEditStore, (newData: typeof dataJson) => {
+  dataSetHandle(newData)
+})
 </script>

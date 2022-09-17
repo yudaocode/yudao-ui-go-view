@@ -1,3 +1,5 @@
+import heatmapJson from './heatMapData.json'
+
 export default {
   // 单图表
   fetchMockSingleData: {
@@ -181,5 +183,12 @@ export default {
         }
       ]
     }
+  },
+  // 热力图
+  fetchHeatmap: {
+    code: 0,
+    status: 200,
+    msg: '请求成功',
+    data: heatmapJson
   }
 }

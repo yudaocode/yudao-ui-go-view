@@ -71,7 +71,8 @@ import {
   numberIntUrl,
   textUrl,
   imageUrl,
-  radarUrl
+  radarUrl,
+  heatMapUrl
 } from '@/api/mock'
 
 const { HelpOutlineIcon } = icon.ionicons5
@@ -106,6 +107,9 @@ const apiList = [
   },
   {
     value: `【雷达】${radarUrl}`
+  },
+  {
+    value: `【热力图】${heatMapUrl}`
   }
 ]
 </script>
