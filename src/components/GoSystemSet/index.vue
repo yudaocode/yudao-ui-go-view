@@ -116,6 +116,13 @@ const list = reactive<ListType[]>([
     value: ''
   },
   {
+    key: SettingStoreEnums.CHART_TOOLS_STATUS_HIDE,
+    value: settingStore.getChartToolsStatusHide,
+    type: 'switch',
+    name: '隐藏工具栏',
+    desc: '鼠标移入时，会展示切换到展开模式',
+  },
+  {
     key: SettingStoreEnums.CHART_TOOLS_STATUS,
     value: settingStore.getChartToolsStatus,
     type: 'select',
