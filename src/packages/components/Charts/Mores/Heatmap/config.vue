@@ -1,16 +1,6 @@
 <template>
   <div>
-    <global-setting :optionData="optionData" :in-chart="true"></global-setting>
-    <CollapseItem name="热力图" :expanded="true">
-      <SettingItemBox name="拖拽手柄" :alone="true">
-        <SettingItem name="">
-          <n-switch v-model:value="heatMapConfig.visualMap.calculable" size="small" />
-        </SettingItem>
-      </SettingItemBox>
-      <SettingItemBox name="实时更新" :alone="true">
-        <n-switch v-model:value="heatMapConfig.visualMap.realtime" size="small" />
-      </SettingItemBox>
-    </CollapseItem>
+    <global-setting :optionData="optionData"></global-setting>
   </div>
 </template>
 

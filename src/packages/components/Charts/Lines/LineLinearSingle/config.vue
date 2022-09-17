@@ -1,4 +1,6 @@
 <template>
+  <!-- Echarts 全局设置 -->
+  <global-setting :optionData="optionData"></global-setting>
   <CollapseItem
     v-for="(item, index) in seriesList"
     :key="index"
@@ -58,8 +60,6 @@
       </SettingItem>
     </SettingItemBox>
   </CollapseItem>
-  <!-- Echarts 全局设置 -->
-  <global-setting :optionData="optionData" :in-chart="true"></global-setting>
 </template>
 
 <script setup lang="ts">

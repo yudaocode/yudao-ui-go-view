@@ -1,55 +1,48 @@
 import { echartOptionProfixHandle, PublicConfigClass } from '@/packages/public'
 import { HeatmapConfig } from './index'
 import { CreateComponentType } from '@/packages/index.d'
-import {cloneDeep} from 'lodash'
+import { cloneDeep } from 'lodash'
 import dataJson from './data.json'
 
-export const includes = ['legend']
+export const includes = ['xAxis', 'yAxis']
 
 export const option = {
-  tooltip: {},
-  legend: {},
+  dataset: { ...dataJson },
+  tooltip: {
+    position: 'top'
+  },
   xAxis: {
-    show:false,
-    type: 'category',
     data: dataJson.xAxis
   },
   yAxis: {
-    show:false,
-    type: 'category',
     data: dataJson.yAxis
   },
-  dataset: { ...dataJson },
   visualMap: {
+    show: true,
     min: 0,
-    max: 1,
+    max: 10,
+    itemWidth: 20,
+    itemHeight: 140,
     calculable: true,
-    realtime: false,
+    orient: 'horizontal',
     inRange: {
-      color: [
-        '#313695',
-        '#4575b4',
-        '#74add1',
-        '#abd9e9',
-        '#e0f3f8',
-        '#ffffbf',
-        '#fee090',
-        '#fdae61',
-        '#f46d43',
-        '#d73027',
-        '#a50026'
-      ]
+      color: ['#4661c2', '#263253']
     }
   },
-  series:[
+  series: [
     {
       name: '',
       type: 'heatmap',
       data: dataJson.seriesData,
+      label: {
+        show: true
+      },
       emphasis: {
         itemStyle: {
           borderColor: '#333',
-          borderWidth: 1
+          borderWidth: 1,
+          shadowBlur: 10,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
         }
       },
       progressive: 1000,

@@ -26,6 +26,7 @@
     },
     "position": "bottom",
     "axisLine": {
+      "show": true,
       "lineStyle": {
         "color": "#B9B8CE",
         "width": 1

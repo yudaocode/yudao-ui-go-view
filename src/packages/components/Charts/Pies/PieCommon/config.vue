@@ -1,6 +1,6 @@
 <template>
   <!-- Echarts 全局设置 -->
-  <global-setting :optionData="optionData" :in-chart="true"></global-setting>
+  <global-setting :optionData="optionData"></global-setting>
 </template>
 
 <script setup lang="ts">
