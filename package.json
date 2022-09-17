@@ -18,6 +18,7 @@
     "color": "^4.2.3",
     "crypto-js": "^4.1.1",
     "echarts-liquidfill": "^3.1.0",
+    "echarts-stat": "^1.2.0",
     "highlight.js": "^11.5.0",
     "html2canvas": "^1.4.1",
     "keymaster": "^1.6.2",
