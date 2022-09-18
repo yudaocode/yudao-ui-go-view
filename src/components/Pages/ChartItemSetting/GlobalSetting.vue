@@ -224,6 +224,12 @@
       </setting-item>
     </setting-item-box>
 
+    <setting-item-box name="颜色">
+      <setting-item :name="`层级-${index + 1}`" v-for="(item, index) in visualMap.inRange.color" :key="index">
+        <n-color-picker v-model:value="visualMap.inRange.color[index]" size="small"></n-color-picker>
+      </setting-item>
+    </setting-item-box>
+
     <setting-item-box name="视觉映射">
       <setting-item name="放置方向">
         <n-select v-model:value="visualMap.orient" size="small" :options="axisConfig.visualMap.orient"></n-select>
@@ -261,7 +267,7 @@
 import { PropType, computed } from 'vue'
 import { GlobalThemeJsonType } from '@/settings/chartThemes/index'
 import { axisConfig } from '@/packages/chartConfiguration/echarts/index'
-import { CollapseItem, SettingItemBox, SettingItem, GlobalSettingPosition} from '@/components/Pages/ChartItemSetting'
+import { CollapseItem, SettingItemBox, SettingItem, GlobalSettingPosition } from '@/components/Pages/ChartItemSetting'
 
 const props = defineProps({
   optionData: {

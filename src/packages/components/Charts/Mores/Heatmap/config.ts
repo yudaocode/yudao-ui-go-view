@@ -26,6 +26,7 @@ export const option = {
     calculable: true,
     orient: 'horizontal',
     inRange: {
+      // 高 -> 低
       color: ['#4661c2', '#263253']
     }
   },
