@@ -119,7 +119,7 @@ import { reactive, ref, onMounted } from 'vue'
 import shuffle from 'lodash/shuffle'
 import { carouselInterval } from '@/settings/designSetting'
 import { useSystemStore } from '@/store/modules/systemStore/systemStore'
-import { SystemStoreEnum } from '@/store/modules/systemStore/systemStore.d'
+import { SystemStoreUserInfoEnum, SystemStoreEnum } from '@/store/modules/systemStore/systemStore.d'
 import { GoThemeSelect } from '@/components/GoThemeSelect'
 import { GoLangSelect } from '@/components/GoLangSelect'
 import { LayoutHeader } from '@/layout/components/LayoutHeader'
@@ -209,15 +209,17 @@ const handleSubmit = async (e: Event) => {
         password
       }) as unknown as MyResponseType
       if(res.data) {
-        const { tokenValue } = res.data.token
+        const { tokenValue, tokenName } = res.data.token
         const { nickname, username, id } = res.data.userinfo
 
         // 存储到 pinia 
         systemStore.setItem(SystemStoreEnum.USER_INFO, {
-          userToken: tokenValue,
-          userId: id,
-          userName: username,
-          nickName: nickname,
+          [SystemStoreUserInfoEnum.USER_TOKEN]: tokenValue,
+          [SystemStoreUserInfoEnum.TOKEN_NAME]: tokenName,
+          [SystemStoreUserInfoEnum.USER_ID]: id,
+          [SystemStoreUserInfoEnum.USER_NAME]: username,
+          [SystemStoreUserInfoEnum.NICK_NAME]: nickname,
+          t
         })
         
         window['$message'].success(t('login.login_success'))

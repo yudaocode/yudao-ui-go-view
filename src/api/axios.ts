@@ -23,10 +23,11 @@ axiosInstance.interceptors.request.use(
     if (!info) {
       routerTurnByName(PageEnum.BASE_LOGIN_NAME)
       return config
-    } 
+    }
+    const userInfo = info[SystemStoreEnum.USER_INFO]
     config.headers = {
       ...config.headers,
-      [RequestHttpHeaderEnum.TOKEN]: info[SystemStoreEnum.USER_INFO][SystemStoreUserInfoEnum.USER_TOKEN] || ''
+      [userInfo[SystemStoreUserInfoEnum.TOKEN_NAME]]: userInfo[SystemStoreUserInfoEnum.USER_TOKEN] || ''
     }
     return config
   },
