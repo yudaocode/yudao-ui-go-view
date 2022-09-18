@@ -15,7 +15,7 @@ import { HistoryActionTypeEnum, HistoryItemType, HistoryTargetTypeEnum } from '@
 // 画布枚举
 import { MenuEnum, SyncEnum } from '@/enums/editPageEnum'
 
-import { 
+import {
   getUUID,
   loadingStart,
   loadingFinish,
@@ -46,6 +46,7 @@ export const useChartEditStore = defineStore({
   state: (): ChartEditStoreType => ({
     // 项目数据
     projectInfo: {
+      projectId: '',
       projectName: '',
       remarks: '',
       thumbnail: '',

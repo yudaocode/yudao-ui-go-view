@@ -15,6 +15,8 @@ import type { ChartColorsNameType, GlobalThemeJsonType } from '@/settings/chartT
 
 // 项目数据枚举
 export enum ProjectInfoEnum {
+  // ID
+  PROJECT_ID = "projectId",
   // 名称
   PROJECT_NAME = 'projectName',
   // 描述
@@ -27,6 +29,7 @@ export enum ProjectInfoEnum {
 
 // 项目数据
 export type ProjectInfoType = {
+  [ProjectInfoEnum.PROJECT_ID]: string,
   [ProjectInfoEnum.PROJECT_NAME]: string,
   [ProjectInfoEnum.REMARKS]: string,
   [ProjectInfoEnum.THUMBNAIL]: string,
@@ -84,6 +87,8 @@ export enum EditCanvasConfigEnum {
 
 // 画布属性（需保存）
 export type EditCanvasConfigType = {
+  // ID
+  [EditCanvasConfigEnum.PROJECT_ID]: string,
   // 项目名称
   [EditCanvasConfigEnum.PROJECT_NAME]: string,
   // 项目描述
