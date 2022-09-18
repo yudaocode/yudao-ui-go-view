@@ -120,7 +120,7 @@ export const useSync = () => {
   /**
    * * 赋值全局数据
    * @param projectData 项目数据
-   * @returns 
+   * @returns
    */
   const updateStoreInfo = (projectData: {
     id: string,
@@ -129,7 +129,9 @@ export const useSync = () => {
     remarks: string,
     state: number
   }) => {
-    const { projectName, remarks, indexImage, state } = projectData
+    const { id, projectName, remarks, indexImage, state } = projectData
+    // ID
+    chartEditStore.setProjectInfo(ProjectInfoEnum.PROJECT_ID, id)
     // 名称
     chartEditStore.setProjectInfo(ProjectInfoEnum.PROJECT_NAME, projectName)
     // 描述
@@ -151,6 +153,8 @@ export const useSync = () => {
           // 更新全局数据
           await updateComponent(JSON.parse(res.data.content))
           return
+        }else {
+          chartEditStore.setProjectInfo(ProjectInfoEnum.PROJECT_ID, fetchRouteParamsLocation())
         }
         setTimeout(() => {
           chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.SUCCESS)
@@ -173,6 +177,12 @@ export const useSync = () => {
       return
     }
 
+    let projectId = chartEditStore.getProjectInfo[ProjectInfoEnum.PROJECT_ID];
+    if(projectId === null || projectId === ''){
+      window['$message'].error('数据初未始化成功,请刷新页面！')
+      return
+    }
+
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.START)
 
     // 获取缩略图片
@@ -183,7 +193,7 @@ export const useSync = () => {
       allowTaint: true,
       useCORS: true
     })
-    
+
     // 上传预览图
     let uploadParams = new FormData()
     uploadParams.append('object', base64toFile(canvasImage.toDataURL(), `${fetchRouteParamsLocation()}_index_preview.png`))
@@ -198,7 +208,7 @@ export const useSync = () => {
 
     // 保存数据
     let params = new FormData()
-    params.append('projectId', fetchRouteParamsLocation())
+    params.append('projectId', projectId)
     params.append('content', JSON.stringify(chartEditStore.getStorageInfo || {}))
     const res= await saveProjectApi(params) as unknown as MyResponseType
 
