@@ -69,6 +69,10 @@ const select = computed(() => {
 @include go(shape-box) {
   position: absolute;
   cursor: move;
+
+  // 混合模式
+  mix-blend-mode: screen;
+
   /* 锚点 */
   .shape-point {
     z-index: 1;
