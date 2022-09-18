@@ -5,6 +5,7 @@
 <script setup lang="ts">
 import { ref, computed, PropType, watch } from 'vue'
 import VChart from 'vue-echarts'
+import dataJson from './data.json'
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { RadarChart } from 'echarts/charts'
@@ -39,7 +40,7 @@ const option = computed(() => {
   return mergeTheme(props.chartConfig.option, props.themeSetting, includes)
 })
 
-const dataSetHandle = (dataset: any) => {
+const dataSetHandle = (dataset: typeof dataJson) => {
   if (dataset.seriesData) {
     props.chartConfig.option.series[0].data = dataset.seriesData
     // @ts-ignore
@@ -63,7 +64,7 @@ watch(
   }
 )
 
-useChartDataFetch(props.chartConfig, useChartEditStore, (newData: any) => {
+useChartDataFetch(props.chartConfig, useChartEditStore, (newData: typeof dataJson) => {
   dataSetHandle(newData)
 })
 </script>

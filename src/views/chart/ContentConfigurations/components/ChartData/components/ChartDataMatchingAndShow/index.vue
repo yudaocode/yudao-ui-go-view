@@ -88,7 +88,7 @@ import { ChartDataMonacoEditor } from '../ChartDataMonacoEditor'
 import { useFile } from '../../hooks/useFile.hooks'
 import { useTargetData } from '../../../hooks/useTargetData.hook'
 import isObject from 'lodash/isObject'
-import { toString } from '@/utils'
+import { toString, isArray } from '@/utils'
 
 const { targetData } = useTargetData()
 const props = defineProps({
@@ -181,6 +181,9 @@ watch(
       source.value = newData
     } else {
       source.value = '此组件无数据源'
+    }
+    if (isArray(newData)) {
+      dimensionsAndSource.value = null
     }
   },
   {

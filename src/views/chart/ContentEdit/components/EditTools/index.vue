@@ -1,38 +1,26 @@
 <template>
   <div
     class="go-chart-edit-tools"
-    :class="[
-      settingStore.getChartToolsStatus,
-      isMini ? 'isMini' : 'unMini',
-    ]"
+    :class="[settingStore.getChartToolsStatus, isMiniComputed ? 'isMini' : 'unMini']"
     @click="isMini && (isMini = false)"
     @mouseenter="toolsMouseoverHandle"
     @mouseleave="toolsMouseoutHandle"
   >
     <!-- PawIcon -->
-    <n-icon
-      v-show="settingStore.getChartToolsStatus === ToolsStatusEnum.ASIDE"
-      class="asideLogo"
-      size="22"
-    >
+    <n-icon v-show="settingStore.getChartToolsStatus === ToolsStatusEnum.ASIDE && isMiniComputed " class="asideLogo" size="22">
       <PawIcon></PawIcon>
     </n-icon>
 
     <n-tooltip
-      v-for="(item, index) in btnList"
+      v-for="(item, index) in btnListComputed"
       :key="item.key"
-      :disabled="!isAside || asideTootipDis"
+      :disabled="!isAside || (isHide && asideTootipDis)"
       trigger="hover"
       placement="left"
     >
       <template #trigger>
-        <div class="btn-item" :class="[btnList.length - 1 === index && 'go-111mt-0']">
-          <n-button
-            v-if="item.type === TypeEnum.BUTTON"
-            :circle="isAside"
-            secondary
-            @click="item.handle"
-          >
+        <div class="btn-item" :class="[btnList.length - 1 === index && 'go-mt-0']">
+          <n-button v-if="item.type === TypeEnum.BUTTON" :circle="isAside" secondary @click="item.handle">
             <template #icon>
               <n-icon size="22" v-if="isAside">
                 <component :is="item.icon"></component>
@@ -65,55 +53,89 @@
       <span>{{ item.name }}</span>
     </n-tooltip>
   </div>
+  <!-- 系统设置 model -->
+  <go-system-set v-model:modelShow="globalSettingModel"></go-system-set>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, h } from 'vue'
 import { useSettingStore } from '@/store/modules/settingStore/settingStore'
 import { ToolsStatusEnum } from '@/store/modules/settingStore/settingStore.d'
+import { GoSystemSet } from '@/components/GoSystemSet/index'
 import { exportHandle } from './utils'
 import { useFile } from './hooks/useFile.hooks'
 import { BtnListType, TypeEnum } from './index.d'
 import { icon } from '@/plugins'
 
-const { DownloadIcon, ShareIcon, PawIcon } = icon.ionicons5
+const { DownloadIcon, ShareIcon, PawIcon, SettingsSharpIcon } = icon.ionicons5
 const settingStore = useSettingStore()
+
 // 鼠标悬停定时器
 let mouseTime: any = null
+// 系统设置 model
+const globalSettingModel = ref(false)
 // 最小化
 const isMini = ref<boolean>(true)
-// 是否是侧边栏
-const isAside = computed(() => settingStore.getChartToolsStatus === ToolsStatusEnum.ASIDE)
 // 控制 tootip 提示时机
 const asideTootipDis = ref(true)
 // 文件上传
 const { importUploadFileListRef, importCustomRequest, importBeforeUpload } = useFile()
+// 配置列表
+const btnList: BtnListType[] = [
+  {
+    key: 'export',
+    type: TypeEnum.BUTTON,
+    name: '导出',
+    icon: ShareIcon,
+    handle: exportHandle
+  },
+  {
+    key: 'import',
+    type: TypeEnum.IMPORTUPLOAD,
+    name: '导入',
+    icon: DownloadIcon
+  },
+  {
+    key: 'setting',
+    type: TypeEnum.BUTTON,
+    name: '设置',
+    icon: SettingsSharpIcon,
+    handle: () => {
+      globalSettingModel.value = true
+    }
+  }
+]
 
-const btnList: BtnListType[] = [{
-  key: 'import',
-  type: TypeEnum.IMPORTUPLOAD,
-  name: '导入',
-  icon: DownloadIcon,
-}, {
-  key: 'export',
-  type: TypeEnum.BUTTON,
-  name: '导出',
-  icon: ShareIcon,
-  handle: exportHandle
-}]
+// 是否是侧边栏
+const isAside = computed(() => settingStore.getChartToolsStatus === ToolsStatusEnum.ASIDE)
+// 是否隐藏（悬浮展示）
+const isHide = computed(() => settingStore.getChartToolsStatusHide)
+// 是否展示最小化（与全局配置相关）
+const isMiniComputed = computed(() => isMini.value && isHide.value)
+// 页面渲染配置
+const btnListComputed = computed(() => {
+  if (!isAside.value) return btnList
+  const reverseArr: BtnListType[] = []
+  btnList.map(item => {
+    reverseArr.unshift(item)
+  })
+  return reverseArr
+})
 
+// 鼠标移入
 const toolsMouseoverHandle = () => {
   mouseTime = setTimeout(() => {
     if (isMini.value) {
       isMini.value = false
       asideTootipDis.value = true
     }
-  }, 200);
+  }, 200)
   setTimeout(() => {
     asideTootipDis.value = false
   }, 400)
 }
 
+// 鼠标移出
 const toolsMouseoutHandle = () => {
   clearTimeout(mouseTime)
   if (!isMini.value) {
@@ -129,11 +151,11 @@ $dockBottom: 60px;
 $dockMiniWidth: 200px;
 $dockMiniBottom: 53px;
 
-$asideHeight: 90px;
+$asideHeight: 130px;
 $asideMiniHeight: 22px;
 $asideBottom: 70px;
 
-@include go("chart-edit-tools") {
+@include go('chart-edit-tools') {
   @extend .go-background-filter;
   position: absolute;
   display: flex;
@@ -142,7 +164,7 @@ $asideBottom: 70px;
   border-radius: 25px;
   border: 1px solid;
   mix-blend-mode: luminosity;
-  @include fetch-border-color("hover-border-color-shallow");
+  @include fetch-border-color('hover-border-color-shallow');
   &.aside {
     flex-direction: column-reverse;
     height: auto;
@@ -156,7 +178,7 @@ $asideBottom: 70px;
       @include deep() {
         .n-button__icon {
           margin-right: 4px;
-          margin-bottom: 14px;
+          margin-bottom: 12px;
         }
       }
     }
@@ -276,7 +298,7 @@ $asideBottom: 70px;
       }
     }
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       left: 0;
       width: 100%;
