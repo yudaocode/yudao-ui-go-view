@@ -1,25 +1,25 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div :style="getStyle(borderRadius)">
-    <video
-      class="video-background"
-      preload="auto"
-      loop
-      playsinline
-      autoplay
-      muted
-      src="https://video.699pic.com/videos/76/09/36/b_D4DKnb48qdCI1631760936.mp4"
-      :width="w"
-      :height="h"
-    ></video>
-  </div>
+  <video
+    ref="vVideoRef"
+    class="go-video"
+    preload="auto"
+    playsinline
+    :loop="option.loop"
+    :autoplay="option.autoplay"
+    :muted="option.muted"
+    :width="w"
+    :height="h"
+    :src="option.dataset"
+  ></video>
 </template>
 
 <script setup lang="ts">
-import { PropType, shallowReactive, watch, toRefs } from 'vue'
+import { PropType, toRefs, shallowReactive, watch, ref } from 'vue'
 import { useChartDataFetch } from '@/hooks'
 import { CreateComponentType } from '@/packages/index.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { option } from './config'
+import { option as configOption } from './config'
 
 const props = defineProps({
   chartConfig: {
@@ -29,41 +29,40 @@ const props = defineProps({
 })
 
 const { w, h } = toRefs(props.chartConfig.attr)
-const { dataset, fit, borderRadius } = toRefs(props.chartConfig.option)
+let option = shallowReactive({ ...configOption })
 
-const option = shallowReactive({
-  dataset: ''
+// 预览更新
+const vVideoRef = ref(null)
+useChartDataFetch(props.chartConfig, useChartEditStore, (newData: any) => {
+  option = newData
 })
-
-const getStyle = (radius: number) => {
-  return {
-    borderRadius: `${radius}px`,
-    overflow: 'hidden'
-  }
-}
 
 // 编辑更新
 watch(
-  () => props.chartConfig.option.dataset,
+  () => props.chartConfig.option,
   (newData: any) => {
-    option.dataset = newData
+    option = newData
+    if (!vVideoRef.value) return
+    const video: any = vVideoRef.value
+    video.loop = option.loop
+    video.autoplay = option.autoplay
+    video.muted = option.muted
+
+    // 控制是否播放还是停止在第一帧
+    !option.autoplay && (video.pause(), (video.currentTime = 0))
+    option.autoplay && video.play()
   },
   {
     immediate: true,
-    deep: false
+    deep: true
   }
 )
-
-// 预览更新
-useChartDataFetch(props.chartConfig, useChartEditStore, (newData: any) => {
-  option.dataset = newData
-})
 </script>
 
 <style lang="scss" scoped>
-.video-background {
+@include go('video') {
+  display: block;
   object-fit: cover;
   mix-blend-mode: screen;
-  opacity: 1;
 }
 </style>
