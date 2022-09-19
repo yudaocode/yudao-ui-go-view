@@ -10,6 +10,7 @@ import {
   RequestBodyEnum
 } from '@/enums/httpEnum'
 import { chartInitConfig } from '@/settings/designSetting'
+import cloneDeep from 'lodash/cloneDeep'
 
 // 请求基础属性
 const requestConfig: RequestConfigType = {
@@ -69,7 +70,7 @@ export class PublicConfigClass implements PublicConfigType {
     animations: []
   }
   // 请求
-  public request = { ...requestConfig }
+  public request = cloneDeep(requestConfig)
   // 数据过滤
   public filter = undefined
 
