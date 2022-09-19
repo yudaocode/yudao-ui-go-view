@@ -15,7 +15,8 @@ export const animationsClass = (animations: string[]) => {
 }
 
 // * 滤镜
-export const getFilterStyle = (styles: StylesType | EditCanvasConfigType) => {
+export const getFilterStyle = (styles?: StylesType | EditCanvasConfigType) => {
+  if(!styles) return {}
   const { opacity, saturate, contrast, hueRotate, brightness } = styles
   return {
     opacity: opacity,

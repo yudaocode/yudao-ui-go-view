@@ -79,6 +79,8 @@ export const useChartEditStore = defineStore({
       width: 1920,
       // 默认高度
       height: 1080,
+      // 启用滤镜
+      filterShow: false,
       // 色相
       hueRotate: 0,
       // 饱和度

@@ -38,6 +38,9 @@ interface EchartsDataType {
 
 // 滤镜/变换枚举
 export enum FilterEnum {
+  // 是否启用
+  FILTERS_SHOW = 'filterShow',
+
   // 透明度
   OPACITY = 'opacity',
   // 饱和度
@@ -65,6 +68,7 @@ export interface PublicConfigType {
   isGroup: boolean
   attr: { x: number; y: number; w: number; h: number; zIndex: number; offsetX: number; offsetY: number; }
   styles: {
+    [FilterEnum.FILTERS_SHOW]: boolean
     [FilterEnum.OPACITY]: number
     [FilterEnum.SATURATE]: number
     [FilterEnum.CONTRAST]: number

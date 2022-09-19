@@ -43,6 +43,8 @@ export class PublicConfigClass implements PublicConfigType {
   public attr = { ...chartInitConfig, zIndex: -1 }
   // 基本样式
   public styles = {
+    // 使用滤镜
+    filterShow: true,
     // 色相
     hueRotate: 0,
     // 饱和度
