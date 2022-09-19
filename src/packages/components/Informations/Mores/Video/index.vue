@@ -1,9 +1,11 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
+  <!-- 重要：需要设置 crossOrigin="anonymous"，否则保存画板缩略图会失败 -->
   <video
     ref="vVideoRef"
     class="go-video"
     preload="auto"
+    crossOrigin="anonymous"
     playsinline
     :loop="option.loop"
     :autoplay="option.autoplay"
