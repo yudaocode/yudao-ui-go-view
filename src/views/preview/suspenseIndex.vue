@@ -59,7 +59,7 @@ if(localStorageInfo.isRelease === false) {
 const previewRefStyle = computed(() => {
   return {
     ...getEditCanvasConfigStyle(localStorageInfo.editCanvasConfig),
-    ...getFilterStyle(localStorageInfo.editCanvasConfig),
+    ...getFilterStyle(localStorageInfo.editCanvasConfig.filterShow ? localStorageInfo.editCanvasConfig : undefined),
   }
 })
 

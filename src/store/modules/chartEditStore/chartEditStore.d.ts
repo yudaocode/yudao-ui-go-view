@@ -93,6 +93,8 @@ export type EditCanvasConfigType = {
   [EditCanvasConfigEnum.PROJECT_NAME]: string,
   // 项目描述
   [EditCanvasConfigEnum.REMARKS]: string,
+  // 滤镜-启用
+  [FilterEnum.FILTERS_SHOW]: boolean
   // 滤镜-色相
   [FilterEnum.HUE_ROTATE]: number
   // 滤镜-饱和度

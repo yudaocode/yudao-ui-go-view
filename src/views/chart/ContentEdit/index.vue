@@ -19,7 +19,7 @@
         <!-- 滤镜预览 -->
         <div
           :style="{
-            ...getFilterStyle(chartEditStore.getEditCanvasConfig),
+            ...getFilterStyle(filterShow ? chartEditStore.getEditCanvasConfig : undefined),
             ...rangeStyle
           }"
         >
@@ -54,7 +54,7 @@
                 :themeColor="themeColor"
                 :style="{
                   ...useSizeStyle(item.attr),
-                  ...getFilterStyle(item.styles),
+                  ...getFilterStyle(filterShow ? item.styles : undefined),
                   ...getTransformStyle(item.styles)
                 }"
               ></component>
@@ -146,6 +146,11 @@ const themeSetting = computed(() => {
 const themeColor = computed(() => {
   const chartThemeColor = chartEditStore.getEditCanvasConfig.chartThemeColor
   return chartColors[chartThemeColor]
+})
+
+// 是否展示渲染
+const filterShow = computed(() => {
+  return chartEditStore.getEditCanvasConfig.filterShow
 })
 
 // 背景
