@@ -3,27 +3,9 @@
 <template>
   <collapse-item name="视频" expanded>
     <setting-item-box name="源" alone>
-      <setting-item name="自定义视频源">
+      <setting-item name="自定义源">
         <n-input v-model:value="optionData.dataset" size="small"></n-input>
       </setting-item>
-      <setting-item name="使用内置视频">
-        <n-select
-          v-model:value="optionData.dataset"
-          size="small"
-          placeholder="自定义或选择内置视频"
-          clearable
-          :options="VideoList"
-        ></n-select>
-      </setting-item>
-      <!-- <setting-item>
-        <n-upload
-          action="https://www.mocky.io/v2/5e4bafc63100007100d8b70f"
-          accept="video/*"
-          @finish="finishHandleFinish"
-        >
-          <n-button size="small">本地上传</n-button>
-        </n-upload>
-      </setting-item> -->
     </setting-item-box>
 
     <setting-item-box name="控制">
@@ -37,24 +19,56 @@
         <n-checkbox v-model:checked="optionData.muted" size="small">静音</n-checkbox>
       </setting-item>
     </setting-item-box>
+
+    <setting-item-box name="样式">
+      <setting-item name="类型">
+        <n-select v-model:value="optionData.fit" size="small" :options="fitList"></n-select>
+      </setting-item>
+      <setting-item name="圆角">
+        <n-input-number
+          v-model:value="optionData.borderRadius"
+          size="small"
+          :min="0"
+          placeholder="圆角"
+        ></n-input-number>
+      </setting-item>
+    </setting-item-box>
   </collapse-item>
 </template>
 
 <script setup lang="ts">
 import { PropType } from 'vue'
-import { option, VideoList } from './config'
+import { option } from './config'
 import { CollapseItem, SettingItemBox, SettingItem } from '@/components/Pages/ChartItemSetting'
 
-// eslint-disable-next-line no-unused-vars
-const props = defineProps({
+// 适应类型
+const fitList = [
+  {
+    value: 'fill',
+    label: 'fill'
+  },
+  {
+    value: 'contain',
+    label: 'contain'
+  },
+  {
+    value: 'cover',
+    label: 'cover'
+  },
+  {
+    value: 'scale-down',
+    label: 'scale-down'
+  },
+  {
+    value: 'none',
+    label: 'none'
+  }
+]
+
+defineProps({
   optionData: {
     type: Object as PropType<typeof option>,
     required: true
   }
 })
-
-// eslint-disable-next-line no-unused-vars
-const finishHandleFinish = () => {
-  // console.log()
-}
 </script>
