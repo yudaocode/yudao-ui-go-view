@@ -96,7 +96,6 @@ import { SelectHttpType } from '../../index.d'
 import { ChartDataMatchingAndShow } from '../ChartDataMatchingAndShow'
 import { useTargetData } from '../../../hooks/useTargetData.hook'
 import { isDev, newFunctionHandle } from '@/utils'
-import debounce from 'lodash/debounce'
 
 const { HelpOutlineIcon, FlashIcon, PulseIcon } = icon.ionicons5
 const { targetData, chartEditStore } = useTargetData()
@@ -122,27 +121,23 @@ const requestModelHandle = () => {
 }
 
 // 发送请求
-const sendHandle = debounce(
-  async () => {
-    if (!targetData.value?.request) return
-    loading.value = true
-    try {
-      const res = await customizeHttp(toRaw(targetData.value.request), toRaw(chartEditStore.requestGlobalConfig))
-      loading.value = false
-      if (res && res.data) {
-        targetData.value.option.dataset = newFunctionHandle(res.data, targetData.value.filter)
-        showMatching.value = true
-        return
-      }
-      window['$message'].warning('数据异常，请检查参数！')
-    } catch (error) {
-      loading.value = false
-      window['$message'].warning('数据异常，请检查参数！')
+const sendHandle = async () => {
+  if (!targetData.value?.request) return
+  loading.value = true
+  try {
+    const res = await customizeHttp(toRaw(targetData.value.request), toRaw(chartEditStore.requestGlobalConfig))
+    loading.value = false
+    if (res && res.data) {
+      targetData.value.option.dataset = newFunctionHandle(res.data, targetData.value.filter)
+      showMatching.value = true
+      return
     }
-  },
-  2000,
-  { leading: true }
-)
+    window['$message'].warning('数据异常，请检查参数！')
+  } catch (error) {
+    loading.value = false
+    window['$message'].warning('数据异常，请检查参数！')
+  }
+}
 
 // 颜色
 const themeColor = computed(() => {
