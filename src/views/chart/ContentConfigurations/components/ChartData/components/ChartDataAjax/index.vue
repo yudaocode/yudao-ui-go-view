@@ -4,17 +4,17 @@
       <setting-item-box name="请求配置">
         <setting-item name="类型">
           <n-tag :bordered="false" type="primary" style="border-radius: 5px">
-            {{ requestContentType === RequestContentTypeEnum.DEFAULT ? '普通请求' : 'SQL请求' }}
+            {{ targetData.request.requestContentType === RequestContentTypeEnum.DEFAULT ? '普通请求' : 'SQL请求' }}
           </n-tag>
         </setting-item>
 
         <setting-item name="方式">
-          <n-input size="small" :placeholder="requestHttpType || '暂无'" :disabled="true"></n-input>
+          <n-input size="small" :placeholder="targetData.request.requestHttpType || '暂无'" :disabled="true"></n-input>
         </setting-item>
 
         <setting-item name="组件间隔（高级）">
-          <n-input size="small" :placeholder="`${requestInterval || '暂无'}`" :disabled="true">
-            <template #suffix> {{ SelectHttpTimeNameObj[requestIntervalUnit] }} </template>
+          <n-input size="small" :placeholder="`${targetData.request.requestInterval || '暂无'}`" :disabled="true">
+            <template #suffix> {{ SelectHttpTimeNameObj[targetData.request.requestIntervalUnit] }} </template>
           </n-input>
         </setting-item>
 
@@ -34,7 +34,7 @@
       </setting-item-box>
 
       <setting-item-box name="组件地址" :alone="true">
-        <n-input size="small" :placeholder="requestUrl || '暂无'" :disabled="true">
+        <n-input size="small" :placeholder="targetData.request.requestUrl || '暂无'" :disabled="true">
           <template #prefix>
             <n-icon :component="FlashIcon" />
           </template>
@@ -100,9 +100,7 @@ import debounce from 'lodash/debounce'
 
 const { HelpOutlineIcon, FlashIcon, PulseIcon } = icon.ionicons5
 const { targetData, chartEditStore } = useTargetData()
-const { requestUrl, requestHttpType, requestInterval, requestIntervalUnit, requestContentType } = toRefs(
-  targetData.value.request
-)
+
 const {
   requestOriginUrl,
   requestInterval: GlobalRequestInterval,
