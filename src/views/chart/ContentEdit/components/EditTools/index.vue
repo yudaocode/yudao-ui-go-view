@@ -19,7 +19,7 @@
       placement="left"
     >
       <template #trigger>
-        <div class="btn-item" :class="[btnList.length - 1 === index && 'go-mt-0']">
+        <div class="btn-item">
           <n-button v-if="item.type === TypeEnum.BUTTON" :circle="isAside" secondary @click="item.handle">
             <template #icon>
               <n-icon size="22" v-if="isAside">
@@ -175,6 +175,9 @@ $asideBottom: 70px;
     transition: height ease 0.4s;
     .btn-item {
       margin-bottom: 10px;
+      &:first-of-type {
+        margin-bottom: 0;
+      }
       @include deep() {
         .n-button__icon {
           margin-right: 4px;
