@@ -5,6 +5,11 @@
         <n-input v-model:value="optionData.dataset" size="small"></n-input>
       </setting-item>
     </setting-item-box>
+    <setting-item-box name="链接" :alone="true">
+      <setting-item>
+        <n-space><n-input v-model:value="optionData.link" size="small"></n-input><n-button secondary size="small" @click="handleLinkClick"  >点击</n-button></n-space>
+      </setting-item>
+    </setting-item-box>
   </collapse-item>
 
   <collapse-item name="样式" :expanded="true">
@@ -69,7 +74,7 @@ import {
   SettingItemBox,
   SettingItem
 } from '@/components/Pages/ChartItemSetting'
-
+import { useMessage } from 'naive-ui'
 const props = defineProps({
   optionData: {
     type: Object as PropType<typeof option>,
@@ -84,4 +89,13 @@ const verticalOptions = [{
   label: WritingModeEnum.VERTICAL,
   value: WritingModeObject[WritingModeEnum.VERTICAL]
 }]
+const message = useMessage()
+const handleLinkClick = ()=>{
+  
+  if(props.optionData.link){
+    window.open(props.optionData.link)
+  }else{
+    message.info("链接未输入")
+  }
+}
 </script>

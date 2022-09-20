@@ -14,6 +14,7 @@ export const WritingModeObject = {
 }
 
 export const option = {
+  link:'',
   dataset: '我是文本',
   fontSize: 20,
   fontColor: '#ffffff',
