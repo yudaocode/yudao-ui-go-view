@@ -38,6 +38,7 @@ const props = defineProps({
 
 const { w, h } = toRefs(props.chartConfig.attr)
 const {
+  linkHead,
   link,
   dataset,
   fontColor,
@@ -75,7 +76,7 @@ useChartDataFetch(props.chartConfig, useChartEditStore, (newData: string) => {
 
 //打开链接
 const click = () => {
-  window.open(link.value)
+  window.open(linkHead.value+link.value)
 }
 </script>
 
