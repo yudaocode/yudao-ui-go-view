@@ -25,6 +25,7 @@ specifiers:
   echarts: ^5.3.2
   echarts-liquidfill: ^3.1.0
   echarts-stat: ^1.2.0
+  echarts-wordcloud: ^2.0.0
   eslint: ^8.12.0
   eslint-config-prettier: ^8.5.0
   eslint-plugin-import: ^2.26.0
@@ -71,6 +72,7 @@ dependencies:
   crypto-js: 4.1.1
   echarts-liquidfill: 3.1.0_echarts@5.3.3
   echarts-stat: registry.npmmirror.com/echarts-stat/1.2.0
+  echarts-wordcloud: registry.npmmirror.com/echarts-wordcloud/2.0.0_echarts@5.3.3
   highlight.js: 11.5.1
   html2canvas: 1.4.1
   keymaster: 1.6.2
@@ -5394,6 +5396,17 @@ packages:
     resolution: {integrity: sha512-zLd7Kgs+tuTSeaK0VQEMNmnMivEkhvHIk1gpBtLzpRerfcIQ+Bd5XudOMmtwpaTc1WDZbA7d1V//iiBccR46Qg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/echarts-stat/-/echarts-stat-1.2.0.tgz}
     name: echarts-stat
     version: 1.2.0
+    dev: false
+
+  registry.npmmirror.com/echarts-wordcloud/2.0.0_echarts@5.3.3:
+    resolution: {integrity: sha512-K7l6pTklqdW7ZWzT/1CS0KhBSINr/cd7c5N1fVMzZMwLQHEwT7x+nivK7g5hkVh7WNcAv4Dn6/ZS5zMKRozC1g==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/echarts-wordcloud/-/echarts-wordcloud-2.0.0.tgz}
+    id: registry.npmmirror.com/echarts-wordcloud/2.0.0
+    name: echarts-wordcloud
+    version: 2.0.0
+    peerDependencies:
+      echarts: ^5.0.1
+    dependencies:
+      echarts: 5.3.3
     dev: false
 
   registry.npmmirror.com/esbuild-android-64/0.14.43:
