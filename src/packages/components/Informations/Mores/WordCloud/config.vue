@@ -14,7 +14,7 @@
     <setting-item-box name="布局">
       <setting-item name="宽度">
         <n-slider
-          v-model:value="customProps.width"
+          v-model:value="series.width"
           :min="0"
           :max="100"
           :format-tooltip="sliderFormatTooltip"
@@ -23,7 +23,7 @@
       </setting-item>
       <setting-item name="高度">
         <n-slider
-          v-model:value="customProps.height"
+          v-model:value="series.height"
           :min="0"
           :max="100"
           :format-tooltip="sliderFormatTooltip"
@@ -37,20 +37,14 @@
         <n-slider v-model:value="optionData.series[0].sizeRange" range :step="1" :min="6" :max="100" />
       </setting-item>
       <setting-item name="旋转角度">
-        <n-slider
-          v-model:value="customProps.rotationStep"
-          :step="15"
-          :min="0"
-          :max="45"
-          @update:value="updateRotation"
-        />
+        <n-slider v-model:value="series.rotationStep" :step="15" :min="0" :max="45" @update:value="updateRotation" />
       </setting-item>
     </setting-item-box>
   </collapse-item>
 </template>
 
 <script setup lang="ts">
-import { PropType, reactive } from 'vue'
+import { PropType, computed } from 'vue'
 import { option, ShapeEnumList } from './config'
 // eslint-disable-next-line no-unused-vars
 import { CollapseItem, SettingItemBox, SettingItem } from '@/components/Pages/ChartItemSetting'
@@ -62,15 +56,18 @@ const props = defineProps({
   }
 })
 
+const series = computed(() => {
+  const { width, height, rotationStep } = props.optionData.series[0]
+  return {
+    width: +width.replace('%', ''),
+    height: +height.replace('%', ''),
+    rotationStep
+  }
+})
+
 const sliderFormatTooltip = (v: number) => {
   return `${v}%`
 }
-
-const customProps = reactive({
-  width: 70,
-  height: 80,
-  rotationStep: 0 // 旋转步长
-})
 
 const updateWidth = (value: number) => {
   // eslint-disable-next-line vue/no-mutating-props
