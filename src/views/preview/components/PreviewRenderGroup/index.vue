@@ -4,7 +4,7 @@
     v-for="item in groupData.groupList"
     :class="animationsClass(item.styles.animations)"
     :key="item.id"
-    :style="{ 
+    :style="{
       ...getComponentAttrStyle(item.attr, groupIndex),
       ...getFilterStyle(item.styles),
       ...getTransformStyle(item.styles)
@@ -15,7 +15,7 @@
       :chartConfig="item"
       :themeSetting="themeSetting"
       :themeColor="themeColor"
-      :style="{...getSizeStyle(item.attr)}"
+      :style="{ ...getSizeStyle(item.attr) }"
     ></component>
   </div>
 </template>
@@ -49,5 +49,6 @@ const props = defineProps({
 <style lang="scss" scoped>
 .chart-item {
   position: absolute;
+  mix-blend-mode: screen;
 }
 </style>
