@@ -45,7 +45,7 @@ export const option = {
 
       // 文本旋转范围和程度的步骤。 文本将通过旋转步骤45在[-90，90]中随机旋转
       rotationRange: [0, 0],
-      rotationStep: 45,
+      rotationStep: 0,
 
       // size of the grid in pixels for marking the availability of the canvas
       // 网格大小越大，单词之间的差距就越大。
