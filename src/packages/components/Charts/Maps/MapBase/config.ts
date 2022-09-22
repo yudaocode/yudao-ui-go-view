@@ -10,6 +10,7 @@ export const option = {
   dataset: dataJson,
   mapRegion: {
     adcode: 'china',
+    adcodeFlag: true,
   },
   tooltip: {
     show: true,

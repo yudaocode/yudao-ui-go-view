@@ -76,7 +76,6 @@ const option = reactive({
 const getGeojson = (regionId: string) => {
   return new Promise<boolean>((resolve, reject) => {
     import(`./mapGeojson/${regionId}.json`).then(data => {
-      console.log({data});
       registerMap(regionId, { geoJSON: data.default as any, specialAreas: {} })
       resolve(true)
     })
@@ -87,6 +86,9 @@ registerMap(props.chartConfig.option.mapRegion.adcode, { geoJSON: {} as any, spe
 //保证初始化不报错
 const registerMapModulesAsync= async ()=>{
   await getGeojson(props.chartConfig.option.mapRegion.adcode)
+  //触发option 变动
+  props.chartConfig.option.mapRegion.adcodeFlag=!props.chartConfig.option.mapRegion.adcodeFlag
+  updateOptions()
 }
 registerMapModulesAsync()
 
@@ -113,9 +115,11 @@ const mapTypeHandle = async (show: boolean) => {
   if (show) {
     await getGeojson("china")
     // registerMap('china', { geoJSON:  mapJsonModules["china"] as any, specialAreas: {} })
+    props.chartConfig.option.mapRegion.adcodeFlag=!props.chartConfig.option.mapRegion.adcodeFlag
   } else {
     registerMap('china', { geoJSON: mapJsonWithoutHainanIsLands as any, specialAreas: {} })
   }
+
   updateOptions()
 }
 //层级发生变化
