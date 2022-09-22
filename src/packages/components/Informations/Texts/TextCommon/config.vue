@@ -7,7 +7,16 @@
     </setting-item-box>
     <setting-item-box name="链接" :alone="true">
       <setting-item>
-        <n-input-group><n-select  v-model:value="optionData.linkHead" size="small" :style="{ width: '33%' }" :options="linkHeadOptions" /><n-input  v-model:value="optionData.link" size="small"></n-input><n-button :disabled="!optionData.link" secondary size="small" @click="handleLinkClick"  >跳转</n-button></n-input-group>
+        <n-input-group>
+          <n-select
+            v-model:value="optionData.linkHead"
+            size="small"
+            :style="{ width: '80%' }"
+            :options="linkHeadOptions"
+          />
+          <n-input v-model:value="optionData.link" size="small"></n-input>
+          <n-button :disabled="!optionData.link" secondary size="small" @click="handleLinkClick">跳转</n-button>
+        </n-input-group>
       </setting-item>
     </setting-item-box>
   </collapse-item>
@@ -21,7 +30,7 @@
       <setting-item name="文本方向">
         <n-select v-model:value="optionData.writingMode" size="small" :options="verticalOptions" />
       </setting-item>
-      
+
       <setting-item name="X轴内边距">
         <n-input-number v-model:value="optionData.paddingX" size="small" placeholder="输入内边距"></n-input-number>
       </setting-item>
@@ -57,7 +66,7 @@
         ></n-input-number>
       </setting-item>
     </setting-item-box>
-    
+
     <setting-item-box name="背景" :alone="true">
       <setting-item name="背景颜色">
         <n-color-picker size="small" :modes="['hex']" v-model:value="optionData.backgroundColor"></n-color-picker>
@@ -69,11 +78,7 @@
 <script setup lang="ts">
 import { PropType } from 'vue'
 import { option, WritingModeEnum, WritingModeObject } from './config'
-import {
-  CollapseItem,
-  SettingItemBox,
-  SettingItem
-} from '@/components/Pages/ChartItemSetting'
+import { CollapseItem, SettingItemBox, SettingItem } from '@/components/Pages/ChartItemSetting'
 const props = defineProps({
   optionData: {
     type: Object as PropType<typeof option>,
@@ -81,22 +86,27 @@ const props = defineProps({
   }
 })
 
-const verticalOptions = [{
-  label: WritingModeEnum.HORIZONTAL,
-  value: WritingModeObject[WritingModeEnum.HORIZONTAL]
-}, {
-  label: WritingModeEnum.VERTICAL,
-  value: WritingModeObject[WritingModeEnum.VERTICAL]
-}]
-const handleLinkClick = ()=>{
-    window.open(props.optionData.linkHead+props.optionData.link)
+const verticalOptions = [
+  {
+    label: WritingModeEnum.HORIZONTAL,
+    value: WritingModeObject[WritingModeEnum.HORIZONTAL]
+  },
+  {
+    label: WritingModeEnum.VERTICAL,
+    value: WritingModeObject[WritingModeEnum.VERTICAL]
+  }
+]
+const handleLinkClick = () => {
+  window.open(props.optionData.linkHead + props.optionData.link)
 }
-const linkHeadOptions = [{
-          label: 'http://',
-          value: 'http://'
-        },
-        {
-          label: 'https://',
-          value: 'https://'
-        }]
+const linkHeadOptions = [
+  {
+    label: 'http://',
+    value: 'http://'
+  },
+  {
+    label: 'https://',
+    value: 'https://'
+  }
+]
 </script>
