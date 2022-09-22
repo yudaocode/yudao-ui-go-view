@@ -15,7 +15,10 @@
 
       background-color:${backgroundColor}`"
     >
-      {{ option.dataset }}
+      <n-button v-if="link" @click="click" text>
+        {{ dataset }}
+      </n-button>
+      <span v-else>{{ dataset }}</span>
     </div>
   </div>
 </template>
@@ -35,6 +38,8 @@ const props = defineProps({
 
 const { w, h } = toRefs(props.chartConfig.attr)
 const {
+  linkHead,
+  link,
   dataset,
   fontColor,
   fontSize,
@@ -68,6 +73,11 @@ watch(
 useChartDataFetch(props.chartConfig, useChartEditStore, (newData: string) => {
   option.dataset = newData
 })
+
+//打开链接
+const click = () => {
+  window.open(linkHead.value+link.value)
+}
 </script>
 
 <style lang="scss" scoped>
