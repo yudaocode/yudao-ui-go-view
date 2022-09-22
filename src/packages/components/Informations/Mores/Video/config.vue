@@ -10,9 +10,6 @@
 
     <setting-item-box name="控制">
       <setting-item>
-        <n-checkbox v-model:checked="optionData.autoplay" size="small">自动播放</n-checkbox>
-      </setting-item>
-      <setting-item>
         <n-checkbox v-model:checked="optionData.loop" size="small">循环播放</n-checkbox>
       </setting-item>
       <setting-item>

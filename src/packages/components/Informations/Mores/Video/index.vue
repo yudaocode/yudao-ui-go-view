@@ -7,8 +7,8 @@
     preload="auto"
     crossOrigin="anonymous"
     playsinline
+    autoplay
     :loop="option.loop"
-    :autoplay="option.autoplay"
     :muted="option.muted"
     :width="w"
     :height="h"
@@ -47,12 +47,8 @@ watch(
     if (!vVideoRef.value) return
     const video: any = vVideoRef.value
     video.loop = option.loop
-    video.autoplay = option.autoplay
     video.muted = option.muted
-
-    // 控制是否播放还是停止在第一帧
-    !option.autoplay && (video.pause(), (video.currentTime = 0))
-    option.autoplay && video.play()
+    video.play()
   },
   {
     immediate: true,

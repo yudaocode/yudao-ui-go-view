@@ -9,8 +9,6 @@ export const option = {
   dataset: video,
   // 循环播放
   loop: true,
-  // 自动播放
-  autoplay: true,
   // 静音
   muted: true,
   // 适应方式
