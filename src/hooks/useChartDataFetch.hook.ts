@@ -25,7 +25,7 @@ export const useChartDataFetch = (
 
   const requestIntervalFn = () => {
     const chartEditStore = useChartEditStore()
-    
+
     // 全局数据
     const {
       requestOriginUrl,
@@ -88,6 +88,7 @@ export const useChartDataFetch = (
         // 开启轮询
         if (time) fetchInterval = setInterval(fetchFn, intervalUnitHandle(time, unit))
       }
+      // eslint-disable-next-line no-empty
     } catch (error) {}
   }
 

@@ -87,7 +87,7 @@ export const http = (type?: RequestHttpEnum) => {
  * @param globalParams 全局参数
  */
 export const customizeHttp = (targetParams: RequestConfigType, globalParams: RequestGlobalConfigType) => {
-  if(!targetParams || !globalParams) {
+  if (!targetParams || !globalParams) {
     return
   }
 
@@ -127,7 +127,7 @@ export const customizeHttp = (targetParams: RequestConfigType, globalParams: Req
   // 处理头部
   const headers: RequestParamsObjType = {
     ...globalRequestParams.Header,
-    ...targetRequestParams.Header,
+    ...targetRequestParams.Header
   }
 
   // data 参数
@@ -155,15 +155,16 @@ export const customizeHttp = (targetParams: RequestConfigType, globalParams: Req
       data = targetRequestParams.Body['xml']
       break
 
-    case RequestBodyEnum.X_WWW_FORM_URLENCODED:
+    case RequestBodyEnum.X_WWW_FORM_URLENCODED: {
       headers['Content-Type'] = ContentTypeEnum.FORM_URLENCODED
       const bodyFormData = targetRequestParams.Body['x-www-form-urlencoded']
       for (const i in bodyFormData) formData.set(i, bodyFormData[i])
       // FormData 赋值给 data
       data = formData
       break
+    }
 
-    case RequestBodyEnum.FORM_DATA:
+    case RequestBodyEnum.FORM_DATA: {
       headers['Content-Type'] = ContentTypeEnum.FORM_DATA
       const bodyFormUrlencoded = targetRequestParams.Body['form-data']
       for (const i in bodyFormUrlencoded) {
@@ -172,6 +173,7 @@ export const customizeHttp = (targetParams: RequestConfigType, globalParams: Req
       // FormData 赋值给 data
       data = formData
       break
+    }
   }
 
   // sql 处理

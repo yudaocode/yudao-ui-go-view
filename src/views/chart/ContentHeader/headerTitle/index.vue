@@ -24,7 +24,7 @@
       v-model:value.trim="title"
       @keyup.enter="handleBlur"
       @blur="handleBlur"
-   ></n-input>
+    ></n-input>
   </n-space>
 </template>
 
@@ -50,16 +50,16 @@ const fetchProhectInfoById = () => {
 
 const title = ref<string>(fetchProhectInfoById() || '')
 
-
 const comTitle = computed(() => {
-  title.value = title.value.replace(/\s/g, "");
+  // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+  title.value = title.value.replace(/\s/g, '')
   return title.value.length ? title.value : '新项目'
 })
 
 const handleFocus = () => {
   focus.value = true
   nextTick(() => {
-    ; (<any>inputInstRef).value.focus()
+    inputInstRef.value && (inputInstRef.value as any).focus()
   })
 }
 

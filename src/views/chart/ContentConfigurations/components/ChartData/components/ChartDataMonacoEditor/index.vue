@@ -138,9 +138,11 @@ const filterRes = computed(() => {
   try {
     const fn = new Function('data', filter.value)
     const res = fn(cloneDeep(sourceData.value))
+    // eslint-disable-next-line vue/no-side-effects-in-computed-properties
     errorFlag.value = false
     return toString(res)
   } catch (error) {
+    // eslint-disable-next-line vue/no-side-effects-in-computed-properties
     errorFlag.value = true
     return '过滤函数错误'
   }
