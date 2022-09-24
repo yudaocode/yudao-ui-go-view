@@ -10,7 +10,7 @@ export const option = {
   dataset: dataJson,
   mapRegion: {
     adcode: 'china',
-    adcodeFlag: true,
+    showHainanIsLands:true
   },
   tooltip: {
     show: true,
@@ -42,25 +42,13 @@ export const option = {
     },
   },
   geo: {
+    show:false,
     type: 'map',
     roam: false,
     map: "china",
     selectedMode: false, //是否允许选中多个区域
     // aspectScale: 1,
     zoom: 1,
-    tooltip: {
-      show: false,
-    },
-    label: {
-      show: false,
-    }, //地图中文字内容及样式控制
-    itemStyle: {
-      areaColor: "rgba(0,0,0,0)",
-      borderColor: "rgba(0,0,0,0)",
-    },
-    emphasis: {
-      disabled: true,
-    },
   },
   series: [
     {
@@ -135,7 +123,7 @@ export const option = {
       },
       label: {
         show: false,
-        color: "#000",
+        color: "#fff",
         // formatter: function (val:any) {
         //   // console.log(val)
         //   if (val.data !== undefined) {
@@ -145,7 +133,18 @@ export const option = {
         //   }
         // },
         rich: {},
-        emphasis: { show: false },
+        // emphasis: { show: false },
+      },
+      emphasis: {
+        disabled:false,
+        label: {
+          color: "#fffFFF",
+        },
+        itemStyle:{
+          areaColor: "#389BB7",
+          shadowColor:"#389BB7",
+          borderWidth: 1,
+        }
       },
       itemStyle: {
         // borderColor: "rgba(147, 235, 248, .8)",
@@ -172,14 +171,7 @@ export const option = {
         shadowOffsetX: -2,
         shadowOffsetY: 2,
         shadowBlur: 10,
-        emphasis: {
-          disabled:false,
-          areaColor: "#389BB7",
-          shadowColor:"#389BB7",
-          borderWidth: 1,
-        },
-        showHainanIsLands: true,
-
+      
       },
      
     }

@@ -8,7 +8,7 @@
       </SettingItem>
       <SettingItem name="大小">
         <n-input-number
-          v-model:value="seriesList[1].zoom"
+          v-model:value="mapGeo.zoom"
           :min="1"
           size="small"
           placeholder="请输入地图大小"
@@ -63,33 +63,36 @@
         ></n-input-number>
       </SettingItem>
     </SettingItemBox>
-    <SettingItemBox name="聚焦" >
-      <!-- <setting-item name="禁用">
+    <SettingItemBox name="聚焦 （预览可见）" >
+      <setting-item name="禁用">
         <n-space>
-          <n-switch v-model:value="seriesList[1].itemStyle.emphasis.disabled" size="small"></n-switch>
+          <n-switch v-model:value="seriesList[1].emphasis.disabled" size="small"></n-switch>
         </n-space>
-      </setting-item> -->
-      <SettingItem name="颜色（预览可见）">
+      </setting-item>
+      <SettingItem name="颜色">
         <n-color-picker
           size="small"
           :modes="['hex']"
-          v-model:value="seriesList[1].itemStyle.emphasis.areaColor"
+          v-model:value="seriesList[1].emphasis.itemStyle.areaColor"
         ></n-color-picker>
       </SettingItem>
-      <SettingItem name="阴影（预览可见）">
+      <SettingItem name="阴影">
         <n-color-picker
           size="small"
           :modes="['hex']"
-          v-model:value="seriesList[1].itemStyle.emphasis.shadowColor"
+          v-model:value="seriesList[1].emphasis.itemStyle.shadowColor"
         ></n-color-picker>
       </SettingItem>
-      <SettingItem name="边框大小（预览）">
+      <SettingItem name="边框大小">
         <n-input-number
-          v-model:value="seriesList[1].itemStyle.emphasis.borderWidth"
+          v-model:value="seriesList[1].emphasis.itemStyle.borderWidth"
           :min="1"
           size="small"
           placeholder="请输入边框大小"
         ></n-input-number>
+      </SettingItem>
+      <SettingItem name="文字颜色">
+        <n-color-picker size="small" :modes="['hex']" v-model:value="seriesList[1].emphasis.label.color"></n-color-picker>
       </SettingItem>
     </SettingItemBox>
     <SettingItemBox name="边框">
@@ -111,7 +114,7 @@
     </SettingItemBox>
     <SettingItemBox name="其他" v-if="mapRegion.adcode==='china'">
       <SettingItem >
-        <n-checkbox v-model:checked="seriesList[1].itemStyle.showHainanIsLands" size="small">显示南海群岛</n-checkbox>
+        <n-checkbox v-model:checked="mapRegion.showHainanIsLands" size="small">显示南海群岛</n-checkbox>
       </SettingItem>
     </SettingItemBox>
   </CollapseItem>
@@ -148,7 +151,6 @@
 <script setup lang="ts">
 import { PropType, computed } from 'vue'
 import { CollapseItem, SettingItemBox, SettingItem } from '@/components/Pages/ChartItemSetting'
-import { lineConf } from '@/packages/chartConfiguration/echarts/index'
 import { GlobalThemeJsonType } from '@/settings/chartThemes/index'
 import { GlobalSetting } from '@/components/Pages/ChartItemSetting'
 import {  ref } from 'vue'
@@ -190,5 +192,7 @@ const seriesList = computed(() => {
 const mapRegion = computed(() => {
   return props.optionData.mapRegion
 })
-
+const mapGeo = computed(() => {
+  return props.optionData.geo
+})
 </script>
