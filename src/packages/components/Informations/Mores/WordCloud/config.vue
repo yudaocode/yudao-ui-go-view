@@ -1,5 +1,3 @@
-<!-- eslint-disable vue/multi-word-component-names -->
-<!-- eslint-disable vue/no-mutating-props -->
 <template>
   <collapse-item name="词云" expanded>
     <setting-item-box name="形状">
@@ -70,17 +68,13 @@ const sliderFormatTooltip = (v: number) => {
 }
 
 const updateWidth = (value: number) => {
-  // eslint-disable-next-line vue/no-mutating-props
   props.optionData.series[0].width = `${value}%`
 }
 const updateHeight = (value: number) => {
-  // eslint-disable-next-line vue/no-mutating-props
   props.optionData.series[0].height = `${value}%`
 }
 const updateRotation = (value: number) => {
-  // eslint-disable-next-line vue/no-mutating-props
   props.optionData.series[0].rotationStep = value
-  // eslint-disable-next-line vue/no-mutating-props
   props.optionData.series[0].rotationRange = value === 0 ? [0, 0] : [-90, 90]
 }
 </script>

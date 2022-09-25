@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <v-chart
     ref="vChartRef"
@@ -49,7 +48,6 @@ const option = computed(() => {
 })
 
 const dataSetHandle = (dataset: typeof dataJson) => {
-  // eslint-disable-next-line vue/no-mutating-props
   dataset && (props.chartConfig.option.series[0].data = dataset)
 
   vChartRef.value && isPreview() && vChartRef.value.setOption(props.chartConfig.option)
