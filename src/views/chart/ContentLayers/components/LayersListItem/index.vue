@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="go-content-layers-list-item"
-    :class="{ hover: hover, select: select }"
-  >
+  <div class="go-content-layers-list-item" :class="{ hover: hover, select: select }">
     <div class="go-flex-center item-content">
       <n-image
         class="list-img"
@@ -10,7 +7,7 @@
         preview-disabled
         :src="image"
         :fallback-src="requireErrorImg()"
-     ></n-image>
+      ></n-image>
       <n-ellipsis>
         <n-text class="list-text" :depth="2">
           {{ props.componentData.chartConfig.title }}
@@ -43,6 +40,7 @@ const props = defineProps({
   }
 })
 
+// eslint-disable-next-line vue/no-setup-props-destructure
 const { image } = props.componentData.chartConfig
 
 // 计算当前选中目标
@@ -80,7 +78,7 @@ $textSize: 10px;
     /* 需要设置最高级，覆盖 hover 的颜色 */
     background-color: rgba(0, 0, 0, 0);
     .list-img {
-      border:1px solid v-bind('themeColor')!important;
+      border: 1px solid v-bind('themeColor') !important;
     }
   }
   .select-modal,
