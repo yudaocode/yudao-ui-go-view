@@ -206,5 +206,44 @@ export default {
     status: 200,
     msg: '请求成功',
     data: mapJson
+  },
+  // 词云
+  fetchWordCloud: {
+    code: 0,
+    status: 200,
+    msg: '请求成功',
+    data: [
+      {
+        name: '@name',
+        value: 8000,
+        textStyle: {
+          color: '#78fbb2'
+        },
+        emphasis: {
+          textStyle: {
+            color: 'red'
+          }
+        }
+      },
+      { name: '@name', value: '@integer(10, 8000)' },
+      { name: '@name', value: '@integer(10, 8000)' },
+      { name: '@name', value: '@integer(10, 8000)' },
+      { name: '@name', value: '@integer(10, 8000)' },
+      { name: '@name', value: '@integer(10, 8000)' },
+      { name: '@name', value: '@integer(10, 8000)' },
+      { name: '@name', value: '@integer(10, 8000)' },
+      { name: '@name', value: '@integer(10, 8000)' },
+      { name: '@name', value: '@integer(10, 8000)' },
+      { name: '@name', value: '@integer(10, 8000)' },
+      { name: '@name', value: '@integer(10, 8000)' },
+      { name: '@name', value: '@integer(10, 8000)' },
+      { name: '@name', value: '@integer(10, 8000)' },
+      { name: '@name', value: '@integer(10, 8000)' },
+      { name: '@name', value: '@integer(10, 8000)' },
+      { name: '@name', value: '@integer(10, 8000)' },
+      { name: '@name', value: '@integer(10, 8000)' },
+      { name: '@name', value: '@integer(10, 8000)' },
+      { name: '@name', value: '@integer(10, 8000)' }
+    ]
   }
 }
