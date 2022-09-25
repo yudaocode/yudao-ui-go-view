@@ -76,17 +76,15 @@ const mockObject: MockMethod[] = [
     response: () => test.fetchScatterBasic
   },
   {
-<<<<<<< HEAD
     url: mapUrl,
     method: RequestHttpEnum.GET,
     response: () => test.fetchMap
   },
-=======
+  {
     url: wordCloudUrl,
     method: RequestHttpEnum.GET,
     response: () => test.fetchWordCloud
   }
->>>>>>> dev-wordcloud
 ]
 
 export default mockObject
