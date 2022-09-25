@@ -2,7 +2,7 @@ import { ConfigType, PackagesCategoryEnum, ChartFrameEnum } from '@/packages/ind
 import image from '@/assets/images/chart/charts/map.png'
 import { ChatCategoryEnum, ChatCategoryEnumName } from '../../index.d'
 
-export const MapConfig: ConfigType = {
+export const MapBaseConfig: ConfigType = {
     key: 'MapBase',
     chartKey: 'VMapBase',
     conKey: 'VCMapBase',

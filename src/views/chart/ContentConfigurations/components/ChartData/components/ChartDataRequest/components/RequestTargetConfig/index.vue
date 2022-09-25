@@ -73,8 +73,8 @@ import {
   imageUrl,
   radarUrl,
   heatMapUrl,
-  scatterBasicUrl
-  
+  scatterBasicUrl,
+  mapUrl
 } from '@/api/mock'
 
 const { HelpOutlineIcon } = icon.ionicons5
@@ -115,6 +115,9 @@ const apiList = [
   },
   {
     value: `【基础散点图】${scatterBasicUrl}`
+  },
+  {
+    value: `【地图数据】${mapUrl}`
   },
 ]
 </script>

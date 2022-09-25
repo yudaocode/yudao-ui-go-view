@@ -14,6 +14,7 @@ export const scrollBoardUrl = '/mock/scrollBoard'
 export const radarUrl = '/mock/radarData'
 export const heatMapUrl = '/mock/heatMapData'
 export const scatterBasicUrl = '/mock/scatterBasic'
+export const mapUrl = '/mock/map'
 
 const mockObject: MockMethod[] = [
   {
@@ -72,6 +73,11 @@ const mockObject: MockMethod[] = [
     url: scatterBasicUrl,
     method: RequestHttpEnum.GET,
     response: () => test.fetchScatterBasic
+  },
+  {
+    url: mapUrl,
+    method: RequestHttpEnum.GET,
+    response: () => test.fetchMap
   },
 ]
 

@@ -1,5 +1,5 @@
 import { echartOptionProfixHandle, PublicConfigClass } from '@/packages/public'
-import { MapConfig } from './index'
+import { MapBaseConfig } from './index'
 import { chartInitConfig } from '@/settings/designSetting'
 import { CreateComponentType } from '@/packages/index.d'
 import dataJson from './data.json'
@@ -10,7 +10,7 @@ export const option = {
   dataset: dataJson,
   mapRegion: {
     adcode: 'china',
-    showHainanIsLands:true
+    showHainanIsLands: true
   },
   tooltip: {
     show: true,
@@ -18,170 +18,135 @@ export const option = {
   },
   visualMap: {
     show: true,
+    orient: 'vertical',
     pieces: [
-      { gte: 1000, label: "1000个以上" }, // 不指定 max，表示 max 为无限大（Infinity）。
-      { gte: 600, lte: 999, label: "600-999个" },
-      { gte: 200, lte: 599, label: "200-599个" },
-      { gte: 50, lte: 199, label: "49-199个" },
-      { gte: 10, lte: 49, label: "10-49个" },
-      { lte: 9, label: "1-9个" }, // 不指定 min，表示 min 为无限大（-Infinity）。
+      { gte: 1000, label: '>1000' }, // 不指定 max，表示 max 为无限大（Infinity）。
+      { gte: 600, lte: 999, label: '600-999' },
+      { gte: 200, lte: 599, label: '200-599' },
+      { gte: 50, lte: 199, label: '49-199' },
+      { gte: 10, lte: 49, label: '10-49' },
+      { lte: 9, label: '<9' } // 不指定 min，表示 min 为无限大（-Infinity）。
     ],
     inRange: {
       // 渐变颜色，从小到大
-      color: [
-        "#c3d7df",
-        "#5cb3cc",
-        "#8abcd1",
-        "#66a9c9",
-        "#2f90b9",
-        "#1781b5",
-      ],
+      color: ['#c3d7df', '#5cb3cc', '#8abcd1', '#66a9c9', '#2f90b9', '#1781b5']
     },
     textStyle: {
-      color: "#fff",
-    },
+      color: '#fff'
+    }
   },
   geo: {
-    show:false,
+    show: false,
     type: 'map',
     roam: false,
-    map: "china",
+    map: 'china',
     selectedMode: false, //是否允许选中多个区域
-    // aspectScale: 1,
-    zoom: 1,
+    zoom: 1
   },
   series: [
     {
       name: '',
-      type: "effectScatter",
-      coordinateSystem: "geo",
+      type: 'effectScatter',
+      coordinateSystem: 'geo',
       symbolSize: 4,
       legendHoverLink: true,
-      showEffectOn: "render",
+      showEffectOn: 'render',
       rippleEffect: {
         scale: 6,
-        color: "#FFFFFF",
-        brushType: "fill",
+        color: '#FFFFFF',
+        brushType: 'fill'
       },
       tooltip: {
         show: true,
-        // formatter: function (params:any) {
-        //   console.log(params);
-        //   if (params.data) {
-        //     return params.name + "：" + params.data["value"][2];
-        //   } 
-        // },
-        // formatter:"{a}: {b}<br />{c}: {d}",
-        backgroundColor: "rgba(0,0,0,.6)",
-        borderColor: "rgba(147, 235, 248, .8)",
+        backgroundColor: 'rgba(0,0,0,.6)',
+        borderColor: 'rgba(147, 235, 248, .8)',
         textStyle: {
-          color: "#FFF",
-        },
+          color: '#FFF'
+        }
       },
       label: {
-        // formatter: (param: any) => {
-        //   return param.name.slice(0, 2);
-        // },
         formatter: '{b}',
-        // formatter: '{a}: {b}<br />{c}: {d}{e}',
         fontSize: 11,
         offset: [0, 2],
-        position: "bottom",
-        textBorderColor: "#fff",
-        textShadowColor: "#000",
+        position: 'bottom',
+        textBorderColor: '#fff',
+        textShadowColor: '#000',
         textShadowBlur: 10,
         textBorderWidth: 0,
-        color: "#FFF",
-        show: true,
+        color: '#FFF',
+        show: true
       },
-      // colorBy: "data",
       itemStyle: {
-        color: "#FFFFFF",
-        borderColor: "rgba(225,255,255,2)",
+        color: '#FFFFFF',
+        borderColor: 'rgba(225,255,255,2)',
         borderWidth: 4,
-        shadowColor: "#E1FFFF",
-        shadowBlur: 10,
+        shadowColor: '#E1FFFF',
+        shadowBlur: 10
       },
       data: []
     },
     {
       name: '区域',
-      type: "map",
-      map: "china",
-      // aspectScale: 1,
+      type: 'map',
+      map: 'china',
       data: [],
-      selectedMode: false, //是否允许选中多个区域
+      selectedMode: false,
       zoom: 1,
       geoIndex: 1,
       tooltip: {
         show: true,
-        backgroundColor: "rgba(0,0,0,.6)",
-        borderColor: "rgba(147, 235, 248, .8)",
+        backgroundColor: 'rgba(0,0,0,.6)',
+        borderColor: 'rgba(147, 235, 248, .8)',
         textStyle: {
-          color: "#FFF",
-        },
+          color: '#FFF'
+        }
       },
       label: {
-        show: false,
-        color: "#fff",
-        // formatter: function (val:any) {
-        //   // console.log(val)
-        //   if (val.data !== undefined) {
-        //     return val.name.slice(0, 2);
-        //   } else {
-        //     return "";
-        //   }
-        // },
-        rich: {},
-        // emphasis: { show: false },
+        show: false
       },
       emphasis: {
-        disabled:false,
+        disabled: false,
         label: {
-          color: "#fffFFF",
+          color: '#fffFFF'
         },
-        itemStyle:{
-          areaColor: "#389BB7",
-          shadowColor:"#389BB7",
-          borderWidth: 1,
+        itemStyle: {
+          areaColor: '#389BB7',
+          shadowColor: '#389BB7',
+          borderWidth: 1
         }
       },
       itemStyle: {
-        // borderColor: "rgba(147, 235, 248, .8)",
         borderColor: '#93EBF8',
         borderWidth: 1,
         areaColor: {
-          type: "radial",
+          type: 'radial',
           x: 0.5,
           y: 0.5,
           r: 0.8,
           colorStops: [
             {
               offset: 0,
-              color: "rgba(147, 235, 248, 0)", // 0% 处的颜色
+              color: 'rgba(147, 235, 248, 0)' // 0% 处的颜色
             },
             {
               offset: 1,
-              color: "rgba(147, 235, 248, .2)", // 100% 处的颜色
-            },
+              color: 'rgba(147, 235, 248, .2)' // 100% 处的颜色
+            }
           ],
-          globalCoord: false, 
+          globalCoord: false
         },
-        shadowColor: "#80D9F842",
+        shadowColor: '#80D9F842',
         shadowOffsetX: -2,
         shadowOffsetY: 2,
-        shadowBlur: 10,
-      
-      },
-     
+        shadowBlur: 10
+      }
     }
   ]
 }
 export const MapDefaultConfig = { ...option }
 export default class Config extends PublicConfigClass implements CreateComponentType {
-  public key: string = MapConfig.key
+  public key: string = MapBaseConfig.key
   public attr = { ...chartInitConfig, w: 750, h: 800, zIndex: -1 }
-  public chartConfig = MapConfig
+  public chartConfig = MapBaseConfig
   public option = echartOptionProfixHandle(option, includes)
 }
-

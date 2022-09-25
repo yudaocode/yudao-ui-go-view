@@ -1,5 +1,6 @@
 import heatmapJson from './heatMapData.json'
 import scatterJson from './scatter.json'
+import mapJson from './map.json'
 
 export default {
   // 单图表
@@ -198,5 +199,12 @@ export default {
     status: 200,
     msg: '请求成功',
     data: scatterJson
+  },
+  // 中国地图
+  fetchMap: {
+    code: 0,
+    status: 200,
+    msg: '请求成功',
+    data: mapJson
   }
 }
