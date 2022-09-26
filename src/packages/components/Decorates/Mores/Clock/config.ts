@@ -6,7 +6,7 @@ import cloneDeep from 'lodash/cloneDeep'
 export const option = {
   border: 6,
   color: '#ffffff',
-  bgColor: '#20b7af',
+  bgColor: '#84a5e9',
   borderColor: '#ffffff'
 }
 

@@ -1,5 +1,5 @@
 import image from '@/assets/images/chart/decorates/decorates06.png'
-import { ConfigType, PackagesCategoryEnum } from '@/packages/index.d'
+import { ConfigType, PackagesCategoryEnum, ChartFrameEnum } from '@/packages/index.d'
 import { ChatCategoryEnum, ChatCategoryEnumName } from '../../index.d'
 
 export const Decorates06Config: ConfigType = {
@@ -10,5 +10,6 @@ export const Decorates06Config: ConfigType = {
   category: ChatCategoryEnum.DECORATE,
   categoryName: ChatCategoryEnumName.DECORATE,
   package: PackagesCategoryEnum.DECORATES,
+  chartFrame: ChartFrameEnum.COMMON,
   image
 }
