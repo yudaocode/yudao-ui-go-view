@@ -1,39 +1,45 @@
 <template>
-  <v-chart ref="vChartRef" :theme="themeColor" :option="option" :manual-update="isPreview()" autoresize></v-chart>
+  <v-chart
+    ref="vChartRef"
+    :theme="themeColor"
+    :option="option"
+    :manual-update="isPreview()"
+    autoresize
+  ></v-chart>
 </template>
 
 <script setup lang="ts">
-import { computed, PropType } from 'vue'
-import VChart from 'vue-echarts'
-import { use } from 'echarts/core'
-import { CanvasRenderer } from 'echarts/renderers'
-import { PieChart } from 'echarts/charts'
-import { mergeTheme } from '@/packages/public/chart'
-import config, { includes } from './config'
-import { useChartDataFetch } from '@/hooks'
-import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { isPreview } from '@/utils'
+import { computed, PropType, reactive, watch } from "vue";
+import VChart from "vue-echarts";
+import { use } from "echarts/core";
+import { CanvasRenderer } from "echarts/renderers";
+import { PieChart } from "echarts/charts";
+import { mergeTheme } from "@/packages/public/chart";
+import config, { includes } from "./config";
+import { useChartDataFetch } from "@/hooks";
+import { useChartEditStore } from "@/store/modules/chartEditStore/chartEditStore";
+import { isPreview } from "@/utils";
 import {
   DatasetComponent,
   GridComponent,
   TooltipComponent,
   LegendComponent,
-} from 'echarts/components'
+} from "echarts/components";
 
 const props = defineProps({
   themeSetting: {
     type: Object,
-    required: true
+    required: true,
   },
   themeColor: {
     type: Object,
-    required: true
+    required: true,
   },
   chartConfig: {
     type: Object as PropType<config>,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
 use([
   DatasetComponent,
@@ -42,12 +48,28 @@ use([
   GridComponent,
   TooltipComponent,
   LegendComponent,
-])
-
+]);
 
 const option = computed(() => {
   return mergeTheme(props.chartConfig.option, props.themeSetting, includes)
 })
 
-const { vChartRef } = useChartDataFetch(props.chartConfig, useChartEditStore)
+watch(
+  () => props.chartConfig.option.type,
+  (newData) => {
+    if (newData === "nomal") {
+      props.chartConfig.option.series[0].radius = "70%";
+      props.chartConfig.option.series[0].roseType = false;
+    } else if (newData === "ring") {
+      props.chartConfig.option.series[0].radius = ["40%", "65%"];
+      props.chartConfig.option.series[0].roseType = false;
+    } else {
+      props.chartConfig.option.series[0].radius = "70%";
+      props.chartConfig.option.series[0].roseType = true;
+    }
+  },
+  { deep: true, immediate: true }
+);
+
+const { vChartRef } = useChartDataFetch(props.chartConfig, useChartEditStore);
 </script>
