@@ -1,6 +1,7 @@
 import heatmapJson from './heatMapData.json'
 import scatterJson from './scatter.json'
 import mapJson from './map.json'
+import tTreemapJson from './treemap.json'
 
 export default {
   // 单图表
@@ -245,5 +246,12 @@ export default {
       { name: '@name', value: '@integer(10, 8000)' },
       { name: '@name', value: '@integer(10, 8000)' }
     ]
-  }
+  },
+  // 树图
+  fetchTreemap: {
+    code: 0,
+    status: 200,
+    msg: '请求成功',
+    data: tTreemapJson
+  },
 }

@@ -16,6 +16,7 @@ export const heatMapUrl = '/mock/heatMapData'
 export const scatterBasicUrl = '/mock/scatterBasic'
 export const mapUrl = '/mock/map'
 export const wordCloudUrl = '/mock/wordCloud'
+export const treemapUrl = '/mock/treemap'
 
 const mockObject: MockMethod[] = [
   {
@@ -84,7 +85,12 @@ const mockObject: MockMethod[] = [
     url: wordCloudUrl,
     method: RequestHttpEnum.GET,
     response: () => test.fetchWordCloud
-  }
+  },
+  {
+    url: treemapUrl,
+    method: RequestHttpEnum.GET,
+    response: () => test.fetchTreemap
+  },
 ]
 
 export default mockObject
