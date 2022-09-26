@@ -21,7 +21,7 @@ import { mergeTheme } from '@/packages/public/chart'
 import { useChartDataFetch } from '@/hooks'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { isPreview } from '@/utils'
-import { DatasetComponent, GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
+import { GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
 import dataJson from './data.json'
 
 const props = defineProps({
@@ -39,7 +39,7 @@ const props = defineProps({
   }
 })
 
-use([DatasetComponent, CanvasRenderer, BarChart, GridComponent, TooltipComponent, LegendComponent])
+use([CanvasRenderer, BarChart, GridComponent, TooltipComponent, LegendComponent])
 
 const replaceMergeArr = ref<string[]>()
 

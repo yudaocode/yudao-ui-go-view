@@ -70,9 +70,11 @@ const sliderFormatTooltip = (v: number) => {
 const updateWidth = (value: number) => {
   props.optionData.series[0].width = `${value}%`
 }
+
 const updateHeight = (value: number) => {
   props.optionData.series[0].height = `${value}%`
 }
+
 const updateRotation = (value: number) => {
   props.optionData.series[0].rotationStep = value
   props.optionData.series[0].rotationRange = value === 0 ? [0, 0] : [-90, 90]
