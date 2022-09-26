@@ -60,7 +60,6 @@ watch(
 <style lang="scss" scoped>
 @include go('video') {
   display: block;
-  mix-blend-mode: screen;
   object-fit: v-bind('option.fit');
   border-radius: v-bind('option.borderRadius');
 }

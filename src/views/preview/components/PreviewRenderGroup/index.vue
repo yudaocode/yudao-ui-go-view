@@ -49,6 +49,5 @@ const props = defineProps({
 <style lang="scss" scoped>
 .chart-item {
   position: absolute;
-  mix-blend-mode: screen;
 }
 </style>

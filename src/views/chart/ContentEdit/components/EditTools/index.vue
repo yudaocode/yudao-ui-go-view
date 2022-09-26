@@ -163,7 +163,6 @@ $asideBottom: 70px;
   align-items: center;
   border-radius: 25px;
   border: 1px solid;
-  mix-blend-mode: luminosity;
   @include fetch-border-color('hover-border-color-shallow');
   &.aside {
     flex-direction: column-reverse;
@@ -248,14 +247,12 @@ $asideBottom: 70px;
           height: 0;
           padding: 5px;
           bottom: $dockMiniBottom;
-          mix-blend-mode: screen;
         }
         100% {
           height: $dockHeight;
           padding: 8px 30px;
           bottom: $dockBottom;
           border-radius: 25px;
-          mix-blend-mode: none;
         }
       }
     }
@@ -268,7 +265,6 @@ $asideBottom: 70px;
       border-radius: 8px;
       cursor: pointer;
       border: 0px;
-      mix-blend-mode: screen;
       animation: dock-mini-in 1s ease forwards;
       @keyframes dock-mini-in {
         0% {
@@ -291,7 +287,6 @@ $asideBottom: 70px;
           height: 0;
           padding: 5px;
           bottom: $dockMiniBottom;
-          mix-blend-mode: screen;
         }
       }
       .btn-item {

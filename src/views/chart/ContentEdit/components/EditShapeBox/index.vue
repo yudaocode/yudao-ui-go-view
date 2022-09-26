@@ -70,9 +70,6 @@ const select = computed(() => {
   position: absolute;
   cursor: move;
 
-  // 混合模式
-  mix-blend-mode: screen;
-
   /* 锚点 */
   .shape-point {
     z-index: 1;

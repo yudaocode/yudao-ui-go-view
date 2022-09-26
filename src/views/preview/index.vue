@@ -42,7 +42,7 @@ const localStorageInfo: ChartEditStorageType = getSessionStorageInfo() as ChartE
 const previewRefStyle = computed(() => {
   return {
     ...getEditCanvasConfigStyle(localStorageInfo.editCanvasConfig),
-    ...getFilterStyle(localStorageInfo.editCanvasConfig.filterShow ? localStorageInfo.editCanvasConfig : undefined)
+    ...getFilterStyle(localStorageInfo.editCanvasConfig)
   }
 })
 

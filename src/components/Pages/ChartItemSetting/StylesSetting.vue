@@ -6,7 +6,7 @@
 
   <collapse-item :name="isCanvas ? '滤镜' : '滤镜 / 变换'">
     <template #header>
-      <n-switch v-if="isCanvas" v-model:value="chartStyles.filterShow" size="small"></n-switch>
+      <n-switch v-model:value="chartStyles.filterShow" size="small"></n-switch>
     </template>
     <setting-item-box name="色相" :alone="true">
       <setting-item :name="`值：${chartStyles.hueRotate}deg`">
@@ -126,7 +126,7 @@
     </setting-item-box>
 
     <!-- 提示 -->
-    <n-tag v-show="isCanvas" type="warning"> 若预览时大屏模糊，可以尝试关闭滤镜进行修复 </n-tag>
+    <n-tag type="warning"> 若预览时大屏模糊，可以尝试关闭滤镜进行修复 </n-tag>
   </collapse-item>
 </template>
 
