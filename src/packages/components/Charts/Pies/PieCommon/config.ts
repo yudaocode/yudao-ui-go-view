@@ -24,7 +24,7 @@ const option = {
     trigger: 'item'
   },
   legend: {
-    show: true,
+    show: true
   },
   dataset: { ...dataJson },
   series: [
