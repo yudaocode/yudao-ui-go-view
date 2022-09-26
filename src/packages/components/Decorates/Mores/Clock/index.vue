@@ -68,34 +68,21 @@
 <script setup lang="ts">
 import { PropType, toRefs } from 'vue'
 import { CreateComponentType } from '@/packages/index.d'
+import { option } from './config'
 
 const props = defineProps({
   chartConfig: {
-    type: Object as PropType<CreateComponentType>,
+    type: Object as PropType<CreateComponentType & typeof option>,
     required: true
   }
 })
 
 let { border, color, bgColor, borderColor } = toRefs(props.chartConfig.option)
 
-// const border = ref(10)
-// const bgColor = ref('#20b7af')
-
 const date = new Date()
 const hoursAngle = (360 * date.getHours()) / 12 + date.getMinutes() / 2
 const minuteAngle = (360 * date.getMinutes()) / 60
 const secAngle = (360 * date.getSeconds()) / 60
-
-// watch(
-//   () => props.chartConfig.option,
-//   () => {
-//     option.dataset = props.chartConfig.option.dataset
-//   },
-//   {
-//     immediate: true,
-//     deep: true
-//   }
-// )
 </script>
 
 <style lang="scss" scoped>
