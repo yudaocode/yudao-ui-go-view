@@ -13,6 +13,16 @@ export const WritingModeObject = {
   [WritingModeEnum.VERTICAL]: 'vertical-rl'
 }
 
+export enum FontWeightEnum {
+  NORMAL = '常规',
+  BOLD = '加粗',
+}
+
+export const FontWeightObject = {
+  [FontWeightEnum.NORMAL]: 'normal',
+  [FontWeightEnum.BOLD]: 'bold',
+}
+
 export const option = {
   link: '',
   linkHead: 'http://',
@@ -22,6 +32,7 @@ export const option = {
   paddingX: 10,
   paddingY: 10,
   textAlign: 'center', // 水平对齐方式
+  fontWeight: 'normal',
 
   // 边框
   borderWidth: 0,
