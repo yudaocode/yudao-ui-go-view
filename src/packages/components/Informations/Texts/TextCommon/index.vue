@@ -1,27 +1,12 @@
 <template>
   <div class="go-text-box">
-    <div
-      :style="`
-      color: ${fontColor};
-      padding: ${paddingY}px ${paddingX}px;
-      font-size: ${fontSize}px;
-      letter-spacing: ${letterSpacing}px;
-      writing-mode: ${writingMode};
-
-      border-style: solid;
-      border-width: ${borderWidth}px;
-      border-radius: ${borderRadius}px;
-      border-color: ${borderColor};
-
-      background-color:${backgroundColor}`"
-    >
-      <n-button v-if="link" @click="click" text>
-        {{ dataset }}
-      </n-button>
+    <div class="content">
+      <span style="cursor: pointer" v-if="link" @click="click">{{ dataset }}</span>
       <span v-else>{{ dataset }}</span>
     </div>
   </div>
 </template>
+
 <script setup lang="ts">
 import { PropType, toRefs, shallowReactive, watch } from 'vue'
 import { CreateComponentType } from '@/packages/index.d'
@@ -31,12 +16,11 @@ import { option as configOption } from './config'
 
 const props = defineProps({
   chartConfig: {
-    type: Object as PropType<CreateComponentType>,
+    type: Object as PropType<CreateComponentType & typeof option>,
     required: true
   }
 })
 
-const { w, h } = toRefs(props.chartConfig.attr)
 const {
   linkHead,
   link,
@@ -46,6 +30,7 @@ const {
   letterSpacing,
   paddingY,
   paddingX,
+  textAlign,
   borderWidth,
   borderColor,
   borderRadius,
@@ -76,7 +61,7 @@ useChartDataFetch(props.chartConfig, useChartEditStore, (newData: string) => {
 
 //打开链接
 const click = () => {
-  window.open(linkHead.value+link.value)
+  window.open(linkHead.value + link.value)
 }
 </script>
 
@@ -84,6 +69,21 @@ const click = () => {
 @include go('text-box') {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: v-bind('textAlign');
+
+  .content {
+    color: v-bind('fontColor');
+    padding: v-bind('`${paddingY}px ${paddingX}px`');
+    font-size: v-bind('fontSize + "px"');
+    letter-spacing: v-bind('letterSpacing + "px"');
+    writing-mode: v-bind('writingMode');
+
+    border-style: solid;
+    border-width: v-bind('borderWidth + "px"');
+    border-radius: v-bind('borderRadius + "px"');
+    border-color: v-bind('borderColor');
+
+    background-color: v-bind('backgroundColor');
+  }
 }
 </style>
