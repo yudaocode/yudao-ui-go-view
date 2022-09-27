@@ -15,13 +15,12 @@ import VChart from 'vue-echarts'
 import 'echarts-wordcloud'
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
-import { BarChart } from 'echarts/charts'
 import config, { includes } from './config'
 import { mergeTheme } from '@/packages/public/chart'
 import { useChartDataFetch } from '@/hooks'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { isPreview } from '@/utils'
-import { GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
+import { GridComponent, TooltipComponent } from 'echarts/components'
 import dataJson from './data.json'
 
 const props = defineProps({
@@ -39,7 +38,7 @@ const props = defineProps({
   }
 })
 
-use([CanvasRenderer, BarChart, GridComponent, TooltipComponent, LegendComponent])
+use([CanvasRenderer, GridComponent, TooltipComponent])
 
 const replaceMergeArr = ref<string[]>()
 

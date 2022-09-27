@@ -15,14 +15,7 @@ import { mergeTheme } from '@/packages/public/chart'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { isPreview } from '@/utils'
 import mapJsonWithoutHainanIsLands from './mapWithoutHainanIsLands.json'
-import {
-  DatasetComponent,
-  GridComponent,
-  TooltipComponent,
-  LegendComponent,
-  GeoComponent,
-  VisualMapComponent
-} from 'echarts/components'
+import { DatasetComponent, GridComponent, TooltipComponent, GeoComponent, VisualMapComponent } from 'echarts/components'
 
 const props = defineProps({
   themeSetting: {
@@ -45,7 +38,6 @@ use([
   CanvasRenderer,
   GridComponent,
   TooltipComponent,
-  LegendComponent,
   GeoComponent,
   EffectScatterChart,
   VisualMapComponent
@@ -58,7 +50,7 @@ const vChartRef = ref<typeof VChart>()
 
 //动态获取json注册地图
 const getGeojson = (regionId: string) => {
-  return new Promise<boolean>((resolve) => {
+  return new Promise<boolean>(resolve => {
     import(`./mapGeojson/${regionId}.json`).then(data => {
       registerMap(regionId, { geoJSON: data.default as any, specialAreas: {} })
       resolve(true)
@@ -84,7 +76,7 @@ const vEchartsSetOption = () => {
 }
 
 // 更新数据处理
- const dataSetHandle = async (dataset: any) => {
+const dataSetHandle = async (dataset: any) => {
   props.chartConfig.option.series.forEach((item: any) => {
     if (item.type === 'effectScatter' && dataset.point) item.data = dataset.point
     else if (item.type === 'map' && dataset.map) item.data = dataset.map
