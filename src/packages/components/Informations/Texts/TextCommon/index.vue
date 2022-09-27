@@ -34,7 +34,8 @@ const {
   borderColor,
   borderRadius,
   writingMode,
-  backgroundColor
+  backgroundColor,
+  fontWeight
 } = toRefs(props.chartConfig.option)
 
 const option = shallowReactive({
@@ -76,12 +77,12 @@ const click = () => {
     font-size: v-bind('fontSize + "px"');
     letter-spacing: v-bind('letterSpacing + "px"');
     writing-mode: v-bind('writingMode');
-
+    font-weight: v-bind('fontWeight');
     border-style: solid;
     border-width: v-bind('borderWidth + "px"');
     border-radius: v-bind('borderRadius + "px"');
     border-color: v-bind('borderColor');
-
+    
     background-color: v-bind('backgroundColor');
   }
 }
