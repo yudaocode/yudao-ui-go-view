@@ -89,7 +89,9 @@ export const useChartDataFetch = (
         if (time) fetchInterval = setInterval(fetchFn, intervalUnitHandle(time, unit))
       }
       // eslint-disable-next-line no-empty
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   isPreview() && requestIntervalFn()
