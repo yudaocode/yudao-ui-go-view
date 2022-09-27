@@ -32,10 +32,12 @@ import { RequestContentTypeEnum } from '@/enums/httpEnum'
 import { useTargetData } from '../../../hooks/useTargetData.hook'
 import { RequestGlobalConfig } from './components/RequestGlobalConfig'
 import { RequestTargetConfig } from './components/RequestTargetConfig'
+import { useSync } from '@/views/chart/hooks/useSync.hook'
 
 const emit = defineEmits(['update:modelShow', 'sendHandle'])
 
 const { targetData } = useTargetData()
+const { dataSyncUpdate } = useSync()
 // 解构基础配置
 const { chartConfig } = toRefs(targetData.value)
 const { requestContentType } = toRefs(targetData.value.request)
@@ -51,6 +53,7 @@ defineProps({
 const closeHandle = () => {
   emit('update:modelShow', false)
   emit('sendHandle')
+  dataSyncUpdate()
 }
 </script>
 
