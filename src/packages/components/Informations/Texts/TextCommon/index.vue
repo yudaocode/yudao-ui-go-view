@@ -1,8 +1,8 @@
 <template>
   <div class="go-text-box">
     <div class="content">
-      <span style="cursor: pointer" v-show="link" @click="click">{{ option.dataset }}</span>
-      <span v-show="!link">{{ option.dataset }}</span>
+      <span style="cursor: pointer" v-if="link" @click="click">{{ option.dataset }}</span>
+      <span v-else>{{ option.dataset }}</span>
     </div>
   </div>
 </template>
