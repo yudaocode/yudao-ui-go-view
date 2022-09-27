@@ -1,5 +1,5 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
-import { ResultEnum, RequestHttpHeaderEnum } from "@/enums/httpEnum"
+import { ResultEnum } from "@/enums/httpEnum"
 import { PageEnum, ErrorPageNameMap } from "@/enums/pageEnum"
 import { StorageEnum } from '@/enums/storageEnum'
 import { axiosPre } from '@/settings/httpSetting'
@@ -27,7 +27,7 @@ axiosInstance.interceptors.request.use(
     const userInfo = info[SystemStoreEnum.USER_INFO]
     config.headers = {
       ...config.headers,
-      [userInfo[SystemStoreUserInfoEnum.TOKEN_NAME]]: userInfo[SystemStoreUserInfoEnum.USER_TOKEN] || ''
+      [userInfo[SystemStoreUserInfoEnum.TOKEN_NAME] || 'token']: userInfo[SystemStoreUserInfoEnum.USER_TOKEN] || ''
     }
     return config
   },
