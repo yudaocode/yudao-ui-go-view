@@ -57,7 +57,10 @@ import {
   ChevronDownOutline as ChevronDownOutlineIcon,
   Pulse as PulseIcon,
   Folder as FolderIcon,
-  FolderOpen as FolderOpenIcon
+  FolderOpen as FolderOpenIcon,
+  Image as ImageIcon,
+  Images as ImagesIcon,
+  List as ListIcon
 } from '@vicons/ionicons5'
 
 import {
@@ -211,7 +214,13 @@ const ionicons5 = {
   // 文件夹
   FolderIcon,
   // 文件夹打开
-  FolderOpenIcon
+  FolderOpenIcon,
+  // 图片
+  ImageIcon,
+  // 多个图片
+  ImagesIcon,
+  // 列表
+  ListIcon
 }
 
 const carbon = {

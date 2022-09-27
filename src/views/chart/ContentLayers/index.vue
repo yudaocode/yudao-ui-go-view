@@ -8,14 +8,41 @@
     @mousedown="boxMousedownHandle($event)"
   >
     <template #icon>
-      <n-icon size="16" :depth="2">
-        <component :is="LayersIcon"></component>
-      </n-icon>
+      <n-icon size="16" :depth="2" :component="LayersIcon" />
     </template>
+
+    <template #top-right>
+      <n-radio-group v-model:value="layerMode" name="radiobuttongroup1" size="small" class="go-flex-center">
+        <n-radio-button value="thumbnail">
+          <n-icon size="16" class="go-d-block" title="缩略图" :depth="2" :component="ImageIcon" />
+        </n-radio-button>
+        <n-radio-button value="text">
+          <n-icon size="16" class="go-d-block" title="文字列表" :depth="2" :component="ListIcon" />
+        </n-radio-button>
+      </n-radio-group>
+      <!-- <n-icon
+        size="16"
+        class="go-cursor-pointer go-d-block"
+        title="缩略图"
+        :depth="2"
+        :component="ImageIcon"
+        :class="{ 'go-layer-mode-active': layerMode === 'thumbnail' }"
+      />
+      <n-icon
+        size="16"
+        class="go-cursor-pointer go-d-block"
+        title="文字列表"
+        :depth="2"
+        :component="ListIcon"
+        :class="{ 'go-layer-mode-active': layerMode === 'text' }"
+      /> -->
+    </template>
+
     <!-- 图层内容 -->
     <n-space v-if="reverseList.length === 0" justify="center">
       <n-text class="not-layer-text">暂无图层~</n-text>
     </n-space>
+
     <!-- https://github.com/SortableJS/vue.draggable.next -->
     <draggable item-key="id" v-model="layerList" ghostClass="ghost" @change="onMoveCallback">
       <template #item="{ element }">
@@ -55,12 +82,13 @@ import { LayersGroupListItem } from './components/LayersGroupListItem/index'
 
 import { icon } from '@/plugins'
 
-const { LayersIcon } = icon.ionicons5
+const { LayersIcon, ImageIcon, ListIcon } = icon.ionicons5
 const chartLayoutStore = useChartLayoutStore()
 const chartEditStore = useChartEditStore()
 const { handleContextMenu, onClickOutSide } = useContextMenu()
 
 const layerList = ref<any>([])
+const layerMode = ref<'thumbnail' | 'text'>('thumbnail')
 
 // 逆序展示
 const reverseList = computed(() => {
@@ -159,7 +187,7 @@ const mouseleaveHandle = (item: CreateComponentType) => {
 </script>
 
 <style lang="scss" scoped>
-$wight: 170px;
+$wight: 180px;
 @include go(content-layers) {
   width: $wight;
   flex-shrink: 0;
@@ -176,6 +204,9 @@ $wight: 170px;
   }
   .ghost {
     opacity: 0;
+  }
+  .go-layer-mode-active {
+    color: #51d6a9;
   }
 }
 </style>

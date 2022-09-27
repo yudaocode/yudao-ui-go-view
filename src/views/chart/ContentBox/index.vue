@@ -10,14 +10,9 @@
           <slot name="icon"></slot>
         </div>
       </n-space>
-      <n-space>
+      <n-space align="center" style="gap: 4px">
         <slot name="top-right"></slot>
-        <n-icon
-          v-show="backIcon"
-          size="20"
-          class="go-cursor-pointer"
-          @click="backHandle"
-        >
+        <n-icon v-show="backIcon" size="20" class="go-cursor-pointer go-d-block" @click="backHandle">
           <chevron-back-outline-icon></chevron-back-outline-icon>
         </n-icon>
       </n-space>
@@ -151,7 +146,7 @@ $topOrBottomHeight: 40px;
     border-bottom: 1px solid;
     @include fetch-border-color('background-color1');
   }
-  
+
   .content {
     height: calc(100vh - #{$--header-height});
     overflow: hidden;
@@ -165,9 +160,7 @@ $topOrBottomHeight: 40px;
     height: calc(100vh - #{$--header-height} - #{$topOrBottomHeight});
   }
   .content-height-show-both {
-    height: calc(
-      100vh - #{$--header-height} - #{$topOrBottomHeight} - #{$topOrBottomHeight}
-    );
+    height: calc(100vh - #{$--header-height} - #{$topOrBottomHeight} - #{$topOrBottomHeight});
   }
 }
 </style>
