@@ -230,15 +230,15 @@
       </setting-item>
     </setting-item-box>
 
-    <setting-item-box name="视觉映射">
+    <setting-item-box name="控制块">
       <setting-item name="放置方向">
         <n-select v-model:value="visualMap.orient" size="small" :options="axisConfig.visualMap.orient"></n-select>
       </setting-item>
       <setting-item name="宽度">
-        <n-input-number v-model:value="visualMap.temWidth" size="small"></n-input-number>
+        <n-input-number v-model:value="visualMap.itemWidth" :min="5" size="small"></n-input-number>
       </setting-item>
       <setting-item name="高度">
-        <n-input-number v-model:value="visualMap.itemHeight" size="small"></n-input-number>
+        <n-input-number v-model:value="visualMap.itemHeight" :min="5" size="small"></n-input-number>
       </setting-item>
       <setting-item name="反转">
         <n-space>
@@ -252,14 +252,6 @@
       </setting-item>
     </setting-item-box>
     <global-setting-position :targetData="visualMap"></global-setting-position>
-    <!-- <setting-item-box name="位置">
-      <setting-item name="距离底部">
-        <n-input-number v-model:value="visualMap.bottom" size="small"></n-input-number>
-      </setting-item>
-      <setting-item name="距离左侧">
-        <n-input-number v-model:value="visualMap.left" size="small"></n-input-number>
-      </setting-item>
-    </setting-item-box> -->
   </collapse-item>
 </template>
 

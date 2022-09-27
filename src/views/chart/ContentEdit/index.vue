@@ -19,7 +19,7 @@
         <!-- 滤镜预览 -->
         <div
           :style="{
-            ...getFilterStyle(filterShow ? chartEditStore.getEditCanvasConfig : undefined),
+            ...getFilterStyle(chartEditStore.getEditCanvasConfig),
             ...rangeStyle
           }"
         >
@@ -54,7 +54,7 @@
                 :themeColor="themeColor"
                 :style="{
                   ...useSizeStyle(item.attr),
-                  ...getFilterStyle(filterShow ? item.styles : undefined),
+                  ...getFilterStyle(item.styles),
                   ...getTransformStyle(item.styles)
                 }"
               ></component>

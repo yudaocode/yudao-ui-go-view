@@ -5,13 +5,26 @@ import dataJson from './data.json'
 
 export const includes = ['legend']
 
+export enum PieTypeEnum {
+  NORMAL = '常规图',
+  RING = '环形图',
+  ROSE = '玫瑰图'
+}
+
+export const PieTypeObject = {
+  [PieTypeEnum.NORMAL]: 'nomal',
+  [PieTypeEnum.RING]: 'ring',
+  [PieTypeEnum.ROSE]: 'rose'
+}
+
 const option = {
+  type: 'ring',
   tooltip: {
     show: true,
     trigger: 'item'
   },
   legend: {
-    show: true,
+    show: true
   },
   dataset: { ...dataJson },
   series: [
@@ -19,6 +32,7 @@ const option = {
       type: 'pie',
       radius: ['40%', '65%'],
       center: ['50%', '60%'],
+      roseType: false,
       avoidLabelOverlap: false,
       itemStyle: {
         show: true,

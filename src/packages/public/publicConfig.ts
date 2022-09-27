@@ -45,7 +45,7 @@ export class PublicConfigClass implements PublicConfigType {
   // 基本样式
   public styles = {
     // 使用滤镜
-    filterShow: true,
+    filterShow: false,
     // 色相
     hueRotate: 0,
     // 饱和度
@@ -68,6 +68,11 @@ export class PublicConfigClass implements PublicConfigType {
 
     // 动画
     animations: []
+  }
+  // 状态
+  public status = {
+    lock: false,
+    hide: false
   }
   // 请求
   public request = cloneDeep(requestConfig)

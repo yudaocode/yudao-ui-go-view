@@ -83,7 +83,11 @@ export interface PublicConfigType {
     [FilterEnum.SKEW_Y]: number
     // 动画
     animations: string[]
-  }
+  },
+  status: {
+    lock: boolean,
+    hide: boolean,
+  },
   filter?: string
   setPosition: Function
 }

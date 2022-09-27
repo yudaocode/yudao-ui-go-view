@@ -73,8 +73,10 @@ import {
   imageUrl,
   radarUrl,
   heatMapUrl,
-  scatterBasicUrl
-  
+  scatterBasicUrl,
+  mapUrl,
+  wordCloudUrl,
+  treemapUrl
 } from '@/api/mock'
 
 const { HelpOutlineIcon } = icon.ionicons5
@@ -115,6 +117,15 @@ const apiList = [
   },
   {
     value: `【基础散点图】${scatterBasicUrl}`
+  },
+  {
+    value: `【地图数据】${mapUrl}`
+  },
+  {
+    value: `【词云】${wordCloudUrl}`
+  },
+  {
+    value: `【树图】${treemapUrl}`
   },
 ]
 </script>

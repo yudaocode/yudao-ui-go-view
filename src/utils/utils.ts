@@ -112,11 +112,13 @@ export const isMac = () => {
 /**
  * * 挂载监听
  */
+// eslint-disable-next-line no-undef
 export const addEventListener = <K extends keyof WindowEventMap>(
   target: HTMLElement | Document,
   type: K,
   listener: any,
   delay?: number,
+  // eslint-disable-next-line no-undef
   options?: boolean | AddEventListenerOptions | undefined
 ) => {
   if (!target) return
@@ -133,6 +135,7 @@ export const addEventListener = <K extends keyof WindowEventMap>(
 /**
  * * 卸载监听
  */
+// eslint-disable-next-line no-undef
 export const removeEventListener = <K extends keyof WindowEventMap>(
   target: HTMLElement | Document,
   type: K,
@@ -222,12 +225,12 @@ export const intervalUnitHandle = (num: number, unit: RequestHttpIntervalEnum) =
 
 /**
  * * 对象转换 cookie 格式
- * @param obj 
+ * @param obj
  * @returns string
  */
 export const objToCookie = (obj: RequestParamsObjType) => {
-  if(!obj) return ''
-  
+  if (!obj) return ''
+
   let str = ''
   for (const key in obj) {
     str += key + '=' + obj[key] + ';'

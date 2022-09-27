@@ -16,6 +16,7 @@ import { saveProjectApi, fetchProjectApi, uploadFile, updateProjectApi } from '@
 import { SyncEnum } from '@/enums/editPageEnum'
 import { CreateComponentType, CreateComponentGroupType, ConfigType } from '@/packages/index.d'
 import { PublicGroupConfigClass } from '@/packages/public/publicConfig'
+import merge from 'lodash/merge'
 
 // 请求处理
 export const useSync = () => {
@@ -47,7 +48,7 @@ export const useSync = () => {
       }
 
       if (e.isGroup) {
-        ;(e as CreateComponentGroupType).groupList.forEach(groupItem => {
+        (e as CreateComponentGroupType).groupList.forEach(groupItem => {
           intComponent(groupItem)
         })
       } else {
@@ -68,19 +69,19 @@ export const useSync = () => {
             let newComponent: CreateComponentType = await createComponent(_componentInstance.chartConfig)
             if (callBack) {
               if (changeId) {
-                callBack(Object.assign(newComponent, { ..._componentInstance, id: getUUID() }))
+                callBack(merge(newComponent, { ..._componentInstance, id: getUUID() }))
               } else {
-                callBack(Object.assign(newComponent, _componentInstance))
+                callBack(merge(newComponent, _componentInstance))
               }
             } else {
               if (changeId) {
                 chartEditStore.addComponentList(
-                  Object.assign(newComponent, { ..._componentInstance, id: getUUID() }),
+                  merge(newComponent, { ..._componentInstance, id: getUUID() }),
                   false,
                   true
                 )
               } else {
-                chartEditStore.addComponentList(Object.assign(newComponent, _componentInstance), false, true)
+                chartEditStore.addComponentList(merge(newComponent, _componentInstance), false, true)
               }
             }
           }
@@ -89,9 +90,9 @@ export const useSync = () => {
             // 创建分组
             let groupClass = new PublicGroupConfigClass()
             if (changeId) {
-              groupClass = Object.assign(groupClass, { ...comItem, id: getUUID() })
+              groupClass = merge(groupClass, { ...comItem, id: getUUID() })
             } else {
-              groupClass = Object.assign(groupClass, comItem)
+              groupClass = merge(groupClass, comItem)
             }
 
             // 注册子应用
@@ -112,7 +113,7 @@ export const useSync = () => {
       } else {
         // 非组件(顺便排除脏数据)
         if (key !== 'editCanvasConfig' && key !== 'requestGlobalConfig') return
-        Object.assign(chartEditStore[key], projectData[key])
+        merge(chartEditStore[key], projectData[key])
       }
     }
   }
