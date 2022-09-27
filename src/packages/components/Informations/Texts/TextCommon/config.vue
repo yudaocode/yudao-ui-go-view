@@ -23,12 +23,11 @@
 
   <collapse-item name="样式" :expanded="true">
     <setting-item-box name="文字">
+      <setting-item name="颜色">
+        <n-color-picker size="small" :modes="['hex']" v-model:value="optionData.fontColor"></n-color-picker>
+      </setting-item>
       <setting-item name="字体大小">
         <n-input-number v-model:value="optionData.fontSize" size="small" placeholder="字体大小"></n-input-number>
-      </setting-item>
-
-      <setting-item name="文本方向">
-        <n-select v-model:value="optionData.writingMode" size="small" :options="verticalOptions" />
       </setting-item>
 
       <setting-item name="X轴内边距">
@@ -37,11 +36,16 @@
       <setting-item name="Y轴内边距">
         <n-input-number v-model:value="optionData.paddingY" size="small" placeholder="输入内边距"></n-input-number>
       </setting-item>
+
+      <setting-item name="水平对齐">
+        <n-select v-model:value="optionData.textAlign" size="small" :options="textAlignOptions" />
+      </setting-item>
+      <setting-item name="文本方向">
+        <n-select v-model:value="optionData.writingMode" size="small" :options="verticalOptions" />
+      </setting-item>
+
       <setting-item name="字间距">
         <n-input-number v-model:value="optionData.letterSpacing" size="small" placeholder="输入字间距"></n-input-number>
-      </setting-item>
-      <setting-item name="颜色">
-        <n-color-picker size="small" :modes="['hex']" v-model:value="optionData.fontColor"></n-color-picker>
       </setting-item>
     </setting-item-box>
 
@@ -86,6 +90,12 @@ const props = defineProps({
   }
 })
 
+const textAlignOptions = [
+  { label: '左对齐', value: 'start' },
+  { label: '居中', value: 'center' },
+  { label: '右对齐', value: 'end' }
+]
+
 const verticalOptions = [
   {
     label: WritingModeEnum.HORIZONTAL,
@@ -100,13 +110,7 @@ const handleLinkClick = () => {
   window.open(props.optionData.linkHead + props.optionData.link)
 }
 const linkHeadOptions = [
-  {
-    label: 'http://',
-    value: 'http://'
-  },
-  {
-    label: 'https://',
-    value: 'https://'
-  }
+  { label: 'http://', value: 'http://' },
+  { label: 'https://', value: 'https://' }
 ]
 </script>
