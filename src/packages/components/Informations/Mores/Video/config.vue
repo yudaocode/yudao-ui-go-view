@@ -21,14 +21,6 @@
       <setting-item name="类型">
         <n-select v-model:value="optionData.fit" size="small" :options="fitList"></n-select>
       </setting-item>
-      <setting-item name="圆角">
-        <n-input-number
-          v-model:value="optionData.borderRadius"
-          size="small"
-          :min="0"
-          placeholder="圆角"
-        ></n-input-number>
-      </setting-item>
     </setting-item-box>
   </collapse-item>
 </template>

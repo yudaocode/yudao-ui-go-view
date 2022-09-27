@@ -61,6 +61,5 @@ watch(
 @include go('video') {
   display: block;
   object-fit: v-bind('option.fit');
-  border-radius: v-bind('option.borderRadius');
 }
 </style>
