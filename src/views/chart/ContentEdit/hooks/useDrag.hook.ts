@@ -168,6 +168,7 @@ export const useMouseHandle = () => {
   const mouseClickHandle = (e: MouseEvent, item: CreateComponentType | CreateComponentGroupType) => {
     e.preventDefault()
     e.stopPropagation()
+    if (item.status.lock) return
     // 若此时按下了 CTRL, 表示多选
     if (
       window.$KeyboardActive?.has(WinKeyboard.CTRL_SOURCE_KEY) ||
@@ -187,6 +188,7 @@ export const useMouseHandle = () => {
   const mousedownHandle = (e: MouseEvent, item: CreateComponentType | CreateComponentGroupType) => {
     e.preventDefault()
     e.stopPropagation()
+    if (item.status.lock) return
     onClickOutSide()
     // 按下左键 + CTRL
     if (
