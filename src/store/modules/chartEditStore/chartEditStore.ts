@@ -850,6 +850,12 @@ export const useChartEditStore = defineStore({
           }
           this.updateComponentList(index, targetItem)
           loadingFinish()
+
+          // 取消选择隐藏
+          if (status) {
+            const chartEditStore = useChartEditStore()
+            chartEditStore.setTargetSelectChart(undefined)
+          }
           return
         }
       } catch (value) {
