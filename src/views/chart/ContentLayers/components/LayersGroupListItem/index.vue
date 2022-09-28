@@ -2,7 +2,7 @@
   <div class="go-content-layers-group-list-item">
     <div
       class="root-item-content"
-      :class="{ hover: hover, select: select }"
+      :class="{ hover: hover, select: select, 'list-mini': layerMode === 'text' }"
       @click="clickHandle($event)"
       @mousedown="groupMousedownHandle($event)"
       @mouseenter="mouseenterHandle(componentGroupData)"
@@ -18,11 +18,13 @@
             <folder-icon></folder-icon>
           </template>
         </n-icon>
-        <n-ellipsis>
+        <n-ellipsis style="margin-right: auto">
           <n-text class="go-ml-2 list-text" :depth="2">
             {{ componentGroupData.chartConfig.title }}
           </n-text>
         </n-ellipsis>
+        <n-icon size="12" class="list-status-icon" :component="LockClosedOutlineIcon" />
+        <n-icon size="12" class="list-status-icon" :component="EyeOffOutlineIcon" />
       </div>
       <div :class="{ 'select-modal': select }"></div>
     </div>
@@ -31,6 +33,7 @@
         v-for="element in componentGroupData.groupList"
         :key="element.id"
         :componentData="element"
+        :layer-mode="layerMode"
         @mousedown="mousedownHandle($event, element, componentGroupData.id)"
         @mouseenter="mouseenterHandle(element)"
         @mouseleave="mouseleaveHandle(element)"
@@ -50,13 +53,21 @@ import { useContextMenu, divider } from '@/views/chart/hooks/useContextMenu.hook
 import { MenuOptionsItemType } from '@/views/chart/hooks/useContextMenu.hook.d'
 import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 import { LayersListItem } from '../LayersListItem'
-import throttle from 'lodash/throttle'
 import { icon } from '@/plugins'
+import { LayerModeEnum } from '../../enums'
+
+const { LockClosedOutlineIcon, EyeOffOutlineIcon } = icon.ionicons5
 
 const props = defineProps({
   componentGroupData: {
     type: Object as PropType<CreateComponentGroupType>,
     required: true
+  },
+  layerMode: {
+    type: Object as PropType<LayerModeEnum>,
+    default(): LayerModeEnum {
+      return 'thumbnail'
+    }
   }
 })
 
@@ -148,7 +159,11 @@ const groupMousedownHandle = (e: MouseEvent) => {
 }
 
 // 公共点击事件
-const mousedownHandle = (e: MouseEvent, componentInstance: CreateComponentType | CreateComponentGroupType, id?: string) => {
+const mousedownHandle = (
+  e: MouseEvent,
+  componentInstance: CreateComponentType | CreateComponentGroupType,
+  id?: string
+) => {
   e.preventDefault()
   e.stopPropagation()
 
@@ -169,6 +184,7 @@ const mouseleaveHandle = (componentInstance: CreateComponentType | CreateCompone
 
 <style lang="scss" scoped>
 $centerHeight: 52px;
+$centerMiniHeight: 28px;
 $textSize: 10px;
 
 @include go(content-layers-group-list-item) {
@@ -177,6 +193,11 @@ $textSize: 10px;
   margin: 10px 5%;
   margin-bottom: 5px;
   @extend .go-transition-quick;
+
+  :deep(.go-content-layers-list-item) {
+    margin-right: 0 !important;
+    width: 95% !important;
+  }
 
   .root-item-content {
     height: $centerHeight;
@@ -194,6 +215,17 @@ $textSize: 10px;
       background-color: rgba(0, 0, 0, 0);
       .list-img {
         border: 1px solid v-bind('themeColor') !important;
+      }
+    }
+
+    // mini样式
+    &.list-mini {
+      height: $centerMiniHeight;
+      .item-content {
+        height: calc(#{$centerMiniHeight} - 10px) !important;
+      }
+      .select-modal {
+        height: calc(#{$centerMiniHeight} + 2px) !important;
       }
     }
   }
@@ -219,6 +251,10 @@ $textSize: 10px;
   .list-text {
     padding-left: 6px;
     font-size: $textSize;
+  }
+
+  .list-status-icon {
+    margin-left: 3px;
   }
 }
 </style>

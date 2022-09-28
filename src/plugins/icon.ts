@@ -60,7 +60,9 @@ import {
   FolderOpen as FolderOpenIcon,
   Image as ImageIcon,
   Images as ImagesIcon,
-  List as ListIcon
+  List as ListIcon,
+  EyeOutline as EyeOutlineIcon,
+  EyeOffOutline as EyeOffOutlineIcon
 } from '@vicons/ionicons5'
 
 import {
@@ -220,7 +222,10 @@ const ionicons5 = {
   // 多个图片
   ImagesIcon,
   // 列表
-  ListIcon
+  ListIcon,
+  // 眼睛
+  EyeOutlineIcon,
+  EyeOffOutlineIcon
 }
 
 const carbon = {

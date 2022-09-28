@@ -12,30 +12,23 @@
     </template>
 
     <template #top-right>
-      <n-radio-group v-model:value="layerMode" name="radiobuttongroup1" size="small" class="go-flex-center">
-        <n-radio-button value="thumbnail">
-          <n-icon size="16" class="go-d-block" title="缩略图" :depth="2" :component="ImageIcon" />
-        </n-radio-button>
-        <n-radio-button value="text">
-          <n-icon size="16" class="go-d-block" title="文字列表" :depth="2" :component="ListIcon" />
-        </n-radio-button>
-      </n-radio-group>
-      <!-- <n-icon
-        size="16"
-        class="go-cursor-pointer go-d-block"
-        title="缩略图"
-        :depth="2"
-        :component="ImageIcon"
-        :class="{ 'go-layer-mode-active': layerMode === 'thumbnail' }"
-      />
-      <n-icon
-        size="16"
-        class="go-cursor-pointer go-d-block"
-        title="文字列表"
-        :depth="2"
-        :component="ListIcon"
-        :class="{ 'go-layer-mode-active': layerMode === 'text' }"
-      /> -->
+      <n-button-group style="display: flex">
+        <n-button
+          v-for="(item, index) in layerModeEnumList"
+          :key="index"
+          ghost
+          size="tiny"
+          :type="layerMode === item.value ? 'primary' : 'tertiary'"
+          @click="layerMode = item.value as LayerModeEnum"
+        >
+          <n-tooltip :show-arrow="false" trigger="hover">
+            <template #trigger>
+              <n-icon size="14" :component="item.icon" />
+            </template>
+            {{ item.label }}
+          </n-tooltip>
+        </n-button>
+      </n-button-group>
     </template>
 
     <!-- 图层内容 -->
@@ -48,11 +41,16 @@
       <template #item="{ element }">
         <div class="go-content-layer-box">
           <!-- 组合 -->
-          <layers-group-list-item v-if="element.isGroup" :componentGroupData="element"></layers-group-list-item>
+          <layers-group-list-item
+            v-if="element.isGroup"
+            :componentGroupData="element"
+            :layer-mode="layerMode"
+          ></layers-group-list-item>
           <!-- 单组件 -->
           <layers-list-item
             v-else
             :componentData="element"
+            :layer-mode="layerMode"
             @mousedown="mousedownHandle($event, element)"
             @mouseenter="mouseenterHandle(element)"
             @mouseleave="mouseleaveHandle(element)"
@@ -79,16 +77,21 @@ import { MenuEnum, MouseEventButton, WinKeyboard, MacKeyboard } from '@/enums/ed
 
 import { LayersListItem } from './components/LayersListItem/index'
 import { LayersGroupListItem } from './components/LayersGroupListItem/index'
+import { LayerModeEnum } from './enums'
 
 import { icon } from '@/plugins'
 
-const { LayersIcon, ImageIcon, ListIcon } = icon.ionicons5
+const { LayersIcon, ImageIcon, ImagesIcon, ListIcon } = icon.ionicons5
 const chartLayoutStore = useChartLayoutStore()
 const chartEditStore = useChartEditStore()
 const { handleContextMenu, onClickOutSide } = useContextMenu()
 
 const layerList = ref<any>([])
-const layerMode = ref<'thumbnail' | 'text'>('thumbnail')
+const layerModeEnumList = [
+  { label: '缩略图', icon: ImagesIcon, value: 'thumbnail' },
+  { label: '文本列表', icon: ListIcon, value: 'text' }
+]
+const layerMode = ref<LayerModeEnum>('thumbnail')
 
 // 逆序展示
 const reverseList = computed(() => {
@@ -187,7 +190,7 @@ const mouseleaveHandle = (item: CreateComponentType) => {
 </script>
 
 <style lang="scss" scoped>
-$wight: 180px;
+$wight: 200px;
 @include go(content-layers) {
   width: $wight;
   flex-shrink: 0;
