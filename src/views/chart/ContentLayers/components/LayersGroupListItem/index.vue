@@ -2,7 +2,7 @@
   <div class="go-content-layers-group-list-item">
     <div
       class="root-item-content"
-      :class="{ hover: hover, select: select, 'list-mini': layerMode === 'text' }"
+      :class="{ hover: hover, select: select, 'list-mini': selectText }"
       @click="clickHandle($event)"
       @mousedown="groupMousedownHandle($event)"
       @mouseenter="mouseenterHandle(componentGroupData)"
@@ -23,8 +23,7 @@
             {{ componentGroupData.chartConfig.title }}
           </n-text>
         </n-ellipsis>
-        <n-icon size="12" class="list-status-icon" :component="LockClosedOutlineIcon" v-if="status.lock" />
-        <n-icon size="12" class="list-status-icon" :component="EyeOffOutlineIcon" v-if="status.hide" />
+        <layers-status :isGroup="false" :hover="hover" :status="status"></layers-status>
       </div>
       <div :class="{ 'select-modal': select }"></div>
     </div>
@@ -34,6 +33,7 @@
         :key="element.id"
         :componentData="element"
         :layer-mode="layerMode"
+        :isGroup="true"
         @mousedown="mousedownHandle($event, element, componentGroupData.id)"
         @mouseenter="mouseenterHandle(element)"
         @mouseleave="mouseleaveHandle(element)"
@@ -53,10 +53,9 @@ import { useContextMenu, divider } from '@/views/chart/hooks/useContextMenu.hook
 import { MenuOptionsItemType } from '@/views/chart/hooks/useContextMenu.hook.d'
 import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 import { LayersListItem } from '../LayersListItem'
+import { LayersStatus } from '../LayersStatus/index'
+import { LayerModeEnum } from '../../index.d'
 import { icon } from '@/plugins'
-import { LayerModeEnum } from '../../enums'
-
-const { LockClosedOutlineIcon, EyeOffOutlineIcon } = icon.ionicons5
 
 const props = defineProps({
   componentGroupData: {
@@ -64,10 +63,8 @@ const props = defineProps({
     required: true
   },
   layerMode: {
-    type: Object as PropType<LayerModeEnum>,
-    default(): LayerModeEnum {
-      return 'thumbnail'
-    }
+    type: String as PropType<LayerModeEnum>,
+    default: LayerModeEnum.THUMBNAIL
   }
 })
 
@@ -86,6 +83,27 @@ const expend = ref(false)
 // 颜色
 const themeColor = computed(() => {
   return designStore.getAppTheme
+})
+
+// 是否选中文本
+const selectText = computed(() => {
+  return props.layerMode === LayerModeEnum.TEXT
+})
+
+// 计算当前选中目标
+const select = computed(() => {
+  const id = props.componentGroupData.id
+  return chartEditStore.getTargetChart.selectId.find((e: string) => e === id)
+})
+
+// 悬浮
+const hover = computed(() => {
+  return props.componentGroupData.id === chartEditStore.getTargetChart.hoverId
+})
+
+// 组件状态 隐藏/锁定
+const status = computed(() => {
+  return props.componentGroupData.status
 })
 
 // 右键
@@ -133,21 +151,6 @@ const clickHandle = (e: MouseEvent) => {
   expend.value = !expend.value
   mousedownHandle(e, props.componentGroupData)
 }
-
-// 计算当前选中目标
-const select = computed(() => {
-  const id = props.componentGroupData.id
-  return chartEditStore.getTargetChart.selectId.find((e: string) => e === id)
-})
-
-// 悬浮
-const hover = computed(() => {
-  return props.componentGroupData.id === chartEditStore.getTargetChart.hoverId
-})
-
-const status = computed(() => {
-  return props.componentGroupData.status
-})
 
 // 组点击事件
 const groupMousedownHandle = (e: MouseEvent) => {
@@ -206,10 +209,19 @@ $textSize: 10px;
   margin: 10px 5%;
   margin-bottom: 5px;
   @extend .go-transition-quick;
+  @include deep() {
+    .go-content-layers-list-item {
+      margin-right: 0 !important;
+      width: 95% !important;
+    }
+  }
 
-  :deep(.go-content-layers-list-item) {
-    margin-right: 0 !important;
-    width: 95% !important;
+  &:hover {
+    @include deep() {
+      .icon-item {
+        opacity: 1;
+      }
+    }
   }
 
   .root-item-content {

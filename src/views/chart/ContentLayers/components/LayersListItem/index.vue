@@ -1,5 +1,5 @@
 <template>
-  <div class="go-content-layers-list-item" :class="{ hover: hover, select: select, 'list-mini': layerMode === 'text' }">
+  <div class="go-content-layers-list-item" :class="{ hover: hover, select: select, 'list-mini': selectText }">
     <div class="go-flex-center item-content">
       <n-image
         class="list-img"
@@ -13,47 +13,46 @@
           {{ props.componentData.chartConfig.title }}
         </n-text>
       </n-ellipsis>
-      <n-icon size="12" class="list-status-icon" :component="LockClosedOutlineIcon" v-if="status.lock" />
-      <n-icon size="12" class="list-status-icon" :component="EyeOffOutlineIcon" v-if="status.hide" />
+      <layers-status :isGroup="isGroup" :hover="hover" :status="status"></layers-status>
     </div>
     <div :class="{ 'select-modal': select }"></div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { toRefs, computed, PropType } from 'vue'
+import { computed, PropType } from 'vue'
 import { requireErrorImg } from '@/utils'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { LayerModeEnum } from '../../enums'
-
-import { icon } from '@/plugins'
-const { LockClosedOutlineIcon, EyeOffOutlineIcon } = icon.ionicons5
-
-// 全局颜色
-const designStore = useDesignStore()
-const chartEditStore = useChartEditStore()
-
-// 颜色
-const themeColor = computed(() => {
-  return designStore.getAppTheme
-})
+import { LayersStatus } from '../LayersStatus/index'
+import { LayerModeEnum } from '../../index.d'
 
 const props = defineProps({
   componentData: {
     type: Object,
     required: true
   },
+  isGroup: {
+    type: Boolean,
+    default: false
+  },
   layerMode: {
-    type: Object as PropType<LayerModeEnum>,
-    default(): LayerModeEnum {
-      return 'thumbnail'
-    }
+    type: String as PropType<LayerModeEnum>,
+    default: LayerModeEnum.THUMBNAIL
   }
 })
 
+// 全局颜色
+const designStore = useDesignStore()
+const chartEditStore = useChartEditStore()
+
 // eslint-disable-next-line vue/no-setup-props-destructure
 const { image } = props.componentData.chartConfig
+
+// 颜色
+const themeColor = computed(() => {
+  return designStore.getAppTheme
+})
 
 // 计算当前选中目标
 const select = computed(() => {
@@ -61,12 +60,19 @@ const select = computed(() => {
   return chartEditStore.getTargetChart.selectId.find((e: string) => e === id)
 })
 
+// 悬浮对象
 const hover = computed(() => {
   return props.componentData.id === chartEditStore.getTargetChart.hoverId
 })
 
+// 组件状态 隐藏/锁定
 const status = computed(() => {
   return props.componentData.status
+})
+
+// 是否选中文本
+const selectText = computed(() => {
+  return props.layerMode === LayerModeEnum.TEXT
 })
 </script>
 
@@ -88,6 +94,13 @@ $textSize: 10px;
   &.hover,
   &:hover {
     @include fetch-bg-color('background-color4');
+  }
+  &:hover {
+    @include deep() {
+      .icon-item {
+        opacity: 1;
+      }
+    }
   }
 
   .select-modal,
@@ -126,18 +139,11 @@ $textSize: 10px;
     font-size: $textSize;
   }
 
-  .list-status-icon {
-    margin-left: 3px;
-  }
-
   /* 选中样式 */
   &.select {
     border: 1px solid v-bind('themeColor');
     /* 需要设置最高级，覆盖 hover 的颜色 */
     background-color: rgba(0, 0, 0, 0);
-    // .list-img {
-    //   border: 1px solid v-bind('themeColor') !important;
-    // }
   }
 
   // mini样式

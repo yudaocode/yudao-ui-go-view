@@ -17,7 +17,7 @@
           v-for="(item, index) in layerModeEnumList"
           :key="index"
           ghost
-          size="tiny"
+          size="small"
           :type="layerMode === item.value ? 'primary' : 'tertiary'"
           @click="layerMode = item.value as LayerModeEnum"
         >
@@ -77,7 +77,7 @@ import { MenuEnum, MouseEventButton, WinKeyboard, MacKeyboard } from '@/enums/ed
 
 import { LayersListItem } from './components/LayersListItem/index'
 import { LayersGroupListItem } from './components/LayersGroupListItem/index'
-import { LayerModeEnum } from './enums'
+import { LayerModeEnum } from './index.d'
 
 import { icon } from '@/plugins'
 
