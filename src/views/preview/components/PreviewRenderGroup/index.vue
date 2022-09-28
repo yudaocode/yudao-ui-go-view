@@ -9,6 +9,7 @@
       ...getFilterStyle(item.styles),
       ...getTransformStyle(item.styles)
     }"
+    v-show="!item.status.hide"
   >
     <component
       :is="item.chartConfig.chartKey"

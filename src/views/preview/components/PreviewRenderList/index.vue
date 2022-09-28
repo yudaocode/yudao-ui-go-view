@@ -9,6 +9,7 @@
       ...getFilterStyle(item.styles),
       ...getTransformStyle(item.styles)
     }"
+    v-show="!item.status.hide"
   >
     <!-- 分组 -->
     <preview-render-group
