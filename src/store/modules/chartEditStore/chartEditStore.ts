@@ -618,6 +618,32 @@ export const useChartEditStore = defineStore({
         }
         return
       }
+
+      switch (HistoryItem.actionType) {
+        // 锁定处理
+        case HistoryActionTypeEnum.LOCK:
+        case HistoryActionTypeEnum.UNLOCK:
+          if (!isForward) {
+            // 恢复原来状态
+            if (HistoryItem.actionType === HistoryActionTypeEnum.LOCK) historyData[0].status.lock = false
+            if (HistoryItem.actionType === HistoryActionTypeEnum.UNLOCK) historyData[0].status.lock = true
+            return
+          }
+          this.setLock(!historyData[0].status.lock, false)
+          break
+
+        // 隐藏处理
+        case HistoryActionTypeEnum.HIDE:
+        case HistoryActionTypeEnum.SHOW:
+          if (!isForward) {
+            // 恢复原来状态
+            if (HistoryItem.actionType === HistoryActionTypeEnum.HIDE) historyData[0].status.hide = false
+            if (HistoryItem.actionType === HistoryActionTypeEnum.SHOW) historyData[0].status.hide = true
+            return
+          }
+          this.setHide(!historyData[0].status.hide, false)
+          break
+      }
     },
     // * 撤回
     setBack() {
@@ -811,7 +837,7 @@ export const useChartEditStore = defineStore({
 
           // 历史记录
           if (isHistory) {
-            chartHistoryStore.createLayerHistory(
+            chartHistoryStore.createLockHistory(
               [targetItem],
               status ? HistoryActionTypeEnum.LOCK : HistoryActionTypeEnum.UNLOCK
             )
@@ -843,7 +869,7 @@ export const useChartEditStore = defineStore({
 
           // 历史记录
           if (isHistory) {
-            chartHistoryStore.createLayerHistory(
+            chartHistoryStore.createHideHistory(
               [targetItem],
               status ? HistoryActionTypeEnum.HIDE : HistoryActionTypeEnum.SHOW
             )
