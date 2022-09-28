@@ -114,24 +114,22 @@ const optionsHandle = (
   allList: MenuOptionsItemType[],
   targetInstance: CreateComponentType
 ) => {
-  // 多选
-  const moreMenuEnums = [MenuEnum.GROUP, MenuEnum.DELETE]
-  // 单选
-  const singleMenuEnums = targetList
-
   // 多选处理
   if (chartEditStore.getTargetChart.selectId.length > 1) {
-    const list: MenuOptionsItemType[] = []
-
-    allList.forEach(item => {
-      // 成组
-      if (moreMenuEnums.includes(item.key as MenuEnum)) {
-        list.push(item)
-      }
-    })
-    return list
+    return allList.filter(i => [MenuEnum.GROUP, MenuEnum.DELETE].includes(i.key as MenuEnum))
   }
-  return singleMenuEnums
+  const statusMenuEnums: MenuEnum[] = []
+  if (targetInstance.status.lock) {
+    statusMenuEnums.push(MenuEnum.LOCK)
+  } else {
+    statusMenuEnums.push(MenuEnum.UNLOCK)
+  }
+  if (targetInstance.status.hide) {
+    statusMenuEnums.push(MenuEnum.HIDE)
+  } else {
+    statusMenuEnums.push(MenuEnum.SHOW)
+  }
+  return targetList.filter(i => !statusMenuEnums.includes(i.key as MenuEnum))
 }
 
 // 主题色

@@ -23,8 +23,8 @@
             {{ componentGroupData.chartConfig.title }}
           </n-text>
         </n-ellipsis>
-        <n-icon size="12" class="list-status-icon" :component="LockClosedOutlineIcon" />
-        <n-icon size="12" class="list-status-icon" :component="EyeOffOutlineIcon" />
+        <n-icon size="12" class="list-status-icon" :component="LockClosedOutlineIcon" v-if="status.lock" />
+        <n-icon size="12" class="list-status-icon" :component="EyeOffOutlineIcon" v-if="status.hide" />
       </div>
       <div :class="{ 'select-modal': select }"></div>
     </div>
@@ -95,20 +95,29 @@ const optionsHandle = (
   targetInstance: CreateComponentType
 ) => {
   const filter = (menulist: MenuEnum[]) => {
-    const list: MenuOptionsItemType[] = []
-    allList.forEach(item => {
-      if (menulist.includes(item.key as MenuEnum)) {
-        list.push(item)
-      }
-    })
-    return list
+    return allList.filter(i => menulist.includes(i.key as MenuEnum))
   }
 
   // 多选处理
   if (chartEditStore.getTargetChart.selectId.length > 1) {
     return filter([MenuEnum.GROUP])
   } else {
-    return [...filter([MenuEnum.UN_GROUP]), divider(), ...targetList]
+    const statusMenuEnums: MenuEnum[] = []
+    if (targetInstance.status.lock) {
+      statusMenuEnums.push(MenuEnum.LOCK)
+    } else {
+      statusMenuEnums.push(MenuEnum.UNLOCK)
+    }
+    if (targetInstance.status.hide) {
+      statusMenuEnums.push(MenuEnum.HIDE)
+    } else {
+      statusMenuEnums.push(MenuEnum.SHOW)
+    }
+    return [
+      ...filter([MenuEnum.UN_GROUP]),
+      divider(),
+      ...targetList.filter(i => !statusMenuEnums.includes(i.key as MenuEnum))
+    ]
   }
 }
 
@@ -134,6 +143,10 @@ const select = computed(() => {
 // 悬浮
 const hover = computed(() => {
   return props.componentGroupData.id === chartEditStore.getTargetChart.hoverId
+})
+
+const status = computed(() => {
+  return props.componentGroupData.status
 })
 
 // 组点击事件

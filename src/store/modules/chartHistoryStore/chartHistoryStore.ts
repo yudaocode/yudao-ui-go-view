@@ -153,6 +153,10 @@ export const useChartHistoryStore = defineStore({
         | HistoryActionTypeEnum.DOWN
         | HistoryActionTypeEnum.UP
         | HistoryActionTypeEnum.BOTTOM
+        | HistoryActionTypeEnum.LOCK
+        | HistoryActionTypeEnum.UNLOCK
+        | HistoryActionTypeEnum.HIDE
+        | HistoryActionTypeEnum.SHOW
     ) {
       this.createStackItem(item, type, HistoryTargetTypeEnum.CHART)
     },

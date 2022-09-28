@@ -114,16 +114,20 @@ const optionsHandle = (
 ) => {
   // 多选处理
   if (chartEditStore.getTargetChart.selectId.length > 1) {
-    const list: MenuOptionsItemType[] = []
-    targetList.forEach(item => {
-      // 成组
-      if (item.key === MenuEnum.GROUP) {
-        list.push(item)
-      }
-    })
-    return list
+    return targetList.filter(i => i.key === MenuEnum.GROUP)
   }
-  return targetList
+  const statusMenuEnums: MenuEnum[] = []
+  if (targetInstance.status.lock) {
+    statusMenuEnums.push(MenuEnum.LOCK)
+  } else {
+    statusMenuEnums.push(MenuEnum.UNLOCK)
+  }
+  if (targetInstance.status.hide) {
+    statusMenuEnums.push(MenuEnum.HIDE)
+  } else {
+    statusMenuEnums.push(MenuEnum.SHOW)
+  }
+  return targetList.filter(item => !statusMenuEnums.includes(item.key as MenuEnum))
 }
 
 // 缩小

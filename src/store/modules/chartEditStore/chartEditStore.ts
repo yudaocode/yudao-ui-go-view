@@ -602,7 +602,8 @@ export const useChartEditStore = defineStore({
               ids.push(item.id)
             })
           } else {
-            (historyData[0] as CreateComponentGroupType).groupList.forEach(item => {
+            const group = historyData[0] as CreateComponentGroupType
+            group.groupList.forEach(item => {
               ids.push(item.id)
             })
           }
@@ -794,6 +795,70 @@ export const useChartEditStore = defineStore({
         window['$message'].error('解除分组失败，请联系管理员！')
         loadingFinish()
       }
+    },
+    // * 锁定
+    setLock(status: boolean = true, isHistory: boolean = true) {
+      try {
+        // 暂不支持多选
+        if (this.getTargetChart.selectId.length > 1) return
+
+        loadingStart()
+        const index: number = this.fetchTargetIndex()
+        if (index !== -1) {
+          // 更新状态
+          const targetItem = this.getComponentList[index]
+          targetItem.status.lock = status
+
+          // 历史记录
+          if (isHistory) {
+            chartHistoryStore.createLayerHistory(
+              [targetItem],
+              status ? HistoryActionTypeEnum.LOCK : HistoryActionTypeEnum.UNLOCK
+            )
+          }
+          this.updateComponentList(index, targetItem)
+          loadingFinish()
+          return
+        }
+      } catch (value) {
+        loadingError()
+      }
+    },
+    // * 解除锁定
+    setUnLock(isHistory: boolean = true) {
+      this.setLock(false, isHistory)
+    },
+    // * 隐藏
+    setHide(status: boolean = true, isHistory: boolean = true) {
+      try {
+        // 暂不支持多选
+        if (this.getTargetChart.selectId.length > 1) return
+
+        loadingStart()
+        const index: number = this.fetchTargetIndex()
+        if (index !== -1) {
+          // 更新状态
+          const targetItem = this.getComponentList[index]
+          targetItem.status.hide = status
+
+          // 历史记录
+          if (isHistory) {
+            chartHistoryStore.createLayerHistory(
+              [targetItem],
+              status ? HistoryActionTypeEnum.HIDE : HistoryActionTypeEnum.SHOW
+            )
+          }
+          this.updateComponentList(index, targetItem)
+          loadingFinish()
+          return
+        }
+      } catch (value) {
+        loadingError()
+      }
+    },
+    // * 显示
+    setShow(isHistory: boolean = true) {
+      this.setHide(false, isHistory)
     },
     // ----------------
     // * 设置页面大小

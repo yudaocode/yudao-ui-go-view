@@ -13,8 +13,8 @@
           {{ props.componentData.chartConfig.title }}
         </n-text>
       </n-ellipsis>
-      <n-icon size="12" class="list-status-icon" :component="LockClosedOutlineIcon" />
-      <n-icon size="12" class="list-status-icon" :component="EyeOffOutlineIcon" />
+      <n-icon size="12" class="list-status-icon" :component="LockClosedOutlineIcon" v-if="status.lock" />
+      <n-icon size="12" class="list-status-icon" :component="EyeOffOutlineIcon" v-if="status.hide" />
     </div>
     <div :class="{ 'select-modal': select }"></div>
   </div>
@@ -63,6 +63,10 @@ const select = computed(() => {
 
 const hover = computed(() => {
   return props.componentData.id === chartEditStore.getTargetChart.hoverId
+})
+
+const status = computed(() => {
+  return props.componentData.status
 })
 </script>
 
