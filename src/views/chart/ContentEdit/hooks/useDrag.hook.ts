@@ -140,7 +140,9 @@ export const mousedownBoxSelect = (e: MouseEvent, item?: CreateComponentType | C
           targetAttr.x1 - selectAttr.x1 >= 0 &&
           targetAttr.y1 - selectAttr.y1 >= 0 &&
           targetAttr.x2 - selectAttr.x2 <= 0 &&
-          targetAttr.y2 - selectAttr.y2 <= 0
+          targetAttr.y2 - selectAttr.y2 <= 0 &&
+          !item.status.lock &&
+          !item.status.hide
         ) {
           isSelect = true
           chartEditStore.setTargetSelectChart(item.id, true)
