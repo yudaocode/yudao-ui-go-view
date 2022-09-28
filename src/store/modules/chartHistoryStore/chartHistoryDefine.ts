@@ -1,7 +1,4 @@
-import {
-  HistoryTargetTypeEnum,
-  HistoryActionTypeEnum
-} from './chartHistoryStore.d'
+import { HistoryTargetTypeEnum, HistoryActionTypeEnum } from './chartHistoryStore.d'
 
 export const historyActionTypeName = {
   [HistoryActionTypeEnum.ADD]: '新增图表',
@@ -18,6 +15,10 @@ export const historyActionTypeName = {
   [HistoryActionTypeEnum.GROUP]: '创建分组',
   [HistoryActionTypeEnum.UN_GROUP]: '解除分组',
   [HistoryActionTypeEnum.SELECT_HISTORY]: '选择记录',
-  
+  [HistoryActionTypeEnum.LOCK]: '锁定',
+  [HistoryActionTypeEnum.UNLOCK]: '解除锁定',
+  [HistoryActionTypeEnum.HIDE]: '隐藏',
+  [HistoryActionTypeEnum.SHOW]: '显示',
+
   [HistoryTargetTypeEnum.CANVAS]: '画布初始化'
 }

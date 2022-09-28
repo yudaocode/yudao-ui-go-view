@@ -1,5 +1,5 @@
 <template>
-  <div class="go-content-layers-list-item" :class="{ hover: hover, select: select }">
+  <div class="go-content-layers-list-item" :class="{ hover: hover, select: select, 'list-mini': layerMode === 'text' }">
     <div class="go-flex-center item-content">
       <n-image
         class="list-img"
@@ -8,21 +8,27 @@
         :src="image"
         :fallback-src="requireErrorImg()"
       ></n-image>
-      <n-ellipsis>
+      <n-ellipsis style="margin-right: auto">
         <n-text class="list-text" :depth="2">
           {{ props.componentData.chartConfig.title }}
         </n-text>
       </n-ellipsis>
+      <n-icon size="12" class="list-status-icon" :component="LockClosedOutlineIcon" v-if="status.lock" />
+      <n-icon size="12" class="list-status-icon" :component="EyeOffOutlineIcon" v-if="status.hide" />
     </div>
     <div :class="{ 'select-modal': select }"></div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { toRefs, computed } from 'vue'
+import { toRefs, computed, PropType } from 'vue'
 import { requireErrorImg } from '@/utils'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { LayerModeEnum } from '../../enums'
+
+import { icon } from '@/plugins'
+const { LockClosedOutlineIcon, EyeOffOutlineIcon } = icon.ionicons5
 
 // 全局颜色
 const designStore = useDesignStore()
@@ -37,6 +43,12 @@ const props = defineProps({
   componentData: {
     type: Object,
     required: true
+  },
+  layerMode: {
+    type: Object as PropType<LayerModeEnum>,
+    default(): LayerModeEnum {
+      return 'thumbnail'
+    }
   }
 })
 
@@ -52,10 +64,15 @@ const select = computed(() => {
 const hover = computed(() => {
   return props.componentData.id === chartEditStore.getTargetChart.hoverId
 })
+
+const status = computed(() => {
+  return props.componentData.status
+})
 </script>
 
 <style lang="scss" scoped>
 $centerHeight: 52px;
+$centerMiniHeight: 28px;
 $textSize: 10px;
 
 @include go(content-layers-list-item) {
@@ -72,15 +89,7 @@ $textSize: 10px;
   &:hover {
     @include fetch-bg-color('background-color4');
   }
-  /* 选中 */
-  &.select {
-    border: 1px solid v-bind('themeColor');
-    /* 需要设置最高级，覆盖 hover 的颜色 */
-    background-color: rgba(0, 0, 0, 0);
-    .list-img {
-      border: 1px solid v-bind('themeColor') !important;
-    }
-  }
+
   .select-modal,
   .item-content {
     position: absolute;
@@ -94,24 +103,46 @@ $textSize: 10px;
     width: calc(100% - 10px);
     height: calc(100% - 10px);
   }
+
   .select-modal {
     width: 100%;
     height: 100%;
     opacity: 0.3;
     background-color: v-bind('themeColor');
   }
+
   .list-img {
     flex-shrink: 0;
     height: $centerHeight;
     border-radius: 5px;
     overflow: hidden;
-    border: 1px solid;
+    border: none !important;
     padding: 2px;
     @include hover-border-color('hover-border-color');
   }
+
   .list-text {
     padding-left: 6px;
     font-size: $textSize;
+  }
+
+  .list-status-icon {
+    margin-left: 3px;
+  }
+
+  /* 选中样式 */
+  &.select {
+    border: 1px solid v-bind('themeColor');
+    /* 需要设置最高级，覆盖 hover 的颜色 */
+    background-color: rgba(0, 0, 0, 0);
+    // .list-img {
+    //   border: 1px solid v-bind('themeColor') !important;
+    // }
+  }
+
+  // mini样式
+  &.list-mini {
+    height: $centerMiniHeight;
   }
 }
 </style>

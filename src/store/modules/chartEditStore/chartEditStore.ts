@@ -602,7 +602,8 @@ export const useChartEditStore = defineStore({
               ids.push(item.id)
             })
           } else {
-            (historyData[0] as CreateComponentGroupType).groupList.forEach(item => {
+            const group = historyData[0] as CreateComponentGroupType
+            group.groupList.forEach(item => {
               ids.push(item.id)
             })
           }
@@ -616,6 +617,32 @@ export const useChartEditStore = defineStore({
           this.setUnGroup([(historyData[0] as CreateComponentGroupType).groupList[0].id], undefined, false)
         }
         return
+      }
+
+      switch (HistoryItem.actionType) {
+        // 锁定处理
+        case HistoryActionTypeEnum.LOCK:
+        case HistoryActionTypeEnum.UNLOCK:
+          if (!isForward) {
+            // 恢复原来状态
+            if (HistoryItem.actionType === HistoryActionTypeEnum.LOCK) historyData[0].status.lock = false
+            if (HistoryItem.actionType === HistoryActionTypeEnum.UNLOCK) historyData[0].status.lock = true
+            return
+          }
+          this.setLock(!historyData[0].status.lock, false)
+          break
+
+        // 隐藏处理
+        case HistoryActionTypeEnum.HIDE:
+        case HistoryActionTypeEnum.SHOW:
+          if (!isForward) {
+            // 恢复原来状态
+            if (HistoryItem.actionType === HistoryActionTypeEnum.HIDE) historyData[0].status.hide = false
+            if (HistoryItem.actionType === HistoryActionTypeEnum.SHOW) historyData[0].status.hide = true
+            return
+          }
+          this.setHide(!historyData[0].status.hide, false)
+          break
       }
     },
     // * 撤回
@@ -794,6 +821,76 @@ export const useChartEditStore = defineStore({
         window['$message'].error('解除分组失败，请联系管理员！')
         loadingFinish()
       }
+    },
+    // * 锁定
+    setLock(status: boolean = true, isHistory: boolean = true) {
+      try {
+        // 暂不支持多选
+        if (this.getTargetChart.selectId.length > 1) return
+
+        loadingStart()
+        const index: number = this.fetchTargetIndex()
+        if (index !== -1) {
+          // 更新状态
+          const targetItem = this.getComponentList[index]
+          targetItem.status.lock = status
+
+          // 历史记录
+          if (isHistory) {
+            chartHistoryStore.createLockHistory(
+              [targetItem],
+              status ? HistoryActionTypeEnum.LOCK : HistoryActionTypeEnum.UNLOCK
+            )
+          }
+          this.updateComponentList(index, targetItem)
+          loadingFinish()
+          return
+        }
+      } catch (value) {
+        loadingError()
+      }
+    },
+    // * 解除锁定
+    setUnLock(isHistory: boolean = true) {
+      this.setLock(false, isHistory)
+    },
+    // * 隐藏
+    setHide(status: boolean = true, isHistory: boolean = true) {
+      try {
+        // 暂不支持多选
+        if (this.getTargetChart.selectId.length > 1) return
+
+        loadingStart()
+        const index: number = this.fetchTargetIndex()
+        if (index !== -1) {
+          // 更新状态
+          const targetItem = this.getComponentList[index]
+          targetItem.status.hide = status
+
+          // 历史记录
+          if (isHistory) {
+            chartHistoryStore.createHideHistory(
+              [targetItem],
+              status ? HistoryActionTypeEnum.HIDE : HistoryActionTypeEnum.SHOW
+            )
+          }
+          this.updateComponentList(index, targetItem)
+          loadingFinish()
+
+          // 取消选择隐藏
+          if (status) {
+            const chartEditStore = useChartEditStore()
+            chartEditStore.setTargetSelectChart(undefined)
+          }
+          return
+        }
+      } catch (value) {
+        loadingError()
+      }
+    },
+    // * 显示
+    setShow(isHistory: boolean = true) {
+      this.setHide(false, isHistory)
     },
     // ----------------
     // * 设置页面大小

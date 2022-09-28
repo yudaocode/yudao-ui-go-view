@@ -167,6 +167,20 @@ export const useChartHistoryStore = defineStore({
     // * 解除分组
     createUnGroupHistory(item: Array<CreateComponentType | CreateComponentGroupType>) {
       this.createStackItem(item, HistoryActionTypeEnum.UN_GROUP, HistoryTargetTypeEnum.CHART)
+    },
+    // * 锁定记录
+    createLockHistory(
+      item: Array<CreateComponentType | CreateComponentGroupType>,
+      type: HistoryActionTypeEnum.LOCK | HistoryActionTypeEnum.UNLOCK
+    ) {
+      this.createStackItem(item, type, HistoryTargetTypeEnum.CHART)
+    },
+    // * 隐藏记录
+    createHideHistory(
+      item: Array<CreateComponentType | CreateComponentGroupType>,
+      type: HistoryActionTypeEnum.HIDE | HistoryActionTypeEnum.SHOW
+    ) {
+      this.createStackItem(item, type, HistoryTargetTypeEnum.CHART)
     }
   }
 })

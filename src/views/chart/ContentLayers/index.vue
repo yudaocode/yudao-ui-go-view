@@ -8,24 +8,49 @@
     @mousedown="boxMousedownHandle($event)"
   >
     <template #icon>
-      <n-icon size="16" :depth="2">
-        <component :is="LayersIcon"></component>
-      </n-icon>
+      <n-icon size="16" :depth="2" :component="LayersIcon" />
     </template>
+
+    <template #top-right>
+      <n-button-group style="display: flex">
+        <n-button
+          v-for="(item, index) in layerModeEnumList"
+          :key="index"
+          ghost
+          size="tiny"
+          :type="layerMode === item.value ? 'primary' : 'tertiary'"
+          @click="layerMode = item.value as LayerModeEnum"
+        >
+          <n-tooltip :show-arrow="false" trigger="hover">
+            <template #trigger>
+              <n-icon size="14" :component="item.icon" />
+            </template>
+            {{ item.label }}
+          </n-tooltip>
+        </n-button>
+      </n-button-group>
+    </template>
+
     <!-- 图层内容 -->
     <n-space v-if="reverseList.length === 0" justify="center">
       <n-text class="not-layer-text">暂无图层~</n-text>
     </n-space>
+
     <!-- https://github.com/SortableJS/vue.draggable.next -->
     <draggable item-key="id" v-model="layerList" ghostClass="ghost" @change="onMoveCallback">
       <template #item="{ element }">
         <div class="go-content-layer-box">
           <!-- 组合 -->
-          <layers-group-list-item v-if="element.isGroup" :componentGroupData="element"></layers-group-list-item>
+          <layers-group-list-item
+            v-if="element.isGroup"
+            :componentGroupData="element"
+            :layer-mode="layerMode"
+          ></layers-group-list-item>
           <!-- 单组件 -->
           <layers-list-item
             v-else
             :componentData="element"
+            :layer-mode="layerMode"
             @mousedown="mousedownHandle($event, element)"
             @mouseenter="mouseenterHandle(element)"
             @mouseleave="mouseleaveHandle(element)"
@@ -52,15 +77,21 @@ import { MenuEnum, MouseEventButton, WinKeyboard, MacKeyboard } from '@/enums/ed
 
 import { LayersListItem } from './components/LayersListItem/index'
 import { LayersGroupListItem } from './components/LayersGroupListItem/index'
+import { LayerModeEnum } from './enums'
 
 import { icon } from '@/plugins'
 
-const { LayersIcon } = icon.ionicons5
+const { LayersIcon, ImageIcon, ImagesIcon, ListIcon } = icon.ionicons5
 const chartLayoutStore = useChartLayoutStore()
 const chartEditStore = useChartEditStore()
 const { handleContextMenu, onClickOutSide } = useContextMenu()
 
 const layerList = ref<any>([])
+const layerModeEnumList = [
+  { label: '缩略图', icon: ImagesIcon, value: 'thumbnail' },
+  { label: '文本列表', icon: ListIcon, value: 'text' }
+]
+const layerMode = ref<LayerModeEnum>('thumbnail')
 
 // 逆序展示
 const reverseList = computed(() => {
@@ -83,16 +114,20 @@ const optionsHandle = (
 ) => {
   // 多选处理
   if (chartEditStore.getTargetChart.selectId.length > 1) {
-    const list: MenuOptionsItemType[] = []
-    targetList.forEach(item => {
-      // 成组
-      if (item.key === MenuEnum.GROUP) {
-        list.push(item)
-      }
-    })
-    return list
+    return targetList.filter(i => i.key === MenuEnum.GROUP)
   }
-  return targetList
+  const statusMenuEnums: MenuEnum[] = []
+  if (targetInstance.status.lock) {
+    statusMenuEnums.push(MenuEnum.LOCK)
+  } else {
+    statusMenuEnums.push(MenuEnum.UNLOCK)
+  }
+  if (targetInstance.status.hide) {
+    statusMenuEnums.push(MenuEnum.HIDE)
+  } else {
+    statusMenuEnums.push(MenuEnum.SHOW)
+  }
+  return targetList.filter(item => !statusMenuEnums.includes(item.key as MenuEnum))
 }
 
 // 缩小
@@ -159,7 +194,7 @@ const mouseleaveHandle = (item: CreateComponentType) => {
 </script>
 
 <style lang="scss" scoped>
-$wight: 170px;
+$wight: 200px;
 @include go(content-layers) {
   width: $wight;
   flex-shrink: 0;
@@ -176,6 +211,9 @@ $wight: 170px;
   }
   .ghost {
     opacity: 0;
+  }
+  .go-layer-mode-active {
+    color: #51d6a9;
   }
 }
 </style>
