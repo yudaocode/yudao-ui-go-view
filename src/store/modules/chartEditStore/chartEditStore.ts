@@ -843,6 +843,7 @@ export const useChartEditStore = defineStore({
             )
           }
           this.updateComponentList(index, targetItem)
+          this.setTargetSelectChart(undefined)
           loadingFinish()
           return
         }
@@ -875,6 +876,7 @@ export const useChartEditStore = defineStore({
             )
           }
           this.updateComponentList(index, targetItem)
+          this.setTargetSelectChart(undefined)
           loadingFinish()
 
           // 取消选择隐藏
@@ -882,7 +884,6 @@ export const useChartEditStore = defineStore({
             const chartEditStore = useChartEditStore()
             chartEditStore.setTargetSelectChart(undefined)
           }
-          return
         }
       } catch (value) {
         loadingError()
