@@ -3,7 +3,9 @@
     <n-countdown :duration="50000" :active="true" />
     <n-space :gap="10">
       <flipper
-        :front-text="9"
+        flip-type="down"
+        :front-text="0"
+        :back-text="COUNT"
         :width="flipperWidth"
         :height="flipperHeight"
         :front-color="flipperTextColor"
@@ -11,61 +13,6 @@
         :radius="flipperRadius"
         :duration="flipperSpeed"
         ref="flipperRef"
-      />
-      <flipper
-        :front-text="9"
-        :back-text="8"
-        :width="flipperWidth"
-        :height="flipperHeight"
-        :front-color="flipperTextColor"
-        :back-color="flipperBgColor"
-        :radius="flipperRadius"
-        :duration="flipperSpeed"
-        ref="flipperRef2"
-      />
-      <flipper
-        :front-text="8"
-        :back-text="7"
-        :width="flipperWidth"
-        :height="flipperHeight"
-        :front-color="flipperTextColor"
-        :back-color="flipperBgColor"
-        :radius="flipperRadius"
-        :duration="flipperSpeed"
-        ref="flipperRef3"
-      />
-      <flipper
-        :front-text="7"
-        :back-text="7"
-        :width="flipperWidth"
-        :height="flipperHeight"
-        :front-color="flipperTextColor"
-        :back-color="flipperBgColor"
-        :radius="flipperRadius"
-        :duration="flipperSpeed"
-        ref="flipperRef4"
-      />
-      <flipper
-        :front-text="6"
-        :back-text="5"
-        :width="flipperWidth"
-        :height="flipperHeight"
-        :front-color="flipperTextColor"
-        :back-color="flipperBgColor"
-        :radius="flipperRadius"
-        :duration="flipperSpeed"
-        ref="flipperRef5"
-      />
-      <flipper
-        :front-text="5"
-        :back-text="4"
-        :width="flipperWidth"
-        :height="flipperHeight"
-        :front-color="flipperTextColor"
-        :back-color="flipperBgColor"
-        :radius="flipperRadius"
-        :duration="flipperSpeed"
-        ref="flipperRef6"
       />
     </n-space>
   </div>
@@ -112,10 +59,15 @@ let COUNT = 9
 let interval = 0
 onMounted(() => {
   const interval = window.setInterval(() => {
+    if (COUNT <= 1) {
+      window.clearInterval(interval)
+      return
+    }
     COUNT--
-    if (COUNT <= 1) window.clearInterval(interval)
     const flipperCON: any = flipperRef.value
-    flipperCON?.flipDown(COUNT, COUNT - 1)
+    console.log(flipperCON)
+    flipperCON?.flip(COUNT, COUNT - 1)
+    console.log('onMounted:window.setInterval', COUNT)
   }, 1000)
 })
 onUnmounted(() => {

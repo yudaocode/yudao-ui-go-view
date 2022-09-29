@@ -16,7 +16,7 @@ export const FontWeightObject = {
 
 export const option = {
   flipperBgColor: '#ee6600FF',
-  flipperTextColor: '#336600FF',
+  flipperTextColor: '#FFFFFFFF',
   flipperWidth: 60,
   flipperHeight: 100,
   flipperRadius: 10,

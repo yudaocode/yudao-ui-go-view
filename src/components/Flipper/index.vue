@@ -56,6 +56,8 @@ const backTextFromData = ref(props.backText)
 
 // 翻牌
 const flip = (front: string | number, back: string | number) => {
+  if (!back) back = +front - 1
+  console.log('flip:', { front, back })
   // 如果处于翻转中，则不执行
   if (isFlipping.value) return
   // 设置翻盘前后数据
