@@ -73,7 +73,7 @@ export const option = {
         textShadowColor: '#000',
         textShadowBlur: 10,
         textBorderWidth: 0,
-        color: '#FFF',
+        color: '#FFFFFF',
         show: true
       },
       itemStyle: {
