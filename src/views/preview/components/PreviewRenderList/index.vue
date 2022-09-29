@@ -7,9 +7,9 @@
     :style="{
       ...getComponentAttrStyle(item.attr, index),
       ...getFilterStyle(item.styles),
-      ...getTransformStyle(item.styles)
+      ...getTransformStyle(item.styles),
+      ...getStatusStyle(item.status)
     }"
-    v-show="!item.status.hide"
   >
     <!-- 分组 -->
     <preview-render-group
@@ -39,7 +39,7 @@ import { PreviewRenderGroup } from '../PreviewRenderGroup/index'
 import { CreateComponentGroupType } from '@/packages/index.d'
 import { chartColors } from '@/settings/chartThemes/index'
 import { animationsClass, getFilterStyle, getTransformStyle } from '@/utils'
-import { getSizeStyle, getComponentAttrStyle } from '../../utils'
+import { getSizeStyle, getComponentAttrStyle, getStatusStyle } from '../../utils'
 
 const props = defineProps({
   localStorageInfo: {
