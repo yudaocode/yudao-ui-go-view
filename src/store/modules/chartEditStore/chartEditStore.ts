@@ -843,7 +843,8 @@ export const useChartEditStore = defineStore({
             )
           }
           this.updateComponentList(index, targetItem)
-          this.setTargetSelectChart(undefined)
+          // 锁定添加失焦效果
+          if(status) this.setTargetSelectChart(undefined)
           loadingFinish()
           return
         }
@@ -876,14 +877,10 @@ export const useChartEditStore = defineStore({
             )
           }
           this.updateComponentList(index, targetItem)
-          this.setTargetSelectChart(undefined)
           loadingFinish()
 
-          // 取消选择隐藏
-          if (status) {
-            const chartEditStore = useChartEditStore()
-            chartEditStore.setTargetSelectChart(undefined)
-          }
+          // 隐藏添加失焦效果
+          if (status) this.setTargetSelectChart(undefined)
         }
       } catch (value) {
         loadingError()

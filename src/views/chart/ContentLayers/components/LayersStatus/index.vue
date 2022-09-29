@@ -1,5 +1,5 @@
 <template>
-  <div v-show="!isGroup">
+  <div class="icon-item-box" v-show="!isGroup">
     <n-icon
       class="go-ml-1 icon-item"
       :class="{ active: status.lock }"
@@ -68,15 +68,20 @@ const lockHandle = (e: MouseEvent) => {
 <style lang="scss" scoped>
 $activeColor: v-bind('themeColor');
 
-.icon-item {
-  opacity: 0;
-  padding-top: 5px;
-  &.active,
-  &:hover {
-    color: $activeColor;
-  }
-  &.active {
-    opacity: 1 !important;
+.icon-item-box {
+  white-space: nowrap;
+
+  .icon-item {
+    opacity: 0;
+    padding-top: 5px;
+    @extend.go-transition;
+    &.active,
+    &:hover {
+      color: $activeColor;
+    }
+    &.active {
+      opacity: 1 !important;
+    }
   }
 }
 </style>
