@@ -2,7 +2,7 @@
   <div class="go-content-layers-group-list-item">
     <div
       class="root-item-content"
-      :class="{ hover: hover, select: select, 'list-mini': selectText }"
+      :class="{ hover, select, 'list-mini': selectText }"
       @click="clickHandle($event)"
       @mousedown="groupMousedownHandle($event)"
       @mouseenter="mouseenterHandle(componentGroupData)"

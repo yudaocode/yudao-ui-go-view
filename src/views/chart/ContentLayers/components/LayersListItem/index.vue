@@ -1,5 +1,5 @@
 <template>
-  <div class="go-content-layers-list-item" :class="{ hover: hover, select: select, 'list-mini': selectText }">
+  <div class="go-content-layers-list-item" :class="{ hover, select, 'list-mini': selectText }">
     <div class="go-flex-center item-content">
       <n-image
         class="list-img"

@@ -1,5 +1,5 @@
 <template>
-  <div class="go-shape-box" :class="{ lock: item.status.lock, hide: item.status.hide }">
+  <div class="go-shape-box" :class="{ lock, hide }">
     <slot></slot>
     <!-- 锚点 -->
     <template v-if="!hiddenPoint">
@@ -64,6 +64,16 @@ const select = computed(() => {
   const id = props.item.id
   if (props.item.status.lock) return false
   return chartEditStore.getTargetChart.selectId.find((e: string) => e === id)
+})
+
+// 锁定
+const lock = computed(() => {
+  return props.item.status.lock
+})
+
+// 隐藏
+const hide = computed(() => {
+  return props.item.status.hide
 })
 </script>
 
