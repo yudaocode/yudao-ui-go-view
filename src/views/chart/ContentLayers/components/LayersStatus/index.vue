@@ -19,9 +19,10 @@
 
 <script setup lang="ts">
 import { computed, PropType } from 'vue'
-import { LayerModeEnum } from '../../index.d'
+import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { PublicConfigType } from '@/packages/index.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { LayerModeEnum } from '../../index.d'
 import { icon } from '@/plugins'
 
 const props = defineProps({
@@ -44,6 +45,12 @@ const props = defineProps({
 
 const { LockClosedOutlineIcon, LockOpenOutlineIcon, EyeOutlineIcon, EyeOffOutlineIcon } = icon.ionicons5
 const chartEditStore = useChartEditStore()
+const designStore = useDesignStore()
+
+// 颜色
+const themeColor = computed(() => {
+  return designStore.getAppTheme
+})
 
 // 隐藏 / 展示
 const showHandle = (e: MouseEvent) => {
@@ -59,7 +66,7 @@ const lockHandle = (e: MouseEvent) => {
 </script>
 
 <style lang="scss" scoped>
-$activeColor: #ebcb87;
+$activeColor: v-bind('themeColor');
 
 .icon-item {
   opacity: 0;
