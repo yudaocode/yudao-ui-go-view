@@ -95,19 +95,23 @@ export const option = {
       geoIndex: 1,
       tooltip: {
         show: true,
-        backgroundColor: 'rgba(0,0,0,.6)',
-        borderColor: 'rgba(147, 235, 248, .8)',
+        backgroundColor: '#00000060',
+        borderColor: 'rgba(147, 235, 248, 0.8)',
         textStyle: {
-          color: '#FFF'
+          color: '#FFFFFF',
+          fontSize: 12,
         }
       },
       label: {
-        show: false
+        show: false,
+        color: '#FFFFFF',
+        fontSize: 12,
       },
       emphasis: {
         disabled: false,
         label: {
-          color: '#fffFFF'
+          color: '#FFFFFF',
+          fontSize: 12,
         },
         itemStyle: {
           areaColor: '#389BB7',
@@ -126,11 +130,11 @@ export const option = {
           colorStops: [
             {
               offset: 0,
-              color: 'rgba(147, 235, 248, 0)' // 0% 处的颜色
+              color: '#93ebf800' // 0% 处的颜色
             },
             {
               offset: 1,
-              color: 'rgba(147, 235, 248, .2)' // 100% 处的颜色
+              color: '#93ebf820' // 100% 处的颜色
             }
           ],
           globalCoord: false
