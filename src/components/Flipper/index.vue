@@ -1,7 +1,7 @@
 <template>
   <div class="M-Flipper" :class="[flipType, { go: isFlipping }]">
-    <div class="digital front" :class="_textClass(frontTextFromData)"></div>
-    <div class="digital back" :class="_textClass(backTextFromData)"></div>
+    <div class="digital front" :data-front="frontTextFromData"></div>
+    <div class="digital back" :data-back="backTextFromData"></div>
   </div>
 </template>
 
@@ -51,7 +51,6 @@ const flipType = ref<FlipType>('down')
 const frontTextFromData = ref(props.frontText)
 const backTextFromData = ref(props.backText)
 
-const _textClass = (number: string | number) => `number${number}`
 const _flip = (type: FlipType, front: string | number, back: string | number) => {
   // 如果处于翻转中，则不执行
   if (isFlipping.value) return
@@ -150,12 +149,14 @@ $radius: v-bind('props.radius');
     overflow: hidden;
     box-sizing: border-box;
   }
-  // .digital.front:after {
-  //   content: v-bind(frontTextFromData) !important;
-  // }
-  // .digital.back:after {
-  //   content: v-bind(backTextFromData) !important;
-  // }
+  .digital.front:before,
+  .digital.front:after {
+    content: attr(data-front) !important;
+  }
+  .digital.back:before,
+  .digital.back:after {
+    content: attr(data-back) !important;
+  }
   .digital:before {
     top: 0;
     bottom: 50%;
@@ -211,47 +212,6 @@ $radius: v-bind('props.radius');
   }
   &.up.go .back:before {
     animation: backFlipUp v-bind('`${props.duration / 1000}s`') ease-in-out both;
-  }
-
-  .number0:before,
-  .number0:after {
-    content: '0';
-  }
-  .number1:before,
-  .number1:after {
-    content: '1';
-  }
-  .number2:before,
-  .number2:after {
-    content: '2';
-  }
-  .number3:before,
-  .number3:after {
-    content: '3';
-  }
-  .number4:before,
-  .number4:after {
-    content: '4';
-  }
-  .number5:before,
-  .number5:after {
-    content: '5';
-  }
-  .number6:before,
-  .number6:after {
-    content: '6';
-  }
-  .number7:before,
-  .number7:after {
-    content: '7';
-  }
-  .number8:before,
-  .number8:after {
-    content: '8';
-  }
-  .number9:before,
-  .number9:after {
-    content: '9';
   }
 }
 </style>
