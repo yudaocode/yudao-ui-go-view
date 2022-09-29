@@ -1,5 +1,14 @@
 <template>
   <collapse-item name="翻牌" :expanded="true">
+    <setting-item-box name="内容">
+      <setting-item name="初始值">
+        <n-input-number v-model:value="optionData.dataset" size="small" :min="0"></n-input-number>
+      </setting-item>
+      <setting-item name="个数">
+        <n-input-number v-model:value="optionData.flipperLength" size="small" :min="1"></n-input-number>
+      </setting-item>
+    </setting-item-box>
+
     <setting-item-box name="尺寸">
       <setting-item name="宽度">
         <n-input-number v-model:value="optionData.flipperWidth" size="small" :min="1"></n-input-number>

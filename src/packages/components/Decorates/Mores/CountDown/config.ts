@@ -15,12 +15,14 @@ export const FontWeightObject = {
 }
 
 export const option = {
+  dataset: 203234,
+  flipperLength: 6,
   flipperBgColor: '#ee6600FF',
   flipperTextColor: '#FFFFFFFF',
   flipperWidth: 60,
   flipperHeight: 100,
   flipperRadius: 10,
-  flipperSpeed: 600
+  flipperSpeed: 450
 }
 
 export default class Config extends PublicConfigClass implements CreateComponentType {

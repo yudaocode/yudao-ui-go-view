@@ -1,9 +1,15 @@
 <template>
   <div class="M-Flipper" :class="[flipType, { go: isFlipping }]">
-    <div class="digital front" :data-front="frontTextFromData || 0"></div>
-    <div class="digital back" :data-back="backTextFromData || 0"></div>
+    <div class="digital front" :data-front="frontTextFromData"></div>
+    <div class="digital back" :data-back="backTextFromData"></div>
   </div>
 </template>
+
+<script lang="ts">
+export default {
+  name: 'Flipper'
+}
+</script>
 
 <script lang="ts" setup>
 import { ref, PropType, watch } from 'vue'
@@ -11,16 +17,12 @@ type FlipType = 'up' | 'down'
 
 const props = defineProps({
   flipType: {
-    type: Object as PropType<FlipType>,
+    type: String as PropType<FlipType>,
     default: () => {
       return 'down'
     }
   },
-  frontText: {
-    type: [Number, String],
-    default: 0
-  },
-  backText: {
+  count: {
     type: [Number, String],
     default: 0
   },
@@ -51,13 +53,11 @@ const props = defineProps({
 })
 
 const isFlipping = ref(false)
-const frontTextFromData = ref(props.frontText)
-const backTextFromData = ref(props.backText)
+const frontTextFromData = ref(props.count || 0)
+const backTextFromData = ref(props.count || 0)
 
 // 翻牌
 const flip = (front: string | number, back: string | number) => {
-  if (!back) back = +front - 1
-  console.log('flip:', { front, back })
   // 如果处于翻转中，则不执行
   if (isFlipping.value) return
   // 设置翻盘前后数据
@@ -75,19 +75,14 @@ const flip = (front: string | number, back: string | number) => {
 }
 
 watch(
-  () => props.backText,
+  () => props.count,
   (newVal, oldVal) => {
-    console.log('watch:props.backText', newVal)
-    flip(newVal, oldVal as string | number)
+    flip(oldVal as string | number, newVal as string | number)
   },
   {
     immediate: true
   }
 )
-
-defineExpose({
-  flip
-})
 </script>
 
 <style lang="scss" scoped>
@@ -171,7 +166,7 @@ $lineColor: #ffffff;
     top: 0;
     bottom: 50%;
     border-radius: $radius $radius 0 0;
-    border-bottom: solid 1px rgba($color: $lineColor, $alpha: 0.5); // 中间线颜色
+    border-bottom: solid 1px rgba($color: $lineColor, $alpha: 0.3); // 中间线颜色
   }
   .digital:after {
     top: 50%;
