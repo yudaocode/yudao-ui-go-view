@@ -24,6 +24,10 @@ export const winKeyboardValue = {
   [MenuEnum.FORWORD]: winCtrlMerge(winShiftMerge('z')),
   [MenuEnum.GROUP]: winCtrlMerge('g'),
   [MenuEnum.UN_GROUP]: winCtrlMerge(winShiftMerge('g')),
+  [MenuEnum.LOCK]: winCtrlMerge('l'),
+  [MenuEnum.UNLOCK]: winCtrlMerge(winShiftMerge('l')),
+  [MenuEnum.HIDE]: winCtrlMerge('h'),
+  [MenuEnum.SHOW]: winCtrlMerge(winShiftMerge('h')),
 }
 
 // 这个 Ctrl 后面还是换成了 ⌘
@@ -45,6 +49,10 @@ export const macKeyboardValue = {
   [MenuEnum.FORWORD]: macCtrlMerge(macShiftMerge('z')),
   [MenuEnum.GROUP]: macCtrlMerge('g'),
   [MenuEnum.UN_GROUP]: macCtrlMerge(macShiftMerge('g')),
+  [MenuEnum.LOCK]: macCtrlMerge('l'),
+  [MenuEnum.UNLOCK]: macCtrlMerge(macShiftMerge('l')),
+  [MenuEnum.HIDE]: macCtrlMerge('h'),
+  [MenuEnum.SHOW]: macCtrlMerge(macShiftMerge('h')),
 }
 
 // Win 快捷键列表
@@ -64,6 +72,12 @@ const winKeyList: Array<string> = [
 
   winKeyboardValue.group,
   winKeyboardValue.unGroup,
+
+  winKeyboardValue.lock,
+  winKeyboardValue.unLock,
+
+  winKeyboardValue.hide,
+  winKeyboardValue.show,
 ]
 
 // Mac 快捷键列表
@@ -83,6 +97,12 @@ const macKeyList: Array<string> = [
 
   macKeyboardValue.group,
   macKeyboardValue.unGroup,
+
+  macKeyboardValue.lock,
+  macKeyboardValue.unLock,
+
+  macKeyboardValue.hide,
+  macKeyboardValue.show,
 ]
 
 // 处理键盘记录
@@ -155,6 +175,24 @@ export const useAddKeyboard = () => {
       // 解除分组 ct+sh+g
       case keyboardValue.unGroup:
         keymaster(e, throttle(() => { chartEditStore.setUnGroup(); return false }, throttleTime))
+        break;
+
+      // 锁定 ct+l
+      case keyboardValue.lock:
+        keymaster(e, throttle(() => { chartEditStore.setLock(); return false }, throttleTime))
+        break;
+      // 解除锁定 ct+sh+l
+      case keyboardValue.unLock:
+        keymaster(e, throttle(() => { chartEditStore.setUnLock(); return false }, throttleTime))
+        break;
+
+      // 锁定 ct+h
+      case keyboardValue.hide:
+        keymaster(e, throttle(() => { chartEditStore.setHide(); return false }, throttleTime))
+        break;
+      // 解除锁定 ct+sh+h
+      case keyboardValue.show:
+        keymaster(e, throttle(() => { chartEditStore.setShow(); return false }, throttleTime))
         break;
     }
   }

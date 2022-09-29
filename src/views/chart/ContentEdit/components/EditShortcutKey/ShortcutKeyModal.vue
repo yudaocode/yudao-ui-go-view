@@ -64,6 +64,26 @@ const shortcutKeyOptions = [
     mac: `${MacKeyboard.CTRL.toUpperCase()} + ← `
   },
   {
+    label: '锁定',
+    win: `${WinKeyboard.CTRL.toUpperCase()} + L `,
+    mac: `${MacKeyboard.CTRL.toUpperCase()} + L `
+  },
+  {
+    label: '解锁',
+    win: `${WinKeyboard.CTRL.toUpperCase()} + ${WinKeyboard.SHIFT.toUpperCase()}+ L `,
+    mac: `${MacKeyboard.CTRL.toUpperCase()} + ${MacKeyboard.SHIFT.toUpperCase()} + L `
+  },
+  {
+    label: '展示',
+    win: `${WinKeyboard.CTRL.toUpperCase()} + H `,
+    mac: `${MacKeyboard.CTRL.toUpperCase()} + H `
+  },
+  {
+    label: '隐藏',
+    win: `${WinKeyboard.CTRL.toUpperCase()} + ${WinKeyboard.SHIFT.toUpperCase()} + H `,
+    mac: `${MacKeyboard.CTRL.toUpperCase()} + ${MacKeyboard.SHIFT.toUpperCase()} + H `
+  },
+  {
     label: '删除',
     win: 'Delete'.toUpperCase(),
     mac: `${MacKeyboard.CTRL.toUpperCase()} + Backspace `

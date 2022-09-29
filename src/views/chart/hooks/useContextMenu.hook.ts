@@ -44,7 +44,7 @@ export const defaultOptions: MenuOptionsItemType[] = [
     fnHandle: chartEditStore.setLock
   },
   {
-    label: '解除锁定',
+    label: '解锁',
     key: MenuEnum.UNLOCK,
     icon: renderIcon(LockOpenOutlineIcon),
     fnHandle: chartEditStore.setUnLock
@@ -100,13 +100,13 @@ export const defaultOptions: MenuOptionsItemType[] = [
     fnHandle: chartEditStore.setBottom
   },
   {
-    label: '上移一层',
+    label: '上移',
     key: MenuEnum.UP,
     icon: renderIcon(ChevronUpIcon),
     fnHandle: chartEditStore.setUp
   },
   {
-    label: '下移一层',
+    label: '下移',
     key: MenuEnum.DOWN,
     icon: renderIcon(ChevronDownIcon),
     fnHandle: chartEditStore.setDown
