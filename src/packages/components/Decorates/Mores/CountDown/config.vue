@@ -1,53 +1,40 @@
 <template>
-  <CollapseItem name="内容" :expanded="true">
-    <SettingItemBox name="字体">
-      <SettingItem name="大小">
-        <n-input-number v-model:value="optionData.timeSize" size="small" :min="1"></n-input-number>
-      </SettingItem>
-      <SettingItem name="粗细">
-        <n-select v-model:value="optionData.fontWeight" size="small" :options="fontWeightOptions" />
-      </SettingItem>
-    </SettingItemBox>
-    <SettingItemBox name="间距">
-      <SettingItem name="字距">
-        <n-input-number v-model:value="optionData.timeTextIndent" size="small" :min="1"></n-input-number>
-      </SettingItem>
-      <SettingItem name="行距">
-        <n-input-number v-model:value="optionData.timeLineHeight" size="small" :min="1"></n-input-number>
-      </SettingItem>
-    </SettingItemBox>
+  <collapse-item name="翻牌" :expanded="true">
+    <setting-item-box name="尺寸">
+      <setting-item name="宽度">
+        <n-input-number v-model:value="optionData.flipperWidth" size="small" :min="1"></n-input-number>
+      </setting-item>
+      <setting-item name="高度">
+        <n-input-number v-model:value="optionData.flipperHeight" size="small" :min="1"></n-input-number>
+      </setting-item>
+    </setting-item-box>
 
-    <SettingItemBox name="颜色">
-      <SettingItem name="时间">
-        <n-color-picker size="small" :modes="['hex']" v-model:value="optionData.timeColor"></n-color-picker>
-      </SettingItem>
-    </SettingItemBox>
-    <SettingItemBox name="阴影">
-      <SettingItem>
-        <n-space>
-          <n-switch v-model:value="optionData.showShadow" size="small" />
-          <n-text>展示阴影</n-text>
-        </n-space>
-      </SettingItem>
-      <SettingItem name="x">
-        <n-input-number v-model:value="optionData.hShadow" size="small"></n-input-number
-      ></SettingItem>
-      <SettingItem name="y">
-        <n-input-number v-model:value="optionData.vShadow" size="small"></n-input-number
-      ></SettingItem>
-      <SettingItem name="模糊">
-        <n-input-number v-model:value="optionData.blurShadow" size="small"></n-input-number
-      ></SettingItem>
-      <SettingItem name="颜色">
-        <n-color-picker size="small" :modes="['hex']" v-model:value="optionData.colorShadow"></n-color-picker
-      ></SettingItem>
-    </SettingItemBox>
-  </CollapseItem>
+    <setting-item-box name="样式">
+      <setting-item name="背景色">
+        <n-color-picker size="small" :modes="['hex']" v-model:value="optionData.flipperBgColor"></n-color-picker>
+      </setting-item>
+      <setting-item name="字体色">
+        <n-color-picker size="small" :modes="['hex']" v-model:value="optionData.flipperTextColor"></n-color-picker>
+      </setting-item>
+      <setting-item name="圆角">
+        <n-input-number v-model:value="optionData.flipperRadius" size="small" :min="0"></n-input-number>
+      </setting-item>
+      <setting-item name="翻牌速度">
+        <n-input-number
+          v-model:value="optionData.flipperSpeed"
+          size="small"
+          :min="100"
+          :max="900"
+          :step="100"
+        ></n-input-number>
+      </setting-item>
+    </setting-item-box>
+  </collapse-item>
 </template>
 <script setup lang="ts">
 import { PropType } from 'vue'
 import { CollapseItem, SettingItemBox, SettingItem } from '@/components/Pages/ChartItemSetting'
-import { option, FontWeightEnum, FontWeightObject } from './config'
+import { option } from './config'
 
 const props = defineProps({
   optionData: {
@@ -55,14 +42,4 @@ const props = defineProps({
     required: true
   }
 })
-const fontWeightOptions = [
-  {
-    label: FontWeightEnum.NORMAL,
-    value: FontWeightObject[FontWeightEnum.NORMAL]
-  },
-  {
-    label: FontWeightEnum.BOLD,
-    value: FontWeightObject[FontWeightEnum.BOLD]
-  }
-]
 </script>
