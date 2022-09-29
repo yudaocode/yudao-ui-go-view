@@ -1,24 +1,28 @@
 <template>
   <div class="M-Flipper" :class="[flipType, { go: isFlipping }]">
-    <div class="digital front" :data-front="frontTextFromData"></div>
-    <div class="digital back" :data-back="backTextFromData"></div>
+    <div class="digital front" :data-front="frontTextFromData || 0"></div>
+    <div class="digital back" :data-back="backTextFromData || 0"></div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, PropType, watch } from 'vue'
 type FlipType = 'up' | 'down'
 
-const name = 'Flipper'
-
 const props = defineProps({
+  flipType: {
+    type: Object as PropType<FlipType>,
+    default: () => {
+      return 'down'
+    }
+  },
   frontText: {
     type: [Number, String],
     default: 0
   },
   backText: {
     type: [Number, String],
-    default: 1
+    default: 0
   },
   duration: {
     type: Number,
@@ -47,97 +51,101 @@ const props = defineProps({
 })
 
 const isFlipping = ref(false)
-const flipType = ref<FlipType>('down')
 const frontTextFromData = ref(props.frontText)
 const backTextFromData = ref(props.backText)
 
-const _flip = (type: FlipType, front: string | number, back: string | number) => {
+// 翻牌
+const flip = (front: string | number, back: string | number) => {
   // 如果处于翻转中，则不执行
   if (isFlipping.value) return
-  frontTextFromData.value = front
+  // 设置翻盘前后数据
   backTextFromData.value = back
-  // 根据传递过来的type设置翻转方向
-  flipType.value = type
+  frontTextFromData.value = front
+
   // 设置翻转状态为true
   isFlipping.value = true
+
+  // 翻牌结束的行为
   setTimeout(() => {
-    // 设置翻转状态为false
-    isFlipping.value = false
+    isFlipping.value = false // 设置翻转状态为false
     frontTextFromData.value = back
   }, props.duration)
 }
-// 下翻牌
-const flipDown = (front: string | number, back: string | number) => _flip('down', front, back)
-// 上翻牌
-const flipUp = (front: string | number, back: string | number) => _flip('up', front, back)
-// 设置前牌文字
-const setFront = (text: string | number) => {
-  frontTextFromData.value = text
-}
-// 设置后牌文字
-const setBack = (text: string | number) => {
-  backTextFromData.value = text
-}
+
+watch(
+  () => props.backText,
+  (newVal, oldVal) => {
+    console.log('watch:props.backText', newVal)
+    flip(newVal, oldVal as string | number)
+  },
+  {
+    immediate: true
+  }
+)
 
 defineExpose({
-  name,
-  flipDown,
-  flipUp
+  flip
 })
 </script>
 
 <style lang="scss" scoped>
+// #region 动画效果
 @keyframes frontFlipDown {
   0% {
-    transform: perspective(160px) rotateX(0deg);
+    transform: perspective(v-bind('`${props.height * 1.6}px`')) rotateX(0deg);
   }
   100% {
-    transform: perspective(160px) rotateX(-180deg);
+    transform: perspective(v-bind('`${props.height * 1.6}px`')) rotateX(-180deg);
   }
 }
 @keyframes backFlipDown {
   0% {
-    transform: perspective(160px) rotateX(180deg);
+    transform: perspective(v-bind('`${props.height * 1.6}px`')) rotateX(180deg);
   }
   100% {
-    transform: perspective(160px) rotateX(0deg);
+    transform: perspective(v-bind('`${props.height * 1.6}px`')) rotateX(0deg);
   }
 }
 @keyframes frontFlipUp {
   0% {
-    transform: perspective(160px) rotateX(0deg);
+    transform: perspective(v-bind('`${props.height * 1.6}px`')) rotateX(0deg);
   }
   100% {
-    transform: perspective(160px) rotateX(180deg);
+    transform: perspective(v-bind('`${props.height * 1.6}px`')) rotateX(180deg);
   }
 }
 @keyframes backFlipUp {
   0% {
-    transform: perspective(160px) rotateX(-180deg);
+    transform: perspective(v-bind('`${props.height * 1.6}px`')) rotateX(-180deg);
   }
   100% {
-    transform: perspective(160px) rotateX(0deg);
+    transform: perspective(v-bind('`${props.height * 1.6}px`')) rotateX(0deg);
   }
 }
+// #endregion
 
 $frontColor: v-bind('props.frontColor');
 $backColor: v-bind('props.backColor');
-$radius: v-bind('props.radius');
+$radius: v-bind('`${props.radius}px`');
+$width: v-bind('`${props.width}px`');
+$height: v-bind('`${props.height}px`');
+$shadowColor: #000000;
+$lineColor: #ffffff;
 
 .M-Flipper {
   display: inline-block;
   position: relative;
-  width: v-bind('`${width}px`');
-  height: v-bind('`${height}px`');
-  line-height: v-bind('`${height}px`');
+  width: $width;
+  height: $height;
+  line-height: $height;
   border: solid 1px $backColor;
-  border-radius: v-bind('`${radius}px`');
+  border-radius: $radius;
   background: $frontColor;
-  font-size: v-bind('`${width * 1.1}px`');
-  color: v-bind('props.frontColor');
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+  font-size: v-bind('`${props.width * 1.1}px`');
+  color: $frontColor;
+  box-shadow: 0 0 6px rgba($color: $shadowColor, $alpha: 0.5); // 阴影部分
   text-align: center;
-  font-family: 'Helvetica Neue';
+  // font-family: 'Helvetica Neue';
 
   .digital:before,
   .digital:after {
@@ -145,7 +153,7 @@ $radius: v-bind('props.radius');
     position: absolute;
     left: 0;
     right: 0;
-    background: v-bind('props.backColor');
+    background: $backColor;
     overflow: hidden;
     box-sizing: border-box;
   }
@@ -160,13 +168,13 @@ $radius: v-bind('props.radius');
   .digital:before {
     top: 0;
     bottom: 50%;
-    border-radius: v-bind('`${radius}px`') v-bind('`${radius}px`') 0 0;
-    border-bottom: solid 1px #666;
+    border-radius: $radius $radius 0 0;
+    border-bottom: solid 1px rgba($color: $lineColor, $alpha: 0.5); // 中间线颜色
   }
   .digital:after {
     top: 50%;
     bottom: 0;
-    border-radius: 0 0 v-bind('`${radius}px`') v-bind('`${radius}px`');
+    border-radius: 0 0 $radius $radius;
     line-height: 0;
   }
   /*向下翻*/
@@ -176,7 +184,7 @@ $radius: v-bind('props.radius');
   &.down .back:after {
     z-index: 2;
     transform-origin: 50% 0%;
-    transform: perspective(v-bind('`${height * 1.6}px`')) rotateX(180deg);
+    transform: perspective(v-bind('`${props.height * 1.6}px`')) rotateX(180deg);
   }
   &.down .front:after,
   &.down .back:before {
@@ -185,7 +193,7 @@ $radius: v-bind('props.radius');
   &.down.go .front:before {
     transform-origin: 50% 100%;
     animation: frontFlipDown v-bind('`${props.duration / 1000}s`') ease-in-out both;
-    box-shadow: 0 -2px 6px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 -2px 6px rgba($color: $lineColor, $alpha: 0.3);
     backface-visibility: hidden;
   }
   &.down.go .back:after {
@@ -198,7 +206,7 @@ $radius: v-bind('props.radius');
   &.up .back:before {
     z-index: 2;
     transform-origin: 50% 100%;
-    transform: perspective(v-bind('`${height * 1.6}px`')) rotateX(-180deg);
+    transform: perspective(v-bind('`${props.height * 1.6}px`')) rotateX(-180deg);
   }
   &.up .front:before,
   &.up .back:after {
@@ -207,7 +215,7 @@ $radius: v-bind('props.radius');
   &.up.go .front:after {
     transform-origin: 50% 0;
     animation: frontFlipUp v-bind('`${props.duration / 1000}s`') ease-in-out both;
-    box-shadow: 0 2px 6px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 2px 6px rgba($color: $lineColor, $alpha: 0.3);
     backface-visibility: hidden;
   }
   &.up.go .back:before {
