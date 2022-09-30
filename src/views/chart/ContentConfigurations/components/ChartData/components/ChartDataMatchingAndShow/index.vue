@@ -41,7 +41,7 @@
             @before-upload="beforeUpload"
           >
             <n-space>
-              <n-button v-if="!ajax" class="sourceBtn-item">
+              <n-button v-if="!ajax" class="sourceBtn-item" :disabled="noData">
                 <template #icon>
                   <n-icon>
                     <document-add-icon />
@@ -52,7 +52,7 @@
             </n-space>
           </n-upload>
           <div>
-            <n-button class="sourceBtn-item" @click="download">
+            <n-button class="sourceBtn-item" :disabled="noData" @click="download">
               <template #icon>
                 <n-icon>
                   <document-download-icon />
@@ -111,6 +111,7 @@ const { DocumentAddIcon, DocumentDownloadIcon } = icon.carbon
 const source = ref()
 const dimensions = ref()
 const dimensionsAndSource = ref()
+const noData = ref(false)
 
 const { uploadFileListRef, customRequest, beforeUpload, download } = useFile(targetData)
 
@@ -180,6 +181,7 @@ watch(
       dimensionsAndSource.value = null
       source.value = newData
     } else {
+      noData.value = true
       source.value = '此组件无数据源'
     }
     if (isArray(newData)) {
