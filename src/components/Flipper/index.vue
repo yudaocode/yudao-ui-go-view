@@ -13,7 +13,7 @@ export default {
 
 <script lang="ts" setup>
 import { ref, PropType, watch } from 'vue'
-type FlipType = 'up' | 'down'
+import { FlipType } from '.'
 
 const props = defineProps({
   flipType: {

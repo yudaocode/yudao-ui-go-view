@@ -1,6 +1,6 @@
 import { PublicConfigClass } from '@/packages/public'
 import { CreateComponentType } from '@/packages/index.d'
-import { CountDownConfig } from './index'
+import { FlipperNumberConfig } from './index'
 import cloneDeep from 'lodash/cloneDeep'
 import { chartInitConfig } from '@/settings/designSetting'
 import { FlipType } from '@/components/Flipper'
@@ -21,8 +21,8 @@ export interface OptionType {
 export const option: OptionType = {
   dataset: 203234,
   flipperLength: 6,
-  flipperBgColor: '#ee6600',
-  flipperTextColor: '#FFFFFFFF',
+  flipperBgColor: '#253E4E',
+  flipperTextColor: '#7CFFB2FF',
   flipperWidth: 60,
   flipperHeight: 100,
   flipperRadius: 10,
@@ -32,8 +32,8 @@ export const option: OptionType = {
 }
 
 export default class Config extends PublicConfigClass implements CreateComponentType {
-  public key = CountDownConfig.key
+  public key = FlipperNumberConfig.key
   public attr = { ...chartInitConfig, w: 500, h: 200, zIndex: -1 }
-  public chartConfig = cloneDeep(CountDownConfig)
+  public chartConfig = cloneDeep(FlipperNumberConfig)
   public option = cloneDeep(option)
 }
