@@ -89,7 +89,7 @@ const { w, h } = toRefs(props.chartConfig.attr)
 
 const {
   dataset,
-  fixedDate,
+  useEndDate,
   endDate,
   style,
   showDay,
@@ -132,7 +132,7 @@ const renderCountdown: CountdownProps['render'] = ({ hours, minutes, seconds }) 
 
 const updateTotalDuration = () => {
   countdownActive.value = false
-  totalDuration.value = fixedDate.value ? endDate.value - new Date().getTime() : dataset.value * 1000
+  totalDuration.value = useEndDate.value ? endDate.value - new Date().getTime() : dataset.value * 1000
   countdownRef.value?.reset && countdownRef.value?.reset()
   countdownActive.value = true
 }
@@ -156,7 +156,7 @@ watch(
   }
 )
 watch(
-  () => props.chartConfig.option.fixedDate,
+  () => props.chartConfig.option.useEndDate,
   () => {
     updateTotalDuration()
   },
@@ -177,5 +177,6 @@ onMounted(() => {
   font-size: v-bind('`${flipperWidth}px`');
   line-height: v-bind('`${flipperHeight}px`');
   color: v-bind('flipperTextColor');
+  user-select: none;
 }
 </style>

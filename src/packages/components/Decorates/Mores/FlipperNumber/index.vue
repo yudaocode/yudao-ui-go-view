@@ -1,6 +1,6 @@
 <template>
   <!-- <n-countdown :duration="50000" :active="true" /> -->
-  <n-space class="go-decorates-more-countdown" :size="flipperGap" align="center" justify="center">
+  <n-space class="go-decorates-flipper-number" :size="flipperGap" align="center" justify="center">
     <flipper
       :count="item"
       :width="flipperWidth"
@@ -12,6 +12,7 @@
       :duration="flipperSpeed"
       v-for="(item, index) in flipperData"
       :key="index"
+      class="go-d-block"
     />
   </n-space>
 </template>
@@ -51,7 +52,7 @@ const getFlipperData = (val: string | number) => {
     .toString()
     .padStart(flipperLength.value, '0') // 左侧填充|右对齐
     .split('') // 转数组
-    .slice(flipperLength.value * -1) // 从右向左取
+    .slice(flipperLength.value * -1) // 从后面取指定长度
 }
 const updateDatasetHandler = (newVal: string | number) => {
   flipperData.value = getFlipperData(newVal)
@@ -74,7 +75,7 @@ useChartDataFetch(props.chartConfig, useChartEditStore, (newVal: string | number
 </script>
 
 <style lang="scss" scoped>
-@include go('decorates-more-countdown') {
+@include go('decorates-flipper-number') {
   width: v-bind('`${w}px`');
   height: v-bind('`${h}px`');
 }

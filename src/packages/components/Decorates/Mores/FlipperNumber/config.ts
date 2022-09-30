@@ -23,9 +23,9 @@ export const option: OptionType = {
   flipperLength: 6,
   flipperBgColor: '#253E4E',
   flipperTextColor: '#7CFFB2FF',
-  flipperWidth: 60,
-  flipperHeight: 100,
-  flipperRadius: 10,
+  flipperWidth: 30,
+  flipperHeight: 50,
+  flipperRadius: 5,
   flipperGap: 10,
   flipperType: 'down',
   flipperSpeed: 450
@@ -33,7 +33,7 @@ export const option: OptionType = {
 
 export default class Config extends PublicConfigClass implements CreateComponentType {
   public key = FlipperNumberConfig.key
-  public attr = { ...chartInitConfig, w: 500, h: 160, zIndex: -1 }
+  public attr = { ...chartInitConfig, w: 300, h: 100, zIndex: -1 }
   public chartConfig = cloneDeep(FlipperNumberConfig)
   public option = cloneDeep(option)
 }

@@ -6,14 +6,14 @@
           v-model:value="optionData.dataset"
           size="small"
           :min="0"
-          :disabled="optionData.fixedDate"
+          :disabled="optionData.useEndDate"
         ></n-input-number>
       </setting-item>
       <setting-item name="结束日期">
-        <n-date-picker v-model:value="optionData.endDate" type="datetime" :disabled="!optionData.fixedDate" />
+        <n-date-picker v-model:value="optionData.endDate" type="datetime" :disabled="!optionData.useEndDate" />
       </setting-item>
       <setting-item>
-        <n-checkbox v-model:checked="optionData.fixedDate" size="small">使用固定日期</n-checkbox>
+        <n-checkbox v-model:checked="optionData.useEndDate" size="small">使用固定结束日期</n-checkbox>
       </setting-item>
     </setting-item-box>
 
