@@ -4,7 +4,7 @@
       <setting-item name="初始值">
         <n-input-number v-model:value="optionData.dataset" size="small" :min="0"></n-input-number>
       </setting-item>
-      <setting-item name="个数">
+      <setting-item name="翻牌个数">
         <n-input-number v-model:value="optionData.flipperLength" size="small" :min="1"></n-input-number>
       </setting-item>
     </setting-item-box>
@@ -46,7 +46,7 @@
           ]"
         ></n-select>
       </setting-item>
-      <setting-item name="翻牌速度">
+      <setting-item name="翻牌速度(毫秒)">
         <n-input-number
           v-model:value="optionData.flipperSpeed"
           size="small"

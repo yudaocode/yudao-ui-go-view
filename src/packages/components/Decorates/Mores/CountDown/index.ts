@@ -1,4 +1,4 @@
-import image from '@/assets/images/chart/decorates/time.png'
+import image from '@/assets/images/chart/decorates/countdown.png'
 import { ConfigType, PackagesCategoryEnum } from '@/packages/index.d'
 import { ChatCategoryEnum, ChatCategoryEnumName } from '../../index.d'
 

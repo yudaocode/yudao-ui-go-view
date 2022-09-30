@@ -1,6 +1,29 @@
 <template>
-  <!-- <n-countdown :duration="50000" :active="true" /> -->
+  <n-countdown
+    ref="countdownRef"
+    :duration="totalDuration"
+    :render="renderCountdown"
+    :active="countdownActive"
+    v-show="false"
+  />
   <n-space class="go-decorates-more-countdown" :size="flipperGap" align="center" justify="center">
+    <template v-if="showDay">
+      <flipper
+        :count="item"
+        :width="flipperWidth"
+        :height="flipperHeight"
+        :front-color="flipperTextColor"
+        :back-color="flipperBgColor"
+        :radius="flipperRadius"
+        :flip-type="flipperType"
+        :duration="flipperSpeed"
+        v-for="(item, index) in daysFlipperData"
+        :key="index"
+        class="go-d-block"
+      />
+      <div v-if="style === '时分秒'">天</div>
+      <div v-else>:</div>
+    </template>
     <flipper
       :count="item"
       :width="flipperWidth"
@@ -10,19 +33,50 @@
       :radius="flipperRadius"
       :flip-type="flipperType"
       :duration="flipperSpeed"
-      v-for="(item, index) in flipperData"
+      v-for="(item, index) in hoursFlipperData"
       :key="index"
+      class="go-d-block"
     />
+    <div v-if="style === '时分秒'">时</div>
+    <div v-else>:</div>
+    <flipper
+      :count="item"
+      :width="flipperWidth"
+      :height="flipperHeight"
+      :front-color="flipperTextColor"
+      :back-color="flipperBgColor"
+      :radius="flipperRadius"
+      :flip-type="flipperType"
+      :duration="flipperSpeed"
+      v-for="(item, index) in minutesFlipperData"
+      :key="index"
+      class="go-d-block"
+    />
+    <div v-if="style === '时分秒'">分</div>
+    <div v-else>:</div>
+    <flipper
+      :count="item"
+      :width="flipperWidth"
+      :height="flipperHeight"
+      :front-color="flipperTextColor"
+      :back-color="flipperBgColor"
+      :radius="flipperRadius"
+      :flip-type="flipperType"
+      :duration="flipperSpeed"
+      v-for="(item, index) in secondsFlipperData"
+      :key="index"
+      class="go-d-block"
+    />
+    <div v-if="style === '时分秒'">秒</div>
   </n-space>
 </template>
 
 <script setup lang="ts">
-import { PropType, toRefs, watch, ref } from 'vue'
+import { PropType, toRefs, watch, ref, onMounted } from 'vue'
 import { CreateComponentType } from '@/packages/index.d'
-import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { useChartDataFetch } from '@/hooks'
 import { Flipper } from '@/components/Flipper'
 import { OptionType } from './config'
+import { CountdownInst, CountdownProps } from 'naive-ui/es/countdown/src/Countdown'
 
 const props = defineProps({
   chartConfig: {
@@ -34,7 +88,11 @@ const props = defineProps({
 const { w, h } = toRefs(props.chartConfig.attr)
 
 const {
-  flipperLength,
+  dataset,
+  fixedDate,
+  endDate,
+  style,
+  showDay,
   flipperBgColor,
   flipperTextColor,
   flipperWidth,
@@ -45,31 +103,70 @@ const {
   flipperSpeed
 } = toRefs(props.chartConfig.option as OptionType)
 
-const flipperData = ref<string[] | number[]>([])
+const countdownRef = ref<CountdownInst | null>()
+const countdownActive = ref(false)
+
+const totalDuration = ref(dataset.value * 1000)
+const daysFlipperData = ref<string[] | number[]>([])
+const hoursFlipperData = ref<string[] | number[]>([])
+const minutesFlipperData = ref<string[] | number[]>([])
+const secondsFlipperData = ref<string[] | number[]>([])
 const getFlipperData = (val: string | number) => {
+  const len = Math.max(val.toString().length, 2)
   return val
     .toString()
-    .padStart(flipperLength.value, '0') // 左侧填充|右对齐
+    .padStart(len, '0') // 左侧填充|右对齐
     .split('') // 转数组
-    .slice(flipperLength.value * -1) // 从右向左取
 }
-const updateDatasetHandler = (newVal: string | number) => {
-  flipperData.value = getFlipperData(newVal)
+const updateDatasetHandler = (hours: number, minutes: number, seconds: number) => {
+  const days = Math.floor(hours / 24)
+  daysFlipperData.value = getFlipperData(days)
+  hoursFlipperData.value = getFlipperData(showDay.value ? hours % 24 : hours)
+  minutesFlipperData.value = getFlipperData(minutes)
+  secondsFlipperData.value = getFlipperData(seconds)
+}
+
+const renderCountdown: CountdownProps['render'] = ({ hours, minutes, seconds }) => {
+  updateDatasetHandler(hours, minutes, seconds)
+}
+
+const updateTotalDuration = () => {
+  countdownActive.value = false
+  totalDuration.value = fixedDate.value ? endDate.value - new Date().getTime() : dataset.value * 1000
+  countdownRef.value?.reset && countdownRef.value?.reset()
+  countdownActive.value = true
 }
 
 watch(
-  () => props.chartConfig.option,
-  newVal => {
-    updateDatasetHandler((newVal as OptionType).dataset)
+  () => props.chartConfig.option.dataset,
+  () => {
+    updateTotalDuration()
   },
   {
-    immediate: true,
-    deep: true
+    immediate: true
+  }
+)
+watch(
+  () => props.chartConfig.option.endDate,
+  () => {
+    updateTotalDuration()
+  },
+  {
+    immediate: true
+  }
+)
+watch(
+  () => props.chartConfig.option.fixedDate,
+  () => {
+    updateTotalDuration()
+  },
+  {
+    immediate: true
   }
 )
 
-useChartDataFetch(props.chartConfig, useChartEditStore, (newVal: string | number) => {
-  updateDatasetHandler(newVal)
+onMounted(() => {
+  updateTotalDuration()
 })
 </script>
 
@@ -77,5 +174,8 @@ useChartDataFetch(props.chartConfig, useChartEditStore, (newVal: string | number
 @include go('decorates-more-countdown') {
   width: v-bind('`${w}px`');
   height: v-bind('`${h}px`');
+  font-size: v-bind('`${flipperWidth}px`');
+  line-height: v-bind('`${flipperHeight}px`');
+  color: v-bind('flipperTextColor');
 }
 </style>

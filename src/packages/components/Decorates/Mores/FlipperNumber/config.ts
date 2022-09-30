@@ -19,7 +19,7 @@ export interface OptionType {
 }
 
 export const option: OptionType = {
-  dataset: 203234,
+  dataset: 3234,
   flipperLength: 6,
   flipperBgColor: '#253E4E',
   flipperTextColor: '#7CFFB2FF',
@@ -33,7 +33,7 @@ export const option: OptionType = {
 
 export default class Config extends PublicConfigClass implements CreateComponentType {
   public key = FlipperNumberConfig.key
-  public attr = { ...chartInitConfig, w: 500, h: 200, zIndex: -1 }
+  public attr = { ...chartInitConfig, w: 500, h: 160, zIndex: -1 }
   public chartConfig = cloneDeep(FlipperNumberConfig)
   public option = cloneDeep(option)
 }
