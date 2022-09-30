@@ -27,7 +27,6 @@ axiosInstance.interceptors.response.use(
     return Promise.resolve(res.data)
   },
   (err: AxiosResponse) => {
-    window['$message'].error('接口异常，请检查！')
     Promise.reject(err)
   }
 )
