@@ -12,7 +12,7 @@ import { mergeTheme } from '@/packages/public/chart'
 import config, { includes } from './config'
 import { useChartDataFetch } from '@/hooks'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { DatasetComponent, GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
+import { DatasetComponent, GridComponent, TooltipComponent, LegendComponent, TitleComponent } from 'echarts/components'
 
 const props = defineProps({
   themeSetting: {
@@ -29,7 +29,7 @@ const props = defineProps({
   }
 })
 
-use([DatasetComponent, CanvasRenderer, PieChart, GridComponent, TooltipComponent, LegendComponent])
+use([DatasetComponent, CanvasRenderer, PieChart, GridComponent, TooltipComponent, LegendComponent, TitleComponent])
 
 const option = reactive({
   value: {}
