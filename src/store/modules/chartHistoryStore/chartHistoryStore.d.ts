@@ -30,8 +30,6 @@ export enum HistoryActionTypeEnum {
   GROUP = 'group',
   // 解组
   UN_GROUP = 'unGroup',
-  // 选择历史记录
-  SELECT_HISTORY = 'selectHistory',
   // 锁定
   LOCK = 'lock',
   // 解除锁定
