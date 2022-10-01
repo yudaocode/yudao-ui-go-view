@@ -20,9 +20,8 @@
 <script setup lang="ts">
 import { computed, PropType } from 'vue'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
-import { PublicConfigType } from '@/packages/index.d'
+import { StatusType } from '@/packages/index.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { LayerModeEnum } from '../../index.d'
 import { icon } from '@/plugins'
 
 const props = defineProps({
@@ -35,7 +34,7 @@ const props = defineProps({
     default: false
   },
   status: {
-    type: Object as PropType<Pick<PublicConfigType, 'status'>>,
+    type: Object as PropType<StatusType>,
     default: () => ({
       lock: false,
       hide: false

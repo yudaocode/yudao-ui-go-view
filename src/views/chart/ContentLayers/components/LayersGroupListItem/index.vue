@@ -51,10 +51,10 @@ import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { useContextMenu, divider } from '@/views/chart/hooks/useContextMenu.hook'
 import { MenuOptionsItemType } from '@/views/chart/hooks/useContextMenu.hook.d'
+import { LayerModeEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
 import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 import { LayersListItem } from '../LayersListItem'
 import { LayersStatus } from '../LayersStatus/index'
-import { LayerModeEnum } from '../../index.d'
 import { icon } from '@/plugins'
 
 const props = defineProps({

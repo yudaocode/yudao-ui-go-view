@@ -14,12 +14,12 @@
     <template #top-right>
       <n-button-group style="display: flex">
         <n-button
-          v-for="(item, index) in layerModeEnumList"
+          v-for="(item, index) in layerModeList"
           :key="index"
           ghost
           size="small"
           :type="layerMode === item.value ? 'primary' : 'tertiary'"
-          @click="layerMode = item.value as LayerModeEnum"
+          @click="changeLayerType(item.value)"
         >
           <n-tooltip :show-arrow="false" trigger="hover">
             <template #trigger>
@@ -68,7 +68,7 @@ import Draggable from 'vuedraggable'
 import cloneDeep from 'lodash/cloneDeep'
 import { ContentBox } from '../ContentBox/index'
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
-import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
+import { ChartLayoutStoreEnum, LayerModeEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 import { MenuOptionsItemType } from '@/views/chart/hooks/useContextMenu.hook.d'
@@ -77,7 +77,6 @@ import { MenuEnum, MouseEventButton, WinKeyboard, MacKeyboard } from '@/enums/ed
 
 import { LayersListItem } from './components/LayersListItem/index'
 import { LayersGroupListItem } from './components/LayersGroupListItem/index'
-import { LayerModeEnum } from './index.d'
 
 import { icon } from '@/plugins'
 
@@ -86,12 +85,13 @@ const chartLayoutStore = useChartLayoutStore()
 const chartEditStore = useChartEditStore()
 const { handleContextMenu, onClickOutSide } = useContextMenu()
 
-const layerList = ref<any>([])
-const layerModeEnumList = [
-  { label: '缩略图', icon: ImagesIcon, value: 'thumbnail' },
-  { label: '文本列表', icon: ListIcon, value: 'text' }
+const layerModeList = [
+  { label: '缩略图', icon: ImagesIcon, value: LayerModeEnum.THUMBNAIL },
+  { label: '文本列表', icon: ListIcon, value: LayerModeEnum.TEXT }
 ]
-const layerMode = ref<LayerModeEnum>('thumbnail')
+
+const layerList = ref<any>([])
+const layerMode = ref<LayerModeEnum>(chartLayoutStore.getLayerType)
 
 // 逆序展示
 const reverseList = computed(() => {
@@ -117,6 +117,7 @@ const optionsHandle = (
     return targetList.filter(i => i.key === MenuEnum.GROUP)
   }
   const statusMenuEnums: MenuEnum[] = []
+  // 处理锁定与隐藏
   if (targetInstance.status.lock) {
     statusMenuEnums.push(MenuEnum.LOCK)
   } else {
@@ -191,6 +192,13 @@ const mouseenterHandle = (item: CreateComponentType) => {
 const mouseleaveHandle = (item: CreateComponentType) => {
   chartEditStore.setTargetHoverChart(undefined)
 }
+
+// 修改图层展示方式
+const changeLayerType = (value: LayerModeEnum) => {
+  layerMode.value = value
+  chartLayoutStore.setItem(ChartLayoutStoreEnum.LAYER_TYPE, value)
+}
+
 </script>
 
 <style lang="scss" scoped>

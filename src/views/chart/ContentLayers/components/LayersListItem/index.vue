@@ -24,8 +24,8 @@ import { computed, PropType } from 'vue'
 import { requireErrorImg } from '@/utils'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { LayerModeEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
 import { LayersStatus } from '../LayersStatus/index'
-import { LayerModeEnum } from '../../index.d'
 
 const props = defineProps({
   componentData: {

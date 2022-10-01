@@ -36,6 +36,12 @@ interface EchartsDataType {
   source: any[]
 }
 
+// 组件状态
+export interface StatusType {
+  lock: boolean,
+  hide: boolean,
+}
+
 // 滤镜/变换枚举
 export enum FilterEnum {
   // 是否启用
@@ -84,11 +90,8 @@ export interface PublicConfigType {
     // 动画
     animations: string[]
   },
-  status: {
-    lock: boolean,
-    hide: boolean,
-  },
   filter?: string
+  status: StatusType,
   setPosition: Function
 }
 
