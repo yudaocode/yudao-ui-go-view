@@ -21,8 +21,8 @@ export interface OptionType {
 export const option: OptionType = {
   dataset: 3234,
   flipperLength: 6,
-  flipperBgColor: '#253E4E',
-  flipperTextColor: '#7CFFB2FF',
+  flipperBgColor: '#16293E',
+  flipperTextColor: '#4A9EF8FF',
   flipperWidth: 30,
   flipperHeight: 50,
   flipperRadius: 5,

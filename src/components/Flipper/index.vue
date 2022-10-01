@@ -86,48 +86,50 @@ watch(
 </script>
 
 <style lang="scss" scoped>
-// #region 动画效果
-@keyframes frontFlipDown {
-  0% {
-    transform: perspective(v-bind('`${props.height * 1.6}px`')) rotateX(0deg);
-  }
-  100% {
-    transform: perspective(v-bind('`${props.height * 1.6}px`')) rotateX(-180deg);
-  }
-}
-@keyframes backFlipDown {
-  0% {
-    transform: perspective(v-bind('`${props.height * 1.6}px`')) rotateX(180deg);
-  }
-  100% {
-    transform: perspective(v-bind('`${props.height * 1.6}px`')) rotateX(0deg);
-  }
-}
-@keyframes frontFlipUp {
-  0% {
-    transform: perspective(v-bind('`${props.height * 1.6}px`')) rotateX(0deg);
-  }
-  100% {
-    transform: perspective(v-bind('`${props.height * 1.6}px`')) rotateX(180deg);
-  }
-}
-@keyframes backFlipUp {
-  0% {
-    transform: perspective(v-bind('`${props.height * 1.6}px`')) rotateX(-180deg);
-  }
-  100% {
-    transform: perspective(v-bind('`${props.height * 1.6}px`')) rotateX(0deg);
-  }
-}
-// #endregion
-
 $frontColor: v-bind('props.frontColor');
 $backColor: v-bind('props.backColor');
 $radius: v-bind('`${props.radius}px`');
 $width: v-bind('`${props.width}px`');
 $height: v-bind('`${props.height}px`');
+$perspective: v-bind('`${props.height * 2}px`');
+$speed: v-bind('`${props.duration / 1000}s`');
 $shadowColor: #000000;
-$lineColor: #ffffff;
+$lineColor: #4a9ef8;
+
+// #region 动画效果
+@keyframes frontFlipDown {
+  0% {
+    transform: perspective($perspective) rotateX(0deg);
+  }
+  100% {
+    transform: perspective($perspective) rotateX(-180deg);
+  }
+}
+@keyframes backFlipDown {
+  0% {
+    transform: perspective($perspective) rotateX(180deg);
+  }
+  100% {
+    transform: perspective($perspective) rotateX(0deg);
+  }
+}
+@keyframes frontFlipUp {
+  0% {
+    transform: perspective($perspective) rotateX(0deg);
+  }
+  100% {
+    transform: perspective($perspective) rotateX(180deg);
+  }
+}
+@keyframes backFlipUp {
+  0% {
+    transform: perspective($perspective) rotateX(-180deg);
+  }
+  100% {
+    transform: perspective($perspective) rotateX(0deg);
+  }
+}
+// #endregion
 
 .M-Flipper {
   display: inline-block;
@@ -138,7 +140,7 @@ $lineColor: #ffffff;
   border: solid 1px $backColor;
   border-radius: $radius;
   background: $frontColor;
-  font-size: v-bind('`${props.width * 1.1}px`');
+  font-size: $width;
   color: $frontColor;
   box-shadow: 0 0 6px rgba($color: $shadowColor, $alpha: 0.5); // 阴影部分
   text-align: center;
@@ -181,7 +183,7 @@ $lineColor: #ffffff;
   &.down .back:after {
     z-index: 2;
     transform-origin: 50% 0%;
-    transform: perspective(v-bind('`${props.height * 1.6}px`')) rotateX(180deg);
+    transform: perspective($perspective) rotateX(180deg);
   }
   &.down .front:after,
   &.down .back:before {
@@ -189,12 +191,12 @@ $lineColor: #ffffff;
   }
   &.down.go .front:before {
     transform-origin: 50% 100%;
-    animation: frontFlipDown v-bind('`${props.duration / 1000}s`') ease-in-out both;
+    animation: frontFlipDown $speed ease-in-out both;
     box-shadow: 0 -2px 6px rgba($color: $lineColor, $alpha: 0.3);
     backface-visibility: hidden;
   }
   &.down.go .back:after {
-    animation: backFlipDown v-bind('`${props.duration / 1000}s`') ease-in-out both;
+    animation: backFlipDown $speed ease-in-out both;
   }
   /*向上翻*/
   &.up .front:after {
@@ -203,7 +205,7 @@ $lineColor: #ffffff;
   &.up .back:before {
     z-index: 2;
     transform-origin: 50% 100%;
-    transform: perspective(v-bind('`${props.height * 1.6}px`')) rotateX(-180deg);
+    transform: perspective($perspective) rotateX(-180deg);
   }
   &.up .front:before,
   &.up .back:after {
@@ -211,12 +213,12 @@ $lineColor: #ffffff;
   }
   &.up.go .front:after {
     transform-origin: 50% 0;
-    animation: frontFlipUp v-bind('`${props.duration / 1000}s`') ease-in-out both;
+    animation: frontFlipUp $speed ease-in-out both;
     box-shadow: 0 2px 6px rgba($color: $lineColor, $alpha: 0.3);
     backface-visibility: hidden;
   }
   &.up.go .back:before {
-    animation: backFlipUp v-bind('`${props.duration / 1000}s`') ease-in-out both;
+    animation: backFlipUp $speed ease-in-out both;
   }
 }
 </style>
