@@ -532,6 +532,10 @@ export const useChartEditStore = defineStore({
         return
       }
 
+      // 取消选中
+      this.setTargetSelectChart()
+
+      // 重新选中
       let historyData = HistoryItem.historyData as Array<CreateComponentType | CreateComponentGroupType>
       if (isArray(historyData)) {
         // 选中目标元素，支持多个
@@ -619,30 +623,36 @@ export const useChartEditStore = defineStore({
         return
       }
 
-      switch (HistoryItem.actionType) {
-        // 锁定处理
-        case HistoryActionTypeEnum.LOCK:
-        case HistoryActionTypeEnum.UNLOCK:
-          if (!isForward) {
-            // 恢复原来状态
-            if (HistoryItem.actionType === HistoryActionTypeEnum.LOCK) historyData[0].status.lock = false
-            if (HistoryItem.actionType === HistoryActionTypeEnum.UNLOCK) historyData[0].status.lock = true
-            return
-          }
-          this.setLock(!historyData[0].status.lock, false)
-          break
+      // 处理锁定
+      const isLock = HistoryItem.actionType === HistoryActionTypeEnum.LOCK
+      const isUnLock = HistoryItem.actionType === HistoryActionTypeEnum.UNLOCK
+      if (isLock || isUnLock) {
+        if ((isLock && isForward) || (isUnLock && !isForward)) {
+          historyData.forEach(item => {
+            this.setLock(!item.status.lock, false)
+          })
+          return
+        }
+        historyData.forEach(item => {
+          this.setUnLock(false)
+        })
+        return
+      }
 
-        // 隐藏处理
-        case HistoryActionTypeEnum.HIDE:
-        case HistoryActionTypeEnum.SHOW:
-          if (!isForward) {
-            // 恢复原来状态
-            if (HistoryItem.actionType === HistoryActionTypeEnum.HIDE) historyData[0].status.hide = false
-            if (HistoryItem.actionType === HistoryActionTypeEnum.SHOW) historyData[0].status.hide = true
-            return
-          }
-          this.setHide(!historyData[0].status.hide, false)
-          break
+      // 处理隐藏
+      const isHide = HistoryItem.actionType === HistoryActionTypeEnum.HIDE
+      const isShow = HistoryItem.actionType === HistoryActionTypeEnum.SHOW
+      if (isHide || isShow) {
+        if ((isHide && isForward) || (isShow && !isForward)) {
+          historyData.forEach(item => {
+            this.setHide(!item.status.hide, false)
+          })
+          return
+        }
+        historyData.forEach(item => {
+          this.setShow(false)
+        })
+        return
       }
     },
     // * 撤回
@@ -837,14 +847,13 @@ export const useChartEditStore = defineStore({
 
           // 历史记录
           if (isHistory) {
-            chartHistoryStore.createLockHistory(
-              [targetItem],
-              status ? HistoryActionTypeEnum.LOCK : HistoryActionTypeEnum.UNLOCK
-            )
+            status
+              ? chartHistoryStore.createLockHistory([targetItem])
+              : chartHistoryStore.createUnLockHistory([targetItem])
           }
           this.updateComponentList(index, targetItem)
           // 锁定添加失焦效果
-          if(status) this.setTargetSelectChart(undefined)
+          if (status) this.setTargetSelectChart(undefined)
           loadingFinish()
           return
         }
@@ -869,12 +878,11 @@ export const useChartEditStore = defineStore({
           const targetItem = this.getComponentList[index]
           targetItem.status.hide = status
 
-          // 历史记录
+          // 历史记录 
           if (isHistory) {
-            chartHistoryStore.createHideHistory(
-              [targetItem],
-              status ? HistoryActionTypeEnum.HIDE : HistoryActionTypeEnum.SHOW
-            )
+            status
+              ? chartHistoryStore.createHideHistory([targetItem])
+              : chartHistoryStore.createShowHistory([targetItem])
           }
           this.updateComponentList(index, targetItem)
           loadingFinish()
