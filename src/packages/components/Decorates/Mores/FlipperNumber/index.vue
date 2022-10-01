@@ -1,5 +1,4 @@
 <template>
-  <!-- <n-countdown :duration="50000" :active="true" /> -->
   <n-space class="go-decorates-flipper-number" :size="flipperGap" align="center" justify="center">
     <flipper
       :count="item"
