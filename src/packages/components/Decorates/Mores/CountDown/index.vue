@@ -1,13 +1,30 @@
 <template>
-  <n-countdown
-    ref="countdownRef"
-    :duration="totalDuration"
-    :render="renderCountdown"
-    :active="countdownActive"
-    v-show="false"
-  />
-  <n-space class="go-decorates-more-countdown" :size="flipperGap" align="center" justify="center">
-    <template v-if="showDay">
+  <div>
+    <n-countdown
+      ref="countdownRef"
+      :duration="totalDuration"
+      :render="renderCountdown"
+      :active="countdownActive"
+      v-show="false"
+    />
+    <n-space class="go-decorates-more-countdown" :size="flipperGap" align="center" justify="center">
+      <template v-if="showDay">
+        <flipper
+          :count="item"
+          :width="flipperWidth"
+          :height="flipperHeight"
+          :front-color="flipperTextColor"
+          :back-color="flipperBgColor"
+          :radius="flipperRadius"
+          :flip-type="flipperType"
+          :duration="flipperSpeed"
+          v-for="(item, index) in daysFlipperData"
+          :key="index"
+          class="go-d-block"
+        />
+        <div v-if="style === '时分秒'">天</div>
+        <div v-else>:</div>
+      </template>
       <flipper
         :count="item"
         :width="flipperWidth"
@@ -17,58 +34,43 @@
         :radius="flipperRadius"
         :flip-type="flipperType"
         :duration="flipperSpeed"
-        v-for="(item, index) in daysFlipperData"
+        v-for="(item, index) in hoursFlipperData"
         :key="index"
         class="go-d-block"
       />
-      <div v-if="style === '时分秒'">天</div>
+      <div v-if="style === '时分秒'">时</div>
       <div v-else>:</div>
-    </template>
-    <flipper
-      :count="item"
-      :width="flipperWidth"
-      :height="flipperHeight"
-      :front-color="flipperTextColor"
-      :back-color="flipperBgColor"
-      :radius="flipperRadius"
-      :flip-type="flipperType"
-      :duration="flipperSpeed"
-      v-for="(item, index) in hoursFlipperData"
-      :key="index"
-      class="go-d-block"
-    />
-    <div v-if="style === '时分秒'">时</div>
-    <div v-else>:</div>
-    <flipper
-      :count="item"
-      :width="flipperWidth"
-      :height="flipperHeight"
-      :front-color="flipperTextColor"
-      :back-color="flipperBgColor"
-      :radius="flipperRadius"
-      :flip-type="flipperType"
-      :duration="flipperSpeed"
-      v-for="(item, index) in minutesFlipperData"
-      :key="index"
-      class="go-d-block"
-    />
-    <div v-if="style === '时分秒'">分</div>
-    <div v-else>:</div>
-    <flipper
-      :count="item"
-      :width="flipperWidth"
-      :height="flipperHeight"
-      :front-color="flipperTextColor"
-      :back-color="flipperBgColor"
-      :radius="flipperRadius"
-      :flip-type="flipperType"
-      :duration="flipperSpeed"
-      v-for="(item, index) in secondsFlipperData"
-      :key="index"
-      class="go-d-block"
-    />
-    <div v-if="style === '时分秒'">秒</div>
-  </n-space>
+      <flipper
+        :count="item"
+        :width="flipperWidth"
+        :height="flipperHeight"
+        :front-color="flipperTextColor"
+        :back-color="flipperBgColor"
+        :radius="flipperRadius"
+        :flip-type="flipperType"
+        :duration="flipperSpeed"
+        v-for="(item, index) in minutesFlipperData"
+        :key="index"
+        class="go-d-block"
+      />
+      <div v-if="style === '时分秒'">分</div>
+      <div v-else>:</div>
+      <flipper
+        :count="item"
+        :width="flipperWidth"
+        :height="flipperHeight"
+        :front-color="flipperTextColor"
+        :back-color="flipperBgColor"
+        :radius="flipperRadius"
+        :flip-type="flipperType"
+        :duration="flipperSpeed"
+        v-for="(item, index) in secondsFlipperData"
+        :key="index"
+        class="go-d-block"
+      />
+      <div v-if="style === '时分秒'">秒</div>
+    </n-space>
+  </div>
 </template>
 
 <script setup lang="ts">
