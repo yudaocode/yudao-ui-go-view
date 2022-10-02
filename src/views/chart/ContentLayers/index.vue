@@ -80,13 +80,13 @@ import { LayersGroupListItem } from './components/LayersGroupListItem/index'
 
 import { icon } from '@/plugins'
 
-const { LayersIcon, ImageIcon, ImagesIcon, ListIcon } = icon.ionicons5
+const { LayersIcon, GridIcon, ListIcon } = icon.ionicons5
 const chartLayoutStore = useChartLayoutStore()
 const chartEditStore = useChartEditStore()
 const { handleContextMenu, onClickOutSide } = useContextMenu()
 
 const layerModeList = [
-  { label: '缩略图', icon: ImagesIcon, value: LayerModeEnum.THUMBNAIL },
+  { label: '缩略图', icon: GridIcon, value: LayerModeEnum.THUMBNAIL },
   { label: '文本列表', icon: ListIcon, value: LayerModeEnum.TEXT }
 ]
 
