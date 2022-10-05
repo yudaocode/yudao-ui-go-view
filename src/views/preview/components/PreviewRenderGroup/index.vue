@@ -8,8 +8,9 @@
       ...getComponentAttrStyle(item.attr, groupIndex),
       ...getFilterStyle(item.styles),
       ...getTransformStyle(item.styles),
+      ...getBlendModeStyle(item.styles),
       ...getStatusStyle(item.status)
-    }"
+    } as any"
   >
     <component
       :is="item.chartConfig.chartKey"
@@ -24,7 +25,7 @@
 <script setup lang="ts">
 import { PropType } from 'vue'
 import { CreateComponentGroupType } from '@/packages/index.d'
-import { animationsClass, getFilterStyle, getTransformStyle } from '@/utils'
+import { animationsClass, getFilterStyle, getTransformStyle, getBlendModeStyle } from '@/utils'
 import { getSizeStyle, getComponentAttrStyle, getStatusStyle } from '../../utils'
 
 const props = defineProps({

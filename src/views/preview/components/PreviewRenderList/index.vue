@@ -8,8 +8,9 @@
       ...getComponentAttrStyle(item.attr, index),
       ...getFilterStyle(item.styles),
       ...getTransformStyle(item.styles),
+      ...getBlendModeStyle(item.styles),
       ...getStatusStyle(item.status)
-    }"
+    } as any"
   >
     <!-- 分组 -->
     <preview-render-group
@@ -38,7 +39,7 @@ import { ChartEditStorageType } from '../../index.d'
 import { PreviewRenderGroup } from '../PreviewRenderGroup/index'
 import { CreateComponentGroupType } from '@/packages/index.d'
 import { chartColors } from '@/settings/chartThemes/index'
-import { animationsClass, getFilterStyle, getTransformStyle } from '@/utils'
+import { animationsClass, getFilterStyle, getTransformStyle, getBlendModeStyle } from '@/utils'
 import { getSizeStyle, getComponentAttrStyle, getStatusStyle } from '../../utils'
 
 const props = defineProps({

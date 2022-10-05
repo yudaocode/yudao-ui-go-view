@@ -66,6 +66,9 @@ export class PublicConfigClass implements PublicConfigType {
     skewX: 0,
     skewY: 0,
 
+    // 混合模式
+    blendMode: 'normal',
+
     // 动画
     animations: []
   }
