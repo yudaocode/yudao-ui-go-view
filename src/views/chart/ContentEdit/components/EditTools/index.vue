@@ -179,7 +179,8 @@ $asideBottom: 70px;
       }
       @include deep() {
         .n-button__icon {
-          margin-right: 4px;
+          margin-right: 0;
+          margin-left: 0;
           margin-bottom: 12px;
         }
       }
