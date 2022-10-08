@@ -61,10 +61,14 @@ const getGeojson = (regionId: string) => {
 //异步时先注册空的 保证初始化不报错
 registerMap(props.chartConfig.option.mapRegion.adcode, { geoJSON: {} as any, specialAreas: {} })
 
-// 进行更换初始化地图
+// 进行更换初始化地图 如果为china 单独处理
 const registerMapInitAsync = async () => {
   await nextTick()
-  await getGeojson(props.chartConfig.option.mapRegion.adcode)
+  if (props.chartConfig.option.mapRegion.adcode!="china") {
+    await getGeojson(props.chartConfig.option.mapRegion.adcode)
+  }else{
+    await hainanLandsHandle(props.chartConfig.option.mapRegion.showHainanIsLands)
+  }
   vEchartsSetOption()
 }
 registerMapInitAsync()
@@ -85,7 +89,14 @@ const dataSetHandle = async (dataset: any) => {
 
   isPreview() && vEchartsSetOption()
 }
-
+// 处理海南群岛
+const hainanLandsHandle=async(newData:boolean)=>{
+  if (newData) {
+      await getGeojson('china')
+    } else {
+      registerMap('china', { geoJSON: mapJsonWithoutHainanIsLands as any, specialAreas: {} })
+    }
+}
 //监听 dataset 数据发生变化
 watch(
   () => props.chartConfig.option.dataset,
@@ -102,11 +113,7 @@ watch(
 watch(
   () => props.chartConfig.option.mapRegion.showHainanIsLands,
   async newData => {
-    if (newData) {
-      await getGeojson('china')
-    } else {
-      registerMap('china', { geoJSON: mapJsonWithoutHainanIsLands as any, specialAreas: {} })
-    }
+    await hainanLandsHandle(newData)
     vEchartsSetOption()
   },
   {
