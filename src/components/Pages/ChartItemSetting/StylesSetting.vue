@@ -70,8 +70,19 @@
     </setting-item-box>
 
     <!-- 混合模式 -->
-    <setting-item-box v-if="!isCanvas" name="混合模式" :alone="true">
-      <setting-item name="视频组件需要底色透明一般选中滤色">
+    <setting-item-box v-if="!isCanvas" :alone="true">
+      <template #name>
+        <n-text>混合</n-text>
+        <n-tooltip trigger="hover">
+          <template #trigger>
+            <n-icon size="21" :depth="3">
+              <help-outline-icon></help-outline-icon>
+            </n-icon>
+          </template>
+          <n-text>视频组件需要底色透明一般选中滤色</n-text>
+        </n-tooltip>
+      </template>
+      <setting-item>
         <n-select v-model:value="chartStyles.blendMode" size="small" filterable :options="BlendModeEnumList"></n-select>
       </setting-item>
     </setting-item-box>
@@ -141,6 +152,7 @@
 import { PropType } from 'vue'
 import { PickCreateComponentType, BlendModeEnumList } from '@/packages/index.d'
 import { SettingItemBox, SettingItem, CollapseItem } from '@/components/Pages/ChartItemSetting'
+import { icon } from '@/plugins'
 
 const props = defineProps({
   isGroup: {
@@ -156,6 +168,8 @@ const props = defineProps({
     required: true
   }
 })
+
+const { HelpOutlineIcon } = icon.ionicons5
 
 // 百分比格式化 person
 const sliderFormatTooltip = (v: string) => {
