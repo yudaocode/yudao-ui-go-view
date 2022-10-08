@@ -68,7 +68,7 @@ export enum FilterEnum {
   SKEW_Y = 'skewY',
 
   // 混合模式
-  BLENDMODE = 'blendMode'
+  BLEND_MODE = 'blendMode'
 }
 
 export const BlendModeEnumList = [
@@ -109,7 +109,7 @@ export interface PublicConfigType {
 
     [FilterEnum.SKEW_X]: number
     [FilterEnum.SKEW_Y]: number
-    [FilterEnum.BLENDMODE]: string
+    [FilterEnum.BLEND_MODE]: string
     // 动画
     animations: string[]
   }
