@@ -50,7 +50,7 @@ watch(
       props.chartConfig.option.series[0].roseType = true
     }
   },
-  { deep: true, immediate: true }
+  { deep: false, immediate: true }
 )
 
 const { vChartRef } = useChartDataFetch(props.chartConfig, useChartEditStore)

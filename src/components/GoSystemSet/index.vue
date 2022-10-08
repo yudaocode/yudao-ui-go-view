@@ -190,11 +190,14 @@ const handleChange = (e: MouseEvent, item: ListType) => {
     width: 100px;
   }
   .select-min-width {
-    width: 110px;
+    width: 115px;
   }
   @include deep() {
-    .n-list-item:not(:last-child) {
-      border-bottom: 0;
+    .n-list-item {
+      border-bottom: 0!important;
+    }
+    .n-list-item__divider {
+      display: none!important;
     }
   }
 }

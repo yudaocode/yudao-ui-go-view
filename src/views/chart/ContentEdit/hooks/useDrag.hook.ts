@@ -140,7 +140,9 @@ export const mousedownBoxSelect = (e: MouseEvent, item?: CreateComponentType | C
           targetAttr.x1 - selectAttr.x1 >= 0 &&
           targetAttr.y1 - selectAttr.y1 >= 0 &&
           targetAttr.x2 - selectAttr.x2 <= 0 &&
-          targetAttr.y2 - selectAttr.y2 <= 0
+          targetAttr.y2 - selectAttr.y2 <= 0 &&
+          !item.status.lock &&
+          !item.status.hide
         ) {
           isSelect = true
           chartEditStore.setTargetSelectChart(item.id, true)
@@ -166,6 +168,7 @@ export const useMouseHandle = () => {
   const mouseClickHandle = (e: MouseEvent, item: CreateComponentType | CreateComponentGroupType) => {
     e.preventDefault()
     e.stopPropagation()
+    if (item.status.lock) return
     // 若此时按下了 CTRL, 表示多选
     if (
       window.$KeyboardActive?.has(WinKeyboard.CTRL_SOURCE_KEY) ||
@@ -185,6 +188,7 @@ export const useMouseHandle = () => {
   const mousedownHandle = (e: MouseEvent, item: CreateComponentType | CreateComponentGroupType) => {
     e.preventDefault()
     e.stopPropagation()
+    if (item.status.lock) return
     onClickOutSide()
     // 按下左键 + CTRL
     if (

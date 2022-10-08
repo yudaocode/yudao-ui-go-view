@@ -12,7 +12,7 @@ export enum ResultEnum {
   SERVER_FORBIDDEN = 403,
   NOT_FOUND = 404,
   TOKEN_OVERDUE = 886,
-  TIMEOUT = 10042,
+  TIMEOUT = 60000,
 }
 
 // 数据相关

@@ -1,7 +1,13 @@
+export enum LayerModeEnum {
+  THUMBNAIL = 'thumbnail',
+  TEXT = 'text'
+}
+
 export enum ChartLayoutStoreEnum {
   LAYERS = 'layers',
   CHARTS = 'charts',
   DETAILS = 'details',
+  LAYER_TYPE = 'layerType'
 }
 
 export interface ChartLayoutType {
@@ -11,4 +17,6 @@ export interface ChartLayoutType {
   [ChartLayoutStoreEnum.CHARTS]: boolean
   // 详情设置
   [ChartLayoutStoreEnum.DETAILS]: boolean
+  // 层级展示方式
+  [ChartLayoutStoreEnum.LAYER_TYPE]: LayerModeEnum
 }

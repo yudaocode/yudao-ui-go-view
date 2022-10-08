@@ -14,7 +14,7 @@
       </SettingItem>
     </SettingItemBox>
 
-    <SettingItemBox name="区域颜色" :alone="true">
+    <SettingItemBox name="区域颜色">
       <SettingItem name="0%处颜色">
         <n-color-picker
           size="small"
@@ -61,18 +61,50 @@
         ></n-input-number>
       </SettingItem>
     </SettingItemBox>
-    <SettingItemBox name="聚焦 （预览可见）">
-      <setting-item name="禁用">
+
+    <SettingItemBox name="地理信息名称">
+      <SettingItem name="显示">
+        <n-space>
+          <n-switch v-model:value="seriesList[1].label.show" size="small"></n-switch>
+        </n-space>
+      </SettingItem>
+      <SettingItem name="字体颜色">
+        <n-color-picker
+          size="small"
+          :modes="['hex']"
+          v-model:value="seriesList[1].label.color"
+        ></n-color-picker>
+      </SettingItem>
+      <SettingItem name="字体大小">
+        <n-input-number
+          v-model:value="seriesList[1].label.fontSize"
+          :min="1"
+          size="small"
+          placeholder="请输入字体大小"
+        ></n-input-number>
+      </SettingItem>
+    </SettingItemBox>
+
+    <SettingItemBox name="悬浮 （预览可见）">
+      <SettingItem name="禁用">
         <n-space>
           <n-switch v-model:value="seriesList[1].emphasis.disabled" size="small"></n-switch>
         </n-space>
-      </setting-item>
+      </SettingItem>
       <SettingItem name="颜色">
         <n-color-picker
           size="small"
           :modes="['hex']"
           v-model:value="seriesList[1].emphasis.itemStyle.areaColor"
         ></n-color-picker>
+      </SettingItem>
+      <SettingItem name="字体大小">
+        <n-input-number
+          v-model:value="seriesList[1].emphasis.label.fontSize"
+          :min="1"
+          size="small"
+          placeholder="请输入字体大小"
+        ></n-input-number>
       </SettingItem>
       <SettingItem name="阴影">
         <n-color-picker
@@ -97,7 +129,37 @@
         ></n-color-picker>
       </SettingItem>
     </SettingItemBox>
-    <SettingItemBox name="边框">
+    
+    <SettingItemBox name="悬浮弹窗">
+      <SettingItem name="显示">
+        <n-space>
+          <n-switch v-model:value="seriesList[1].tooltip.show" size="small"></n-switch>
+        </n-space>
+      </SettingItem>
+      <SettingItem name="字体大小">
+        <n-input-number
+          v-model:value="seriesList[1].tooltip.textStyle.fontSize"
+          :min="1"
+          size="small"
+          placeholder="请输入字体大小"
+        ></n-input-number>
+      </SettingItem>
+      <SettingItem name="字体颜色">
+        <n-color-picker
+          size="small"
+          :modes="['hex']"
+          v-model:value="seriesList[1].tooltip.textStyle.color"
+        ></n-color-picker>
+      </SettingItem>
+      <SettingItem name="背景颜色">
+        <n-color-picker
+          size="small"
+          :modes="['hex']"
+          v-model:value="seriesList[1].tooltip.backgroundColor"
+        ></n-color-picker>
+      </SettingItem>
+    </SettingItemBox>
+    <SettingItemBox name="区域边框">
       <SettingItem name="颜色">
         <n-color-picker
           size="small"
@@ -105,7 +167,7 @@
           v-model:value="seriesList[1].itemStyle.borderColor"
         ></n-color-picker>
       </SettingItem>
-      <SettingItem name="大小">
+      <SettingItem name="宽度大小">
         <n-input-number
           v-model:value="seriesList[1].itemStyle.borderWidth"
           :min="1"
@@ -127,6 +189,20 @@
       </SettingItem>
       <SettingItem name="颜色">
         <n-color-picker size="small" :modes="['hex']" v-model:value="seriesList[0].itemStyle.color"></n-color-picker>
+      </SettingItem>
+    </SettingItemBox>
+      
+    <SettingItemBox name="文本">
+      <SettingItem name="显示">
+        <n-space>
+          <n-switch v-model:value="seriesList[0].label.show" size="small"></n-switch>
+        </n-space>
+      </SettingItem>
+      <SettingItem name="字体大小">
+        <n-input-number v-model:value="seriesList[0].label.fontSize" size="small" :min="0"></n-input-number>
+      </SettingItem>
+      <SettingItem name="字体颜色">
+        <n-color-picker size="small" :modes="['hex']" v-model:value="seriesList[0].label.color"></n-color-picker>
       </SettingItem>
     </SettingItemBox>
 

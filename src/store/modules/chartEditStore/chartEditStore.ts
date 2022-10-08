@@ -115,6 +115,8 @@ export const useChartEditStore = defineStore({
       rotateY: 0,
       skewX: 0,
       skewY: 0,
+      // 混合模式
+      blendMode: 'normal',
       // 默认背景色
       background: undefined,
       backgroundImage: undefined,
@@ -557,6 +559,10 @@ export const useChartEditStore = defineStore({
         return
       }
 
+      // 取消选中
+      this.setTargetSelectChart()
+
+      // 重新选中
       let historyData = HistoryItem.historyData as Array<CreateComponentType | CreateComponentGroupType>
       if (isArray(historyData)) {
         // 选中目标元素，支持多个
@@ -627,7 +633,8 @@ export const useChartEditStore = defineStore({
               ids.push(item.id)
             })
           } else {
-            (historyData[0] as CreateComponentGroupType).groupList.forEach(item => {
+            const group = historyData[0] as CreateComponentGroupType
+            group.groupList.forEach(item => {
               ids.push(item.id)
             })
           }
@@ -640,6 +647,38 @@ export const useChartEditStore = defineStore({
         } else {
           this.setUnGroup([(historyData[0] as CreateComponentGroupType).groupList[0].id], undefined, false)
         }
+        return
+      }
+
+      // 处理锁定
+      const isLock = HistoryItem.actionType === HistoryActionTypeEnum.LOCK
+      const isUnLock = HistoryItem.actionType === HistoryActionTypeEnum.UNLOCK
+      if (isLock || isUnLock) {
+        if ((isLock && isForward) || (isUnLock && !isForward)) {
+          historyData.forEach(item => {
+            this.setLock(!item.status.lock, false)
+          })
+          return
+        }
+        historyData.forEach(item => {
+          this.setUnLock(false)
+        })
+        return
+      }
+
+      // 处理隐藏
+      const isHide = HistoryItem.actionType === HistoryActionTypeEnum.HIDE
+      const isShow = HistoryItem.actionType === HistoryActionTypeEnum.SHOW
+      if (isHide || isShow) {
+        if ((isHide && isForward) || (isShow && !isForward)) {
+          historyData.forEach(item => {
+            this.setHide(!item.status.hide, false)
+          })
+          return
+        }
+        historyData.forEach(item => {
+          this.setShow(false)
+        })
         return
       }
     },
@@ -820,7 +859,73 @@ export const useChartEditStore = defineStore({
         loadingFinish()
       }
     },
-    // * 页面缩放设置-----------------
+    // * 锁定
+    setLock(status: boolean = true, isHistory: boolean = true) {
+      try {
+        // 暂不支持多选
+        if (this.getTargetChart.selectId.length > 1) return
+
+        loadingStart()
+        const index: number = this.fetchTargetIndex()
+        if (index !== -1) {
+          // 更新状态
+          const targetItem = this.getComponentList[index]
+          targetItem.status.lock = status
+
+          // 历史记录
+          if (isHistory) {
+            status
+              ? chartHistoryStore.createLockHistory([targetItem])
+              : chartHistoryStore.createUnLockHistory([targetItem])
+          }
+          this.updateComponentList(index, targetItem)
+          // 锁定添加失焦效果
+          if (status) this.setTargetSelectChart(undefined)
+          loadingFinish()
+          return
+        }
+      } catch (value) {
+        loadingError()
+      }
+    },
+    // * 解除锁定
+    setUnLock(isHistory: boolean = true) {
+      this.setLock(false, isHistory)
+    },
+    // * 隐藏
+    setHide(status: boolean = true, isHistory: boolean = true) {
+      try {
+        // 暂不支持多选
+        if (this.getTargetChart.selectId.length > 1) return
+
+        loadingStart()
+        const index: number = this.fetchTargetIndex()
+        if (index !== -1) {
+          // 更新状态
+          const targetItem = this.getComponentList[index]
+          targetItem.status.hide = status
+
+          // 历史记录
+          if (isHistory) {
+            status
+              ? chartHistoryStore.createHideHistory([targetItem])
+              : chartHistoryStore.createShowHistory([targetItem])
+          }
+          this.updateComponentList(index, targetItem)
+          loadingFinish()
+
+          // 隐藏添加失焦效果
+          if (status) this.setTargetSelectChart(undefined)
+        }
+      } catch (value) {
+        loadingError()
+      }
+    },
+    // * 显示
+    setShow(isHistory: boolean = true) {
+      this.setHide(false, isHistory)
+    },
+    // ----------------
     // * 设置页面大小
     setPageSize(scale: number): void {
       this.setPageStyle('height', `${this.editCanvasConfig.height * scale}px`)

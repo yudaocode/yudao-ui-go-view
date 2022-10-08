@@ -14,7 +14,7 @@ import { mergeTheme } from '@/packages/public/chart'
 import { useChartDataFetch } from '@/hooks'
 import { CreateComponentType } from '@/packages/index.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { isPreview } from '@/utils'
+import { isPreview, isArray } from '@/utils'
 
 const props = defineProps({
   themeSetting: {
@@ -49,6 +49,7 @@ const dataSetHandle = (dataset: typeof dataJson) => {
 watch(
   () => props.chartConfig.option.dataset,
   newData => {
+    if(!isArray(newData)) return
     dataSetHandle(newData)
   },
   {

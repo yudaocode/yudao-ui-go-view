@@ -37,7 +37,10 @@
               v-else
               :data-id="item.id"
               :index="index"
-              :style="useComponentStyle(item.attr, index)"
+              :style="{
+                ...useComponentStyle(item.attr, index),
+                ...getBlendModeStyle(item.styles) as any
+              }"
               :item="item"
               @click="mouseClickHandle($event, item)"
               @mousedown="mousedownHandle($event, item)"
@@ -81,7 +84,7 @@ import { onMounted, computed } from 'vue'
 import { chartColors } from '@/settings/chartThemes/index'
 import { MenuEnum } from '@/enums/editPageEnum'
 import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
-import { animationsClass, getFilterStyle, getTransformStyle } from '@/utils'
+import { animationsClass, getFilterStyle, getTransformStyle, getBlendModeStyle } from '@/utils'
 import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
 import { MenuOptionsItemType } from '@/views/chart/hooks/useContextMenu.hook.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
@@ -116,24 +119,22 @@ const optionsHandle = (
   allList: MenuOptionsItemType[],
   targetInstance: CreateComponentType
 ) => {
-  // 多选
-  const moreMenuEnums = [MenuEnum.GROUP, MenuEnum.DELETE]
-  // 单选
-  const singleMenuEnums = targetList
-
   // 多选处理
   if (chartEditStore.getTargetChart.selectId.length > 1) {
-    const list: MenuOptionsItemType[] = []
-
-    allList.forEach(item => {
-      // 成组
-      if (moreMenuEnums.includes(item.key as MenuEnum)) {
-        list.push(item)
-      }
-    })
-    return list
+    return allList.filter(i => [MenuEnum.GROUP, MenuEnum.DELETE].includes(i.key as MenuEnum))
   }
-  return singleMenuEnums
+  const statusMenuEnums: MenuEnum[] = []
+  if (targetInstance.status.lock) {
+    statusMenuEnums.push(MenuEnum.LOCK)
+  } else {
+    statusMenuEnums.push(MenuEnum.UNLOCK)
+  }
+  if (targetInstance.status.hide) {
+    statusMenuEnums.push(MenuEnum.HIDE)
+  } else {
+    statusMenuEnums.push(MenuEnum.SHOW)
+  }
+  return targetList.filter(i => !statusMenuEnums.includes(i.key as MenuEnum))
 }
 
 // 主题色

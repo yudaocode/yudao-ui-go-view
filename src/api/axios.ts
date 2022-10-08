@@ -64,7 +64,6 @@ axiosInstance.interceptors.response.use(
     return Promise.resolve(res.data)
   },
   (err: AxiosResponse) => {
-    httpErrorHandle()
     Promise.reject(err)
   }
 )

@@ -111,6 +111,7 @@ export type EditCanvasConfigType = {
   [FilterEnum.ROTATE_Y]: number
   [FilterEnum.SKEW_X]: number
   [FilterEnum.SKEW_Y]: number
+  [FilterEnum.BLEND_MODE]: string
   // 大屏宽度
   [EditCanvasConfigEnum.WIDTH]: number
   // 大屏高度
