@@ -1,6 +1,6 @@
 {
   "name": "go-view",
-  "version": "2.0.9",
+  "version": "2.0.8",
   "scripts": {
     "dev": "vite --host",
     "build": "vue-tsc --noEmit && vite build",
