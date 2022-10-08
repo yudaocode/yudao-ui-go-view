@@ -11,7 +11,8 @@
         ...useComponentStyle(groupData.attr, groupIndex),
         ...useSizeStyle(groupData.attr),
         ...getFilterStyle(groupData.styles),
-        ...getTransformStyle(groupData.styles)
+        ...getTransformStyle(groupData.styles),
+        ...getBlendModeStyle(groupData.styles)
       }"
       @click="mouseClickHandle($event, groupData)"
       @mousedown="mousedownHandle($event, groupData)"
@@ -55,7 +56,7 @@ import { MenuEnum } from '@/enums/editPageEnum'
 import { chartColors } from '@/settings/chartThemes/index'
 import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 import { MenuOptionsItemType } from '@/views/chart/hooks/useContextMenu.hook.d'
-import { animationsClass, getFilterStyle, getTransformStyle } from '@/utils'
+import { animationsClass, getFilterStyle, getTransformStyle, getBlendModeStyle } from '@/utils'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { useContextMenu, divider } from '@/views/chart/hooks/useContextMenu.hook'
 import { useMouseHandle } from '../../hooks/useDrag.hook'
