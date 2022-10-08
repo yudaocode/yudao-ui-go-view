@@ -157,14 +157,12 @@ const props = defineProps({
   }
 })
 
-// 百分比格式化persen
+// 百分比格式化 person
 const sliderFormatTooltip = (v: string) => {
-  // @ts-ignore
   return `${(parseFloat(v) * 100).toFixed(0)}%`
 }
 // 角度格式化
 const degFormatTooltip = (v: string) => {
-  // @ts-ignore
   return `${v}deg`
 }
 </script>

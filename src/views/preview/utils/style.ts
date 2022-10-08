@@ -33,7 +33,7 @@ export const getStatusStyle = (attr: StatusType) => {
 export const getEditCanvasConfigStyle = (canvas: EditCanvasConfigType) => {
   // 背景
   const computedBackground = canvas.selectColor
-    ? { background: canvas.background || '#000000' }
+    ? { background: canvas.background }
     : {
         background: `url(${canvas.backgroundImage}) center center / cover no-repeat !important`
       }
