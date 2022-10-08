@@ -191,11 +191,11 @@ export const useAddKeyboard = () => {
         keymaster(e, throttle(() => { chartEditStore.setUnLock(); return false }, throttleTime))
         break;
 
-      // 锁定 ct+h
+      // 隐藏 ct+h
       case keyboardValue.hide:
         keymaster(e, throttle(() => { chartEditStore.setHide(); return false }, throttleTime))
         break;
-      // 解除锁定 ct+sh+h
+      // 解除隐藏 ct+sh+h
       case keyboardValue.show:
         keymaster(e, throttle(() => { chartEditStore.setShow(); return false }, throttleTime))
         break;
