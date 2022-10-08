@@ -199,7 +199,9 @@ const handleContextMenu = (
     target = target.parentNode
   }
 
-  // 展示列表
+  chartEditStore.setTargetSelectChart(targetInstance && targetInstance.id)
+
+  // 隐藏旧列表
   chartEditStore.setRightMenuShow(false)
 
   // * 多选默认选项
