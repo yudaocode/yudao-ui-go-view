@@ -37,7 +37,7 @@
               v-else
               :data-id="item.id"
               :index="index"
-              :style="useComponentStyle(item.attr, index)"
+              :style="{ ...useComponentStyle(item.attr, index), ...getBlendModeStyle(item.styles) }"
               :item="item"
               @click="mouseClickHandle($event, item)"
               @mousedown="mousedownHandle($event, item)"
@@ -81,7 +81,7 @@ import { onMounted, computed } from 'vue'
 import { chartColors } from '@/settings/chartThemes/index'
 import { MenuEnum } from '@/enums/editPageEnum'
 import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
-import { animationsClass, getFilterStyle, getTransformStyle } from '@/utils'
+import { animationsClass, getFilterStyle, getTransformStyle, getBlendModeStyle } from '@/utils'
 import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
 import { MenuOptionsItemType } from '@/views/chart/hooks/useContextMenu.hook.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'

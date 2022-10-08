@@ -1,7 +1,7 @@
 <template>
   <div v-show="isGroup">
     <n-divider n-divider style="margin: 10px 0"></n-divider>
-    <n-tag type="warning"> 解散分组「  {{ isCanvas ? '滤镜' : '滤镜 / 变换' }} 」也将消失!</n-tag>
+    <n-tag type="warning"> 解散分组「 {{ isCanvas ? '滤镜' : '滤镜 / 变换' }} 」也将消失!</n-tag>
   </div>
 
   <collapse-item :name="isCanvas ? '滤镜' : '滤镜 / 变换'">
@@ -69,6 +69,13 @@
       </setting-item>
     </setting-item-box>
 
+    <!-- 混合模式 -->
+    <setting-item-box v-if="!isCanvas" name="混合模式" :alone="true">
+      <setting-item name="视频组件需要底色透明一般选中滤色">
+        <n-select size="small" v-model:value="chartStyles.blendMode" :options="BlendModeEnumList"></n-select>
+      </setting-item>
+    </setting-item-box>
+
     <!-- 变换 -->
     <setting-item-box v-if="!isCanvas" name="旋转°">
       <setting-item name="Z轴(平面) - 旋转">
@@ -132,7 +139,7 @@
 
 <script setup lang="ts">
 import { PropType } from 'vue'
-import { PickCreateComponentType } from '@/packages/index.d'
+import { PickCreateComponentType, BlendModeEnumList } from '@/packages/index.d'
 import { SettingItemBox, SettingItem, CollapseItem } from '@/components/Pages/ChartItemSetting'
 
 const props = defineProps({

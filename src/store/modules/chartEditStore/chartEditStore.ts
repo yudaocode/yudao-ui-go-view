@@ -97,6 +97,8 @@ export const useChartEditStore = defineStore({
       rotateY: 0,
       skewX: 0,
       skewY: 0,
+      // 混合模式
+      blendMode: 'normal',
       // 默认背景色
       background: undefined,
       backgroundImage: undefined,
@@ -878,7 +880,7 @@ export const useChartEditStore = defineStore({
           const targetItem = this.getComponentList[index]
           targetItem.status.hide = status
 
-          // 历史记录 
+          // 历史记录
           if (isHistory) {
             status
               ? chartHistoryStore.createHideHistory([targetItem])
