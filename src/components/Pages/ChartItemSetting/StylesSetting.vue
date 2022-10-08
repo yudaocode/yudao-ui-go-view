@@ -77,7 +77,7 @@
     </setting-item-box>
 
     <!-- 变换 -->
-    <setting-item-box name="旋转°">
+    <setting-item-box v-if="!isCanvas" name="旋转°">
       <setting-item name="Z轴(平面) - 旋转">
         <!-- 透明度 -->
         <n-input-number
