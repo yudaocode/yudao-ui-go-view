@@ -8,9 +8,9 @@
       ...getComponentAttrStyle(item.attr, groupIndex),
       ...getFilterStyle(item.styles),
       ...getTransformStyle(item.styles),
-      ...getBlendModeStyle(item.styles),
-      ...getStatusStyle(item.status)
-    } as any"
+      ...getStatusStyle(item.status),
+      ...getBlendModeStyle(item.styles) as any
+    }"
   >
     <component
       :is="item.chartConfig.chartKey"

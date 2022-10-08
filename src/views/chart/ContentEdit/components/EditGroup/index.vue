@@ -12,7 +12,7 @@
         ...useSizeStyle(groupData.attr),
         ...getFilterStyle(groupData.styles),
         ...getTransformStyle(groupData.styles),
-        ...getBlendModeStyle(groupData.styles)
+        ...getBlendModeStyle(groupData.styles) as any
       }"
       @click="mouseClickHandle($event, groupData)"
       @mousedown="mousedownHandle($event, groupData)"

@@ -72,7 +72,7 @@
     <!-- 混合模式 -->
     <setting-item-box v-if="!isCanvas" name="混合模式" :alone="true">
       <setting-item name="视频组件需要底色透明一般选中滤色">
-        <n-select size="small" v-model:value="chartStyles.blendMode" :options="BlendModeEnumList"></n-select>
+        <n-select v-model:value="chartStyles.blendMode" size="small" filterable :options="BlendModeEnumList"></n-select>
       </setting-item>
     </setting-item-box>
 

@@ -8,8 +8,8 @@
       ...getComponentAttrStyle(item.attr, index),
       ...getFilterStyle(item.styles),
       ...getTransformStyle(item.styles),
-      ...getBlendModeStyle(item.styles),
-      ...getStatusStyle(item.status)
+      ...getStatusStyle(item.status),
+      ...getBlendModeStyle(item.styles) as any
     } as any"
   >
     <!-- 分组 -->

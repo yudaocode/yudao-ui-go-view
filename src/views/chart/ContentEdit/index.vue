@@ -37,7 +37,10 @@
               v-else
               :data-id="item.id"
               :index="index"
-              :style="{ ...useComponentStyle(item.attr, index), ...getBlendModeStyle(item.styles) }"
+              :style="{
+                ...useComponentStyle(item.attr, index),
+                ...getBlendModeStyle(item.styles) as any
+              }"
               :item="item"
               @click="mouseClickHandle($event, item)"
               @mousedown="mousedownHandle($event, item)"

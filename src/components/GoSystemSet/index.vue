@@ -190,7 +190,7 @@ const handleChange = (e: MouseEvent, item: ListType) => {
     width: 100px;
   }
   .select-min-width {
-    width: 110px;
+    width: 115px;
   }
   @include deep() {
     .n-list-item {
