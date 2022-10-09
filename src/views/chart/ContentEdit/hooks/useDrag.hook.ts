@@ -153,6 +153,8 @@ export const mousedownBoxSelect = (e: MouseEvent, item?: CreateComponentType | C
 
   // 鼠标抬起
   const mouseup = () => {
+    // 鼠标抬起时，结束mousemove的节流函数，避免选框不消失问题
+    mousemove.cancel()
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_SELECT, false)
     chartEditStore.setMousePosition(0, 0, 0, 0)
     document.removeEventListener('mousemove', mousemove)
