@@ -78,7 +78,6 @@ export const useSync = () => {
           ) => {
             // 补充 class 上的方法
             let newComponent: CreateComponentType = await createComponent(_componentInstance.chartConfig)
-            newComponent.option = _componentInstance?.option
             if (callBack) {
               if (changeId) {
                 callBack(componentMerge(newComponent, { ..._componentInstance, id: getUUID() }))
