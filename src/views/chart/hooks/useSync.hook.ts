@@ -18,6 +18,29 @@ import { CreateComponentType, CreateComponentGroupType, ConfigType } from '@/pac
 import { PublicGroupConfigClass } from '@/packages/public/publicConfig'
 import merge from 'lodash/merge'
 
+/**
+ * 合并处理
+ * @param object 模板数据
+ * @param sources 新拿到的数据
+ * @returns object
+ */
+const componentMerge = (object: any, sources: any, notComponent = false) => {
+  // 非组件不处理
+  if (notComponent) return merge(object, sources)
+  // 组件排除 options
+  const option = sources.option
+  if(!option) return merge(object, sources)
+
+  // 为 undefined 的 sources 来源对象属性将被跳过详见 https://www.lodashjs.com/docs/lodash.merge
+  sources.option = undefined
+  if (option) {
+    return {
+      ...merge(object, sources),
+      option: option
+    }
+  }
+}
+
 // 请求处理
 export const useSync = () => {
   const chartEditStore = useChartEditStore()
@@ -69,19 +92,19 @@ export const useSync = () => {
             let newComponent: CreateComponentType = await createComponent(_componentInstance.chartConfig)
             if (callBack) {
               if (changeId) {
-                callBack(merge(newComponent, { ..._componentInstance, id: getUUID() }))
+                callBack(componentMerge(newComponent, { ..._componentInstance, id: getUUID() }))
               } else {
-                callBack(merge(newComponent, _componentInstance))
+                callBack(componentMerge(newComponent, _componentInstance))
               }
             } else {
               if (changeId) {
                 chartEditStore.addComponentList(
-                  merge(newComponent, { ..._componentInstance, id: getUUID() }),
+                  componentMerge(newComponent, { ..._componentInstance, id: getUUID() }),
                   false,
                   true
                 )
               } else {
-                chartEditStore.addComponentList(merge(newComponent, _componentInstance), false, true)
+                chartEditStore.addComponentList(componentMerge(newComponent, _componentInstance), false, true)
               }
             }
           }
@@ -90,9 +113,9 @@ export const useSync = () => {
             // 创建分组
             let groupClass = new PublicGroupConfigClass()
             if (changeId) {
-              groupClass = merge(groupClass, { ...comItem, id: getUUID() })
+              groupClass = componentMerge(groupClass, { ...comItem, id: getUUID() })
             } else {
-              groupClass = merge(groupClass, comItem)
+              groupClass = componentMerge(groupClass, comItem)
             }
 
             // 注册子应用
@@ -113,7 +136,7 @@ export const useSync = () => {
       } else {
         // 非组件(顺便排除脏数据)
         if (key !== 'editCanvasConfig' && key !== 'requestGlobalConfig') return
-        merge(chartEditStore[key], projectData[key])
+        componentMerge(chartEditStore[key], projectData[key], true)
       }
     }
   }
