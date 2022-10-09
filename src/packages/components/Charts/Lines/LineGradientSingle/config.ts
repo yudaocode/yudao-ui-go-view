@@ -20,7 +20,7 @@ const options = {
   },
   xAxis: {
     show: true,
-    type: 'category'
+    type: 'category',
   },
   yAxis: {
     show: true,
@@ -31,6 +31,13 @@ const options = {
     {
       type: 'line',
       smooth: false,
+      symbolSize: 5,   //设定实心点的大小
+      label:{
+        show: true,
+        position: 'top',
+        color: "#fff",
+        fontSize: 12,
+      },
       lineStyle: {
         type: 'solid',
         width: 3
@@ -52,7 +59,8 @@ const options = {
   ]
 }
 
-export default class Config extends PublicConfigClass implements CreateComponentType {
+export default class Config extends PublicConfigClass
+  implements CreateComponentType {
   public key: string = LineGradientSingleConfig.key
   public chartConfig = LineGradientSingleConfig
   // 图表配置项

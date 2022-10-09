@@ -5,16 +5,20 @@ import cloneDeep from 'lodash/cloneDeep'
 import dataJson from './data.json'
 
 export const includes = ['legend', 'xAxis', 'yAxis']
-
 export const seriesItem = {
   type: 'bar',
-  barWidth: null,
+  barWidth: 15,
+  label:{
+    show: true,
+    position: 'top',
+    color: "#fff",
+    fontSize: 12,
+  },
   itemStyle: {
     color: null,
-    borderRadius: 0
+    borderRadius: 2
   }
 }
-
 export const option = {
   tooltip: {
     show: true,
