@@ -6,7 +6,7 @@ interface Window {
   $t: any
   $vue: any
   // 键盘按键记录
-  $KeyboardActive?: Set<string>
+  $KeyboardActive?: { [T: string]: boolean }
 }
 
 declare type Recordable<T = any> = Record<string, T>

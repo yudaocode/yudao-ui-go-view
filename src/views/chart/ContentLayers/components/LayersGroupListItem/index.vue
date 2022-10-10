@@ -142,11 +142,7 @@ const optionsHandle = (
 // 点击
 const clickHandle = (e: MouseEvent) => {
   // 按下左键 + CTRL
-  if (
-    window.$KeyboardActive?.has(WinKeyboard.CTRL_SOURCE_KEY) ||
-    window.$KeyboardActive?.has(MacKeyboard.CTRL_SOURCE_KEY)
-  )
-    return
+  if (window.$KeyboardActive?.ctrl) return
   // 判断左右键
   expend.value = !expend.value
   mousedownHandle(e, props.componentGroupData)
@@ -157,11 +153,7 @@ const groupMousedownHandle = (e: MouseEvent) => {
   onClickOutSide()
   // 若此时按下了 CTRL, 表示多选
   const id = props.componentGroupData.id
-  if (
-    e.buttons === MouseEventButton.LEFT &&
-    (window.$KeyboardActive?.has(WinKeyboard.CTRL_SOURCE_KEY) ||
-      window.$KeyboardActive?.has(MacKeyboard.CTRL_SOURCE_KEY))
-  ) {
+  if (e.buttons === MouseEventButton.LEFT && window.$KeyboardActive?.ctrl) {
     // 若已选中，则去除
     if (chartEditStore.targetChart.selectId.includes(id)) {
       const exList = chartEditStore.targetChart.selectId.filter(e => e !== id)
