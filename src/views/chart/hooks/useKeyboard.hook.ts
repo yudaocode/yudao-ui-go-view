@@ -109,7 +109,7 @@ const macKeyList: Array<string> = [
 const keyRecordHandle = () => {
   // 默认赋值
   window.$KeyboardActive = {
-    ctrl: true
+    ctrl: false
   }
   
   document.onkeydown = (e: KeyboardEvent) => {
