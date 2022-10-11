@@ -87,6 +87,9 @@ export class PublicConfigClass implements PublicConfigType {
     this.attr.x = x
     this.attr.y = y
   }
+
+  // 事件
+  public events = undefined
 }
 
 // 多选成组类
