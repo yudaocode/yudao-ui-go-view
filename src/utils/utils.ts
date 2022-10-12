@@ -22,7 +22,7 @@ export const isDev = () => {
  * @param { Number } randomLength
  */
 export const getUUID = (randomLength = 10) => {
-  return Number(Math.random().toString().substr(2, randomLength) + Date.now()).toString(36)
+  return Number(Math.random().toString().substring(2, randomLength) + Date.now()).toString(36)
 }
 
 /**
@@ -44,20 +44,7 @@ export const renderLang = (lang: string, set = {}, tag = 'span') => {
 }
 
 /**
- * ! 编译会报错，暂不使用
- * * 处理 vite 中无法使用 require 的问题，utils 文件为根路径
- * @param path
- * @param name
- * @returns url
- */
-// export const requireUrl = (path: string, name: string) => {
-//   return new URL(`${path}/${name}`, import.meta.url).href
-// }
-
-/**
  * * 获取错误处理图片，默认 404 图
- * @param path
- * @param name
  * @returns url
  */
 export const requireErrorImg = () => {
@@ -193,14 +180,16 @@ export const canvasCut = (html: HTMLElement | null, callback?: Function) => {
 /**
  * * 函数过滤器
  * @param data 数据值
+ * @param res 返回顶级对象
  * @param funcStr 函数字符串
- * @param toString 转为字符串
+ * @param isToString 是否转为字符串
  * @param errorCallBack 错误回调函数
  * @param successCallBack 成功回调函数
  * @returns
  */
 export const newFunctionHandle = (
   data: any,
+  res: any,
   funcStr?: string,
   isToString?: boolean,
   errorCallBack?: Function,
@@ -208,8 +197,8 @@ export const newFunctionHandle = (
 ) => {
   try {
     if (!funcStr) return data
-    const fn = new Function('data', funcStr)
-    const fnRes = fn(cloneDeep(data))
+    const fn = new Function('data', 'res', funcStr)
+    const fnRes = fn(cloneDeep(data), cloneDeep(res))
     const resHandle = isToString ? toString(fnRes) : fnRes
     // 成功回调
     successCallBack && successCallBack(resHandle)
@@ -258,5 +247,5 @@ export const objToCookie = (obj: RequestParamsObjType) => {
   for (const key in obj) {
     str += key + '=' + obj[key] + ';'
   }
-  return str.substr(0, str.length - 1)
+  return str.substring(0, str.length - 1)
 }

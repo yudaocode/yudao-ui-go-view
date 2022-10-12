@@ -127,15 +127,15 @@ const sendHandle = async () => {
   try {
     const res = await customizeHttp(toRaw(targetData.value.request), toRaw(chartEditStore.requestGlobalConfig))
     loading.value = false
-    if (res && res.data) {
-      targetData.value.option.dataset = newFunctionHandle(res.data, targetData.value.filter)
+    if (res) {
+      targetData.value.option.dataset = newFunctionHandle(res?.data, res, targetData.value.filter)
       showMatching.value = true
       return
     }
-    window['$message'].warning('数据异常，请检查参数！')
+    window['$message'].warning('数据异常，请检查参数！@@@@')
   } catch (error) {
     loading.value = false
-    window['$message'].warning('数据异常，请检查参数！')
+    window['$message'].warning('数据异常，请检查参数！@@@@')
   }
 }
 
