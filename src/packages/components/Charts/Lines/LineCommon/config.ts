@@ -5,16 +5,23 @@ import { defaultTheme, chartColorsSearch } from '@/settings/chartThemes/index'
 import dataJson from './data.json'
 
 export const includes = ['legend', 'xAxis', 'yAxis']
-
 export const seriesItem = {
   type: 'line',
+  label: {
+    show: true,
+    position: 'top',
+    color: '#fff',
+    fontSize: 12
+  },
+  symbolSize: 5,   //设定实心点的大小
+  itemStyle: {
+    color: null,
+    borderRadius: 0
+  },
   lineStyle: {
     type: 'solid',
     width: 3,
-    itemStyle: {
-      color: null,
-      borderRadius: 0
-    }
+    color: null,
   }
 }
 
