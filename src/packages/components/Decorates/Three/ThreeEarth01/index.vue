@@ -18,6 +18,8 @@ const props = defineProps({
   }
 })
 
+const chartEditStore = useChartEditStore()
+
 const chartRef = ref<HTMLElement>()
 const { w, h } = toRefs(props.chartConfig.attr)
 let threeClassInstance: World
@@ -64,6 +66,11 @@ watch(
 // DOM 渲染之后进行初始化
 onMounted(() => {
   try {
+    if (navigator.userAgent.indexOf('Chrome') < -1 || navigator.userAgent.indexOf('Edg') > -1) {
+      window['$message'].error('此组件仅在【谷歌】浏览器上能正常展示！')
+      chartEditStore.removeComponentList(undefined, false)
+      return
+    }
     init()
   } catch (error) {
     console.log(error)
