@@ -96,9 +96,17 @@ export default class World {
 
   // 数据更新重新渲染
   public updateData(data?: any) {
-    if(!this.earth.group) return
+    if (!this.earth.group) return
     // 先删除旧的
     this.scene.remove(this.earth.group)
+    // 递归遍历组对象group释放所有后代网格模型绑定几何体占用内存
+    this.earth.group.traverse((obj: any) => {
+      if (obj.type === 'Mesh') {
+        obj.geometry.dispose()
+        obj.material.dispose()
+      }
+    })
+    // 重新创建
     this.createEarth(data)
   }
 }
