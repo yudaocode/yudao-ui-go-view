@@ -132,10 +132,10 @@ const sendHandle = async () => {
       showMatching.value = true
       return
     }
-    window['$message'].warning('数据异常，请检查参数！@@@@')
+    window['$message'].warning('数据异常，请检查参数！')
   } catch (error) {
     loading.value = false
-    window['$message'].warning('数据异常，请检查参数！@@@@')
+    window['$message'].warning('数据异常，请检查参数！')
   }
 }
 
