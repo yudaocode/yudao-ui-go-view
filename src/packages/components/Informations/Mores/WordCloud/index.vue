@@ -47,9 +47,12 @@ const option = computed(() => {
 })
 
 const dataSetHandle = (dataset: typeof dataJson) => {
-  dataset && (props.chartConfig.option.series[0].data = dataset)
-
-  vChartRef.value && isPreview() && vChartRef.value.setOption(props.chartConfig.option)
+  try {
+    dataset && (props.chartConfig.option.series[0].data = dataset)
+    vChartRef.value && isPreview() && vChartRef.value.setOption(props.chartConfig.option)
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 // dataset 无法变更条数的补丁
