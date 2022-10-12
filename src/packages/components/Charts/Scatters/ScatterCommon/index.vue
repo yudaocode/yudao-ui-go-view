@@ -70,7 +70,7 @@ watch(
   () => props.chartConfig.option.dataset,
   (newData, oldData) => {
     if (!isArray(newData)) return
-    if (newData?.length !== oldData?.length) {
+    if (Array.isArray(newData)) {
       replaceMergeArr.value = ['series']
       // eslint-disable-next-line vue/no-mutating-props
       props.chartConfig.option.series = newData.map((item: { dimensions: any[] }, index: number) => ({

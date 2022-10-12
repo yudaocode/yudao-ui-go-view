@@ -107,16 +107,17 @@ const macKeyList: Array<string> = [
 
 // 处理键盘记录
 const keyRecordHandle = () => {
-  // 初始化清空
-  if(window.$KeyboardActive) window.$KeyboardActive = new Set([])
-
+  // 默认赋值
+  window.$KeyboardActive = {
+    ctrl: false
+  }
+  
   document.onkeydown = (e: KeyboardEvent) => {
-    if(window.$KeyboardActive) window.$KeyboardActive.add(e.key.toLocaleLowerCase())
-    else window.$KeyboardActive = new Set([e.key.toLocaleLowerCase()])
+    if(e.keyCode === 17 && window.$KeyboardActive) window.$KeyboardActive.ctrl = true
   }
 
   document.onkeyup = (e: KeyboardEvent) => {
-    if(window.$KeyboardActive) window.$KeyboardActive.delete(e.key.toLocaleLowerCase())
+    if(e.keyCode === 17 && window.$KeyboardActive) window.$KeyboardActive.ctrl = false
   }
 }
 

@@ -172,10 +172,7 @@ export const useMouseHandle = () => {
     e.stopPropagation()
     if (item.status.lock) return
     // 若此时按下了 CTRL, 表示多选
-    if (
-      window.$KeyboardActive?.has(WinKeyboard.CTRL_SOURCE_KEY) ||
-      window.$KeyboardActive?.has(MacKeyboard.CTRL_SOURCE_KEY)
-    ) {
+    if (window.$KeyboardActive?.ctrl) {
       // 若已选中，则去除
       if (chartEditStore.targetChart.selectId.includes(item.id)) {
         const exList = chartEditStore.targetChart.selectId.filter(e => e !== item.id)
@@ -193,11 +190,7 @@ export const useMouseHandle = () => {
     if (item.status.lock) return
     onClickOutSide()
     // 按下左键 + CTRL
-    if (
-      e.buttons === MouseEventButton.LEFT &&
-      (window.$KeyboardActive?.has(WinKeyboard.CTRL_SOURCE_KEY) ||
-        window.$KeyboardActive?.has(MacKeyboard.CTRL_SOURCE_KEY))
-    )
+    if (e.buttons === MouseEventButton.LEFT && window.$KeyboardActive?.ctrl)
       return
 
     // 按下右键 + 选中多个 + 目标元素是多选子元素

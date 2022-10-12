@@ -54,7 +54,7 @@ watch(
   () => props.chartConfig.option.dataset,
   (newData: { dimensions: any }, oldData) => {
     if (!isObject(newData) || !('dimensions' in newData)) return
-    if (newData?.dimensions.length !== oldData?.dimensions.length) {
+    if (Array.isArray(newData?.dimensions)) {
       const seriesArr = []
       for (let i = 0; i < newData.dimensions.length - 1; i++) {
         seriesArr.push(seriesItem)
