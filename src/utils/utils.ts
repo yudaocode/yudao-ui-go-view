@@ -8,6 +8,7 @@ import { downloadByA } from './file'
 import { toString } from './type'
 import cloneDeep from 'lodash/cloneDeep'
 import { RequestHttpIntervalEnum, RequestParamsObjType } from '@/enums/httpEnum'
+import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 
 /**
  * * 判断是否是开发环境
@@ -70,6 +71,17 @@ export const screenfullFn = (isFullscreen?: boolean, isEnabled?: boolean) => {
   }
   // TODO lang
   window['$message'].warning('您的浏览器不支持全屏功能！')
+}
+
+/**
+ * 修改元素位置
+ * @param target 对象
+ * @param x X轴
+ * @param y Y轴
+ */
+ export const setComponentPosition = (target: CreateComponentType | CreateComponentGroupType, x?: number, y?:number) => {
+  x && (target.attr.x = x)
+  y && (target.attr.y = y)
 }
 
 /**

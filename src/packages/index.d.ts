@@ -115,7 +115,6 @@ export interface PublicConfigType {
   }
   filter?: string
   status: StatusType
-  setPosition: Function
 }
 
 export interface CreateComponentType extends PublicConfigType, requestConfig {
