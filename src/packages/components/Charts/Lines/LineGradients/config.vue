@@ -12,7 +12,6 @@
         <n-input-number
           v-model:value="item.lineStyle.width"
           :min="1"
-          :max="100"
           size="small"
           placeholder="自动计算"
         ></n-input-number>

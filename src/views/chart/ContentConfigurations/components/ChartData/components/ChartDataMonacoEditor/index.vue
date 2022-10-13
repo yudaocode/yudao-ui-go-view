@@ -58,20 +58,20 @@
             <n-space :size="15" vertical>
               <div class="editor-data-show">
                 <n-space>
-                  <n-text depth="3">目标数据(data)：</n-text>
-                  <n-code :code="toString(sourceData?.data) || 'undefined'" language="json" :word-wrap="true"></n-code>
+                  <n-text depth="3">默认过滤数据(data)：</n-text>
+                  <n-code :code="toString(sourceData?.data) || '暂无'" language="json" :word-wrap="true"></n-code>
                 </n-space>
               </div>
               <div class="editor-data-show">
                 <n-space>
-                  <n-text depth="3">目标数据(res)：</n-text>
-                  <n-code :code="toString(sourceData)" language="json" :word-wrap="true"></n-code>
+                  <n-text depth="3">接口返回数据(res)：</n-text>
+                  <n-code :code="toString(sourceData) || '暂无'" language="json" :word-wrap="true"></n-code>
                 </n-space>
               </div>
               <div class="editor-data-show">
                 <n-space>
                   <n-text depth="3">过滤器结果：</n-text>
-                  <n-code :code="filterRes" language="json" :word-wrap="true"></n-code>
+                  <n-code :code="filterRes || '暂无'" language="json" :word-wrap="true"></n-code>
                 </n-space>
               </div>
             </n-space>
@@ -87,7 +87,7 @@
               </template>
               规则
             </n-tag>
-            <n-text class="go-ml-2" depth="2">过滤器将处理接口返回值的「data」字段</n-text>
+            <n-text class="go-ml-2" depth="2">过滤器默认处理接口返回值的「data」字段</n-text>
           </div>
 
           <n-space>
