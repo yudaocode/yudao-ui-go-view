@@ -282,6 +282,6 @@ export const setKeyboardDressShow = (keyCode?: number) => {
     return
   }
   if (keyCode && code.has(keyCode)) {
-    dom.innerText = `您按下了${code.get(keyCode)}键`
+    dom.innerText = `按下了「${code.get(keyCode)}」键`
   }
 }
