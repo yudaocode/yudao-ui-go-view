@@ -7,6 +7,7 @@ import html2canvas from 'html2canvas'
 import { downloadByA } from './file'
 import { toString } from './type'
 import cloneDeep from 'lodash/cloneDeep'
+import { WinKeyboard } from '@/enums/editPageEnum'
 import { RequestHttpIntervalEnum, RequestParamsObjType } from '@/enums/httpEnum'
 import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 
@@ -79,7 +80,11 @@ export const screenfullFn = (isFullscreen?: boolean, isEnabled?: boolean) => {
  * @param x X轴
  * @param y Y轴
  */
- export const setComponentPosition = (target: CreateComponentType | CreateComponentGroupType, x?: number, y?:number) => {
+export const setComponentPosition = (
+  target: CreateComponentType | CreateComponentGroupType,
+  x?: number,
+  y?: number
+) => {
   x && (target.attr.x = x)
   y && (target.attr.y = y)
 }
@@ -260,4 +265,23 @@ export const objToCookie = (obj: RequestParamsObjType) => {
     str += key + '=' + obj[key] + ';'
   }
   return str.substring(0, str.length - 1)
+}
+
+/**
+ * * 设置按下键盘按键的底部展示
+ * @param keyCode
+ * @returns
+ */
+export const setKeyboardDressShow = (keyCode?: number) => {
+  const code = new Map([[17, WinKeyboard.CTRL]])
+
+  const dom = document.getElementById('keyboard-dress-show')
+  if (!dom) return
+  if (!keyCode) {
+    dom.innerText = ''
+    return
+  }
+  if (keyCode && code.has(keyCode)) {
+    dom.innerText = `您按下了${code.get(keyCode)}键`
+  }
 }

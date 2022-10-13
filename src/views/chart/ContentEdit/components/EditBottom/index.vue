@@ -1,11 +1,16 @@
 <template>
   <div class="go-edit-bottom">
-    <edit-history></edit-history>
+    <n-space>
+      <!-- 历史记录 -->
+      <edit-history></edit-history>
+      <!-- CTRL按键触发展示 -->
+      <n-text id="keyboard-dress-show" depth="3"></n-text>
+    </n-space>
 
     <n-space class="bottom-ri">
       <!-- 快捷键提示 -->
       <edit-shortcut-key />
-      
+
       <!-- 缩放比例 -->
       <n-select
         :disabled="lockScale"
@@ -14,18 +19,13 @@
         size="mini"
         :options="filterOptions"
         @update:value="selectHandle"
-     ></n-select>
+      ></n-select>
 
       <!-- 锁定缩放 -->
       <n-tooltip trigger="hover">
         <template #trigger>
           <n-button @click="lockHandle" text>
-            <n-icon
-              class="lock-icon"
-              :class="{ color: lockScale }"
-              size="18"
-              :depth="2"
-            >
+            <n-icon class="lock-icon" :class="{ color: lockScale }" size="18" :depth="2">
               <lock-closed-outline-icon v-if="lockScale"></lock-closed-outline-icon>
               <lock-open-outline-icon v-else></lock-open-outline-icon>
             </n-icon>
@@ -46,7 +46,7 @@
         :disabled="lockScale"
         :marks="sliderMaks"
         @update:value="sliderHandle"
-     ></n-slider>
+      ></n-slider>
     </n-space>
   </div>
 </template>
