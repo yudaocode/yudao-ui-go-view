@@ -493,34 +493,31 @@ export const useChartEditStore = defineStore({
         }
         const parseHandle = (e: CreateComponentType | CreateComponentGroupType) => {
           e = cloneDeep(e)
-          // 生成新 id
-          e.id = getUUID()
           e.attr.x = this.getMousePosition.x + 30
           e.attr.y = this.getMousePosition.y + 30
+          // 外层生成新 id
+          e.id = getUUID()
+          // 分组列表生成新 id
+          if (e.isGroup) {
+            (e as CreateComponentGroupType).groupList.forEach((item: CreateComponentType) => {
+              item.id = getUUID()
+            })
+          }
+        
           return e
         }
         const isCut = recordCharts.type === HistoryActionTypeEnum.CUT
+        const targetList = Array.isArray(recordCharts.charts) ? recordCharts.charts : [ recordCharts.charts ]
         // 多项
-        if (Array.isArray(recordCharts.charts)) {
-          recordCharts.charts.forEach((e: CreateComponentType) => {
-            this.addComponentList(parseHandle(e), undefined, true)
-            // 剪切需删除原数据
-            if (isCut) {
-              this.setTargetSelectChart(e.id)
-              this.removeComponentList(undefined, true)
-            }
-          })
-          if (isCut) this.setRecordChart(undefined)
-          loadingFinish()
-          return
-        }
-        // 单项
-        this.addComponentList(parseHandle(recordCharts.charts), undefined, true)
-        if (isCut) {
-          this.setTargetSelectChart(recordCharts.charts.id)
-          this.removeComponentList()
-          this.setRecordChart(undefined)
-        }
+        targetList.forEach((e: CreateComponentType | CreateComponentGroupType) => {
+          this.addComponentList(parseHandle(e), undefined, true)
+          // 剪切需删除原数据
+          if (isCut) {
+            this.setTargetSelectChart(e.id)
+            this.removeComponentList(undefined, true)
+          }
+        })
+        if (isCut) this.setRecordChart(undefined)
         loadingFinish()
       } catch (value) {
         loadingError()
