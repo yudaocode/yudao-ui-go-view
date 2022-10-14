@@ -4,7 +4,7 @@ import { CreateComponentType } from '@/packages/index.d'
 import { defaultTheme, chartColorsSearch } from '@/settings/chartThemes/index'
 import dataJson from './data.json'
 
-export const includes = ['legend', 'xAxis', 'yAxis']
+export const includes = ['legend', 'xAxis', 'yAxis', 'grid']
 export const seriesItem = {
   type: 'line',
   label: {
@@ -13,7 +13,7 @@ export const seriesItem = {
     color: '#fff',
     fontSize: 12
   },
-  symbolSize: 5,   //设定实心点的大小
+  symbolSize: 5, //设定实心点的大小
   itemStyle: {
     color: null,
     borderRadius: 0
@@ -21,7 +21,7 @@ export const seriesItem = {
   lineStyle: {
     type: 'solid',
     width: 3,
-    color: null,
+    color: null
   }
 }
 
@@ -35,6 +35,13 @@ export const option = {
   },
   legend: {
     show: true
+  },
+  grid: {
+    show: false,
+    left: '10%',
+    top: '60',
+    right: '10%',
+    bottom: '60'
   },
   xAxis: {
     show: true,
