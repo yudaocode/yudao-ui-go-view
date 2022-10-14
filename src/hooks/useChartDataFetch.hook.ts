@@ -59,18 +59,18 @@ export const useChartDataFetch = (
 
         const fetchFn = async () => {
           const res = await customizeHttp(toRaw(targetComponent.request), toRaw(chartEditStore.requestGlobalConfig))
-          if (res && res.data) {
+          if (res) {
             try {
               const filter = targetComponent.filter
               // eCharts 组件配合 vChart 库更新方式
               if (chartFrame === ChartFrameEnum.ECHARTS) {
                 if (vChartRef.value) {
-                  vChartRef.value.setOption({ dataset: newFunctionHandle(res.data, filter) })
+                  vChartRef.value.setOption({ dataset: newFunctionHandle(res?.data, res, filter) })
                 }
               }
               // 更新回调函数
               if (updateCallback) {
-                updateCallback(newFunctionHandle(res.data, filter))
+                updateCallback(newFunctionHandle(res?.data, res, filter))
               }
             } catch (error) {
               console.error(error)
@@ -90,7 +90,7 @@ export const useChartDataFetch = (
       }
       // eslint-disable-next-line no-empty
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
 

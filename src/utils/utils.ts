@@ -7,7 +7,9 @@ import html2canvas from 'html2canvas'
 import { downloadByA } from './file'
 import { toString } from './type'
 import cloneDeep from 'lodash/cloneDeep'
+import { WinKeyboard } from '@/enums/editPageEnum'
 import { RequestHttpIntervalEnum, RequestParamsObjType } from '@/enums/httpEnum'
+import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 
 /**
  * * 判断是否是开发环境
@@ -22,7 +24,7 @@ export const isDev = () => {
  * @param { Number } randomLength
  */
 export const getUUID = (randomLength = 10) => {
-  return Number(Math.random().toString().substr(2, randomLength) + Date.now()).toString(36)
+  return Number(Math.random().toString().substring(2, randomLength) + Date.now()).toString(36)
 }
 
 /**
@@ -44,20 +46,7 @@ export const renderLang = (lang: string, set = {}, tag = 'span') => {
 }
 
 /**
- * ! 编译会报错，暂不使用
- * * 处理 vite 中无法使用 require 的问题，utils 文件为根路径
- * @param path
- * @param name
- * @returns url
- */
-// export const requireUrl = (path: string, name: string) => {
-//   return new URL(`${path}/${name}`, import.meta.url).href
-// }
-
-/**
  * * 获取错误处理图片，默认 404 图
- * @param path
- * @param name
  * @returns url
  */
 export const requireErrorImg = () => {
@@ -83,6 +72,21 @@ export const screenfullFn = (isFullscreen?: boolean, isEnabled?: boolean) => {
   }
   // TODO lang
   window['$message'].warning('您的浏览器不支持全屏功能！')
+}
+
+/**
+ * 修改元素位置
+ * @param target 对象
+ * @param x X轴
+ * @param y Y轴
+ */
+export const setComponentPosition = (
+  target: CreateComponentType | CreateComponentGroupType,
+  x?: number,
+  y?: number
+) => {
+  x && (target.attr.x = x)
+  y && (target.attr.y = y)
 }
 
 /**
@@ -193,14 +197,16 @@ export const canvasCut = (html: HTMLElement | null, callback?: Function) => {
 /**
  * * 函数过滤器
  * @param data 数据值
+ * @param res 返回顶级对象
  * @param funcStr 函数字符串
- * @param toString 转为字符串
+ * @param isToString 是否转为字符串
  * @param errorCallBack 错误回调函数
  * @param successCallBack 成功回调函数
  * @returns
  */
 export const newFunctionHandle = (
   data: any,
+  res: any,
   funcStr?: string,
   isToString?: boolean,
   errorCallBack?: Function,
@@ -208,8 +214,8 @@ export const newFunctionHandle = (
 ) => {
   try {
     if (!funcStr) return data
-    const fn = new Function('data', funcStr)
-    const fnRes = fn(cloneDeep(data))
+    const fn = new Function('data', 'res', funcStr)
+    const fnRes = fn(cloneDeep(data), cloneDeep(res))
     const resHandle = isToString ? toString(fnRes) : fnRes
     // 成功回调
     successCallBack && successCallBack(resHandle)
@@ -258,5 +264,24 @@ export const objToCookie = (obj: RequestParamsObjType) => {
   for (const key in obj) {
     str += key + '=' + obj[key] + ';'
   }
-  return str.substr(0, str.length - 1)
+  return str.substring(0, str.length - 1)
+}
+
+/**
+ * * 设置按下键盘按键的底部展示
+ * @param keyCode
+ * @returns
+ */
+export const setKeyboardDressShow = (keyCode?: number) => {
+  const code = new Map([[17, WinKeyboard.CTRL]])
+
+  const dom = document.getElementById('keyboard-dress-show')
+  if (!dom) return
+  if (!keyCode) {
+    dom.innerText = ''
+    return
+  }
+  if (keyCode && code.has(keyCode)) {
+    dom.innerText = `按下了「${code.get(keyCode)}」键`
+  }
 }

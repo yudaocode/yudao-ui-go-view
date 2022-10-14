@@ -1,12 +1,12 @@
 import { toRaw } from 'vue'
-import { DragKeyEnum, MouseEventButton, WinKeyboard, MacKeyboard } from '@/enums/editPageEnum'
+import { DragKeyEnum, MouseEventButton } from '@/enums/editPageEnum'
 import { createComponent } from '@/packages'
 import { ConfigType } from '@/packages/index.d'
 import { CreateComponentType, CreateComponentGroupType, PickCreateComponentType } from '@/packages/index.d'
 import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
-import { loadingStart, loadingFinish, loadingError } from '@/utils'
+import { loadingStart, loadingFinish, loadingError, setComponentPosition } from '@/utils'
 import { throttle, cloneDeep } from 'lodash'
 
 const chartEditStore = useChartEditStore()
@@ -33,7 +33,7 @@ export const dragHandle = async (e: DragEvent) => {
     // 创建新图表组件
     let newComponent: CreateComponentType = await createComponent(dropData)
 
-    newComponent.setPosition(e.offsetX - newComponent.attr.w / 2, e.offsetY - newComponent.attr.h / 2)
+    setComponentPosition(newComponent, e.offsetX - newComponent.attr.w / 2, e.offsetY - newComponent.attr.h / 2)
     chartEditStore.addComponentList(newComponent, false, true)
     chartEditStore.setTargetSelectChart(newComponent.id)
     loadingFinish()
@@ -190,8 +190,7 @@ export const useMouseHandle = () => {
     if (item.status.lock) return
     onClickOutSide()
     // 按下左键 + CTRL
-    if (e.buttons === MouseEventButton.LEFT && window.$KeyboardActive?.ctrl)
-      return
+    if (e.buttons === MouseEventButton.LEFT && window.$KeyboardActive?.ctrl) return
 
     // 按下右键 + 选中多个 + 目标元素是多选子元素
     const selectId = chartEditStore.getTargetChart.selectId
@@ -264,38 +263,43 @@ export const useMouseHandle = () => {
         // 基于右下角位置检测
         currX = currX > canvasWidth - distance ? canvasWidth - distance : currX
         currY = currY > canvasHeight - distance ? canvasHeight - distance : currY
-
-        componentInstance.attr = Object.assign(componentInstance.attr, {
-          x: currX,
-          y: currY
-        })
+        if (componentInstance) {
+          componentInstance.attr = Object.assign(componentInstance.attr, {
+            x: currX,
+            y: currY
+          })
+        }
       })
       return
     }, 20)
 
     const mouseup = () => {
-      chartEditStore.setMousePosition(0, 0, 0, 0)
-      chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_DRAG, false)
-      // 加入历史栈
-      if (prevComponentInstance.length) {
-        chartEditStore.getTargetChart.selectId.forEach(id => {
-          if (!targetMap.has(id)) return
-          const index = chartEditStore.fetchTargetIndex(id)
-          const curComponentInstance = chartEditStore.getComponentList[index]
-          // 找到记录的所选组件
-          prevComponentInstance.forEach(preItem => {
-            if (preItem.id === id) {
-              preItem.attr = Object.assign(preItem.attr, {
-                offsetX: curComponentInstance.attr.x - preItem.attr.x,
-                offsetY: curComponentInstance.attr.y - preItem.attr.y
-              })
-            }
+      try {
+        chartEditStore.setMousePosition(0, 0, 0, 0)
+        chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_DRAG, false)
+        // 加入历史栈
+        if (prevComponentInstance.length) {
+          chartEditStore.getTargetChart.selectId.forEach(id => {
+            if (!targetMap.has(id)) return
+            const index = chartEditStore.fetchTargetIndex(id)
+            const curComponentInstance = chartEditStore.getComponentList[index]
+            // 找到记录的所选组件
+            prevComponentInstance.forEach(preItem => {
+              if (preItem.id === id) {
+                preItem.attr = Object.assign(preItem.attr, {
+                  offsetX: curComponentInstance.attr.x - preItem.attr.x,
+                  offsetY: curComponentInstance.attr.y - preItem.attr.y
+                })
+              }
+            })
           })
-        })
-        chartEditStore.moveComponentList(prevComponentInstance)
+          chartEditStore.moveComponentList(prevComponentInstance)
+        }
+        document.removeEventListener('mousemove', mousemove)
+        document.removeEventListener('mouseup', mouseup)
+      } catch (err) {
+        console.log(err)
       }
-      document.removeEventListener('mousemove', mousemove)
-      document.removeEventListener('mouseup', mouseup)
     }
 
     document.addEventListener('mousemove', mousemove)

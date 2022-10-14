@@ -133,10 +133,14 @@ const renderCountdown: CountdownProps['render'] = ({ hours, minutes, seconds }) 
 }
 
 const updateTotalDuration = () => {
-  countdownActive.value = false
-  totalDuration.value = useEndDate.value ? endDate.value - new Date().getTime() : dataset.value * 1000
-  countdownRef.value?.reset && countdownRef.value?.reset()
-  countdownActive.value = true
+  try {
+    countdownActive.value = false
+    totalDuration.value = useEndDate.value ? endDate.value - new Date().getTime() : dataset.value * 1000
+    countdownRef.value?.reset && countdownRef.value?.reset()
+    countdownActive.value = true
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 watch(

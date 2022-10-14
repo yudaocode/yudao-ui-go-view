@@ -75,7 +75,11 @@ const dataSetHandle = (dataset: typeof dataJson) => {
 watch(
   () => props.chartConfig.option.dataset,
   newData => {
-    dataSetHandle(newData)
+    try {
+      dataSetHandle(newData)
+    } catch (error) {
+      console.log(error)
+    }
   },
   {
     deep: false

@@ -53,17 +53,21 @@ const option = computed(() => {
 watch(
   () => props.chartConfig.option.dataset,
   (newData: { dimensions: any }, oldData) => {
-    if (!isObject(newData) || !('dimensions' in newData)) return
-    if (Array.isArray(newData?.dimensions)) {
-      const seriesArr = []
-      for (let i = 0; i < newData.dimensions.length - 1; i++) {
-        seriesArr.push(seriesItem)
+    try {
+      if (!isObject(newData) || !('dimensions' in newData)) return
+      if (Array.isArray(newData?.dimensions)) {
+        const seriesArr = []
+        for (let i = 0; i < newData.dimensions.length - 1; i++) {
+          seriesArr.push(seriesItem)
+        }
+        replaceMergeArr.value = ['series']
+        props.chartConfig.option.series = seriesArr
+        nextTick(() => {
+          replaceMergeArr.value = []
+        })
       }
-      replaceMergeArr.value = ['series']
-      props.chartConfig.option.series = seriesArr
-      nextTick(() => {
-        replaceMergeArr.value = []
-      })
+    } catch (error) {
+      console.log(error)
     }
   },
   {

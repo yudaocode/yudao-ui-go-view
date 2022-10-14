@@ -39,6 +39,17 @@
        ></n-select>
       </SettingItem>
     </SettingItemBox>
+    <SettingItemBox name="实心点">
+      <SettingItem name="大小">
+        <n-input-number
+          v-model:value="item.symbolSize"
+          :min="1"
+          :max="100"
+          size="small"
+          placeholder="自动计算"
+        ></n-input-number>
+      </SettingItem>
+    </SettingItemBox>
     <SettingItemBox name="阴影" :alone="true">
       <SettingItem name="颜色">
         <n-color-picker

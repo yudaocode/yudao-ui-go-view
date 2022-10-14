@@ -31,6 +31,13 @@ const option = {
     {
       type: 'line',
       smooth: false,
+      symbolSize: 5,   //设定实心点的大小
+      label: {
+        show: true,
+        position: 'top',
+        color: '#fff',
+        fontSize: 12
+      },
       lineStyle: {
         width: 3,
         type: 'solid'
@@ -52,6 +59,12 @@ const option = {
     {
       type: 'line',
       smooth: false,
+      label: {
+        show: true,
+        position: 'top',
+        color: '#fff',
+        fontSize: 12
+      },
       lineStyle: {
         width: 3,
         type: 'solid'

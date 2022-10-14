@@ -254,4 +254,21 @@ export default {
     msg: '请求成功',
     data: tTreemapJson
   },
+  // 三维地球
+  threeEarth01Data: {
+    code: 0,
+    status: 200,
+    msg: '请求成功',
+    data: [
+      {
+        startArray: { name: '@name', N: '@integer(10, 100)', E: '@integer(10, 100)' },
+        endArray: [
+          { name: '@name', N: '@integer(10, 100)', E: '@integer(10, 100)' },
+          { name: '@name', N: '@integer(10, 100)', E: '@integer(10, 100)' },
+          { name: '@name', N: '@integer(10, 100)', E: '@integer(10, 100)' },
+          { name: '@name', N: '@integer(10, 100)', E: '@integer(10, 100)' }
+        ]
+      }
+    ]
+  }
 }

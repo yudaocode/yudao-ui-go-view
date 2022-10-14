@@ -39,15 +39,19 @@ const option = computed(() => {
 watch(
   () => props.chartConfig.option.type,
   newData => {
-    if (newData === 'nomal') {
-      props.chartConfig.option.series[0].radius = '70%'
-      props.chartConfig.option.series[0].roseType = false
-    } else if (newData === 'ring') {
-      props.chartConfig.option.series[0].radius = ['40%', '65%']
-      props.chartConfig.option.series[0].roseType = false
-    } else {
-      props.chartConfig.option.series[0].radius = '70%'
-      props.chartConfig.option.series[0].roseType = true
+    try {
+      if (newData === 'nomal') {
+        props.chartConfig.option.series[0].radius = '70%'
+        props.chartConfig.option.series[0].roseType = false
+      } else if (newData === 'ring') {
+        props.chartConfig.option.series[0].radius = ['40%', '65%']
+        props.chartConfig.option.series[0].roseType = false
+      } else {
+        props.chartConfig.option.series[0].radius = '70%'
+        props.chartConfig.option.series[0].roseType = true
+      }
+    } catch (error) {
+      console.log(error)
     }
   },
   { deep: false, immediate: true }

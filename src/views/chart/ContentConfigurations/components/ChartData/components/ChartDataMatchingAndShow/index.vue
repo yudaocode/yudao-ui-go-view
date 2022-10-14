@@ -27,7 +27,7 @@
     </n-timeline-item>
     <n-timeline-item v-show="filterShow" color="#97846c" :title="TimelineTitleEnum.FILTER">
       <n-space :size="18" vertical>
-        <n-text depth="3">过滤器将处理接口返回值的「data」字段</n-text>
+        <n-text depth="3">过滤器默认处理接口返回值的「data」字段</n-text>
         <chart-data-monaco-editor></chart-data-monaco-editor>
       </n-space>
     </n-timeline-item>
