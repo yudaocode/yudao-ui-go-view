@@ -211,25 +211,22 @@
   </collapse-item>
 
   <collapse-item v-if="grid" name="网格">
-    <template #header>
-      <n-switch v-model:value="grid.show" size="small"></n-switch>
-    </template>
     <setting-item-box name="容器距离">
       <setting-item name="左侧距离">
         <n-input v-model:value="grid.left" size="small"></n-input>
       </setting-item>
       <setting-item name="右侧距离">
-        <n-input v-model:value="grid.left" size="small"></n-input>
+        <n-input v-model:value="grid.right" size="small"></n-input>
       </setting-item>
       <setting-item name="上侧距离">
-        <n-input v-model:value="grid.left" size="small"></n-input>
+        <n-input v-model:value="grid.top" size="small"></n-input>
       </setting-item>
       <setting-item name="下侧距离">
-        <n-input v-model:value="grid.left" size="small"></n-input>
+        <n-input v-model:value="grid.bottom" size="small"></n-input>
       </setting-item>
     </setting-item-box>
   </collapse-item>
-  
+
   <collapse-item v-if="visualMap" name="视觉映射">
     <template #header>
       <n-switch v-model:value="visualMap.show" size="small"></n-switch>
