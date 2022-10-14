@@ -22,7 +22,8 @@
     "axisLabel": {
       "show": true,
       "fontSize": 12,
-      "color": "#B9B8CE"
+      "color": "#B9B8CE",
+      "rotate": 0
     },
     "position": "bottom",
     "axisLine": {
@@ -58,7 +59,8 @@
     "axisLabel": {
       "show": true,
       "fontSize": 12,
-      "color": "#B9B8CE"
+      "color": "#B9B8CE",
+      "rotate": 0
     },
     "position": "left",
     "axisLine": {

@@ -51,6 +51,9 @@
       <setting-item name="大小">
         <n-input-number v-model:value="xAxis.axisLabel.fontSize" :min="8" size="small"></n-input-number>
       </setting-item>
+      <setting-item name="偏移量">
+        <n-input-number v-model:value="xAxis.axisLabel.rotate" :min="-90" :max="90" size="small"></n-input-number>
+      </setting-item>
     </setting-item-box>
     <setting-item-box name="轴线">
       <setting-item name="展示">
@@ -139,6 +142,9 @@
       </setting-item>
       <setting-item name="大小">
         <n-input-number v-model:value="yAxis.axisLabel.fontSize" :min="8" size="small"></n-input-number>
+      </setting-item>
+      <setting-item name="偏移量">
+        <n-input-number v-model:value="yAxis.axisLabel.rotate" :min="-90" :max="90" size="small"></n-input-number>
       </setting-item>
     </setting-item-box>
     <setting-item-box name="轴线">
