@@ -18,7 +18,7 @@ const componentMerge = (object: any, sources: any, notComponent = false) => {
   if (notComponent) return merge(object, sources)
   // 组件排除 options
   const option = sources.option
-  if(!option) return merge(object, sources)
+  if (!option) return merge(object, sources)
 
   // 为 undefined 的 sources 来源对象属性将被跳过详见 https://www.lodashjs.com/docs/lodash.merge
   sources.option = undefined
@@ -66,37 +66,38 @@ export const useSync = () => {
         intComponent(e as CreateComponentType)
       }
     })
+
+    // 创建函数-重新创建是为了处理类种方法消失的问题
+    const create = async (
+      _componentInstance: CreateComponentType,
+      callBack?: (componentInstance: CreateComponentType) => void
+    ) => {
+      // 补充 class 上的方法
+      let newComponent: CreateComponentType = await createComponent(_componentInstance.chartConfig)
+      if (callBack) {
+        if (changeId) {
+          callBack(componentMerge(newComponent, { ..._componentInstance, id: getUUID() }))
+        } else {
+          callBack(componentMerge(newComponent, _componentInstance))
+        }
+      } else {
+        if (changeId) {
+          chartEditStore.addComponentList(
+            componentMerge(newComponent, { ..._componentInstance, id: getUUID() }),
+            false,
+            true
+          )
+        } else {
+          chartEditStore.addComponentList(componentMerge(newComponent, _componentInstance), false, true)
+        }
+      }
+    }
+
     // 数据赋值
     for (const key in projectData) {
       // 组件
       if (key === ChartEditStoreEnum.COMPONENT_LIST) {
         for (const comItem of projectData[key]) {
-          // 重新创建是为了处理类种方法消失的问题
-          const create = async (
-            _componentInstance: CreateComponentType,
-            callBack?: (componentInstance: CreateComponentType) => void
-          ) => {
-            // 补充 class 上的方法
-            let newComponent: CreateComponentType = await createComponent(_componentInstance.chartConfig)
-            if (callBack) {
-              if (changeId) {
-                callBack(componentMerge(newComponent, { ..._componentInstance, id: getUUID() }))
-              } else {
-                callBack(componentMerge(newComponent, _componentInstance))
-              }
-            } else {
-              if (changeId) {
-                chartEditStore.addComponentList(
-                  componentMerge(newComponent, { ..._componentInstance, id: getUUID() }),
-                  false,
-                  true
-                )
-              } else {
-                chartEditStore.addComponentList(componentMerge(newComponent, _componentInstance), false, true)
-              }
-            }
-          }
-
           if (comItem.isGroup) {
             // 创建分组
             let groupClass = new PublicGroupConfigClass()
@@ -106,19 +107,19 @@ export const useSync = () => {
               groupClass = componentMerge(groupClass, comItem)
             }
 
-            // 注册子应用
+            // 异步注册子应用
             const targetList: CreateComponentType[] = []
-            ;(comItem as CreateComponentGroupType).groupList.forEach(groupItem => {
-              create(groupItem, e => {
+            for (const groupItem of (comItem as CreateComponentGroupType).groupList) {
+              await create(groupItem, e => {
                 targetList.push(e)
               })
-            })
+            }
             groupClass.groupList = targetList
 
             // 分组插入到列表
             chartEditStore.addComponentList(groupClass, false, true)
           } else {
-            create(comItem as CreateComponentType)
+            await  create(comItem as CreateComponentType)
           }
         }
       } else {
