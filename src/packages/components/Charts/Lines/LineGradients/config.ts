@@ -8,16 +8,6 @@ import dataJson from './data.json'
 export const includes = ['legend', 'xAxis', 'yAxis', 'grid']
 
 const option = {
-  legend: {
-    show: true
-  },
-  grid: {
-    show: false,
-    left: '10%',
-    top: '60',
-    right: '10%',
-    bottom: '60'
-  },
   tooltip: {
     show: true,
     trigger: 'axis',

@@ -21,6 +21,23 @@
     </setting-item-box>
   </collapse-item>
 
+  <collapse-item v-if="grid" name="容器">
+    <setting-item-box name="距离">
+      <setting-item name="左侧距离">
+        <n-input v-model:value="grid.left" size="small"></n-input>
+      </setting-item>
+      <setting-item name="右侧距离">
+        <n-input v-model:value="grid.right" size="small"></n-input>
+      </setting-item>
+      <setting-item name="上侧距离">
+        <n-input v-model:value="grid.top" size="small"></n-input>
+      </setting-item>
+      <setting-item name="下侧距离">
+        <n-input v-model:value="grid.bottom" size="small"></n-input>
+      </setting-item>
+    </setting-item-box>
+  </collapse-item>
+
   <collapse-item v-if="xAxis" name="X轴">
     <template #header>
       <n-switch v-model:value="xAxis.show" size="small"></n-switch>
@@ -212,23 +229,6 @@
     <setting-item-box name="图例文字">
       <setting-item>
         <n-color-picker size="small" v-model:value="legend.textStyle.color"></n-color-picker>
-      </setting-item>
-    </setting-item-box>
-  </collapse-item>
-
-  <collapse-item v-if="grid" name="网格">
-    <setting-item-box name="容器距离">
-      <setting-item name="左侧距离">
-        <n-input v-model:value="grid.left" size="small"></n-input>
-      </setting-item>
-      <setting-item name="右侧距离">
-        <n-input v-model:value="grid.right" size="small"></n-input>
-      </setting-item>
-      <setting-item name="上侧距离">
-        <n-input v-model:value="grid.top" size="small"></n-input>
-      </setting-item>
-      <setting-item name="下侧距离">
-        <n-input v-model:value="grid.bottom" size="small"></n-input>
       </setting-item>
     </setting-item-box>
   </collapse-item>

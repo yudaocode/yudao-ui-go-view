@@ -14,16 +14,6 @@ export const option = {
       type: 'line'
     }
   },
-  legend: {
-    show: true
-  },
-  grid: {
-    show: false,
-    left: '10%',
-    top: '60',
-    right: '10%',
-    bottom: '60'
-  },
   xAxis: {
     show: true,
     type: 'category'
