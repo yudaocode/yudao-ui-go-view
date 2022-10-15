@@ -4,7 +4,7 @@ import { CreateComponentType } from '@/packages/index.d'
 import { defaultTheme, chartColorsSearch } from '@/settings/chartThemes/index'
 import dataJson from './data.json'
 
-export const includes = ['legend', 'xAxis', 'yAxis']
+export const includes = ['legend', 'xAxis', 'yAxis', 'grid']
 
 export const option = {
   tooltip: {
@@ -13,9 +13,6 @@ export const option = {
     axisPointer: {
       type: 'line'
     }
-  },
-  legend: {
-    show: true
   },
   xAxis: {
     show: true,
@@ -29,6 +26,7 @@ export const option = {
   series: [
     {
       type: 'line',
+      symbolSize: 5, //设定实心点的大小
       lineStyle: {
         type: 'solid',
         width: 3,

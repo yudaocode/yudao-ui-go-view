@@ -76,7 +76,8 @@ import {
   scatterBasicUrl,
   mapUrl,
   wordCloudUrl,
-  treemapUrl
+  treemapUrl,
+  threeEarth01Url
 } from '@/api/mock'
 
 const { HelpOutlineIcon } = icon.ionicons5
@@ -126,6 +127,9 @@ const apiList = [
   },
   {
     value: `【树图】${treemapUrl}`
+  },
+  {
+    value: `【三维地球】${threeEarth01Url}`
   },
 ]
 </script>

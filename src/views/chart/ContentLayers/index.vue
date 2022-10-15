@@ -166,11 +166,7 @@ const mousedownHandle = (e: MouseEvent, item: CreateComponentType) => {
   onClickOutSide()
   // 若此时按下了 CTRL, 表示多选
   const id = item.id
-  if (
-    e.buttons === MouseEventButton.LEFT &&
-    (window.$KeyboardActive?.has(WinKeyboard.CTRL_SOURCE_KEY) ||
-      window.$KeyboardActive?.has(MacKeyboard.CTRL_SOURCE_KEY))
-  ) {
+  if (e.buttons === MouseEventButton.LEFT && window.$KeyboardActive?.ctrl) {
     // 若已选中，则去除
     if (chartEditStore.targetChart.selectId.includes(id)) {
       const exList = chartEditStore.targetChart.selectId.filter(e => e !== id)
@@ -198,7 +194,6 @@ const changeLayerType = (value: LayerModeEnum) => {
   layerMode.value = value
   chartLayoutStore.setItem(ChartLayoutStoreEnum.LAYER_TYPE, value)
 }
-
 </script>
 
 <style lang="scss" scoped>

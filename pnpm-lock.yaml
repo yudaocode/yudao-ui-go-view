@@ -8,6 +8,7 @@ specifiers:
   '@types/keymaster': ^1.6.30
   '@types/lodash': ^4.14.184
   '@types/node': ^16.11.26
+  '@types/three': ^0.144.0
   '@typescript-eslint/eslint-plugin': ^5.18.0
   '@typescript-eslint/parser': ^5.18.0
   '@vicons/carbon': ^0.12.0
@@ -31,6 +32,7 @@ specifiers:
   eslint-plugin-import: ^2.26.0
   eslint-plugin-prettier: ^4.0.0
   eslint-plugin-vue: ^8.5.0
+  gsap: ^3.11.3
   highlight.js: ^11.5.0
   html2canvas: ^1.4.1
   husky: ^8.0.1
@@ -45,6 +47,7 @@ specifiers:
   sass: ^1.49.11
   sass-loader: ^12.6.0
   screenfull: ^6.0.1
+  three: ^0.145.0
   typescript: 4.6.3
   vite: 2.9.9
   vite-plugin-compression: ^0.5.1
@@ -73,6 +76,7 @@ dependencies:
   echarts-liquidfill: 3.1.0_echarts@5.3.3
   echarts-stat: 1.2.0
   echarts-wordcloud: 2.0.0_echarts@5.3.3
+  gsap: 3.11.3
   highlight.js: 11.5.1
   html2canvas: 1.4.1
   keymaster: 1.6.2
@@ -80,6 +84,7 @@ dependencies:
   naive-ui: 2.33.4_vue@3.2.37
   pinia: 2.0.14_ub5l46u3nefphax5x2tezui4oq
   screenfull: 6.0.1
+  three: 0.145.0
   vue: 3.2.37
   vue-demi: 0.13.1_vue@3.2.37
   vue-i18n: 9.1.10_vue@3.2.37
@@ -92,6 +97,7 @@ devDependencies:
   '@commitlint/cli': 17.0.2
   '@commitlint/config-conventional': 17.0.2
   '@types/node': 16.11.40
+  '@types/three': 0.144.0
   '@typescript-eslint/eslint-plugin': 5.28.0_evi7yu7wunhzwb24olrfvzynny
   '@typescript-eslint/parser': 5.28.0_sfmgizikprcxt7r54j7cnzjamu
   '@vicons/carbon': 0.12.0
@@ -905,7 +911,7 @@ packages:
     dev: true
 
   /@types/node/17.0.43:
-    resolution: {integrity: sha512-jnUpgw8fL9kP2iszfIDyBQtw5Mf4/XSqy0Loc1J9pI14ejL83XcCEvSf50Gs/4ET0I9VCCDoOfufQysj0S66xA==, registry: https://registry.npm.taobao.org/}
+    resolution: {integrity: sha512-jnUpgw8fL9kP2iszfIDyBQtw5Mf4/XSqy0Loc1J9pI14ejL83XcCEvSf50Gs/4ET0I9VCCDoOfufQysj0S66xA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npm.taobao.org/@types/node/-/node-17.0.43.tgz}
 
   /@types/normalize-package-data/2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
@@ -921,10 +927,20 @@ packages:
       '@types/node': 17.0.43
     dev: true
 
+  /@types/three/0.144.0:
+    resolution: {integrity: sha512-psvEs6q5rLN50jUYZ3D4pZMfxTbdt3A243blt0my7/NcL6chaCZpHe2csbCtx0SOD9fI/XnF3wnVUAYZGqCSYg==}
+    dependencies:
+      '@types/webxr': 0.5.0
+    dev: true
+
   /@types/through/0.0.30:
     resolution: {integrity: sha512-FvnCJljyxhPM3gkRgWmxmDZyAQSiBQQWLI0A0VFL0K7W1oRUrPJSqNO0NvTnLkBcotdlp3lKvaT0JrnyRDkzOg==}
     dependencies:
       '@types/node': 17.0.43
+    dev: true
+
+  /@types/webxr/0.5.0:
+    resolution: {integrity: sha512-IUMDPSXnYIbEO2IereEFcgcqfDREOgmbGqtrMpVPpACTU6pltYLwHgVkrnYv0XhWEcjio9sYEfIEzgn3c7nDqA==}
     dev: true
 
   /@typescript-eslint/eslint-plugin/5.28.0_evi7yu7wunhzwb24olrfvzynny:
@@ -1884,7 +1900,7 @@ packages:
     dev: true
 
   /csstype/2.6.20:
-    resolution: {integrity: sha512-/WwNkdXfckNgw6S5R125rrW8ez139lBHWouiBvX8dfMFtcn6V81REDqnH7+CRpRipfYlyU1CmOnOxrmGcFOjeA==, registry: https://registry.npm.taobao.org/}
+    resolution: {integrity: sha512-/WwNkdXfckNgw6S5R125rrW8ez139lBHWouiBvX8dfMFtcn6V81REDqnH7+CRpRipfYlyU1CmOnOxrmGcFOjeA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npm.taobao.org/csstype/-/csstype-2.6.20.tgz}
     dev: false
 
   /csstype/3.0.11:
@@ -2091,7 +2107,7 @@ packages:
     dev: false
 
   /echarts-wordcloud/2.0.0_echarts@5.3.3:
-    resolution: {integrity: sha512-K7l6pTklqdW7ZWzT/1CS0KhBSINr/cd7c5N1fVMzZMwLQHEwT7x+nivK7g5hkVh7WNcAv4Dn6/ZS5zMKRozC1g==, registry: https://registry.npm.taobao.org/}
+    resolution: {integrity: sha512-K7l6pTklqdW7ZWzT/1CS0KhBSINr/cd7c5N1fVMzZMwLQHEwT7x+nivK7g5hkVh7WNcAv4Dn6/ZS5zMKRozC1g==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npm.taobao.org/echarts-wordcloud/-/echarts-wordcloud-2.0.0.tgz}
     peerDependencies:
       echarts: ^5.0.1
     dependencies:
@@ -3031,6 +3047,10 @@ packages:
   /graceful-fs/4.2.10:
     resolution: {integrity: sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==}
     dev: true
+
+  /gsap/3.11.3:
+    resolution: {integrity: sha512-xc/iIJy+LWiMbRa4IdMtdnnKa/7PXEK6NNzV71gdOYUVeTZN7UWnLU0fB7Hi1iwiz4ZZoYkBZPPYGg+2+zzFHA==}
+    dev: false
 
   /handlebars/4.7.7:
     resolution: {integrity: sha512-aAcXm5OAfE/8IXkcZvCepKU3VzW1/39Fb5ZuqMtgI/hT8X2YgoMvBY5dLhq/cpOvw7Lk1nK/UF71aLG/ZnVYRA==}
@@ -4824,6 +4844,10 @@ packages:
   /text-table/0.2.0:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
     dev: true
+
+  /three/0.145.0:
+    resolution: {integrity: sha512-EKoHQEtEJ4CB6b2BGMBgLZrfwLjXcSUfoI/MiIXUuRpeYsfK5aPWbYhdtIVWOH+x6X0TouldHKHBuc/LAiFzAw==}
+    dev: false
 
   /through/2.3.8:
     resolution: {integrity: sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==}

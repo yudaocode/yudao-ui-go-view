@@ -9,9 +9,9 @@
         :fallback-src="requireErrorImg()"
       ></n-image>
       <n-ellipsis style="margin-right: auto">
-        <n-text class="list-text" :depth="2">
+        <span class="list-text">
           {{ props.componentData.chartConfig.title }}
-        </n-text>
+        </span>
       </n-ellipsis>
       <layers-status :isGroup="isGroup" :hover="hover" :status="status"></layers-status>
     </div>

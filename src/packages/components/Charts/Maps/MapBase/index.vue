@@ -64,9 +64,9 @@ registerMap(props.chartConfig.option.mapRegion.adcode, { geoJSON: {} as any, spe
 // 进行更换初始化地图 如果为china 单独处理
 const registerMapInitAsync = async () => {
   await nextTick()
-  if (props.chartConfig.option.mapRegion.adcode!="china") {
+  if (props.chartConfig.option.mapRegion.adcode != 'china') {
     await getGeojson(props.chartConfig.option.mapRegion.adcode)
-  }else{
+  } else {
     await hainanLandsHandle(props.chartConfig.option.mapRegion.showHainanIsLands)
   }
   vEchartsSetOption()
@@ -90,12 +90,12 @@ const dataSetHandle = async (dataset: any) => {
   isPreview() && vEchartsSetOption()
 }
 // 处理海南群岛
-const hainanLandsHandle=async(newData:boolean)=>{
+const hainanLandsHandle = async (newData: boolean) => {
   if (newData) {
-      await getGeojson('china')
-    } else {
-      registerMap('china', { geoJSON: mapJsonWithoutHainanIsLands as any, specialAreas: {} })
-    }
+    await getGeojson('china')
+  } else {
+    registerMap('china', { geoJSON: mapJsonWithoutHainanIsLands as any, specialAreas: {} })
+  }
 }
 //监听 dataset 数据发生变化
 watch(
@@ -113,8 +113,12 @@ watch(
 watch(
   () => props.chartConfig.option.mapRegion.showHainanIsLands,
   async newData => {
-    await hainanLandsHandle(newData)
-    vEchartsSetOption()
+    try {
+      await hainanLandsHandle(newData)
+      vEchartsSetOption()
+    } catch (error) {
+      console.log(error)
+    }
   },
   {
     deep: false
@@ -125,12 +129,16 @@ watch(
 watch(
   () => props.chartConfig.option.mapRegion.adcode,
   async newData => {
-    await getGeojson(newData)
-    props.chartConfig.option.geo.map = newData
-    props.chartConfig.option.series.forEach((item: any) => {
-      if (item.type === 'map') item.map = newData
-    })
-    vEchartsSetOption()
+    try {
+      await getGeojson(newData)
+      props.chartConfig.option.geo.map = newData
+      props.chartConfig.option.series.forEach((item: any) => {
+        if (item.type === 'map') item.map = newData
+      })
+      vEchartsSetOption()
+    } catch (error) {
+      console.log(error)
+    }
   },
   {
     deep: false

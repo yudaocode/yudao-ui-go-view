@@ -17,6 +17,7 @@ export const scatterBasicUrl = '/mock/scatterBasic'
 export const mapUrl = '/mock/map'
 export const wordCloudUrl = '/mock/wordCloud'
 export const treemapUrl = '/mock/treemap'
+export const threeEarth01Url = '/mock/threeEarth01Data'
 
 const mockObject: MockMethod[] = [
   {
@@ -90,6 +91,11 @@ const mockObject: MockMethod[] = [
     url: treemapUrl,
     method: RequestHttpEnum.GET,
     response: () => test.fetchTreemap
+  },
+  {
+    url: threeEarth01Url,
+    method: RequestHttpEnum.GET,
+    response: () => test.threeEarth01Data
   },
 ]
 

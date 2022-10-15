@@ -4,7 +4,7 @@ import { CreateComponentType } from '@/packages/index.d'
 import { cloneDeep } from 'lodash'
 import dataJson from './data.json'
 
-export const includes = ['xAxis', 'yAxis']
+export const includes = ['xAxis', 'yAxis', 'grid']
 
 export const option = {
   dataset: { ...dataJson },

@@ -60,7 +60,11 @@ const updateDatasetHandler = (newVal: string | number) => {
 watch(
   () => props.chartConfig.option,
   newVal => {
-    updateDatasetHandler((newVal as OptionType).dataset)
+    try {
+      updateDatasetHandler((newVal as OptionType).dataset)
+    } catch (error) {
+      console.log(error)
+    }
   },
   {
     immediate: true,

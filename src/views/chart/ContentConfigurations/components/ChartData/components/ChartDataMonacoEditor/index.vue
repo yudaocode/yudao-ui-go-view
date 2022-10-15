@@ -1,7 +1,7 @@
 <template>
   <template v-if="targetData.filter">
     <n-card>
-      <p><span class="func-keyword">function</span>&nbsp;&nbsp;filter(data)&nbsp;&nbsp;{</p>
+      <p><span class="func-keyword">function</span>&nbsp;&nbsp;filter(data, res)&nbsp;&nbsp;{</p>
       <!-- 函数体 -->
       <div class="go-ml-4">
         <n-code :code="targetData.filter" language="typescript"></n-code>
@@ -47,7 +47,7 @@
           <div>
             <n-space vertical>
               <n-tag type="info">
-                <span class="func-keyword">function</span>&nbsp;&nbsp;filter(data)&nbsp;&nbsp;{
+                <span class="func-keyword">function</span>&nbsp;&nbsp;filter(data, res)&nbsp;&nbsp;{
               </n-tag>
               <monaco-editor v-model:modelValue="filter" width="460px" height="380px" language="javascript" />
               <n-tag type="info">}</n-tag>
@@ -58,14 +58,20 @@
             <n-space :size="15" vertical>
               <div class="editor-data-show">
                 <n-space>
-                  <n-text depth="3">目标数据：</n-text>
-                  <n-code :code="toString(sourceData)" language="json" :word-wrap="true"></n-code>
+                  <n-text depth="3">默认过滤数据(data)：</n-text>
+                  <n-code :code="toString(sourceData?.data) || '暂无'" language="json" :word-wrap="true"></n-code>
+                </n-space>
+              </div>
+              <div class="editor-data-show">
+                <n-space>
+                  <n-text depth="3">接口返回数据(res)：</n-text>
+                  <n-code :code="toString(sourceData) || '暂无'" language="json" :word-wrap="true"></n-code>
                 </n-space>
               </div>
               <div class="editor-data-show">
                 <n-space>
                   <n-text depth="3">过滤器结果：</n-text>
-                  <n-code :code="filterRes" language="json" :word-wrap="true"></n-code>
+                  <n-code :code="filterRes || '暂无'" language="json" :word-wrap="true"></n-code>
                 </n-space>
               </div>
             </n-space>
@@ -81,7 +87,7 @@
               </template>
               规则
             </n-tag>
-            <n-text class="go-ml-2" depth="2">过滤器将处理接口返回值的「data」字段</n-text>
+            <n-text class="go-ml-2" depth="2">过滤器默认处理接口返回值的「data」字段</n-text>
           </div>
 
           <n-space>
@@ -123,8 +129,8 @@ const sourceData = ref<any>('')
 const fetchTargetData = async () => {
   try {
     const res = await customizeHttp(toRaw(targetData.value.request), toRaw(chartEditStore.requestGlobalConfig))
-    if (res && res.data) {
-      sourceData.value = res.data
+    if (res) {
+      sourceData.value = res
       return
     }
     window['$message'].warning('数据异常，请检查参数！')
@@ -136,8 +142,9 @@ const fetchTargetData = async () => {
 // 过滤结果
 const filterRes = computed(() => {
   try {
-    const fn = new Function('data', filter.value)
-    const res = fn(cloneDeep(sourceData.value))
+    const fn = new Function('data', 'res', filter.value)
+    const response = cloneDeep(sourceData.value)
+    const res = fn(response?.data, response)
     // eslint-disable-next-line vue/no-side-effects-in-computed-properties
     errorFlag.value = false
     return toString(res)

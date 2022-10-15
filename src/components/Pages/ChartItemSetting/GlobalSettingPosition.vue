@@ -1,5 +1,5 @@
 <template>
-  <setting-item-box name="位置">
+  <setting-item-box v-if="targetData" name="位置">
     <setting-item :name="`偏移 X：${targetData.left || 0}px`">
       <n-input-number v-model:value="targetData.left" size="small" step="10"></n-input-number>
     </setting-item>
