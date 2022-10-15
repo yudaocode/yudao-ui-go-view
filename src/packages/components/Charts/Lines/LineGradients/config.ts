@@ -5,11 +5,18 @@ import { graphic } from 'echarts/core'
 import { defaultTheme, chartColorsSearch } from '@/settings/chartThemes/index'
 import dataJson from './data.json'
 
-export const includes = ['legend', 'xAxis', 'yAxis']
+export const includes = ['legend', 'xAxis', 'yAxis', 'grid']
 
 const option = {
   legend: {
     show: true
+  },
+  grid: {
+    show: false,
+    left: '10%',
+    top: '60',
+    right: '10%',
+    bottom: '60'
   },
   tooltip: {
     show: true,
@@ -31,7 +38,7 @@ const option = {
     {
       type: 'line',
       smooth: false,
-      symbolSize: 5,   //设定实心点的大小
+      symbolSize: 5, //设定实心点的大小
       label: {
         show: true,
         position: 'top',

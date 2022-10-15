@@ -51,6 +51,9 @@
       <setting-item name="大小">
         <n-input-number v-model:value="xAxis.axisLabel.fontSize" :min="8" size="small"></n-input-number>
       </setting-item>
+      <setting-item name="偏移量">
+        <n-input-number v-model:value="xAxis.axisLabel.rotate" :min="-90" :max="90" size="small"></n-input-number>
+      </setting-item>
     </setting-item-box>
     <setting-item-box name="轴线">
       <setting-item name="展示">
@@ -140,6 +143,9 @@
       <setting-item name="大小">
         <n-input-number v-model:value="yAxis.axisLabel.fontSize" :min="8" size="small"></n-input-number>
       </setting-item>
+      <setting-item name="偏移量">
+        <n-input-number v-model:value="yAxis.axisLabel.rotate" :min="-90" :max="90" size="small"></n-input-number>
+      </setting-item>
     </setting-item-box>
     <setting-item-box name="轴线">
       <setting-item name="展示">
@@ -206,6 +212,23 @@
     <setting-item-box name="图例文字">
       <setting-item>
         <n-color-picker size="small" v-model:value="legend.textStyle.color"></n-color-picker>
+      </setting-item>
+    </setting-item-box>
+  </collapse-item>
+
+  <collapse-item v-if="grid" name="网格">
+    <setting-item-box name="容器距离">
+      <setting-item name="左侧距离">
+        <n-input v-model:value="grid.left" size="small"></n-input>
+      </setting-item>
+      <setting-item name="右侧距离">
+        <n-input v-model:value="grid.right" size="small"></n-input>
+      </setting-item>
+      <setting-item name="上侧距离">
+        <n-input v-model:value="grid.top" size="small"></n-input>
+      </setting-item>
+      <setting-item name="下侧距离">
+        <n-input v-model:value="grid.bottom" size="small"></n-input>
       </setting-item>
     </setting-item-box>
   </collapse-item>
@@ -287,6 +310,10 @@ const yAxis = computed(() => {
 
 const legend = computed(() => {
   return props.optionData.legend
+})
+
+const grid = computed(() => {
+  return props.optionData.grid
 })
 
 const visualMap = computed(() => {

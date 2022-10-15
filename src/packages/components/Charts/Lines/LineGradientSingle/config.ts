@@ -5,7 +5,7 @@ import { graphic } from 'echarts/core'
 import { defaultTheme, chartColorsSearch } from '@/settings/chartThemes/index'
 import dataJson from './data.json'
 
-export const includes = ['legend', 'xAxis', 'yAxis']
+export const includes = ['legend', 'xAxis', 'yAxis', 'grid']
 
 const options = {
   tooltip: {
@@ -18,9 +18,16 @@ const options = {
   legend: {
     show: true
   },
+  grid: {
+    show: false,
+    left: '10%',
+    top: '60',
+    right: '10%',
+    bottom: '60'
+  },
   xAxis: {
     show: true,
-    type: 'category',
+    type: 'category'
   },
   yAxis: {
     show: true,
@@ -31,12 +38,12 @@ const options = {
     {
       type: 'line',
       smooth: false,
-      symbolSize: 5,   //设定实心点的大小
-      label:{
+      symbolSize: 5, //设定实心点的大小
+      label: {
         show: true,
         position: 'top',
-        color: "#fff",
-        fontSize: 12,
+        color: '#fff',
+        fontSize: 12
       },
       lineStyle: {
         type: 'solid',
@@ -59,8 +66,7 @@ const options = {
   ]
 }
 
-export default class Config extends PublicConfigClass
-  implements CreateComponentType {
+export default class Config extends PublicConfigClass implements CreateComponentType {
   public key: string = LineGradientSingleConfig.key
   public chartConfig = LineGradientSingleConfig
   // 图表配置项
