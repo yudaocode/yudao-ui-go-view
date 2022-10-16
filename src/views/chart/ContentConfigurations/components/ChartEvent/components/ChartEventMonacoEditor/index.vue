@@ -1,33 +1,33 @@
 <template>
-  <n-card>
-    <!-- 函数体 -->
-    <div v-for="eventName in EventLife" :key="eventName">
-      <p>
-        <span class="func-keyword">async {{ eventName }}</span> (e, components, echarts, node_modules) {
-      </p>
-      <p class="go-ml-4"><n-code :code="(targetData.events || {})[eventName]" language="typescript"></n-code></p>
-      <p>}<span>,</span></p>
-    </div>
-    <template #footer>
-      <n-space justify="end">
-        <n-button type="primary" tertiary size="small" @click="showModal = true">
-          <template #icon>
-            <n-icon>
-              <filter-edit-icon />
-            </n-icon>
-          </template>
-          编辑
-        </n-button>
-      </n-space>
+  <n-collapse-item title="高级事件配置" name="2">
+    <template #header-extra>
+      <n-button type="primary" tertiary size="small" @click.stop="showModal = true">
+        <template #icon>
+          <n-icon>
+            <pencil-icon />
+          </n-icon>
+        </template>
+        编辑
+      </n-button>
     </template>
-  </n-card>
+    <n-card>
+      <!-- 函数体 -->
+      <div v-for="eventName in EventLife" :key="eventName">
+        <p>
+          <span class="func-keyword">async {{ eventName }}</span> (e, components, echarts, node_modules) {
+        </p>
+        <p class="go-ml-4"><n-code :code="(targetData.events || {})[eventName]" language="typescript"></n-code></p>
+        <p>}<span>,</span></p>
+      </div>
+    </n-card>
+  </n-collapse-item>
 
   <!-- 弹窗 -->
   <n-modal class="go-chart-data-monaco-editor" v-model:show="showModal" :mask-closable="false">
     <n-card :bordered="false" role="dialog" size="small" aria-modal="true" style="width: 1200px; height: 700px">
       <template #header>
         <n-space>
-          <n-text>事件编辑器</n-text>
+          <n-text>事件编辑器（配合源码使用）</n-text>
         </n-space>
       </template>
       <template #header-extra> </template>
@@ -36,7 +36,7 @@
           <n-tabs v-model:value="editTab" type="card" tab-style="min-width: 100px;">
             <!-- 提示 -->
             <template #suffix>
-              <n-text class="tab-tip" type="warning">{{ EventLifeTip[editTab] }}</n-text>
+              <n-text class="tab-tip" type="warning">tips: {{ EventLifeTip[editTab] }}</n-text>
             </template>
             <n-tab-pane
               v-for="(eventName, index) in EventLife"
@@ -67,15 +67,15 @@
             <!-- 验证结果 -->
             <n-tab-pane tab="验证结果" name="1" size="small">
               <n-scrollbar trigger="none" style="max-height: 505px">
-                <n-collapse class="go-px-3" arrow-placement="right" :default-expanded-names="['1', '2', '3']">
+                <n-collapse class="go-px-3" arrow-placement="right" :default-expanded-names="[1, 2, 3]">
                   <template v-for="error in [validEvents()]" :key="error">
-                    <n-collapse-item title="错误函数" name="1">
+                    <n-collapse-item title="错误函数" :name="1">
                       <n-text depth="3">{{ error.errorFn || '暂无' }}</n-text>
                     </n-collapse-item>
-                    <n-collapse-item title="错误信息" name="2">
+                    <n-collapse-item title="错误信息" :name="2">
                       <n-text depth="3">{{ error.name || '暂无' }}</n-text>
                     </n-collapse-item>
-                    <n-collapse-item title="堆栈信息" name="3">
+                    <n-collapse-item title="堆栈信息" :name="3">
                       <n-text depth="3">{{ error.message || '暂无' }}</n-text>
                     </n-collapse-item>
                   </template>
@@ -85,24 +85,24 @@
             <!-- 辅助说明 -->
             <n-tab-pane tab="变量说明" name="2">
               <n-scrollbar trigger="none" style="max-height: 505px">
-                <n-collapse class="go-px-3" arrow-placement="right" :default-expanded-names="['1', '2', '3', '4']">
-                  <n-collapse-item title="e" name="1">
+                <n-collapse class="go-px-3" arrow-placement="right" :default-expanded-names="[1, 2, 3, 4]">
+                  <n-collapse-item title="e" :name="1">
                     <n-text depth="3">触发对应生命周期事件时接收的参数</n-text>
                   </n-collapse-item>
-                  <n-collapse-item title="this" name="2">
+                  <n-collapse-item title="this" :name="2">
                     <n-text depth="3">图表组件实例</n-text>
                     <br />
                     <n-tag class="go-m-1" v-for="prop in ['refs', 'setupState', 'ctx', 'props', '...']" :key="prop">{{
                       prop
                     }}</n-tag>
                   </n-collapse-item>
-                  <n-collapse-item title="components" name="3">
+                  <n-collapse-item title="components" :name="3">
                     <n-text depth="3"
                       >当前大屏内所有组件的集合id 图表组件中的配置id，可以获取其他图表组件进行控制</n-text
                     >
                     <n-code :code="`{\n  [id]: component\n}`" language="typescript"></n-code>
                   </n-collapse-item>
-                  <n-collapse-item title="node_modules" name="4">
+                  <n-collapse-item title="node_modules" :name="4">
                     <n-text depth="3">以下是内置在代码环境中可用的包变量</n-text>
                     <br />
                     <n-tag class="go-m-1" v-for="pkg in Object.keys(npmPkgs || {})" :key="pkg">{{ pkg }}</n-tag>
@@ -110,21 +110,19 @@
                 </n-collapse>
               </n-scrollbar>
             </n-tab-pane>
-            <!-- 远程加载 -->
-            <n-tab-pane tab="远程加载" name="3">
+            <!-- 介绍案例 -->
+            <n-tab-pane tab="介绍案例" name="3">
               <n-scrollbar trigger="none" style="max-height: 505px">
-                <div class="go-px-3">
-                  浏览器是否兼容 「importmap」:
-                  <n-tag :bordered="false" :type="hTMLScriptElement.supports('importmap') ? 'primary' : 'error'">
-                    {{ hTMLScriptElement.supports('importmap') ? '√' : '×' }}
-                  </n-tag>
-                  <n-code
-                    :code="`
-                    //HTMLScriptElement.supports('importmap')
-const react = await import('https://cdn.skypack.dev/react@17.0.1')`"
-                    language="typescript"
-                  ></n-code>
-                </div>
+                <n-collapse arrow-placement="right">
+                  <n-collapse-item
+                    v-for="(item, index) in templateList"
+                    :key="index"
+                    :title="`案例${index + 1}：${item.description}`"
+                    :name="index"
+                  >
+                    <n-code :code="item.code" language="typescript"></n-code>
+                  </n-collapse-item>
+                </n-collapse>
               </n-scrollbar>
             </n-tab-pane>
           </n-tabs>
@@ -157,6 +155,7 @@ const react = await import('https://cdn.skypack.dev/react@17.0.1')`"
 import { ref, computed, watch, toRefs, toRaw } from 'vue'
 import { MonacoEditor } from '@/components/Pages/MonacoEditor'
 import { useTargetData } from '../../../hooks/useTargetData.hook'
+import { templateList } from './importTemplate'
 import { npmPkgs } from '@/hooks'
 import { icon } from '@/plugins'
 import { goDialog, toString } from '@/utils'
@@ -164,9 +163,7 @@ import { CreateComponentType, EventLife } from '@/packages/index.d'
 import { Script } from 'vm'
 
 const { targetData, chartEditStore } = useTargetData()
-const { DocumentTextIcon, ChevronDownIcon } = icon.ionicons5
-const { FilterEditIcon } = icon.carbon
-const hTMLScriptElement = HTMLScriptElement as any
+const { DocumentTextIcon, ChevronDownIcon, PencilIcon } = icon.ionicons5
 
 const EventLifeName = {
   [EventLife.BEFORE_MOUNT]: '渲染之前',
