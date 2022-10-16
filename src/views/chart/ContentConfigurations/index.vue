@@ -75,13 +75,13 @@ const { getDetails } = toRefs(useChartLayoutStore())
 const { setItem } = useChartLayoutStore()
 const chartEditStore = useChartEditStore()
 
-const { ConstructIcon, FlashIcon, DesktopOutlineIcon, LeafIcon, CodeSlashIcon } = icon.ionicons5
+const { ConstructIcon, FlashIcon, DesktopOutlineIcon, LeafIcon, RocketIcon } = icon.ionicons5
 
 const ContentEdit = loadAsyncComponent(() => import('../ContentEdit/index.vue'))
 const CanvasPage = loadAsyncComponent(() => import('./components/CanvasPage/index.vue'))
 const ChartSetting = loadAsyncComponent(() => import('./components/ChartSetting/index.vue'))
 const ChartData = loadAsyncComponent(() => import('./components/ChartData/index.vue'))
-const ChartEvent = loadAsyncComponent(() => import('@/components/Pages/ChartItemSetting/EventSetting.vue'))
+const ChartEvent = loadAsyncComponent(() => import('./components/ChartEvent/index.vue'))
 const ChartAnimation = loadAsyncComponent(() => import('./components/ChartAnimation/index.vue'))
 
 const collapsed = ref<boolean>(getDetails.value)
@@ -153,7 +153,7 @@ const chartsTabList = [
   {
     key: TabsEnum.CHART_EVENT,
     title: '事件',
-    icon: CodeSlashIcon,
+    icon: RocketIcon,
     render: ChartEvent
   }
 ]
