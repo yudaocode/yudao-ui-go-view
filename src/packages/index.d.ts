@@ -115,7 +115,6 @@ export interface PublicConfigType {
   }
   filter?: string
   status: StatusType
-  setPosition: Function
   events?: {
     [K in EventLife]?: string
   }
