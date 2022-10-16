@@ -92,8 +92,10 @@ export const BlendModeEnumList = [
 
 // vue3 生命周期事件
 export enum EventLife {
+  // 渲染之后
+  MOUNTED = 'vnodeMounted',
+  // 渲染之前
   BEFORE_MOUNT = 'vnodeBeforeMount',
-  MOUNTED = 'vnodeMounted'
 }
 
 // 组件实例类

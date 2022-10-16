@@ -32,6 +32,7 @@ export const useLifeHandler = (chartConfig: CreateComponentType) => {
  */
 function generateFunc(fnStr: string, e: any) {
   try {
+    // npmPkgs 便于拷贝 echarts 示例时设置option 的formatter等相关内容
     Function(`
       "use strict";
       return (
@@ -39,9 +40,7 @@ function generateFunc(fnStr: string, e: any) {
           const {${Object.keys(npmPkgs).join()}} = node_modules;
           ${fnStr}
         }
-      )`)().bind(e?.component)
-    // 便于拷贝echarts示例时设置option 的formatter等相关内容
-    e, components, npmPkgs
+      )`)().bind(e?.component)(e, components, npmPkgs)
   } catch (error) {
     console.error(error)
   }
