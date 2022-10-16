@@ -27,7 +27,7 @@
     <n-card :bordered="false" role="dialog" size="small" aria-modal="true" style="width: 1200px; height: 700px">
       <template #header>
         <n-space>
-          <n-text>事件编辑器（配合源码使用）</n-text>
+          <n-text>高级事件编辑器（配合源码使用）</n-text>
         </n-space>
       </template>
       <template #header-extra> </template>
