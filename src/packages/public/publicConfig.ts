@@ -81,6 +81,15 @@ export class PublicConfigClass implements PublicConfigType {
   public request = cloneDeep(requestConfig)
   // 数据过滤
   public filter = undefined
+
+  // 设置坐标
+  public setPosition(x: number, y: number): void {
+    this.attr.x = x
+    this.attr.y = y
+  }
+
+  // 事件
+  public events = undefined
 }
 
 // 多选成组类

@@ -115,12 +115,22 @@ export interface PublicConfigType {
   }
   filter?: string
   status: StatusType
+  setPosition: Function
+  events?: {
+    [K in EventLife]?: string
+  }
+}
+
+// vue3 生命周期事件
+export enum EventLife {
+  BEFORE_MOUNT = 'vnodeBeforeMount',
+  MOUNTED = 'vnodeMounted'
 }
 
 export interface CreateComponentType extends PublicConfigType, requestConfig {
   key: string
   chartConfig: ConfigType
-  option: GlobalThemeJsonType
+  option: GlobalThemeJsonType,
 }
 
 // 组件成组实例类

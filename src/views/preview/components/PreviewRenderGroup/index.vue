@@ -18,6 +18,7 @@
       :themeSetting="themeSetting"
       :themeColor="themeColor"
       :style="{ ...getSizeStyle(item.attr) }"
+      v-on="useLifeHandler(item)"
     ></component>
   </div>
 </template>
@@ -27,7 +28,7 @@ import { PropType } from 'vue'
 import { CreateComponentGroupType } from '@/packages/index.d'
 import { animationsClass, getFilterStyle, getTransformStyle, getBlendModeStyle } from '@/utils'
 import { getSizeStyle, getComponentAttrStyle, getStatusStyle } from '../../utils'
-
+import { useLifeHandler } from '@/hooks'
 const props = defineProps({
   groupData: {
     type: Object as PropType<CreateComponentGroupType>,
