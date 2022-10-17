@@ -171,7 +171,7 @@ export const templateList = [
     code: addStyleString
   },
   {
-    description: '修改地图圆点大小',
+    description: '修改【地图】圆点，新增提示自动轮播',
     code: editMapPointString
   }
 ]
