@@ -116,7 +116,8 @@ $centerHeight: 100px;
       height: $centerHeight;
       overflow: hidden;
       .list-img {
-        height: 100%;
+        height: 100px;
+        width: 140px;
         border-radius: 6px;
         @extend .go-transition;
       }
