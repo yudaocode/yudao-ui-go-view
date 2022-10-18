@@ -3,12 +3,6 @@
   <global-setting :optionData="optionData"></global-setting>
   <CollapseItem v-for="(item, index) in seriesList" :key="index" :name="`柱状图-${index+1}`" :expanded="true">
     <SettingItemBox name="图形">
-      <SettingItem name="颜色">
-        <n-color-picker size="small" :modes="['hex']" v-model:value="item.itemStyle.color"></n-color-picker>
-      </SettingItem>
-      <SettingItem>
-        <n-button size="small" @click="item.itemStyle.color = null">恢复默认</n-button>
-      </SettingItem>
       <SettingItem name="宽度">
           <n-input-number
           v-model:value="item.barWidth"

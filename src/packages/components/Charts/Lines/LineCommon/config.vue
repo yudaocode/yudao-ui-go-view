@@ -3,9 +3,6 @@
   <global-setting :optionData="optionData"></global-setting>
   <CollapseItem v-for="(item, index) in seriesList" :key="index" :name="`折线图-${index + 1}`" :expanded="true">
     <SettingItemBox name="线条">
-      <setting-item name="颜色">
-        <n-color-picker size="small" :modes="['hex']" v-model:value="item.lineStyle.color"></n-color-picker>
-      </setting-item>
       <SettingItem name="宽度">
         <n-input-number
           v-model:value="item.lineStyle.width"
