@@ -12,6 +12,9 @@ export const option = {
   amapLon: 116.39,
   amapLat: 40.91,
   amapZindex: 10,
+  viewMode: '2D',
+  pitch: 60,
+  skyColor: '#53A9DE',
   lang: 'zh_cn',
   features: ['bg', 'point', 'road', 'building']
 }

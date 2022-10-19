@@ -44,6 +44,29 @@
         <n-input-number v-model:value="optionData.amapZindex" size="small"></n-input-number>
       </setting-item>
     </setting-item-box>
+    <setting-item-box name="展示模式" :alone="true">
+      <setting-item>
+        <n-radio-group v-model:value="optionData.viewMode" name="radiogroup">
+          <n-space>
+            <n-radio v-for="song in viewModeOptions" :key="song.value" :value="song.value">
+              {{ song.label }}
+            </n-radio>
+          </n-space>
+        </n-radio-group>
+      </setting-item>
+    </setting-item-box>
+    <template v-if="optionData.viewMode === '3D'">
+      <setting-item-box name="天空色" :alone="true">
+        <setting-item>
+          <n-color-picker size="small" :modes="['hex']" v-model:value="optionData.skyColor"></n-color-picker>
+        </setting-item>
+      </setting-item-box>
+      <setting-item-box name="俯仰角" :alone="true">
+        <setting-item>
+          <n-input-number v-model:value="optionData.pitch" :min="0" :max="83" size="small"></n-input-number>
+        </setting-item>
+      </setting-item-box>
+    </template>
   </collapse-item>
 </template>
 
@@ -69,6 +92,16 @@ const langOptions = ref([
   {
     value: 'zh_en',
     label: '中英文对照'
+  }
+])
+const viewModeOptions = ref([
+  {
+    value: '2D',
+    label: '2D'
+  },
+  {
+    value: '3D',
+    label: '3D'
   }
 ])
 const featuresOptions = ref([

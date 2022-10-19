@@ -14,16 +14,26 @@ const props = defineProps({
     required: true
   }
 })
-let { amapKey, amapStyleKey, amapLon, amapLat, amapZindex, lang, amapStyleKeyCustom, features } = toRefs(
-  props.chartConfig.option
-)
+let {
+  amapKey,
+  amapStyleKey,
+  amapLon,
+  amapLat,
+  amapZindex,
+  lang,
+  amapStyleKeyCustom,
+  features,
+  viewMode,
+  pitch,
+  skyColor
+} = toRefs(props.chartConfig.option)
 
 let map = shallowRef(null)
 
 const ininMap = () => {
   AMapLoader.load({
     key: amapKey.value, //api服务key--另外需要在public中使用安全密钥！！！
-    version: '1.4.4', // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
+    version: '1.4.8', // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
     plugins: ['AMap.PlaceSearch', 'AMap.AutoComplete'] // 需要使用的的插件列表
   })
     .then(AMap => {
@@ -33,7 +43,10 @@ const ininMap = () => {
         center: [amapLon.value, amapLat.value],
         mapStyle: `amap://styles/${amapStyleKeyCustom.value !== '' ? amapStyleKeyCustom.value : amapStyleKey.value}`, //自定义地图的显示样式
         lang: lang.value,
-        features: features.value
+        features: features.value,
+        pitch: pitch.value, // 地图俯仰角度，有效范围 0 度- 83 度
+        skyColor: skyColor.value,
+        viewMode: viewMode.value, // 地图模式
       })
     })
     .catch(e => {})
