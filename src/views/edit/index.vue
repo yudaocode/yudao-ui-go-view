@@ -1,14 +1,29 @@
 <template>
   <div class="go-edit">
-    <n-layout has-sider sider-placement="right">
-      <n-layout-content>
+    <n-layout>
+      <n-layout-header class="go-edit-header go-px-5 go-flex-items-center" bordered>
         <div>
-          <n-space class="go-mx-1 go-my-1">
-            <n-button size="medium" @click="back">返回</n-button>
-            <n-button v-if="showOpenFilePicker" size="medium" @click="importJSON">导入</n-button>
-            <!-- <n-button size="medium" type="primary" @click="confirm">覆盖</n-button> -->
-          </n-space>
+          <n-text class="go-edit-title go-mr-4">页面在线编辑器</n-text>
+          <n-button v-if="showOpenFilePicker" class="go-mr-3" size="medium" @click="importJSON">
+            <template #icon>
+              <n-icon>
+                <download-icon></download-icon>
+              </n-icon>
+            </template>
+            导入
+          </n-button>
+          <n-button class="go-mr-4" size="medium" @click="back">
+            <template #icon>
+              <n-icon>
+                <chevron-back-outline-icon></chevron-back-outline-icon>
+              </n-icon>
+            </template>
+            返回工作台
+          </n-button>
         </div>
+        <n-tag :bordered="false" type="warning"> 「按 ctrl + s 保存/更新」 </n-tag>
+      </n-layout-header>
+      <n-layout-content>
         <monaco-editor
           v-model:modelValue="content"
           language="json"
@@ -30,12 +45,14 @@ import { getSessionStorageInfo } from '../preview/utils'
 import type { ChartEditStorageType } from '../preview/index.d'
 import { setSessionStorage } from '@/utils'
 import { StorageEnum } from '@/enums/storageEnum'
+import { icon } from '@/plugins'
 
+const { ChevronBackOutlineIcon, DownloadIcon } = icon.ionicons5
 const showOpenFilePicker: Function = (window as any).showOpenFilePicker
 let content = ref('')
 
 // 从sessionStorage 获取数据
-function getDataBySession () {
+function getDataBySession() {
   const localStorageInfo: ChartEditStorageType = getSessionStorageInfo() as ChartEditStorageType
   content.value = JSON.stringify(localStorageInfo, undefined, 2)
 }
@@ -46,7 +63,6 @@ function back() {
   opener.name = Date.now()
   window.open(opener.location.href, opener.name)
 }
-
 
 // 导入json文本
 async function importJSON() {
@@ -82,7 +98,6 @@ document.addEventListener('keydown', function (e) {
     }
   }
 })
-
 </script>
 
 <style lang="scss" scoped>
@@ -90,10 +105,22 @@ document.addEventListener('keydown', function (e) {
   display: flex;
   flex-direction: column;
   height: 100vh;
-}
-@include deep() {
-  .go-editor-area {
-    height: calc(100% - 40px) !important;
+  .go-edit-header {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    justify-content: space-between;
+    .go-edit-title {
+      position: relative;
+      bottom: 3px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+  @include deep() {
+    .go-editor-area {
+      height: calc(100vh - 60px) !important;
+    }
   }
 }
 </style>
