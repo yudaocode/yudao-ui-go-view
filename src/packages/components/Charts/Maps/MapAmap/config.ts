@@ -3,14 +3,15 @@ import { CreateComponentType } from '@/packages/index.d'
 import { MapAmapConfig } from './index'
 import { chartInitConfig } from '@/settings/designSetting'
 import cloneDeep from 'lodash/cloneDeep'
+import dataJson from './data.json'
 
 export const option = {
-  dataset: '',
+  dataset: dataJson,
   amapKey: 'aa76ad84f92f661980f710cbe966b7f6',
   amapStyleKey: 'normal',
   amapStyleKeyCustom: '',
-  amapLon: 116.39,
-  amapLat: 40.91,
+  amapLon: 116.397428,
+  amapLat: 39.90923,
   amapZindex: 10,
   viewMode: '2D',
   pitch: 60,

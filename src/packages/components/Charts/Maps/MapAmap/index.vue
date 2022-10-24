@@ -29,6 +29,7 @@ let {
 } = toRefs(props.chartConfig.option)
 
 let map = shallowRef(null)
+let markers = ref([])
 
 const ininMap = () => {
   AMapLoader.load({
@@ -46,7 +47,20 @@ const ininMap = () => {
         features: features.value,
         pitch: pitch.value, // 地图俯仰角度，有效范围 0 度- 83 度
         skyColor: skyColor.value,
-        viewMode: viewMode.value, // 地图模式
+        viewMode: viewMode.value // 地图模式
+      })
+      markers?.value.forEach((marker: any) => {
+        // 创建点实例
+        if (!/\d/.test(marker.icon || marker.position)) {
+          return
+        }
+        var marker = new AMap.Marker({
+          icon: marker?.icon,
+          position: [marker.position[0], marker.position[1]],
+          title: marker?.title,
+          offset: new AMap.Pixel(-13, -30)
+        })
+        marker.setMap(map)
       })
     })
     .catch(e => {})
@@ -55,6 +69,7 @@ const ininMap = () => {
 watch(
   () => props.chartConfig.option,
   newData => {
+    markers.value = newData.dataset.points
     ininMap()
   },
   { immediate: true, deep: true }
