@@ -63,7 +63,8 @@ export default defineConfig({
   build: {
     target: 'es2015',
     outDir: OUTPUT_DIR,
-    terserOptions: terserOptions,
+    // minify: 'terser', // 如果需要用terser混淆，可打开这两行
+    // terserOptions: terserOptions,
     rollupOptions: rollupOptions,
     brotliSize: brotliSize,
     chunkSizeWarningLimit: chunkSizeWarningLimit
