@@ -22,6 +22,10 @@ export default defineConfig({
       {
         find: '@',
         replacement: pathResolve('src')
+      },
+      {
+        find: 'vue-i18n',
+        replacement: 'vue-i18n/dist/vue-i18n.cjs.js', //解决i8n警告
       }
     ],
     dedupe: ['vue']
@@ -63,7 +67,8 @@ export default defineConfig({
   build: {
     target: 'es2015',
     outDir: OUTPUT_DIR,
-    terserOptions: terserOptions,
+    // minify: 'terser', // 如果需要用terser混淆，可打开这两行
+    // terserOptions: terserOptions,
     rollupOptions: rollupOptions,
     brotliSize: brotliSize,
     chunkSizeWarningLimit: chunkSizeWarningLimit
