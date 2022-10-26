@@ -31,7 +31,7 @@
             lineNumbers: 'on',
             minimap: { enabled: true }
           }"
-        />
+      />
       </n-layout-content>
     </n-layout>
   </div>
@@ -81,23 +81,30 @@ opener.addEventListener(SavePageEnum.CHART, (e: any) => {
   content.value = JSON.stringify(e.detail, undefined, 2)
 })
 
+// 窗口失焦 + 保存 => 同步数据
 document.addEventListener('keydown', function (e) {
   if (e.keyCode == 83 && (navigator.platform.match('Mac') ? e.metaKey : e.ctrlKey)) {
     e.preventDefault()
-    if (!opener) {
-      return window['$message'].error('源窗口已关闭，视图同步失败')
-    }
-    try {
-      const detail = JSON.parse(content.value)
-      delete detail.id
-      // 保持id不变
-      opener.dispatchEvent(new CustomEvent(SavePageEnum.JSON, { detail }))
-    } catch (e) {
-      window['$message'].error('内容格式有误')
-      console.log(e)
-    }
+    updateSync()
   }
 })
+addEventListener('blur', updateSync)
+
+// 同步更新
+function updateSync() {
+  if (!opener) {
+    return window['$message'].error('源窗口已关闭，视图同步失败')
+  }
+  try {
+    const detail = JSON.parse(content.value)
+    delete detail.id
+    // 保持id不变
+    opener.dispatchEvent(new CustomEvent(SavePageEnum.JSON, { detail }))
+  } catch (e) {
+    window['$message'].error('内容格式有误')
+    console.log(e)
+  }
+}
 </script>
 
 <style lang="scss" scoped>

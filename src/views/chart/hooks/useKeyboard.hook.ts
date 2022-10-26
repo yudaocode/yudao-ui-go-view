@@ -1,5 +1,5 @@
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { WinKeyboard, MacKeyboard, MenuEnum, SavePageEnum } from '@/enums/editPageEnum'
+import { WinKeyboard, MacKeyboard, MenuEnum } from '@/enums/editPageEnum'
 import throttle from 'lodash/throttle'
 import debounce from 'lodash/debounce'
 import keymaster from 'keymaster'
@@ -23,7 +23,6 @@ export const winKeyboardValue = {
   [MenuEnum.DELETE]: 'delete',
   [MenuEnum.BACK]: winCtrlMerge('z'),
   [MenuEnum.FORWORD]: winCtrlMerge(winShiftMerge('z')),
-  [MenuEnum.SAVE]: winCtrlMerge('s'),
   [MenuEnum.GROUP]: winCtrlMerge('g'),
   [MenuEnum.UN_GROUP]: winCtrlMerge(winShiftMerge('g')),
   [MenuEnum.LOCK]: winCtrlMerge('l'),
@@ -49,7 +48,6 @@ export const macKeyboardValue = {
   [MenuEnum.DELETE]: macCtrlMerge('backspace'),
   [MenuEnum.BACK]: macCtrlMerge('z'),
   [MenuEnum.FORWORD]: macCtrlMerge(macShiftMerge('z')),
-  [MenuEnum.SAVE]: macCtrlMerge('s'),
   [MenuEnum.GROUP]: macCtrlMerge('g'),
   [MenuEnum.UN_GROUP]: macCtrlMerge(macShiftMerge('g')),
   [MenuEnum.LOCK]: macCtrlMerge('l'),
@@ -73,7 +71,6 @@ const winKeyList: Array<string> = [
   winKeyboardValue.back,
   winKeyboardValue.forward,
 
-  winKeyboardValue.save,
   winKeyboardValue.group,
   winKeyboardValue.unGroup,
 
@@ -99,7 +96,6 @@ const macKeyList: Array<string> = [
   macKeyboardValue.back,
   macKeyboardValue.forward,
 
-  macKeyboardValue.save,
   macKeyboardValue.group,
   macKeyboardValue.unGroup,
 
@@ -206,11 +202,6 @@ export const useAddKeyboard = () => {
       // 解除隐藏 ct+sh+h
       case keyboardValue.show:
         keymaster(e, throttle(() => { chartEditStore.setShow(); return false }, throttleTime))
-        break;
-
-      // 保存 ct+s
-      case keyboardValue.save:
-        keymaster(e, throttle(() => { dispatchEvent(new CustomEvent(SavePageEnum.CHART, { detail: chartEditStore.getStorageInfo })); return false }, 200))
         break;
     }
   }

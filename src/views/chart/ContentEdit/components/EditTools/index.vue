@@ -58,12 +58,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, h, onBeforeUnmount } from 'vue'
+import { ref, computed, h, watch } from 'vue'
 import { useSettingStore } from '@/store/modules/settingStore/settingStore'
 import { ToolsStatusEnum } from '@/store/modules/settingStore/settingStore.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { fetchPathByName, routerTurnByPath, setSessionStorage, getLocalStorage } from '@/utils'
-import { EditEnum } from '@/enums/pageEnum'
+import { EditEnum, ChartEnum } from '@/enums/pageEnum'
 import { StorageEnum } from '@/enums/storageEnum'
 import { useRoute } from 'vue-router'
 import { useSync } from '@/views/chart/hooks/useSync.hook'
@@ -111,12 +111,54 @@ function updateToSession(id: string) {
   }
 }
 
-onBeforeUnmount((() => {
-  // 【监听JSON代码 刷新图表】
+function useSyncUpdate() {
+  // 定义侦听器变量
+  let timer: any;
   const updateFn = (e: any) => updateComponent(e!.detail, true, false)
-  addEventListener(SavePageEnum.JSON, updateFn)
-  return () => removeEventListener(SavePageEnum.JSON, updateFn)
-})())
+  const syncData = () => {
+    if (routerParamsInfo.name == ChartEnum.CHART_HOME_NAME) {
+      dispatchEvent(new CustomEvent(SavePageEnum.CHART, { detail: chartEditStore.getStorageInfo }))
+    }
+  }
+  
+  // 开启侦听
+  const use = () => {
+    // 1、定时同步数据
+    timer = setInterval(() => {
+      // 窗口激活并且处于工作台
+      document.hasFocus() && syncData()
+    }, 5000)
+    // 2、失焦同步数据
+    addEventListener('blur', syncData)
+
+    // 【监听JSON代码 刷新工作台图表】
+    addEventListener(SavePageEnum.JSON, updateFn)
+  }
+
+  // 关闭侦听
+  const unUse = () => {
+    clearInterval(timer)
+    removeEventListener(SavePageEnum.JSON, updateFn)
+    removeEventListener('blur', syncData)
+  }
+
+  // 路由变更时处理
+  const watchHandler = (toName: any, fromName: any) => {
+    if (fromName == ChartEnum.CHART_HOME_NAME) {
+      unUse()
+    }
+    if (toName == ChartEnum.CHART_HOME_NAME) {
+      use()
+    }
+  }
+  return watchHandler
+}
+
+watch(
+  () => routerParamsInfo.name,
+  useSyncUpdate(),
+  { immediate: true }
+)
 
 // 鼠标悬停定时器
 let mouseTime: any = null
