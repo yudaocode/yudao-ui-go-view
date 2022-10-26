@@ -60,7 +60,7 @@ import { StorageEnum } from '@/enums/storageEnum'
 import { ResultEnum } from '@/enums/httpEnum'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { ProjectInfoEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
-import { updateProjectApi } from '@/api/path'
+import { changeProjectReleaseApi } from '@/api/path'
 import {
   previewPath,
   renderIcon,
@@ -148,7 +148,7 @@ const copyPreviewPath = (successText?: string, failureText?: string) => {
 
 // 发布
 const sendHandle = async () => {
-  const res = (await updateProjectApi({
+  const res = (await changeProjectReleaseApi({
     id: fetchRouteParamsLocation(),
     // 反过来
     state: release.value ? -1 : 1,
