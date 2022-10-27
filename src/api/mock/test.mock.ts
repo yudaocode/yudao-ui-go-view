@@ -39,6 +39,22 @@ export default {
       ]
     }
   },
+  // 胶囊图
+  fetchCapsule:{
+    code: 0,
+    status: 200,
+    msg: '请求成功',
+    data: {
+      dimensions: ['name', 'value'],
+      "source": [
+        { "name": "厦门", "value|0-40": 20 },
+        { "name": "南阳", "value|20-60": 40 },
+        { "name": "北京", "value|40-80": 60 },
+        { "name": "上海", "value|60-100": 80 },
+        { "name": "新疆", "value": 100 }
+      ]
+    }
+  },
   // 图表
   fetchMockData: {
     code: 0,

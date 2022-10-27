@@ -15,6 +15,7 @@ export const radarUrl = '/mock/radarData'
 export const heatMapUrl = '/mock/heatMapData'
 export const scatterBasicUrl = '/mock/scatterBasic'
 export const mapUrl = '/mock/map'
+export const capsuleUrl = '/mock/capsule'
 export const wordCloudUrl = '/mock/wordCloud'
 export const treemapUrl = '/mock/treemap'
 export const threeEarth01Url = '/mock/threeEarth01Data'
@@ -81,6 +82,11 @@ const mockObject: MockMethod[] = [
     url: mapUrl,
     method: RequestHttpEnum.GET,
     response: () => test.fetchMap
+  },
+  {
+    url: capsuleUrl,
+    method: RequestHttpEnum.GET,
+    response: () => test.fetchCapsule
   },
   {
     url: wordCloudUrl,

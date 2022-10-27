@@ -8,7 +8,7 @@ import dataJson from './data.json'
 
 
 export const option = {
-  dataSet:dataJson,
+  dataset:dataJson,
   colors: ['#e062ae', '#fb7293', '#e690d1', '#32c5e9', '#96bfff'],
   unit: '',
   itemHeight:10,

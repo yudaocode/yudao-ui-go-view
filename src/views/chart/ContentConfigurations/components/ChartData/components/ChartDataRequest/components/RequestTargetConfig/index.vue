@@ -75,6 +75,7 @@ import {
   heatMapUrl,
   scatterBasicUrl,
   mapUrl,
+  capsuleUrl,
   wordCloudUrl,
   treemapUrl,
   threeEarth01Url
@@ -121,6 +122,9 @@ const apiList = [
   },
   {
     value: `【地图数据】${mapUrl}`
+  },
+  {
+    value: `【胶囊柱图】${capsuleUrl}`
   },
   {
     value: `【词云】${wordCloudUrl}`

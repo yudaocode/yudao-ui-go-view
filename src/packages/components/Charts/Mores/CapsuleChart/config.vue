@@ -10,6 +10,7 @@
         </n-space>
       </SettingItem>
       <setting-item name="单位">
+        
         <n-input v-model:value="optionData.unit" size="small"></n-input>
       </setting-item>
       <setting-item name="每块高度(px)">
@@ -39,5 +40,5 @@ const props = defineProps({
   }
 })
 
-console.log(props.optionData)
+console.log("optionData",props.optionData)
 </script>

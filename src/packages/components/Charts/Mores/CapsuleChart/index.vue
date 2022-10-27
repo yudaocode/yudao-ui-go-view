@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import { onMounted, watch, reactive } from 'vue'
+import { onMounted, watch, reactive,PropType } from 'vue'
 import merge from 'lodash/merge'
 import cloneDeep from 'lodash/cloneDeep'
+import { useChartDataFetch } from '@/hooks'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
+import config from './config'
 
 const props = defineProps({
   chartConfig: {
-    type: Object,
+    type: Object as PropType<config>,
     default: () => ({})
   }
 })
-console.log(props.chartConfig.option)
 type DataProps = {
   name: string | number
   value: string | number
@@ -18,7 +20,7 @@ type DataProps = {
 
 interface StateProps {
   defaultConfig: {
-    dataSet: {
+    dataset: {
       dimensions: Array<string>
       source: Array<DataProps>
     }
@@ -36,7 +38,7 @@ interface StateProps {
 
 const state = reactive<StateProps>({
   defaultConfig: {
-    dataSet: { dimensions: ['name', 'value'], source: [] },
+    dataset: { dimensions: ['name', 'value'], source: [] },
     colors: ['#37a2da', '#32c5e9', '#67e0e3', '#9fe6b8', '#ffdb5c', '#ff9f7f', '#fb7293'],
     unit: '',
     showValue: false,
@@ -52,31 +54,30 @@ const state = reactive<StateProps>({
 watch(
   () => props.chartConfig.option,
   newVal => {
-    console.log(newVal)
-    calcData()
+    calcData(newVal)
   },
   {
     deep: true
   }
 )
 
-function calcData() {
-  mergeConfig()
+function calcData(data:any) {
+  mergeConfig(props.chartConfig.option)
 
   calcCapsuleLengthAndLabelData()
 }
 
-function mergeConfig() {
-  state.mergedConfig = merge(cloneDeep(state.defaultConfig), props.chartConfig.option || {})
+function mergeConfig(data:any) {
+  state.mergedConfig = merge(cloneDeep(state.defaultConfig), data || {})
   console.log('state.mergedConfig', state.mergedConfig)
 }
 
 function calcCapsuleLengthAndLabelData() {
-  const { source } = state.mergedConfig.dataSet
+  const { source } = state.mergedConfig.dataset
   if (!source.length) return
 
   state.capsuleItemHeight = handle(state.mergedConfig.itemHeight)
-  const capsuleValue = source.map((item: DataProps) => item[state.mergedConfig.dataSet.dimensions[1]])
+  const capsuleValue = source.map((item: DataProps) => item[state.mergedConfig.dataset.dimensions[1]])
 
   const maxValue = Math.max(...capsuleValue)
 
@@ -94,7 +95,12 @@ const handle = (val: string | number) => {
   return val + 'px'
 }
 onMounted(() => {
-  calcData()
+  calcData(props.chartConfig.option)
+})
+
+// 预览
+useChartDataFetch(props.chartConfig, useChartEditStore, (newData: any) => {
+    calcData(newData)
 })
 </script>
 <template>
@@ -102,11 +108,11 @@ onMounted(() => {
     <template v-if="state.mergedConfig">
       <div class="label-column">
         <div
-          v-for="item in state.mergedConfig.dataSet.source"
-          :key="item[state.mergedConfig.dataSet.dimensions[0]]"
+          v-for="item in state.mergedConfig.dataset.source"
+          :key="item[state.mergedConfig.dataset.dimensions[0]]"
           :style="{ height: state.capsuleItemHeight, lineHeight: state.capsuleItemHeight }"
         >
-          {{ item[state.mergedConfig.dataSet.dimensions[0]] }}
+          {{ item[state.mergedConfig.dataset.dimensions[0]] }}
         </div>
         <div class="laset">&nbsp;</div>
       </div>
