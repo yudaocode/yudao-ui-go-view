@@ -12,16 +12,11 @@
             </template>
             导入
           </n-button>
-          <n-button class="go-mr-4" size="medium" @click="back">
-            <template #icon>
-              <n-icon>
-                <chevron-back-outline-icon></chevron-back-outline-icon>
-              </n-icon>
-            </template>
-            返回工作台
-          </n-button>
         </div>
-        <n-tag :bordered="false" type="warning"> 「按 ctrl + s 保存/更新」 </n-tag>
+        <n-space>
+          <n-tag :bordered="false" type="warning"> 「页面失焦保存」 </n-tag>
+          <n-tag :bordered="false" type="warning"> 「ctrl + s 保存」 </n-tag>
+        </n-space>
       </n-layout-header>
       <n-layout-content>
         <monaco-editor

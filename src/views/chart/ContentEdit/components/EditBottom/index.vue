@@ -135,9 +135,11 @@ watchEffect(() => {
 
 <style lang="scss" scoped>
 $min-width: 500px;
+$max-width: 670px;
 @include go('edit-bottom') {
   width: 100%;
   min-width: $min-width;
+  min-width: $max-width;
   padding: 0 10px;
   display: flex;
   align-items: center;

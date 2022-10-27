@@ -55,6 +55,9 @@ export const backgroundImageSize = 5
 // 预览展示方式
 export const previewScaleType = PreviewScaleEnum.FIT
 
+// 编辑工作台同步到 JSON 的轮询间隔（5S）
+export const editToJsonInterval = 5000
+
 // 数据请求间隔
 export const requestInterval = 30
 
