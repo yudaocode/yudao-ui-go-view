@@ -21,7 +21,8 @@ const RootRoute: Array<RouteRecordRaw> = [
       ...HttpErrorPage,
       modules.projectRoutes,
       modules.chartRoutes,
-      modules.previewRoutes
+      modules.previewRoutes,
+      modules.editRoutes
     ]
   }
 ]

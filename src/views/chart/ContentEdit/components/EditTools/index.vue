@@ -58,17 +58,107 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, h } from 'vue'
+import { ref, computed, h, watch } from 'vue'
 import { useSettingStore } from '@/store/modules/settingStore/settingStore'
 import { ToolsStatusEnum } from '@/store/modules/settingStore/settingStore.d'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { fetchPathByName, routerTurnByPath, setSessionStorage, getLocalStorage } from '@/utils'
+import { EditEnum, ChartEnum } from '@/enums/pageEnum'
+import { StorageEnum } from '@/enums/storageEnum'
+import { useRoute } from 'vue-router'
+import { useSync } from '@/views/chart/hooks/useSync.hook'
+import { SavePageEnum } from '@/enums/editPageEnum'
 import { GoSystemSet } from '@/components/GoSystemSet/index'
 import { exportHandle } from './utils'
 import { useFile } from './hooks/useFile.hooks'
 import { BtnListType, TypeEnum } from './index.d'
 import { icon } from '@/plugins'
 
-const { DownloadIcon, ShareIcon, PawIcon, SettingsSharpIcon } = icon.ionicons5
+const { DownloadIcon, ShareIcon, PawIcon, SettingsSharpIcon, CodeSlashIcon } = icon.ionicons5
 const settingStore = useSettingStore()
+const chartEditStore = useChartEditStore()
+const routerParamsInfo = useRoute()
+const { updateComponent } = useSync()
+
+// 编辑
+const editHandle = () => {
+  // 获取id路径
+  const path = fetchPathByName(EditEnum.CHART_EDIT_NAME, 'href')
+  if (!path) return
+  let { id } = routerParamsInfo.params as any
+  id = typeof id === 'string' ? id : id[0]
+  updateToSession(id)
+  routerTurnByPath(path, [id], undefined, true)
+}
+
+// 把内存中的数据同步到SessionStorage 便于传递给新窗口初始化数据
+function updateToSession(id: string) {
+  const storageInfo = chartEditStore.getStorageInfo
+  const sessionStorageInfo = getLocalStorage(StorageEnum.GO_CHART_STORAGE_LIST) || []
+
+  if (sessionStorageInfo?.length) {
+    const repeateIndex = sessionStorageInfo.findIndex((e: { id: string }) => e.id === id)
+    // 重复替换
+    if (repeateIndex !== -1) {
+      sessionStorageInfo.splice(repeateIndex, 1, { ...storageInfo, id })
+      setSessionStorage(StorageEnum.GO_CHART_STORAGE_LIST, sessionStorageInfo)
+    } else {
+      sessionStorageInfo.push({ ...storageInfo, id})
+      setSessionStorage(StorageEnum.GO_CHART_STORAGE_LIST, sessionStorageInfo)
+    }
+  } else {
+    setSessionStorage(StorageEnum.GO_CHART_STORAGE_LIST, [{ ...storageInfo, id }])
+  }
+}
+
+function useSyncUpdate() {
+  // 定义侦听器变量
+  let timer: any;
+  const updateFn = (e: any) => updateComponent(e!.detail, true, false)
+  const syncData = () => {
+    if (routerParamsInfo.name == ChartEnum.CHART_HOME_NAME) {
+      dispatchEvent(new CustomEvent(SavePageEnum.CHART, { detail: chartEditStore.getStorageInfo }))
+    }
+  }
+  
+  // 开启侦听
+  const use = () => {
+    // 1、定时同步数据
+    timer = setInterval(() => {
+      // 窗口激活并且处于工作台
+      document.hasFocus() && syncData()
+    }, 5000)
+    // 2、失焦同步数据
+    addEventListener('blur', syncData)
+
+    // 【监听JSON代码 刷新工作台图表】
+    addEventListener(SavePageEnum.JSON, updateFn)
+  }
+
+  // 关闭侦听
+  const unUse = () => {
+    clearInterval(timer)
+    removeEventListener(SavePageEnum.JSON, updateFn)
+    removeEventListener('blur', syncData)
+  }
+
+  // 路由变更时处理
+  const watchHandler = (toName: any, fromName: any) => {
+    if (fromName == ChartEnum.CHART_HOME_NAME) {
+      unUse()
+    }
+    if (toName == ChartEnum.CHART_HOME_NAME) {
+      use()
+    }
+  }
+  return watchHandler
+}
+
+watch(
+  () => routerParamsInfo.name,
+  useSyncUpdate(),
+  { immediate: true }
+)
 
 // 鼠标悬停定时器
 let mouseTime: any = null
@@ -94,6 +184,13 @@ const btnList: BtnListType[] = [
     type: TypeEnum.IMPORTUPLOAD,
     name: '导入',
     icon: DownloadIcon
+  },
+  {
+    key: 'edit',
+    type: TypeEnum.BUTTON,
+    name: '编辑JSON',
+    icon: CodeSlashIcon,
+    handle: editHandle
   },
   {
     key: 'setting',

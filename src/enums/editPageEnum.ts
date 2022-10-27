@@ -9,6 +9,12 @@ export enum DragKeyEnum {
   DRAG_KEY = 'ChartData'
 }
 
+// 不同页面保存操作
+export enum SavePageEnum {
+  CHART = 'SaveChart',
+  JSON = 'SaveJSON'
+}
+
 // 操作枚举
 export enum MenuEnum {
   // 移动
@@ -42,6 +48,8 @@ export enum MenuEnum {
   BACK = 'back',
   // 前进
   FORWORD = 'forward',
+  // 保存
+  SAVE = 'save',
   // 锁定
   LOCK = 'lock',
   // 解除锁定
