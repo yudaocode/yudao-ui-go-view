@@ -40,5 +40,4 @@ const props = defineProps({
   }
 })
 
-console.log("optionData",props.optionData)
 </script>

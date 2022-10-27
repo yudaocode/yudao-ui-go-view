@@ -69,7 +69,6 @@ function calcData(data:any) {
 
 function mergeConfig(data:any) {
   state.mergedConfig = merge(cloneDeep(state.defaultConfig), data || {})
-  console.log('state.mergedConfig', state.mergedConfig)
 }
 
 function calcCapsuleLengthAndLabelData() {
