@@ -7,8 +7,8 @@ export const CapsuleChartConfig: ConfigType = {
   chartKey: 'VCapsuleChart',
   conKey: 'VCCapsuleChart',
   title: '胶囊柱图',
-  category: ChatCategoryEnum.MORE,
-  categoryName: ChatCategoryEnumName.MORE,
+  category: ChatCategoryEnum.BAR,
+  categoryName: ChatCategoryEnumName.BAR,
   package: PackagesCategoryEnum.CHARTS,
   chartFrame: ChartFrameEnum.COMMON,
   image

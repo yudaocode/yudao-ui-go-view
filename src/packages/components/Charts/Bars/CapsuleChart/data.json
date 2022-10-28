@@ -3,7 +3,7 @@
   "source": [
     { "name": "厦门", "value": 20 },
     { "name": "南阳", "value": 40 },
-    { "name": "背景", "value": 60 },
+    { "name": "北京", "value": 60 },
     { "name": "上海", "value": 80 },
     { "name": "新疆", "value": 100 }
   ]
