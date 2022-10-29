@@ -1,50 +1,49 @@
 <template>
   <div :style="getStyle(borderRadius)">
-    <iframe :src="option.dataset" :width="w" :height="h"></iframe>
+    <iframe :src="option.dataset" :width="w" :height="h" style="border-width: 0"></iframe>
   </div>
 </template>
 
 <script setup lang="ts">
-import { PropType, shallowReactive, watch, toRefs } from "vue";
-import { useChartDataFetch } from "@/hooks";
-import { CreateComponentType } from "@/packages/index.d";
-import { useChartEditStore } from "@/store/modules/chartEditStore/chartEditStore";
+import { PropType, shallowReactive, watch, toRefs } from 'vue'
+import { useChartDataFetch } from '@/hooks'
+import { CreateComponentType } from '@/packages/index.d'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 
 const props = defineProps({
   chartConfig: {
     type: Object as PropType<CreateComponentType>,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 
-const { w, h } = toRefs(props.chartConfig.attr);
-const { dataset, borderRadius } = toRefs(props.chartConfig.option);
+const { w, h } = toRefs(props.chartConfig.attr)
+const { borderRadius } = toRefs(props.chartConfig.option)
 
 const option = shallowReactive({
-  dataset: "",
-});
+  dataset: ''
+})
 
 const getStyle = (radius: number) => {
   return {
     borderRadius: `${radius}px`,
-    overflow: "hidden",
-  };
-};
+    overflow: 'hidden'
+  }
+}
 
 // 编辑更新
 watch(
   () => props.chartConfig.option.dataset,
-  (newData: any) => {
-    option.dataset = newData;
+  (newData: string) => {
+    option.dataset = newData
   },
   {
-    immediate: true,
-    deep: false,
+    immediate: true
   }
-);
+)
 
 // 预览更新
-useChartDataFetch(props.chartConfig, useChartEditStore, (newData: any) => {
-  option.dataset = newData;
-});
+useChartDataFetch(props.chartConfig, useChartEditStore, (newData: string) => {
+  option.dataset = newData
+})
 </script>
