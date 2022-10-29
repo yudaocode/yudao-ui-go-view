@@ -11,27 +11,7 @@ export default {
     msg: '请求成功',
     data: {
       dimensions: ['product', 'dataOne'],
-      source: [
-        {
-          product: '@name',
-          'dataOne|0-900': 3
-        },
-        {
-          product: '@name',
-          'dataOne|0-900': 3
-        },
-        {
-          product: '@name',
-          'dataOne|0-900': 3
-        },
-        {
-          product: '@name',
-          'dataOne|0-900': 3
-        },
-        {
-          product: '@name',
-          'dataOne|0-900': 3
-        },
+      'source|50': [
         {
           product: '@name',
           'dataOne|0-900': 3
@@ -40,18 +20,18 @@ export default {
     }
   },
   // 胶囊图
-  fetchCapsule:{
+  fetchCapsule: {
     code: 0,
     status: 200,
     msg: '请求成功',
     data: {
       dimensions: ['name', 'value'],
-      "source": [
-        { "name": "厦门", "value|0-40": 20 },
-        { "name": "南阳", "value|20-60": 40 },
-        { "name": "北京", "value|40-80": 60 },
-        { "name": "上海", "value|60-100": 80 },
-        { "name": "新疆", "value": 100 }
+      source: [
+        { name: '厦门', 'value|0-40': 20 },
+        { name: '南阳', 'value|20-60': 40 },
+        { name: '北京', 'value|40-80': 60 },
+        { name: '上海', 'value|60-100': 80 },
+        { name: '新疆', value: 100 }
       ]
     }
   },
@@ -62,32 +42,7 @@ export default {
     msg: '请求成功',
     data: {
       dimensions: ['product', 'dataOne', 'dataTwo'],
-      source: [
-        {
-          product: '@name',
-          'dataOne|100-900': 3,
-          'dataTwo|100-900': 3
-        },
-        {
-          product: '@name',
-          'dataOne|100-900': 3,
-          'dataTwo|100-900': 3
-        },
-        {
-          product: '@name',
-          'dataOne|100-900': 3,
-          'dataTwo|100-900': 3
-        },
-        {
-          product: '@name',
-          'dataOne|100-900': 3,
-          'dataTwo|100-900': 3
-        },
-        {
-          product: '@name',
-          'dataOne|100-900': 3,
-          'dataTwo|100-900': 3
-        },
+      'source|50': [
         {
           product: '@name',
           'dataOne|100-900': 3,
@@ -101,21 +56,7 @@ export default {
     code: 0,
     status: 200,
     msg: '请求成功',
-    data: [
-      { name: '@name', 'value|100-900': 5 },
-      { name: '@name', 'value|100-900': 5 },
-      { name: '@name', 'value|100-900': 5 },
-      { name: '@name', 'value|100-900': 5 },
-      { name: '@name', 'value|100-900': 5 },
-      { name: '@name', 'value|100-900': 5 },
-      { name: '@name', 'value|100-900': 5 },
-      { name: '@name', 'value|100-900': 5 },
-      { name: '@name', 'value|100-900': 5 },
-      { name: '@name', 'value|100-900': 5 },
-      { name: '@name', 'value|100-900': 5 },
-      { name: '@name', 'value|100-900': 5 },
-      { name: '@name', 'value|100-900': 5 }
-    ]
+    'data|50': [{ name: '@name', 'value|100-900': 5 }]
   },
   // 轮播表格
   fetchScrollBoard: {
@@ -278,12 +219,7 @@ export default {
     data: [
       {
         startArray: { name: '@name', N: '@integer(10, 100)', E: '@integer(10, 100)' },
-        endArray: [
-          { name: '@name', N: '@integer(10, 100)', E: '@integer(10, 100)' },
-          { name: '@name', N: '@integer(10, 100)', E: '@integer(10, 100)' },
-          { name: '@name', N: '@integer(10, 100)', E: '@integer(10, 100)' },
-          { name: '@name', N: '@integer(10, 100)', E: '@integer(10, 100)' }
-        ]
+        'endArray|10': [{ name: '@name', N: '@integer(10, 100)', E: '@integer(10, 100)' }]
       }
     ]
   }
