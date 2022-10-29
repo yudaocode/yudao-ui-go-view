@@ -274,7 +274,7 @@ $asideBottom: 70px;
     flex-direction: column-reverse;
     height: auto;
     right: 20px;
-    padding: 20px 8px;
+    padding: 30px 8px;
     bottom: $asideBottom;
     overflow: hidden;
     transition: height ease 0.4s;

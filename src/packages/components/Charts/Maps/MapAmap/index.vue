@@ -1,13 +1,16 @@
 <template>
-  <div class="box">
-    <div id="container" style="width: 100%; height: 100%; position: relative"></div>
-  </div>
+  <div ref="vChartRef"></div>
 </template>
 
 <script setup lang="ts">
+import { ref, PropType, toRefs, watch } from 'vue'
 import AMapLoader from '@amap/amap-jsapi-loader'
 import { CreateComponentType } from '@/packages/index.d'
-import { reactive, ref, shallowRef, PropType, toRefs, watch } from 'vue'
+import { useChartDataFetch } from '@/hooks'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { MarkerEnum } from './config'
+import { isArray } from '@/utils'
+
 const props = defineProps({
   chartConfig: {
     type: Object as PropType<CreateComponentType>,
@@ -20,25 +23,31 @@ let {
   amapLon,
   amapLat,
   amapZindex,
+  mapMarkerType,
   lang,
   amapStyleKeyCustom,
   features,
   viewMode,
   pitch,
-  skyColor
-} = toRefs(props.chartConfig.option)
+  skyColor,
+  marker
+} = toRefs(props.chartConfig.option.mapOptions)
 
-let map = shallowRef(null)
-let markers = ref([])
+let mapIns: any = null
+let markers: any = []
+let AMapIns: any = null
+const vChartRef = ref<HTMLElement>()
 
-const ininMap = () => {
+const initMap = (newData: any) => {
+  // 初始化
   AMapLoader.load({
     key: amapKey.value, //api服务key--另外需要在public中使用安全密钥！！！
     version: '1.4.8', // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
     plugins: ['AMap.PlaceSearch', 'AMap.AutoComplete'] // 需要使用的的插件列表
   })
     .then(AMap => {
-      map = new AMap.Map('container', {
+      AMapIns = AMap
+      mapIns = new AMap.Map(vChartRef.value, {
         resizeEnable: true,
         zoom: amapZindex.value, // 地图显示的缩放级别
         center: [amapLon.value, amapLat.value],
@@ -47,31 +56,75 @@ const ininMap = () => {
         features: features.value,
         pitch: pitch.value, // 地图俯仰角度，有效范围 0 度- 83 度
         skyColor: skyColor.value,
-        viewMode: viewMode.value // 地图模式
+        viewMode: viewMode.value, // 地图模式
+        willReadFrequently: true
       })
-      markers?.value.forEach((marker: any) => {
-        // 创建点实例
-        if (!/\d/.test(marker.icon || marker.position)) {
-          return
-        }
-        var marker = new AMap.Marker({
-          icon: marker?.icon,
-          position: [marker.position[0], marker.position[1]],
-          title: marker?.title,
-          offset: new AMap.Pixel(-13, -30)
-        })
-        marker.setMap(map)
-      })
+      dataHandle(props.chartConfig.option.dataset)
     })
     .catch(e => {})
 }
 
-watch(
-  () => props.chartConfig.option,
-  newData => {
-    markers.value = newData.dataset.points
-    ininMap()
+const dataHandle = (newData: any) => {
+  if (!mapIns && !AMapIns) {
+    initMap(props.chartConfig.option)
+    return
+  }
+  if (isArray(newData.markers)) {
+    // 先清除旧标记
+    mapIns.remove(markers)
+    markers = []
+    // 记录新标记
+    if (mapMarkerType.value === MarkerEnum.MARKER) {
+      newData.markers.forEach((markerItem: any) => {
+        const markerInstance = new AMapIns.Marker({
+          position: [markerItem.position[0], markerItem.position[1]],
+          offset: new AMapIns.Pixel(-13, -30)
+        })
+        markers.push(markerInstance)
+        markerInstance.setMap(mapIns)
+      })
+    } else if (mapMarkerType.value === MarkerEnum.CIRCLE_MARKER) {
+      newData.markers.forEach((markerItem: any) => {
+        const markerInstance = new AMapIns.CircleMarker({
+          center: [markerItem.position[0], markerItem.position[1]],
+          radius: markerItem.value,
+          ...marker.value
+        })
+        markers.push(markerInstance)
+        markerInstance.setMap(mapIns)
+      })
+    }
+  }
+}
+
+const stopWatch = watch(
+  () => props.chartConfig.option.mapOptions,
+  option => {
+    initMap(option)
   },
-  { immediate: true, deep: true }
+  {
+    immediate: true,
+    deep: true
+  }
 )
+
+watch(
+  () => props.chartConfig.option.dataset,
+  newData => {
+    try {
+      dataHandle(newData)
+    } catch (error) {
+      console.log(error)
+    }
+  },
+  {
+    deep: false
+  }
+)
+
+// 预览
+useChartDataFetch(props.chartConfig, useChartEditStore, (newData: any) => {
+  stopWatch()
+  dataHandle(newData)
+})
 </script>

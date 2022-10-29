@@ -1,17 +1,22 @@
 {
-  "points": [
+  "markers": [
     {
-      "icon": "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-1.png",
-      "position": [116.300467, 39.907761],
-      "title": "我是一个文本"
+      "name": "某某地市",
+      "value": 10,
+      "title": "1",
+      "position": [116.300467, 39.907761]
     },
     {
-      "icon": "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-2.png",
-      "position": [116.368904, 39.913423]
+      "name": "某某地市",
+      "value": 15,
+      "title": "3",
+      "position": [116.400567, 39.908761]
     },
     {
-      "icon": "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-3.png",
-      "position": [116.305467, 39.807761]
+      "name": "某某地市",
+      "value": 20,
+      "title": "2",
+      "position": [116.200467, 39.937761]
     }
   ]
 }

@@ -5,20 +5,76 @@ import { chartInitConfig } from '@/settings/designSetting'
 import cloneDeep from 'lodash/cloneDeep'
 import dataJson from './data.json'
 
+export enum ThemeEnum {
+  NORMAL = 'normal',
+  DARK = 'dark',
+  LIGHT = 'light',
+  WHITES_MOKE = 'whitesmoke',
+  FRESH = 'fresh',
+  GREY = 'grey',
+  GRAFFITI = 'graffiti',
+  MACARON = 'macaron',
+  BLUE = 'blue',
+  DARKBLUE = 'darkblue',
+  WINE = 'wine'
+}
+
+export enum LangEnum {
+  ZH_CN = 'zh_cn',
+  EN = 'en',
+  ZH_EN = 'zh_en'
+}
+
+export enum ViewModeEnum {
+  PLANE = '2D',
+  STEREOSCOPIC = '3D'
+}
+
+export enum FeaturesEnum {
+  BG = 'bg',
+  POINT = 'point',
+  ROAD = 'road',
+  BUILDING = 'building'
+}
+
+export enum MarkerEnum {
+  // 圆圈
+  CIRCLE_MARKER = 'CircleMarker',
+  // 定位标点
+  MARKER = 'Marker',
+  // 暂无
+  NONE = 'none'
+}
+
 export const option = {
   dataset: dataJson,
-  amapKey: 'aa76ad84f92f661980f710cbe966b7f6',
-  amapStyleKey: 'normal',
-  amapStyleKeyCustom: '',
-  amapLon: 116.397428,
-  amapLat: 39.90923,
-  amapZindex: 10,
-  viewMode: '2D',
-  pitch: 60,
-  skyColor: '#53A9DE',
-  lang: 'zh_cn',
-  features: ['bg', 'point', 'road', 'building']
+  mapOptions: {
+    pitch: 60,
+    skyColor: '#53A9DE',
+    amapKey: 'd5f3e16589dbecae64d05fe90e2ba4f2',
+    amapStyleKey: ThemeEnum.DARK,
+    amapStyleKeyCustom: '',
+    amapLon: 116.397428,
+    amapLat: 39.90923,
+    amapZindex: 11,
+    marker: {
+      fillColor: '#E98984FF',
+      fillOpacity: 0.5,
+      strokeColor: 'white',
+      strokeWeight: 2,
+      strokeOpacity: 0.5,
+      zIndex: 10,
+      bubble: true,
+      cursor: 'pointer',
+      clickable: true
+    },
+    mapMarkerType: MarkerEnum.CIRCLE_MARKER,
+    viewMode: ViewModeEnum.PLANE,
+    lang: LangEnum.ZH_CN,
+    features: [FeaturesEnum.BG, FeaturesEnum.POINT, FeaturesEnum.ROAD, FeaturesEnum.BUILDING]
+  }
 }
+
 export default class Config extends PublicConfigClass implements CreateComponentType {
   public key = MapAmapConfig.key
   public attr = { ...chartInitConfig, w: 1000, h: 800, zIndex: -1 }

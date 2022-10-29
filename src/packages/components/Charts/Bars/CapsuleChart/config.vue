@@ -31,7 +31,7 @@
     </SettingItemBox>
     <SettingItemBox name="颜色">
       <setting-item v-for="(item, index) in optionData.colors" :key="index" :name="`颜色${index}`">
-        <n-color-picker v-model:value="optionData.colors[index]" size="small"></n-color-picker>
+        <n-color-picker v-model:value="optionData.colors[index]" size="small" :modes="['hex']"></n-color-picker>
       </setting-item>
     </SettingItemBox>
   </collapse-item>
