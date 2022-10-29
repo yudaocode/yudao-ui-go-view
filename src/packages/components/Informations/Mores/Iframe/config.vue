@@ -1,7 +1,7 @@
 <template>
   <collapse-item name="属性" :expanded="true">
     <setting-item-box name="路径" :alone="true">
-      <setting-item>
+      <setting-item name="请填写 https 协议的网址">
         <n-input v-model:value="optionData.dataset" size="small"></n-input>
       </setting-item>
     </setting-item-box>

@@ -6,7 +6,7 @@ import cloneDeep from 'lodash/cloneDeep'
 
 export const option = {
   // 网站路径
-  dataset: "http://www.mtruning.club:81/",
+  dataset: "https://cn.vuejs.org/",
   // 圆角
   borderRadius: 10
 }
