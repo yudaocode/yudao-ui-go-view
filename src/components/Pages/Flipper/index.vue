@@ -1,19 +1,13 @@
 <template>
-  <div class="M-Flipper" :class="[flipType, { go: isFlipping }]">
+  <div class="go-Flipper" :class="[flipType, { go: isFlipping }]">
     <div class="digital front" :data-front="frontTextFromData"></div>
     <div class="digital back" :data-back="backTextFromData"></div>
   </div>
 </template>
 
-<script lang="ts">
-export default {
-  name: 'Flipper'
-}
-</script>
-
 <script lang="ts" setup>
 import { ref, PropType, watch } from 'vue'
-import { FlipType } from '.'
+import { FlipType }  from './index'
 
 const props = defineProps({
   flipType: {
@@ -131,7 +125,7 @@ $lineColor: #4a9ef8;
 }
 // #endregion
 
-.M-Flipper {
+.go-Flipper {
   display: inline-block;
   position: relative;
   width: $width;
