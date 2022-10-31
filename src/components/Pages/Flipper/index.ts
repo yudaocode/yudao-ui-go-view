@@ -1,4 +1,4 @@
 import Flipper from './index.vue'
-type FlipType = 'up' | 'down'
+import { FlipType } from './index.d'
 
 export { Flipper, FlipType }
