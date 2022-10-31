@@ -291,7 +291,7 @@ const customRequest = (options: UploadCustomRequestOptions) => {
       if(uploadRes.code === ResultEnum.SUCCESS) {
         chartEditStore.setEditCanvasConfig(
           EditCanvasConfigEnum.BACKGROUND_IMAGE,
-          uploadRes.data.objectContent.httpRequest.uri
+          `${uploadRes.data.objectContent.httpRequest.uri}?time=${new Date().getTime()}`
         )
         chartEditStore.setEditCanvasConfig(
           EditCanvasConfigEnum.SELECT_COLOR,
