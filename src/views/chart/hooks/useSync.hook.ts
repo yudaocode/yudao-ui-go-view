@@ -4,6 +4,7 @@ import { getUUID, httpErrorHandle, fetchRouteParamsLocation, base64toFile } from
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasTypeEnum, ChartEditStoreEnum, ProjectInfoEnum, ChartEditStorage } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
+import { StylesSetting } from '@/components/Pages/ChartItemSetting'
 import { useSystemStore } from '@/store/modules/systemStore/systemStore'
 import { fetchChartComponent, fetchConfigComponent, createComponent } from '@/packages/index'
 import { saveInterval } from '@/settings/designSetting'
@@ -197,11 +198,6 @@ export const useSync = () => {
   const dataSyncUpdate = throttle(async () => {
     if(!fetchRouteParamsLocation()) return
 
-    if(!systemStore.getFetchInfo.OSSUrl) {
-      window['$message'].error('数据保存失败，请刷新页面重试！')
-      return
-    }
-
     let projectId = chartEditStore.getProjectInfo[ProjectInfoEnum.PROJECT_ID];
     if(projectId === null || projectId === ''){
       window['$message'].error('数据初未始化成功,请刷新页面！')
@@ -222,12 +218,12 @@ export const useSync = () => {
     // 上传预览图
     let uploadParams = new FormData()
     uploadParams.append('object', base64toFile(canvasImage.toDataURL(), `${fetchRouteParamsLocation()}_index_preview.png`))
-    const uploadRes = await uploadFile(systemStore.getFetchInfo.OSSUrl, uploadParams) as unknown as MyResponseType
+    const uploadRes = await uploadFile(uploadParams) as unknown as MyResponseType
     // 保存预览图
     if(uploadRes.code === ResultEnum.SUCCESS) {
       await updateProjectApi({
         id: fetchRouteParamsLocation(),
-        indexImage: uploadRes.data.objectContent.httpRequest.uri
+        indexImage: `${systemStore.getFetchInfo.OSSUrl}${uploadRes.data.fileName}`
       })
     }
 

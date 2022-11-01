@@ -134,7 +134,7 @@ import { EditCanvasConfigEnum } from '@/store/modules/chartEditStore/chartEditSt
 import { useSystemStore } from '@/store/modules/systemStore/systemStore'
 import { StylesSetting } from '@/components/Pages/ChartItemSetting'
 import { UploadCustomRequestOptions } from 'naive-ui'
-import { fileToUrl, loadAsyncComponent, fetchRouteParamsLocation } from '@/utils'
+import { loadAsyncComponent, fetchRouteParamsLocation } from '@/utils'
 import { PreviewScaleEnum } from '@/enums/styleEnum'
 import { ResultEnum } from '@/enums/httpEnum'
 import { icon } from '@/plugins'
@@ -273,10 +273,6 @@ const clearColor = () => {
 const customRequest = (options: UploadCustomRequestOptions) => {
   const { file } = options
   nextTick(async () => {
-    if(!systemStore.getFetchInfo.OSSUrl) {
-      window['$message'].error('添加图片失败，请刷新页面重试！')
-      return
-    }
     if (file.file) {
       // 修改名称
       const newNameFile = new File(
@@ -286,12 +282,12 @@ const customRequest = (options: UploadCustomRequestOptions) => {
       )
       let uploadParams = new FormData()
       uploadParams.append('object', newNameFile)
-      const uploadRes = await uploadFile(systemStore.getFetchInfo.OSSUrl ,uploadParams) as unknown as MyResponseType
+      const uploadRes = await uploadFile(uploadParams) as unknown as MyResponseType
 
       if(uploadRes.code === ResultEnum.SUCCESS) {
         chartEditStore.setEditCanvasConfig(
           EditCanvasConfigEnum.BACKGROUND_IMAGE,
-          `${uploadRes.data.objectContent.httpRequest.uri}?time=${new Date().getTime()}`
+          `${systemStore.getFetchInfo.OSSUrl}${uploadRes.data.fileName}?time=${new Date().getTime()}`
         )
         chartEditStore.setEditCanvasConfig(
           EditCanvasConfigEnum.SELECT_COLOR,
