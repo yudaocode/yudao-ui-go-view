@@ -17,6 +17,14 @@ const nodeModulesTemplateString = `
 console.log(node_modules)
 `
 
+// 添加点击事件
+const addClickTemplateString = `
+// 在渲染之后才能获取 dom 实例
+e.el.addEventListener('click', () => {
+  alert('我触发拉~');
+}, false)
+`
+
 // 异步引入
 const importTemplateString = `
 await import('https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/lodash.js/4.17.21/lodash.js')
@@ -161,6 +169,10 @@ export const templateList = [
   {
     description: '获取远程 CDN 库',
     code: importTemplateString
+  },
+  {
+    description: '设置文字组件点击事件',
+    code: addClickTemplateString
   },
   {
     description: '修改图表 tooltip',
