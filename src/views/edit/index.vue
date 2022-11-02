@@ -48,7 +48,7 @@ let content = ref('')
 
 // 从sessionStorage 获取数据
 function getDataBySession() {
-  const localStorageInfo: ChartEditStorageType = getSessionStorageInfo() as ChartEditStorageType
+  const localStorageInfo: ChartEditStorageType = getSessionStorageInfo() as unknown as ChartEditStorageType
   content.value = JSON.stringify(localStorageInfo, undefined, 2)
 }
 getDataBySession()

@@ -12,7 +12,7 @@ import { ref } from 'vue'
 import Preview from './index.vue'
 
 let key = ref(Date.now())
-let localStorageInfo: ChartEditStorageType = getSessionStorageInfo() as ChartEditStorageType
+let localStorageInfo: ChartEditStorageType = getSessionStorageInfo() as unknown as ChartEditStorageType
 
 // 数据变更 -> 同步sessionStorage -> reload页面 （重新执行Mounted）
 ;[SavePageEnum.JSON, SavePageEnum.CHART].forEach((saveEvent: string) => {
