@@ -10,6 +10,6 @@ export const VideoConfig: ConfigType = {
   category: ChatCategoryEnum.MORE,
   categoryName: ChatCategoryEnumName.MORE,
   package: PackagesCategoryEnum.INFORMATIONS,
-  chartFrame: ChartFrameEnum.ECHARTS,
+  chartFrame: ChartFrameEnum.COMMON,
   image
 }

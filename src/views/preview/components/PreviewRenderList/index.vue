@@ -29,6 +29,7 @@
       :themeSetting="themeSetting"
       :themeColor="themeColor"
       :style="{ ...getSizeStyle(item.attr) }"
+      v-on="useLifeHandler(item)"
     ></component>
   </div>
 </template>
@@ -41,7 +42,7 @@ import { CreateComponentGroupType } from '@/packages/index.d'
 import { chartColors } from '@/settings/chartThemes/index'
 import { animationsClass, getFilterStyle, getTransformStyle, getBlendModeStyle } from '@/utils'
 import { getSizeStyle, getComponentAttrStyle, getStatusStyle } from '../../utils'
-
+import { useLifeHandler } from '@/hooks'
 const props = defineProps({
   localStorageInfo: {
     type: Object as PropType<ChartEditStorageType>,

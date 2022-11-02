@@ -27,6 +27,7 @@ import {
   LockClosedOutline as LockClosedOutlineIcon,
   HelpCircleOutline as HelpOutlineIcon,
   CodeSlash as CodeSlashIcon,
+  Create as CreateIcon,
   Rocket as RocketIcon,
   Duplicate as DuplicateIcon,
   DuplicateOutline as DuplicateOutlineIcon,
@@ -108,6 +109,8 @@ const ionicons5 = {
   DuplicateOutlineIcon,
   // 代码
   CodeSlashIcon,
+  // 修改代码
+  CreateIcon,
   // 事件(火箭)
   RocketIcon,
   // 退出

@@ -73,6 +73,7 @@
         <n-text>SQL 类型不支持 Get 请求，请使用其它方式</n-text>
       </template>
       <template v-else>
+        <n-tag type="warning">需要后台提供专门处理 sql 的接口</n-tag>
         <setting-item-box name="键名">
           <n-tag type="primary" :bordered="false" style="width: 40px; font-size: 16px"> sql </n-tag>
         </setting-item-box>

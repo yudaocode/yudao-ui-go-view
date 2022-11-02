@@ -90,6 +90,14 @@ export const BlendModeEnumList = [
   { label: '亮度', value: 'luminosity' }
 ]
 
+// vue3 生命周期事件
+export enum EventLife {
+  // 渲染之后
+  MOUNTED = 'vnodeMounted',
+  // 渲染之前
+  BEFORE_MOUNT = 'vnodeBeforeMount',
+}
+
 // 组件实例类
 export interface PublicConfigType {
   id: string
@@ -115,12 +123,15 @@ export interface PublicConfigType {
   }
   filter?: string
   status: StatusType
+  events?: {
+    [K in EventLife]?: string
+  }
 }
 
 export interface CreateComponentType extends PublicConfigType, requestConfig {
   key: string
   chartConfig: ConfigType
-  option: GlobalThemeJsonType
+  option: GlobalThemeJsonType,
 }
 
 // 组件成组实例类
