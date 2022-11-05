@@ -55,8 +55,8 @@ getDataBySession()
 
 // 返回父窗口
 function back() {
-  opener.name = Date.now()
-  window.open(opener.location.href, opener.name)
+  window.opener.name = Date.now()
+  window.open(window.opener.location.href, window.opener.name)
 }
 
 // 导入json文本
@@ -71,7 +71,7 @@ async function importJSON() {
 }
 
 // 同步 [画布页失去焦点时同步数据到JSON页，JSON页Ctrl+S 时同步数据到画布页]
-opener.addEventListener(SavePageEnum.CHART, (e: any) => {
+window.opener.addEventListener(SavePageEnum.CHART, (e: any) => {
   setSessionStorage(StorageEnum.GO_CHART_STORAGE_LIST, [e.detail])
   content.value = JSON.stringify(e.detail, undefined, 2)
 })
@@ -87,14 +87,14 @@ addEventListener('blur', updateSync)
 
 // 同步更新
 function updateSync() {
-  if (!opener) {
+  if (!window.opener) {
     return window['$message'].error('源窗口已关闭，视图同步失败')
   }
   try {
     const detail = JSON.parse(content.value)
     delete detail.id
     // 保持id不变
-    opener.dispatchEvent(new CustomEvent(SavePageEnum.JSON, { detail }))
+    window.opener.dispatchEvent(new CustomEvent(SavePageEnum.JSON, { detail }))
   } catch (e) {
     window['$message'].error('内容格式有误')
     console.log(e)
