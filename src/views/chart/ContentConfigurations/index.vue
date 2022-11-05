@@ -14,7 +14,7 @@
       @collapse="collapsedHandle"
       @expand="expandHandle"
     >
-      <content-box class="go-content-layers go-boderbox" :show-top="false" :depth="2">
+      <content-box class="go-content-configurations go-boderbox" :show-top="false" :depth="2">
         <!-- 页面配置 -->
         <n-tabs v-if="!selectTarget" class="tabs-box" size="small" type="segment">
           <n-tab-pane
@@ -160,7 +160,7 @@ const chartsTabList = [
 </script>
 
 <style lang="scss" scoped>
-@include go(content-layers) {
+@include go(content-configurations) {
   overflow: hidden;
   .tabs-box {
     padding: 10px;
