@@ -1,5 +1,5 @@
 <template>
-  <Preview :key="key"></Preview>
+  <preview :key="key"></preview>
 </template>
 
 <script setup lang="ts">
@@ -16,10 +16,10 @@ let localStorageInfo: ChartEditStorageType = getSessionStorageInfo() as unknown 
 
 // 数据变更 -> 同步sessionStorage -> reload页面 （重新执行Mounted）
 ;[SavePageEnum.JSON, SavePageEnum.CHART].forEach((saveEvent: string) => {
-  opener.addEventListener(saveEvent, (e: any) => {
+  if (!window.opener) return
+  window.opener.addEventListener(saveEvent, (e: any) => {
     setSessionStorage(StorageEnum.GO_CHART_STORAGE_LIST, [{ ...e.detail, id: localStorageInfo.id }])
     key.value = Date.now()
   })
 })
-
 </script>

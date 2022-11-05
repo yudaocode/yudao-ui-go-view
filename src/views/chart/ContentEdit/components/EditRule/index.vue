@@ -12,14 +12,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs, computed, watch } from 'vue'
+import { ref, toRefs, computed, watch, nextTick, onBeforeUnmount } from 'vue'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
+import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
 
 const chartEditStore = useChartEditStore()
+const chartLayoutStore = useChartLayoutStore()
 const designStore = useDesignStore()
 
 const { width, height } = toRefs(chartEditStore.getEditCanvasConfig)
+const { scale, lockScale } = toRefs(chartEditStore.getEditCanvas)
+const { getLayers, getCharts, getDetails } = toRefs(chartLayoutStore)
 
 const configShow = ref(true)
 
@@ -49,25 +53,47 @@ const canvasBox = () => {
   }
 }
 
-const scale = computed(() => {
-  return chartEditStore.getEditCanvas.scale
-})
-
 // 颜色
 const themeColor = computed(() => {
   return designStore.getAppTheme
 })
 
 // 处理标尺重制大小
+const ruleChangeHandle = () => {
+  configShow.value = false
+  setTimeout(() => {
+    configShow.value = true
+  })
+}
+
+const ruleChangeHandleTimeOut = () => {
+  if (lockScale.value) {
+    setTimeout(() => {
+      ruleChangeHandle()
+    }, 500)
+  }
+}
+
 watch(
   () => scale.value,
-  () => {
-    configShow.value = false
-    setTimeout(() => {
-      configShow.value = true
-    })
-  }
+  () => ruleChangeHandle()
 )
+
+watch(
+  () => getLayers.value,
+  () => ruleChangeHandleTimeOut()
+)
+
+watch(
+  () => getCharts.value,
+  () => ruleChangeHandleTimeOut()
+)
+
+watch(
+  () => getDetails.value,
+  () => ruleChangeHandleTimeOut()
+)
+
 </script>
 
 <style>

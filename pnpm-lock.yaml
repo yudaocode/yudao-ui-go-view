@@ -1,6 +1,8 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@amap/amap-jsapi-loader': ^1.0.1
+  '@amap/amap-jsapi-types': ^0.0.8
   '@commitlint/cli': ^17.0.2
   '@commitlint/config-conventional': ^17.0.2
   '@types/color': ^3.0.3
@@ -65,6 +67,8 @@ specifiers:
   vuedraggable: ^4.1.0
 
 dependencies:
+  '@amap/amap-jsapi-loader': 1.0.1
+  '@amap/amap-jsapi-types': 0.0.8
   '@types/color': 3.0.3
   '@types/crypto-js': 4.1.1
   '@types/keymaster': 1.6.30
@@ -131,6 +135,14 @@ devDependencies:
   vue-tsc: 0.28.10_typescript@4.6.3
 
 packages:
+
+  /@amap/amap-jsapi-loader/1.0.1:
+    resolution: {integrity: sha512-nPyLKt7Ow/ThHLkSvn2etQlUzqxmTVgK7bIgwdBRTg2HK5668oN7xVxkaiRe3YZEzGzfV2XgH5Jmu2T73ljejw==}
+    dev: false
+
+  /@amap/amap-jsapi-types/0.0.8:
+    resolution: {integrity: sha512-q0FyZDIJcXjsMLGc3oS9rjfJsErOvt9rcp6AgzY4k14vo7bBhdq4eKwoSdVp/pYjR/rfaKBns5v10ycZOFwf/A==}
+    dev: false
 
   /@ampproject/remapping/2.2.0:
     resolution: {integrity: sha512-qRmjj8nj9qmLTQXXmaR1cck3UXSRMPrbsLJAasZpF+t3riI71BXed5ebIOYwQntykeZuhjsdweEc9BxH5Jc26w==}
