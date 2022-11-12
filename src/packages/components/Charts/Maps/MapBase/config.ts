@@ -2,6 +2,7 @@ import { echartOptionProfixHandle, PublicConfigClass } from '@/packages/public'
 import { MapBaseConfig } from './index'
 import { chartInitConfig } from '@/settings/designSetting'
 import { CreateComponentType } from '@/packages/index.d'
+import cloneDeep from 'lodash/cloneDeep'
 import dataJson from './data.json'
 
 export const includes = []
@@ -151,6 +152,6 @@ export const MapDefaultConfig = { ...option }
 export default class Config extends PublicConfigClass implements CreateComponentType {
   public key: string = MapBaseConfig.key
   public attr = { ...chartInitConfig, w: 750, h: 800, zIndex: -1 }
-  public chartConfig = MapBaseConfig
+  public chartConfig = cloneDeep(MapBaseConfig)
   public option = echartOptionProfixHandle(option, includes)
 }

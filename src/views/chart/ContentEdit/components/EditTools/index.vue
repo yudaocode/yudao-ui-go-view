@@ -62,20 +62,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, h, watch } from 'vue'
+import { ref, computed } from 'vue'
 import { useSettingStore } from '@/store/modules/settingStore/settingStore'
 import { ToolsStatusEnum } from '@/store/modules/settingStore/settingStore.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { fetchPathByName, routerTurnByPath, setSessionStorage, getLocalStorage } from '@/utils'
-import { editToJsonInterval } from '@/settings/designSetting'
-import { EditEnum, ChartEnum } from '@/enums/pageEnum'
+import { fetchRouteParamsLocation, fetchPathByName, routerTurnByPath, setSessionStorage, getLocalStorage } from '@/utils'
+import { EditEnum } from '@/enums/pageEnum'
 import { StorageEnum } from '@/enums/storageEnum'
 import { useRoute } from 'vue-router'
-import { useSync } from '@/views/chart/hooks/useSync.hook'
-import { SavePageEnum } from '@/enums/editPageEnum'
 import { GoSystemSet } from '@/components/GoSystemSet/index'
 import { exportHandle } from './utils'
 import { useFile } from './hooks/useFile.hooks'
+import { useSyncUpdate } from './hooks/useSyncUpdate.hook'
 import { BtnListType, TypeEnum } from './index.d'
 import { icon } from '@/plugins'
 
@@ -83,7 +81,8 @@ const { DownloadIcon, ShareIcon, PawIcon, SettingsSharpIcon, CreateIcon } = icon
 const settingStore = useSettingStore()
 const chartEditStore = useChartEditStore()
 const routerParamsInfo = useRoute()
-const { updateComponent } = useSync()
+// 初始化编辑 JSON 模块
+useSyncUpdate()
 
 // 鼠标悬停定时器
 let mouseTime: any = null
@@ -143,8 +142,7 @@ const editHandle = () => {
     // 获取id路径
     const path = fetchPathByName(EditEnum.CHART_EDIT_NAME, 'href')
     if (!path) return
-    let { id } = routerParamsInfo.params as any
-    id = typeof id === 'string' ? id : id[0]
+    const id = fetchRouteParamsLocation()
     updateToSession(id)
     routerTurnByPath(path, [id], undefined, true)
   }, 1000)
@@ -170,51 +168,6 @@ const updateToSession = (id: string) => {
   }
 }
 
-// 侦听器更新
-const useSyncUpdate = () => {
-  // 定义侦听器变量
-  let timer: any
-  const updateFn = (e: any) => updateComponent(e!.detail, true, false)
-  const syncData = () => {
-    if (routerParamsInfo.name == ChartEnum.CHART_HOME_NAME) {
-      dispatchEvent(new CustomEvent(SavePageEnum.CHART, { detail: chartEditStore.getStorageInfo }))
-    }
-  }
-
-  // 开启侦听
-  const use = () => {
-    // 1、定时同步数据
-    timer = setInterval(() => {
-      // 窗口激活并且处于工作台
-      document.hasFocus() && syncData()
-    }, editToJsonInterval)
-    // 2、失焦同步数据
-    addEventListener('blur', syncData)
-
-    // 【监听JSON代码 刷新工作台图表】
-    addEventListener(SavePageEnum.JSON, updateFn)
-  }
-
-  // 关闭侦听
-  const unUse = () => {
-    clearInterval(timer)
-    removeEventListener(SavePageEnum.JSON, updateFn)
-    removeEventListener('blur', syncData)
-  }
-
-  // 路由变更时处理
-  const watchHandler = (toName: any, fromName: any) => {
-    if (fromName == ChartEnum.CHART_HOME_NAME) {
-      unUse()
-    }
-    if (toName == ChartEnum.CHART_HOME_NAME) {
-      use()
-    }
-  }
-  return watchHandler
-}
-
-watch(() => routerParamsInfo.name, useSyncUpdate(), { immediate: true })
 
 // 配置列表
 const btnList: BtnListType[] = [

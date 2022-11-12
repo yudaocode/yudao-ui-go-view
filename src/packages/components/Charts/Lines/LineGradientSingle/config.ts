@@ -3,6 +3,7 @@ import { LineGradientSingleConfig } from './index'
 import { CreateComponentType } from '@/packages/index.d'
 import { graphic } from 'echarts/core'
 import { defaultTheme, chartColorsSearch } from '@/settings/chartThemes/index'
+import cloneDeep from 'lodash/cloneDeep'
 import dataJson from './data.json'
 
 export const includes = ['legend', 'xAxis', 'yAxis', 'grid']
@@ -58,7 +59,7 @@ const options = {
 
 export default class Config extends PublicConfigClass implements CreateComponentType {
   public key: string = LineGradientSingleConfig.key
-  public chartConfig = LineGradientSingleConfig
+  public chartConfig = cloneDeep(LineGradientSingleConfig)
   // 图表配置项
   public option = echartOptionProfixHandle(options, includes)
 }
