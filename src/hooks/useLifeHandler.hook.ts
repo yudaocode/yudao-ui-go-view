@@ -8,17 +8,17 @@ const components: { [K in string]?: any } = {}
 export const npmPkgs = { echarts }
 
 export const useLifeHandler = (chartConfig: CreateComponentType) => {
-  const events = chartConfig.events || {}
+  const events = chartConfig.events.advancedEvents || {}
   // 生成生命周期事件
   const lifeEvents = {
-    [EventLife.BEFORE_MOUNT](e: any) {
+    [EventLife.VNODE_BEFORE_MOUNT](e: any) {
       // 存储组件
       components[chartConfig.id] = e.component
-      const fnStr = (events[EventLife.BEFORE_MOUNT] || '').trim()
+      const fnStr = (events[EventLife.VNODE_BEFORE_MOUNT] || '').trim()
       generateFunc(fnStr, e)
     },
-    [EventLife.MOUNTED](e: any) {
-      const fnStr = (events[EventLife.MOUNTED] || '').trim()
+    [EventLife.VNODE_MOUNTED](e: any) {
+      const fnStr = (events[EventLife.VNODE_MOUNTED] || '').trim()
       generateFunc(fnStr, e)
     }
   }

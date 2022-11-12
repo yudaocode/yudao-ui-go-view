@@ -1,5 +1,4 @@
 import { getUUID } from '@/utils'
-import { ChartFrameEnum, PublicConfigType, CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 import { RequestConfigType } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { groupTitle } from '@/settings/designSetting'
 import {
@@ -9,6 +8,14 @@ import {
   RequestContentTypeEnum,
   RequestBodyEnum
 } from '@/enums/httpEnum'
+import {
+  BaseEvent,
+  EventLife,
+  ChartFrameEnum,
+  PublicConfigType,
+  CreateComponentType,
+  CreateComponentGroupType
+} from '@/packages/index.d'
 import { chartInitConfig } from '@/settings/designSetting'
 import cloneDeep from 'lodash/cloneDeep'
 
@@ -82,7 +89,18 @@ export class PublicConfigClass implements PublicConfigType {
   // 数据过滤
   public filter = undefined
   // 事件
-  public events = undefined
+  public events = {
+    baseEvent: {
+      [BaseEvent.ON_CLICK]: undefined,
+      [BaseEvent.ON_DBL_CLICK]: undefined,
+      [BaseEvent.ON_MOUSE_ENTER]: undefined,
+      [BaseEvent.ON_MOUSE_LEAVE]: undefined
+    },
+    advancedEvents: {
+      [EventLife.VNODE_MOUNTED]: undefined,
+      [EventLife.VNODE_BEFORE_MOUNT]: undefined
+    }
+  }
 }
 
 // 多选成组类

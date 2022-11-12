@@ -16,7 +16,7 @@
         <p>
           <span class="func-keyword">async {{ eventName }}</span> (e, components, echarts, node_modules) {
         </p>
-        <p class="go-ml-4"><n-code :code="(targetData.events || {})[eventName]" language="typescript"></n-code></p>
+        <p class="go-ml-4"><n-code :code="(targetData.events.advancedEvents || {})[eventName]" language="typescript"></n-code></p>
         <p>}<span>,</span></p>
       </div>
     </n-card>
@@ -50,7 +50,7 @@
                 <span class="func-keyNameWord">{{ eventName }}(e, components, echarts, node_modules)&nbsp;&nbsp;{</span>
               </p>
               <!-- 编辑主体 -->
-              <monaco-editor v-model:modelValue="events[eventName]" height="480px" language="javascript" />
+              <monaco-editor v-model:modelValue="advancedEvents[eventName]" height="480px" language="javascript" />
               <!-- 函数结束 -->
               <p class="go-pl-3 func-keyNameWord">}</p>
             </n-tab-pane>
@@ -166,21 +166,21 @@ const { targetData, chartEditStore } = useTargetData()
 const { DocumentTextIcon, ChevronDownIcon, PencilIcon } = icon.ionicons5
 
 const EventLifeName = {
-  [EventLife.BEFORE_MOUNT]: '渲染之前',
-  [EventLife.MOUNTED]: '渲染之后'
+  [EventLife.VNODE_BEFORE_MOUNT]: '渲染之前',
+  [EventLife.VNODE_MOUNTED]: '渲染之后'
 }
 
 const EventLifeTip = {
-  [EventLife.BEFORE_MOUNT]: '此时组件 DOM 还未存在',
-  [EventLife.MOUNTED]: '此时组件 DOM 已经存在'
+  [EventLife.VNODE_BEFORE_MOUNT]: '此时组件 DOM 还未存在',
+  [EventLife.VNODE_MOUNTED]: '此时组件 DOM 已经存在'
 }
 
 // 受控弹窗
 const showModal = ref(false)
 // 编辑区域控制
-const editTab = ref(EventLife.MOUNTED)
+const editTab = ref(EventLife.VNODE_MOUNTED)
 // events 函数模板
-let events = ref({ ...targetData.value.events })
+let advancedEvents = ref({ ...targetData.value.events.advancedEvents })
 // 事件错误标识
 const errorFlag = ref(false)
 
@@ -190,7 +190,7 @@ const validEvents = () => {
   let message = ''
   let name = ''
 
-  errorFlag.value = Object.entries(events.value).every(([eventName, str]) => {
+  errorFlag.value = Object.entries(advancedEvents.value).every(([eventName, str]) => {
     try {
       // 支持await，验证语法
       const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor
@@ -221,11 +221,11 @@ const saveEvents = () => {
     window['$message'].error('事件函数错误，无法进行保存')
     return
   }
-  if (Object.values(events.value).join('').trim() === '') {
+  if (Object.values(advancedEvents.value).join('').trim() === '') {
     // 清空事件
-    targetData.value.events = undefined
+    targetData.value.events.advancedEvents = undefined
   } else {
-    targetData.value.events = { ...events.value }
+    targetData.value.events.advancedEvents = { ...advancedEvents.value }
   }
   closeEvents()
 }
@@ -234,7 +234,7 @@ watch(
   () => showModal.value,
   (newData: boolean) => {
     if (newData) {
-      events.value = { ...targetData.value.events }
+      advancedEvents.value = { ...targetData.value.events.advancedEvents }
     }
   }
 )

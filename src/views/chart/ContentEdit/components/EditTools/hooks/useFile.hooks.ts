@@ -38,6 +38,7 @@ export const useFile = () => {
                 await updateComponent(fileData, false, true)
                 window['$message'].success('导入成功！')
               } catch (error) {
+                console.log(error)
                 window['$message'].error('组件导入失败，请检查文件完整性!')
               }
             },
@@ -48,6 +49,7 @@ export const useFile = () => {
                 await updateComponent(fileData, true, true)
                 window['$message'].success('导入成功！')
               } catch (error) {
+                console.log(error)
                 window['$message'].error('组件导入失败，请检查文件完整性!')
               }
             }

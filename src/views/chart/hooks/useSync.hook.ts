@@ -3,28 +3,68 @@ import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore
 import { ChartEditStoreEnum, ChartEditStorage } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
 import { fetchChartComponent, fetchConfigComponent, createComponent } from '@/packages/index'
-import { CreateComponentType, CreateComponentGroupType, ConfigType } from '@/packages/index.d'
+import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 import { PublicGroupConfigClass } from '@/packages/public/publicConfig'
 import merge from 'lodash/merge'
 
 /**
- * 合并处理
- * @param object 模板数据
+ * * 画布-版本升级对旧数据无法兼容的补丁
+ * @param object
+ */
+const canvasVersionUpdatePolyfill = (object: any) => {
+  return object
+}
+
+/**
+ * * 组件-版本升级对旧数据无法兼容的补丁
+ * @param newObject
+ * @param sources
+ */
+const componentVersionUpdatePolyfill = (newObject: any, sources: any) => {
+  try {
+    // 判断是否是组件
+    if (sources.id) {
+      // 处理事件补丁
+      const hasVnodeBeforeMount = 'vnodeBeforeMount' in sources.events
+      const hasVnodeMounted = 'vnodeMounted' in sources.events
+
+      if (hasVnodeBeforeMount) {
+        newObject.events.advancedEvents.vnodeBeforeMount = sources?.events.vnodeBeforeMount
+      }
+      if (hasVnodeMounted) {
+        newObject.events.advancedEvents.vnodeMounted = sources?.events.vnodeMounted
+      }
+      if (hasVnodeBeforeMount || hasVnodeMounted) {
+        sources.events = undefined
+      }
+      return newObject
+    }
+  } catch (error) {
+    return newObject
+  }
+}
+
+/**
+ * * 合并处理
+ * @param newObject 新的模板数据
  * @param sources 新拿到的数据
  * @returns object
  */
-const componentMerge = (object: any, sources: any, notComponent = false) => {
+const componentMerge = (newObject: any, sources: any, notComponent = false) => {
+  // 处理组件补丁
+  componentVersionUpdatePolyfill(newObject, sources)
+
   // 非组件不处理
-  if (notComponent) return merge(object, sources)
-  // 组件排除 options
+  if (notComponent) return merge(newObject, sources)
+  // 组件排除 newObject
   const option = sources.option
-  if (!option) return merge(object, sources)
+  if (!option) return merge(newObject, sources)
 
   // 为 undefined 的 sources 来源对象属性将被跳过详见 https://www.lodashjs.com/docs/lodash.merge
   sources.option = undefined
   if (option) {
     return {
-      ...merge(object, sources),
+      ...merge(newObject, sources),
       option: option
     }
   }
@@ -49,6 +89,9 @@ export const useSync = () => {
       chartHistoryStore.clearBackStack()
       chartHistoryStore.clearForwardStack()
     }
+    // 画布补丁处理
+    projectData.editCanvasConfig = canvasVersionUpdatePolyfill(projectData.editCanvasConfig)
+
     // 列表组件注册
     projectData.componentList.forEach(async (e: CreateComponentType | CreateComponentGroupType) => {
       const intComponent = (target: CreateComponentType) => {
@@ -119,7 +162,7 @@ export const useSync = () => {
             // 分组插入到列表
             chartEditStore.addComponentList(groupClass, false, true)
           } else {
-            await  create(comItem as CreateComponentType)
+            await create(comItem as CreateComponentType)
           }
         }
       } else {
