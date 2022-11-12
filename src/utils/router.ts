@@ -154,6 +154,19 @@ export const fetchRouteParams = () => {
 }
 
 /**
+ * * 通过硬解析获取当前路由下的参数
+ * @returns object
+ */
+ export const fetchRouteParamsLocation = () => {
+  try {
+    return document.location.hash.split('/').pop() || ''
+  } catch (error) {
+    window['$message'].warning('查询路由信息失败，请联系管理员！')
+    return ''
+  }
+}
+
+/**
  * * 回到主页面
  * @param confirm
  */
