@@ -223,7 +223,10 @@ const saveEvents = () => {
   }
   if (Object.values(advancedEvents.value).join('').trim() === '') {
     // 清空事件
-    targetData.value.events.advancedEvents = undefined
+    targetData.value.events.advancedEvents = {
+      vnodeBeforeMount: undefined,
+      vnodeMounted: undefined,
+    }
   } else {
     targetData.value.events.advancedEvents = { ...advancedEvents.value }
   }
