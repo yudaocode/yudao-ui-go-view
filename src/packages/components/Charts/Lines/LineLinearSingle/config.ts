@@ -2,6 +2,7 @@ import { echartOptionProfixHandle, PublicConfigClass } from '@/packages/public'
 import { LineLinearSingleConfig } from './index'
 import { CreateComponentType } from '@/packages/index.d'
 import { defaultTheme, chartColorsSearch } from '@/settings/chartThemes/index'
+import cloneDeep from 'lodash/cloneDeep'
 import dataJson from './data.json'
 
 export const includes = ['legend', 'xAxis', 'yAxis', 'grid']
@@ -54,7 +55,7 @@ export const option = {
 
 export default class Config extends PublicConfigClass implements CreateComponentType {
   public key: string = LineLinearSingleConfig.key
-  public chartConfig = LineLinearSingleConfig
+  public chartConfig = cloneDeep(LineLinearSingleConfig)
   // 图表配置项
   public option = echartOptionProfixHandle(option, includes)
 }
