@@ -187,7 +187,7 @@ const btnList: BtnListType[] = [
   {
     key: 'edit',
     type: TypeEnum.BUTTON,
-    name: '编辑JSON',
+    name: '编辑',
     icon: CreateIcon,
     handle: editHandle
   },

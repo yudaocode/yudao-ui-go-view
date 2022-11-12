@@ -1,5 +1,5 @@
 <template>
-  <n-collapse-item title="高级事件配置" name="2">
+  <n-collapse-item title="基础事件配置" name="1">
     <template #header-extra>
       <n-button type="primary" tertiary size="small" @click.stop="showModal = true">
         <template #icon>
@@ -10,13 +10,17 @@
         编辑
       </n-button>
     </template>
-    <n-card>
+    <n-card class="collapse-show-box">
       <!-- 函数体 -->
-      <div v-for="eventName in EventLife" :key="eventName">
+      <div v-for="eventName in BaseEvent" :key="eventName">
         <p>
-          <span class="func-keyword">async {{ eventName }}</span> (e, components, echarts, node_modules) {
+          <span class="func-annotate">// {{ EventTypeName[eventName] }}</span>
+          <br />
+          <span class="func-keyword">async {{ eventName }}</span> (mouseEvent, components) {
         </p>
-        <p class="go-ml-4"><n-code :code="(targetData.events || {})[eventName]" language="typescript"></n-code></p>
+        <p class="go-ml-4">
+          <n-code :code="(targetData.events.baseEvent || {})[eventName]" language="typescript"></n-code>
+        </p>
         <p>}<span>,</span></p>
       </div>
     </n-card>
@@ -27,30 +31,31 @@
     <n-card :bordered="false" role="dialog" size="small" aria-modal="true" style="width: 1200px; height: 700px">
       <template #header>
         <n-space>
-          <n-text>高级事件编辑器（配合源码使用）</n-text>
+          <n-text>基础事件编辑器</n-text>
         </n-space>
       </template>
+
       <template #header-extra> </template>
       <n-layout has-sider sider-placement="right">
         <n-layout style="height: 580px; padding-right: 20px">
           <n-tabs v-model:value="editTab" type="card" tab-style="min-width: 100px;">
             <!-- 提示 -->
             <template #suffix>
-              <n-text class="tab-tip" type="warning">tips: {{ EventLifeTip[editTab] }}</n-text>
+              <n-text class="tab-tip" type="warning">提示: ECharts 组件会拦截鼠标事件</n-text>
             </template>
             <n-tab-pane
-              v-for="(eventName, index) in EventLife"
+              v-for="(eventName, index) in BaseEvent"
               :key="index"
-              :tab="`${EventLifeName[eventName]}-${eventName}`"
+              :tab="`${EventTypeName[eventName]}-${eventName}`"
               :name="eventName"
             >
               <!-- 函数名称 -->
               <p class="go-pl-3">
                 <span class="func-keyword">async function &nbsp;&nbsp;</span>
-                <span class="func-keyNameWord">{{ eventName }}(e, components, echarts, node_modules)&nbsp;&nbsp;{</span>
+                <span class="func-keyNameWord">{{ eventName }}(mouseEvent)&nbsp;&nbsp;{</span>
               </p>
               <!-- 编辑主体 -->
-              <monaco-editor v-model:modelValue="events[eventName]" height="480px" language="javascript" />
+              <monaco-editor v-model:modelValue="baseEvent[eventName]" height="480px" language="javascript" />
               <!-- 函数结束 -->
               <p class="go-pl-3 func-keyNameWord">}</p>
             </n-tab-pane>
@@ -85,42 +90,9 @@
             <!-- 辅助说明 -->
             <n-tab-pane tab="变量说明" name="2">
               <n-scrollbar trigger="none" style="max-height: 505px">
-                <n-collapse class="go-px-3" arrow-placement="right" :default-expanded-names="[1, 2, 3, 4]">
-                  <n-collapse-item title="e" :name="1">
-                    <n-text depth="3">触发对应生命周期事件时接收的参数</n-text>
-                  </n-collapse-item>
-                  <n-collapse-item title="this" :name="2">
-                    <n-text depth="3">图表组件实例</n-text>
-                    <br />
-                    <n-tag class="go-m-1" v-for="prop in ['refs', 'setupState', 'ctx', 'props', '...']" :key="prop">{{
-                      prop
-                    }}</n-tag>
-                  </n-collapse-item>
-                  <n-collapse-item title="components" :name="3">
-                    <n-text depth="3"
-                      >当前大屏内所有组件的集合id 图表组件中的配置id，可以获取其他图表组件进行控制</n-text
-                    >
-                    <n-code :code="`{\n  [id]: component\n}`" language="typescript"></n-code>
-                  </n-collapse-item>
-                  <n-collapse-item title="node_modules" :name="4">
-                    <n-text depth="3">以下是内置在代码环境中可用的包变量</n-text>
-                    <br />
-                    <n-tag class="go-m-1" v-for="pkg in Object.keys(npmPkgs || {})" :key="pkg">{{ pkg }}</n-tag>
-                  </n-collapse-item>
-                </n-collapse>
-              </n-scrollbar>
-            </n-tab-pane>
-            <!-- 介绍案例 -->
-            <n-tab-pane tab="介绍案例" name="3">
-              <n-scrollbar trigger="none" style="max-height: 505px">
-                <n-collapse arrow-placement="right">
-                  <n-collapse-item
-                    v-for="(item, index) in templateList"
-                    :key="index"
-                    :title="`案例${index + 1}：${item.description}`"
-                    :name="index"
-                  >
-                    <n-code :code="item.code" language="typescript"></n-code>
+                <n-collapse class="go-px-3" arrow-placement="right" :default-expanded-names="[1, 2]">
+                  <n-collapse-item title="mouseEvent" :name="1">
+                    <n-text depth="3">鼠标事件对象</n-text>
                   </n-collapse-item>
                 </n-collapse>
               </n-scrollbar>
@@ -136,9 +108,9 @@
               <template #icon>
                 <n-icon :component="DocumentTextIcon" />
               </template>
-              提示
+              说明
             </n-tag>
-            <n-text class="go-ml-2" depth="2">通过提供的参数可为图表增加定制化的tooltip、交互事件等等</n-text>
+            <n-text class="go-ml-2" depth="2">编写方式同正常 JavaScript 写法</n-text>
           </div>
 
           <n-space>
@@ -151,36 +123,29 @@
   </n-modal>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref, computed, watch, toRefs, toRaw } from 'vue'
 import { MonacoEditor } from '@/components/Pages/MonacoEditor'
 import { useTargetData } from '../../../hooks/useTargetData.hook'
-import { templateList } from './importTemplate'
-import { npmPkgs } from '@/hooks'
+import { CreateComponentType, BaseEvent } from '@/packages/index.d'
 import { icon } from '@/plugins'
-import { goDialog, toString } from '@/utils'
-import { CreateComponentType, EventLife } from '@/packages/index.d'
-import { Script } from 'vm'
 
 const { targetData, chartEditStore } = useTargetData()
 const { DocumentTextIcon, ChevronDownIcon, PencilIcon } = icon.ionicons5
 
-const EventLifeName = {
-  [EventLife.BEFORE_MOUNT]: '渲染之前',
-  [EventLife.MOUNTED]: '渲染之后'
-}
-
-const EventLifeTip = {
-  [EventLife.BEFORE_MOUNT]: '此时组件 DOM 还未存在',
-  [EventLife.MOUNTED]: '此时组件 DOM 已经存在'
+const EventTypeName = {
+  [BaseEvent.ON_CLICK]: '单击',
+  [BaseEvent.ON_DBL_CLICK]: '双击',
+  [BaseEvent.ON_MOUSE_ENTER]: '鼠标进入',
+  [BaseEvent.ON_MOUSE_LEAVE]: '鼠标移出'
 }
 
 // 受控弹窗
 const showModal = ref(false)
 // 编辑区域控制
-const editTab = ref(EventLife.MOUNTED)
+const editTab = ref(BaseEvent.ON_CLICK)
 // events 函数模板
-let events = ref({ ...targetData.value.events })
+let baseEvent = ref({ ...targetData.value.events.baseEvent })
 // 事件错误标识
 const errorFlag = ref(false)
 
@@ -190,7 +155,7 @@ const validEvents = () => {
   let message = ''
   let name = ''
 
-  errorFlag.value = Object.entries(events.value).every(([eventName, str]) => {
+  errorFlag.value = Object.entries(baseEvent.value).every(([eventName, str]) => {
     try {
       // 支持await，验证语法
       const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor
@@ -221,11 +186,16 @@ const saveEvents = () => {
     window['$message'].error('事件函数错误，无法进行保存')
     return
   }
-  if (Object.values(events.value).join('').trim() === '') {
+  if (Object.values(baseEvent.value).join('').trim() === '') {
     // 清空事件
-    targetData.value.events = undefined
+    targetData.value.events.baseEvent = {
+      [BaseEvent.ON_CLICK]: undefined,
+      [BaseEvent.ON_DBL_CLICK]: undefined,
+      [BaseEvent.ON_MOUSE_ENTER]: undefined,
+      [BaseEvent.ON_MOUSE_LEAVE]: undefined
+    }
   } else {
-    targetData.value.events = { ...events.value }
+    targetData.value.events.baseEvent = { ...baseEvent.value }
   }
   closeEvents()
 }
@@ -234,52 +204,12 @@ watch(
   () => showModal.value,
   (newData: boolean) => {
     if (newData) {
-      events.value = { ...targetData.value.events }
+      baseEvent.value = { ...targetData.value.events.baseEvent }
     }
   }
 )
 </script>
 
 <style lang="scss" scoped>
-/* 外层也要使用 */
-.func-keyword {
-  color: #b478cf;
-}
-
-@include go('chart-data-monaco-editor') {
-  .func-keyNameWord {
-    color: #70c0e8;
-  }
-  .tab-tip {
-    font-size: 12px;
-  }
-  &.n-card.n-modal,
-  .n-card {
-    @extend .go-background-filter;
-  }
-}
-@include deep() {
-  .n-layout,
-  .n-layout-sider {
-    background-color: transparent;
-  }
-  .go-editor-area {
-    max-height: 530px;
-  }
-  .checkbox--hidden:checked {
-    & + label {
-      .n-icon {
-        transition: all 0.3s;
-        transform: rotate(180deg);
-      }
-    }
-    & ~ .go-editor-area {
-      display: none;
-    }
-  }
-  // 优化代码换行
-  .n-code > pre {
-    white-space: break-spaces;
-  }
-}
+@import '../index.scss';
 </style>
