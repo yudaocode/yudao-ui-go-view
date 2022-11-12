@@ -40,7 +40,7 @@
           <n-tabs v-model:value="editTab" type="card" tab-style="min-width: 100px;">
             <!-- 提示 -->
             <template #suffix>
-              <n-text class="tab-tip" type="warning">tips: {{ EventLifeTip[editTab] }}</n-text>
+              <n-text class="tab-tip" type="warning">提示: {{ EventLifeTip[editTab] }}</n-text>
             </template>
             <n-tab-pane
               v-for="(eventName, index) in EventLife"
@@ -140,7 +140,7 @@
               <template #icon>
                 <n-icon :component="DocumentTextIcon" />
               </template>
-              提示
+              说明
             </n-tag>
             <n-text class="go-ml-2" depth="2">通过提供的参数可为图表增加定制化的tooltip、交互事件等等</n-text>
           </div>

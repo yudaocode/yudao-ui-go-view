@@ -39,6 +39,10 @@
       <n-layout has-sider sider-placement="right">
         <n-layout style="height: 580px; padding-right: 20px">
           <n-tabs v-model:value="editTab" type="card" tab-style="min-width: 100px;">
+            <!-- 提示 -->
+            <template #suffix>
+              <n-text class="tab-tip" type="warning">提示: ECharts 组件会拦截鼠标事件</n-text>
+            </template>
             <n-tab-pane
               v-for="(eventName, index) in BaseEvent"
               :key="index"
@@ -48,7 +52,7 @@
               <!-- 函数名称 -->
               <p class="go-pl-3">
                 <span class="func-keyword">async function &nbsp;&nbsp;</span>
-                <span class="func-keyNameWord">{{ eventName }}(mouseEvent, components)&nbsp;&nbsp;{</span>
+                <span class="func-keyNameWord">{{ eventName }}(mouseEvent)&nbsp;&nbsp;{</span>
               </p>
               <!-- 编辑主体 -->
               <monaco-editor v-model:modelValue="baseEvent[eventName]" height="480px" language="javascript" />
@@ -88,10 +92,7 @@
               <n-scrollbar trigger="none" style="max-height: 505px">
                 <n-collapse class="go-px-3" arrow-placement="right" :default-expanded-names="[1, 2]">
                   <n-collapse-item title="mouseEvent" :name="1">
-                    <n-text depth="3">事件对象</n-text>
-                  </n-collapse-item>
-                  <n-collapse-item title="components" :name="2">
-                    <n-text depth="3">当前图表组件实例</n-text>
+                    <n-text depth="3">鼠标事件对象</n-text>
                   </n-collapse-item>
                 </n-collapse>
               </n-scrollbar>
@@ -107,7 +108,7 @@
               <template #icon>
                 <n-icon :component="DocumentTextIcon" />
               </template>
-              提示
+              说明
             </n-tag>
             <n-text class="go-ml-2" depth="2">编写方式同正常 JavaScript 写法</n-text>
           </div>
@@ -188,10 +189,10 @@ const saveEvents = () => {
   if (Object.values(baseEvent.value).join('').trim() === '') {
     // 清空事件
     targetData.value.events.baseEvent = {
-      onClick: undefined,
-      onDblClick: undefined,
-      onMouseenter: undefined,
-      onMouseleave: undefined,
+      [BaseEvent.ON_CLICK]: undefined,
+      [BaseEvent.ON_DBL_CLICK]: undefined,
+      [BaseEvent.ON_MOUSE_ENTER]: undefined,
+      [BaseEvent.ON_MOUSE_LEAVE]: undefined
     }
   } else {
     targetData.value.events.baseEvent = { ...baseEvent.value }

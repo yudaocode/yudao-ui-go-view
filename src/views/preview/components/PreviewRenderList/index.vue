@@ -25,6 +25,7 @@
     <component
       v-else
       :is="item.chartConfig.chartKey"
+      :id="item.id"
       :chartConfig="item"
       :themeSetting="themeSetting"
       :themeColor="themeColor"
@@ -43,6 +44,7 @@ import { chartColors } from '@/settings/chartThemes/index'
 import { animationsClass, getFilterStyle, getTransformStyle, getBlendModeStyle } from '@/utils'
 import { getSizeStyle, getComponentAttrStyle, getStatusStyle } from '../../utils'
 import { useLifeHandler } from '@/hooks'
+
 const props = defineProps({
   localStorageInfo: {
     type: Object as PropType<ChartEditStorageType>,

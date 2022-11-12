@@ -14,6 +14,7 @@
   >
     <component
       :is="item.chartConfig.chartKey"
+      :id="item.id"
       :chartConfig="item"
       :themeSetting="themeSetting"
       :themeColor="themeColor"
@@ -29,6 +30,7 @@ import { CreateComponentGroupType } from '@/packages/index.d'
 import { animationsClass, getFilterStyle, getTransformStyle, getBlendModeStyle } from '@/utils'
 import { getSizeStyle, getComponentAttrStyle, getStatusStyle } from '../../utils'
 import { useLifeHandler } from '@/hooks'
+
 const props = defineProps({
   groupData: {
     type: Object as PropType<CreateComponentGroupType>,

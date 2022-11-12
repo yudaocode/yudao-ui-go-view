@@ -90,16 +90,16 @@ export const BlendModeEnumList = [
   { label: '亮度', value: 'luminosity' }
 ]
 
-// 基础事件类型
+// 基础事件类型(vue不加 on)
 export enum BaseEvent {
   // 点击
-  ON_CLICK = 'onClick',
+  ON_CLICK = 'click',
   // 双击
-  ON_DBL_CLICK = 'onDblClick',
+  ON_DBL_CLICK = 'dblclick',
   // 移入
-  ON_MOUSE_ENTER = 'onMouseenter',
+  ON_MOUSE_ENTER = 'mouseenter',
   // 移出
-  ON_MOUSE_LEAVE = 'onMouseleave',
+  ON_MOUSE_LEAVE = 'mouseleave',
 }
 
 // vue3 生命周期事件
