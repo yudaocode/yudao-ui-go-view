@@ -66,7 +66,7 @@ import { ref, computed, h, watch } from 'vue'
 import { useSettingStore } from '@/store/modules/settingStore/settingStore'
 import { ToolsStatusEnum } from '@/store/modules/settingStore/settingStore.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { fetchPathByName, routerTurnByPath, setSessionStorage, getLocalStorage } from '@/utils'
+import { fetchRouteParamsLocation, fetchPathByName, routerTurnByPath, setSessionStorage, getLocalStorage } from '@/utils'
 import { editToJsonInterval } from '@/settings/designSetting'
 import { EditEnum, ChartEnum } from '@/enums/pageEnum'
 import { StorageEnum } from '@/enums/storageEnum'
@@ -143,8 +143,7 @@ const editHandle = () => {
     // 获取id路径
     const path = fetchPathByName(EditEnum.CHART_EDIT_NAME, 'href')
     if (!path) return
-    let { id } = routerParamsInfo.params as any
-    id = typeof id === 'string' ? id : id[0]
+    const id = fetchRouteParamsLocation()
     updateToSession(id)
     routerTurnByPath(path, [id], undefined, true)
   }, 1000)

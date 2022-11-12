@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
 import { ref, nextTick, computed } from 'vue'
-import { fetchRouteParams } from '@/utils'
+import { fetchRouteParamsLocation } from '@/utils'
 import { icon } from '@/plugins'
 const { FishIcon } = icon.ionicons5
 
@@ -39,9 +39,7 @@ const inputInstRef = ref(null)
 
 // 根据路由 id 参数获取项目信息
 const fetchProhectInfoById = () => {
-  const routeParamsRes = fetchRouteParams()
-  if (!routeParamsRes) return
-  const { id } = routeParamsRes
+  const id = fetchRouteParamsLocation()
   if (id.length) {
     return id[0]
   }
