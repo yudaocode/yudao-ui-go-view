@@ -137,7 +137,8 @@ const toolsMouseoutHandle = () => {
 
 // 编辑处理
 const editHandle = () => {
-  window['$message'].warning('将开启失焦更新与 5 秒同步更新！')
+  window['$message'].warning('将开启失焦更新！')
+//   window['$message'].warning('将开启失焦更新与 5 秒同步更新！')
   setTimeout(() => {
     // 获取id路径
     const path = fetchPathByName(EditEnum.CHART_EDIT_NAME, 'href')
