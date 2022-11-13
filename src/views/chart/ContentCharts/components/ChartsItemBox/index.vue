@@ -104,6 +104,7 @@ $halfCenterHeight: 50px;
 @include go('content-charts-item-box') {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   gap: 9px;
   padding: 10px;
   .item-box {
