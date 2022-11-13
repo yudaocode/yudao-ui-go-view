@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ChartLayoutType, LayerModeEnum } from './chartLayoutStore.d'
+import { ChartLayoutType, LayerModeEnum, ChartModeEnum } from './chartLayoutStore.d'
 import { setLocalStorage, getLocalStorage } from '@/utils'
 import { StorageEnum } from '@/enums/storageEnum'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
@@ -21,6 +21,8 @@ export const useChartLayoutStore = defineStore({
       charts: true,
       // 详情设置（收缩为true）
       details: false,
+      // 组件列表展示类型（默认单列）
+      chartType: ChartModeEnum.SINGLE,
       // 图层类型（默认图片）
       layerType: LayerModeEnum.THUMBNAIL
     },
@@ -33,6 +35,9 @@ export const useChartLayoutStore = defineStore({
     },
     getDetails(): boolean {
       return this.details
+    },
+    getChartType(): ChartModeEnum {
+      return this.chartType
     },
     getLayerType(): LayerModeEnum {
       return this.layerType
