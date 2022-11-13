@@ -23,11 +23,11 @@ const useSyncUpdateHandle = () => {
 
   // 开启侦听
   const use = () => {
-    // 1、定时同步数据
-    timer = setInterval(() => {
-      // 窗口激活并且处于工作台
-      document.hasFocus() && syncData()
-    }, editToJsonInterval)
+    // // 1、定时同步数据
+    // timer = setInterval(() => {
+    //   // 窗口激活并且处于工作台
+    //   document.hasFocus() && syncData()
+    // }, editToJsonInterval)
     // 2、失焦同步数据
     addEventListener('blur', syncData)
 
@@ -37,7 +37,7 @@ const useSyncUpdateHandle = () => {
 
   // 关闭侦听
   const unUse = () => {
-    clearInterval(timer)
+    // clearInterval(timer)
     removeEventListener(SavePageEnum.JSON, updateFn)
     removeEventListener('blur', syncData)
   }
