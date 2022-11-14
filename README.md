@@ -1,7 +1,5 @@
 ## 总览
 
-![logo](readme/logo-t-y.png)
-
 **`master-fetch` 分支是带有后端接口请求的分支**
 
 **后端项目地址：[https://gitee.com/MTrun/go-view-serve](https://gitee.com/MTrun/go-view-serve)**
@@ -13,12 +11,6 @@
 所有的接口地址位置：`src\api\path\*`
 
 接口地址修改：`.env`
-
-### 🤯 后端项目
-
-后端项目gitee地址：[https://gitee.com/MTrun/go-view-serve](https://gitee.com/MTrun/go-view-serve)
-
-接口说明地址：[https://docs.apipost.cn/preview/5aa85d10a59d66ce/ddb813732007ad2b?target_id=84dbc5b0-158f-4bcb-8f74-793ac604ada3#3e053622-1e76-43f9-a039-756aee822dbb](https://docs.apipost.cn/preview/5aa85d10a59d66ce/ddb813732007ad2b?target_id=84dbc5b0-158f-4bcb-8f74-793ac604ada3#3e053622-1e76-43f9-a039-756aee822dbb)
 
 ```shell
 # port
