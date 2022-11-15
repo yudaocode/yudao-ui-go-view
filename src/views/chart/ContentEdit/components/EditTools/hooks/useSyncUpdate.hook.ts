@@ -6,7 +6,7 @@ import { ChartEnum } from '@/enums/pageEnum'
 import { SavePageEnum } from '@/enums/editPageEnum'
 import { editToJsonInterval } from '@/settings/designSetting'
 
-const { updateComponent } = useSync()
+const { updateComponent, dataSyncUpdate } = useSync()
 const chartEditStore = useChartEditStore()
 
 // 侦听器更新
@@ -15,6 +15,7 @@ const useSyncUpdateHandle = () => {
   let timer: any
   const updateFn = (e: any) => updateComponent(e!.detail, true, false)
   const syncData = async () => {
+    dataSyncUpdate && (await dataSyncUpdate())
     dispatchEvent(new CustomEvent(SavePageEnum.CHART, { detail: chartEditStore.getStorageInfo }))
   }
 
