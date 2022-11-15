@@ -238,7 +238,7 @@ export const useSync = () => {
   }
 
   // * 数据保存
-  const dataSyncUpdate = throttle(async () => {
+  const dataSyncUpdate = throttle(async (updateImg = true) => {
     if(!fetchRouteParamsLocation()) return
 
     let projectId = chartEditStore.getProjectInfo[ProjectInfoEnum.PROJECT_ID];
@@ -249,25 +249,32 @@ export const useSync = () => {
 
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.START)
 
-    // 获取缩略图片
-    const range = document.querySelector('.go-edit-range') as HTMLElement
-    // 生成图片
-    const canvasImage: HTMLCanvasElement = await html2canvas(range, {
-      backgroundColor: null,
-      allowTaint: true,
-      useCORS: true
-    })
+    // 异常处理：缩略图上传失败不影响JSON的保存
+    try {
+      if (updateImg) {
+        // 获取缩略图片
+        const range = document.querySelector('.go-edit-range') as HTMLElement
+        // 生成图片
+        const canvasImage: HTMLCanvasElement = await html2canvas(range, {
+          backgroundColor: null,
+          allowTaint: true,
+          useCORS: true
+        })
 
-    // 上传预览图
-    let uploadParams = new FormData()
-    uploadParams.append('object', base64toFile(canvasImage.toDataURL(), `${fetchRouteParamsLocation()}_index_preview.png`))
-    const uploadRes = await uploadFile(uploadParams) as unknown as MyResponseType
-    // 保存预览图
-    if(uploadRes.code === ResultEnum.SUCCESS) {
-      await updateProjectApi({
-        id: fetchRouteParamsLocation(),
-        indexImage: `${systemStore.getFetchInfo.OSSUrl}${uploadRes.data.fileName}`
-      })
+        // 上传预览图
+        let uploadParams = new FormData()
+        uploadParams.append('object', base64toFile(canvasImage.toDataURL(), `${fetchRouteParamsLocation()}_index_preview.png`))
+        const uploadRes = await uploadFile(uploadParams) as unknown as MyResponseType
+        // 保存预览图
+        if(uploadRes.code === ResultEnum.SUCCESS) {
+          await updateProjectApi({
+            id: fetchRouteParamsLocation(),
+            indexImage: `${systemStore.getFetchInfo.OSSUrl}${uploadRes.data.fileName}`
+          })
+        }
+      }
+    } catch (e) {
+      console.log(e)
     }
 
     // 保存数据

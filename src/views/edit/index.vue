@@ -38,20 +38,23 @@ import { MonacoEditor } from '@/components/Pages/MonacoEditor'
 import { SavePageEnum } from '@/enums/editPageEnum'
 import { getSessionStorageInfo } from '../preview/utils'
 import type { ChartEditStorageType } from '../preview/index.d'
-import { setSessionStorage } from '@/utils'
+import { setSessionStorage, fetchRouteParamsLocation } from '@/utils'
 import { StorageEnum } from '@/enums/storageEnum'
 import { icon } from '@/plugins'
-
+import { useSync } from '@/views/chart/hooks/useSync.hook'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { ProjectInfoEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
+const chartEditStore = useChartEditStore()
+const { dataSyncUpdate } = useSync()
 const { ChevronBackOutlineIcon, DownloadIcon } = icon.ionicons5
 const showOpenFilePicker: Function = (window as any).showOpenFilePicker
-let content = ref('')
-
+const content = ref('')
 // 从sessionStorage 获取数据
-function getDataBySession() {
-  const localStorageInfo: ChartEditStorageType = getSessionStorageInfo() as unknown as ChartEditStorageType
+async function getDataBySession() {
+  const localStorageInfo: ChartEditStorageType = await getSessionStorageInfo() as unknown as ChartEditStorageType
   content.value = JSON.stringify(localStorageInfo, undefined, 2)
 }
-getDataBySession()
+setTimeout(getDataBySession)
 
 // 返回父窗口
 function back() {
@@ -86,7 +89,7 @@ document.addEventListener('keydown', function (e) {
 addEventListener('blur', updateSync)
 
 // 同步更新
-function updateSync() {
+async function updateSync() {
   if (!window.opener) {
     return window['$message'].error('源窗口已关闭，视图同步失败')
   }
@@ -94,6 +97,11 @@ function updateSync() {
     const detail = JSON.parse(content.value)
     delete detail.id
     // 保持id不变
+    // 带后端版本额外处理请求
+    if (dataSyncUpdate) {
+      chartEditStore.setProjectInfo(ProjectInfoEnum.PROJECT_ID, fetchRouteParamsLocation())
+      await dataSyncUpdate(false) // JSON界面保存不上传缩略图
+    }
     window.opener.dispatchEvent(new CustomEvent(SavePageEnum.JSON, { detail }))
   } catch (e) {
     window['$message'].error('内容格式有误')
