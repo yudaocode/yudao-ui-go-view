@@ -8,17 +8,14 @@ import { editToJsonInterval } from '@/settings/designSetting'
 
 const { updateComponent } = useSync()
 const chartEditStore = useChartEditStore()
- 
+
 // 侦听器更新
 const useSyncUpdateHandle = () => {
-  const routerParamsInfo = useRoute()
   // 定义侦听器变量
   let timer: any
   const updateFn = (e: any) => updateComponent(e!.detail, true, false)
-  const syncData = () => {
-    if (routerParamsInfo.name == ChartEnum.CHART_HOME_NAME) {
-      dispatchEvent(new CustomEvent(SavePageEnum.CHART, { detail: chartEditStore.getStorageInfo }))
-    }
+  const syncData = async () => {
+    dispatchEvent(new CustomEvent(SavePageEnum.CHART, { detail: chartEditStore.getStorageInfo }))
   }
 
   // 开启侦听
