@@ -44,14 +44,13 @@ import { icon } from '@/plugins'
 
 const { ChevronBackOutlineIcon, DownloadIcon } = icon.ionicons5
 const showOpenFilePicker: Function = (window as any).showOpenFilePicker
-let content = ref('')
-
+const content = ref('')
 // 从sessionStorage 获取数据
-function getDataBySession() {
-  const localStorageInfo: ChartEditStorageType = getSessionStorageInfo() as ChartEditStorageType
+async function getDataBySession() {
+  const localStorageInfo: ChartEditStorageType = await getSessionStorageInfo() as unknown as ChartEditStorageType
   content.value = JSON.stringify(localStorageInfo, undefined, 2)
 }
-getDataBySession()
+setTimeout(getDataBySession)
 
 // 返回父窗口
 function back() {
@@ -86,7 +85,7 @@ document.addEventListener('keydown', function (e) {
 addEventListener('blur', updateSync)
 
 // 同步更新
-function updateSync() {
+async function updateSync() {
   if (!window.opener) {
     return window['$message'].error('源窗口已关闭，视图同步失败')
   }
