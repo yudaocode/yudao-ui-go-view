@@ -1,6 +1,7 @@
 import { ref, toRefs, toRaw } from 'vue'
 import type VChart from 'vue-echarts'
 import { customizeHttp } from '@/api/http'
+import { useChartDataPondFetch } from '@/hooks/'
 import { CreateComponentType, ChartFrameEnum } from '@/packages/index.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { RequestDataTypeEnum } from '@/enums/httpEnum'
@@ -23,6 +24,22 @@ export const useChartDataFetch = (
   const vChartRef = ref<typeof VChart | null>(null)
   let fetchInterval: any = 0
 
+  // 数据池
+  const { addGlobalDataInterface } = useChartDataPondFetch()
+  const { requestDataPondId } = toRefs(targetComponent.request)
+
+  // 组件类型
+  const { chartFrame } = targetComponent.chartConfig
+  
+  // eCharts 组件配合 vChart 库更新方式
+  const echartsUpdateHandle = (dataset: any) => {
+    if (chartFrame === ChartFrameEnum.ECHARTS) {
+      if (vChartRef.value) {
+        vChartRef.value.setOption({ dataset: dataset })
+      }
+    }
+  }
+
   const requestIntervalFn = () => {
     const chartEditStore = useChartEditStore()
 
@@ -41,9 +58,6 @@ export const useChartDataFetch = (
       requestInterval: targetInterval
     } = toRefs(targetComponent.request)
 
-    // 组件类型
-    const { chartFrame } = targetComponent.chartConfig
-
     // 非请求类型
     if (requestDataType.value !== RequestDataTypeEnum.AJAX) return
 
@@ -58,16 +72,11 @@ export const useChartDataFetch = (
         clearInterval(fetchInterval)
 
         const fetchFn = async () => {
-          const res = await customizeHttp(toRaw(targetComponent.request), toRaw(chartEditStore.requestGlobalConfig))
+          const res = await customizeHttp(toRaw(targetComponent.request), toRaw(chartEditStore.getRequestGlobalConfig))
           if (res) {
             try {
               const filter = targetComponent.filter
-              // eCharts 组件配合 vChart 库更新方式
-              if (chartFrame === ChartFrameEnum.ECHARTS) {
-                if (vChartRef.value) {
-                  vChartRef.value.setOption({ dataset: newFunctionHandle(res?.data, res, filter) })
-                }
-              }
+              echartsUpdateHandle(newFunctionHandle(res?.data, res, filter))
               // 更新回调函数
               if (updateCallback) {
                 updateCallback(newFunctionHandle(res?.data, res, filter))
@@ -94,6 +103,10 @@ export const useChartDataFetch = (
     }
   }
 
-  isPreview() && requestIntervalFn()
+  if (isPreview()) {
+    requestDataPondId
+      ? addGlobalDataInterface(targetComponent, useChartEditStore, updateCallback || echartsUpdateHandle)
+      : requestIntervalFn()
+  }
   return { vChartRef }
 }

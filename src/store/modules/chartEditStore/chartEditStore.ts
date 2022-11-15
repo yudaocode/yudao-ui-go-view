@@ -113,6 +113,7 @@ export const useChartEditStore = defineStore({
     },
     // 数据请求处理（需存储给后端）
     requestGlobalConfig: {
+      requestDataPond: [],
       requestOriginUrl: '',
       requestInterval: requestInterval,
       requestIntervalUnit: requestIntervalUnit,
