@@ -3,7 +3,7 @@
   <n-divider class="go-my-3" title-placement="left"></n-divider>
   <setting-item-box
     :itemRightStyle="{
-      gridTemplateColumns: '5fr 2fr 1fr'
+      gridTemplateColumns: '6fr 2fr '
     }"
   >
     <template #name>
