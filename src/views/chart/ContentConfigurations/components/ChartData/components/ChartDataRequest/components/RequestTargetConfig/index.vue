@@ -3,8 +3,9 @@
   <n-divider class="go-my-3" title-placement="left"></n-divider>
   <setting-item-box
     :itemRightStyle="{
-      gridTemplateColumns: '6fr 2fr '
+      gridTemplateColumns: '6fr 2fr'
     }"
+    style="padding-right: 25px;"
   >
     <template #name>
       地址
@@ -134,7 +135,7 @@ const apiList = [
   },
   {
     value: `【三维地球】${threeEarth01Url}`
-  },
+  }
 ]
 </script>
 
