@@ -104,6 +104,7 @@ export const useChartDataFetch = (
   }
 
   if (isPreview()) {
+    // 判断是否有数据池对应 id
     requestDataPondId
       ? addGlobalDataInterface(targetComponent, useChartEditStore, updateCallback || echartsUpdateHandle)
       : requestIntervalFn()
