@@ -5,7 +5,7 @@
     <setting-item-box
       name="服务"
       :itemRightStyle="{
-        gridTemplateColumns: '6fr 2fr'
+        gridTemplateColumns: '5fr 2fr 1fr'
       }"
     >
       <!-- 源地址 -->

@@ -102,12 +102,10 @@
 
 <script lang="ts" setup>
 import { ref, computed, watch, toRefs, toRaw } from 'vue'
-import { MonacoEditor } from '@/components/Pages/MonacoEditor'
 import { useTargetData } from '../../../hooks/useTargetData.hook'
-import { RequestHttpEnum, RequestDataTypeEnum, ResultEnum } from '@/enums/httpEnum'
 import { icon } from '@/plugins'
 import { goDialog, toString } from '@/utils'
-import { http, customizeHttp } from '@/api/http'
+import { customizeHttp } from '@/api/http'
 import cloneDeep from 'lodash/cloneDeep'
 
 const { DocumentTextIcon } = icon.ionicons5
