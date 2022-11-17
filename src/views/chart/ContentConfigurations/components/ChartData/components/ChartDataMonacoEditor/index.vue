@@ -103,6 +103,7 @@
 <script lang="ts" setup>
 import { ref, computed, watch, toRefs, toRaw } from 'vue'
 import { useTargetData } from '../../../hooks/useTargetData.hook'
+import { MonacoEditor } from '@/components/Pages/MonacoEditor'
 import { icon } from '@/plugins'
 import { goDialog, toString } from '@/utils'
 import { customizeHttp } from '@/api/http'
