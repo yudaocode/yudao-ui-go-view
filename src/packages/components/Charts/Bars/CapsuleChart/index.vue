@@ -53,8 +53,6 @@
 
 <script setup lang="ts">
 import { onMounted, watch, reactive, PropType } from 'vue'
-import merge from 'lodash/merge'
-import cloneDeep from 'lodash/cloneDeep'
 import { useChartDataFetch } from '@/hooks'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import config, { option } from './config'
@@ -114,12 +112,11 @@ watch(
 
 const calcData = (data: any) => {
   mergeConfig(props.chartConfig.option)
-
   calcCapsuleLengthAndLabelData()
 }
 
 const mergeConfig = (data: any) => {
-  state.mergedConfig = merge(cloneDeep(state.defaultConfig), data || {})
+  state.mergedConfig = data || {}
 }
 
 // 数据解析
