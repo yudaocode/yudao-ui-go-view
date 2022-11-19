@@ -64,7 +64,8 @@ import {
   Images as ImagesIcon,
   List as ListIcon,
   EyeOutline as EyeOutlineIcon,
-  EyeOffOutline as EyeOffOutlineIcon
+  EyeOffOutline as EyeOffOutlineIcon,
+  Albums as AlbumsIcon
 } from '@vicons/ionicons5'
 
 import {
@@ -97,7 +98,8 @@ import {
   Carbon3DCursor as Carbon3DCursorIcon,
   Carbon3DSoftware as Carbon3DSoftwareIcon,
   Filter as FilterIcon,
-  FilterEdit as FilterEditIcon
+  FilterEdit as FilterEditIcon,
+  Laptop as LaptopIcon
 } from '@vicons/carbon'
 
 const ionicons5 = {
@@ -232,7 +234,9 @@ const ionicons5 = {
   ListIcon,
   // 眼睛
   EyeOutlineIcon,
-  EyeOffOutlineIcon
+  EyeOffOutlineIcon,
+  // 图表列表 
+  AlbumsIcon
 }
 
 const carbon = {
@@ -285,7 +289,9 @@ const carbon = {
   Carbon3DSoftwareIcon,
   // 过滤器
   FilterIcon,
-  FilterEditIcon
+  FilterEditIcon,
+  // 图层
+  LaptopIcon
 }
 
 // https://www.xicons.org/#/ 还有很多

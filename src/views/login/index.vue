@@ -225,6 +225,7 @@ const handleSubmit = async (e: Event) => {
         window['$message'].success(t('login.login_success'))
         routerTurnByName(PageEnum.BASE_HOME_NAME, true)
       }
+      loading.value = false
     } else {
       window['$message'].error(t('login.login_message'))
     }

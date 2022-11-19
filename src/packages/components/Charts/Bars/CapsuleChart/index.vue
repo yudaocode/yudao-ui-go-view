@@ -2,7 +2,7 @@
   <div
     v-if="state.mergedConfig"
     class="go-dv-capsule-chart"
-    :style="{ 
+    :style="{
       fontSize: numberSizeHandle(state.mergedConfig.valueFontSize),
       paddingLeft: numberSizeHandle(state.mergedConfig.paddingLeft),
       paddingRight: numberSizeHandle(state.mergedConfig.paddingRight)
@@ -53,11 +53,10 @@
 
 <script setup lang="ts">
 import { onMounted, watch, reactive, PropType } from 'vue'
-import merge from 'lodash/merge'
-import cloneDeep from 'lodash/cloneDeep'
 import { useChartDataFetch } from '@/hooks'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import config, { option } from './config'
+import cloneDeep from 'lodash/cloneDeep'
 
 type DataProps = {
   name: string | number
@@ -114,12 +113,11 @@ watch(
 
 const calcData = (data: any) => {
   mergeConfig(props.chartConfig.option)
-
   calcCapsuleLengthAndLabelData()
 }
 
 const mergeConfig = (data: any) => {
-  state.mergedConfig = merge(cloneDeep(state.defaultConfig), data || {})
+  state.mergedConfig = cloneDeep(data || {})
 }
 
 // 数据解析

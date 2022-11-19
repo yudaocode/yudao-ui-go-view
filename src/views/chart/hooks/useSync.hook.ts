@@ -20,23 +20,63 @@ import { PublicGroupConfigClass } from '@/packages/public/publicConfig'
 import merge from 'lodash/merge'
 
 /**
- * 合并处理
- * @param object 模板数据
+ * * 画布-版本升级对旧数据无法兼容的补丁
+ * @param object
+ */
+const canvasVersionUpdatePolyfill = (object: any) => {
+  return object
+}
+
+/**
+ * * 组件-版本升级对旧数据无法兼容的补丁
+ * @param newObject
+ * @param sources
+ */
+const componentVersionUpdatePolyfill = (newObject: any, sources: any) => {
+  try {
+    // 判断是否是组件
+    if (sources.id) {
+      // 处理事件补丁
+      const hasVnodeBeforeMount = 'vnodeBeforeMount' in sources.events
+      const hasVnodeMounted = 'vnodeMounted' in sources.events
+
+      if (hasVnodeBeforeMount) {
+        newObject.events.advancedEvents.vnodeBeforeMount = sources?.events.vnodeBeforeMount
+      }
+      if (hasVnodeMounted) {
+        newObject.events.advancedEvents.vnodeMounted = sources?.events.vnodeMounted
+      }
+      if (hasVnodeBeforeMount || hasVnodeMounted) {
+        sources.events = undefined
+      }
+      return newObject
+    }
+  } catch (error) {
+    return newObject
+  }
+}
+
+/**
+ * * 合并处理
+ * @param newObject 新的模板数据
  * @param sources 新拿到的数据
  * @returns object
  */
-const componentMerge = (object: any, sources: any, notComponent = false) => {
+const componentMerge = (newObject: any, sources: any, notComponent = false) => {
+  // 处理组件补丁
+  componentVersionUpdatePolyfill(newObject, sources)
+
   // 非组件不处理
-  if (notComponent) return merge(object, sources)
-  // 组件排除 options
+  if (notComponent) return merge(newObject, sources)
+  // 组件排除 newObject
   const option = sources.option
-  if (!option) return merge(object, sources)
+  if (!option) return merge(newObject, sources)
 
   // 为 undefined 的 sources 来源对象属性将被跳过详见 https://www.lodashjs.com/docs/lodash.merge
   sources.option = undefined
   if (option) {
     return {
-      ...merge(object, sources),
+      ...merge(newObject, sources),
       option: option
     }
   }
@@ -62,6 +102,9 @@ export const useSync = () => {
       chartHistoryStore.clearBackStack()
       chartHistoryStore.clearForwardStack()
     }
+    // 画布补丁处理
+    projectData.editCanvasConfig = canvasVersionUpdatePolyfill(projectData.editCanvasConfig)
+
     // 列表组件注册
     projectData.componentList.forEach(async (e: CreateComponentType | CreateComponentGroupType) => {
       const intComponent = (target: CreateComponentType) => {
@@ -132,7 +175,7 @@ export const useSync = () => {
             // 分组插入到列表
             chartEditStore.addComponentList(groupClass, false, true)
           } else {
-            await  create(comItem as CreateComponentType)
+            await create(comItem as CreateComponentType)
           }
         }
       } else {
@@ -195,7 +238,7 @@ export const useSync = () => {
   }
 
   // * 数据保存
-  const dataSyncUpdate = throttle(async () => {
+  const dataSyncUpdate = throttle(async (updateImg = true) => {
     if(!fetchRouteParamsLocation()) return
 
     let projectId = chartEditStore.getProjectInfo[ProjectInfoEnum.PROJECT_ID];
@@ -206,25 +249,32 @@ export const useSync = () => {
 
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.START)
 
-    // 获取缩略图片
-    const range = document.querySelector('.go-edit-range') as HTMLElement
-    // 生成图片
-    const canvasImage: HTMLCanvasElement = await html2canvas(range, {
-      backgroundColor: null,
-      allowTaint: true,
-      useCORS: true
-    })
+    // 异常处理：缩略图上传失败不影响JSON的保存
+    try {
+      if (updateImg) {
+        // 获取缩略图片
+        const range = document.querySelector('.go-edit-range') as HTMLElement
+        // 生成图片
+        const canvasImage: HTMLCanvasElement = await html2canvas(range, {
+          backgroundColor: null,
+          allowTaint: true,
+          useCORS: true
+        })
 
-    // 上传预览图
-    let uploadParams = new FormData()
-    uploadParams.append('object', base64toFile(canvasImage.toDataURL(), `${fetchRouteParamsLocation()}_index_preview.png`))
-    const uploadRes = await uploadFile(uploadParams) as unknown as MyResponseType
-    // 保存预览图
-    if(uploadRes.code === ResultEnum.SUCCESS) {
-      await updateProjectApi({
-        id: fetchRouteParamsLocation(),
-        indexImage: `${systemStore.getFetchInfo.OSSUrl}${uploadRes.data.fileName}`
-      })
+        // 上传预览图
+        let uploadParams = new FormData()
+        uploadParams.append('object', base64toFile(canvasImage.toDataURL(), `${fetchRouteParamsLocation()}_index_preview.png`))
+        const uploadRes = await uploadFile(uploadParams) as unknown as MyResponseType
+        // 保存预览图
+        if(uploadRes.code === ResultEnum.SUCCESS) {
+          await updateProjectApi({
+            id: fetchRouteParamsLocation(),
+            indexImage: `${systemStore.getFetchInfo.OSSUrl}${uploadRes.data.fileName}`
+          })
+        }
+      }
+    } catch (e) {
+      console.log(e)
     }
 
     // 保存数据

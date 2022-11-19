@@ -75,7 +75,7 @@
         </n-button>
       </n-space>
       <n-space>
-        <n-text>预览方式</n-text>
+        <n-text>适配方式</n-text>
         <n-button-group>
           <n-button
             v-for="item in previewTypeList"
@@ -302,7 +302,7 @@ const customRequest = (options: UploadCustomRequestOptions) => {
   })
 }
 
-// 选择预览方式
+// 选择适配方式
 const selectPreviewType = (key: PreviewScaleEnum) => {
   chartEditStore.setEditCanvasConfig(EditCanvasConfigEnum.PREVIEW_SCALE_TYPE, key)
 }

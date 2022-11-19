@@ -62,7 +62,7 @@ const status = reactive({
 const calcRowsData = () => {
   let { dataset, rowNum, sort } = status.mergedConfig
   // @ts-ignore
-  sort && dataset.sort(({ value: a }, { value: b }) => {
+  sort &&dataset.sort(({ value: a }, { value: b  } )  => {
       if (a > b) return -1
       if (a < b) return 1
       if (a === b) return 0
@@ -94,6 +94,7 @@ const calcHeights = (onresize = false) => {
   const { rowNum, dataset } = status.mergedConfig
   const avgHeight = h.value / rowNum
   status.avgHeight = avgHeight
+
   if (!onresize) status.heights = new Array(dataset.length).fill(avgHeight)
 }
 
@@ -131,12 +132,17 @@ const stopAnimation = () => {
 const onRestart = async () => {
   try {
     if (!status.mergedConfig) return
+    let { dataset, rowNum, sort } = status.mergedConfig
     stopAnimation()
     calcRowsData()
-    calcHeights(true)
-    animation(true)
+    let flag = true
+    if (dataset.length <= rowNum) {
+      flag=false
+    }
+    calcHeights(flag)
+    animation(flag)
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 

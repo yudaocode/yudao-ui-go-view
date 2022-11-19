@@ -1,10 +1,10 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
-import { ResultEnum } from "@/enums/httpEnum"
+import { ResultEnum, ModuleTypeEnum } from "@/enums/httpEnum"
 import { PageEnum, ErrorPageNameMap } from "@/enums/pageEnum"
 import { StorageEnum } from '@/enums/storageEnum'
 import { axiosPre } from '@/settings/httpSetting'
 import { SystemStoreEnum, SystemStoreUserInfoEnum } from '@/store/modules/systemStore/systemStore.d'
-import { redirectErrorPage, getLocalStorage, routerTurnByName, httpErrorHandle } from '@/utils'
+import { redirectErrorPage, getLocalStorage, routerTurnByName, isPreview } from '@/utils'
 import { fetchAllowList } from './axios.config'
 import includes from 'lodash/includes'
 
@@ -39,6 +39,10 @@ axiosInstance.interceptors.request.use(
 // 响应拦截器
 axiosInstance.interceptors.response.use(
   (res: AxiosResponse) => {
+    // 预览页面错误不进行处理
+    if (isPreview()) {
+      return Promise.resolve(res.data)
+    }
     const { code } = res.data as { code: number }
 
     // 成功

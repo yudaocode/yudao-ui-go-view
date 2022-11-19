@@ -1,5 +1,5 @@
 <template>
-  <div class="go-content-charts-item-box">
+  <div class="go-content-charts-item-box" :class="{ double: chartMode === ChartModeEnum.DOUBLE }">
     <!-- 每一项组件的渲染 -->
     <div
       class="item-box"
@@ -11,21 +11,30 @@
       @dblclick="dblclickHandle(item)"
     >
       <div class="list-header">
-        <mac-os-control-btn :mini="true" :disabled="true"></mac-os-control-btn>
-        <n-text class="list-header-text" depth="3">{{ item.title }}</n-text>
+        <mac-os-control-btn class="list-header-control-btn" :mini="true" :disabled="true"></mac-os-control-btn>
+        <n-text class="list-header-text" depth="3">
+          <n-ellipsis>{{ item.title }}</n-ellipsis>
+        </n-text>
       </div>
       <div class="list-center go-flex-center">
         <img class="list-img" v-lazy="item.image" alt="图表图片" />
+      </div>
+      <div class="list-bottom">
+        <n-text class="list-bottom-text" depth="3">
+          <n-ellipsis style="max-width: 90%">{{ item.title }}</n-ellipsis>
+        </n-text>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { PropType } from 'vue'
+import { PropType, ref, Ref, computed } from 'vue'
 import { MacOsControlBtn } from '@/components/Tips/MacOsControlBtn/index'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
+import { ChartModeEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
+import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
 import { componentInstall, loadingStart, loadingFinish, loadingError } from '@/utils'
 import { DragKeyEnum } from '@/enums/editPageEnum'
 import { createComponent } from '@/packages'
@@ -39,6 +48,13 @@ defineProps({
     type: Array as PropType<ConfigType[]>,
     default: () => []
   }
+})
+
+const chartLayoutStore = useChartLayoutStore()
+
+// 组件展示状态
+const chartMode: Ref<ChartModeEnum> = computed(() => {
+  return chartLayoutStore.getChartType
 })
 
 // 拖拽处理
@@ -80,13 +96,19 @@ const dblclickHandle = async (item: ConfigType) => {
 
 <style lang="scss" scoped>
 /* 列表项宽度 */
-$itemWidth: 86%;
+$itemWidth: 100%;
+$halfItemWidth: 46%;
 /* 内容高度 */
 $centerHeight: 100px;
+$halfCenterHeight: 50px;
 @include go('content-charts-item-box') {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 9px;
+  padding: 10px;
   .item-box {
-    margin: 0 7%;
-    margin-bottom: 15px;
+    margin: 0;
     width: $itemWidth;
     overflow: hidden;
     border-radius: 6px;
@@ -121,6 +143,39 @@ $centerHeight: 100px;
         border-radius: 6px;
         @extend .go-transition;
       }
+    }
+    .list-bottom {
+      display: none;
+      .list-bottom-text {
+        font-size: 12px;
+        padding-left: 5px;
+      }
+    }
+  }
+  /* 缩小展示 */
+  &.double {
+    .list-header {
+      padding: 2px 5px;
+      .list-header-text {
+        display: none;
+      }
+      .list-header-control-btn {
+        transform: scale(0.7);
+      }
+    }
+    .item-box {
+      width: $halfItemWidth;
+    }
+    .list-center {
+      height: $halfCenterHeight;
+      padding-bottom: 0px;
+      .list-img {
+        height: $halfCenterHeight;
+        width: auto;
+      }
+    }
+    .list-bottom {
+      display: block;
     }
   }
 }

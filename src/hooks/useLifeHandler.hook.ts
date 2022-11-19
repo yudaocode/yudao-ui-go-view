@@ -1,4 +1,4 @@
-import { CreateComponentType, EventLife } from '@/packages/index.d'
+import { CreateComponentType, CreateComponentGroupType, EventLife, BaseEvent } from '@/packages/index.d'
 import * as echarts from 'echarts'
 
 // 所有图表组件集合对象
@@ -7,26 +7,55 @@ const components: { [K in string]?: any } = {}
 // 项目提供的npm 包变量
 export const npmPkgs = { echarts }
 
-export const useLifeHandler = (chartConfig: CreateComponentType) => {
-  const events = chartConfig.events || {}
+// 组件事件处理 hook
+export const useLifeHandler = (chartConfig: CreateComponentType | CreateComponentGroupType) => {
+  // 处理基础事件
+  const baseEvent: { [key: string]: any } = {}
+  for (const key in chartConfig.events.baseEvent) {
+    const fnStr: string | undefined = (chartConfig.events.baseEvent as any)[key]
+    // 动态绑定基础事件
+    if (fnStr) {
+      baseEvent[key] = generateBaseFunc(fnStr)
+    }
+  }
+
   // 生成生命周期事件
+  const events = chartConfig.events.advancedEvents || {}
   const lifeEvents = {
-    [EventLife.BEFORE_MOUNT](e: any) {
+    [EventLife.VNODE_BEFORE_MOUNT](e: any) {
       // 存储组件
       components[chartConfig.id] = e.component
-      const fnStr = (events[EventLife.BEFORE_MOUNT] || '').trim()
+      const fnStr = (events[EventLife.VNODE_BEFORE_MOUNT] || '').trim()
       generateFunc(fnStr, e)
     },
-    [EventLife.MOUNTED](e: any) {
-      const fnStr = (events[EventLife.MOUNTED] || '').trim()
+    [EventLife.VNODE_MOUNTED](e: any) {
+      const fnStr = (events[EventLife.VNODE_MOUNTED] || '').trim()
       generateFunc(fnStr, e)
     }
   }
-  return lifeEvents
+  return { ...baseEvent, ...lifeEvents }
 }
 
 /**
- *
+ * 生成基础函数
+ * @param fnStr 用户方法体代码
+ * @param event 鼠标事件
+ */
+ export function generateBaseFunc(fnStr: string) {
+  try {
+    return new Function(`
+      return (
+        async function(mouseEvent){
+          ${fnStr}
+        }
+      )`)()
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+/**
+ * 生成高级函数
  * @param fnStr 用户方法体代码
  * @param e 执行生命周期的动态组件实例
  */

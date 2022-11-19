@@ -126,11 +126,12 @@ export const useChartEditStore = defineStore({
       chartThemeColor: defaultTheme || 'dark',
       // 全局配置
       chartThemeSetting: globalThemeJson,
-      // 预览方式
+      // 适配方式
       previewScaleType: previewScaleType
     },
     // 数据请求处理（需存储给后端）
     requestGlobalConfig: {
+      requestDataPond: [],
       requestOriginUrl: '',
       requestInterval: requestInterval,
       requestIntervalUnit: requestIntervalUnit,

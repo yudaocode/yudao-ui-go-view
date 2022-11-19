@@ -125,7 +125,7 @@ const sendHandle = async () => {
   if (!targetData.value?.request) return
   loading.value = true
   try {
-    const res = await customizeHttp(toRaw(targetData.value.request), toRaw(chartEditStore.requestGlobalConfig))
+    const res = await customizeHttp(toRaw(targetData.value.request), toRaw(chartEditStore.getRequestGlobalConfig))
     loading.value = false
     if (res) {
       if(!res?.data && !targetData.value.filter) window['$message'].warning('您的数据不符合默认格式，请配置过滤器！')
