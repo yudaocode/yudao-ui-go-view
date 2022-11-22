@@ -15,7 +15,7 @@ import { ResultEnum } from '@/enums/httpEnum'
 import { saveProjectApi, fetchProjectApi, uploadFile, updateProjectApi } from '@/api/path'
 // 画布枚举
 import { SyncEnum } from '@/enums/editPageEnum'
-import { CreateComponentType, CreateComponentGroupType, ConfigType } from '@/packages/index.d'
+import { BaseEvent, EventLife, CreateComponentType, CreateComponentGroupType, ConfigType } from '@/packages/index.d'
 import { PublicGroupConfigClass } from '@/packages/public/publicConfig'
 import merge from 'lodash/merge'
 
@@ -47,7 +47,18 @@ const componentVersionUpdatePolyfill = (newObject: any, sources: any) => {
         newObject.events.advancedEvents.vnodeMounted = sources?.events.vnodeMounted
       }
       if (hasVnodeBeforeMount || hasVnodeMounted) {
-        sources.events = undefined
+        sources.events = {
+          baseEvent: {
+            [BaseEvent.ON_CLICK]: undefined,
+            [BaseEvent.ON_DBL_CLICK]: undefined,
+            [BaseEvent.ON_MOUSE_ENTER]: undefined,
+            [BaseEvent.ON_MOUSE_LEAVE]: undefined
+          },
+          advancedEvents: {
+            [EventLife.VNODE_MOUNTED]: undefined,
+            [EventLife.VNODE_BEFORE_MOUNT]: undefined
+          }
+        }
       }
       return newObject
     }

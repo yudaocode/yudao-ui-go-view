@@ -18,7 +18,9 @@
           <br />
           <span class="func-keyword">async {{ eventName }}</span> (e, components, echarts, node_modules) {
         </p>
-        <p class="go-ml-4"><n-code :code="(targetData.events.advancedEvents || {})[eventName]" language="typescript"></n-code></p>
+        <p class="go-ml-4">
+          <n-code :code="(targetData.events.advancedEvents || {})[eventName] || ''" language="typescript"></n-code>
+        </p>
         <p>}<span>,</span></p>
       </div>
     </n-card>
@@ -227,7 +229,7 @@ const saveEvents = () => {
     // 清空事件
     targetData.value.events.advancedEvents = {
       vnodeBeforeMount: undefined,
-      vnodeMounted: undefined,
+      vnodeMounted: undefined
     }
   } else {
     targetData.value.events.advancedEvents = { ...advancedEvents.value }
