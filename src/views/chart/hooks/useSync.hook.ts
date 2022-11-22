@@ -224,6 +224,9 @@ export const useSync = () => {
 
   // * 数据获取
   const dataSyncFetch = async () => {
+    // FIX:重新执行dataSyncFetch需清空chartEditStore.componentList,否则会导致图层重复
+    // 切换语言等操作会导致重新执行 dataSyncFetch,此时pinia中并未清空chartEditStore.componentList，导致图层重复
+    chartEditStore.componentList = []
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.START)
     try {
       const res = await fetchProjectApi({ projectId: fetchRouteParamsLocation() }) as unknown as MyResponseType
