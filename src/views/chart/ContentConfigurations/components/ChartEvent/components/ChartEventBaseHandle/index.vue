@@ -19,7 +19,7 @@
           <span class="func-keyword">async {{ eventName }}</span> (mouseEvent) {
         </p>
         <p class="go-ml-4">
-          <n-code :code="(targetData.events.baseEvent || {})[eventName]" language="typescript"></n-code>
+          <n-code :code="(targetData.events.baseEvent || {})[eventName] || ''" language="typescript"></n-code>
         </p>
         <p>}<span>,</span></p>
       </div>
