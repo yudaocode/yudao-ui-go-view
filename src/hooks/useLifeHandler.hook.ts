@@ -9,6 +9,8 @@ export const npmPkgs = { echarts }
 
 // 组件事件处理 hook
 export const useLifeHandler = (chartConfig: CreateComponentType | CreateComponentGroupType) => {
+  if (!chartConfig.events) return {}
+
   // 处理基础事件
   const baseEvent: { [key: string]: any } = {}
   for (const key in chartConfig.events.baseEvent) {
