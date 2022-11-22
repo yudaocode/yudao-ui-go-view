@@ -15,7 +15,9 @@ export enum RequestDataTypeEnum {
   // 静态数据
   STATIC = 0,
   // 请求数据
-  AJAX = 1
+  AJAX = 1,
+  // 数据池
+  Pond = 2
 }
 
 // 请求主体类型
