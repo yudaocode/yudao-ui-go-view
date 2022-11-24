@@ -21,7 +21,7 @@
             <n-ellipsis>{{ item.title }}</n-ellipsis>
           </n-text>
         </div>
-        <div class="list-center go-flex-center">
+        <div class="list-center go-flex-center go-transition">
           <img class="list-img" v-lazy="item.image" alt="图表图片" />
         </div>
         <div class="list-bottom">
@@ -175,18 +175,6 @@ $halfCenterHeight: 50px;
       }
     }
   }
-  /* 缩小展示 */
-  @keyframes miniAnimation {
-    from {
-      width: $itemWidth * 2;
-    }
-    to {
-      width: $itemWidth;
-    }
-  }
-  &.miniAnimation {
-    animation: miniAnimation 0.5s;
-  }
   &.single {
     .item-box {
       @extend .go-transition;
@@ -212,11 +200,24 @@ $halfCenterHeight: 50px;
       .list-img {
         height: $halfCenterHeight;
         width: auto;
+        transition: all 0.2s;
       }
     }
     .list-bottom {
       display: block;
     }
+  }
+  /* 缩小展示 */
+  @keyframes miniAnimation {
+    from {
+      width: $itemWidth * 2;
+    }
+    to {
+      width: $itemWidth;
+    }
+  }
+  &.miniAnimation {
+    animation: miniAnimation 0.5s;
   }
 }
 </style>
