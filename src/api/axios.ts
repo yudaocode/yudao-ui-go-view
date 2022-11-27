@@ -8,14 +8,14 @@ import { redirectErrorPage, getLocalStorage, routerTurnByName, isPreview } from 
 import { fetchAllowList } from './axios.config'
 import includes from 'lodash/includes'
 
-export interface MyResponseType {
+export interface MyResponseType<T> {
   code: ResultEnum
-  data: any
+  data: T
   message: string
 }
 
 export interface MyRequestInstance extends Axios {
-  (config: AxiosRequestConfig): Promise<MyResponseType>
+  <T = any>(config: AxiosRequestConfig): Promise<MyResponseType<T>>
 }
 
 const axiosInstance = axios.create({

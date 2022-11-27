@@ -27,11 +27,11 @@ export const useDataListInit = () => {
     const res = await projectListApi({
       page: paginat.page,
       limit: paginat.limit
-    }) as any
-    if (res.data) {
-      const { count } = res
+    });
+    if (res &&res.data) {
+      const { count } = res as any; // 这里的count与data平级，不在Response结构中
       paginat.count = count
-      list.value = res.data.map((e: any) => {
+      list.value = res.data.map((e) => {
         const { id, projectName, state, createTime, indexImage, createUserId } = e
         return {
           id: id,
