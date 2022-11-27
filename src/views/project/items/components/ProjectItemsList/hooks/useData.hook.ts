@@ -90,8 +90,8 @@ export const useDataListInit = () => {
       id: id,
       // [-1未发布, 1发布]
       state: !release ? 1 : -1
-    }) as unknown as MyResponseType
-    if (res.code === ResultEnum.SUCCESS) {
+    })
+    if (res && res.code === ResultEnum.SUCCESS) {
       list.value = []
       fetchList()
       // 发布 -> 未发布

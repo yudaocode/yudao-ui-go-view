@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
+import axios, { AxiosResponse, AxiosRequestConfig, Axios } from 'axios'
 import { ResultEnum, ModuleTypeEnum } from "@/enums/httpEnum"
 import { PageEnum, ErrorPageNameMap } from "@/enums/pageEnum"
 import { StorageEnum } from '@/enums/storageEnum'
@@ -8,10 +8,20 @@ import { redirectErrorPage, getLocalStorage, routerTurnByName, isPreview } from 
 import { fetchAllowList } from './axios.config'
 import includes from 'lodash/includes'
 
+export interface MyResponseType {
+  code: ResultEnum
+  data: any
+  message: string
+}
+
+export interface MyRequestInstance extends Axios {
+  (config: AxiosRequestConfig): Promise<MyResponseType>
+}
+
 const axiosInstance = axios.create({
   baseURL: `${import.meta.env.PROD ? import.meta.env.VITE_PRO_PATH : ''}${axiosPre}`,
   timeout: ResultEnum.TIMEOUT,
-})
+}) as unknown as MyRequestInstance
 
 axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
