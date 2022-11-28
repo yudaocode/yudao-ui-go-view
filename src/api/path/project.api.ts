@@ -1,7 +1,7 @@
 import { http } from '@/api/http'
 import { httpErrorHandle } from '@/utils'
 import { ContentTypeEnum, RequestHttpEnum, ModuleTypeEnum } from '@/enums/httpEnum'
-import { ProjectItem, ProejctDetail } from './project'
+import { ProjectItem, ProjectDetail } from './project'
 
 // * 项目列表
 export const projectListApi = async (data: object) => {
@@ -31,7 +31,7 @@ export const createProjectApi = async (data: object) => {
 // * 获取项目
 export const fetchProjectApi = async (data: object) => {
   try {
-    const res = await http(RequestHttpEnum.GET)<ProejctDetail>(`${ModuleTypeEnum.PROJECT}/getData`, data)
+    const res = await http(RequestHttpEnum.GET)<ProjectDetail>(`${ModuleTypeEnum.PROJECT}/getData`, data)
     return res
   } catch {
     httpErrorHandle()

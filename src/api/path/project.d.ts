@@ -31,7 +31,7 @@ export type ProjectItem = {
   remarks: string
 }
 
-export interface ProejctDetail extends ProjectItem {
+export interface ProjectDetail extends ProjectItem {
   /**
    * 项目参数
    */
