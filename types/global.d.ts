@@ -11,11 +11,4 @@ interface Window {
   opener: any
 }
 
-
-declare interface MyResponseType {
-  code: number;
-  msg: string;
-  data: any;
-}
-
 declare type Recordable<T = any> = Record<string, T>
