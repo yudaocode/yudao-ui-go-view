@@ -207,8 +207,8 @@ const handleSubmit = async (e: Event) => {
       const res = await loginApi({
         username,
         password
-      }) as unknown as MyResponseType
-      if(res.data) {
+      })
+      if(res && res.data) {
         const { tokenValue, tokenName } = res.data.token
         const { nickname, username, id } = res.data.userinfo
 
