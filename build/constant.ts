@@ -1,3 +1,4 @@
+import path from 'path'
 export const OUTPUT_DIR = 'dist'
 
 // monaco-editor 路径
@@ -14,7 +15,12 @@ export const rollupOptions = {
   output: {
     chunkFileNames: 'static/js/[name]-[hash].js',
     entryFileNames: 'static/js/[name]-[hash].js',
-    assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
+    assetFileNames: (chunkInfo) => {
+      if(['.png', '.jpg', '.jpeg'].includes(path.extname(chunkInfo.name))) {
+        return `static/png/[name].[ext]`
+      }
+      return `static/[ext]/[name]-[hash].[ext]`
+    },
     manualChunks: {
       jsonWorker: [`${prefix}/language/json/json.worker`],
       cssWorker: [`${prefix}/language/css/css.worker`],
