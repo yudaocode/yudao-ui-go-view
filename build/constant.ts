@@ -7,7 +7,7 @@ export const prefix = `monaco-editor/esm/vs`
 // chunk 警告大小
 export const chunkSizeWarningLimit = 2000
 
-// 禁用 brotli 压缩大小报告
+// 禁用 brotli 压缩大小报告A
 export const brotliSize = false
 
 // 分包
@@ -17,7 +17,7 @@ export const rollupOptions = {
     entryFileNames: 'static/js/[name]-[hash].js',
     assetFileNames: (chunkInfo) => {
       if(['.png', '.jpg', '.jpeg'].includes(path.extname(chunkInfo.name))) {
-        return `static/png/[name].[ext]`
+        return `static/[ext]/[name].[ext]`
       }
       return `static/[ext]/[name]-[hash].[ext]`
     },
