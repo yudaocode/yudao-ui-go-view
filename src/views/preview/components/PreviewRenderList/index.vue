@@ -47,7 +47,7 @@ import { getSizeStyle, getComponentAttrStyle, getStatusStyle } from '../../utils
 import { useLifeHandler } from '@/hooks'
 
 // 初始化数据池
-const { initDataPond } = useChartDataPondFetch()
+const { initDataPond, clearMittDataPondMap } = useChartDataPondFetch()
 
 const props = defineProps({
   localStorageInfo: {
@@ -69,6 +69,7 @@ const themeColor = computed(() => {
 })
 
 // 组件渲染结束初始化数据池
+clearMittDataPondMap()
 onMounted(() => {
   initDataPond(props.localStorageInfo.requestGlobalConfig)
 })
