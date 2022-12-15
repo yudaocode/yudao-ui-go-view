@@ -5,12 +5,6 @@
       <n-timeline-item type="success"></n-timeline-item>
     </n-timeline>
     <div class="pond-item-box">
-      <n-space v-if="!requestDataPond.length" justify="center">
-        <n-text class="not-layer-text" :depth="3">
-          暂无数据内容，
-          <n-a @click="createPond">立即创建</n-a>
-        </n-text>
-      </n-space>
       <!-- 新增 -->
       <n-button class="create-btn go-py-4" ghost @click="createPond">
         <span> 创建 </span>
@@ -21,6 +15,12 @@
         </template>
       </n-button>
       <n-divider style="margin: 10px 0"></n-divider>
+      <n-space v-if="!requestDataPond.length" justify="center">
+        <n-text class="not-layer-text" :depth="3">
+          暂无数据内容，
+          <n-a @click="createPond">立即创建</n-a>
+        </n-text>
+      </n-space>
       <n-scrollbar style="max-height: 490px">
         <div
           v-for="item in requestDataPond"

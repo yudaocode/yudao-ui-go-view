@@ -8,23 +8,15 @@
               <n-input size="small" :placeholder="targetData?.dataPondName || '暂无'" :disabled="true"> </n-input>
             </setting-item>
             <setting-item name="接口类型">
-              <n-input
-                size="small"
-                :placeholder="targetData?.dataPondRequestConfig.requestHttpType || '暂无'"
-                :disabled="true"
-              ></n-input>
+              <n-input size="small" :placeholder="requestHttpType || '暂无'" :disabled="true"></n-input>
             </setting-item>
           </setting-item-box>
 
           <setting-item-box>
             <setting-item name="组件间隔">
-              <n-input
-                size="small"
-                :placeholder="`${targetData?.dataPondRequestConfig.requestInterval || '暂无'}`"
-                :disabled="true"
-              >
+              <n-input size="small" :placeholder="`${requestInterval || '暂无'}`" :disabled="true">
                 <template #suffix>
-                  {{ targetData && SelectHttpTimeNameObj[targetData.dataPondRequestConfig.requestIntervalUnit] }}
+                  {{ targetData && SelectHttpTimeNameObj[requestIntervalUnit] }}
                 </template>
               </n-input>
             </setting-item>
@@ -46,7 +38,7 @@
           <setting-item-box name="接口地址" :alone="true">
             <n-input
               size="small"
-              :placeholder="targetData?.dataPondRequestConfig.requestUrl || '暂无'"
+              :placeholder="requestUrl || '暂无'"
               :disabled="true"
             >
               <template #prefix>
@@ -60,7 +52,7 @@
           <setting-item name="配置类型">
             <n-input
               size="small"
-              :placeholder="targetData && requestContentTypeObj[targetData?.dataPondRequestConfig.requestContentType]"
+              :placeholder="targetData && requestContentTypeObj[requestContentType]"
               :disabled="true"
             ></n-input>
           </setting-item>
@@ -68,7 +60,7 @@
             <n-input size="small" :placeholder="targetData && requestParamsBodyType" :disabled="true"></n-input>
           </setting-item>
         </setting-item-box>
-        <div v-if="targetData?.dataPondRequestConfig.requestContentType === RequestContentTypeEnum.DEFAULT">
+        <div v-if="requestContentType === RequestContentTypeEnum.DEFAULT">
           <n-tabs type="line" animated v-model:value="tabValue">
             <n-tab v-for="item in RequestParamsTypeEnum" :key="item" :name="item" :tab="item"> {{ item }} </n-tab>
           </n-tabs>
@@ -124,7 +116,7 @@
             <n-text>sql</n-text>
           </setting-item-box>
           <setting-item-box name="键值">
-            <n-code :code="targetData?.dataPondRequestConfig.requestSQLContent.sql || ''" language="sql"></n-code>
+            <n-code :code="requestSQLContent.sql || ''" language="sql"></n-code>
           </setting-item-box>
         </div>
       </div>
@@ -154,9 +146,18 @@ const props = defineProps({
 })
 
 const { HelpOutlineIcon, FlashIcon, PulseIcon } = icon.ionicons5
-const { requestHttpType, requestContentType, requestSQLContent, requestParams, requestParamsBodyType } = toRefs(
-  (props.targetData as RequestDataPondItemType).dataPondRequestConfig
-)
+const {
+  requestUrl,
+  requestInterval,
+  requestHttpType,
+  requestContentType,
+  requestSQLContent,
+  requestParams,
+  requestParamsBodyType,
+  requestIntervalUnit
+} = toRefs((props.targetData as RequestDataPondItemType).dataPondRequestConfig)
+
+console.log((props.targetData as RequestDataPondItemType).dataPondRequestConfig)
 
 const tabs = [RequestParamsTypeEnum.HEADER]
 const requestContentTypeObj = {
