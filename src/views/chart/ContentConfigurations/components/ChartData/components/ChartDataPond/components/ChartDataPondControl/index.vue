@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs, computed, nextTick, watch } from 'vue'
+import { ref, toRefs, computed, nextTick, watch, toRaw } from 'vue'
 import noData from '@/assets/images/canvas/noData.png'
 import { ChartDataPondList } from '../ChartDataPondList'
 import { PondDataRequest } from '../../../ChartDataRequest'
@@ -54,6 +54,7 @@ import { ChartDataDisplay } from '../ChartDataDisplay'
 import { requestConfig } from '@/packages/public/publicConfig'
 import { useTargetData } from '@/views/chart/ContentConfigurations/components/hooks/useTargetData.hook'
 import { RequestDataPondItemType } from '@/store/modules/chartEditStore/chartEditStore.d'
+import { RequestDataTypeEnum } from '@/enums/httpEnum'
 import { icon } from '@/plugins'
 import { getUUID, goDialog } from '@/utils'
 import { cloneDeep } from 'lodash'
@@ -107,7 +108,7 @@ const createPond = () => {
   editData.value = {
     dataPondId: id,
     dataPondName: id,
-    dataPondRequestConfig: cloneDeep(requestConfig)
+    dataPondRequestConfig: cloneDeep({ ...requestConfig, requestDataType: RequestDataTypeEnum.Pond })
   }
   openPond()
 }
@@ -118,7 +119,6 @@ const saveHandle = (newData: RequestDataPondItemType) => {
   if (isEdit.value) {
     editSaveHandle(newData)
   } else {
-    console.log(editData.value)
     createSaveHandle(newData)
   }
   isEdit.value = false
@@ -173,6 +173,13 @@ const deletePond = (targetData: RequestDataPondItemType) => {
 
 // 关闭
 const closeHandle = () => {
+  // 将所选内容赋值给对象
+  if (pondData.value) {
+    targetData.value.request = {
+      ...toRaw(pondData.value.dataPondRequestConfig),
+      requestDataPondId: pondData.value.dataPondId
+    }
+  }
   emit('update:modelShow', false)
   emit('sendHandle')
 }

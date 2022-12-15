@@ -72,8 +72,10 @@
 
     <!-- 底部数据展示 -->
     <chart-data-matching-and-show :show="showMatching && !loading" :ajax="true"></chart-data-matching-and-show>
+
     <!-- 骨架图 -->
     <go-skeleton :load="loading" :repeat="3"></go-skeleton>
+    
     <!-- 请求配置model -->
     <chart-data-request
       v-model:modelShow="requestShow"
@@ -95,7 +97,7 @@ import { http, customizeHttp } from '@/api/http'
 import { SelectHttpType } from '../../index.d'
 import { ChartDataMatchingAndShow } from '../ChartDataMatchingAndShow'
 import { useTargetData } from '../../../hooks/useTargetData.hook'
-import { isDev, newFunctionHandle } from '@/utils'
+import { newFunctionHandle } from '@/utils'
 
 const { HelpOutlineIcon, FlashIcon, PulseIcon } = icon.ionicons5
 const { targetData, chartEditStore } = useTargetData()

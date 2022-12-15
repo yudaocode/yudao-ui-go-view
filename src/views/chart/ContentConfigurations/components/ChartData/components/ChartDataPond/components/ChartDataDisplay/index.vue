@@ -157,8 +157,6 @@ const {
   requestIntervalUnit
 } = toRefs((props.targetData as RequestDataPondItemType).dataPondRequestConfig)
 
-console.log((props.targetData as RequestDataPondItemType).dataPondRequestConfig)
-
 const tabs = [RequestParamsTypeEnum.HEADER]
 const requestContentTypeObj = {
   [RequestContentTypeEnum.DEFAULT]: '普通请求',
