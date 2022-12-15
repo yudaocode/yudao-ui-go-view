@@ -56,7 +56,7 @@
               :disabled="true"
             ></n-input>
           </setting-item>
-          <setting-item name="body 类型">
+          <setting-item name="body 类型" v-if="requestContentType === RequestContentTypeEnum.DEFAULT">
             <n-input size="small" :placeholder="targetData && requestParamsBodyType" :disabled="true"></n-input>
           </setting-item>
         </setting-item-box>
