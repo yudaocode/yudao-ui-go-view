@@ -70,7 +70,7 @@ const closeAndSendHandle = () => {
     return
   }
   goDialog({
-    message: '是否保存内容？',
+    message: '保存内容将同步修改所有使用此接口的组件, 是否继续?',
     isMaskClosable: true,
     transformOrigin: 'center',
     onPositiveCallback: () => {

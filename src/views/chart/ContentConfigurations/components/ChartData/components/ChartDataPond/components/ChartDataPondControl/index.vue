@@ -131,6 +131,19 @@ const editSaveHandle = (newData: RequestDataPondItemType) => {
     const targetIndex = requestDataPond.value.findIndex(item => item.dataPondId === newData.dataPondId)
     if (targetIndex !== -1) {
       requestDataPond.value.splice(targetIndex, 1, newData)
+      // 修改数据池后, 修改所有关联的组件
+      chartEditStore.getComponentList.forEach(item => {
+        if (
+          item.request.requestDataType === RequestDataTypeEnum.Pond &&
+          item.request.requestDataPondId === newData.dataPondId
+        ) {
+          item.request = {
+            ...toRaw(newData.dataPondRequestConfig),
+            requestDataPondId: newData.dataPondId
+          }
+        }
+      })
+      window.$message.success('保存成功！')
     } else {
       window.$message.error('编辑失败，请稍后重试！')
     }
