@@ -113,7 +113,94 @@ export const useChartEditStore = defineStore({
     },
     // 数据请求处理（需存储给后端）
     requestGlobalConfig: {
-      requestDataPond: [],
+      requestDataPond: [{
+        dataPondId: '1',
+        dataPondName: '我是数据池1',
+        dataPondRequestConfig: {
+          requestUrl: '',
+          requestContentType: 0,
+          requestDataType: 0,
+          // @ts-ignore
+          requestHttpType: 'get',
+          // @ts-ignore
+          requestParamsBodyType: 'json',
+          requestSQLContent: {
+            sql: 'select *'
+          },
+          requestParams: {
+            Body: {
+              'form-data': {
+                xxx: '23123',
+                xxx1: '23123',
+                xxx2: '23123',
+                xxx3: '23123',
+                xxx4: '23123',
+                xxx5: '23123',
+              },
+              'x-www-form-urlencoded': {
+                xxx: '23123',
+                xxx1: '23123',
+                xxx2: '23123',
+                xxx3: '23123',
+                xxx4: '23123',
+                xxx5: '23123',
+              },
+              json: '{}',
+              xml: '{}'
+            },
+            Header: {
+              xxx: '23123',
+                xxx1: '23123',
+                xxx2: '23123',
+                xxx3: '23123',
+                xxx4: '23123',
+                xxx5: '23123',
+            },
+            Params: {
+              xxx: '23123',
+                xxx1: '23123',
+                xxx2: '23123',
+                xxx3: '23123',
+                xxx4: '23123',
+                xxx5: '23123',
+            }
+          }
+        }
+      },
+      {
+        dataPondId: '2',
+        dataPondName: '我是数据池2',
+        dataPondRequestConfig: {
+          requestUrl: '',
+          requestContentType: 0,
+          requestDataType: 0,
+          // @ts-ignore
+          requestHttpType: 'get',
+          // @ts-ignore
+          requestParamsBodyType: 'none',
+          requestSQLContent: {
+            sql: 'select *'
+          },
+          requestParams: {
+            Body: {
+              'form-data': {
+                xxx: '23123'
+              },
+              'x-www-form-urlencoded': {
+                xxx: '23123'
+              },
+              json: '{}',
+              xml: '{}'
+            },
+            Header: {
+              xxx: '23123'
+            },
+            Params: {
+              xxx: '23123'
+            }
+          }
+        }
+      }],
       requestOriginUrl: '',
       requestInterval: requestInterval,
       requestIntervalUnit: requestIntervalUnit,

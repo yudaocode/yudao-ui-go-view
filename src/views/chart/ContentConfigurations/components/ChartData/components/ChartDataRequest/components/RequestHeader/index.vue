@@ -29,7 +29,7 @@
 
           <!-- 为 none 时 -->
           <n-card class="go-mt-3 go-pb-3" v-if="requestParamsBodyType === RequestBodyEnum['NONE']">
-            <n-text depth="3">该请求没有 Body 体</n-text>
+            <n-text depth="3">该接口没有 Body 体</n-text>
           </n-card>
 
           <!-- 具有对象属性时 -->
@@ -86,13 +86,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs } from 'vue'
-
+import { ref, toRefs, PropType } from 'vue'
 import { MonacoEditor } from '@/components/Pages/MonacoEditor'
+import { RequestHeaderTable } from '../RequestHeaderTable/index'
 import { SettingItemBox, SettingItem } from '@/components/Pages/ChartItemSetting'
 import { useTargetData } from '@/views/chart/ContentConfigurations/components/hooks/useTargetData.hook'
-import { RequestHeaderTable } from '../RequestHeaderTable/index'
-
+import { RequestConfigType } from '@/store/modules/chartEditStore/chartEditStore.d'
 import {
   RequestParamsTypeEnum,
   RequestContentTypeEnum,
@@ -102,9 +101,13 @@ import {
   RequestHttpEnum
 } from '@/enums/httpEnum'
 
-const { targetData } = useTargetData()
+const props = defineProps({
+  targetDataRequest: Object as PropType<RequestConfigType>
+})
 
-const { requestHttpType, requestContentType, requestSQLContent, requestParams, requestParamsBodyType } = toRefs(targetData.value.request)
+const { requestHttpType, requestContentType, requestSQLContent, requestParams, requestParamsBodyType } = toRefs(
+  props.targetDataRequest as RequestConfigType
+)
 
 const tabValue = ref<RequestParamsTypeEnum>(RequestParamsTypeEnum.PARAMS)
 

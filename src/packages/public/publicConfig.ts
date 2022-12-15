@@ -20,7 +20,7 @@ import { chartInitConfig } from '@/settings/designSetting'
 import cloneDeep from 'lodash/cloneDeep'
 
 // 请求基础属性
-const requestConfig: RequestConfigType = {
+export const requestConfig: RequestConfigType = {
   requestDataType: RequestDataTypeEnum.STATIC,
   requestHttpType: RequestHttpEnum.GET,
   requestUrl: '',

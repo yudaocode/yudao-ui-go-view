@@ -69,21 +69,20 @@
 </template>
 
 <script script lang="ts" setup>
-import { reactive } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import { ListType } from './index.d'
 import { useSettingStore } from '@/store/modules/settingStore/settingStore'
 import { SettingStoreEnums, ToolsStatusEnum } from '@/store/modules/settingStore/settingStore.d'
 import { icon } from '@/plugins'
 
-const { HelpOutlineIcon, CloseIcon } = icon.ionicons5
-
-const emit = defineEmits(['update:modelShow'])
-
-defineProps({
+const props = defineProps({
   modelShow: Boolean
 })
 
+const emit = defineEmits(['update:modelShow'])
+const { HelpOutlineIcon, CloseIcon } = icon.ionicons5
 const settingStore = useSettingStore()
+const modelShow = ref(false)
 
 const list = reactive<ListType[]>([
   {
@@ -167,6 +166,10 @@ const list = reactive<ListType[]>([
     desc: '工作空间移动图表时的吸附距离'
   }
 ])
+
+watch(() => props.modelShow, (newValue) => {
+  modelShow.value = newValue
+})
 
 const closeHandle = () => {
   emit('update:modelShow', false)

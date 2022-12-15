@@ -142,7 +142,6 @@ $textSize: 10px;
   /* 选中样式 */
   &.select {
     border: 1px solid v-bind('themeColor');
-    /* 需要设置最高级，覆盖 hover 的颜色 */
     background-color: rgba(0, 0, 0, 0);
   }
 

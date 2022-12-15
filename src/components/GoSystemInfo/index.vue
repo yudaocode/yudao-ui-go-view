@@ -42,13 +42,19 @@
 </template>
 
 <script lang="ts" setup>
+import { ref, watch } from 'vue'
 import { icon } from '@/plugins'
 
-const { HelpOutlineIcon, CloseIcon } = icon.ionicons5
-const emit = defineEmits(['update:modelShow'])
-
-defineProps({
+const props = defineProps({
   modelShow: Boolean
+})
+
+const emit = defineEmits(['update:modelShow'])
+const { HelpOutlineIcon, CloseIcon } = icon.ionicons5
+const modelShow = ref(false)
+
+watch(() => props.modelShow, (newValue) => {
+  modelShow.value = newValue
 })
 
 const closeHandle = () => {

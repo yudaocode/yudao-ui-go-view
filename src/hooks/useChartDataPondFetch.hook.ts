@@ -64,7 +64,7 @@ export const useChartDataPondFetch = () => {
     const { requestDataPond } = chartEditStore.getRequestGlobalConfig
 
     // 组件对应的数据池 Id
-    const requestDataPondId = '111' || (targetComponent.request.requestDataPondId as string)
+    const requestDataPondId = targetComponent.request.requestDataPondId as string
     // 新增数据项
     const mittPondIdArr = mittDataPondMap.get(requestDataPondId) || []
     mittPondIdArr.push({

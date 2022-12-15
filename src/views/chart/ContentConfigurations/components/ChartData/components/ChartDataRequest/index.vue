@@ -7,7 +7,7 @@
         <div class="go-pr-3">
           <n-space vertical>
             <request-global-config></request-global-config>
-            <request-target-config></request-target-config>
+            <request-target-config :target-data-request="targetData?.request"></request-target-config>
           </n-space>
         </div>
       </n-scrollbar>
@@ -17,9 +17,11 @@
           <div>
             <n-text>「 {{ chartConfig.categoryName }} 」</n-text>
             <n-text>—— </n-text>
-            <n-tag type="primary" :bordered="false" style="border-radius: 5px"> {{ requestContentTypeObj[requestContentType] }} </n-tag>
+            <n-tag type="primary" :bordered="false" style="border-radius: 5px">
+              {{ requestContentTypeObj[requestContentType] }}
+            </n-tag>
           </div>
-          <n-button type="primary" @click="closeHandle">保存 & 发送请求</n-button>
+          <n-button type="primary" @click="closeAndSendHandle"> {{ saveBtnText || '保存 & 发送请求' }}</n-button>
         </n-space>
       </template>
     </n-card>
@@ -27,28 +29,33 @@
 </template>
 
 <script script lang="ts" setup>
-import { toRefs } from 'vue'
+import { toRefs, PropType } from 'vue'
 import { RequestContentTypeEnum } from '@/enums/httpEnum'
 import { useTargetData } from '../../../hooks/useTargetData.hook'
 import { RequestGlobalConfig } from './components/RequestGlobalConfig'
 import { RequestTargetConfig } from './components/RequestTargetConfig'
+import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 
+const props = defineProps({
+  modelShow: Boolean,
+  targetData: Object as PropType<CreateComponentType>,
+  saveBtnText: String || null
+})
 const emit = defineEmits(['update:modelShow', 'sendHandle'])
 
-const { targetData } = useTargetData()
 // 解构基础配置
-const { chartConfig } = toRefs(targetData.value)
-const { requestContentType } = toRefs(targetData.value.request)
+const { chartConfig } = toRefs(props.targetData as CreateComponentType)
+const { requestContentType } = toRefs((props.targetData as CreateComponentType).request)
 const requestContentTypeObj = {
   [RequestContentTypeEnum.DEFAULT]: '普通请求',
   [RequestContentTypeEnum.SQL]: 'SQL 请求'
 }
 
-defineProps({
-  modelShow: Boolean
-})
-
 const closeHandle = () => {
+  emit('update:modelShow', false)
+}
+
+const closeAndSendHandle = () => {
   emit('update:modelShow', false)
   emit('sendHandle')
 }

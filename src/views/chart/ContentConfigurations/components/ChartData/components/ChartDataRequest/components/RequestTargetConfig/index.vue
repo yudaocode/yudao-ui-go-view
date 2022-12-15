@@ -5,7 +5,7 @@
     :itemRightStyle="{
       gridTemplateColumns: '6fr 2fr'
     }"
-    style="padding-right: 25px;"
+    style="padding-right: 25px"
   >
     <template #name>
       地址
@@ -51,15 +51,16 @@
     </setting-item>
   </setting-item-box>
   <setting-item-box name="选择方式" class="go-mt-0">
-    <request-header></request-header>
+    <request-header :targetDataRequest="targetDataRequest"></request-header>
   </setting-item-box>
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs } from 'vue'
+import { PropType, toRefs } from 'vue'
 import { SettingItemBox, SettingItem } from '@/components/Pages/ChartItemSetting'
 import { useTargetData } from '@/views/chart/ContentConfigurations/components/hooks/useTargetData.hook'
 import { selectTypeOptions, selectTimeOptions } from '@/views/chart/ContentConfigurations/components/ChartData/index.d'
+import { RequestConfigType } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { RequestHeader } from '../RequestHeader'
 import { isDev } from '@/utils'
 import { icon } from '@/plugins'
@@ -82,10 +83,16 @@ import {
   threeEarth01Url
 } from '@/api/mock'
 
+const props = defineProps({
+  targetDataRequest: Object as PropType<RequestConfigType>
+})
+
 const { HelpOutlineIcon } = icon.ionicons5
-const { targetData, chartEditStore } = useTargetData()
+const { chartEditStore } = useTargetData()
 const { requestOriginUrl } = toRefs(chartEditStore.getRequestGlobalConfig)
-const { requestInterval, requestIntervalUnit, requestHttpType, requestUrl } = toRefs(targetData.value.request)
+const { requestInterval, requestIntervalUnit, requestHttpType, requestUrl } = toRefs(
+  props.targetDataRequest as RequestConfigType
+)
 
 const apiList = [
   {

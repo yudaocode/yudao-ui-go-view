@@ -12,7 +12,7 @@
           <n-input size="small" :placeholder="targetData.request.requestHttpType || '暂无'" :disabled="true"></n-input>
         </setting-item>
 
-        <setting-item name="组件间隔（高级）">
+        <setting-item name="组件间隔">
           <n-input size="small" :placeholder="`${targetData.request.requestInterval || '暂无'}`" :disabled="true">
             <template #suffix> {{ SelectHttpTimeNameObj[targetData.request.requestIntervalUnit] }} </template>
           </n-input>
@@ -75,7 +75,11 @@
     <!-- 骨架图 -->
     <go-skeleton :load="loading" :repeat="3"></go-skeleton>
     <!-- 请求配置model -->
-    <chart-data-request v-model:modelShow="requestShow" @sendHandle="sendHandle"></chart-data-request>
+    <chart-data-request
+      v-model:modelShow="requestShow"
+      :targetData="targetData"
+      @sendHandle="sendHandle"
+    ></chart-data-request>
   </div>
 </template>
 
@@ -124,7 +128,7 @@ const sendHandle = async () => {
     const res = await customizeHttp(toRaw(targetData.value.request), toRaw(chartEditStore.getRequestGlobalConfig))
     loading.value = false
     if (res) {
-      if(!res?.data && !targetData.value.filter) window['$message'].warning('您的数据不符合默认格式，请配置过滤器！')
+      if (!res?.data && !targetData.value.filter) window['$message'].warning('您的数据不符合默认格式，请配置过滤器！')
       targetData.value.option.dataset = newFunctionHandle(res?.data, res, targetData.value.filter)
       showMatching.value = true
       return
