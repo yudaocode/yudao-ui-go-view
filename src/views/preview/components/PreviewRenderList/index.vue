@@ -78,5 +78,6 @@ onMounted(() => {
 <style lang="scss" scoped>
 .chart-item {
   position: absolute;
+  overflow: hidden;
 }
 </style>
