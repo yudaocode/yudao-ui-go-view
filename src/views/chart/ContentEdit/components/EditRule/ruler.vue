@@ -46,7 +46,7 @@ const handleWheel = (e: any) => {
         // const nextScale = parseFloat(Math.max(.2, scale.value - e.deltaY / canvasBox().height).toFixed(2))
         // chartEditStore.setScale(nextScale)
 
-        chartEditStore.setScale(e.wheelDelta >= 120 ? scale.value + 0.01 : e.wheelDelta <= 120 ? scale.value - 0.01 : scale.value)
+        chartEditStore.setScale(e.wheelDelta >= 120 ? scale.value + 0.02 : e.wheelDelta <= 120 ? scale.value - 0.02 : scale.value)
     }
 }
 
@@ -108,13 +108,14 @@ onUnmounted(() => {
 })
 
 const dragCanvas = (e: any) => {
-    if (!window.$KeyboardActive?.space) return
-
-    // @ts-ignore
-    document.activeElement?.blur()
-
     e.preventDefault()
     e.stopPropagation()
+
+    if (e.which == 2) {
+        window.onKeySpacePressHold?.(true)
+    } else if (!window.$KeyboardActive?.space) return
+    // @ts-ignore
+    document.activeElement?.blur()
 
     const startX = e.pageX
     const startY = e.pageY
@@ -138,6 +139,7 @@ const dragCanvas = (e: any) => {
         un2()
         prevMoveXVallue = [0, 0]
         prevMoveYVallue = [0, 0]
+        window.onKeySpacePressHold?.(false)
     })
 }
 
