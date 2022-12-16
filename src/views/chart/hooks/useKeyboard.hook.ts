@@ -110,21 +110,33 @@ const macKeyList: Array<string> = [
 const keyRecordHandle = () => {
   // 默认赋值
   window.$KeyboardActive = {
-    ctrl: false
+    ctrl: false,
+    space: false
   }
-  
+
   document.onkeydown = (e: KeyboardEvent) => {
-    if(e.keyCode === 17 && window.$KeyboardActive) {
+    const { keyCode } = e
+    if (keyCode == 32 && e.target == document.body) e.preventDefault()
+
+    if ([17, 32].includes(keyCode) && window.$KeyboardActive) {
       setKeyboardDressShow(e.keyCode)
-      window.$KeyboardActive.ctrl = true
+      switch (keyCode) {
+        case 17: window.$KeyboardActive.ctrl = true; break
+        case 32: window.$KeyboardActive.space = true; break
+      }
     }
   }
 
   document.onkeyup = (e: KeyboardEvent) => {
-    if(e.keyCode === 17 && window.$KeyboardActive) 
-    {
-      window.$KeyboardActive.ctrl = false
+    const { keyCode } = e
+    if (keyCode == 32 && e.target == document.body) e.preventDefault()
+
+    if ([17, 32].includes(keyCode) && window.$KeyboardActive) {
       setKeyboardDressShow()
+      switch (keyCode) {
+        case 17: window.$KeyboardActive.ctrl = false; break
+        case 32: window.$KeyboardActive.space = false; break
+      }
     }
   }
 }

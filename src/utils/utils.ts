@@ -273,15 +273,21 @@ export const objToCookie = (obj: RequestParamsObjType) => {
  * @returns
  */
 export const setKeyboardDressShow = (keyCode?: number) => {
-  const code = new Map([[17, WinKeyboard.CTRL]])
+  const code = new Map([
+    [17, WinKeyboard.CTRL],
+    [32, WinKeyboard.SPACE]
+  ])
 
   const dom = document.getElementById('keyboard-dress-show')
   if (!dom) return
   if (!keyCode) {
+    window.onKeySpacePressHold?.(false)
     dom.innerText = ''
     return
   }
   if (keyCode && code.has(keyCode)) {
+    window.onKeySpacePressHold?.(true)
     dom.innerText = `按下了「${code.get(keyCode)}」键`
   }
 }
+
