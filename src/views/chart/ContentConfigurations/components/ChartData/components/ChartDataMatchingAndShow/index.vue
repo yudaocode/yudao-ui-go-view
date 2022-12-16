@@ -117,7 +117,7 @@ const { uploadFileListRef, customRequest, beforeUpload, download } = useFile(tar
 
 // 是否展示过滤器
 const filterShow = computed(() => {
-  return targetData.value.request.requestDataType === RequestDataTypeEnum.AJAX
+  return targetData.value.request.requestDataType !== RequestDataTypeEnum.STATIC
 })
 
 // 是支持 dataset 的图表类型

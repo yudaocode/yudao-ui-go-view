@@ -34,7 +34,7 @@
   </template>
 
   <!-- 弹窗 -->
-  <n-modal class="go-chart-data-monaco-editor" v-model:show="showModal" :mask-closable="false">
+  <n-modal class="go-chart-data-monaco-editor" v-model:show="showModal" :mask-closable="false" :closeOnEsc="false">
     <n-card :bordered="false" role="dialog" size="small" aria-modal="true" style="width: 1000px; height: 600px">
       <template #header>
         <n-space>
@@ -101,7 +101,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, watch, toRefs, toRaw } from 'vue'
+import { ref, computed, watch, toRef, toRefs, toRaw, reactive } from 'vue'
 import { useTargetData } from '../../../hooks/useTargetData.hook'
 import { MonacoEditor } from '@/components/Pages/MonacoEditor'
 import { icon } from '@/plugins'
@@ -187,7 +187,10 @@ const saveFilter = () => {
 watch(
   () => showModal.value,
   (newData: boolean) => {
-    if (newData) fetchTargetData()
+    if (newData) {
+      fetchTargetData()
+      filter.value = targetData.value.filter || `return data`
+    }
   }
 )
 </script>

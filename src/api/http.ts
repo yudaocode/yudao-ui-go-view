@@ -116,7 +116,6 @@ export const customizeHttp = (targetParams: RequestConfigType, globalParams: Req
   if (!targetParams || !globalParams) {
     return
   }
-
   // 全局
   const {
     // 全局请求源地址
