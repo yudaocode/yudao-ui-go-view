@@ -282,9 +282,9 @@ const customRequest = (options: UploadCustomRequestOptions) => {
       )
       let uploadParams = new FormData()
       uploadParams.append('object', newNameFile)
-      const uploadRes = await uploadFile(uploadParams) as unknown as MyResponseType
+      const uploadRes = await uploadFile(uploadParams)
 
-      if(uploadRes.code === ResultEnum.SUCCESS) {
+      if(uploadRes && uploadRes.code === ResultEnum.SUCCESS) {
         chartEditStore.setEditCanvasConfig(
           EditCanvasConfigEnum.BACKGROUND_IMAGE,
           `${systemStore.getFetchInfo.OSSUrl}${uploadRes.data.fileName}?time=${new Date().getTime()}`

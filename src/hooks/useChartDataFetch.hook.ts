@@ -26,11 +26,10 @@ export const useChartDataFetch = (
 
   // 数据池
   const { addGlobalDataInterface } = useChartDataPondFetch()
-  const { requestDataPondId } = toRefs(targetComponent.request)
 
   // 组件类型
   const { chartFrame } = targetComponent.chartConfig
-  
+
   // eCharts 组件配合 vChart 库更新方式
   const echartsUpdateHandle = (dataset: any) => {
     if (chartFrame === ChartFrameEnum.ECHARTS) {
@@ -89,7 +88,6 @@ export const useChartDataFetch = (
 
         // 立即调用
         fetchFn()
-
         // 定时时间
         const time = targetInterval && targetInterval.value ? targetInterval.value : globalRequestInterval.value
         // 单位
@@ -104,8 +102,8 @@ export const useChartDataFetch = (
   }
 
   if (isPreview()) {
-    // 判断是否有数据池对应 id
-    requestDataPondId
+    // 判断是否是数据池类型
+    targetComponent.request.requestDataType === RequestDataTypeEnum.Pond
       ? addGlobalDataInterface(targetComponent, useChartEditStore, updateCallback || echartsUpdateHandle)
       : requestIntervalFn()
   }

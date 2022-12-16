@@ -224,10 +224,13 @@ export const useSync = () => {
 
   // * 数据获取
   const dataSyncFetch = async () => {
+    // FIX:重新执行dataSyncFetch需清空chartEditStore.componentList,否则会导致图层重复
+    // 切换语言等操作会导致重新执行 dataSyncFetch,此时pinia中并未清空chartEditStore.componentList，导致图层重复
+    chartEditStore.componentList = []
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.START)
     try {
-      const res = await fetchProjectApi({ projectId: fetchRouteParamsLocation() }) as unknown as MyResponseType
-      if (res.code === ResultEnum.SUCCESS) {
+      const res = await fetchProjectApi({ projectId: fetchRouteParamsLocation() })
+      if (res && res.code === ResultEnum.SUCCESS) {
         if (res.data) {
           updateStoreInfo(res.data)
           // 更新全局数据
@@ -275,9 +278,9 @@ export const useSync = () => {
         // 上传预览图
         let uploadParams = new FormData()
         uploadParams.append('object', base64toFile(canvasImage.toDataURL(), `${fetchRouteParamsLocation()}_index_preview.png`))
-        const uploadRes = await uploadFile(uploadParams) as unknown as MyResponseType
+        const uploadRes = await uploadFile(uploadParams)
         // 保存预览图
-        if(uploadRes.code === ResultEnum.SUCCESS) {
+        if(uploadRes && uploadRes.code === ResultEnum.SUCCESS) {
           await updateProjectApi({
             id: fetchRouteParamsLocation(),
             indexImage: `${systemStore.getFetchInfo.OSSUrl}${uploadRes.data.fileName}`
@@ -292,9 +295,9 @@ export const useSync = () => {
     let params = new FormData()
     params.append('projectId', projectId)
     params.append('content', JSON.stringify(chartEditStore.getStorageInfo || {}))
-    const res= await saveProjectApi(params) as unknown as MyResponseType
+    const res= await saveProjectApi(params)
 
-    if (res.code === ResultEnum.SUCCESS) {
+    if (res && res.code === ResultEnum.SUCCESS) {
       // 成功状态
       setTimeout(() => {
         chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.SUCCESS)

@@ -152,9 +152,9 @@ const sendHandle = async () => {
     id: fetchRouteParamsLocation(),
     // 反过来
     state: release.value ? -1 : 1,
-  })) as unknown as MyResponseType
+  }))
 
-  if (res.code === ResultEnum.SUCCESS) {
+  if (res && res.code === ResultEnum.SUCCESS) {
     modelShowHandle()
     if (!release.value) {
       copyPreviewPath('发布成功！已复制地址到剪贴板~', '发布成功！')

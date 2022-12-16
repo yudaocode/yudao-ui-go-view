@@ -3,7 +3,7 @@ import { customizeHttp } from '@/api/http'
 import { CreateComponentType } from '@/packages/index.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { RequestGlobalConfigType, RequestDataPondItemType } from '@/store/modules/chartEditStore/chartEditStore.d'
-import { newFunctionHandle } from '@/utils'
+import { newFunctionHandle, intervalUnitHandle } from '@/utils'
 
 // 获取类型
 type ChartEditStoreType = typeof useChartEditStore
@@ -24,6 +24,9 @@ const newPondItemInterval = (
   dataPondMapItem?: DataPondMapType[]
 ) => {
   if (!dataPondMapItem) return
+  let fetchInterval: any = 0
+
+  clearInterval(fetchInterval)
 
   // 请求
   const fetchFn = async () => {
@@ -48,6 +51,19 @@ const newPondItemInterval = (
 
   // 立即调用
   fetchFn()
+
+  const targetInterval = requestDataPondItem.dataPondRequestConfig.requestInterval
+  const targetUnit = requestDataPondItem.dataPondRequestConfig.requestIntervalUnit
+
+  const globalRequestInterval = requestGlobalConfig.requestInterval
+  const globalUnit = requestGlobalConfig.requestIntervalUnit
+
+  // 定时时间
+  const time = targetInterval  ? targetInterval : globalRequestInterval
+  // 单位
+  const unit = targetInterval  ? targetUnit : globalUnit
+  // 开启轮询
+  if (time) fetchInterval = setInterval(fetchFn, intervalUnitHandle(time, unit))
 }
 
 /**
@@ -64,7 +80,7 @@ export const useChartDataPondFetch = () => {
     const { requestDataPond } = chartEditStore.getRequestGlobalConfig
 
     // 组件对应的数据池 Id
-    const requestDataPondId = '111' || (targetComponent.request.requestDataPondId as string)
+    const requestDataPondId = targetComponent.request.requestDataPondId as string
     // 新增数据项
     const mittPondIdArr = mittDataPondMap.get(requestDataPondId) || []
     mittPondIdArr.push({
@@ -72,6 +88,11 @@ export const useChartDataPondFetch = () => {
       filter: targetComponent.filter
     })
     mittDataPondMap.set(requestDataPondId, mittPondIdArr)
+  }
+
+  // 清除旧数据
+  const clearMittDataPondMap = () => {
+    mittDataPondMap.clear()
   }
 
   // 初始化数据池
@@ -88,6 +109,7 @@ export const useChartDataPondFetch = () => {
 
   return {
     addGlobalDataInterface,
+    clearMittDataPondMap,
     initDataPond
   }
 }

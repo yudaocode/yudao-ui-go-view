@@ -12,7 +12,7 @@
           <n-input size="small" :placeholder="targetData.request.requestHttpType || '暂无'" :disabled="true"></n-input>
         </setting-item>
 
-        <setting-item name="组件间隔（高级）">
+        <setting-item name="组件间隔">
           <n-input size="small" :placeholder="`${targetData.request.requestInterval || '暂无'}`" :disabled="true">
             <template #suffix> {{ SelectHttpTimeNameObj[targetData.request.requestIntervalUnit] }} </template>
           </n-input>
@@ -41,13 +41,9 @@
         </n-input>
       </setting-item-box>
 
-      <n-space justify="end">
-        <n-text depth="3" style="font-size: 12px">更新内容请点击展示区域</n-text>
-      </n-space>
-
       <div class="edit-text" @click="requestModelHandle">
         <div class="go-absolute-center">
-          <n-button type="primary" secondary>查看更多</n-button>
+          <n-button type="primary" secondary>编辑配置</n-button>
         </div>
       </div>
     </n-card>
@@ -76,10 +72,16 @@
 
     <!-- 底部数据展示 -->
     <chart-data-matching-and-show :show="showMatching && !loading" :ajax="true"></chart-data-matching-and-show>
+
     <!-- 骨架图 -->
     <go-skeleton :load="loading" :repeat="3"></go-skeleton>
+    
     <!-- 请求配置model -->
-    <chart-data-request v-model:modelShow="requestShow" @sendHandle="sendHandle"></chart-data-request>
+    <chart-data-request
+      v-model:modelShow="requestShow"
+      :targetData="targetData"
+      @sendHandle="sendHandle"
+    ></chart-data-request>
   </div>
 </template>
 
@@ -95,7 +97,7 @@ import { http, customizeHttp } from '@/api/http'
 import { SelectHttpType } from '../../index.d'
 import { ChartDataMatchingAndShow } from '../ChartDataMatchingAndShow'
 import { useTargetData } from '../../../hooks/useTargetData.hook'
-import { isDev, newFunctionHandle } from '@/utils'
+import { newFunctionHandle } from '@/utils'
 
 const { HelpOutlineIcon, FlashIcon, PulseIcon } = icon.ionicons5
 const { targetData, chartEditStore } = useTargetData()
@@ -128,7 +130,7 @@ const sendHandle = async () => {
     const res = await customizeHttp(toRaw(targetData.value.request), toRaw(chartEditStore.getRequestGlobalConfig))
     loading.value = false
     if (res) {
-      if(!res?.data && !targetData.value.filter) window['$message'].warning('您的数据不符合默认格式，请配置过滤器！')
+      if (!res?.data && !targetData.value.filter) window['$message'].warning('您的数据不符合默认格式，请配置过滤器！')
       targetData.value.option.dataset = newFunctionHandle(res?.data, res, targetData.value.filter)
       showMatching.value = true
       return
@@ -175,7 +177,7 @@ onBeforeUnmount(() => {
       top: 0px;
       left: 0px;
       width: 325px;
-      height: 292px;
+      height: 270px;
       cursor: pointer;
       opacity: 0;
       transition: all 0.3s;
