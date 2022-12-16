@@ -187,7 +187,7 @@ const saveFilter = () => {
 watch(
   () => showModal.value,
   (newData: boolean) => {
-    if (newData){
+    if (newData) {
       fetchTargetData()
       filter.value = targetData.value.filter || `return data`
     }
