@@ -63,12 +63,26 @@ watch(
     }
 )
 
+// 滚动居中
+const canvasPosCenter = () => {
+    const { width: containerWidth, height: containerHeight } = $container.value.getBoundingClientRect()
+    const { width, height } = canvasBox()
+
+    $app.value.scrollLeft = containerWidth / 2 - width / 2
+    $app.value.scrollTop = containerHeight / 2 - height / 2
+}
+
 onMounted(() => {
     $app.value.addEventListener('wheel', handleWheel, { passive: false })
-    // 滚动居中
-    $app.value.scrollLeft = $container.value.getBoundingClientRect().width / 2 - canvasBox().width / 2
+    canvasPosCenter()
 
 })
+
+window.onCanvsSizecomputed = () => {
+    setTimeout(() => {
+        canvasPosCenter()
+    }, 500)
+}
 
 const handleScroll = () => {
     const screensRect = $app.value.getBoundingClientRect()
@@ -133,7 +147,7 @@ const canvasBox = () => {
     const layoutDom = document.getElementById('go-chart-edit-layout')
     if (layoutDom) {
         return {
-            height: layoutDom.clientHeight - 40 - 44,
+            height: layoutDom.clientHeight - 25,
             width: layoutDom.clientWidth
         }
     }
@@ -178,9 +192,10 @@ const canvasBox = () => {
 
 .canvas {
     position: absolute;
-    top: 80px;
+    top: 50%;
     left: 50%;
     transform-origin: 50% 0;
+    transform: translateY(-50%);
 
     &:hover {
         cursor: v-bind('cursorStyle');

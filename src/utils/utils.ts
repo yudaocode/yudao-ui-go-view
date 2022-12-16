@@ -281,7 +281,7 @@ export const setKeyboardDressShow = (keyCode?: number) => {
   const dom = document.getElementById('keyboard-dress-show')
   if (!dom) return
   if (!keyCode) {
-    if (keyCode == 32) window.onKeySpacePressHold?.(false)
+    window.onKeySpacePressHold?.(false)
     dom.innerText = ''
     return
   }
