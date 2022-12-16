@@ -43,7 +43,9 @@ const option = {
       },
       label: {
         show: false,
-        position: 'center'
+        position: 'center',
+        formatter: '{b}',
+        fontSize:12
       },
       emphasis: {
         label: {
