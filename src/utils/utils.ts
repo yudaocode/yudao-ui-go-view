@@ -281,12 +281,12 @@ export const setKeyboardDressShow = (keyCode?: number) => {
   const dom = document.getElementById('keyboard-dress-show')
   if (!dom) return
   if (!keyCode) {
-    window.onKeySpacePressHold?.(false)
+    if (keyCode == 32) window.onKeySpacePressHold?.(false)
     dom.innerText = ''
     return
   }
   if (keyCode && code.has(keyCode)) {
-    window.onKeySpacePressHold?.(true)
+    if (keyCode == 32) window.onKeySpacePressHold?.(true)
     dom.innerText = `按下了「${code.get(keyCode)}」键`
   }
 }
