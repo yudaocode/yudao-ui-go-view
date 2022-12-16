@@ -151,7 +151,7 @@ const canvasBox = () => {
   const layoutDom = document.getElementById('go-chart-edit-layout')
   if (layoutDom) {
     return {
-      height: layoutDom.clientHeight - 40 - 44,
+      height: layoutDom.clientHeight,
       width: layoutDom.clientWidth
     }
   }
@@ -219,10 +219,6 @@ window.onKeySpacePressHold = (isHold: boolean) => {
 #mb-ruler {
   top: 0;
   left: 0;
-}
-/* 适配底部的工具栏不遮盖 */
-#mb-ruler .v-container {
-  height: calc(100% - 65px) !important;
 }
 /* 横线 */
 #mb-ruler .v-container .lines .line {
