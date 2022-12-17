@@ -40,8 +40,8 @@ const chartEditStore = useChartEditStore()
 const designStore = useDesignStore()
 
 const thick = 20
-let prevMoveXVallue = [0, 0]
-let prevMoveYVallue = [0, 0]
+let prevMoveXValue = [0, 0]
+let prevMoveYValue = [0, 0]
 
 const $app = ref()
 const sketchRuleReDraw = ref(true)
@@ -127,11 +127,11 @@ const dragCanvas = (e: any) => {
     const nx = e.pageX - startX
     const ny = e.pageY - startY
 
-    const [prevMoveX1, prevMoveX2] = prevMoveXVallue
-    const [prevMoveY1, prevMoveY2] = prevMoveYVallue
+    const [prevMoveX1, prevMoveX2] = prevMoveXValue
+    const [prevMoveY1, prevMoveY2] = prevMoveYValue
 
-    prevMoveXVallue = [prevMoveX2, nx]
-    prevMoveYVallue = [prevMoveY2, ny]
+    prevMoveXValue = [prevMoveX2, nx]
+    prevMoveYValue = [prevMoveY2, ny]
 
     $app.value.scrollLeft -=
       prevMoveX2 > prevMoveX1 ? Math.abs(prevMoveX2 - prevMoveX1) : -Math.abs(prevMoveX2 - prevMoveX1)
@@ -142,8 +142,8 @@ const dragCanvas = (e: any) => {
   const listenMouseup = listen(window, 'mouseup', () => {
     listenMousemove()
     listenMouseup()
-    prevMoveXVallue = [0, 0]
-    prevMoveYVallue = [0, 0]
+    prevMoveXValue = [0, 0]
+    prevMoveYValue = [0, 0]
     isPressSpace.value = false
   })
 }
