@@ -165,7 +165,7 @@ $max-width: 670px;
     .scale-slider {
       position: relative;
       top: -4px;
-      width: 200px;
+      width: 100px;
     }
   }
 }
