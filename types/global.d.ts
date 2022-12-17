@@ -11,9 +11,6 @@ interface Window {
 
   // 编辑 JSON 的存储对象
   opener: any
-
-  //当画布大小重新计算后
-  onCanvsSizecomputed:Function
 }
 
 declare type Recordable<T = any> = Record<string, T>

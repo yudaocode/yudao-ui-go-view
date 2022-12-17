@@ -928,8 +928,6 @@ export const useChartEditStore = defineStore({
           const scaleHeight = parseFloat((width / baseProportion / editCanvasHeight).toFixed(5))
           this.setScale(scaleHeight > 1 ? 1 : scaleHeight)
         }
-
-        window.onCanvsSizecomputed?.()
       } else {
         window['$message'].warning('请先创建画布，再进行缩放')
       }
