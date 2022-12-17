@@ -1,12 +1,25 @@
 <template>
   <div class="go-sketch-rule">
-    <sketch-rule v-if="sketchRuleReDraw" :thick="thick" :scale="scale" :width="canvasBox().width"
-      :height="canvasBox().height" :startX="startX" :startY="startY" :lines="lines" :palette="paletteStyle">
+    <sketch-rule
+      v-if="sketchRuleReDraw"
+      :thick="thick"
+      :scale="scale"
+      :width="canvasBox().width"
+      :height="canvasBox().height"
+      :startX="startX"
+      :startY="startY"
+      :lines="lines"
+      :palette="paletteStyle"
+    >
     </sketch-rule>
     <div ref="$app" class="edit-screens" @scroll="handleScroll">
       <div ref="$container" class="edit-screen-container" :style="{ width: width * 2 + 'px' }">
-        <div ref="refSketchRuleBox" class="canvas" @mousedown="dragCanvas"
-          :style="{ marginLeft: '-' + (canvasBox().width / 2 - 25) + 'px' }">
+        <div
+          ref="refSketchRuleBox"
+          class="canvas"
+          @mousedown="dragCanvas"
+          :style="{ marginLeft: '-' + (canvasBox().width / 2 - 25) + 'px' }"
+        >
           <div :style="{ pointerEvents: isPressSpace ? 'none' : 'auto' }">
             <slot></slot>
           </div>
@@ -55,14 +68,14 @@ const paletteStyle = computed(() => {
   const isDarkTheme = designStore.getDarkTheme
   return isDarkTheme
     ? {
-      bgColor: '#18181c',
-      longfgColor: '#4d4d4d',
-      shortfgColor: '#4d4d4d',
-      fontColor: '#4d4d4d',
-      shadowColor: '#18181c',
-      borderColor: '#18181c',
-      cornerActiveColor: '#18181c'
-    }
+        bgColor: '#18181c',
+        longfgColor: '#4d4d4d',
+        shortfgColor: '#4d4d4d',
+        fontColor: '#4d4d4d',
+        shadowColor: '#18181c',
+        borderColor: '#18181c',
+        cornerActiveColor: '#18181c'
+      }
     : {}
 })
 
@@ -182,7 +195,7 @@ watch(
       chartEditStore.setScale(newValue)
       setTimeout(() => {
         canvasPosCenter()
-      }, 500);
+      }, 500)
     }
   }
 )
