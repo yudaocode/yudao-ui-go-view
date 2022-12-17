@@ -286,7 +286,7 @@ export const setKeyboardDressShow = (keyCode?: number) => {
     return
   }
   if (keyCode && code.has(keyCode)) {
-    window.onKeySpacePressHold?.(true)
+    if (keyCode == 32) window.onKeySpacePressHold?.(true)
     dom.innerText = `按下了「${code.get(keyCode)}」键`
   }
 }

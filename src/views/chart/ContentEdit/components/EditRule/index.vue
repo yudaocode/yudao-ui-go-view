@@ -1,25 +1,12 @@
 <template>
   <div class="go-sketch-rule">
-    <sketch-rule
-      v-if="sketchRuleReDraw"
-      :thick="thick"
-      :scale="scale"
-      :width="canvasBox().width"
-      :height="canvasBox().height"
-      :startX="startX"
-      :startY="startY"
-      :lines="lines"
-      :palette="paletteStyle"
-    >
+    <sketch-rule v-if="sketchRuleReDraw" :thick="thick" :scale="scale" :width="canvasBox().width"
+      :height="canvasBox().height" :startX="startX" :startY="startY" :lines="lines" :palette="paletteStyle">
     </sketch-rule>
     <div ref="$app" class="edit-screens" @scroll="handleScroll">
       <div ref="$container" class="edit-screen-container" :style="{ width: width * 2 + 'px' }">
-        <div
-          ref="refSketchRuleBox"
-          class="canvas"
-          @mousedown="dragCanvas"
-          :style="{ marginLeft: '-' + (canvasBox().width / 2 - 25) + 'px' }"
-        >
+        <div ref="refSketchRuleBox" class="canvas" @mousedown="dragCanvas"
+          :style="{ marginLeft: '-' + (canvasBox().width / 2 - 25) + 'px' }">
           <div :style="{ pointerEvents: isPressSpace ? 'none' : 'auto' }">
             <slot></slot>
           </div>
@@ -68,14 +55,14 @@ const paletteStyle = computed(() => {
   const isDarkTheme = designStore.getDarkTheme
   return isDarkTheme
     ? {
-        bgColor: '#18181c',
-        longfgColor: '#4d4d4d',
-        shortfgColor: '#4d4d4d',
-        fontColor: '#4d4d4d',
-        shadowColor: '#18181c',
-        borderColor: '#18181c',
-        cornerActiveColor: '#18181c'
-      }
+      bgColor: '#18181c',
+      longfgColor: '#4d4d4d',
+      shortfgColor: '#4d4d4d',
+      fontColor: '#4d4d4d',
+      shadowColor: '#18181c',
+      borderColor: '#18181c',
+      cornerActiveColor: '#18181c'
+    }
     : {}
 })
 
@@ -112,13 +99,13 @@ const handleScroll = () => {
 }
 
 const dragCanvas = (e: any) => {
-  if (!window.$KeyboardActive?.space) return
-
-  // @ts-ignore
-  document.activeElement?.blur()
-
   e.preventDefault()
   e.stopPropagation()
+
+  if (e.which == 2) isPressSpace.value = true
+  else if (!window.$KeyboardActive?.space) return
+  // @ts-ignore
+  document.activeElement?.blur()
 
   const startX = e.pageX
   const startY = e.pageY
@@ -144,6 +131,7 @@ const dragCanvas = (e: any) => {
     listenMouseup()
     prevMoveXVallue = [0, 0]
     prevMoveYVallue = [0, 0]
+    isPressSpace.value = false
   })
 }
 
@@ -151,7 +139,7 @@ const canvasBox = () => {
   const layoutDom = document.getElementById('go-chart-edit-layout')
   if (layoutDom) {
     return {
-      height: layoutDom.clientHeight,
+      height: layoutDom.clientHeight - 25,
       width: layoutDom.clientWidth
     }
   }
@@ -176,6 +164,15 @@ watch(
   }
 )
 
+// 滚动居中
+const canvasPosCenter = () => {
+  const { width: containerWidth, height: containerHeight } = $container.value.getBoundingClientRect()
+  const { width, height } = canvasBox()
+
+  $app.value.scrollLeft = containerWidth / 2 - width / 2
+  $app.value.scrollTop = containerHeight / 2 - height / 2
+}
+
 // 处理标尺重制大小
 watch(
   () => scale.value,
@@ -183,6 +180,9 @@ watch(
     if (oldValue !== newValue) {
       handleScroll()
       chartEditStore.setScale(newValue)
+      setTimeout(() => {
+        canvasPosCenter()
+      }, 500);
     }
   }
 )
@@ -197,8 +197,7 @@ watch(
 onMounted(() => {
   if ($app.value) {
     $app.value.addEventListener('wheel', handleWheel, { passive: false })
-    // 滚动居中
-    $app.value.scrollLeft = $container.value.getBoundingClientRect().width / 2 - canvasBox().width / 2
+    canvasPosCenter()
   }
 })
 
@@ -220,28 +219,34 @@ window.onKeySpacePressHold = (isHold: boolean) => {
   top: 0;
   left: 0;
 }
+
 /* 横线 */
 #mb-ruler .v-container .lines .line {
   /* 最大缩放 200% */
   width: 200vw !important;
   border-top: 1px dashed v-bind('themeColor') !important;
 }
+
 #mb-ruler .v-container .indicator {
   border-bottom: 1px dashed v-bind('themeColor') !important;
 }
+
 /* 竖线 */
 #mb-ruler .h-container .lines .line {
   /* 最大缩放 200% */
   height: 200vh !important;
   border-left: 1px dashed v-bind('themeColor') !important;
 }
+
 #mb-ruler .h-container .indicator {
   border-left: 1px dashed v-bind('themeColor') !important;
 }
+
 /* 坐标数值背景颜色 */
 #mb-ruler .indicator .value {
   background-color: rgba(0, 0, 0, 0);
 }
+
 /* 删除按钮 */
 #mb-ruler .line .del {
   padding: 0;
@@ -302,13 +307,16 @@ window.onKeySpacePressHold = (isHold: boolean) => {
   .edit-screen-container {
     position: absolute;
     height: v-bind('containerWidth');
+    top: 0;
+    left: 0;
   }
 
   .canvas {
     position: absolute;
-    top: 80px;
+    top: 50%;
     left: 50%;
     transform-origin: 50% 0;
+    transform: translateY(-50%);
 
     &:hover {
       cursor: v-bind('cursorStyle');
