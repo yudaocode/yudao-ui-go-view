@@ -85,8 +85,8 @@ const themeColor = computed(() => {
 })
 
 const handleWheel = (e: any) => {
-  e.preventDefault()
   if (e.ctrlKey || e.metaKey) {
+    e.preventDefault()
     let resScale = scale.value
     // 放大(200%)
     if (e.wheelDelta >= 0 && scale.value < 2) {
