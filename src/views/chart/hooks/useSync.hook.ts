@@ -168,7 +168,6 @@ export const useSync = () => {
       if (key === ChartEditStoreEnum.COMPONENT_LIST) {
         let loadIndex = 0
         const listLength = projectData[key].length;
-        console.log(listLength)
         for (const comItem of projectData[key]) {
           // 设置加载数量
           let percentage = parseInt((parseFloat(`${++loadIndex / listLength}`) * 100).toString())
