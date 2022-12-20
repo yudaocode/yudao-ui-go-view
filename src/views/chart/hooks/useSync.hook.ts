@@ -2,6 +2,8 @@ import { getUUID } from '@/utils'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { ChartEditStoreEnum, ChartEditStorage } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
+import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
+import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
 import { fetchChartComponent, fetchConfigComponent, createComponent } from '@/packages/index'
 import { BaseEvent, EventLife, CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 import { PublicGroupConfigClass } from '@/packages/public/publicConfig'
@@ -85,7 +87,7 @@ const componentMerge = (newObject: any, sources: any, notComponent = false) => {
 export const useSync = () => {
   const chartEditStore = useChartEditStore()
   const chartHistoryStore = useChartHistoryStore()
-
+  const chartLayoutStore = useChartLayoutStore()
   /**
    * * 组件动态注册
    * @param projectData 项目数据
@@ -151,7 +153,14 @@ export const useSync = () => {
     for (const key in projectData) {
       // 组件
       if (key === ChartEditStoreEnum.COMPONENT_LIST) {
+        let loadIndex = 0
+        const listLength = projectData[key].length;
+        console.log(listLength)
         for (const comItem of projectData[key]) {
+          // 设置加载数量
+          let percentage = parseInt((parseFloat(`${++loadIndex / listLength}`) * 100).toString())
+          chartLayoutStore.setItemUnHandle(ChartLayoutStoreEnum.PERCENTAGE, percentage)
+          // 判断类型
           if (comItem.isGroup) {
             // 创建分组
             let groupClass = new PublicGroupConfigClass()
@@ -182,6 +191,9 @@ export const useSync = () => {
         componentMerge(chartEditStore[key], projectData[key], true)
       }
     }
+
+    // 清除数量
+    chartLayoutStore.setItemUnHandle(ChartLayoutStoreEnum.PERCENTAGE, 0)
   }
 
   return {
