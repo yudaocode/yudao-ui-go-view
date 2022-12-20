@@ -35,8 +35,11 @@ import { ref, reactive, onMounted, toRefs, watch, onUnmounted, computed } from '
 import { listen } from 'dom-helpers'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
+import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
 
 const chartEditStore = useChartEditStore()
+const chartLayoutStore = useChartLayoutStore()
 const designStore = useDesignStore()
 
 const thick = 20
@@ -84,6 +87,7 @@ const themeColor = computed(() => {
   return designStore.getAppTheme
 })
 
+// 处理鼠标拖动
 const handleWheel = (e: any) => {
   if (e.ctrlKey || e.metaKey) {
     e.preventDefault()
@@ -102,6 +106,7 @@ const handleWheel = (e: any) => {
   }
 }
 
+// 滚动条处理
 const handleScroll = () => {
   if (!$app.value) return
   const screensRect = $app.value.getBoundingClientRect()
@@ -111,6 +116,7 @@ const handleScroll = () => {
   startY.value = (screensRect.top + thick - canvasRect.top) / scale.value
 }
 
+// 拖拽处理
 const dragCanvas = (e: any) => {
   e.preventDefault()
   e.stopPropagation()
@@ -148,6 +154,7 @@ const dragCanvas = (e: any) => {
   })
 }
 
+// 计算画布大小
 const canvasBox = () => {
   const layoutDom = document.getElementById('go-chart-edit-layout')
   if (layoutDom) {
@@ -162,7 +169,7 @@ const canvasBox = () => {
   }
 }
 
-// 在位置不动的情况下重绘标尺
+// 重绘标尺
 const reDraw = () => {
   sketchRuleReDraw.value = false
   setTimeout(() => {
@@ -170,12 +177,6 @@ const reDraw = () => {
   }, 10)
 }
 
-watch(
-  () => designStore.getDarkTheme,
-  () => {
-    reDraw()
-  }
-)
 
 // 滚动居中
 const canvasPosCenter = () => {
@@ -186,13 +187,21 @@ const canvasPosCenter = () => {
   $app.value.scrollTop = containerHeight / 2 - height / 2
 }
 
-// 处理标尺重制大小
+// 处理主题变化
+watch(
+  () => designStore.getDarkTheme,
+  () => {
+    reDraw()
+  }
+)
+
+// // 处理标尺重制大小
 watch(
   () => scale.value,
   (newValue, oldValue) => {
-    if (oldValue !== newValue) {
+    if (oldValue !== newValue && chartLayoutStore.getRePositionCanvas) {
+      chartLayoutStore.setItemUnHandle(ChartLayoutStoreEnum.RE_POSITION_CANVAS, false)
       handleScroll()
-      chartEditStore.setScale(newValue)
       setTimeout(() => {
         canvasPosCenter()
       }, 500)
@@ -200,6 +209,7 @@ watch(
   }
 )
 
+// 处理鼠标样式
 watch(
   () => isPressSpace.value,
   newValue => {
