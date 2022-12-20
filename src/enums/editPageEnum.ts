@@ -79,5 +79,6 @@ export enum MacKeyboard {
   ALT = '⌥',
   CTRL_SOURCE_KEY = '⌘',
   SHIFT_SOURCE_KEY = '⇧',
-  ALT_SOURCE_KEY = '⌥'
+  ALT_SOURCE_KEY = '⌥',
+  SPACE = 'Space'
 }
