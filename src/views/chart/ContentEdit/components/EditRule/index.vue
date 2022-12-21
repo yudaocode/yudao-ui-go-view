@@ -204,7 +204,10 @@ watch(
       handleScroll()
       setTimeout(() => {
         canvasPosCenter()
+        reDraw()
       }, 500)
+    } else {
+      reDraw()
     }
   }
 )
