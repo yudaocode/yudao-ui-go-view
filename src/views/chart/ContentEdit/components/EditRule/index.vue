@@ -37,6 +37,7 @@ import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
 import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
+import throttle from 'lodash/throttle'
 
 const chartEditStore = useChartEditStore()
 const chartLayoutStore = useChartLayoutStore()
@@ -177,7 +178,6 @@ const reDraw = () => {
   }, 10)
 }
 
-
 // 滚动居中
 const canvasPosCenter = () => {
   const { width: containerWidth, height: containerHeight } = $container.value.getBoundingClientRect()
@@ -205,9 +205,9 @@ watch(
       setTimeout(() => {
         canvasPosCenter()
         reDraw()
-      }, 500)
+      }, 400)
     } else {
-      reDraw()
+      throttle(reDraw, 20)
     }
   }
 )
