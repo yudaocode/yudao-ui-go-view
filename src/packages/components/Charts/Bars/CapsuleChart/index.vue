@@ -111,14 +111,13 @@ watch(
   }
 )
 
-const calcData = (data: any,type?:string) => {
+const calcData = (data: any, type?: string) => {
   mergeConfig(props.chartConfig.option)
-  if(type=="preview"){
+  if (type == 'preview') {
     calcCapsuleLengthAndLabelData(data)
-  }else{
+  } else {
     calcCapsuleLengthAndLabelData(state.mergedConfig.dataset)
   }
-  
 }
 
 const mergeConfig = (data: any) => {
@@ -126,7 +125,7 @@ const mergeConfig = (data: any) => {
 }
 
 // 数据解析
-const calcCapsuleLengthAndLabelData = (dataset:any) => {
+const calcCapsuleLengthAndLabelData = (dataset: any) => {
   const { source } = dataset
   if (!source.length) return
 
@@ -156,7 +155,7 @@ onMounted(() => {
 
 // 预览
 useChartDataFetch(props.chartConfig, useChartEditStore, (newData: any) => {
-  calcData(newData,"preview")
+  calcData(newData, 'preview')
 })
 </script>
 
