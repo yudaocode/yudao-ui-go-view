@@ -152,7 +152,7 @@ export const mousedownBoxSelect = (e: MouseEvent, item?: CreateComponentType | C
         }
       }
     })
-  }, 20)
+  }, 30)
 
   // 鼠标抬起
   const mouseup = () => {
