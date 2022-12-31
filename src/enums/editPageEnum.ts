@@ -66,7 +66,8 @@ export enum WinKeyboard {
   ALT = ' alt',
   CTRL_SOURCE_KEY = 'control',
   SHIFT_SOURCE_KEY = 'shift',
-  ALT_SOURCE_KEY = 'alt'
+  ALT_SOURCE_KEY = 'alt',
+  SPACE = 'Space'
 }
 
 // Mac 键盘枚举
@@ -77,7 +78,8 @@ export enum MacKeyboard {
   ALT = '⌥',
   CTRL_SOURCE_KEY = '⌘',
   SHIFT_SOURCE_KEY = '⇧',
-  ALT_SOURCE_KEY = '⌥'
+  ALT_SOURCE_KEY = '⌥',
+  SPACE = 'Space'
 }
 
 // 同步状态枚举

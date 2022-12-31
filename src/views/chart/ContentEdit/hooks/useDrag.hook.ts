@@ -62,6 +62,9 @@ export const mousedownHandleUnStop = (e: MouseEvent, item?: CreateComponentType 
 
 // * 框选
 export const mousedownBoxSelect = (e: MouseEvent, item?: CreateComponentType | CreateComponentGroupType) => {
+  if (e.which == 2) return
+  if (window.$KeyboardActive?.space) return
+
   mousedownHandleUnStop(e)
 
   // 记录点击初始位置
@@ -149,7 +152,7 @@ export const mousedownBoxSelect = (e: MouseEvent, item?: CreateComponentType | C
         }
       }
     })
-  }, 20)
+  }, 30)
 
   // 鼠标抬起
   const mouseup = () => {

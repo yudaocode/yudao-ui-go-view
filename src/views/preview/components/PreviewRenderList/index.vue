@@ -2,7 +2,7 @@
   <div
     class="chart-item"
     v-for="(item, index) in localStorageInfo.componentList"
-    :class="animationsClass(item.styles.animations)"
+    :class="[animationsClass(item.styles.animations), !item.isGroup && 'hidden']"
     :key="item.id"
     :style="{
       ...getComponentAttrStyle(item.attr, index),
@@ -78,6 +78,8 @@ onMounted(() => {
 <style lang="scss" scoped>
 .chart-item {
   position: absolute;
-  overflow: hidden;
+  &.hidden {
+    overflow: hidden;
+  }
 }
 </style>

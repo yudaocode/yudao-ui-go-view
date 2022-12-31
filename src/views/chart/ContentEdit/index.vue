@@ -1,5 +1,5 @@
 <template>
-  <edit-rule></edit-rule>
+  <!-- <edit-rule></edit-rule> -->
   <content-box
     id="go-chart-edit-layout"
     :flex="true"
@@ -7,65 +7,68 @@
     :showBottom="true"
     :depth="1"
     :xScroll="true"
+    :disabledScroll="true"
     @mousedown="mousedownHandleUnStop"
     @drop="dragHandle"
     @dragover="dragoverHandle"
     @dragenter="dragoverHandle"
   >
-    <!-- 画布主体 -->
-    <div id="go-chart-edit-content" @contextmenu="handleContextMenu">
-      <!-- 展示 -->
-      <edit-range>
-        <!-- 滤镜预览 -->
-        <div
-          :style="{
-            ...getFilterStyle(chartEditStore.getEditCanvasConfig),
-            ...rangeStyle
-          }"
-        >
-          <!-- 图表 -->
-          <div v-for="(item, index) in chartEditStore.getComponentList" :key="item.id">
-            <!-- 分组 -->
-            <edit-group
-              v-if="item.isGroup"
-              :groupData="(item as CreateComponentGroupType)"
-              :groupIndex="index"
-            ></edit-group>
+    <edit-rule>
+      <!-- 画布主体 -->
+      <div id="go-chart-edit-content" @contextmenu="handleContextMenu">
+        <!-- 展示 -->
+        <edit-range>
+          <!-- 滤镜预览 -->
+          <div
+            :style="{
+              ...getFilterStyle(chartEditStore.getEditCanvasConfig),
+              ...rangeStyle
+            }"
+          >
+            <!-- 图表 -->
+            <div v-for="(item, index) in chartEditStore.getComponentList" :key="item.id">
+              <!-- 分组 -->
+              <edit-group
+                v-if="item.isGroup"
+                :groupData="(item as CreateComponentGroupType)"
+                :groupIndex="index"
+              ></edit-group>
 
-            <!-- 单组件 -->
-            <edit-shape-box
-              v-else
-              :data-id="item.id"
-              :index="index"
-              :style="{
+              <!-- 单组件 -->
+              <edit-shape-box
+                v-else
+                :data-id="item.id"
+                :index="index"
+                :style="{
                 ...useComponentStyle(item.attr, index),
                 ...getBlendModeStyle(item.styles) as any
               }"
-              :item="item"
-              @click="mouseClickHandle($event, item)"
-              @mousedown="mousedownHandle($event, item)"
-              @mouseenter="mouseenterHandle($event, item)"
-              @mouseleave="mouseleaveHandle($event, item)"
-              @contextmenu="handleContextMenu($event, item, optionsHandle)"
-            >
-              <component
-                class="edit-content-chart"
-                :class="animationsClass(item.styles.animations)"
-                :is="item.chartConfig.chartKey"
-                :chartConfig="item"
-                :themeSetting="themeSetting"
-                :themeColor="themeColor"
-                :style="{
-                  ...useSizeStyle(item.attr),
-                  ...getFilterStyle(item.styles),
-                  ...getTransformStyle(item.styles)
-                }"
-              ></component>
-            </edit-shape-box>
+                :item="item"
+                @click="mouseClickHandle($event, item)"
+                @mousedown="mousedownHandle($event, item)"
+                @mouseenter="mouseenterHandle($event, item)"
+                @mouseleave="mouseleaveHandle($event, item)"
+                @contextmenu="handleContextMenu($event, item, optionsHandle)"
+              >
+                <component
+                  class="edit-content-chart"
+                  :class="animationsClass(item.styles.animations)"
+                  :is="item.chartConfig.chartKey"
+                  :chartConfig="item"
+                  :themeSetting="themeSetting"
+                  :themeColor="themeColor"
+                  :style="{
+                    ...useSizeStyle(item.attr),
+                    ...getFilterStyle(item.styles),
+                    ...getTransformStyle(item.styles)
+                  }"
+                ></component>
+              </edit-shape-box>
+            </div>
           </div>
-        </div>
-      </edit-range>
-    </div>
+        </edit-range>
+      </div>
+    </edit-rule>
 
     <!-- 工具栏 -->
     <template #aside>
@@ -191,12 +194,13 @@ onMounted(() => {
   overflow: hidden;
   @extend .go-point-bg;
   @include background-image('background-point');
+
   @include goId('chart-edit-content') {
     border-radius: 10px;
-    margin: 25px;
     overflow: hidden;
     @extend .go-transition;
     @include fetch-theme('box-shadow');
+
     .edit-content-chart {
       position: absolute;
       overflow: hidden;

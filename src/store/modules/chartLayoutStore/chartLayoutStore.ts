@@ -24,6 +24,10 @@ export const useChartLayoutStore = defineStore({
     chartType: ChartModeEnum.SINGLE,
     // 图层类型（默认图片）
     layerType: LayerModeEnum.THUMBNAIL,
+    // 当前加载数量
+    percentage: 0,
+    // 是否重置当前画布位置
+    rePositionCanvas: false,
     // 防止值不存在
     ...storageChartLayout
   }),
@@ -42,6 +46,12 @@ export const useChartLayoutStore = defineStore({
     },
     getLayerType(): LayerModeEnum {
       return this.layerType
+    },
+    getPercentage(): number {
+      return this.percentage
+    },
+    getRePositionCanvas(): boolean {
+      return this.rePositionCanvas
     }
   },
   actions: {
@@ -49,11 +59,19 @@ export const useChartLayoutStore = defineStore({
       this.$patch(state => {
         state[key] = value
       })
+      // 存储本地
       setLocalStorage(GO_CHART_LAYOUT_STORE, this.$state)
+      // 这里需要标记重置画布位置
+      this.rePositionCanvas = true;
       // 重新计算拖拽区域缩放比例
       setTimeout(() => {
         chartEditStore.computedScale()
       }, 500)
+    },
+    setItemUnHandle<T extends keyof ChartLayoutType, K extends ChartLayoutType[T]>(key: T, value: K): void {
+      this.$patch(state => {
+        state[key] = value
+      })
     }
   }
 })

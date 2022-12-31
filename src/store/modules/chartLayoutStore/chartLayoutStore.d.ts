@@ -1,5 +1,5 @@
 export enum ChartModeEnum {
-  SINGLE= 'single',
+  SINGLE = 'single',
   DOUBLE = 'double'
 }
 
@@ -13,7 +13,9 @@ export enum ChartLayoutStoreEnum {
   CHARTS = 'charts',
   DETAILS = 'details',
   Chart_TYPE = 'chartType',
-  LAYER_TYPE = 'layerType'
+  LAYER_TYPE = 'layerType',
+  PERCENTAGE = 'percentage',
+  RE_POSITION_CANVAS = 'rePositionCanvas'
 }
 
 export interface ChartLayoutType {
@@ -27,4 +29,8 @@ export interface ChartLayoutType {
   [ChartLayoutStoreEnum.Chart_TYPE]: ChartModeEnum
   // 层级展示方式
   [ChartLayoutStoreEnum.LAYER_TYPE]: LayerModeEnum
+  // 当前正在加载的数量
+  [ChartLayoutStoreEnum.PERCENTAGE]: number
+  // 是否重置当前画布位置
+  [ChartLayoutStoreEnum.RE_POSITION_CANVAS]: boolean
 }
