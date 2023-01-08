@@ -1,5 +1,5 @@
 <template>
-  <n-modal v-model:show="show" class="go-create-modal">
+  <n-modal v-model:show="showRef" class="go-create-modal" @afterLeave="closeHandle">
     <n-space size="large">
       <n-card class="card-box" hoverable>
         <template #header>
@@ -35,20 +35,21 @@
 </template>
 
 <script lang="ts" setup>
-import { watch, reactive } from 'vue'
+import { ref, watch, shallowRef } from 'vue'
 import { icon } from '@/plugins'
 import { PageEnum, ChartEnum } from '@/enums/pageEnum'
 import { fetchPathByName, routerTurnByPath, renderLang, getUUID } from '@/utils'
 
 const { FishIcon, CloseIcon } = icon.ionicons5
 const { StoreIcon, ObjectStorageIcon } = icon.carbon
-const $t = window['$t']
+const showRef = ref(false)
+
 const emit = defineEmits(['close'])
 const props = defineProps({
   show: Boolean
 })
 
-const typeList = reactive([
+const typeList = shallowRef([
   {
     title: renderLang('project.new_project'),
     key: ChartEnum.CHART_HOME_NAME,
@@ -69,11 +70,8 @@ const typeList = reactive([
   }
 ])
 
-// 解决点击模态层不会触发 @on-after-leave 的问题
 watch(props, newValue => {
-  if (!newValue.show) {
-    closeHandle()
-  }
+  showRef.value = newValue.show
 })
 
 // 关闭对话框
@@ -92,7 +90,7 @@ const btnHandle = (key: string) => {
 <style lang="scss" scoped>
 $cardWidth: 570px;
 
-@include go("create-modal") {
+@include go('create-modal') {
   position: fixed;
   top: 200px;
   left: 50%;
@@ -103,7 +101,7 @@ $cardWidth: 570px;
     border: 1px solid rgba(0, 0, 0, 0);
     @extend .go-transition;
     &:hover {
-      @include hover-border-color("hover-border-color");
+      @include hover-border-color('hover-border-color');
     }
     &-tite {
       font-size: 14px;

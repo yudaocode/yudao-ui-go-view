@@ -1,7 +1,8 @@
-import { ref, Ref } from 'vue'
+import { ref } from 'vue'
 import { ChartEnum } from '@/enums/pageEnum'
 import { fetchPathByName, routerTurnByPath } from '@/utils'
-import { Chartype } from '../../..'
+import { Chartype } from '../../../index.d'
+
 export const useModalDataInit = () => {
   const modalShow = ref<boolean>(false)
   const modalData = ref<Chartype | null>(null)

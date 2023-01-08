@@ -25,7 +25,7 @@
   </div>
   <project-items-modal-card
     v-if="modalData"
-    v-model:modalShow="modalShow"
+    :modalShow="modalShow"
     :cardData="modalData"
     @close="closeModal"
     @edit="editHandle"
@@ -41,8 +41,7 @@ import { useDataListInit } from './hooks/useData.hook'
 
 const { CopyIcon, EllipsisHorizontalCircleSharpIcon } = icon.ionicons5
 const { list, deleteHandle } = useDataListInit()
-const { modalData, modalShow, closeModal, resizeHandle, editHandle } =
-  useModalDataInit()
+const { modalData, modalShow, closeModal, resizeHandle, editHandle } = useModalDataInit()
 </script>
 
 <style lang="scss" scoped>
