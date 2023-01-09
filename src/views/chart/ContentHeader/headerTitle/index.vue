@@ -30,9 +30,13 @@
 
 <script setup lang="ts">
 import { ref, nextTick, computed } from 'vue'
-import { fetchRouteParamsLocation } from '@/utils'
+import { fetchRouteParamsLocation, setTitle } from '@/utils'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { EditCanvasConfigEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { icon } from '@/plugins'
+
 const { FishIcon } = icon.ionicons5
+const chartEditStore = useChartEditStore()
 
 const focus = ref<boolean>(false)
 const inputInstRef = ref(null)
@@ -51,7 +55,10 @@ const title = ref<string>(fetchProhectInfoById() || '')
 const comTitle = computed(() => {
   // eslint-disable-next-line vue/no-side-effects-in-computed-properties
   title.value = title.value.replace(/\s/g, '')
-  return title.value.length ? title.value : '新项目'
+  const newTitle = title.value.length ? title.value : '新项目'
+  setTitle(`工作空间-${newTitle}`)
+  chartEditStore.setEditCanvasConfig(EditCanvasConfigEnum.PROJECT_NAME, newTitle)
+  return newTitle
 })
 
 const handleFocus = () => {

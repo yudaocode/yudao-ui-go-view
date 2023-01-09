@@ -29,7 +29,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { PreviewRenderList } from './components/PreviewRenderList'
-import { getFilterStyle } from '@/utils'
+import { getFilterStyle, setTitle } from '@/utils'
 import { getEditCanvasConfigStyle, getSessionStorageInfo } from './utils'
 import { useComInstall } from './hooks/useComInstall.hook'
 import { useScale } from './hooks/useScale.hook'
@@ -38,6 +38,7 @@ import { PreviewScaleEnum } from '@/enums/styleEnum'
 import type { ChartEditStorageType } from './index.d'
 
 const localStorageInfo: ChartEditStorageType = getSessionStorageInfo() as ChartEditStorageType
+setTitle(`预览-${localStorageInfo.editCanvasConfig.projectName}`)
 
 const previewRefStyle = computed(() => {
   return {

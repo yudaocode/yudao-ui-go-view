@@ -38,7 +38,7 @@ import { MonacoEditor } from '@/components/Pages/MonacoEditor'
 import { SavePageEnum } from '@/enums/editPageEnum'
 import { getSessionStorageInfo } from '../preview/utils'
 import type { ChartEditStorageType } from '../preview/index.d'
-import { setSessionStorage, JSONStringify, JSONParse } from '@/utils'
+import { setSessionStorage, JSONStringify, JSONParse, setTitle } from '@/utils'
 import { StorageEnum } from '@/enums/storageEnum'
 import { icon } from '@/plugins'
 
@@ -48,6 +48,7 @@ const content = ref('')
 // 从sessionStorage 获取数据
 async function getDataBySession() {
   const localStorageInfo: ChartEditStorageType = await getSessionStorageInfo() as unknown as ChartEditStorageType
+  setTitle(`编辑-${localStorageInfo.editCanvasConfig.projectName}`)
   content.value = JSONStringify(localStorageInfo)
 }
 setTimeout(getDataBySession)
