@@ -75,6 +75,7 @@ export type EditCanvasType = {
 
 // 画布数据/滤镜/背景色/宽高主题等
 export enum EditCanvasConfigEnum {
+  PROJECT_NAME = 'projectName',
   WIDTH = 'width',
   HEIGHT = 'height',
   CHART_THEME_COLOR = 'chartThemeColor',
@@ -112,6 +113,8 @@ export type EditCanvasConfigType = {
   [FilterEnum.SKEW_X]: number
   [FilterEnum.SKEW_Y]: number
   [FilterEnum.BLEND_MODE]: string
+  // 大屏名称
+  [EditCanvasConfigEnum.PROJECT_NAME]?: string
   // 大屏宽度
   [EditCanvasConfigEnum.WIDTH]: number
   // 大屏高度

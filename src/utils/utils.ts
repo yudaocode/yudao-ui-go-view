@@ -302,3 +302,11 @@ export const JSONParse = (data: string) => {
     return v
   })
 }
+
+/**
+ * * 修改顶部标题
+ * @param title
+ */
+export const setTitle = (title?: string) => {
+  title && (document.title = title)
+}
