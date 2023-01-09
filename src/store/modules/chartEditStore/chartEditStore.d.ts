@@ -91,7 +91,7 @@ export type EditCanvasConfigType = {
   // ID
   [EditCanvasConfigEnum.PROJECT_ID]: string,
   // 项目名称
-  [EditCanvasConfigEnum.PROJECT_NAME]: string,
+  [EditCanvasConfigEnum.PROJECT_NAME]?: string,
   // 项目描述
   [EditCanvasConfigEnum.REMARKS]: string,
   // 滤镜-启用
