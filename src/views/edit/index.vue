@@ -38,7 +38,7 @@ import { MonacoEditor } from '@/components/Pages/MonacoEditor'
 import { SavePageEnum } from '@/enums/editPageEnum'
 import { getSessionStorageInfo } from '../preview/utils'
 import type { ChartEditStorageType } from '../preview/index.d'
-import { setSessionStorage, fetchRouteParamsLocation } from '@/utils'
+import { setSessionStorage, fetchRouteParamsLocation, JSONStringify, JSONParse } from '@/utils'
 import { StorageEnum } from '@/enums/storageEnum'
 import { icon } from '@/plugins'
 import { useSync } from '@/views/chart/hooks/useSync.hook'
@@ -52,7 +52,7 @@ const content = ref('')
 // 从sessionStorage 获取数据
 async function getDataBySession() {
   const localStorageInfo: ChartEditStorageType = await getSessionStorageInfo() as unknown as ChartEditStorageType
-  content.value = JSON.stringify(localStorageInfo, undefined, 2)
+  content.value = JSONStringify(localStorageInfo)
 }
 setTimeout(getDataBySession)
 
@@ -76,7 +76,7 @@ async function importJSON() {
 // 同步 [画布页失去焦点时同步数据到JSON页，JSON页Ctrl+S 时同步数据到画布页]
 window.opener.addEventListener(SavePageEnum.CHART, (e: any) => {
   setSessionStorage(StorageEnum.GO_CHART_STORAGE_LIST, [e.detail])
-  content.value = JSON.stringify(e.detail, undefined, 2)
+  content.value = JSONStringify(e.detail)
 })
 
 // 窗口失焦 + 保存 => 同步数据
@@ -94,7 +94,7 @@ async function updateSync() {
     return window['$message'].error('源窗口已关闭，视图同步失败')
   }
   try {
-    const detail = JSON.parse(content.value)
+    const detail = JSONParse(content.value)
     delete detail.id
     // 保持id不变
     // 带后端版本额外处理请求
