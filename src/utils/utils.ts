@@ -295,7 +295,7 @@ export const setKeyboardDressShow = (keyCode?: number) => {
  * * JSON序列化，支持函数和 undefined
  * @param data
  */
-export const JSONStringify = (data: object) => {
+export const JSONStringify = <T>(data: T) => {
   return JSON.stringify(
     data,
     (key, val) => {
