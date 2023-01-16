@@ -298,6 +298,12 @@ export const JSONParse = (data: string) => {
   return JSON.parse(data, (k, v) => {
     if (typeof v === 'string' && v.indexOf && (v.indexOf('function') > -1 || v.indexOf('=>') > -1)) {
       return eval(`(function(){return ${v}})()`)
+    } else if (typeof v === 'string' && v.indexOf && (v.indexOf('return ') > -1)) {
+      const baseLeftIndex = v.indexOf('(')
+      if (baseLeftIndex > -1) {
+        const newFn = `function ${v.substring(baseLeftIndex)}`
+        return eval(`(function(){return ${newFn}})()`)
+      }
     }
     return v
   })
