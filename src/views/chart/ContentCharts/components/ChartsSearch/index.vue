@@ -37,7 +37,7 @@
               :title="item.title"
               @click="selectChartHandle(item)"
             >
-              <search-image class="list-item-img" :item="item"></search-image>
+              <chart-glob-image class="list-item-img" :chartConfig="item"></chart-glob-image>
               <n-text class="list-item-fs" depth="2">{{ item.title }}</n-text>
             </div>
           </n-scrollbar>
@@ -77,7 +77,7 @@ import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayou
 import { isString, addEventListener, removeEventListener } from '@/utils'
 import { fetchConfigComponent, fetchChartComponent } from '@/packages/index'
 import { componentInstall, loadingStart, loadingFinish, loadingError } from '@/utils'
-import SearchImage from './SearchImage.vue'
+import { ChartGlobImage } from '@/components/Pages/ChartGlobImage'
 
 const props = defineProps({
   menuOptions: {

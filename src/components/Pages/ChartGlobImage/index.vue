@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, PropType } from 'vue'
+import { ref, PropType, watch } from 'vue'
 import { fetchImages } from '@/packages'
 import { ConfigType } from '@/packages/index.d'
 
@@ -11,7 +11,7 @@ const props = defineProps({
   chartConfig: {
     type: Object as PropType<ConfigType>,
     required: true
-  },
+  }
 })
 
 const imageInfo = ref('')
@@ -20,5 +20,12 @@ const imageInfo = ref('')
 const fetchImageUrl = async () => {
   imageInfo.value = await fetchImages(props.chartConfig)
 }
-fetchImageUrl()
+
+watch(
+  () => props.chartConfig.key,
+  () => fetchImageUrl(),
+  {
+    immediate: true
+  }
+)
 </script>
