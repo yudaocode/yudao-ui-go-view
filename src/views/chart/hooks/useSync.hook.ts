@@ -17,7 +17,8 @@ import { ResultEnum } from '@/enums/httpEnum'
 import { saveProjectApi, fetchProjectApi, uploadFile, updateProjectApi } from '@/api/path'
 // 画布枚举
 import { SyncEnum } from '@/enums/editPageEnum'
-import { BaseEvent, EventLife, CreateComponentType, CreateComponentGroupType, ConfigType } from '@/packages/index.d'
+import { CreateComponentType, CreateComponentGroupType, ConfigType } from '@/packages/index.d'
+import { BaseEvent, EventLife } from '@/enums/eventEnum'
 import { PublicGroupConfigClass } from '@/packages/public/publicConfig'
 import merge from 'lodash/merge'
 
