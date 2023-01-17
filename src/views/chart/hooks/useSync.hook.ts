@@ -5,7 +5,8 @@ import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHis
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
 import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
 import { fetchChartComponent, fetchConfigComponent, createComponent } from '@/packages/index'
-import { BaseEvent, EventLife, CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
+import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
+import { BaseEvent, EventLife } from '@/enums/eventEnum'
 import { PublicGroupConfigClass } from '@/packages/public/publicConfig'
 import merge from 'lodash/merge'
 
