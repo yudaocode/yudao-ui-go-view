@@ -21,6 +21,7 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (res: AxiosResponse) => {
     const { code } = res.data as { code: number }
+    if (code === undefined || code === null) return Promise.resolve(res)
     if (code === ResultEnum.DATA_SUCCESS) return Promise.resolve(res.data)
     // 重定向
     if (ErrorPageNameMap.get(code)) redirectErrorPage(code)
