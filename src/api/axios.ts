@@ -55,6 +55,8 @@ axiosInstance.interceptors.response.use(
     }
     const { code } = res.data as { code: number }
 
+    if (code === undefined || code === null) return Promise.resolve(res)
+
     // 成功
     if (code === ResultEnum.SUCCESS) {
       return Promise.resolve(res.data)

@@ -282,7 +282,7 @@ export const JSONStringify = <T>(data: T) => {
       }
       // 处理 undefined 丢失问题
       if (typeof val === 'undefined') {
-        return 'undefined'
+        return null
       }
       return val
     },
