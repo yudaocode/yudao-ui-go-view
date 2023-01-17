@@ -57,7 +57,7 @@ export const setSessionStorage = <T>(k: string, v: T) => {
 export const getSessionStorage: (k: string) => any = (k: string) => {
   const item = window.sessionStorage.getItem(k)
   try {
-    return item ? JSON.parse(item) : item
+    return item ? JSONParse(item) : item
   } catch (err) {
     return item
   }

@@ -10,6 +10,7 @@ import cloneDeep from 'lodash/cloneDeep'
 import { WinKeyboard } from '@/enums/editPageEnum'
 import { RequestHttpIntervalEnum, RequestParamsObjType } from '@/enums/httpEnum'
 import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
+import { excludeParseEventKeyList } from '@/enums/eventEnum'
 
 /**
  * * 判断是否是开发环境
@@ -282,7 +283,7 @@ export const JSONStringify = <T>(data: T) => {
       }
       // 处理 undefined 丢失问题
       if (typeof val === 'undefined') {
-        return 'undefined'
+        return null
       }
       return val
     },
@@ -296,6 +297,7 @@ export const JSONStringify = <T>(data: T) => {
  */
 export const JSONParse = (data: string) => {
   return JSON.parse(data, (k, v) => {
+    if (excludeParseEventKeyList.includes(k)) return v
     if (typeof v === 'string' && v.indexOf && (v.indexOf('function') > -1 || v.indexOf('=>') > -1)) {
       return eval(`(function(){return ${v}})()`)
     } else if (typeof v === 'string' && v.indexOf && (v.indexOf('return ') > -1)) {

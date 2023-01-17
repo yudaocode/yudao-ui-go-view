@@ -1,6 +1,7 @@
 import { getUUID } from '@/utils'
 import { RequestConfigType } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { groupTitle } from '@/settings/designSetting'
+import { BaseEvent, EventLife } from '@/enums/eventEnum'
 import {
   RequestHttpEnum,
   RequestDataTypeEnum,
@@ -9,8 +10,6 @@ import {
   RequestBodyEnum
 } from '@/enums/httpEnum'
 import {
-  BaseEvent,
-  EventLife,
   ChartFrameEnum,
   PublicConfigType,
   CreateComponentType,
