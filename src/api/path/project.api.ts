@@ -1,7 +1,7 @@
 import { http } from '@/api/http'
 import { httpErrorHandle } from '@/utils'
 import { ContentTypeEnum, RequestHttpEnum, ModuleTypeEnum } from '@/enums/httpEnum'
-import { ProjectItem, ProjectDetail } from './project'
+import { ProjectItem, ProjectDetail } from './project' // TODO 分页返回，优化使用 ProjectItem
 
 // * 项目列表
 export const projectListApi = async (data: object) => {
@@ -38,7 +38,7 @@ export const fetchProjectApi = async (data: object) => {
   }
 }
 
-// * 保存项目
+// * 保存项目 TODO 芋艿：保存
 export const saveProjectApi = async (data: object) => {
   try {
     const res = await http(RequestHttpEnum.POST)(
@@ -52,7 +52,7 @@ export const saveProjectApi = async (data: object) => {
   }
 }
 
-// * 修改项目基础信息
+// * 修改项目基础信息 TODO 芋艿：修改
 export const updateProjectApi = async (data: object) => {
   try {
     const res = await http(RequestHttpEnum.POST)(`${ModuleTypeEnum.PROJECT}/edit`, data)
@@ -62,7 +62,7 @@ export const updateProjectApi = async (data: object) => {
   }
 }
 
-// * 删除项目
+// * 删除项目 TODO 芋艿：删除
 export const deleteProjectApi = async (data: object) => {
   try {
     const res = await http(RequestHttpEnum.DELETE)(`${ModuleTypeEnum.PROJECT}/delete`, data)
@@ -72,7 +72,7 @@ export const deleteProjectApi = async (data: object) => {
   }
 }
 
-// * 修改发布状态 [-1未发布,1发布]
+// * 修改发布状态 [-1未发布,1发布] TODO 芋艿：更新
 export const changeProjectReleaseApi = async (data: object) => {
   try {
     const res = await http(RequestHttpEnum.PUT)(`${ModuleTypeEnum.PROJECT}/publish`, data)

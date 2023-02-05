@@ -246,7 +246,9 @@ export const useSync = () => {
         if (res.data) {
           updateStoreInfo(res.data)
           // 更新全局数据
-          await updateComponent(JSONParse(res.data.content))
+          if (res.data.content) {
+            await updateComponent(JSONParse(res.data.content))
+          }
           return
         }else {
           chartEditStore.setProjectInfo(ProjectInfoEnum.PROJECT_ID, fetchRouteParamsLocation())
@@ -258,6 +260,7 @@ export const useSync = () => {
       }
       chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.FAILURE)
     } catch (error) {
+      console.log(error)
       chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.FAILURE)
       httpErrorHandle()
     }
