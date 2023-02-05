@@ -289,13 +289,15 @@ export const useSync = () => {
 
         // 上传预览图
         let uploadParams = new FormData()
-        uploadParams.append('object', base64toFile(canvasImage.toDataURL(), `${fetchRouteParamsLocation()}_index_preview.png`))
+        uploadParams.append('file',
+          base64toFile(canvasImage.toDataURL(),
+            `go-view/${fetchRouteParamsLocation()}_index_preview.png`)) // 名字使用 go-view 作为前缀
         const uploadRes = await uploadFile(uploadParams)
         // 保存预览图
         if(uploadRes && uploadRes.code === ResultEnum.SUCCESS) {
           await updateProjectApi({
             id: fetchRouteParamsLocation(),
-            indexImage: `${systemStore.getFetchInfo.OSSUrl}${uploadRes.data.fileName}`
+            picUrl: uploadRes.data
           })
         }
       }

@@ -277,17 +277,17 @@ const customRequest = (options: UploadCustomRequestOptions) => {
       // 修改名称
       const newNameFile = new File(
         [file.file],
-        `${fetchRouteParamsLocation()}_index_background.png`,
+        `go-view/${fetchRouteParamsLocation()}_index_background.png`,
         { type: file.file.type }
       )
       let uploadParams = new FormData()
-      uploadParams.append('object', newNameFile)
+      uploadParams.append('file', newNameFile)
       const uploadRes = await uploadFile(uploadParams)
 
       if(uploadRes && uploadRes.code === ResultEnum.SUCCESS) {
         chartEditStore.setEditCanvasConfig(
           EditCanvasConfigEnum.BACKGROUND_IMAGE,
-          `${systemStore.getFetchInfo.OSSUrl}${uploadRes.data.fileName}?time=${new Date().getTime()}`
+          uploadRes.data
         )
         chartEditStore.setEditCanvasConfig(
           EditCanvasConfigEnum.SELECT_COLOR,

@@ -1,7 +1,7 @@
 // 模块 Path 前缀分类
 export enum ModuleTypeEnum {
-  // SYSTEM = 'sys',
   SYSTEM = 'system',
+  INFRA = 'infra',
   PROJECT = 'report/go-view/project',
 }
 

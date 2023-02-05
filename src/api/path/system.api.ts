@@ -23,18 +23,3 @@ export const logoutApi = async () => {
     httpErrorHandle()
   }
 }
-
-// * 获取 oss 上传接口
-export const ossUrlApi = async (data: object) => {
-  try {
-    const res = await http(RequestHttpEnum.GET)<{
-      /**
-       * bucket 地址
-       */
-      bucketURL?: string
-    }>(`${ModuleTypeEnum.SYSTEM}/getOssInfo`, data)
-    return res
-  } catch (err) {
-    httpErrorHandle()
-  }
-}

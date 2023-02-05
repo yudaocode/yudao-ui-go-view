@@ -81,18 +81,3 @@ export const changeProjectReleaseApi = async (data: object) => {
     httpErrorHandle()
   }
 }
-
-// * 上传文件
-export const uploadFile = async (data: object) => {
-  try {
-    const res = await http(RequestHttpEnum.POST)<{
-      /**
-       * 文件地址
-       */
-      fileName: string
-    }>(`${ModuleTypeEnum.PROJECT}/upload`, data, ContentTypeEnum.FORM_DATA)
-    return res
-  } catch {
-    httpErrorHandle()
-  }
-}
