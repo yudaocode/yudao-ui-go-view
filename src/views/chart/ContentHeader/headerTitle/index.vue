@@ -70,7 +70,7 @@ const handleBlur = async () => {
   chartEditStore.setProjectInfo(ProjectInfoEnum.PROJECT_NAME, title.value || '')
   const res = (await updateProjectApi({
     id: fetchRouteParamsLocation(),
-    projectName: title.value
+    name: title.value
   }))
   if (res && res.code === ResultEnum.SUCCESS) {
     dataSyncUpdate()

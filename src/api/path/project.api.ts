@@ -38,24 +38,20 @@ export const fetchProjectApi = async (data: object) => {
   }
 }
 
-// * 保存项目 TODO 芋艿：保存
+// * 保存项目
 export const saveProjectApi = async (data: object) => {
   try {
-    const res = await http(RequestHttpEnum.POST)(
-      `${ModuleTypeEnum.PROJECT}/save/data`,
-      data,
-      ContentTypeEnum.FORM_URLENCODED
-    )
+    const res = await http(RequestHttpEnum.PUT)(`${ModuleTypeEnum.PROJECT}/update`, data)
     return res
   } catch {
     httpErrorHandle()
   }
 }
 
-// * 修改项目基础信息 TODO 芋艿：修改
+// * 修改项目基础信息
 export const updateProjectApi = async (data: object) => {
   try {
-    const res = await http(RequestHttpEnum.POST)(`${ModuleTypeEnum.PROJECT}/edit`, data)
+    const res = await http(RequestHttpEnum.PUT)(`${ModuleTypeEnum.PROJECT}/update`, data)
     return res
   } catch {
     httpErrorHandle()
