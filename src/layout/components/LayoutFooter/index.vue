@@ -8,11 +8,6 @@
             {{ docPath }}
           </n-a>
         </n-text>
-        <n-text depth="3">
-          <n-a italic href="https://beian.miit.gov.cn/" target="_blank">
-            京ICP备2021034585号-1
-          </n-a>
-        </n-text>
       </n-space>
     </slot>
   </div>

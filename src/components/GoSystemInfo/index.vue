@@ -12,6 +12,32 @@
 
       <n-list-item>
         <n-space class="go-my-2" :size="20">
+          <n-text class="item-left">&nbsp; Boot 后端：</n-text>
+          <n-text>
+            对应 <n-a href="https://gitee.com/zhijiantianya/ruoyi-vue-pro" target="_blank">https://gitee.com/zhijiantianya/ruoyi-vue-pro</n-a> 项目
+          </n-text>
+        </n-space>
+      </n-list-item>
+      <n-list-item>
+        <n-space class="go-my-2" :size="20">
+          <n-text class="item-left">Cloud 后端：</n-text>
+          <n-text>
+            对应 <n-a href="https://gitee.com/zhijiantianya/yudao-cloud" target="_blank">https://gitee.com/zhijiantianya/yudao-cloud</n-a> 项目
+          </n-text>
+        </n-space>
+      </n-list-item>
+
+      <n-list-item>
+        <n-space class="go-my-2" :size="20">
+          <n-text class="item-left" type="error">重要重要：</n-text>
+          <n-text type="error">
+            如下声明来自 GoView，和 ruoyi-vue-pro / yudao-cloud 项目无关，它们还是免费、免授权可使用！！！
+          </n-text>
+        </n-space>
+      </n-list-item>
+
+      <n-list-item>
+        <n-space class="go-my-2" :size="20">
           <n-text class="item-left">版权声明：</n-text>
           <n-text>
             GoView 版权属于
