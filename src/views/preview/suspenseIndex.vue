@@ -50,12 +50,11 @@ const storageList: ChartEditStorageType[] = getSessionStorage(
 )
 
 const localStorageInfo = await getSessionStorageInfo() as unknown as ChartEditStorageType
-setTitle(`预览-${localStorageInfo.editCanvasConfig.projectName}`)
-
 // @ts-ignore
-if(localStorageInfo.isRelease === false) {
+if (localStorageInfo.isRelease === false) {
   routerTurnByName(PageEnum.REDIRECT_UN_PUBLISH_NAME, true, false)
 }
+setTitle(`预览-${localStorageInfo?.editCanvasConfig.projectName}`)
 
 const previewRefStyle = computed(() => {
   return {
