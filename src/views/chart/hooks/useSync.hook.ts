@@ -216,22 +216,22 @@ export const useSync = () => {
    */
   const updateStoreInfo = (projectData: {
     id: string,
-    projectName: string,
-    indexImage: string,
-    remarks: string,
-    state: number
+    name: string,
+    picUrl: string,
+    remark: string,
+    status: number
   }) => {
-    const { id, projectName, remarks, indexImage, state } = projectData
+    const { id, name, remark, picUrl, status } = projectData
     // ID
     chartEditStore.setProjectInfo(ProjectInfoEnum.PROJECT_ID, id)
     // 名称
-    chartEditStore.setProjectInfo(ProjectInfoEnum.PROJECT_NAME, projectName)
+    chartEditStore.setProjectInfo(ProjectInfoEnum.PROJECT_NAME, name)
     // 描述
-    chartEditStore.setProjectInfo(ProjectInfoEnum.REMARKS, remarks)
+    chartEditStore.setProjectInfo(ProjectInfoEnum.REMARKS, remark)
     // 缩略图
-    chartEditStore.setProjectInfo(ProjectInfoEnum.THUMBNAIL, indexImage)
+    chartEditStore.setProjectInfo(ProjectInfoEnum.THUMBNAIL, picUrl)
     // 发布
-    chartEditStore.setProjectInfo(ProjectInfoEnum.RELEASE, state === 1)
+    chartEditStore.setProjectInfo(ProjectInfoEnum.RELEASE, status === 0)
   }
 
   // * 数据获取
@@ -241,7 +241,7 @@ export const useSync = () => {
     chartEditStore.componentList = []
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.START)
     try {
-      const res = await fetchProjectApi({ projectId: fetchRouteParamsLocation() })
+      const res = await fetchProjectApi({ id: fetchRouteParamsLocation() })
       if (res && res.code === ResultEnum.SUCCESS) {
         if (res.data) {
           updateStoreInfo(res.data)

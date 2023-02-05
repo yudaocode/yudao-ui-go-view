@@ -31,7 +31,7 @@ export const createProjectApi = async (data: object) => {
 // * 获取项目
 export const fetchProjectApi = async (data: object) => {
   try {
-    const res = await http(RequestHttpEnum.GET)<ProjectDetail>(`${ModuleTypeEnum.PROJECT}/getData`, data)
+    const res = await http(RequestHttpEnum.GET)<ProjectDetail>(`${ModuleTypeEnum.PROJECT}/get`, data)
     return res
   } catch {
     httpErrorHandle()
