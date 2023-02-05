@@ -1,12 +1,13 @@
 import { http } from '@/api/http'
 import { httpErrorHandle } from '@/utils'
 import { RequestHttpEnum, ModuleTypeEnum } from '@/enums/httpEnum'
-import { LoginResult } from './system'
+import { AuthLoginRespVO } from './system'
 
 // * 登录
 export const loginApi = async (data: object) => {
   try {
-    const res = await http(RequestHttpEnum.POST)<LoginResult>(`${ModuleTypeEnum.SYSTEM}/login`, data)
+    const res = await http(RequestHttpEnum.POST)<AuthLoginRespVO>(`${ModuleTypeEnum.SYSTEM}/auth/login`, data)
+    console.log(res)
     return res
   } catch (err) {
     httpErrorHandle()

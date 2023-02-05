@@ -25,6 +25,11 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
+    // TODO 芋艿：临时代码
+    config.headers = {
+      ...config.headers,
+      'tenant-id': 1
+    }
     // 白名单校验
     if (includes(fetchAllowList, config.url)) return config
     // 获取 token
@@ -58,7 +63,7 @@ axiosInstance.interceptors.response.use(
     if (code === undefined || code === null) return Promise.resolve(res)
 
     // 成功
-    if (code === ResultEnum.SUCCESS) {
+    if (code === ResultEnum.SUCCESS || code === ResultEnum.DATA_SUCCESS) {
       return Promise.resolve(res.data)
     }
 
@@ -74,7 +79,7 @@ axiosInstance.interceptors.response.use(
       redirectErrorPage(code)
       return Promise.resolve(res.data)
     }
-    
+
     // 提示错误
     window['$message'].error(window['$t']((res.data as any).msg))
     return Promise.resolve(res.data)

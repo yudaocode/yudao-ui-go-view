@@ -9,7 +9,7 @@ export enum SystemStoreUserInfoEnum {
 export interface UserInfoType {
   [SystemStoreUserInfoEnum.USER_TOKEN]?: string,
   [SystemStoreUserInfoEnum.TOKEN_NAME]?: string,
-  [SystemStoreUserInfoEnum.USER_ID]?: string,
+  [SystemStoreUserInfoEnum.USER_ID]?: number,
   [SystemStoreUserInfoEnum.USER_NAME]?: string,
   [SystemStoreUserInfoEnum.NICK_NAME]?: string,
 }
