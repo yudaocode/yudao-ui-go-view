@@ -151,7 +151,7 @@ const sendHandle = async () => {
   const res = (await changeProjectReleaseApi({
     id: fetchRouteParamsLocation(),
     // 反过来
-    state: release.value ? -1 : 1,
+    status: release.value ? 0 : 1,
   }))
 
   if (res && res.code === ResultEnum.SUCCESS) {

@@ -58,7 +58,7 @@ export const updateProjectApi = async (data: object) => {
   }
 }
 
-// * 删除项目 TODO 芋艿：删除
+// * 删除项目
 export const deleteProjectApi = async (data: object) => {
   try {
     const res = await http(RequestHttpEnum.DELETE)(`${ModuleTypeEnum.PROJECT}/delete`, data)
@@ -68,10 +68,10 @@ export const deleteProjectApi = async (data: object) => {
   }
 }
 
-// * 修改发布状态 [-1未发布,1发布] TODO 芋艿：更新
+// * 修改发布状态 [0 已发布, 1 未发布]
 export const changeProjectReleaseApi = async (data: object) => {
   try {
-    const res = await http(RequestHttpEnum.PUT)(`${ModuleTypeEnum.PROJECT}/publish`, data)
+    const res = await http(RequestHttpEnum.PUT)(`${ModuleTypeEnum.PROJECT}/update`, data)
     return res
   } catch {
     httpErrorHandle()
