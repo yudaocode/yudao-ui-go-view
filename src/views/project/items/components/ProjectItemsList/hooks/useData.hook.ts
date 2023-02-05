@@ -1,9 +1,10 @@
 import { ref, reactive } from 'vue'
-import { goDialog, httpErrorHandle } from '@/utils'
+import { formatDate, goDialog, httpErrorHandle } from '@/utils'
 import { DialogEnum } from '@/enums/pluginEnum'
 import { projectListApi, deleteProjectApi, changeProjectReleaseApi } from '@/api/path'
 import { Chartype, ChartList } from '../../../index.d'
 import { ResultEnum } from '@/enums/httpEnum'
+import { ProjectItem } from "@/api/path/project";
 
 // 数据初始化
 export const useDataListInit = () => {
@@ -28,17 +29,17 @@ export const useDataListInit = () => {
       limit: paginat.limit
     })
     if (res && res.data) {
-      const { count } = res as any // 这里的count与data平级，不在Response结构中
-      paginat.count = count
-      list.value = res.data.map(e => {
-        const { id, projectName, state, createTime, indexImage, createUserId } = e
+      paginat.count = res.data.count
+      const projects = res.data.list as ProjectItem[]
+      list.value = projects.map(e => {
+        const { id, name, status, createTime, picUrl, creator } = e
         return {
           id: id,
-          title: projectName,
-          createId: createUserId,
-          time: createTime,
-          image: indexImage,
-          release: state !== -1
+          title: name,
+          createId: creator,
+          time: formatDate(new Date(createTime), 'YYY-mm-dd HH:MM:SS'),
+          image: picUrl,
+          release: status === 0
         }
       })
       setTimeout(() => {

@@ -2,13 +2,13 @@
 export enum ModuleTypeEnum {
   // SYSTEM = 'sys',
   SYSTEM = 'system',
-  PROJECT = 'project',
+  PROJECT = 'report/go-view/project',
 }
 
 // 请求结果集
 export enum ResultEnum {
-  DATA_SUCCESS = 0,
-  SUCCESS = 200,
+  // DATA_SUCCESS = 0,
+  SUCCESS = 0,
   SERVER_ERROR = 500,
   SERVER_FORBIDDEN = 403,
   NOT_FOUND = 404,

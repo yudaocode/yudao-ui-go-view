@@ -17,7 +17,7 @@ export const loginApi = async (data: object) => {
 // * 登出
 export const logoutApi = async () => {
   try {
-    const res = await http(RequestHttpEnum.GET)(`${ModuleTypeEnum.SYSTEM}/logout`)
+    const res = await http(RequestHttpEnum.POST)(`${ModuleTypeEnum.SYSTEM}/auth/logout`)
     return res
   } catch (err) {
     httpErrorHandle()

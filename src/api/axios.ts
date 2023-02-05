@@ -42,7 +42,7 @@ axiosInstance.interceptors.request.use(
     const userInfo = info[SystemStoreEnum.USER_INFO]
     config.headers = {
       ...config.headers,
-      [userInfo[SystemStoreUserInfoEnum.TOKEN_NAME] || 'token']: userInfo[SystemStoreUserInfoEnum.USER_TOKEN] || ''
+      [userInfo[SystemStoreUserInfoEnum.TOKEN_NAME] || 'token']: 'Bearer ' + userInfo[SystemStoreUserInfoEnum.USER_TOKEN] || ''
     }
     return config
   },
@@ -63,7 +63,7 @@ axiosInstance.interceptors.response.use(
     if (code === undefined || code === null) return Promise.resolve(res)
 
     // 成功
-    if (code === ResultEnum.SUCCESS || code === ResultEnum.DATA_SUCCESS) {
+    if (code === ResultEnum.SUCCESS) {
       return Promise.resolve(res.data)
     }
 

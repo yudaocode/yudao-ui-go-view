@@ -6,7 +6,7 @@ import { ProjectItem, ProjectDetail } from './project'
 // * 项目列表
 export const projectListApi = async (data: object) => {
   try {
-    const res = await http(RequestHttpEnum.GET)<ProjectItem[]>(`${ModuleTypeEnum.PROJECT}/list`, data)
+    const res = await http(RequestHttpEnum.GET)<any>(`${ModuleTypeEnum.PROJECT}/my-page`, data)
     return res
   } catch {
     httpErrorHandle()

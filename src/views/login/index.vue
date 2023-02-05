@@ -209,15 +209,18 @@ const handleSubmit = async (e: Event) => {
         password
       })
       if(loginRes && loginRes.data) {
+        // Token 信息
+        const tokenValue = loginRes.data.accessToken
+        const tokenName = 'Authorization'
+        // 个人信息
         const id = loginRes.data.userId
-        const token = loginRes.data.accessToken
         const username = '芋道源码'
         const nickname = '芋道源码'
 
         // 存储到 pinia
         systemStore.setItem(SystemStoreEnum.USER_INFO, {
-          [SystemStoreUserInfoEnum.USER_TOKEN]: token,
-          [SystemStoreUserInfoEnum.TOKEN_NAME]: '',
+          [SystemStoreUserInfoEnum.USER_TOKEN]: tokenValue,
+          [SystemStoreUserInfoEnum.TOKEN_NAME]: tokenName,
           [SystemStoreUserInfoEnum.USER_ID]: id,
           [SystemStoreUserInfoEnum.USER_NAME]: username,
           [SystemStoreUserInfoEnum.NICK_NAME]: nickname,

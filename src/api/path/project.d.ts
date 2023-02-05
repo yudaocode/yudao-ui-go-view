@@ -6,29 +6,30 @@ export type ProjectItem = {
   /**
    * 项目名称
    */
-  projectName: string
+  name: string
   /**
-   * 项目状态:\
-   * -1: 未发布\
-   * 1: 已发布
+   * 项目状态:
+   *
+   * 0 - 已发布
+   * 1 - 未发布
    */
-  state: number
+  status: number
   /**
    * 创建时间
    */
-  createTime: string
+  createTime: number
   /**
-   * 预览图片url
+   * 预览图片 URL
    */
-  indexImage: string
+  picUrl: string
   /**
-   * 创建者 id
+   * 创建者
    */
-  createUserId: string
+  creator: string
   /**
    * 项目备注
    */
-  remarks: string
+  remark: string
 }
 
 export interface ProjectDetail extends ProjectItem {

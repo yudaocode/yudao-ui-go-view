@@ -203,7 +203,7 @@ export const loginCheck = () => {
 
 /**
  * * 预览地址
- * @returns 
+ * @returns
  */
  export const previewPath = (id?: string | number) => {
   const { origin, pathname } = document.location
