@@ -1,7 +1,7 @@
 import { http } from '@/api/http'
 import { httpErrorHandle } from '@/utils'
 import { RequestHttpEnum, ModuleTypeEnum } from '@/enums/httpEnum'
-import { AuthLoginRespVO } from './system'
+import {AuthLoginRespVO, ProfileVO} from './system'
 
 // * 登录
 export const loginApi = async (data: object) => {
@@ -23,6 +23,17 @@ export const logoutApi = async () => {
     httpErrorHandle()
   }
 }
+
+// 查询用户个人信息
+export const getUserProfileApi = async () => {
+  try {
+    const res = await http(RequestHttpEnum.GET)<ProfileVO>(`${ModuleTypeEnum.SYSTEM}/user/profile/get`)
+    return res
+  } catch (err) {
+    httpErrorHandle()
+  }
+}
+
 
 // 获取验证图片  以及token
 export const getCodeApi = async (data: any) => {

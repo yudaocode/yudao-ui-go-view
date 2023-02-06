@@ -39,9 +39,18 @@ const http = {
   token_overdue_message: '登录过期，请重新登录！'
 }
 
+const captcha = {
+  verification: '请完成安全验证',
+  slide: '向右滑动完成验证',
+  point: '请依次点击',
+  success: '验证成功',
+  fail: '验证失败',
+}
+
 export default {
   global,
   http,
   login,
-  project
+  project,
+  captcha
 }

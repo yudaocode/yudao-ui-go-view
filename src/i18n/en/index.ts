@@ -34,9 +34,18 @@ const http = {
   token_overdue_message: 'Login expired, please log in again!'
 }
 
+const captcha = {
+  verification: 'Please complete security verification',
+  slide: 'Swipe right to complete verification',
+  point: 'Please click',
+  success: 'Verification succeeded',
+  fail: 'verification failed'
+}
+
 export default {
   global,
   http,
   login,
-  project
+  project,
+  captcha
 }

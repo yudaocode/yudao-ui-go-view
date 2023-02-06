@@ -147,7 +147,7 @@ import { PageEnum } from '@/enums/pageEnum'
 import { StorageEnum } from '@/enums/storageEnum'
 import { icon } from '@/plugins'
 import { routerTurnByName } from '@/utils'
-import {getTenantIdByNameApi, loginApi} from '@/api/path'
+import {getTenantIdByNameApi, getUserProfileApi, loginApi} from '@/api/path'
 import { Verify } from '@/components/Verifition'
 
 interface FormState {
@@ -269,14 +269,19 @@ const handleSubmit = async (params: any) => {
         captchaVerification: params.captchaVerification
       })
       if(loginRes && loginRes.data) {
-        // Token 信息
+        // ① Token 信息（先存储下，保证可以加载个人信息）
         const tokenValue = loginRes.data.accessToken
         const tokenName = 'Authorization'
-        // 个人信息
-        const id = loginRes.data.userId
-        const username = '芋道源码'
-        const nickname = '芋道源码'
+        systemStore.setItem(SystemStoreEnum.USER_INFO, {
+          [SystemStoreUserInfoEnum.USER_TOKEN]: tokenValue,
+          [SystemStoreUserInfoEnum.TOKEN_NAME]: tokenName
+        })
 
+        // 个人信息
+        const profileRes = await getUserProfileApi()
+        const id = loginRes.data.userId
+        const username = profileRes?.data?.nickname
+        const nickname = profileRes?.data?.nickname
         // 存储到 pinia
         systemStore.setItem(SystemStoreEnum.USER_INFO, {
           [SystemStoreUserInfoEnum.USER_TOKEN]: tokenValue,
@@ -284,7 +289,6 @@ const handleSubmit = async (params: any) => {
           [SystemStoreUserInfoEnum.USER_ID]: id,
           [SystemStoreUserInfoEnum.USER_NAME]: username,
           [SystemStoreUserInfoEnum.NICK_NAME]: nickname,
-          t
         })
 
         window['$message'].success(t('login.login_success'))

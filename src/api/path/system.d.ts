@@ -16,3 +16,8 @@ export interface AuthLoginRespVO {
    */
   expiresTime: number
 }
+
+export interface ProfileVO {
+  id: number
+  nickname: string
+}
