@@ -12,7 +12,7 @@ export enum ResultEnum {
   SERVER_ERROR = 500,
   SERVER_FORBIDDEN = 403,
   NOT_FOUND = 404,
-  TOKEN_OVERDUE = 886,
+  TOKEN_OVERDUE = 401, // 修改 by 芋道源码：使用浏览器标准的状态码，401 为未认证
   TIMEOUT = 60000,
 }
 

@@ -59,6 +59,6 @@ export enum PageEnum {
 
 export const ErrorPageNameMap = new Map([
   [ResultEnum.NOT_FOUND, PageEnum.ERROR_PAGE_NAME_404],
-  [ResultEnum.SERVER_FORBIDDEN, PageEnum.ERROR_PAGE_NAME_403],
-  [ResultEnum.SERVER_ERROR, PageEnum.ERROR_PAGE_NAME_500]
+  [ResultEnum.SERVER_FORBIDDEN, PageEnum.ERROR_PAGE_NAME_403]
+  // [ResultEnum.SERVER_ERROR, PageEnum.ERROR_PAGE_NAME_500] // 注释 by 芋道源码：对于 500 错误，是服务端执行异常，提示即可，不用跳转到单独的页面
 ])
