@@ -25,15 +25,16 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
-    // TODO 芋艿：临时代码
+    // 获取 tenantId
+    const info = getLocalStorage(StorageEnum.GO_SYSTEM_STORE)
     config.headers = {
       ...config.headers,
-      'tenant-id': 1
+      'tenant-id': info ? info[SystemStoreEnum.TENANT_INFO]['tenantId'] : ''
     }
+
     // 白名单校验
     if (includes(fetchAllowList, config.url)) return config
     // 获取 token
-    const info = getLocalStorage(StorageEnum.GO_SYSTEM_STORE)
     // 重新登录
     if (!info) {
       routerTurnByName(PageEnum.BASE_LOGIN_NAME)

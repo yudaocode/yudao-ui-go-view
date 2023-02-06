@@ -14,18 +14,18 @@ export interface UserInfoType {
   [SystemStoreUserInfoEnum.NICK_NAME]?: string,
 }
 
-export interface FetchInfoType {
-  OSSUrl?: string,
+export interface TenantInfoType {
+  tenantId?: number,
 }
 
 export enum SystemStoreEnum {
   // 用户
   USER_INFO = 'userInfo',
   // 请求
-  FETCH_INFO = 'fetchInfo'
+  TENANT_INFO = 'tenantInfo',
 }
 
 export interface SystemStoreType {
   [SystemStoreEnum.USER_INFO]: UserInfoType
-  [SystemStoreEnum.FETCH_INFO]: FetchInfoType
+  [SystemStoreEnum.TENANT_INFO]: TenantInfoType
 }

@@ -4,7 +4,8 @@ import project from './project'
 const global = {
   doc_addr: '文档地址',
   code_addr: '仓库地址',
-  form_account: '请输入账号或邮箱',
+  tenant_account: '请输入租户名',
+  form_account: '请输入账号',
   form_password: '请输入密码',
   // 头部
   doc: '说明文档',

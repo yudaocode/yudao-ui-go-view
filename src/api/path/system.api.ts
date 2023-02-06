@@ -43,3 +43,13 @@ export const reqCheckApi = async (data: any) => {
     httpErrorHandle()
   }
 }
+
+// 使用租户名，获得租户编号
+export const getTenantIdByNameApi = async (name: string) => {
+  try {
+    const res = await http(RequestHttpEnum.GET)(`${ModuleTypeEnum.SYSTEM}/tenant/get-id-by-name?name=` + name)
+    return res
+  } catch (err) {
+    httpErrorHandle()
+  }
+}

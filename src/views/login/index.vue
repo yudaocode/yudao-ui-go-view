@@ -56,6 +56,18 @@
                 :model="formInline"
                 :rules="rules"
               >
+                <n-form-item path="tenantId" v-if="tenantEnable ==='true'">
+                  <n-input
+                      v-model:value="formInline.tenantName"
+                      :placeholder="$t('global.form_tenant')"
+                  >
+                    <template #prefix>
+                      <n-icon size="18">
+                        <TvOutlineIcon></TvOutlineIcon>
+                      </n-icon>
+                    </template>
+                  </n-input>
+                </n-form-item>
                 <n-form-item path="username">
                   <n-input
                     v-model:value="formInline.username"
@@ -135,7 +147,7 @@ import { PageEnum } from '@/enums/pageEnum'
 import { StorageEnum } from '@/enums/storageEnum'
 import { icon } from '@/plugins'
 import { routerTurnByName } from '@/utils'
-import { loginApi } from '@/api/path'
+import {getTenantIdByNameApi, loginApi} from '@/api/path'
 import { Verify } from '@/components/Verifition'
 
 interface FormState {
@@ -144,7 +156,7 @@ interface FormState {
 }
 
 const { GO_SYSTEM_STORE } = StorageEnum
-const { PersonOutlineIcon, LockClosedOutlineIcon } = icon.ionicons5
+const { PersonOutlineIcon, LockClosedOutlineIcon, TvOutlineIcon } = icon.ionicons5
 
 const formRef = ref()
 const loading = ref(false)
@@ -156,6 +168,7 @@ const systemStore = useSystemStore()
 const t = window['$t']
 
 const formInline = reactive({
+  tenantName: '芋道源码',
   username: 'admin',
   password: 'admin123',
 })
@@ -167,6 +180,11 @@ const rules = {
     trigger: 'blur',
   },
   password: {
+    required: true,
+    message: t('global.form_password'),
+    trigger: 'blur',
+  },
+  tenantName: {
     required: true,
     message: t('global.form_password'),
     trigger: 'blur',
@@ -207,9 +225,8 @@ const shuffleHandle = () => {
 // 验证码
 const verify = ref()
 const captchaType = ref('blockPuzzle') // blockPuzzle 滑块 clickWord 点击文字
-
-// 获取验证码
 const captchaEnable = import.meta.env.VITE_APP_CAPTCHA_ENABLE
+// 获取验证码
 const getCode = async () => {
   // 情况一，未开启：则直接登录
   if (captchaEnable === 'false') {
@@ -221,10 +238,28 @@ const getCode = async () => {
   }
 }
 
+// 多租户
+const tenantEnable = import.meta.env.VITE_APP_TENANT_ENABLE
+// 获取租户 ID
+const getTenantId = async () => {
+  if (tenantEnable === 'true') {
+    const res = await getTenantIdByNameApi(formInline.tenantName)
+    if (res && res.data) {
+      // 存储到 pinia
+      systemStore.setItem(SystemStoreEnum.TENANT_INFO, {
+        tenantId: res.data
+      })
+    }
+  }
+}
+
 // 登录
 const handleSubmit = async (params: any) => {
   formRef.value.validate(async (errors: any) => {
     if (!errors) {
+      // 获取租户 ID
+      await getTenantId()
+
       const { username, password } = formInline
       loading.value = true
       // 提交请求【登录】
