@@ -25,8 +25,8 @@ export const useDataListInit = () => {
   const fetchList = async () => {
     loading.value = true
     const res = await projectListApi({
-      page: paginat.page,
-      limit: paginat.limit
+      pageNo: paginat.page,
+      pageSize: paginat.limit
     })
     if (res && res.data) {
       paginat.count = res.data.count
