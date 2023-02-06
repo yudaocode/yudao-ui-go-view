@@ -94,13 +94,20 @@
                 <n-form-item>
                   <n-button
                     type="primary"
-                    @click="handleSubmit"
+                    @click="getCode"
                     size="large"
                     :loading="loading"
                     block
                     >{{ $t('login.form_button') }}</n-button
                   >
                 </n-form-item>
+                <Verify
+                    ref="verify"
+                    mode="pop"
+                    :captchaType="captchaType"
+                    :imgSize="{ width: '400px', height: '200px' }"
+                    @success="handleSubmit"
+                />
               </n-form>
             </n-card>
           </n-collapse-transition>
@@ -129,6 +136,7 @@ import { StorageEnum } from '@/enums/storageEnum'
 import { icon } from '@/plugins'
 import { routerTurnByName } from '@/utils'
 import { loginApi } from '@/api/path'
+import { Verify } from '@/components/Verifition'
 
 interface FormState {
   username: string
@@ -196,9 +204,25 @@ const shuffleHandle = () => {
   }, carouselInterval)
 }
 
+// 验证码
+const verify = ref()
+const captchaType = ref('blockPuzzle') // blockPuzzle 滑块 clickWord 点击文字
+
+// 获取验证码
+const captchaEnable = import.meta.env.VITE_APP_CAPTCHA_ENABLE
+const getCode = async () => {
+  // 情况一，未开启：则直接登录
+  if (captchaEnable === 'false') {
+    await handleSubmit({})
+  } else {
+    // 情况二，已开启：则展示验证码；只有完成验证码的情况，才进行登录
+    // 弹出验证码
+    verify.value.show()
+  }
+}
+
 // 登录
-const handleSubmit = async (e: Event) => {
-  e.preventDefault()
+const handleSubmit = async (params: any) => {
   formRef.value.validate(async (errors: any) => {
     if (!errors) {
       const { username, password } = formInline
@@ -206,7 +230,8 @@ const handleSubmit = async (e: Event) => {
       // 提交请求【登录】
       const loginRes = await loginApi({
         username,
-        password
+        password,
+        captchaVerification: params.captchaVerification
       })
       if(loginRes && loginRes.data) {
         // Token 信息

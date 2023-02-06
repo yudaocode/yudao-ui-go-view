@@ -23,3 +23,23 @@ export const logoutApi = async () => {
     httpErrorHandle()
   }
 }
+
+// 获取验证图片  以及token
+export const getCodeApi = async (data: any) => {
+  try {
+    const res = await http(RequestHttpEnum.POST)(`${ModuleTypeEnum.SYSTEM}/captcha/get`, data)
+    return res.data
+  } catch (err) {
+    httpErrorHandle()
+  }
+}
+
+// 滑动或者点选验证
+export const reqCheckApi = async (data: any) => {
+  try {
+    const res = await http(RequestHttpEnum.POST)(`${ModuleTypeEnum.SYSTEM}/captcha/check`, data)
+    return res.data
+  } catch (err) {
+    httpErrorHandle()
+  }
+}

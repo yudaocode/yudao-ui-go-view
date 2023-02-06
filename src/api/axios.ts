@@ -58,6 +58,7 @@ axiosInstance.interceptors.response.use(
     if (isPreview()) {
       return Promise.resolve(res.data)
     }
+    // 如果是验证码的返回，直接返回数据
     const { code } = res.data as { code: number }
 
     if (code === undefined || code === null) return Promise.resolve(res)
