@@ -6,7 +6,10 @@ import { ProjectItem, ProjectDetail } from './project' // TODO 分页返回，�
 // * 项目列表
 export const projectListApi = async (data: object) => {
   try {
-    const res = await http(RequestHttpEnum.GET)<any>(`${ModuleTypeEnum.PROJECT}/my-page`, data)
+    const res = await http(RequestHttpEnum.GET)<{
+      list: ProjectItem[],
+      count: number
+    }>(`${ModuleTypeEnum.PROJECT}/my-page`, data)
     return res
   } catch {
     httpErrorHandle()

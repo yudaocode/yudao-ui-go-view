@@ -4,7 +4,6 @@ import { DialogEnum } from '@/enums/pluginEnum'
 import { projectListApi, deleteProjectApi, changeProjectReleaseApi } from '@/api/path'
 import { Chartype, ChartList } from '../../../index.d'
 import { ResultEnum } from '@/enums/httpEnum'
-import { ProjectItem } from "@/api/path/project";
 
 // 数据初始化
 export const useDataListInit = () => {
@@ -30,7 +29,7 @@ export const useDataListInit = () => {
     })
     if (res && res.data) {
       paginat.count = res.data.count
-      const projects = res.data.list as ProjectItem[]
+      const projects = res.data.list
       list.value = projects.map(e => {
         const { id, name, status, createTime, picUrl, creator } = e
         return {
