@@ -19,12 +19,7 @@ export const projectListApi = async (data: object) => {
 // * 新增项目
 export const createProjectApi = async (data: object) => {
   try {
-    const res = await http(RequestHttpEnum.POST)<{
-      /**
-       * 项目id
-       */
-      id: number
-    }>(`${ModuleTypeEnum.PROJECT}/create`, data)
+    const res = await http(RequestHttpEnum.POST)<number>(`${ModuleTypeEnum.PROJECT}/create`, data)
     return res
   } catch {
     httpErrorHandle()
