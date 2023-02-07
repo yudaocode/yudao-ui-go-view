@@ -121,7 +121,10 @@ export const appendTokenAndTenant = (headers: RequestParamsObjType, requestUrl: 
     return headers;
   }
   // ① 获取 tenantId
-  headers['tenant-id'] = info[SystemStoreEnum.TENANT_INFO]['tenantId']
+  const tenantId = info ? info[SystemStoreEnum.TENANT_INFO]['tenantId'] : undefined
+  if (tenantId) {
+    headers['tenant-id'] = tenantId
+  }
   // ② 获取 token
   const userInfo = info[SystemStoreEnum.USER_INFO]
   if (!userInfo) {

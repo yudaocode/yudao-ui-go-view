@@ -27,9 +27,12 @@ axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     // 获取 tenantId
     const info = getLocalStorage(StorageEnum.GO_SYSTEM_STORE)
-    config.headers = {
-      ...config.headers,
-      'tenant-id': info ? info[SystemStoreEnum.TENANT_INFO]['tenantId'] : undefined
+    const tenantId = info ? info[SystemStoreEnum.TENANT_INFO]['tenantId'] : undefined
+    if (tenantId) {
+      config.headers = {
+        ...config.headers,
+        'tenant-id': tenantId
+      }
     }
 
     // 白名单校验
