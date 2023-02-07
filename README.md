@@ -1,119 +1,92 @@
 ## 总览
 
-**`master-fetch` 分支是带有后端接口请求的分支**
+<p align="center">
+    <img src="readme/logo-t-y.png" alt="go-view" />
+</p>
 
-**后端项目地址：[https://gitee.com/MTrun/go-view-serve](https://gitee.com/MTrun/go-view-serve)**
+<h4 align="center">开源、精美、便捷的「数据可视化」低代码开发平台</h4>
 
-**接口说明地址：[https://docs.apipost.cn/preview/5aa85d10a59d66ce/ddb813732007ad2b?target_id=84dbc5b0-158f-4bcb-8f74-793ac604ada3#3e053622-1e76-43f9-a039-756aee822dbb](https://docs.apipost.cn/preview/5aa85d10a59d66ce/ddb813732007ad2b?target_id=84dbc5b0-158f-4bcb-8f74-793ac604ada3#3e053622-1e76-43f9-a039-756aee822dbb)**
+由 [芋道](https://doc.iocoder.cn/) 与 GoView 共同建设，基于 Vue3 搭建的低代码数据可视化开发平台，将图表或页面元素封装为基础组件，无需编写代码即可完成业务需求。
 
-## 使用
+* 框架：基于 Vue3 框架编写，使用 hooks 写法抽离部分逻辑，使代码结构更加清晰
+* 类型：使用 TypeScript 进行类型约束，减少未知错误发生概率，可以大胆修改逻辑内容
+* 性能：多处性能优化，使用页面懒加载、组件动态注册、数据滚动加载等方式，提升页面渲染速度
+* 存储：拥有本地记忆，部分配置项采用 storage 存储本地，提升使用体验
+* 封装：项目进行了详细的工具类封装如：路由、存储、加/解密、文件处理、主题、NaiveUI 全局方法、组件等
+* 入选 NaiveUI 社区精选资源推荐：[查看 NaiveUI 推荐列表](https://www.naiveui.com/zh-CN/light/docs/community)
 
-所有的接口地址位置：`src\api\path\*`
+## 项目地址
 
-接口地址修改：`.env`
+![preview](readme/preview.png)
 
-```shell
-# port
-VITE_DEV_PORT = '8080'
+* 前端：<https://gitee.com/zhijiantianya/yudao-ui-go-view>
+* Boot 后端：<https://gitee.com/zhijiantianya/ruoyi-vue-pro>
+* Cloud 后端：<https://gitee.com/zhijiantianya/yudao-cloud>
 
-# development path
-VITE_DEV_PATH = 'http://127.0.0.1:8080'
+## 文档地址
 
-# production path
-VITE_PRO_PATH = 'http://127.0.0.1:8080'
-```
+* 演示环境：<http://dashboard.yudao.iocoder.cn/login> 「报表管理 - 大屏设计器」
+* 文档地址：<https://doc.iocoder.cn/report/>
 
-公共前缀修改：`src\settings\httpSetting.ts`
+## 技术栈
 
-```shell
-// 请求前缀
-export const axiosPre = '/api/goview'
-```
+主要技术栈为：
 
-接口封装：`src\api\http.ts`
+| 名称                | 版本    | 名称          | 版本     |
+|-------------------|-------|-------------|--------|
+| Vue               | 3.2.x | TypeScript4 | 4.6.x  |
+| Vite              | 2.9.x | NaiveUI     | 2.27.x |
+| ECharts           | 5.3.x | Pinia       | 2.0.x  |
+| 详见 `package.json` | 😁    | 🥰          | 🤗     |
 
-```ts
-import axiosInstance from './axios'
-import { RequestHttpEnum, ContentTypeEnum } from '@/enums/httpEnum'
+开发环境:
 
-export const get = (url: string, params?: object) => {
-  return axiosInstance({
-    url: url,
-    method: RequestHttpEnum.GET,
-    params: params,
-  })
-}
+| 名称   | 版本      | 名称      | 版本    |
+|------|---------|---------|-------|
+| node | 16.14.x | npm     | 8.5.x |
+| pnpm | 7.1.x   | windows | 11    |
 
-export const post = (url: string, data?: object, headersType?: string) => {
-  return axiosInstance({
-    url: url,
-    method: RequestHttpEnum.POST,
-    data: data,
-    headers: {
-      'Content-Type': headersType || ContentTypeEnum.JSON
-    }
-  })
-}
+已完成图表：
 
-export const put = (url: string, data?: object, headersType?: string) => {
-  return axiosInstance({
-    url: url,
-    method: RequestHttpEnum.PUT,
-    data: data,
-    headers: {
-      'Content-Type': headersType || ContentTypeEnum.JSON
-    }
-  })
-}
+| 分类  | 名称           | 名称       | 名称      | 名称             |
+|-----|--------------|----------|---------|----------------|
+| 图表  | 柱状图          | 横向柱状图    | 折线图     | 单/多 折线面积图(渐变色) |
+| \*  | 饼图           | 环形图      | 水球图     | 雷达图            |
+| \*  | NaiveUI 多种进度 | 散点图      | 对数回归散点图 | 热力图            |
+| \*  | 漏斗图          | 中国地图     | 高德地图    | 🦊             |
+| 信息  | 文字           | 渐变文字     | 词云      | 嵌套网页           |
+| \*  | 图片           | 视频       | 😺      | 🐯             |
+| 列表  | 滚动排名列表       | 滚动表格     | 🐮      | 🐐             |
+| 小组件 | 边框-01~13     | 装饰-01~05 | 数字翻牌    | 通用时间           |
+| \*  | 数字计数         | 倒计时      | 时钟      | 🦁             |
 
-export const del = (url: string, params?: object) => {
-  return axiosInstance({
-    url: url,
-    method: RequestHttpEnum.DELETE,
-    params
-  })
-}
+## 项目截图
 
-// 获取请求函数，默认get
-export const http = (type?: RequestHttpEnum) => {
-  switch (type) {
-    case RequestHttpEnum.GET:
-      return get
+#### 工作台
 
-    case RequestHttpEnum.POST:
-      return post
 
-    case RequestHttpEnum.PUT:
-      return put
+![工作台](readme/go-view-canvas.png)
 
-    case RequestHttpEnum.DELETE:
-      return del
+#### 请求配置
 
-    default:
-      return get
-  }
-}
+![请求配置](readme/go-view-fetch.png)
 
-```
+#### 数据过滤
 
-## 代码提交
+![数据过滤](readme/go-view-filter.png)
 
-* feat: 新功能
-* fix: 修复 Bug
-* docs: 文档修改
-* perf: 性能优化
-* revert: 版本回退
-* ci: CICD集成相关
-* test: 添加测试代码
-* refactor: 代码重构
-* build: 影响项目构建或依赖修改
-* style: 不影响程序逻辑的代码修改
-* chore: 不属于以上类型的其他类型(日常事务)
+#### 高级事件编辑
 
-## 交流
+![高级事件编辑](readme/go-view-event.png)
 
-QQ 群：1030129384
+#### 快捷主页
 
-![QQ群](readme/go-view-qq.png)
+![快捷主页](readme/go-view-indexpage.png)
 
-![渲染海报](readme/logo-poster.png)
+#### 主题色
+
+![主题色](readme/go-view-color.png)
+
+#### 亮白主题
+
+![亮白主题](readme/go-view-theme.png)
