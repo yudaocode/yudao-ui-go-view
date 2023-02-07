@@ -29,7 +29,7 @@ axiosInstance.interceptors.request.use(
     const info = getLocalStorage(StorageEnum.GO_SYSTEM_STORE)
     config.headers = {
       ...config.headers,
-      'tenant-id': info ? info[SystemStoreEnum.TENANT_INFO]['tenantId'] : ''
+      'tenant-id': info ? info[SystemStoreEnum.TENANT_INFO]['tenantId'] : undefined
     }
 
     // 白名单校验

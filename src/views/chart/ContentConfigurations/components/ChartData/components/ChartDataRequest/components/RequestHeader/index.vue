@@ -7,10 +7,11 @@
       </n-tabs>
     </div>
     <div v-show="requestContentType === RequestContentTypeEnum.DEFAULT">
+      <n-tag type="warning">需要后台提供对应的 http 的接口</n-tag> <br />
+      例如说：http://127.0.0.1:48080/admin-api/report/go-view/data/get-by-http
       <n-tabs type="line" animated v-model:value="tabValue">
         <n-tab v-for="item in RequestParamsTypeEnum" :key="item" :name="item" :tab="item"> {{ item }} </n-tab>
       </n-tabs>
-
       <!-- 各个页面 -->
       <div class="go-mt-3">
         <div v-if="tabValue !== RequestParamsTypeEnum.BODY">
@@ -73,12 +74,13 @@
         <n-text>SQL 类型不支持 Get 请求，请使用其它方式</n-text>
       </template>
       <template v-else>
-        <n-tag type="warning">需要后台提供专门处理 sql 的接口</n-tag>
+        <n-tag type="warning">需要后台提供专门处理 sql 的接口</n-tag> <br />
+        例如说：http://127.0.0.1:48080/admin-api/report/go-view/data/get-by-sql
         <setting-item-box name="键名">
           <n-tag type="primary" :bordered="false" style="width: 40px; font-size: 16px"> sql </n-tag>
         </setting-item-box>
         <setting-item-box name="键值">
-          <monaco-editor v-model:modelValue="requestSQLContent['sql']" width="600px" height="200px" language="sql" />
+          <monaco-editor v-model:modelValue="requestSQLContent['sql']" width="600px" height="190px" language="sql" />
         </setting-item-box>
       </template>
     </div>

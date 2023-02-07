@@ -8,6 +8,9 @@ import {
   RequestParamsObjType
 } from '@/enums/httpEnum'
 import type { RequestGlobalConfigType, RequestConfigType } from '@/store/modules/chartEditStore/chartEditStore.d'
+import { getLocalStorage } from "@/utils";
+import { StorageEnum } from "@/enums/storageEnum";
+import { SystemStoreEnum, SystemStoreUserInfoEnum } from '@/store/modules/systemStore/systemStore.d'
 
 export const get = <T = any>(url: string, params?: object) => {
   return axiosInstance<T>({
@@ -107,6 +110,27 @@ export const translateStr = (target: string | Record<any, any>) => {
   return target
 }
 
+// 处理 token 和多租户的头；注意：只拼接属于 VITE_DEV_PATH 或 VITE_PROD_PATH 开头的 URL 地址，就是自己的后端
+export const appendTokenAndTenant = (headers: RequestParamsObjType, requestUrl: string) => {
+  if (requestUrl.indexOf(import.meta.env.VITE_DEV_PATH) === -1
+    || requestUrl.indexOf(import.meta.env.VITE_PROD_PATH) === -1) {
+    return headers
+  }
+  const info = getLocalStorage(StorageEnum.GO_SYSTEM_STORE)
+  if (!info) {
+    return headers;
+  }
+  // ① 获取 tenantId
+  headers['tenant-id'] = info[SystemStoreEnum.TENANT_INFO]['tenantId']
+  // ② 获取 token
+  const userInfo = info[SystemStoreEnum.USER_INFO]
+  if (!userInfo) {
+    return headers
+  }
+  headers[userInfo[SystemStoreUserInfoEnum.TOKEN_NAME] || 'token'] = 'Bearer ' + userInfo[SystemStoreUserInfoEnum.USER_TOKEN]
+  return headers
+}
+
 /**
  * * 自定义请求
  * @param targetParams 当前组件参数
@@ -155,6 +179,8 @@ export const customizeHttp = (targetParams: RequestConfigType, globalParams: Req
     ...targetRequestParams.Header
   }
   headers = translateStr(headers)
+  // 处理 token 和多租户的头
+  headers = appendTokenAndTenant(headers, requestUrl)
 
   // data 参数
   let data: RequestParamsObjType | FormData | string = {}
