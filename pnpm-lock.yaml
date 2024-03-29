@@ -918,7 +918,7 @@ packages:
     dev: true
 
   /@types/node/17.0.43:
-    resolution: {integrity: sha512-jnUpgw8fL9kP2iszfIDyBQtw5Mf4/XSqy0Loc1J9pI14ejL83XcCEvSf50Gs/4ET0I9VCCDoOfufQysj0S66xA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npm.taobao.org/@types/node/-/node-17.0.43.tgz}
+    resolution: {integrity: sha512-jnUpgw8fL9kP2iszfIDyBQtw5Mf4/XSqy0Loc1J9pI14ejL83XcCEvSf50Gs/4ET0I9VCCDoOfufQysj0S66xA==, registry: https://registry.npmmirror.com/, tarball: https://registry.npmmirror.com/@types/node/-/node-17.0.43.tgz}
 
   /@types/normalize-package-data/2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
@@ -2113,7 +2113,7 @@ packages:
     dev: false
 
   /echarts-wordcloud/2.0.0_echarts@5.3.3:
-    resolution: {integrity: sha512-K7l6pTklqdW7ZWzT/1CS0KhBSINr/cd7c5N1fVMzZMwLQHEwT7x+nivK7g5hkVh7WNcAv4Dn6/ZS5zMKRozC1g==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npm.taobao.org/echarts-wordcloud/-/echarts-wordcloud-2.0.0.tgz}
+    resolution: {integrity: sha512-K7l6pTklqdW7ZWzT/1CS0KhBSINr/cd7c5N1fVMzZMwLQHEwT7x+nivK7g5hkVh7WNcAv4Dn6/ZS5zMKRozC1g==, registry: https://registry.npmmirror.com/, tarball: https://registry.npmmirror.com/echarts-wordcloud/-/echarts-wordcloud-2.0.0.tgz}
     peerDependencies:
       echarts: ^5.0.1
     dependencies:
