@@ -9,6 +9,7 @@
       :radius="flipperRadius"
       :flip-type="flipperType"
       :duration="flipperSpeed"
+      :border-width="flipperBorderWidth"
       v-for="(item, index) in flipperData"
       :key="index"
       class="go-d-block"

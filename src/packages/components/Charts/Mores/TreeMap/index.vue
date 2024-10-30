@@ -1,16 +1,17 @@
 <template>
-  <v-chart ref="vChartRef" :theme="themeColor" :option="option" :manual-update="isPreview()" autoresize></v-chart>
+  <v-chart ref="vChartRef" :init-options="initOptions" :theme="themeColor" :option="option" :manual-update="isPreview()" autoresize></v-chart>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, PropType, watch } from 'vue'
 import VChart from 'vue-echarts'
+import { useCanvasInitOptions } from '@/hooks/useCanvasInitOptions.hook'
 import dataJson from './data.json'
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { TreemapChart } from 'echarts/charts'
 import { includes } from './config'
-import { mergeTheme } from '@/packages/public/chart'
+import { mergeTheme, setOption } from '@/packages/public/chart'
 import { useChartDataFetch } from '@/hooks'
 import { CreateComponentType } from '@/packages/index.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
@@ -31,6 +32,8 @@ const props = defineProps({
   }
 })
 
+const initOptions = useCanvasInitOptions(props.chartConfig.option, props.themeSetting)
+
 use([CanvasRenderer, TreemapChart])
 
 const vChartRef = ref<typeof VChart>()
@@ -42,7 +45,7 @@ const option = computed(() => {
 const dataSetHandle = (dataset: typeof dataJson) => {
   if (dataset) {
     props.chartConfig.option.series[0].data = dataset
-    vChartRef.value?.setOption(props.chartConfig.option)
+    setOption(vChartRef.value, props.chartConfig.option)
   }
 }
 

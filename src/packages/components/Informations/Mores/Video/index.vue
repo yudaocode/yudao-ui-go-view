@@ -36,7 +36,7 @@ let option = shallowReactive({ ...configOption })
 // 预览更新
 const vVideoRef = ref(null)
 useChartDataFetch(props.chartConfig, useChartEditStore, (newData: any) => {
-  option = newData
+  option.dataset = newData
 })
 
 // 编辑更新

@@ -1,19 +1,37 @@
 {
   "markers": [
     {
+      "id": 1,
+      "icon": "https://goviewpro.tos-cn-beijing.volces.com/charts-img-db/charts-img-db_id_4tmtkbnsdle000.png?date=1704421394543",
       "name": "某某地市",
       "value": 10,
-      "position": [116.300467, 39.907761]
+      "position": [
+        116.314699,
+        39.913191
+      ],
+      "mapId": 97189
     },
     {
+      "id": 2,
+      "icon": "https://goviewpro.tos-cn-beijing.volces.com/charts-img-db/charts-img-db_id_4tmtkbnsdle000.png?date=1704421394543",
       "name": "某某地市",
       "value": 15,
-      "position": [116.400567, 39.908761]
+      "position": [
+        116.599051,
+        39.87525
+      ],
+      "mapId": 97188
     },
     {
+      "id": 3,
+      "icon": "https://goviewpro.tos-cn-beijing.volces.com/charts-img-db/charts-img-db_id_4tmtkbnsdle000.png?date=1704421394543",
       "name": "某某地市",
       "value": 20,
-      "position": [116.200467, 39.937761]
+      "position": [
+        116.148827,
+        39.785055
+      ],
+      "mapId": 97187
     }
   ]
 }

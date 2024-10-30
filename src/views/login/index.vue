@@ -143,10 +143,17 @@ import { GoThemeSelect } from '@/components/GoThemeSelect'
 import { GoLangSelect } from '@/components/GoLangSelect'
 import { LayoutHeader } from '@/layout/components/LayoutHeader'
 import { LayoutFooter } from '@/layout/components/LayoutFooter'
-import { PageEnum } from '@/enums/pageEnum'
+import {PageEnum, PreviewEnum} from '@/enums/pageEnum'
 import { StorageEnum } from '@/enums/storageEnum'
 import { icon } from '@/plugins'
-import { routerTurnByName } from '@/utils'
+import {
+  fetchPathByName,
+  getSessionStorage,
+  previewPath,
+  routerTurnByName,
+  routerTurnByPath,
+  setSessionStorage
+} from '@/utils'
 import {getTenantIdByNameApi, getUserProfileApi, loginApi} from '@/api/path'
 import { Verify } from '@/components/Verifition'
 
@@ -272,6 +279,7 @@ const handleSubmit = async (params: any) => {
         // ① Token 信息（先存储下，保证可以加载个人信息）
         const tokenValue = loginRes.data.accessToken
         const tokenName = 'Authorization'
+        const refreshToken	 = loginRes.data.refreshToken
         systemStore.setItem(SystemStoreEnum.USER_INFO, {
           [SystemStoreUserInfoEnum.USER_TOKEN]: tokenValue,
           [SystemStoreUserInfoEnum.TOKEN_NAME]: tokenName
@@ -285,6 +293,7 @@ const handleSubmit = async (params: any) => {
         // 存储到 pinia
         systemStore.setItem(SystemStoreEnum.USER_INFO, {
           [SystemStoreUserInfoEnum.USER_TOKEN]: tokenValue,
+          [SystemStoreUserInfoEnum.USER_REFRESH_TOKEN]: refreshToken,
           [SystemStoreUserInfoEnum.TOKEN_NAME]: tokenName,
           [SystemStoreUserInfoEnum.USER_ID]: id,
           [SystemStoreUserInfoEnum.USER_NAME]: username,
@@ -292,7 +301,24 @@ const handleSubmit = async (params: any) => {
         })
 
         window['$message'].success(t('login.login_success'))
-        routerTurnByName(PageEnum.BASE_HOME_NAME, true)
+
+        const redirectPath = getSessionStorage('setRedirectPath')
+        const redirectPathId = getSessionStorage('setRedirectPathId')
+        console.log(redirectPath)
+        console.log(redirectPathId)
+        if(redirectPath){
+          routerTurnByPath(redirectPath,[redirectPathId],true,false)
+        }else{
+          if(getSessionStorage('setRedirectPath')) {
+            console.log("重定向到登录页")
+            routerTurnByPath(getSessionStorage('setRedirectPath'));
+          }else{
+            console.log("重定向到首页》》》")
+            routerTurnByName(PageEnum.BASE_HOME_NAME, true);
+          }
+
+        }
+
       }
       loading.value = false
     } else {

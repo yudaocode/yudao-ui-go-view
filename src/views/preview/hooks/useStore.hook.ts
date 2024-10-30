@@ -6,4 +6,6 @@ import type { ChartEditStorageType } from '../index.d'
 export const useStore = (localStorageInfo: ChartEditStorageType) => {
   const chartEditStore = useChartEditStore()
   chartEditStore.requestGlobalConfig = localStorageInfo[ChartEditStoreEnum.REQUEST_GLOBAL_CONFIG]
+  chartEditStore.componentList = localStorageInfo[ChartEditStoreEnum.COMPONENT_LIST]
+  chartEditStore.editCanvasConfig = localStorageInfo[ChartEditStoreEnum.EDIT_CANVAS_CONFIG]
 }

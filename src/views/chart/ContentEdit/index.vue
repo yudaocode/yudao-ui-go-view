@@ -83,15 +83,15 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, computed } from 'vue'
+import { onMounted, computed, provide } from 'vue'
 import { chartColors } from '@/settings/chartThemes/index'
 import { MenuEnum } from '@/enums/editPageEnum'
 import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
-import { animationsClass, getFilterStyle, getTransformStyle, getBlendModeStyle } from '@/utils'
+import { animationsClass, getFilterStyle, getTransformStyle, getBlendModeStyle, colorCustomMerge } from '@/utils'
 import { useContextMenu } from '@/views/chart/hooks/useContextMenu.hook'
 import { MenuOptionsItemType } from '@/views/chart/hooks/useContextMenu.hook.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-
+import { SCALE_KEY } from '@/views/preview/hooks/useScale.hook'
 import { useLayout } from './hooks/useLayout.hook'
 import { useAddKeyboard } from '../hooks/useKeyboard.hook'
 import { useSync } from '../hooks/useSync.hook'
@@ -108,10 +108,13 @@ import { EditTools } from './components/EditTools'
 
 const chartEditStore = useChartEditStore()
 const { handleContextMenu } = useContextMenu()
+
+// 编辑时注入scale变量，消除警告
+provide(SCALE_KEY, null)
 const { dataSyncFetch, intervalDataSyncUpdate } = useSync()
 
 // 布局处理
-useLayout()
+useLayout(async () => {})
 
 // 点击事件
 const { mouseenterHandle, mouseleaveHandle, mousedownHandle, mouseClickHandle } = useMouseHandle()
@@ -148,8 +151,8 @@ const themeSetting = computed(() => {
 
 // 配置项
 const themeColor = computed(() => {
-  const chartThemeColor = chartEditStore.getEditCanvasConfig.chartThemeColor
-  return chartColors[chartThemeColor]
+  const colorCustomMergeData = colorCustomMerge(chartEditStore.getEditCanvasConfig.chartCustomThemeColorInfo)
+  return colorCustomMergeData[chartEditStore.getEditCanvasConfig.chartThemeColor]
 })
 
 // 是否展示渲染
@@ -196,7 +199,6 @@ onMounted(() => {
   @include background-image('background-point');
 
   @include goId('chart-edit-content') {
-    border-radius: 10px;
     overflow: hidden;
     @extend .go-transition;
     @include fetch-theme('box-shadow');

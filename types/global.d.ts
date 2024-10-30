@@ -1,4 +1,5 @@
 interface Window {
+  _AMapSecurityConfig: { securityJsCode: string };
   $loading: any
   $message: any
   $dialog: any

@@ -12,6 +12,7 @@
       <n-tabs type="line" animated v-model:value="tabValue">
         <n-tab v-for="item in RequestParamsTypeEnum" :key="item" :name="item" :tab="item"> {{ item }} </n-tab>
       </n-tabs>
+
       <!-- 各个页面 -->
       <div class="go-mt-3">
         <div v-if="tabValue !== RequestParamsTypeEnum.BODY">

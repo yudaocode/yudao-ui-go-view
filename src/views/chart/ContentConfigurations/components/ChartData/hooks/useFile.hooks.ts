@@ -31,6 +31,24 @@ export const useFile = (targetData: any) => {
     })
   }
 
+  // 打开JSON编辑器赋值
+  const JSONEditor = () => {
+    return JSONStringify(targetData.value.option.dataset)
+  }
+
+
+  // JSON编辑器回传操作
+  const JSONEditorReturn = (options: String) => {
+    try {
+      JSON.parse(options.toString());
+      console.log(options)
+      targetData.value.option.dataset = JSONParse(options.toString())
+      return true;
+    } catch (e) {
+      window['$message'].error('从JSON编辑器导入数据失败，请确认JSON格式或稍后重试或联系管理员！')
+    }
+  }
+
   // 下载文件
   const download = () => {
     try {
@@ -44,6 +62,8 @@ export const useFile = (targetData: any) => {
     uploadFileListRef,
     beforeUpload,
     customRequest,
-    download
+    download,
+    JSONEditor,
+    JSONEditorReturn
   }
 }

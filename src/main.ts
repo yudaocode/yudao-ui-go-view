@@ -3,9 +3,13 @@ import App from './App.vue'
 import router, { setupRouter } from '@/router'
 import i18n from '@/i18n/index'
 import { setupStore } from '@/store'
-import { setupNaive, setupDirectives, setupCustomComponents } from '@/plugins'
+import { setupNaive, setupDirectives, setupCustomComponents, initFunction } from '@/plugins'
 import { GoAppProvider } from '@/components/GoAppProvider/index'
 import { setHtmlTheme } from '@/utils'
+import { addCollection } from 'iconify-icon'
+import uimIcons from '@iconify/json/json/uim.json'
+import lineMdIcons from '@iconify/json/json/line-md.json'
+import wiIcons from '@iconify/json/json/wi.json'
 
 // 引入全局样式
 import '@/styles/pages/index.scss'
@@ -13,6 +17,10 @@ import '@/styles/pages/index.scss'
 import 'animate.css/animate.min.css'
 // 引入标尺
 import 'vue3-sketch-ruler/lib/style.css'
+// 注册图标
+addCollection(uimIcons)
+addCollection(lineMdIcons)
+addCollection(wiIcons)
 
 async function appInit() {
   const goAppProvider = createApp(GoAppProvider)
@@ -53,4 +61,7 @@ async function appInit() {
   window['$vue'] = app
 }
 
-void appInit()
+appInit().then(() => {
+  initFunction()
+})
+

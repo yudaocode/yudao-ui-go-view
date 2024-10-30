@@ -22,7 +22,7 @@
       </n-form-item>
     </n-form>
 
-    <n-card class="upload-box">
+    <div class="upload-box">
       <n-upload
         v-model:file-list="uploadFileListRef"
         :show-file-list="false"
@@ -39,7 +39,7 @@
           </div>
         </n-upload-dragger>
       </n-upload>
-    </n-card>
+    </div>
     <n-space vertical :size="12">
       <n-space>
         <n-text>背景颜色</n-text>
@@ -128,13 +128,14 @@
 <script setup lang="ts">
 import { ref, nextTick, watch } from 'vue'
 import { backgroundImageSize } from '@/settings/designSetting'
+import { swatchesColors } from '@/settings/chartThemes/index'
 import { FileTypeEnum } from '@/enums/fileTypeEnum'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasConfigEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { useSystemStore } from '@/store/modules/systemStore/systemStore'
 import { StylesSetting } from '@/components/Pages/ChartItemSetting'
 import { UploadCustomRequestOptions } from 'naive-ui'
-import { loadAsyncComponent, fetchRouteParamsLocation } from '@/utils'
+import { fileToUrl, loadAsyncComponent, fetchRouteParamsLocation } from '@/utils'
 import { PreviewScaleEnum } from '@/enums/styleEnum'
 import { ResultEnum } from '@/enums/httpEnum'
 import { icon } from '@/plugins'
@@ -166,8 +167,6 @@ const selectColorOptions = [
   }
 ]
 
-// 默认展示颜色列表
-const swatchesColors = ['#232324', '#2a2a2b', '#313132', '#373739', '#757575', '#e0e0e0', '#eeeeee', '#fafafa']
 
 const globalTabList = [
   {
@@ -354,8 +353,8 @@ $uploadHeight: 193px;
     padding-right: 2.25em;
   }
   .select-preview-icon {
-    padding-right: .68em;
-    padding-left: .68em;
+    padding-right: 0.68em;
+    padding-left: 0.68em;
   }
   .tabs-box {
     margin-top: 20px;

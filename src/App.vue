@@ -19,6 +19,34 @@ import { GoAppProvider } from '@/components/GoAppProvider'
 import { I18n } from '@/components/I18n'
 import { useSystemInit, useDarkThemeHook, useThemeOverridesHook, useCode, useLang } from '@/hooks'
 
+//字节图表全局配置部分
+import vScreenVolcanoBlue from '@visactor/vchart-theme/public/vScreenVolcanoBlue.json';
+import VChart from '@visactor/vchart';
+import {IGlobalMarkThemeByName, IGlobalMarkThemeByType, ITheme} from "@visactor/vchart/esm/theme/interface";
+import {languages} from "monaco-editor";
+import type {IColorKey} from "@visactor/vchart/esm/theme/color-scheme/interface";
+import type {ITokenKey} from "@visactor/vchart/esm/theme/token";
+import type {ISeriesTheme} from "@visactor/vchart/esm/series/interface";
+import type {IComponentTheme} from "@visactor/vchart/esm/component/interface";
+const myVScreenVolcanoBlue: Partial<ITheme> = {
+   ...vScreenVolcanoBlue,
+  type:"dark",
+  background:vScreenVolcanoBlue.background as IColorKey,
+  fontFamily:vScreenVolcanoBlue.fontFamily as ITokenKey,
+  mark:vScreenVolcanoBlue.mark as IGlobalMarkThemeByType,
+  markByName:vScreenVolcanoBlue.markByName as IGlobalMarkThemeByName,
+  series:vScreenVolcanoBlue.series as ISeriesTheme,
+  component: vScreenVolcanoBlue.component as unknown  as IComponentTheme
+  // 其他字段逐个检查和断言
+};
+
+VChart.ThemeManager.registerTheme('vScreenVolcanoBlue',myVScreenVolcanoBlue);
+// apply the theme
+VChart.ThemeManager.setCurrentTheme('vScreenVolcanoBlue');
+//字节图标配置部分END
+
+
+
 // 暗黑主题
 const darkTheme = useDarkThemeHook()
 

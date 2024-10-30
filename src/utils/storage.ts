@@ -36,6 +36,21 @@ export const clearLocalStorage = (name: string) => {
   window.localStorage.removeItem(name)
 }
 
+
+/**
+ * * 清除所有本地会话数据
+ * @param k 键名
+ * @param v 键值（无需stringiiy）
+ * @returns RemovableRef
+ */
+export const clearAllStorage = () => {
+  try {
+    window.localStorage.clear()
+  } catch (error) {
+    return false
+  }
+}
+
 /**
  * * 存储临时会话数据
  * @param k 键名
@@ -44,7 +59,7 @@ export const clearLocalStorage = (name: string) => {
  */
 export const setSessionStorage = <T>(k: string, v: T) => {
   try {
-    window.sessionStorage.setItem(k, JSON.stringify(v))
+    window.sessionStorage.setItem(k, JSONStringify(v))
   } catch (error) {
     return false
   }
@@ -70,6 +85,15 @@ export const getSessionStorage: (k: string) => any = (k: string) => {
 export const clearSessioStorage = (name: string) => {
   window.sessionStorage.removeItem(name)
 }
+
+/**
+ * * 清除所有本地会话数据
+ * @param name
+ */
+export const clearAllSessio = () => {
+  window.sessionStorage.clear()
+}
+
 
 /**
  * * 设置 cookie
@@ -108,3 +132,6 @@ export const getCookie = (cname: string) => {
 export const clearCookie = (name: string) => {
   setCookie(name, "", -1);
 }
+
+
+

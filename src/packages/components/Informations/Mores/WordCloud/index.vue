@@ -1,6 +1,7 @@
 <template>
   <v-chart
     ref="vChartRef"
+    :init-options="initOptions"
     :theme="themeColor"
     :option="option"
     :manual-update="isPreview()"
@@ -12,11 +13,12 @@
 <script setup lang="ts">
 import { ref, computed, watch, PropType } from 'vue'
 import VChart from 'vue-echarts'
+import { useCanvasInitOptions } from '@/hooks/useCanvasInitOptions.hook'
 import 'echarts-wordcloud'
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import config, { includes } from './config'
-import { mergeTheme } from '@/packages/public/chart'
+import { mergeTheme, setOption } from '@/packages/public/chart'
 import { useChartDataFetch } from '@/hooks'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { isPreview } from '@/utils'
@@ -38,6 +40,8 @@ const props = defineProps({
   }
 })
 
+const initOptions = useCanvasInitOptions(props.chartConfig.option, props.themeSetting)
+
 use([CanvasRenderer, GridComponent, TooltipComponent])
 
 const replaceMergeArr = ref<string[]>()
@@ -49,7 +53,7 @@ const option = computed(() => {
 const dataSetHandle = (dataset: typeof dataJson) => {
   try {
     dataset && (props.chartConfig.option.series[0].data = dataset)
-    vChartRef.value && isPreview() && vChartRef.value.setOption(props.chartConfig.option)
+    vChartRef.value && isPreview() && setOption(vChartRef.value, props.chartConfig.option)
   } catch (error) {
     console.log(error)
   }

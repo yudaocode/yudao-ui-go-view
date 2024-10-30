@@ -1,5 +1,5 @@
 <template>
-  <n-space class="header-left-btn" :size="25">
+  <n-space class="header-left-btn" :wrap="false" :size="25">
     <n-button size="small" quaternary @click="goHomeHandle()">
       <template #icon>
         <n-icon :depth="3">
@@ -7,11 +7,11 @@
         </n-icon>
       </template>
     </n-button>
-    <n-space>
+    <n-space :wrap="false">
       <!-- 模块展示按钮 -->
       <n-tooltip v-for="item in btnList" :key="item.key" placement="bottom" trigger="hover">
         <template #trigger>
-          <n-button size="small" ghost :type="styleHandle(item)" @click="clickHandle(item)">
+          <n-button size="small" ghost :type="styleHandle(item)" :focusable="false" @click="clickHandle(item)">
             <component :is="item.icon"></component>
           </n-button>
         </template>
@@ -58,8 +58,10 @@ import { icon } from '@/plugins'
 import { useRemoveKeyboard } from '../../hooks/useKeyboard.hook'
 import { useSync } from '../../hooks/useSync.hook'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
+
 import { useChartHistoryStore } from '@/store/modules/chartHistoryStore/chartHistoryStore'
 import { HistoryStackEnum } from '@/store/modules/chartHistoryStore/chartHistoryStore.d'
+
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
 import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
 
@@ -148,7 +150,7 @@ const clickHistoryHandle = (item: ItemType<HistoryStackEnum>) => {
 // 返回首页
 const goHomeHandle = () => {
   goDialog({
-    message: '确定已保存了数据（Ctrl / ⌘ + S），并返回到首页吗？',
+    message: '返回将不会保存任何操作',
     isMaskClosable: true,
     onPositiveCallback: () => {
       goHome()

@@ -7,6 +7,62 @@
     >
       清除动画
     </n-button>
+
+
+    <CollapseItem name="配置"  :expanded="true">
+<!--      <template #header>-->
+<!--        <n-switch v-model:value="targetData.styles.animations" size="small"></n-switch>-->
+<!--      </template>-->
+      <setting-item-box name="动画开关" :alone="false">
+        <setting-item name="启用动画">
+          <n-switch v-model:value="targetData.styles.animationsOpen" size="small"></n-switch>
+        </setting-item>
+        <setting-item name="循环播放">
+          <n-switch v-model:value="targetData.styles.animationsCirculate" size="small"></n-switch>
+        </setting-item>
+      </setting-item-box>
+
+      <setting-item-box name="动画曲线" :alone="true">
+        <setting-item>
+          <n-tabs default-value="Easy_In" size="large" justify-content="space-evenly">
+            <n-tab-pane name="Easy_In" tab="移入动画">
+                <n-select
+                    v-model:value="targetData.styles.animationsCurve"
+                    :options="animationsCurves[0].children" />
+            </n-tab-pane>
+            <n-tab-pane name="Easy_Out" tab="移出动画">
+              <n-select
+                  v-model:value="targetData.styles.animationsCurve"
+                  :options="animationsCurves[1].children"/>
+            </n-tab-pane>
+            <n-tab-pane name="Easy_In_Out" tab="出入动画">
+              <n-select
+                  v-model:value="targetData.styles.animationsCurve"
+                  :options="animationsCurves[2].children"/>
+            </n-tab-pane>
+          </n-tabs>
+        </setting-item>
+<!--        <setting-item name="交替方向">-->
+<!--          <n-select-->
+<!--              v-model:value="targetData.styles.animationsDirection"-->
+<!--              :options="[-->
+<!--            { label: '暂不支持', value: 'top' }-->
+<!--          ]"-->
+<!--          />-->
+<!--        </setting-item>-->
+      </setting-item-box>
+
+      <setting-item-box name="动画配置" :alone="false">
+          <setting-item name="动画时长">
+            <n-input-number v-model:value="targetData.styles.circulatePlayTime" size="small" :min="1"></n-input-number>
+          </setting-item>
+
+          <setting-item name="动画延迟">
+            <n-input-number v-model:value="targetData.styles.circulateDelayTime" size="small" :min="0"></n-input-number>
+          </setting-item>
+      </setting-item-box>
+    </CollapseItem>
+
     <collapse-item
       v-for="(item, index) in animations"
       :key="index"
@@ -35,8 +91,8 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { animations } from '@/settings/animations/index'
-import { CollapseItem } from '@/components/Pages/ChartItemSetting'
+import { animations,animationsCurves,animationsDirections } from '@/settings/animations/index'
+import {CollapseItem, SettingItem, SettingItemBox} from '@/components/Pages/ChartItemSetting'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { useTargetData } from '../hooks/useTargetData.hook'
 
@@ -67,6 +123,7 @@ const clearAnimation = () => {
 // * 新增动画，现只支持一种
 const addAnimation = (item: { label: string; value: string }) => {
   targetData.value.styles.animations = [item.value]
+  console.log(targetData.value)
 }
 </script>
 
@@ -89,5 +146,8 @@ const addAnimation = (item: { label: string; value: string }) => {
       border: 1px solid v-bind('themeColor');
     }
   }
+}
+.go-setting-item{
+  text-align: center;
 }
 </style>
