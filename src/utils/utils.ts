@@ -10,7 +10,7 @@ import cloneDeep from 'lodash/cloneDeep'
 import { WinKeyboard } from '@/enums/editPageEnum'
 import { RequestHttpIntervalEnum, RequestParamsObjType } from '@/enums/httpEnum'
 import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
-import { excludeParseEventKeyList } from '@/enums/eventEnum'
+import { excludeParseEventKeyList, excludeParseEventValueList } from '@/enums/eventEnum'
 
 /**
  * * 判断是否是开发环境
@@ -25,7 +25,7 @@ export const isDev = () => {
  * @param { Number } randomLength
  */
 export const getUUID = (randomLength = 10) => {
-  return Number(Math.random().toString().substring(2, randomLength) + Date.now()).toString(36)
+  return 'id_' + Number(Math.random().toString().substring(2, randomLength) + Date.now()).toString(36)
 }
 
 /**
@@ -112,6 +112,29 @@ export const setDomAttribute = <K extends keyof CSSStyleDeclaration, V extends C
  */
 export const isMac = () => {
   return /macintosh|mac os x/i.test(navigator.userAgent)
+}
+
+/**
+ * * file转url
+ */
+export const fileToUrl = (file: File): string => {
+  const Url = URL || window.URL || window.webkitURL
+  const ImageUrl = Url.createObjectURL(file)
+  return ImageUrl
+}
+
+/**
+ * * file转base64
+ */
+export const fileTobase64 = (file: File, callback: Function) => {
+  let reader = new FileReader()
+  reader.readAsDataURL(file)
+  reader.onload = function (e: ProgressEvent<FileReader>) {
+    if (e.target) {
+      let base64 = e.target.result
+      callback(base64)
+    }
+  }
 }
 
 /**
@@ -291,20 +314,36 @@ export const JSONStringify = <T>(data: T) => {
   )
 }
 
+export const evalFn = (fn: string) => {
+  var Fun = Function // 一个变量指向Function，防止前端编译工具报错
+  return new Fun('return ' + fn)()
+}
+
 /**
  * * JSON反序列化，支持函数和 undefined
  * @param data
  */
 export const JSONParse = (data: string) => {
+  if (data.trim() === '') return
   return JSON.parse(data, (k, v) => {
-    if (excludeParseEventKeyList.includes(k)) return v
+    // // 过滤函数字符串
+    // if (excludeParseEventKeyList.includes(k)) return v
+    // // 过滤函数值表达式
+    // if (typeof v === 'string') {
+    //   const someValue = excludeParseEventValueList.some(excludeValue => v.indexOf(excludeValue) > -1)
+    //   if (someValue) return v
+    // }
+    if (k !== 'formatter') {
+      return v
+    }
+    // 还原函数值
     if (typeof v === 'string' && v.indexOf && (v.indexOf('function') > -1 || v.indexOf('=>') > -1)) {
-      return eval(`(function(){return ${v}})()`)
-    } else if (typeof v === 'string' && v.indexOf && (v.indexOf('return ') > -1)) {
+      return evalFn(`(function(){return ${v}})()`)
+    } else if (typeof v === 'string' && v.indexOf && v.indexOf('return ') > -1) {
       const baseLeftIndex = v.indexOf('(')
       if (baseLeftIndex > -1) {
         const newFn = `function ${v.substring(baseLeftIndex)}`
-        return eval(`(function(){return ${newFn}})()`)
+        return evalFn(`(function(){return ${newFn}})()`)
       }
     }
     return v

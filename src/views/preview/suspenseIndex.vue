@@ -1,7 +1,5 @@
 <template>
-  <div
-    :class="`go-preview ${localStorageInfo.editCanvasConfig.previewScaleType}`"
-  >
+  <div :class="`go-preview ${localStorageInfo.editCanvasConfig.previewScaleType}`" @mousedown="dragCanvas">
     <template v-if="showEntity">
       <!-- 实体区域 -->
       <div ref="entityRef" class="go-preview-entity">
@@ -10,9 +8,7 @@
           <!-- 展示层 -->
           <div :style="previewRefStyle" v-if="show">
             <!-- 渲染层 -->
-            <preview-render-list
-              :localStorageInfo="localStorageInfo"
-            ></preview-render-list>
+            <preview-render-list></preview-render-list>
           </div>
         </div>
       </div>
@@ -23,9 +19,7 @@
         <!-- 展示层 -->
         <div :style="previewRefStyle" v-if="show">
           <!-- 渲染层 -->
-          <preview-render-list
-            :localStorageInfo="localStorageInfo"
-          ></preview-render-list>
+          <preview-render-list></preview-render-list>
         </div>
       </div>
     </template>
@@ -36,7 +30,7 @@
 import { computed } from 'vue'
 import { PreviewRenderList } from './components/PreviewRenderList'
 import { getFilterStyle, routerTurnByName, getSessionStorage, setTitle } from '@/utils'
-import { getEditCanvasConfigStyle, getSessionStorageInfo } from './utils'
+import { getEditCanvasConfigStyle, getSessionStorageInfo, keyRecordHandle, dragCanvas } from './utils'
 import { PageEnum } from '@/enums/pageEnum'
 import { StorageEnum } from '@/enums/storageEnum'
 import { useScale } from './hooks/useScale.hook'
@@ -44,12 +38,14 @@ import { useStore } from './hooks/useStore.hook'
 import { PreviewScaleEnum } from '@/enums/styleEnum'
 import { useComInstall } from './hooks/useComInstall.hook'
 import type { ChartEditStorageType } from './index.d'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 
 const storageList: ChartEditStorageType[] = getSessionStorage(
   StorageEnum.GO_CHART_STORAGE_LIST
 )
 
 const localStorageInfo = await getSessionStorageInfo() as unknown as ChartEditStorageType
+console.log(localStorageInfo)
 // @ts-ignore
 if (localStorageInfo.isRelease === false) {
   routerTurnByName(PageEnum.REDIRECT_UN_PUBLISH_NAME, true, false)
@@ -64,15 +60,16 @@ const previewRefStyle = computed(() => {
 })
 
 const showEntity = computed(() => {
-  const type = localStorageInfo.editCanvasConfig.previewScaleType
-  return (
-    type === PreviewScaleEnum.SCROLL_Y || type === PreviewScaleEnum.SCROLL_X
-  )
+  const type = localStorageInfo .editCanvasConfig.previewScaleType
+  return type === PreviewScaleEnum.SCROLL_Y || type === PreviewScaleEnum.SCROLL_X
 })
 
 useStore(localStorageInfo)
 const { entityRef, previewRef } = useScale(localStorageInfo)
 const { show } = useComInstall(localStorageInfo)
+
+// 开启键盘监听
+keyRecordHandle()
 </script>
 
 <style lang="scss" scoped>

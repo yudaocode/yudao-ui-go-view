@@ -3,6 +3,7 @@ import { ResultEnum, RequestHttpHeaderEnum } from '@/enums/httpEnum'
 import { ErrorPageNameMap, PageEnum, PreviewEnum } from '@/enums/pageEnum'
 import { docPath, giteeSourceCodePath } from '@/settings/pathConst'
 import { SystemStoreEnum, SystemStoreUserInfoEnum } from '@/store/modules/systemStore/systemStore.d'
+import { cryptoDecode } from './crypto'
 import { StorageEnum } from '@/enums/storageEnum'
 import { clearLocalStorage, getLocalStorage, clearCookie } from './storage'
 import router from '@/router'
@@ -27,11 +28,15 @@ export const routerTurnByName = (
   if (isReplace) {
     router.replace({
       name: pageName,
+    }).then(i=>{
+      console.log(i)
     })
     return
   }
   router.push({
     name: pageName,
+  }).then(i=>{
+    console.log(i)
   })
 }
 
@@ -150,6 +155,41 @@ export const isPreview = () => {
   return document.location.hash.includes('preview')
 }
 
+
+
+
+/**
+ * * 获取当前路由名称
+ * @returns object
+ */
+export const fetchRouteName = () => {
+  try {
+    const route = useRoute()
+    console.log(route)
+    return route.name
+  } catch (error) {
+    window['$message'].warning('查询路由信息失败，请联系管理员！')
+  }
+}
+
+
+
+/**
+ * * 获取当前路由路径
+ * @returns object
+ */
+export const fetchRoutePath = () => {
+  try {
+
+    const routePath= document.location.hash.split('/')
+    routePath.shift()
+    routePath.pop()
+    return '/'+routePath.join('/')
+  } catch (error) {
+    window['$message'].warning('查询路由信息失败，请联系管理员！')
+  }
+}
+
 /**
  * * 获取当前路由下的参数
  * @returns object
@@ -167,9 +207,10 @@ export const fetchRouteParams = () => {
  * * 通过硬解析获取当前路由下的参数
  * @returns object
  */
-export const fetchRouteParamsLocation = () => {
+ export const fetchRouteParamsLocation = () => {
   try {
-    return document.location.hash.split('/').pop() || ''
+    // 防止添加query参数的时候，解析ID异常
+    return document.location.hash.split('?')[0].split('/').pop() || ''
   } catch (error) {
     window['$message'].warning('查询路由信息失败，请联系管理员！')
     return ''

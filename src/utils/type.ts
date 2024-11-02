@@ -24,8 +24,8 @@ export function isArray(p: any): p is [] {
   return Array.isArray(p)
 }
 
-export const toNumber = (number: number | string, toFixedNumber = 2) => {
-  return isString(number) ? parseFloat(parseFloat(number).toFixed(2)) : number
+export const toNumber = (number: number | string, toFixedNumber: number = 2) => {
+  return isString(number) ? parseFloat(parseFloat(number).toFixed(toFixedNumber)) : number
 }
 
 export const toString = (str: any) => {

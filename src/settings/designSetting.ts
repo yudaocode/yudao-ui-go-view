@@ -44,7 +44,7 @@ export const asideCollapsedWidth = 60
 export const maskClosable = false
 
 // 全局边框圆角
-export const borderRadius = '6px'
+export const borderRadius = '4px'
 
 // 轮播间隔
 export const carouselInterval = 4000

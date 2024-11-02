@@ -1,0 +1,303 @@
+{
+  "dimensions": [
+    "level",
+    "0-3",
+    "3-6",
+    "6-9",
+    "9-13"
+  ],
+  "source": [
+    {
+      "values": [
+        {
+          "time": "12814",
+          "month": "Jan",
+          "level": "0-3",
+          "location": "沿海"
+        },
+        {
+          "time": "3054",
+          "month": "Jan",
+          "level": "3-6",
+          "location": "沿海"
+        },
+        {
+          "time": "4376",
+          "month": "Jan",
+          "level": "6-9",
+          "location": "沿海"
+        },
+        {
+          "time": "4229",
+          "month": "Jan",
+          "level": "9-12",
+          "location": "沿海"
+        },
+        {
+          "time": "8814",
+          "month": "Feb",
+          "level": "0-3",
+          "location": "沿海"
+        },
+        {
+          "time": "5067",
+          "month": "Feb",
+          "level": "3-6",
+          "location": "沿海"
+        },
+        {
+          "time": "13987",
+          "month": "Feb",
+          "level": "6-9",
+          "location": "沿海"
+        },
+        {
+          "time": "3932",
+          "month": "Feb",
+          "level": "9-12",
+          "location": "沿海"
+        },
+        {
+          "time": "11624",
+          "month": "Mar",
+          "level": "0-3",
+          "location": "沿海"
+        },
+        {
+          "time": "7004",
+          "month": "Mar",
+          "level": "3-6",
+          "location": "沿海"
+        },
+        {
+          "time": "3574",
+          "month": "Mar",
+          "level": "6-9",
+          "location": "沿海"
+        },
+        {
+          "time": "5221",
+          "month": "Mar",
+          "level": "9-12",
+          "location": "沿海"
+        },
+        {
+          "time": "8814",
+          "month": "Apr",
+          "level": "0-3",
+          "location": "沿海"
+        },
+        {
+          "time": "9054",
+          "month": "Apr",
+          "level": "3-6",
+          "location": "沿海"
+        },
+        {
+          "time": "4376",
+          "month": "Apr",
+          "level": "6-9",
+          "location": "沿海"
+        },
+        {
+          "time": "5256",
+          "month": "Apr",
+          "level": "9-12",
+          "location": "沿海"
+        },
+        {
+          "time": "9998",
+          "month": "May",
+          "level": "0-3",
+          "location": "沿海"
+        },
+        {
+          "time": "5043",
+          "month": "May",
+          "level": "3-6",
+          "location": "沿海"
+        },
+        {
+          "time": "4572",
+          "month": "May",
+          "level": "6-9",
+          "location": "沿海"
+        },
+        {
+          "time": "3308",
+          "month": "May",
+          "level": "9-12",
+          "location": "沿海"
+        },
+        {
+          "time": "12321",
+          "month": "Jun",
+          "level": "0-3",
+          "location": "沿海"
+        },
+        {
+          "time": "15067",
+          "month": "Jun",
+          "level": "3-6",
+          "location": "沿海"
+        },
+        {
+          "time": "3417",
+          "month": "Jun",
+          "level": "6-9",
+          "location": "沿海"
+        },
+        {
+          "time": "5432",
+          "month": "Jun",
+          "level": "9-12",
+          "location": "沿海"
+        },
+        {
+          "time": "8912",
+          "month": "Jan",
+          "level": "0-3",
+          "location": "内陆"
+        },
+        {
+          "time": "1753",
+          "month": "Jan",
+          "level": "3-6",
+          "location": "内陆"
+        },
+        {
+          "time": "1905",
+          "month": "Jan",
+          "level": "6-9",
+          "location": "内陆"
+        },
+        {
+          "time": "2057",
+          "month": "Jan",
+          "level": "9-12",
+          "location": "内陆"
+        },
+        {
+          "time": "6987",
+          "month": "Feb",
+          "level": "0-3",
+          "location": "内陆"
+        },
+        {
+          "time": "1873",
+          "month": "Feb",
+          "level": "3-6",
+          "location": "内陆"
+        },
+        {
+          "time": "8017",
+          "month": "Feb",
+          "level": "6-9",
+          "location": "内陆"
+        },
+        {
+          "time": "3056",
+          "month": "Feb",
+          "level": "9-12",
+          "location": "内陆"
+        },
+        {
+          "time": "8124",
+          "month": "Mar",
+          "level": "0-3",
+          "location": "内陆"
+        },
+        {
+          "time": "6900",
+          "month": "Mar",
+          "level": "3-6",
+          "location": "内陆"
+        },
+        {
+          "time": "2768",
+          "month": "Mar",
+          "level": "6-9",
+          "location": "内陆"
+        },
+        {
+          "time": "1070",
+          "month": "Mar",
+          "level": "9-12",
+          "location": "内陆"
+        },
+        {
+          "time": "3986",
+          "month": "Apr",
+          "level": "0-3",
+          "location": "内陆"
+        },
+        {
+          "time": "7986",
+          "month": "Apr",
+          "level": "3-6",
+          "location": "内陆"
+        },
+        {
+          "time": "1453",
+          "month": "Apr",
+          "level": "6-9",
+          "location": "内陆"
+        },
+        {
+          "time": "3215",
+          "month": "Apr",
+          "level": "9-12",
+          "location": "内陆"
+        },
+        {
+          "time": "7905",
+          "month": "May",
+          "level": "0-3",
+          "location": "内陆"
+        },
+        {
+          "time": "4908",
+          "month": "May",
+          "level": "3-6",
+          "location": "内陆"
+        },
+        {
+          "time": "1030",
+          "month": "May",
+          "level": "6-9",
+          "location": "内陆"
+        },
+        {
+          "time": "852",
+          "month": "May",
+          "level": "9-12",
+          "location": "内陆"
+        },
+        {
+          "time": "3018",
+          "month": "Jun",
+          "level": "0-3",
+          "location": "内陆"
+        },
+        {
+          "time": "8954",
+          "month": "Jun",
+          "level": "3-6",
+          "location": "内陆"
+        },
+        {
+          "time": "1395",
+          "month": "Jun",
+          "level": "6-9",
+          "location": "内陆"
+        },
+        {
+          "time": "3520",
+          "month": "Jun",
+          "level": "9-12",
+          "location": "内陆"
+        }
+      ]
+    }
+  ]
+}

@@ -55,3 +55,73 @@ export const animations = [
     ]
   }
 ]
+
+
+
+//动画曲线
+export const animationsCurves = [
+  {
+    label: 'Easy_In',
+    children: [
+      { label: 'Linear', value: 'linear' },
+      { label: 'Ease-In', value: 'ease-in' },
+      { label: 'Sine', value: 'cubic-bezier(.47,0,.74,.71)' },
+      { label: 'Quadratic', value: 'cubic-bezier(.55,.09,.68,.53)' },
+      { label: 'Cubic', value: 'cubic-bezier(.55,.06,.68,.19)' },
+      { label: 'Quartic', value: 'cubic-bezier(.9,.03,.69,.22)' },
+      { label: 'Quintic', value: 'cubic-bezier(.76,.05,.86,.06)' },
+      { label: 'Exponential', value: 'cubic-bezier(.95,.05,.8,.04)' },
+      { label: 'Circular', value: 'cubic-bezier(.6,.04,.98,.34)' },
+      { label: 'Backward', value: 'cubic-bezier(.6,-0.28,.74,.05)' },
+    ]
+  },
+  {
+    label: 'Easy_Out',
+    children: [
+      { label: 'Linear', value: 'linear' },
+      { label: 'Ease-Out', value: 'ease-out' },
+      { label: 'Sine', value: 'cubic-bezier(.39,.58,.57,1)' },
+      { label: 'Quadratic', value: 'cubic-bezier(.25,.46,.45,.94)' },
+      { label: 'Cubic', value: 'cubic-bezier(.22,.61,.36,1)' },
+      { label: 'Quartic', value: 'cubic-bezier(.17,.84,.44,1)' },
+      { label: 'Quintic', value: 'cubic-bezier(.23,1,.32,1)' },
+      { label: 'Exponential', value: 'cubic-bezier(.19,1,.22,1)' },
+      { label: 'Circular', value: 'cubic-bezier(.08,.82,.17,1)' },
+      { label: 'Backward', value: 'cubic-bezier(.18,.89,.32,1.28)' },
+    ]
+  },
+  {
+    label: 'Easy_In_Out',
+    children: [
+      { label: 'Linear', value: 'linear' },
+      { label: 'Ease', value: 'ease' },
+      { label: 'Ease_In_Out', value: 'ease-in-out' },
+      { label: 'Sine', value: 'cubic-bezier(.45,.05,.55,.95)' },
+      { label: 'Quadratic', value: 'cubic-bezier(.46,.03,.52,.96)' },
+      { label: 'Cubic', value: 'cubic-bezier(.65,.05,.36,1)' },
+      { label: 'Quartic', value: 'cubic-bezier(.77,0,.18,1)' },
+      { label: 'Quintic', value: 'cubic-bezier(.86,0,.07,1)' },
+      { label: 'Exponential', value: 'cubic-bezier(1,0,0,1)' },
+      { label: 'Circular', value: 'cubic-bezier(.79,.14,.15,.86)' },
+      { label: 'Backward', value: 'cubic-bezier(.68,-0.55,.27,1.55)' },
+    ]
+  }
+]
+
+
+export const animationsDirections = [
+  {
+    label: '动画方向',
+    children: [
+      { label: '弹跳', value: 'bounce' },
+      { label: '闪烁', value: 'flash' },
+      { label: '放大缩小', value: 'pulse' },
+      { label: '放大缩小弹簧', value: 'rubberBand' },
+      { label: '左右晃动', value: 'headShake' },
+      { label: '左右扇形摇摆', value: 'swing' },
+      { label: '放大晃动缩小', value: 'tada' },
+      { label: '扇形摇摆', value: 'wobble' },
+      { label: '左右上下晃动', value: 'jello' },
+    ]
+  }
+]

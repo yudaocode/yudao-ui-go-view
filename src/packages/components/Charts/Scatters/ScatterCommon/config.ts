@@ -47,10 +47,9 @@ export const option = {
   tooltip: {
     showDelay: 0,
     formatter: (params: { value: string | any[]; seriesName: string; name: string }) => {
-      // console.log(params)
       return params.value.length > 1
         ? `${params.seriesName}：<br />${params.value[0]} ${params.value[1]}`
-        : `${params.seriesName}：<br />${params.name} ${params.value}`
+        : `${params.name} ${params.value}`
     },
     axisPointer: {
       show: true,

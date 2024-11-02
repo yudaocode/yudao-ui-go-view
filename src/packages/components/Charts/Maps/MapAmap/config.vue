@@ -16,18 +16,71 @@
       </setting-item>
     </setting-item-box>
   </collapse-item>
+
+
+
+
+
+  <collapse-item name="边界配置" :expanded="true">
+    <template #header>
+      <n-switch v-model:value="optionData.mapOptions.amapBoundary.amapBoundaryEnable" size="small"></n-switch>
+    </template>
+    <setting-item-box name="自定义边界类别" :alone="true">
+      <setting-item>
+        <n-select size="small" v-model:value="optionData.mapOptions.amapBoundary.amapBoundaryType" :options="amapBoundaryTypeOptions" />
+      </setting-item>
+    </setting-item-box>
+
+    <setting-item-box name="自定义边界名称" :alone="true">
+      <setting-item>
+        <n-input size="small" v-model:value="optionData.mapOptions.amapBoundary.amapBoundaryName" />
+      </setting-item>
+    </setting-item-box>
+
+    <setting-item-box name="边框颜色" :alone="true">
+      <n-color-picker v-model:value="optionData.mapOptions.amapBoundary.amapBoundaryStrokeColor" size="small"></n-color-picker>
+    </setting-item-box>
+
+    <setting-item-box name="边框透明度" :alone="true">
+      <n-input-number v-model:value="optionData.mapOptions.amapBoundary.amapBoundaryStrokeOpacity" :min="0.1" size="small"></n-input-number>
+    </setting-item-box>
+
+    <setting-item-box name="边框宽度" :alone="true">
+      <n-input-number v-model:value="optionData.mapOptions.amapBoundary.amapBoundaryStrokeWeight" :min="1" size="small"></n-input-number>
+    </setting-item-box>
+
+    <setting-item-box name="填充颜色" :alone="true">
+      <n-color-picker v-model:value="optionData.mapOptions.amapBoundary.amapBoundaryFillColor" size="small"></n-color-picker>
+    </setting-item-box>
+
+    <setting-item-box name="填充透明度" :alone="true">
+      <n-input-number v-model:value="optionData.mapOptions.amapBoundary.amapBoundaryFillOpacity" :min="0.1" size="small"></n-input-number>
+    </setting-item-box>
+
+  </collapse-item>
+
+
+
   <collapse-item name="地图" :expanded="true">
     <setting-item-box name="主题">
       <setting-item>
         <n-select size="small" v-model:value="optionData.mapOptions.amapStyleKey" :options="themeOptions" />
       </setting-item>
     </setting-item-box>
-    <setting-item-box name="内容" :alone="true">
+    <setting-item-box name="显示要素" :alone="true">
       <n-checkbox-group v-model:value="optionData.mapOptions.features">
         <n-space item-style="display: flex;">
           <n-checkbox :value="item.value" :label="item.label" v-for="(item, index) in featuresOptions" :key="index" />
         </n-space>
       </n-checkbox-group>
+    </setting-item-box>
+    <setting-item-box name="文字标注" :alone="true">
+      <setting-item>
+        <n-space>
+          <n-switch v-model:value="optionData.mapOptions.showLabel" size="small" />
+          <n-text>是否显示</n-text>
+        </n-space>
+      </setting-item>
     </setting-item-box>
     <setting-item-box name="位置">
       <setting-item name="经度">
@@ -76,11 +129,155 @@
       </setting-item>
     </setting-item-box>
   </collapse-item>
+
+
+  <collapse-item name="标记弹窗" :expanded="true">
+    <template #header>
+      <n-switch v-model:value="optionData.mapOptions.markerCard.markerCardEnable" size="small"></n-switch>
+    </template>
+    <setting-item-box name="弹窗标题">
+      <setting-item name="标题">
+        <n-input size="small" v-model:value="optionData.mapOptions.markerCard.markerCardTitle"  />
+      </setting-item>
+    </setting-item-box>
+  </collapse-item>
+  <collapse-item name="图层" :expanded="true">
+    <setting-item-box name="卫星图层">
+      <setting-item>
+        <n-space>
+          <n-switch v-model:value="optionData.mapOptions.satelliteTileLayer.show" size="small" />
+          <n-text>是否显示</n-text>
+        </n-space>
+      </setting-item>
+      <setting-item name="字体颜色">
+        <n-color-picker v-model:value="optionData.mapOptions.markerCard.markerCardTextFillColor" size="small"></n-color-picker>
+      </setting-item>
+      <setting-item name="叠加顺序值">
+        <n-input-number
+          v-model:value="optionData.mapOptions.satelliteTileLayer.zIndex"
+          :min="0"
+          size="small"
+        ></n-input-number>
+      </setting-item>
+      <setting-item name="透明度">
+        <n-input-number
+          v-model:value="optionData.mapOptions.satelliteTileLayer.opacity"
+          :min="0"
+          :max="1"
+          step="0.1"
+          size="small"
+        ></n-input-number>
+      </setting-item>
+      <setting-item name="缩放级别范围">
+        <n-slider v-model:value="optionData.mapOptions.satelliteTileLayer.zooms" range :step="1" :max="18" :min="3" />
+      </setting-item>
+    </setting-item-box>
+    <setting-item-box name="弹窗样式">
+      <setting-item name="宽度">
+        <n-input size="small" v-model:value="optionData.mapOptions.markerCard.markerCardWidth"  />
+      </setting-item>
+      <setting-item name="高度">
+        <n-input size="small" v-model:value="optionData.mapOptions.markerCard.markerCardHeight"  />
+      </setting-item>
+    </setting-item-box>
+    <setting-item-box name="路网图层">
+      <setting-item>
+        <n-space>
+          <n-switch v-model:value="optionData.mapOptions.roadNetTileLayer.show" size="small" />
+          <n-text>是否显示</n-text>
+        </n-space>
+      </setting-item>
+      <setting-item name="背景颜色">
+        <n-color-picker v-model:value="optionData.mapOptions.markerCard.markerCardFillColor" size="small"></n-color-picker>
+      </setting-item>
+      <setting-item name="叠加顺序值">
+        <n-input-number
+          v-model:value="optionData.mapOptions.roadNetTileLayer.zIndex"
+          :min="0"
+          size="small"
+        ></n-input-number>
+      </setting-item>
+      <setting-item name="背景圆角">
+        <n-input-number v-model:value="optionData.mapOptions.markerCard.markerCardBorderRadius" :min="0" size="small"></n-input-number>
+      </setting-item>
+      <setting-item name="透明度">
+        <n-input-number
+          v-model:value="optionData.mapOptions.roadNetTileLayer.opacity"
+          :min="0"
+          :max="1"
+          step="0.1"
+          size="small"
+        ></n-input-number>
+      </setting-item>
+    </setting-item-box>
+
+<!--    <setting-item-box name="数据映射与过滤">-->
+<!--      <n-transfer-->
+<!--          source-filterable-->
+<!--          target-filterable-->
+<!--          virtual-scroll-->
+<!--          :options="optionData.dataset"-->
+<!--      />-->
+<!--    </setting-item-box>-->
+
+
+    <setting-item-box name="图标映射">
+      <setting-item name="图标">
+        <n-input size="small" v-model:value="optionData.mapOptions.markerCard.markerIcon"  />
+      </setting-item>
+      <setting-item name="缩放级别范围">
+        <n-slider v-model:value="optionData.mapOptions.roadNetTileLayer.zooms" range :step="1" :max="18" :min="3" />
+      </setting-item>
+    </setting-item-box>
+
+
+    <setting-item-box >
+      <setting-item name="图标宽度">
+        <n-input size="small" v-model:value="optionData.mapOptions.markerCard.markerIconWidth"  />
+      </setting-item>
+    </setting-item-box >
+    <setting-item-box name="实时交通">
+      <setting-item>
+        <n-space>
+          <n-switch v-model:value="optionData.mapOptions.trafficTileLayer.show" size="small" />
+          <n-text>是否显示</n-text>
+        </n-space>
+      </setting-item>
+      <setting-item name="图标高度">
+        <n-input size="small" v-model:value="optionData.mapOptions.markerCard.markerIconHeight"  />
+      </setting-item>
+      <setting-item name="叠加顺序值">
+        <n-input-number
+          v-model:value="optionData.mapOptions.trafficTileLayer.zIndex"
+          :min="0"
+          size="small"
+        ></n-input-number>
+      </setting-item>
+      <setting-item name="图标容器宽度">
+        <n-input size="small" v-model:value="optionData.mapOptions.markerCard.markerIconDivWidth"  />
+      </setting-item>
+      <setting-item name="透明度">
+        <n-input-number
+          v-model:value="optionData.mapOptions.trafficTileLayer.opacity"
+          :min="0"
+          :max="1"
+          step="0.1"
+          size="small"
+        ></n-input-number>
+      </setting-item>
+      <setting-item name="图标容器高度">
+        <n-input size="small" v-model:value="optionData.mapOptions.markerCard.markerIconDivHeight"  />
+      </setting-item>
+      <setting-item name="缩放级别范围">
+        <n-slider v-model:value="optionData.mapOptions.trafficTileLayer.zooms" range :step="1" :max="18" :min="3" />
+      </setting-item>
+    </setting-item-box>
+  </collapse-item>
 </template>
 
 <script setup lang="ts">
 import { PropType } from 'vue'
-import { option, MarkerEnum, ThemeEnum, LangEnum, ViewModeEnum, FeaturesEnum } from './config'
+import {option, MarkerEnum, ThemeEnum, LangEnum, ViewModeEnum, FeaturesEnum, amapBoundaryTypeEnum} from './config'
 import { CollapseItem, SettingItemBox, SettingItem } from '@/components/Pages/ChartItemSetting'
 
 defineProps({
@@ -166,19 +363,19 @@ const viewModeOptions = [
 const featuresOptions = [
   {
     value: FeaturesEnum.BG,
-    label: '显示地图背景'
+    label: '区域面'
   },
   {
     value: FeaturesEnum.POINT,
-    label: '显示标识'
+    label: '标注'
   },
   {
     value: FeaturesEnum.ROAD,
-    label: '显示道路'
+    label: '道路'
   },
   {
     value: FeaturesEnum.BUILDING,
-    label: '显示建筑'
+    label: '建筑物'
   }
 ]
 
@@ -196,4 +393,29 @@ const MarkerOptions = [
     label: '隐藏标点'
   }
 ]
+
+
+
+const amapBoundaryTypeOptions =[
+
+  {
+    value: amapBoundaryTypeEnum.COUNTRY,
+    label: '国家'
+  },
+  {
+    value: amapBoundaryTypeEnum.PROVINCE,
+    label: '省/直辖市'
+  },
+  {
+    value: amapBoundaryTypeEnum.CITY,
+    label: '市'
+  },
+  {
+    value: amapBoundaryTypeEnum.DISTRICT,
+    label: '区/县'
+  },
+  {
+    value: amapBoundaryTypeEnum.BIZ_AREA,
+    label: '商圈'
+  }]
 </script>

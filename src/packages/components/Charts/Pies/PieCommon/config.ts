@@ -18,7 +18,14 @@ export const PieTypeObject = {
   [PieTypeEnum.ROSE]: 'rose'
 }
 
+// 其它配置
+const otherConfig = {
+  // 轮播动画
+  isCarousel: false,
+}
+
 const option = {
+  ...otherConfig,
   type: 'ring',
   tooltip: {
     show: true,
@@ -45,7 +52,11 @@ const option = {
         show: false,
         position: 'center',
         formatter: '{b}',
-        fontSize:12
+        fontWeight: 'normal',
+        fontSize: 14,
+        color: '#454E54',
+        textBorderColor: '#ffffff',
+        textBorderWidth: 1
       },
       emphasis: {
         label: {

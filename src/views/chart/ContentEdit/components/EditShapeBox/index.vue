@@ -23,6 +23,8 @@
 <script setup lang="ts">
 import { computed, PropType } from 'vue'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
+
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
 import { useSizeStyle, usePointStyle } from '../../hooks/useStyle.hook'
@@ -55,6 +57,9 @@ const themeColor = computed(() => {
 
 // 计算当前选中目标
 const hover = computed(() => {
+  const isDrag = chartEditStore.getEditCanvas[EditCanvasTypeEnum.IS_DRAG]
+  if (isDrag) return false
+
   if (props.item.status.lock) return false
   return props.item.id === chartEditStore.getTargetChart.hoverId
 })
@@ -134,7 +139,7 @@ const hide = computed(() => {
       position: absolute;
       width: 100%;
       height: 100%;
-      border-radius: 10px;
+      border-radius: 4px;
     }
 
     .shape-modal-select {

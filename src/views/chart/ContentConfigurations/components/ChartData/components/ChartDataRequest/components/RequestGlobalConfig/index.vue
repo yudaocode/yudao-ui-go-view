@@ -10,7 +10,11 @@
     >
       <!-- 源地址 -->
       <setting-item name="前置 URL">
-        <n-input v-model:value.trim="requestOriginUrl" :disabled="editDisabled" placeholder="例：http://127.0.0.1/"></n-input>
+        <n-input
+          v-model:value.trim="requestOriginUrl"
+          :disabled="editDisabled"
+          placeholder="例：http://127.0.0.1/"
+        ></n-input>
       </setting-item>
       <setting-item name="更新间隔，为 0 只会初始化">
         <n-input-group>

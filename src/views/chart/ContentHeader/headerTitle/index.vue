@@ -5,8 +5,10 @@
     </n-icon>
     <n-text @click="handleFocus">
       工作空间 -
-      <n-button v-show="!focus" secondary round size="tiny">
-        <span class="title">{{ comTitle }}</span>
+      <n-button v-show="!focus" secondary size="tiny">
+        <span class="title">
+          {{ comTitle }}
+        </span>
       </n-button>
     </n-text>
 
@@ -17,7 +19,6 @@
       type="text"
       maxlength="16"
       show-count
-      round
       placeholder="请输入项目名称"
       v-model:value.trim="title"
       @keyup.enter="handleBlur"
@@ -27,27 +28,28 @@
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick, computed, watchEffect } from 'vue'
-import { ResultEnum } from '@/enums/httpEnum'
-import { fetchRouteParamsLocation, httpErrorHandle, setTitle } from '@/utils'
+import { ref, nextTick, computed } from 'vue'
+import { fetchRouteParamsLocation, setTitle } from '@/utils'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { ProjectInfoEnum, EditCanvasConfigEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
-import { updateProjectApi } from '@/api/path'
-import { useSync } from '../../hooks/useSync.hook'
+import { EditCanvasConfigEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { icon } from '@/plugins'
 
-const chartEditStore = useChartEditStore()
-const { dataSyncUpdate } = useSync()
 const { FishIcon } = icon.ionicons5
+const chartEditStore = useChartEditStore()
 
 const focus = ref<boolean>(false)
 const inputInstRef = ref(null)
 
-const title = ref<string>(fetchRouteParamsLocation())
+// 根据路由 id 参数获取项目信息
+const fetchProhectInfoById = () => {
+  const id = fetchRouteParamsLocation()
+  if (id.length) {
+    return id[0]
+  }
+  return ''
+}
 
-watchEffect(() => {
-  title.value = chartEditStore.getProjectInfo.projectName || ''
-})
+const title = ref<string>(fetchProhectInfoById() || '')
 
 const comTitle = computed(() => {
   // eslint-disable-next-line vue/no-side-effects-in-computed-properties
@@ -65,22 +67,14 @@ const handleFocus = () => {
   })
 }
 
-const handleBlur = async () => {
+const handleBlur = () => {
   focus.value = false
-  chartEditStore.setProjectInfo(ProjectInfoEnum.PROJECT_NAME, title.value || '')
-  const res = (await updateProjectApi({
-    id: fetchRouteParamsLocation(),
-    name: title.value
-  }))
-  if (res && res.code === ResultEnum.SUCCESS) {
-    dataSyncUpdate()
-  } else {
-    httpErrorHandle()
-  }
 }
 </script>
 <style lang="scss" scoped>
 .title {
+  padding-left: 5px;
+  padding-right: 5px;
   font-size: 15px;
 }
 </style>

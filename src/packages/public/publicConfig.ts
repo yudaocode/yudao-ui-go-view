@@ -76,7 +76,24 @@ export class PublicConfigClass implements PublicConfigType {
     blendMode: 'normal',
 
     // 动画
-    animations: []
+    animations: [],
+    // 动画开关
+    animationsOpen:false,
+    // 动画循环
+    animationsCirculate:false,
+    //动画播放速度曲线默认平滑
+    animationsCurve:'linear',
+    //动画方向
+    animationsDirection:'',
+    // 动画时长/秒
+    circulatePlayTime:1,
+    // 动画延迟时长/秒
+    circulateDelayTime:0,
+
+  }
+  // 预览
+  public preview = {
+    overFlowHidden: false
   }
   // 状态
   public status = {
@@ -98,7 +115,8 @@ export class PublicConfigClass implements PublicConfigType {
     advancedEvents: {
       [EventLife.VNODE_MOUNTED]: undefined,
       [EventLife.VNODE_BEFORE_MOUNT]: undefined
-    }
+    },
+    interactEvents: []
   }
 }
 

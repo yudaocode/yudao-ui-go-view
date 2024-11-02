@@ -1,9 +1,9 @@
 <template>
   <v-chart
     ref="vChartRef"
+    :init-options="initOptions"
     :theme="themeColor"
     :option="option"
-    :manual-update="isPreview()"
     :update-options="{
       replaceMerge: replaceMergeArr
     }"
@@ -15,6 +15,7 @@
 <script setup lang="ts">
 import { PropType, computed, watch, ref, nextTick } from 'vue'
 import VChart from 'vue-echarts'
+import { useCanvasInitOptions } from '@/hooks/useCanvasInitOptions.hook'
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { LineChart } from 'echarts/charts'
@@ -40,6 +41,8 @@ const props = defineProps({
     required: true
   }
 })
+
+const initOptions = useCanvasInitOptions(props.chartConfig.option, props.themeSetting)
 
 use([DatasetComponent, CanvasRenderer, LineChart, GridComponent, TooltipComponent, LegendComponent])
 

@@ -12,7 +12,9 @@ export enum DragKeyEnum {
 // 不同页面保存操作
 export enum SavePageEnum {
   CHART = 'SaveChart',
-  JSON = 'SaveJSON'
+  CHART_TO_PREVIEW = 'ChartToPreview',
+  JSON = 'SaveJSON',
+  CLOSE = 'close'
 }
 
 // 操作枚举
@@ -46,6 +48,7 @@ export enum MenuEnum {
   UN_GROUP = 'unGroup',
   // 后退
   BACK = 'back',
+  // 前进
   FORWORD = 'forward',
   // 保存
   SAVE = 'save',

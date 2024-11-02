@@ -1,5 +1,11 @@
 <template>
-  <n-modal class="go-chart-data-request" v-model:show="modelShowRef" :mask-closable="false" :closeOnEsc="false">
+  <n-modal
+    class="go-chart-data-request"
+    v-model:show="modelShowRef"
+    :mask-closable="false"
+    :closeOnEsc="true"
+    :onEsc="onEsc"
+  >
     <n-card :bordered="false" role="dialog" size="small" aria-modal="true" style="width: 1000px; height: 800px">
       <template #header></template>
       <template #header-extra> </template>
@@ -17,7 +23,7 @@
       <template #action>
         <n-space justify="space-between">
           <n-space v-if="targetDataRequest">
-            <n-tag  :bordered="false" type="primary">名称：</n-tag>
+            <n-tag :bordered="false" type="primary">名称：</n-tag>
             <n-input
               v-model:value="targetDataRequest.dataPondName"
               ref="inputInstRef"
@@ -62,10 +68,12 @@ const pondName = ref()
 const inputInstRef = ref()
 const modelShowRef = ref(false)
 
-watch(() => props.modelShow, (newValue) => {
-  modelShowRef.value = newValue
-})
-
+watch(
+  () => props.modelShow,
+  newValue => {
+    modelShowRef.value = newValue
+  }
+)
 
 const closeHandle = () => {
   emit('update:modelShow', false)
@@ -84,9 +92,12 @@ const closeAndSendHandle = () => {
     onPositiveCallback: () => {
       emit('update:modelShow', false)
       emit('editSaveHandle', props.targetDataRequest)
-      dataSyncUpdate()
     }
   })
+}
+
+const onEsc = () => {
+  closeHandle()
 }
 </script>
 

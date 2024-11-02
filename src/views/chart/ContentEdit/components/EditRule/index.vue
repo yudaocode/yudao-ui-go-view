@@ -13,7 +13,7 @@
     >
     </sketch-rule>
     <div ref="$app" class="edit-screens" @scroll="handleScroll">
-      <div ref="$container" class="edit-screen-container" :style="{ width: width * 2 + 'px' }">
+      <div ref="$container" class="edit-screen-container" :style="{ width: containerWidth }">
         <div
           ref="refSketchRuleBox"
           class="canvas"
@@ -27,7 +27,7 @@
       </div>
     </div>
     <!-- 修复右下角白点用的 -->
-    <div v-if="designStore.getDarkTheme" class="fix-edit-screens-block"></div>
+    <!-- <div v-if="designStore.getDarkTheme" class="fix-edit-screens-block"></div> -->
   </div>
 </template>
 <script setup lang="ts">
@@ -62,8 +62,13 @@ const scale = computed(() => {
   return chartEditStore.getEditCanvas.scale
 })
 
-// 滚动条拖动的高度
+// 滚动条拖动的宽度
 const containerWidth = computed(() => {
+  return `${window.innerWidth * 2}px`
+})
+
+// 滚动条拖动的高度
+const containerHeight = computed(() => {
   return `${height.value * 2}px`
 })
 
@@ -159,9 +164,11 @@ const dragCanvas = (e: any) => {
 const canvasBox = () => {
   const layoutDom = document.getElementById('go-chart-edit-layout')
   if (layoutDom) {
+    // 此处减去滚动条的宽度和高度
+    const scrollW = 20
     return {
-      height: layoutDom.clientHeight - 25,
-      width: layoutDom.clientWidth
+      height: layoutDom.clientHeight - scrollW,
+      width: layoutDom.clientWidth - scrollW
     }
   }
   return {
@@ -171,12 +178,12 @@ const canvasBox = () => {
 }
 
 // 重绘标尺
-const reDraw = () => {
+const reDraw = throttle(() => {
   sketchRuleReDraw.value = false
   setTimeout(() => {
     sketchRuleReDraw.value = true
   }, 10)
-}
+},20)
 
 // 滚动居中
 const canvasPosCenter = () => {
@@ -201,14 +208,12 @@ watch(
   (newValue, oldValue) => {
     if (oldValue !== newValue && chartLayoutStore.getRePositionCanvas) {
       chartLayoutStore.setItemUnHandle(ChartLayoutStoreEnum.RE_POSITION_CANVAS, false)
-      handleScroll()
-      setTimeout(() => {
+    }
+    handleScroll()
+    setTimeout(() => {
         canvasPosCenter()
         reDraw()
-      }, 400)
-    } else {
-      throttle(reDraw, 20)
-    }
+    }, 400)
   }
 )
 
@@ -288,7 +293,6 @@ window.onKeySpacePressHold = (isHold: boolean) => {
 
 <style lang="scss" scoped>
 @include go('sketch-rule') {
-  position: relative;
   overflow: hidden;
   width: 100%;
   height: 100%;
@@ -319,6 +323,10 @@ window.onKeySpacePressHold = (isHold: boolean) => {
       border-radius: 5px;
       background-color: rgba(144, 146, 152, 0.3);
     }
+    // 修复右下角白点用的
+    &::-webkit-scrollbar-corner {
+      background-color: transparent;
+    }
   }
 
   .fix-edit-screens-block {
@@ -332,14 +340,14 @@ window.onKeySpacePressHold = (isHold: boolean) => {
 
   .edit-screen-container {
     position: absolute;
-    height: v-bind('containerWidth');
+    height: v-bind('containerHeight');
     top: 0;
     left: 0;
   }
 
   .canvas {
     position: absolute;
-    top: 50%;
+    top:50%;
     left: 50%;
     transform-origin: 50% 0;
     transform: translateY(-50%);

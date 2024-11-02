@@ -1,0 +1,20 @@
+{
+  "dimensions": [
+    "product",
+    "Africa",
+    "EU",
+    "China",
+    "USA"
+  ],
+  "source": [
+    {
+      "id": "pointer",
+      "values": [
+        {
+          "type": "A",
+          "value": 55
+        }
+      ]
+    }
+  ]
+}

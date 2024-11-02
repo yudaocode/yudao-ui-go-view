@@ -29,9 +29,15 @@ export const dragHandle = async (e: DragEvent) => {
     // 修改状态
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_CREATE, false)
     const dropData: Exclude<ConfigType, ['image']> = JSONParse(drayDataString)
+    if (dropData.disabled) return
 
     // 创建新图表组件
     let newComponent: CreateComponentType = await createComponent(dropData)
+    if (dropData.redirectComponent) {
+      dropData.dataset && (newComponent.option.dataset = dropData.dataset)
+      newComponent.chartConfig.title = dropData.title
+      newComponent.chartConfig.chartFrame = dropData.chartFrame
+    }
 
     setComponentPosition(newComponent, e.offsetX - newComponent.attr.w / 2, e.offsetY - newComponent.attr.h / 2)
     chartEditStore.addComponentList(newComponent, false, true)
@@ -296,7 +302,11 @@ export const useMouseHandle = () => {
               }
             })
           })
-          chartEditStore.moveComponentList(prevComponentInstance)
+
+          const moveComponentInstance = prevComponentInstance.filter(
+            item => item.attr.offsetX !== 0 && item.attr.offsetY !== 0
+          )
+          moveComponentInstance.length && chartEditStore.moveComponentList(moveComponentInstance)
         }
         document.removeEventListener('mousemove', mousemove)
         document.removeEventListener('mouseup', mouseup)

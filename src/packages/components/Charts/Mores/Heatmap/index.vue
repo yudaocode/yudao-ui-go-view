@@ -1,16 +1,25 @@
 <template>
-  <v-chart ref="vChartRef" :theme="themeColor" :option="option" :manual-update="isPreview()" autoresize></v-chart>
+  <v-chart
+    ref="vChartRef"
+    :init-options="initOptions"
+    :theme="themeColor"
+    :option="(option as EChartsOption)"
+    :manual-update="isPreview()"
+    autoresize
+  ></v-chart>
 </template>
 
 <script setup lang="ts">
 import { ref, watch, computed, PropType } from 'vue'
 import VChart from 'vue-echarts'
+import { EChartsOption } from 'echarts'
+import { useCanvasInitOptions } from '@/hooks/useCanvasInitOptions.hook'
 import dataJson from './data.json'
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { HeatmapChart } from 'echarts/charts'
 import { includes } from './config'
-import { mergeTheme } from '@/packages/public/chart'
+import { mergeTheme, setOption } from '@/packages/public/chart'
 import { useChartDataFetch } from '@/hooks'
 import { CreateComponentType } from '@/packages/index.d'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
@@ -37,6 +46,8 @@ const props = defineProps({
     required: true
   }
 })
+
+const initOptions = useCanvasInitOptions(props.chartConfig.option, props.themeSetting)
 
 use([
   DatasetComponent,
@@ -68,7 +79,7 @@ const dataSetHandle = (dataset: typeof dataJson) => {
     props.chartConfig.option.series[0].data = seriesData
   }
   if (vChartRef.value && isPreview()) {
-    vChartRef.value.setOption(props.chartConfig.option)
+    setOption(vChartRef.value, props.chartConfig.option)
   }
 }
 
