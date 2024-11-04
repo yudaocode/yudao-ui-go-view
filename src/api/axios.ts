@@ -1,9 +1,9 @@
-import axios, { AxiosResponse, AxiosRequestConfig, Axios } from 'axios'
+import axios, { AxiosResponse, AxiosRequestConfig, Axios,AxiosRequestHeaders,InternalAxiosRequestConfig } from 'axios'
 import { ResultEnum, ModuleTypeEnum } from "@/enums/httpEnum"
 import {PageEnum, ErrorPageNameMap, PreviewEnum} from "@/enums/pageEnum"
 import { StorageEnum } from '@/enums/storageEnum'
 import { axiosPre } from '@/settings/httpSetting'
-import { SystemStoreEnum, SystemStoreUserInfoEnum } from '@/store/modules/systemStore/systemStore.d'
+import { SystemStoreEnum, SystemStoreUserInfoEnum,UserInfoType } from '@/store/modules/systemStore/systemStore.d'
 import {
     redirectErrorPage,
     getLocalStorage,
@@ -28,7 +28,9 @@ let base_url=`${import.meta.env.PROD ? import.meta.env.VITE_PRO_PATH : ''}${axio
 
 const dialog = useDialog()
 
-export interface MyResponseType<T> {
+
+
+export interface MyResponseType<T> extends AxiosResponse<T, any>{
   code: ResultEnum
   data: T
   message: string
@@ -44,17 +46,14 @@ const axiosInstance = axios.create({
 }) as unknown as MyRequestInstance
 
 axiosInstance.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
+  (config:InternalAxiosRequestConfig) => {
     // 获取 tenantId
     const info = getLocalStorage(StorageEnum.GO_SYSTEM_STORE)
       // console.log(window.location)
     const tenantId = info ? info[SystemStoreEnum.TENANT_INFO]['tenantId'] : undefined
-    if (tenantId) {
-      config.headers = {
-        ...config.headers,
-        'tenant-id': tenantId
-      }
-    }
+
+    if (tenantId) (config as Recordable).headers['tenant-id'] = tenantId
+
 
     // 白名单校验
     if (includes(fetchAllowList, config.url)) return config
@@ -64,11 +63,13 @@ axiosInstance.interceptors.request.use(
       routerTurnByName(PageEnum.BASE_LOGIN_NAME)
       return config
     }
-    const userInfo = info[SystemStoreEnum.USER_INFO]
-    config.headers = {
-      ...config.headers,
-      [userInfo[SystemStoreUserInfoEnum.TOKEN_NAME] || 'token']: 'Bearer ' + userInfo[SystemStoreUserInfoEnum.USER_TOKEN] || ''
-    }
+    const userInfo:UserInfoType = info[SystemStoreEnum.USER_INFO] as UserInfoType
+
+    (config as Recordable).headers.Authorization = 'Bearer ' + userInfo[SystemStoreUserInfoEnum.USER_TOKEN] || ''
+    //   config.headers = {
+    //   ...config.headers,
+    //   [userInfo[SystemStoreUserInfoEnum.TOKEN_NAME] || 'token']: 'Bearer ' + userInfo[SystemStoreUserInfoEnum.USER_TOKEN] || ''
+    // }
     return config
   },
   (err: AxiosRequestConfig) => {
@@ -123,12 +124,12 @@ axiosInstance.interceptors.response.use(
                 })
                 //修改当前访问令牌
                 // config.headers!.Authorization = 'Bearer ' + (await refreshTokenRes).data.data.accessToken
-                const userInfo = info[SystemStoreEnum.USER_INFO]
-                config.headers = {
-                    ...config.headers,
-                    [userInfo[SystemStoreUserInfoEnum.TOKEN_NAME] || 'token']: 'Bearer ' + userInfo[SystemStoreUserInfoEnum.USER_TOKEN] || ''
-                }
-
+                const userInfo:UserInfoType = info[SystemStoreEnum.USER_INFO] as UserInfoType
+                // config.headers = {
+                //     ...config.headers,
+                //     [userInfo[SystemStoreUserInfoEnum.TOKEN_NAME] || 'token']: 'Bearer ' + userInfo[SystemStoreUserInfoEnum.USER_TOKEN] || ''
+                // }
+                (config as Recordable).headers.Authorization = 'Bearer ' + userInfo[SystemStoreUserInfoEnum.USER_TOKEN] || ''
                 requestList.forEach((cb: any) => {
                     cb()
                 })

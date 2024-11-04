@@ -667,7 +667,7 @@ export const useChartEditStore = defineStore({
           } else {
             const group = historyData[0] as CreateComponentGroupType
             group.groupList.forEach(item => {
-              ids.push(item.id)
+              ids.unshift(item.id)
             })
           }
           this.setGroup(ids, false)

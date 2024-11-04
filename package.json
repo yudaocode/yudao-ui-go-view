@@ -25,7 +25,7 @@
     "@visactor/vchart": "^1.12.3",
     "@visactor/vchart-theme": "^1.12.1",
     "animate.css": "^4.1.1",
-    "axios": "^1.4.0",
+    "axios": "^1.6.8",
     "cesium": "1.99",
     "color": "^4.2.3",
     "crypto-js": "^4.1.1",

@@ -182,7 +182,7 @@ const props = defineProps({
     default: false
   },
   chartStyles: {
-    type: Object as PropType<Omit<PickCreateComponentType<'styles'>, 'animations'>>,
+    type: Object as PropType<Omit<PickCreateComponentType<'styles'>, 'animations' | 'animationsOpen' | 'animationsCirculate' | 'animationsCurve' | 'animationsDirection' | 'circulatePlayTime' | 'circulateDelayTime'>>,
     required: true
   }
 })

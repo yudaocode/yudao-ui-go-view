@@ -51,7 +51,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import {Component ,PropType, toRefs, shallowReactive, watch, computed, ref, onMounted,onMethods, nextTick} from 'vue'
+import {Component ,PropType, toRefs, shallowReactive, watch, computed, ref, onMounted, nextTick} from 'vue'
 import { CreateComponentType } from '@/packages/index.d'
 import { useChartDataFetch } from '@/hooks'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
