@@ -1,18 +1,18 @@
 <template>
   <n-space class="go-decorates-flipper-number" :size="flipperGap" align="center" justify="center">
     <flipper
-      :count="item"
-      :width="flipperWidth"
-      :height="flipperHeight"
-      :front-color="flipperTextColor"
-      :back-color="flipperBgColor"
-      :radius="flipperRadius"
-      :flip-type="flipperType"
-      :duration="flipperSpeed"
-      :border-width="flipperBorderWidth"
-      v-for="(item, index) in flipperData"
-      :key="index"
-      class="go-d-block"
+        :count="item"
+        :width="flipperWidth"
+        :height="flipperHeight"
+        :front-color="flipperTextColor"
+        :back-color="flipperBgColor"
+        :radius="flipperRadius"
+        :flip-type="flipperType"
+        :duration="flipperSpeed"
+        :border-width="flipperBorderWidth"
+        v-for="(item, index) in flipperData"
+        :key="index"
+        class="go-d-block"
     />
   </n-space>
 </template>
@@ -43,34 +43,35 @@ const {
   flipperRadius,
   flipperGap,
   flipperType,
-  flipperSpeed
+  flipperSpeed,
+  flipperBorderWidth
 } = toRefs(props.chartConfig.option as OptionType)
 
 const flipperData = ref<string[] | number[]>([])
 const getFlipperData = (val: string | number) => {
   return val
-    .toString()
-    .padStart(flipperLength.value, '0') // 左侧填充|右对齐
-    .split('') // 转数组
-    .slice(flipperLength.value * -1) // 从后面取指定长度
+      .toString()
+      .padStart(flipperLength.value, '0') // 左侧填充|右对齐
+      .split('') // 转数组
+      .slice(flipperLength.value * -1) // 从后面取指定长度
 }
 const updateDatasetHandler = (newVal: string | number) => {
   flipperData.value = getFlipperData(newVal)
 }
 
 watch(
-  () => props.chartConfig.option,
-  newVal => {
-    try {
-      updateDatasetHandler((newVal as OptionType).dataset)
-    } catch (error) {
-      console.log(error)
+    () => props.chartConfig.option,
+    newVal => {
+      try {
+        updateDatasetHandler((newVal as any as OptionType).dataset)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    {
+      immediate: true,
+      deep: true
     }
-  },
-  {
-    immediate: true,
-    deep: true
-  }
 )
 
 useChartDataFetch(props.chartConfig, useChartEditStore, (newVal: string | number) => {

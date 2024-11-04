@@ -29,9 +29,9 @@
       </n-layout-header>
       <n-layout-content>
         <monaco-editor
-          v-model:modelValue="content"
-          language="json"
-          :editorOptions="{
+            v-model:modelValue="content"
+            language="json"
+            :editorOptions="{
             lineNumbers: 'on',
             minimap: { enabled: true }
           }"
@@ -42,22 +42,21 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { ref } from 'vue'
 import { MonacoEditor } from '@/components/Pages/MonacoEditor'
 import { SavePageEnum } from '@/enums/editPageEnum'
 import { getSessionStorageInfo } from '../preview/utils'
-import type { ChartEditStorageType } from '../preview/index.d'
-import { setSessionStorage, fetchRouteParamsLocation, JSONStringify, JSONParse, setTitle } from '@/utils'
+import { setSessionStorage, JSONStringify, JSONParse, setTitle, goDialog } from '@/utils'
 import { StorageEnum } from '@/enums/storageEnum'
 import { icon } from '@/plugins'
-import { useSync } from '@/views/chart/hooks/useSync.hook'
-import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
-import { ProjectInfoEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
-const chartEditStore = useChartEditStore()
-const { dataSyncUpdate } = useSync()
-const { ChevronBackOutlineIcon, DownloadIcon } = icon.ionicons5
+import type { ChartEditStorageType } from '../preview/index.d'
+
+const { ChevronBackOutlineIcon, DownloadIcon, AnalyticsIcon } = icon.ionicons5
 const showOpenFilePicker: Function = (window as any).showOpenFilePicker
 const content = ref('')
+
+window['$message'].warning('请不要刷新此窗口！')
+
 // 从sessionStorage 获取数据
 async function getDataBySession() {
   const localStorageInfo: ChartEditStorageType = (await getSessionStorageInfo()) as unknown as ChartEditStorageType
