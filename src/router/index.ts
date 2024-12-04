@@ -28,7 +28,7 @@ const RootRoute: Array<RouteRecordRaw> = [
 ]
 
 
-export const constantRouter: any[] = [LoginRoute, ...RootRoute, RedirectRoute, ReloadRoute];
+export const constantRouter: any[] = [LoginRoute, ...RootRoute, ReloadRoute];
 
 const router = createRouter({
   history: createWebHashHistory(''),

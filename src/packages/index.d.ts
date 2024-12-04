@@ -100,7 +100,9 @@ export enum FilterEnum {
   //动画时长
   CIRCULATE_PLAY_TIME = 'circulatePlayTime',
   //动画延迟时长
-  CIRCULATE_DELAY_TIME = 'circulateDelayTime'
+  CIRCULATE_DELAY_TIME = 'circulateDelayTime',
+  //样式增强
+  STYLE_ENHANCE= 'styleEnhance',
 
 }
 
@@ -163,6 +165,9 @@ export interface PublicConfigType {
 
     // 动画延迟时长/秒
     [FilterEnum.CIRCULATE_DELAY_TIME]: number,
+
+    // 样式自定义增强
+    [FilterEnum.STYLE_ENHANCE]: string,
   }
   preview?: {
     // 预览超出隐藏

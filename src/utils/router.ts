@@ -73,9 +73,11 @@ export const routerTurnByPath = (
   if (query?.length) {
     fullPath = `${path}/${query.join('/')}`
   }
+
   if (windowOpen) {
     return openNewWindow(fullPath)
   }
+
   if (isReplace) {
     router.replace({
       path: fullPath,

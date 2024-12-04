@@ -131,7 +131,7 @@ console.log('22222222222222222222223')
 
     // 滚动处理
     const startScrollAnimation = () => {
-      const totalHeight = itemHeight.value * dataList.value.length;
+      const totalHeight = itemHeight.value * props.chartConfig.option.dataset.lenght;
       timer = setInterval(() => {
         console.log('滚动测试...')
         scrollY.value -= itemHeight.value;

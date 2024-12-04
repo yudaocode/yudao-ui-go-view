@@ -1,7 +1,7 @@
 import { Router } from 'vue-router';
 import { PageEnum, PreviewEnum } from '@/enums/pageEnum'
 import {loginCheck, setSessionStorage} from '@/utils'
-
+const viteRouter = import.meta.env.VITE_ROUTER_DEFAULT
 // 路由白名单
 const routerAllowList = [
   // 登录
@@ -32,17 +32,20 @@ export function createRouterGuards(router: Router) {
     // @ts-ignore
     console.log(!routerAllowList.includes(to.name), !loginCheck())
     // @ts-ignore
-    if (!routerAllowList.includes(to.name) && !loginCheck()) {
-      console.log(to.fullPath,'存储临时跳回路径与查询ID')
-      if(PreviewEnum.CHART_PREVIEW_NAME === to.name){
-        setSessionStorage('setRedirectPath','/chart/preview')
-        setSessionStorage('setRedirectPathId',to.params.id[0])
-      }
-      console.log('test...login....')
-      next({ name: PageEnum.BASE_LOGIN_NAME })
-      return
+    console.log('路由开关:',viteRouter==='false')
+    console.log('路由开关2:',viteRouter,!viteRouter,!!viteRouter)
+    console.log(!routerAllowList.includes(<PageEnum>to.name),!loginCheck())
+    if (!routerAllowList.includes(<PageEnum>to.name)&&!loginCheck()) {
+        if(PreviewEnum.CHART_PREVIEW_NAME === to.name&& viteRouter==='false'){
+          console.log(to.fullPath,'存储临时跳回路径与查询ID')
+          setSessionStorage('setRedirectPath','/chart/preview')
+          setSessionStorage('setRedirectPathId',to.params.id[0])
+        }
+        console.log('test...login....')
+        next({ name: PageEnum.BASE_LOGIN_NAME })
     }
     console.log('test。。。next。。。')
+    console.log("现地址",to.path,"重定向前地址",to.redirectedFrom?.path)
     next()
   })
 
