@@ -89,6 +89,9 @@ export class PublicConfigClass implements PublicConfigType {
     circulatePlayTime:1,
     // 动画延迟时长/秒
     circulateDelayTime:0,
+    //自定义样式增强
+    styleEnhance:"",
+
 
   }
   // 预览

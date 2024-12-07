@@ -171,7 +171,7 @@ const autoLogin = ref(true)
 const show = ref(false)
 const showBg = ref(false)
 const systemStore = useSystemStore()
-
+const viteRouter = import.meta.env.VITE_ROUTER_DEFAULT
 const t = window['$t']
 
 const formInline = reactive({
@@ -302,23 +302,18 @@ const handleSubmit = async (params: any) => {
 
         window['$message'].success(t('login.login_success'))
 
-        const redirectPath = getSessionStorage('setRedirectPath')
+        const redirectPath:string = getSessionStorage('setRedirectPath') as string
         const redirectPathId = getSessionStorage('setRedirectPathId')
         console.log(redirectPath)
         console.log(redirectPathId)
-        if(redirectPath){
+        if(redirectPath && viteRouter==='false'){
+          console.log("重定向缓存页面",redirectPath,viteRouter,!viteRouter,!!viteRouter)
           routerTurnByPath(redirectPath,[redirectPathId],true,false)
         }else{
-          if(getSessionStorage('setRedirectPath')) {
-            console.log("重定向到登录页")
-            routerTurnByPath(getSessionStorage('setRedirectPath'));
-          }else{
             console.log("重定向到首页》》》")
             routerTurnByName(PageEnum.BASE_HOME_NAME, true);
-          }
-
         }
-
+        // routerTurnByName(PageEnum.BASE_HOME_NAME, true)
       }
       loading.value = false
     } else {

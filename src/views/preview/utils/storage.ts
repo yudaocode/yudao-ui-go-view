@@ -15,10 +15,8 @@ export interface ChartEditStorageType extends ChartEditStorage {
 export const getSessionStorageInfo = async () => {
   const id = fetchRouteParamsLocation()
   const storageList: ChartEditStorageType[] = getSessionStorage(StorageEnum.GO_CHART_STORAGE_LIST)
-  console.log(storageList)
   // 是否本地预览
   if (!storageList || storageList.findIndex(e => e.id === id.toString()) === -1) {
-    console.log("否本地预览")
     // 接口调用
     const res = await fetchProjectApi({ id: id })
     if (res && res.code === ResultEnum.SUCCESS) {
@@ -28,7 +26,6 @@ export const getSessionStorageInfo = async () => {
         return { isRelease: false }
       }
       const chartEitStorageType = content as unknown as ChartEditStorageType
-      console.log(chartEitStorageType)
       chartEditStore.editCanvasConfig = chartEitStorageType.editCanvasConfig
       chartEditStore.requestGlobalConfig = chartEitStorageType.requestGlobalConfig
       chartEditStore.componentList = chartEitStorageType.componentList
@@ -37,8 +34,6 @@ export const getSessionStorageInfo = async () => {
       httpErrorHandle()
     }
   } else {
-    console.log("是本地预览")
-
     // 本地读取
     for (let i = 0; i < storageList.length; i++) {
       if (id.toString() === storageList[i]['id']) {

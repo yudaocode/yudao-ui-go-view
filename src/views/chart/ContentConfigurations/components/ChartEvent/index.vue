@@ -8,6 +8,7 @@
     <chart-event-interaction></chart-event-interaction>
     <chart-event-base-handle></chart-event-base-handle>
     <chart-event-advanced-handle></chart-event-advanced-handle>
+    <chart-style-enhance></chart-style-enhance>
   </n-collapse>
 </template>
 
@@ -16,6 +17,7 @@ import { ref } from 'vue'
 import { ChartEventInteraction } from './components/ChartEventInteraction'
 import { ChartEventAdvancedHandle } from './components/ChartEventAdvancedHandle'
 import { ChartEventBaseHandle } from './components/ChartEventBaseHandle'
+import { ChartStyleEnhance } from './components/ChartStyleEnhance'
 import { useTargetData } from '../hooks/useTargetData.hook'
 
 const { targetData } = useTargetData()
