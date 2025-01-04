@@ -1,7 +1,12 @@
 import { Router } from 'vue-router';
 import { PageEnum, PreviewEnum } from '@/enums/pageEnum'
-import {loginCheck, setSessionStorage} from '@/utils'
+import {getLocalStorage, loginCheck, setSessionStorage} from '@/utils'
+import {useSystemStore} from "@/store/modules/systemStore/systemStore";
 const viteRouter = import.meta.env.VITE_ROUTER_DEFAULT
+import { SystemStoreUserInfoEnum, SystemStoreEnum } from '@/store/modules/systemStore/systemStore.d'
+import {pinia} from "@/store/index"
+import {StorageEnum} from "@/enums/storageEnum";
+const systemStore = useSystemStore(pinia)
 // 路由白名单
 const routerAllowList = [
   // 登录
@@ -19,33 +24,32 @@ export function createRouterGuards(router: Router) {
     if (!window.route) window.route = {params: {}}
     // @ts-ignore
     Object.assign(window.route.params, to.query)
-
+    // 如果外部参数中存在accessToken与refreshToken就存储令牌
+    // @ts-ignore
+    if(window.route.params.accessToken){
+      systemStore.setItem(SystemStoreEnum.USER_INFO, {
+        // @ts-ignore
+        [SystemStoreUserInfoEnum.USER_TOKEN]: window.route.params.accessToken,
+        // 如果有刷新令牌就存储刷新令牌如果没有就随便放一个什么等到令牌过去后就会重新登录从而不刷新令牌
+        // @ts-ignore
+        [SystemStoreUserInfoEnum.USER_REFRESH_TOKEN]: window.route.params.refreshToken?window.route.params.refreshToken:'null',
+        [SystemStoreUserInfoEnum.TOKEN_NAME]: "Authorization",
+      })
+    }
     const Loading = window['$loading'];
     Loading && Loading.start();
     const isErrorPage = router.getRoutes().findIndex((item) => item.name === to.name);
-    console.log(router.getRoutes())
     if (isErrorPage === -1) {
       next({ name: PageEnum.ERROR_PAGE_NAME_404 })
       return
     }
-    console.log(to)
-    // @ts-ignore
-    console.log(!routerAllowList.includes(to.name), !loginCheck())
-    // @ts-ignore
-    console.log('路由开关:',viteRouter==='false')
-    console.log('路由开关2:',viteRouter,!viteRouter,!!viteRouter)
-    console.log(!routerAllowList.includes(<PageEnum>to.name),!loginCheck())
     if (!routerAllowList.includes(<PageEnum>to.name)&&!loginCheck()) {
         if(PreviewEnum.CHART_PREVIEW_NAME === to.name&& viteRouter==='false'){
-          console.log(to.fullPath,'存储临时跳回路径与查询ID')
           setSessionStorage('setRedirectPath','/chart/preview')
           setSessionStorage('setRedirectPathId',to.params.id[0])
         }
-        console.log('test...login....')
         next({ name: PageEnum.BASE_LOGIN_NAME })
     }
-    console.log('test。。。next。。。')
-    console.log("现地址",to.path,"重定向前地址",to.redirectedFrom?.path)
     next()
   })
 
