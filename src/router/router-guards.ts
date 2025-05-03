@@ -5,7 +5,6 @@ import {useSystemStore} from "@/store/modules/systemStore/systemStore";
 const viteRouter = import.meta.env.VITE_ROUTER_DEFAULT
 import { SystemStoreUserInfoEnum, SystemStoreEnum } from '@/store/modules/systemStore/systemStore.d'
 import {pinia} from "@/store/index"
-import {StorageEnum} from "@/enums/storageEnum";
 const systemStore = useSystemStore(pinia)
 // 路由白名单
 const routerAllowList = [
@@ -24,18 +23,7 @@ export function createRouterGuards(router: Router) {
     if (!window.route) window.route = {params: {}}
     // @ts-ignore
     Object.assign(window.route.params, to.query)
-    // 如果外部参数中存在accessToken与refreshToken就存储令牌
-    // @ts-ignore
-    if(window.route.params.accessToken){
-      systemStore.setItem(SystemStoreEnum.USER_INFO, {
-        // @ts-ignore
-        [SystemStoreUserInfoEnum.USER_TOKEN]: window.route.params.accessToken,
-        // 如果有刷新令牌就存储刷新令牌如果没有就随便放一个什么等到令牌过去后就会重新登录从而不刷新令牌
-        // @ts-ignore
-        [SystemStoreUserInfoEnum.USER_REFRESH_TOKEN]: window.route.params.refreshToken?window.route.params.refreshToken:'null',
-        [SystemStoreUserInfoEnum.TOKEN_NAME]: "Authorization",
-      })
-    }
+
     const Loading = window['$loading'];
     Loading && Loading.start();
     const isErrorPage = router.getRoutes().findIndex((item) => item.name === to.name);
@@ -63,4 +51,16 @@ export function createRouterGuards(router: Router) {
   router.onError((error) => {
     console.log(error, '路由错误');
   });
+
+  // 如果有 accessToken 和 refreshToken 参数，进行自动登录
+  const searchParams = new URL(location.href).searchParams;
+  if (searchParams.get('accessToken') && searchParams.get('refreshToken')) {
+    systemStore.setItem(SystemStoreEnum.USER_INFO, {
+      // @ts-ignore
+      [SystemStoreUserInfoEnum.USER_TOKEN]: searchParams.get('accessToken'),
+      // @ts-ignore
+      [SystemStoreUserInfoEnum.USER_REFRESH_TOKEN]: searchParams.get('refreshToken'),
+      [SystemStoreUserInfoEnum.TOKEN_NAME]: "Authorization",
+    })
+  }
 }
